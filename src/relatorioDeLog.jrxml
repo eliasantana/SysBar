@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1d4f1558-8e82-44cc-a293-053a04daeafc">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="449"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nome" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dtinicio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dtfim" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tb_log.`data` AS tb_log_data,
+     tb_log.`hora` AS tb_log_hora,
+     tb_log.`usuario` AS tb_log_usuario,
+     tb_log.`funcionalidade` AS tb_log_funcionalidade,
+     tb_log.`descricao` AS tb_log_descricao
+FROM
+     `tb_log` tb_log
+WHERE tb_log.`usuario` = $P{nome} AND tb_log.`data`  BETWEEN $P{dtinicio}  AND $P{dtfim}]]>
+	</queryString>
+	<field name="tb_log_data" class="java.sql.Date"/>
+	<field name="tb_log_hora" class="java.sql.Time"/>
+	<field name="tb_log_usuario" class="java.lang.String"/>
+	<field name="tb_log_funcionalidade" class="java.lang.String"/>
+	<field name="tb_log_descricao" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="107" height="79" uuid="c768b35c-c41c-4aed-a0d2-4aba87cb2b42"/>
+				<imageExpression><![CDATA["C:\\SysBar\\logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="107" y="10" width="152" height="39" forecolor="#000000" backcolor="#FFFFFF" uuid="7c14aeda-9920-46e4-9f35-5997cc153ef4"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="28" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[SysBar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="107" y="49" width="436" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="153619ae-2b21-4214-a095-8fd821e96cbd"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Sistema de Gerenciamento de Bares e Restaurantes]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="0" width="543" height="35" forecolor="#000000" backcolor="#FFFFFF" uuid="15c2c712-58ae-4cf5-8514-2a856a6e8c44"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Relatório - Log de Acessos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="39" width="53" height="20" uuid="2c4804d7-d505-4c15-b48c-dc81b02312d4"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Período]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="682" y="41" width="80" height="20" uuid="7f3dff1c-703c-49c7-88b0-d5fd4bc78e09"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pág. "+$V{PAGE_NUMBER}+"  "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="762" y="41" width="40" height="20" uuid="bd9381ca-6f92-4484-b797-bfadd9c57fb5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="42" height="20" uuid="801466ec-3937-4432-9b3d-7ff3494edeb6"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="42" y="0" width="38" height="20" uuid="4e169d5b-e000-4b15-8c65-ac6ef28e529f"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="0" width="74" height="20" uuid="13baa181-ea1e-4f19-8997-98085762ffc1"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Funcionalidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="0" width="53" height="20" uuid="c543d57d-2e54-4d83-a658-ab303d10405f"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="80" y="0" width="48" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="444dc77b-5510-4c86-9ae8-9b2f80fd4983"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="42" height="20" uuid="8be6b119-b2d6-430f-ac21-4f3978ee50dc"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tb_log_usuario}]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="42" y="0" width="38" height="20" uuid="b7cf8a51-db75-447f-9400-32c033dec2e2"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tb_log_hora}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="0" width="85" height="20" uuid="965f0f91-aa7e-4a7d-b966-8a56e17d0cc6"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tb_log_funcionalidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="223" y="0" width="579" height="20" uuid="31f47356-0a5e-4111-836d-397e670d98d6"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tb_log_descricao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="80" y="0" width="48" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="55d22150-dd03-4e8d-985e-9037bcaeb068"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tb_log_data}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="31" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="259" y="0" width="296" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="75b73644-8163-4d05-822b-fc4d2d69c305"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[SysBar - Systema de Gerenciamento de Bares e Restaurantes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="259" y="15" width="296" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="59bf6765-fa96-40c8-8352-06c7fce3ca7f"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Av. Rua 0, 32 - Carneiro Leão  - Carpina - PE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="259" y="30" width="296" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="cb5fa538-e7b5-4552-a904-e4267d4b4b21"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Fone: +55(81)9749-6602]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

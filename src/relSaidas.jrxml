@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="600a956c-3460-4123-80f2-d5b4e05a9483">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     
+     tbcontas_a_pagar.`Descricao` AS tbcontas_a_pagar_Descricao,
+     tbcontas_a_pagar.`valor` AS tbcontas_a_pagar_valor,
+     tbcontas_a_pagar.`data_vencito` AS tbcontas_a_pagar_data_vencito,
+     tbcontas_a_pagar.`data_pagto` AS tbcontas_a_pagar_data_pagto,
+     tbcontas_a_pagar.`valor_pagto` AS tbcontas_a_pagar_valor_pagto,
+     tbgrupo.`grupo` AS tbgrupo_grupo,
+     tbcadfuncionario.`login` AS tbcadfuncionario_login
+FROM
+     `tbgrupo` tbgrupo INNER JOIN `tbcontas_a_pagar` tbcontas_a_pagar ON tbgrupo.`id` = tbcontas_a_pagar.`tbGrupo_id`
+     INNER JOIN `tbcadfuncionario` tbcadfuncionario ON tbcontas_a_pagar.`tbcadfuncionario_id` = tbcadfuncionario.`id`
+WHERE tbcontas_a_pagar.`data_pagto` = curdate() ORDER BY tbgrupo.`grupo` asc]]>
+	</queryString>
+	<field name="tbcontas_a_pagar_Descricao" class="java.lang.String"/>
+	<field name="tbcontas_a_pagar_valor" class="java.lang.Double"/>
+	<field name="tbcontas_a_pagar_data_vencito" class="java.sql.Date"/>
+	<field name="tbcontas_a_pagar_data_pagto" class="java.sql.Date"/>
+	<field name="tbcontas_a_pagar_valor_pagto" class="java.lang.Double"/>
+	<field name="tbgrupo_grupo" class="java.lang.String"/>
+	<field name="tbcadfuncionario_login" class="java.lang.String"/>
+	<variable name="totalgrupos" class="java.lang.Double" resetType="Group" resetGroup="grupos" calculation="Sum">
+		<variableExpression><![CDATA[$F{tbcontas_a_pagar_valor}]]></variableExpression>
+	</variable>
+	<variable name="total_geral" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{tbcontas_a_pagar_valor}]]></variableExpression>
+	</variable>
+	<group name="grupos">
+		<groupExpression><![CDATA[$F{tbgrupo_grupo}]]></groupExpression>
+		<groupHeader>
+			<band height="41">
+				<staticText>
+					<reportElement x="0" y="0" width="46" height="20" uuid="7576fb49-abaf-4163-bd14-23ffcddfe420"/>
+					<textElement>
+						<font fontName="Yu Gothic UI Light" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tipo]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="46" y="0" width="100" height="20" uuid="c5f11f11-a30e-486f-a6c6-0d2bd6c2ab17"/>
+					<textElement>
+						<font fontName="Yu Gothic UI Light" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbgrupo_grupo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="20" width="46" height="20" uuid="4cf0c62b-6535-4379-8656-6b3fbd4e40d3"/>
+					<textElement>
+						<font fontName="Yu Gothic UI Light"/>
+					</textElement>
+					<text><![CDATA[Data]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="66" y="20" width="100" height="20" uuid="5d569db0-4a51-477e-9363-b6680dd3327b"/>
+					<textElement>
+						<font fontName="Yu Gothic UI Light"/>
+					</textElement>
+					<text><![CDATA[Descrição]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="166" y="20" width="60" height="20" uuid="b5e253a5-687c-43e8-8bd4-66e945fdca6f"/>
+					<textElement>
+						<font fontName="Yu Gothic UI Light"/>
+					</textElement>
+					<text><![CDATA[Valor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="226" y="20" width="100" height="20" uuid="20e15a78-3343-401e-b8bf-e8a91e38b166"/>
+					<textElement>
+						<font fontName="Yu Gothic UI Light"/>
+					</textElement>
+					<text><![CDATA[Funcionário]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<textField>
+					<reportElement x="166" y="0" width="60" height="20" uuid="f0ad6780-7499-4abb-ad76-08ec710961c5"/>
+					<textElement>
+						<font fontName="Yu Gothic UI Light"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totalgrupos}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="120" y="0" width="46" height="20" uuid="0f7ddb40-28e7-4353-939f-7c7cac91bd38"/>
+					<textElement>
+						<font fontName="Yu Gothic UI Light" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sub-total]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="46" height="20" uuid="1d94654c-3b0d-4646-b04c-20d4ac5a7701"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saídas]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="66" height="20" uuid="be728bf1-94aa-4e73-af2e-2990e2fe9ddb"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcontas_a_pagar_data_pagto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="0" width="100" height="20" uuid="b576ee0c-fc85-4bd8-8e6e-a12262744ed5"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcontas_a_pagar_Descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="0" width="60" height="20" uuid="882ae4a1-634d-4176-82f8-e6bae2f4ef9e"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcontas_a_pagar_valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="226" y="0" width="100" height="20" uuid="f3579c4d-faaa-4013-aef6-66edc7e7c88e"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_login}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="166" y="0" width="60" height="20" uuid="5f9d0498-f81d-4898-9b95-0fe40aad1d1f"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_geral}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="106" y="0" width="60" height="20" uuid="c8201a67-cdfd-4563-b48d-1ea57fc5544d"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saídas Total]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

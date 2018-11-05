@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b392ad8b-2f85-468b-b83e-f39bf01ed87d">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     tbcadfuncionario.`nome` AS tbcadfuncionario_nome,
+     tbcadfuncionario.`endereco` AS tbcadfuncionario_endereco,
+     tbcadfuncionario.`bairro` AS tbcadfuncionario_bairro,
+     tbcadfuncionario.`cep` AS tbcadfuncionario_cep,
+     tbcadfuncionario.`cidade` AS tbcadfuncionario_cidade,
+     tbcadfuncionario.`email` AS tbcadfuncionario_email,
+     tbcadfuncionario.`foto` AS tbcadfuncionario_foto,
+     tbcadfuncionario.`telefone` AS tbcadfuncionario_telefone,
+     tbcadfuncionario.`login` AS tbcadfuncionario_login,
+     tbcadfuncionario.`cargo` AS tbcadfuncionario_cargo,
+     tbcadfuncionario.`senha` AS tbcadfuncionario_senha,
+     tbcadfuncionario.`status` AS tbcadfuncionario_status,
+     tbcadfuncionario.`bloqueado` AS tbcadfuncionario_bloqueado,
+     tbcadfuncionario.`rg` AS tbcadfuncionario_rg,
+     tbcadfuncionario.`cpf` AS tbcadfuncionario_cpf,
+     tbcadfuncionario.`cnh` AS tbcadfuncionario_cnh,
+     tbcadfuncionario.`observacao` AS tbcadfuncionario_observacao
+FROM
+     `tbcadfuncionario` tbcadfuncionario]]>
+	</queryString>
+	<field name="tbcadfuncionario_nome" class="java.lang.String"/>
+	<field name="tbcadfuncionario_endereco" class="java.lang.String"/>
+	<field name="tbcadfuncionario_bairro" class="java.lang.String"/>
+	<field name="tbcadfuncionario_cep" class="java.lang.String"/>
+	<field name="tbcadfuncionario_cidade" class="java.lang.String"/>
+	<field name="tbcadfuncionario_email" class="java.lang.String"/>
+	<field name="tbcadfuncionario_foto" class="java.lang.String"/>
+	<field name="tbcadfuncionario_telefone" class="java.lang.String"/>
+	<field name="tbcadfuncionario_login" class="java.lang.String"/>
+	<field name="tbcadfuncionario_cargo" class="java.lang.String"/>
+	<field name="tbcadfuncionario_senha" class="java.lang.String"/>
+	<field name="tbcadfuncionario_status" class="java.lang.String"/>
+	<field name="tbcadfuncionario_bloqueado" class="java.lang.Integer"/>
+	<field name="tbcadfuncionario_rg" class="java.lang.String"/>
+	<field name="tbcadfuncionario_cpf" class="java.lang.String"/>
+	<field name="tbcadfuncionario_cnh" class="java.lang.String"/>
+	<field name="tbcadfuncionario_observacao" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="48" width="555" height="31" uuid="abf88fb4-68c3-427b-9d3f-922e20d740c8"/>
+				<textElement textAlignment="Center">
+					<font fontName="Yu Gothic UI" size="18"/>
+				</textElement>
+				<text><![CDATA[Relatório Geral de Funcionários]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="102" height="79" uuid="6a0d1b9d-ea99-43b0-b164-d36ead379b31"/>
+				<imageExpression><![CDATA["C:\\SysBar\\logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="83" y="14" width="100" height="43" uuid="c981ee73-24a6-4fa2-a4a5-48a8627cdcff"/>
+				<textElement>
+					<font fontName="Yu Gothic UI" size="28"/>
+				</textElement>
+				<text><![CDATA[SysBar]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="41" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="455" y="0" width="100" height="20" uuid="dd5b0c87-ea76-4515-9385-6de15e3a6c7b"/>
+				<textElement textAlignment="Right">
+					<font fontName="Yu Gothic UI"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="517" y="20" width="38" height="20" uuid="5d29062a-997b-435e-a1cb-ee4cfaa81991"/>
+				<textElement textAlignment="Right">
+					<font fontName="Yu Gothic UI" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pág"+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="253" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="92" width="156" height="20" uuid="f454a48e-28ff-42ec-a170-c4e96848e22c"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="132" width="154" height="20" uuid="f69df82f-5556-401c-81c5-7595b0395e2b"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_endereco}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="112" width="50" height="20" uuid="817a84c2-2f89-46cb-b3a2-51aa090ed0a1"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Endereço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="71" width="100" height="20" uuid="02e9c9ea-d82b-4337-892d-b9798664ba87"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="155" y="132" width="93" height="20" uuid="8079be25-8170-492f-aef6-fca5eb1dcc9f"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_bairro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="248" y="132" width="83" height="20" uuid="af8d0b90-b51e-45d9-8bf0-ac27467edfd3"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_cep}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="331" y="132" width="211" height="20" uuid="db24c029-e5d7-49d3-a937-5e273cb910a6"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_cidade}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="155" y="112" width="93" height="20" uuid="406d1a7e-caed-4807-8ca0-8e32ebcfa973"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bairro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="248" y="112" width="83" height="20" uuid="d01033ab-b54d-4b9b-b958-2134f6142b38"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="332" y="112" width="185" height="20" uuid="6231f051-81b6-4214-9bc3-b4e06a77cd89"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cidade]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="94" y="175" width="173" height="20" uuid="1adabc9c-4ee7-46f8-a58a-ccb340c16388"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="175" width="93" height="20" uuid="b8892912-1115-427f-a0a6-076e5d199881"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_telefone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="153" width="93" height="20" uuid="cbc38aa8-1358-47eb-b1cd-ac38adabd992"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="94" y="153" width="126" height="20" uuid="9ccc3a72-1b15-4dd7-bacb-d6834a0f535b"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="267" y="175" width="100" height="20" uuid="53204af8-e116-4285-9078-ce8b647df6fb"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_cargo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="175" width="35" height="20" uuid="922122f3-f2b1-41c5-a5a2-edab0c7e6cc3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Yu Gothic UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="175" width="53" height="20" uuid="4c95af3b-fac1-44f3-bd3a-b38d161c3be5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Yu Gothic UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_bloqueado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="267" y="153" width="64" height="20" uuid="463bcb36-12ac-47db-915d-fd25d1f9a1bc"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cargo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="367" y="153" width="35" height="20" uuid="e3357413-ff92-4db7-b8b5-b3191b9df3dd"/>
+				<textElement textAlignment="Center">
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="153" width="53" height="20" uuid="d7006961-22c6-4c26-95b7-4e30b98a389c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bloqueado]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="224" width="93" height="20" uuid="8672d12c-c9b2-4fa7-a68d-8b718b8c2f79"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_rg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="94" y="224" width="89" height="20" uuid="624a9fe5-b81e-4b57-9815-b3eda75644b6"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_cpf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="224" width="101" height="20" uuid="5d1f9e1b-982c-4c2e-aacc-82e4421238bf"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_cnh}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="204" width="93" height="20" uuid="04add0b7-966a-41a8-845d-ba0643c39075"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Identidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="94" y="204" width="89" height="20" uuid="1414b757-f7b5-465a-a1ef-6bb67937d503"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="204" width="101" height="20" uuid="a9b191a6-0014-4e23-be8a-9a12f515b2a2"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CNH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="0" width="100" height="20" uuid="4475d7ad-16fe-48ff-b56e-9fa484272f35"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dados Pessoais]]></text>
+			</staticText>
+			<image>
+				<reportElement x="421" y="11" width="100" height="96" uuid="18e20abb-1d3e-4afa-9051-a7c1decbb428"/>
+				<imageExpression><![CDATA[$F{tbcadfuncionario_foto}]]></imageExpression>
+			</image>
+		</band>
+		<band height="143">
+			<textField>
+				<reportElement x="0" y="20" width="555" height="123" uuid="abda3363-20fc-4fcc-a968-5489f217c094"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_observacao}==null?"":$F{tbcadfuncionario_observacao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="183" height="20" uuid="256bf1ea-328b-48ab-bc69-e800d643e828"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Histórico - Funcionário]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="18" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="304" y="1" width="251" height="15" uuid="96b77577-ec65-4cc7-a71d-d95be9fab4a3"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="10"/>
+				</textElement>
+				<text><![CDATA[SysBar - Systema de Gerenciamento de Bares e Restaurantes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="304" y="16" width="251" height="15" uuid="2ac42262-8d10-4fcf-8dca-34da5d75d5e5"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="10"/>
+				</textElement>
+				<text><![CDATA[Av. Rua 0, 32 - Carneiro Leão  - Carpina - PE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="304" y="31" width="251" height="15" uuid="23313bf9-2b52-46cf-b7ac-bc128ecaf1dd"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="10"/>
+				</textElement>
+				<text><![CDATA[Fone: +55(81)9749-6602]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="51" splitType="Stretch"/>
+	</summary>
+</jasperReport>

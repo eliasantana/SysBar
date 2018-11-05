@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="11f42ee7-1365-4a2c-b537-efc220a3413f">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="20"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dataInicio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataFim" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     cadpedido.`data` AS 'DATA DO PEDIDO',
+     cadpedido.`status` AS 'STATUS',
+     cadpedido.`total` AS 'TOTAL',
+     cadpedido.`comissao` AS 'COMISSÃO',
+     cadpedido.`formaPagto` AS 'FORMA DE PAGAMENTO',
+     cadpedido.`cadmesa_id` AS 'CÓDIGO DA MESA',
+     cadpedido.`tbcadfuncionario_id` AS 'CÓDIGO DO FUNCIONARIO',
+     tbcadfuncionario.`nome` AS 'FUNCIONÁRIO',
+     cadmesa.`numero_mesa` AS 'MESA',
+     cadpedido.`id_pedido` AS 'CÓDIGO DO PEDIDO'
+FROM
+     `tbcadfuncionario` tbcadfuncionario INNER JOIN `cadpedido` cadpedido ON tbcadfuncionario.`id` = cadpedido.`tbcadfuncionario_id`
+     INNER JOIN `cadmesa` cadmesa ON tbcadfuncionario.`id` = cadmesa.`tbCadFuncionario_id`
+     AND cadmesa.`id` = cadpedido.`cadmesa_id`
+WHERE cadpedido.`data` between  $P{dataInicio} and $P{dataFim} and cadpedido.`status`=1
+ORDER BY tbcadfuncionario.`nome`]]>
+	</queryString>
+	<field name="DATA DO PEDIDO" class="java.sql.Date"/>
+	<field name="STATUS" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TOTAL" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COMISSÃO" class="java.lang.Double"/>
+	<field name="FORMA DE PAGAMENTO" class="java.lang.String"/>
+	<field name="CÓDIGO DA MESA" class="java.lang.Integer"/>
+	<field name="CÓDIGO DO FUNCIONARIO" class="java.lang.Integer"/>
+	<field name="FUNCIONÁRIO" class="java.lang.String"/>
+	<field name="MESA" class="java.lang.Integer"/>
+	<field name="CÓDIGO DO PEDIDO" class="java.lang.Integer"/>
+	<variable name="totalizacao" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{COMISSÃO}]]></variableExpression>
+	</variable>
+	<variable name="vendaTotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="100" height="79" uuid="e56ae9f5-c867-4ade-bd2d-f81c5073aee5"/>
+				<imageExpression><![CDATA["C:\\SysBar\\logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="84" y="0" width="131" height="49" uuid="44d2639c-569b-4ea9-a2dc-108c0e666503"/>
+				<textElement>
+					<font fontName="Yu Gothic UI" size="28"/>
+				</textElement>
+				<text><![CDATA[SysBar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="112" y="49" width="455" height="30" uuid="d774769e-dc61-4f23-a85c-d0c6a677bd9d"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sistema de Gerenciamento de Bares e Restaurantes]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="802" height="35" uuid="b83b5747-f1bc-404b-85ab-4f46c196e653"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Yu Gothic UI" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório Geral de Comissão]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="62" y="35" width="63" height="15" uuid="3e444d63-fccd-4ffa-994d-01711752627e"/>
+				<textFieldExpression><![CDATA[$P{dataInicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="162" y="35" width="70" height="15" uuid="e8b90589-6b11-4efe-aa37-e045e6a9e2cd"/>
+				<textFieldExpression><![CDATA[$P{dataFim}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="37" width="62" height="11" uuid="3f9bc2cb-9372-451b-af70-d24a2a8e5bd7"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERÍODO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="37" width="9" height="13" uuid="ced1c0f0-9ad8-46bd-9e40-917e4ed63394"/>
+				<textElement textAlignment="Center">
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="21" uuid="bc9e3894-15fa-486c-8786-bef5fa94ad43"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FUNCIONÁRIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="112" y="0" width="50" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="3f87cba8-960a-43ff-bae6-9373a7b8e571"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[DATA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="194" y="1" width="73" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="ff6da07f-fa72-4909-aab1-0c47bc5b6508"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[COMISSÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="267" y="1" width="97" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="5edce130-e185-4955-8678-1ab0dd0cbd59"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[FORMA DE PAGAMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="364" y="1" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="5f64d496-f0ba-4f47-afd0-22759a2f5e10"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[MESA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="399" y="1" width="33" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="4a7e08ef-0744-4d78-a0e3-27b5206596b5"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[PEDIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="439" y="1" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="baac058e-ad0e-4c39-959c-548a7ae83b50"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="112" height="15" uuid="3091be36-9fa5-483a-b8f5-191f029380b3"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FUNCIONÁRIO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement mode="Transparent" x="112" y="0" width="80" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="e555f439-8871-431a-959a-54611dd31a10"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATA DO PEDIDO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="194" y="0" width="73" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="e643652b-06c3-46e8-b2b2-3b93de02bc42"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COMISSÃO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="267" y="0" width="80" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="865d834d-e0a5-479f-b03b-fd5a5ff9f48b"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FORMA DE PAGAMENTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="364" y="0" width="35" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="5ed5268d-cf82-4b67-8ebe-ab4bfcfb4c52"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MESA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="399" y="0" width="33" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="b00aa668-c99a-4dca-85b7-1ccc28330677"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CÓDIGO DO PEDIDO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement mode="Transparent" x="439" y="0" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="88c3a730-5b06-433b-843d-8f6ace6c3512"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="42" splitType="Stretch">
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="194" y="22" width="73" height="20" uuid="22e4cc1c-153b-4cf5-a517-064466ba9581"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{totalizacao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="100" y="22" width="92" height="20" uuid="c90fe4c9-3663-4518-9e98-eb4fba84cde6"/>
+				<text><![CDATA[Comissão Total R$]]></text>
+			</staticText>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="194" y="1" width="73" height="20" uuid="a95b96ab-0b9c-4513-b67d-7d612231b3fe"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{vendaTotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="100" y="-1" width="92" height="20" uuid="f0631736-21df-4bcc-9820-8f5dfdf8021e"/>
+				<text><![CDATA[Venda Total  R$]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement x="515" y="0" width="287" height="16" uuid="cc510ee5-9ba8-4be5-beab-6c6850d5a948"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SysBar - Systema de Gerenciamento de Bares e Restaurantes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="515" y="16" width="287" height="16" uuid="3c18ce67-8912-478f-b8c8-2f871f56134d"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8"/>
+				</textElement>
+				<text><![CDATA[Av. Rua 0, 32 - Carneiro Leão  - Carpina - PE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="515" y="32" width="287" height="16" uuid="70c035fd-aad2-4d83-8352-82d7306f461a"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="8"/>
+				</textElement>
+				<text><![CDATA[Fone: +55(81)9749-6602]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

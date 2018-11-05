@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cc1fb9d7-1fb7-4fa4-85b9-6e4b4c24387d">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="178"/>
+	<queryString>
+		<![CDATA[SELECT
+     cadpedido.`data` AS cadpedido_data,
+     cadpedido.`status` AS cadpedido_status,
+     cadpedido.`total` AS cadpedido_total,
+     cadpedido.`comissao` AS cadpedido_comissao,
+     cadpedido.`formaPagto` AS cadpedido_formaPagto,
+     cadpedido.`cadmesa_id` AS cadpedido_cadmesa_id,
+     tbcadfuncionario.`nome` AS tbcadfuncionario_nome,
+     cadmesa.`numero_mesa` AS cadmesa_numero_mesa,
+     cadpedido.`id_pedido` AS cadpedido_id_pedido
+FROM
+     `tbcadfuncionario` tbcadfuncionario INNER JOIN `cadpedido` cadpedido ON tbcadfuncionario.`id` = cadpedido.`tbcadfuncionario_id`
+     INNER JOIN `cadmesa` cadmesa ON tbcadfuncionario.`id` = cadmesa.`tbCadFuncionario_id`
+     AND cadmesa.`id` = cadpedido.`cadmesa_id` 
+ORDER BY tbcadfuncionario.`nome`]]>
+	</queryString>
+	<field name="cadpedido_data" class="java.sql.Date"/>
+	<field name="cadpedido_status" class="java.lang.Integer"/>
+	<field name="cadpedido_total" class="java.lang.Double"/>
+	<field name="cadpedido_comissao" class="java.lang.Double"/>
+	<field name="cadpedido_formaPagto" class="java.lang.String"/>
+	<field name="cadpedido_cadmesa_id" class="java.lang.Integer"/>
+	<field name="tbcadfuncionario_nome" class="java.lang.String"/>
+	<field name="cadmesa_numero_mesa" class="java.lang.Integer"/>
+	<field name="cadpedido_id_pedido" class="java.lang.Integer"/>
+	<variable name="TOTAL_COMISSAO" class="java.lang.Double" resetType="Group" resetGroup="FUNCIONARIO" calculation="Sum">
+		<variableExpression><![CDATA[$F{cadpedido_comissao}]]></variableExpression>
+	</variable>
+	<variable name="variable1" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{cadpedido_comissao}]]></variableExpression>
+	</variable>
+	<group name="FUNCIONARIO">
+		<groupExpression><![CDATA[$F{tbcadfuncionario_nome}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<staticText>
+					<reportElement x="0" y="0" width="52" height="20" uuid="ec9bd36d-da13-43f8-a0f7-bc60f55d1510"/>
+					<textElement>
+						<font fontName="Yu Gothic UI" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[NOME]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="52" y="0" width="204" height="20" uuid="1683b6ed-382b-4741-9c77-6f15aa036230"/>
+					<textElement>
+						<font fontName="Yu Gothic UI Light"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbcadfuncionario_nome}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="52" y="20" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="23c6b5a0-1977-45d2-ab59-1894065c3ca0"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Yu Gothic UI" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[DATA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="152" y="20" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="2bbd94c5-93d5-4f42-9d26-bd7cd077c91e"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Yu Gothic UI" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[COMISSÃO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="252" y="20" width="116" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="1160ea9f-4800-453d-917e-476a2dbda097"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Yu Gothic UI" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[FORMA DE PAGAMENTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="391" y="20" width="58" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="921af37a-4845-4792-8ced-fc5b7b41f8b1"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Yu Gothic UI" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[N.º PEDIDO]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<textField pattern="###0.00;-###0.00" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="0" y="4" width="252" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="36a98362-54db-4bd6-926b-27d16e442ec0"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Yu Gothic UI" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["TOTAL COMISSÃO A RECEBER "+$V{TOTAL_COMISSAO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="256" y="4" width="100" height="20" uuid="1186b532-6e9e-420d-910a-ecd91fdec047"/>
+					<textFieldExpression><![CDATA[$F{cadpedido_formaPagto}=="Cartão"?$V{variable1}:$V{variable1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="107" height="79" uuid="369150bc-895d-47f3-af00-53a4ea30f074"/>
+				<imageExpression><![CDATA["C:\\SysBar\\logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="107" y="0" width="182" height="48" uuid="72c08ec7-566c-40e6-bb43-1c223ab1be32"/>
+				<textElement>
+					<font size="36"/>
+				</textElement>
+				<text><![CDATA[SysBar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="107" y="48" width="413" height="31" uuid="1869e61f-09a9-4645-b854-ff710bf1d470"/>
+				<textElement>
+					<font fontName="Yu Gothic UI" size="18"/>
+				</textElement>
+				<text><![CDATA[Sistema de Gerenciamento de Bares e Restaturantes]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="52" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="7de95276-b331-44ea-908a-c6d56a66c7ba"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cadpedido_data}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="152" y="0" width="66" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="ba36ee02-80c8-423a-946e-9d0b316c8dc7"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cadpedido_comissao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="252" y="0" width="116" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="d05c4e2b-81ec-419d-9c00-1b354331ba21"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cadpedido_formaPagto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="370" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="eabac04c-ee21-44e3-bf51-4e9bdefa5ffc"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cadpedido_id_pedido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

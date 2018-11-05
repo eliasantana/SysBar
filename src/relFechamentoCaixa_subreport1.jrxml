@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relFechamentoCaixa_subreport1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="627b29e0-8bff-41d7-92b1-9c7d3518a02b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     
+     tbcontas_a_pagar.`Descricao` AS tbcontas_a_pagar_Descricao,
+     tbcontas_a_pagar.`valor` AS tbcontas_a_pagar_valor,
+     tbcontas_a_pagar.`data_vencito` AS tbcontas_a_pagar_data_vencito,
+     tbcontas_a_pagar.`data_pagto` AS tbcontas_a_pagar_data_pagto,
+     tbcontas_a_pagar.`valor_pagto` AS tbcontas_a_pagar_valor_pagto,
+     tbgrupo.`grupo` AS tbgrupo_grupo,
+     tbcadfuncionario.`login` AS tbcadfuncionario_login
+FROM
+     `tbgrupo` tbgrupo INNER JOIN `tbcontas_a_pagar` tbcontas_a_pagar ON tbgrupo.`id` = tbcontas_a_pagar.`tbGrupo_id`
+     INNER JOIN `tbcadfuncionario` tbcadfuncionario ON tbcontas_a_pagar.`tbcadfuncionario_id` = tbcadfuncionario.`id`
+WHERE tbcontas_a_pagar.`data_pagto` = curdate() ORDER BY tbgrupo.`grupo` asc]]>
+	</queryString>
+	<field name="tbcontas_a_pagar_Descricao" class="java.lang.String"/>
+	<field name="tbcontas_a_pagar_valor" class="java.lang.Double"/>
+	<field name="tbcontas_a_pagar_data_vencito" class="java.sql.Date"/>
+	<field name="tbcontas_a_pagar_data_pagto" class="java.sql.Date"/>
+	<field name="tbcontas_a_pagar_valor_pagto" class="java.lang.Double"/>
+	<field name="tbgrupo_grupo" class="java.lang.String"/>
+	<field name="tbcadfuncionario_login" class="java.lang.String"/>
+	<group name="tbgrupo_grupo">
+		<groupExpression><![CDATA[$F{tbgrupo_grupo}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

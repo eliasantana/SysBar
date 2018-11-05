@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fef2de10-0e54-4a0a-8296-baad6c333545">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="197"/>
+	<queryString>
+		<![CDATA[SELECT
+     tbproduto.`nome` AS tbproduto_nome,
+     tbproduto.`qtd` AS estoque,
+     tbproduto.`qtd_min` AS qtd_min,
+     tbproduto.`qtd_max` AS qtd_max,
+     cad_grupo_produto.`nome` AS grupo,
+     tbproduto.`id` AS 'cod_produto',
+     tbproduto.`valor` AS valor
+FROM
+     `cad_grupo_produto` cad_grupo_produto 
+INNER JOIN `tbproduto` tbproduto ON cad_grupo_produto.`id` = tbproduto.`cad_grupo_produto_id`
+ORDER BY grupo ASC]]>
+	</queryString>
+	<field name="tbproduto_nome" class="java.lang.String"/>
+	<field name="estoque" class="java.lang.Integer"/>
+	<field name="qtd_min" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qtd_max" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="grupo" class="java.lang.String"/>
+	<field name="cod_produto" class="java.lang.Integer"/>
+	<field name="valor" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="total_grupo" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{comprar}==0?0:($F{qtd_max}-$F{estoque})*$F{valor}]]></variableExpression>
+	</variable>
+	<variable name="comprar" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{estoque}<= ($F{qtd_max}/2)?$F{qtd_max}-$F{estoque}:0]]></variableExpression>
+	</variable>
+	<variable name="totall_compra" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$V{comprar}]]></variableExpression>
+	</variable>
+	<variable name="valor_estimado" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<group name="grupos">
+		<groupExpression><![CDATA[$F{grupo}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="1" y="0" width="69" height="20" uuid="a5f96d71-9713-417e-ba5e-dedf40ba6e5b"/>
+					<textFieldExpression><![CDATA[$F{grupo}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<textField>
+					<reportElement x="217" y="0" width="49" height="20" uuid="4a7584bb-5d87-48c5-ab3a-881b7dfd25ad"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$V{totall_compra}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="160" y="0" width="57" height="20" uuid="03ec3a4d-44a4-4a1f-8c40-1a18fb3b399c"/>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="146" y="20" width="71" height="20" uuid="768e66e6-e1be-471b-9727-945952f3fc18"/>
+					<text><![CDATA[Custo Estimado]]></text>
+				</staticText>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="217" y="20" width="49" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="8eca2e82-c75a-4406-8143-2106435b3116"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{valor_estimado}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="101" height="79" uuid="c8b49f81-3f4d-4fc3-8f8c-d8da95e60b95"/>
+				<imageExpression><![CDATA["C:\\SysBar\\logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="101" y="0" width="116" height="40" forecolor="#000000" backcolor="#FFFFFF" uuid="22820105-3db8-41d9-8ab2-a4ba30724d88"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="28" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[SysBar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="101" y="40" width="394" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="4f301a36-f990-4511-af4f-d5da6c7107c4"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Sistema de Gerenciamento de Bares e Restaurantes]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="10" width="555" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="3621a841-9512-41a7-aa6f-a522a2b58659"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Relatório de Reposição do Estoque]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="146" y="0" width="57" height="20" uuid="38dad72d-e740-4c74-a176-50c66cf8943a"/>
+				<text><![CDATA[Em Estoque]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="0" width="57" height="20" uuid="6d6f92f5-16c7-444b-a41c-19e9c1120d41"/>
+				<text><![CDATA[Comprar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="0" width="57" height="20" uuid="760be267-fa67-4d6b-b59f-c7a8de5ba732"/>
+				<text><![CDATA[Observação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="0" width="54" height="20" uuid="57885868-8ad8-490e-b83b-acb3fed5cbb1"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="0" width="54" height="20" uuid="6dfa8127-f15f-47d8-ab91-91ea3da37f19"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="29" y="0" width="117" height="20" uuid="64e7d49c-8504-466c-9899-44e3e82ca802"/>
+				<textFieldExpression><![CDATA[$F{tbproduto_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="146" y="0" width="57" height="20" uuid="393d1bdf-869c-4a3c-89e2-77b5418f004f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{estoque}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="0" width="28" height="20" uuid="7a8c77ce-ebad-48d5-bdc2-04ade45562c3"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cod_produto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="0" width="49" height="20" uuid="59fe7f04-ccee-4f53-a8a1-91f92efc8a52"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{comprar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="395" y="0" width="100" height="20" uuid="03ae13d9-099c-44ee-aab2-36e44097e531"/>
+				<textFieldExpression><![CDATA[$F{estoque}==0?"Em Falta":"Realizar Pedido"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="276" y="0" width="54" height="20" uuid="e24a564c-d365-404b-b9bd-baae1d4edbd8"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="330" y="0" width="54" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="b271a746-cc3f-4b3f-b38d-5babefc8bc35"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_grupo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="25" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="31" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="24" splitType="Stretch"/>
+	</summary>
+</jasperReport>

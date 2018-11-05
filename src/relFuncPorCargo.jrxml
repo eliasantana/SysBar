@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0ed7ec0f-c6ef-4568-8dc3-041d9caed385">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="filtro" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tbcadfuncionario.`id` AS tbcadfuncionario_id,
+     tbcadfuncionario.`nome` AS tbcadfuncionario_nome,
+     tbcadfuncionario.`endereco` AS tbcadfuncionario_endereco,
+     tbcadfuncionario.`bairro` AS tbcadfuncionario_bairro,
+     tbcadfuncionario.`cep` AS tbcadfuncionario_cep,
+     tbcadfuncionario.`cidade` AS tbcadfuncionario_cidade,
+     tbcadfuncionario.`email` AS tbcadfuncionario_email,
+     tbcadfuncionario.`foto` AS tbcadfuncionario_foto,
+     tbcadfuncionario.`telefone` AS tbcadfuncionario_telefone,
+     tbcadfuncionario.`login` AS tbcadfuncionario_login,
+     tbcadfuncionario.`cargo` AS tbcadfuncionario_cargo,
+     tbcadfuncionario.`senha` AS tbcadfuncionario_senha,
+     tbcadfuncionario.`status` AS tbcadfuncionario_status,
+     tbcadfuncionario.`bloqueado` AS tbcadfuncionario_bloqueado,
+     tbcadfuncionario.`rg` AS tbcadfuncionario_rg,
+     tbcadfuncionario.`cpf` AS tbcadfuncionario_cpf,
+     tbcadfuncionario.`cnh` AS tbcadfuncionario_cnh,
+     tbcadfuncionario.`observacao` AS tbcadfuncionario_observacao
+FROM
+     `tbcadfuncionario` tbcadfuncionario
+WHERE cargo =$P{filtro} ORDER BY cargo]]>
+	</queryString>
+	<field name="tbcadfuncionario_id" class="java.lang.Integer"/>
+	<field name="tbcadfuncionario_nome" class="java.lang.String"/>
+	<field name="tbcadfuncionario_endereco" class="java.lang.String"/>
+	<field name="tbcadfuncionario_bairro" class="java.lang.String"/>
+	<field name="tbcadfuncionario_cep" class="java.lang.String"/>
+	<field name="tbcadfuncionario_cidade" class="java.lang.String"/>
+	<field name="tbcadfuncionario_email" class="java.lang.String"/>
+	<field name="tbcadfuncionario_foto" class="java.lang.String"/>
+	<field name="tbcadfuncionario_telefone" class="java.lang.String"/>
+	<field name="tbcadfuncionario_login" class="java.lang.String"/>
+	<field name="tbcadfuncionario_cargo" class="java.lang.String"/>
+	<field name="tbcadfuncionario_senha" class="java.lang.String"/>
+	<field name="tbcadfuncionario_status" class="java.lang.String"/>
+	<field name="tbcadfuncionario_bloqueado" class="java.lang.Integer"/>
+	<field name="tbcadfuncionario_rg" class="java.lang.String"/>
+	<field name="tbcadfuncionario_cpf" class="java.lang.String"/>
+	<field name="tbcadfuncionario_cnh" class="java.lang.String"/>
+	<field name="tbcadfuncionario_observacao" class="java.lang.String"/>
+	<group name="cargos">
+		<groupExpression><![CDATA[$F{tbcadfuncionario_cargo}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="67" height="20" uuid="d7db5113-c66c-4b9d-bac9-a10214d0b25e"/>
+					<textElement>
+						<font fontName="Yu Gothic UI" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbcadfuncionario_cargo}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<textField>
+					<reportElement x="354" y="0" width="138" height="20" uuid="b0ff82f8-f8c1-4ad4-8305-57e8bcfcc652"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA["Total "+$V{cargos_COUNT}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="81" height="79" uuid="5ab19f45-315d-4933-b70f-d342552391c5"/>
+				<imageExpression><![CDATA["C:\\SysBar\\logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="81" y="0" width="196" height="42" uuid="6c590458-b324-47eb-be0d-cf82413cdf61"/>
+				<textElement>
+					<font fontName="Yu Gothic UI" size="28"/>
+				</textElement>
+				<text><![CDATA[SysBar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="42" width="366" height="37" uuid="492730b6-4693-4975-97e3-4757d7fd7e0e"/>
+				<textElement>
+					<font fontName="Yu Gothic UI" size="18"/>
+				</textElement>
+				<text><![CDATA[Relatório de Funcionários por cargo]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="20" width="100" height="20" uuid="69bf704e-9a3f-4b15-a62c-5e41f69c222a"/>
+				<textElement>
+					<font fontName="Yu Gothic UI" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="455" y="0" width="100" height="20" uuid="d62dd8cf-5191-41e4-96a6-b8b6ef82a099"/>
+				<textElement>
+					<font fontName="Yu Gothic UI" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="37" y="0" width="100" height="20" uuid="32b8df83-c963-4d11-a5e3-f4628f926a71"/>
+				<textElement>
+					<font fontName="Yu Gothic UI" size="12"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="254" y="0" width="100" height="20" uuid="3b39f6c5-8bed-45cb-ab5b-6801ef1e2565"/>
+				<textElement>
+					<font fontName="Yu Gothic UI" size="12"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="0" width="138" height="20" uuid="f67d26e3-6579-4562-9131-60ed271d37f3"/>
+				<textElement>
+					<font fontName="Yu Gothic UI" size="12"/>
+				</textElement>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="37" y="0" width="217" height="20" uuid="0ea4d860-a6e8-45c8-9f5a-cdf4c6d237e6"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="254" y="0" width="100" height="20" uuid="62d4702a-bca6-4a88-b002-bf730e33d18f"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_telefone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="354" y="0" width="138" height="20" uuid="6dd27a2e-4049-4660-8667-fe3c839a8119"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcadfuncionario_email}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="354" y="0" width="138" height="20" uuid="b5c2276f-a64f-441e-8012-63fb140cb62e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Total Geral " +$V{COLUMN_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

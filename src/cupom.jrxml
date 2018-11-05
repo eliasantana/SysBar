@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="212" pageHeight="255" columnWidth="186" leftMargin="13" rightMargin="13" topMargin="13" bottomMargin="13" uuid="6bf524dd-a04e-495b-8bcf-77062fa32fea">
+	<property name="ireport.zoom" value="5.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="566"/>
+	<parameter name="garcom" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="data" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="tx" class="java.lang.Double"/>
+	<parameter name="id_pedido" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tbproduto.`nome` AS tbproduto_nome,
+     detalhe_mesa.`qtd` AS detalhe_mesa_qtd,
+     detalhe_mesa.`valorUnit` AS detalhe_mesa_valorUnit,
+     cadmesa.`numero_mesa` AS cadmesa_numero_mesa,
+     detalhe_mesa.`data` AS detalhe_mesa_data,
+     cadpedido.`id_pedido` AS cadpedido_id_pedido,
+     tbcadfuncionario.`nome` AS tbcadfuncionario_nome,
+     tbcadfuncionario.`id` AS tbcadfuncionario_id,
+     cadpedido.`autenticacao` AS cadpedido_autenticacao
+FROM
+     `cadmesa` cadmesa INNER JOIN `detalhe_mesa` detalhe_mesa ON cadmesa.`id` = detalhe_mesa.`cadmesa_id`
+     INNER JOIN `cadpedido` cadpedido ON cadmesa.`id` = cadpedido.`cadmesa_id`
+     AND cadpedido.`id_pedido` = detalhe_mesa.`cadpedido_id_pedido`
+     INNER JOIN `tbcadfuncionario` tbcadfuncionario ON cadpedido.`tbcadfuncionario_id` = tbcadfuncionario.`id`
+     AND tbcadfuncionario.`id` = cadmesa.`tbCadFuncionario_id`
+     INNER JOIN `tbproduto` tbproduto ON detalhe_mesa.`tbproduto_id` = tbproduto.`id`
+WHERE
+     cadpedido.`id_pedido` = $P{id_pedido}
+ AND detalhe_mesa.`data` = $P{data}]]>
+	</queryString>
+	<field name="tbproduto_nome" class="java.lang.String"/>
+	<field name="detalhe_mesa_qtd" class="java.lang.Integer"/>
+	<field name="detalhe_mesa_valorUnit" class="java.lang.Double"/>
+	<field name="cadmesa_numero_mesa" class="java.lang.Integer"/>
+	<field name="detalhe_mesa_data" class="java.sql.Date"/>
+	<field name="cadpedido_id_pedido" class="java.lang.Integer"/>
+	<field name="tbcadfuncionario_nome" class="java.lang.String"/>
+	<field name="tbcadfuncionario_id" class="java.lang.Integer"/>
+	<field name="cadpedido_autenticacao" class="java.lang.String"/>
+	<variable name="TOTAL" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{detalhe_mesa_qtd}*$F{detalhe_mesa_valorUnit}]]></variableExpression>
+	</variable>
+	<variable name="SOMA" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{TOTAL}]]></variableExpression>
+	</variable>
+	<variable name="cont_produto" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{detalhe_mesa_qtd}]]></variableExpression>
+	</variable>
+	<variable name="tGeral" class="java.lang.Double" resetType="None" calculation="Sum">
+		<variableExpression><![CDATA[$V{SOMA}+$P{tx}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="53" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="172" height="10" uuid="854f994b-1484-4f61-bedf-f3aeb7338443"/>
+				<textElement>
+					<font fontName="SimSun" size="8"/>
+				</textElement>
+				<text><![CDATA[SysBar - Sistema de Gerenciamento ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement mode="Transparent" x="0" y="19" width="83" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="0455b1e7-d004-4a60-a79f-68d8dfddb41e"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="83" y="19" width="46" height="10" uuid="d1faa278-27c8-4d8d-bdb2-dda1bd03dd06"/>
+				<textElement>
+					<font fontName="SimSun" size="8"/>
+				</textElement>
+				<text><![CDATA[- CARPINA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="172" height="10" uuid="82b8cde9-3ca1-461a-a710-f1f379d2df56"/>
+				<textElement>
+					<font fontName="SimSun" size="6"/>
+				</textElement>
+				<text><![CDATA[Av.Estácio Coimbra, 559 - Carpina - PE - 55818-001]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="172" height="10" uuid="00bd6976-d4d6-4f10-a3dd-bfbdd61988c7"/>
+				<textElement>
+					<font fontName="SimSun" size="6"/>
+				</textElement>
+				<text><![CDATA[Fone (81)9.99749-6602 - C.N.P.J. 01.000.102.0001/0001-99]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="51" width="172" height="1" uuid="28896fc8-3704-4270-80dc-1bf599b7a818"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="10" width="172" height="10" uuid="a84fe3e6-44c9-4fed-a2b0-eee465a8e739"/>
+				<textElement>
+					<font fontName="SimSun" size="8"/>
+				</textElement>
+				<text><![CDATA[de Bares e Restaurantes]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement mode="Transparent" x="0" y="0" width="183" height="14" forecolor="#000000" backcolor="#FFFFFF" uuid="73def273-3646-4482-b9c6-e531b39f0abe"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="172" height="1" uuid="87308fbe-ec42-4bfb-80f3-adf2ee99ac95"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="2" width="29" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="938d2bf7-b5ce-476a-86be-b4bdbf8358fd"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="77" y="1" width="20" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="9ad856b3-f1db-4d24-8ed7-8b6e76a1eec2"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Qtd]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="139" y="1" width="20" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="50e48bc1-0758-4425-ac01-5ed3d0104fb7"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[R$]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="13" width="172" height="1" uuid="a51b8ac2-d71c-49f3-a3c8-3df29450aaa6"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement mode="Transparent" x="97" y="0" width="29" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="d3a3900f-c06b-432a-8e1e-e3b813735e8b"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[V.Unit]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="0" width="72" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="c7bbb553-95af-4de3-bb4d-7b831b004afa"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbproduto_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="77" y="0" width="20" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="404c930d-c91a-4b05-aaca-6efaeb77ff1e"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalhe_mesa_qtd}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="138" y="0" width="21" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="08de8478-f15b-4412-941f-5599f1836dff"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="97" y="0" width="29" height="11" forecolor="#000000" backcolor="#FFFFFF" uuid="610284ac-5ad6-4298-bcab-286b55263405"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalhe_mesa_valorUnit}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="51" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="172" height="1" uuid="6b075125-91bb-4668-a03c-f2682aa5b436"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="109" y="2" width="17" height="11" forecolor="#000000" backcolor="#FFFFFF" uuid="3d7ebe64-ce69-4c7f-900f-8881dc4189f0"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{cont_produto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="109" y="23" width="24" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="3f891d8b-c8a2-4f0a-8946-e79eb3921303"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SOMA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="109" y="12" width="24" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="e195dbef-cd26-4c20-89f1-ba19bec17ebc"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tx}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="44" y="12" width="59" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="095ebebe-df8b-4f46-9203-574e37c43717"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Tx. Serviço ...:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="44" y="23" width="59" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="ce49c139-58ac-4d8e-aa99-f18b72295053"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Sub-total ...:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="44" y="2" width="59" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="e91c5eb2-37f0-4182-9777-b6a9baadf3e1"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[N.°de Itens ...:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="44" y="34" width="59" height="13" forecolor="#000000" backcolor="#FFFFFF" uuid="ebf9ba4b-cdc6-4c32-8feb-10f68c3fbd3e"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Total Geral ...:]]></text>
+			</staticText>
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="109" y="34" width="24" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="d7aefae6-df9b-49db-8602-a2111b722bf6"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SOMA} + $P{tx}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="0" width="186" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="833d29da-2a63-4c2f-9d85-bd78315b10d4"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[********************** Autenticação ***********************]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="10" width="183" height="11" forecolor="#000000" backcolor="#FFFFFF" uuid="198a9170-5336-4556-977a-d2a7554769c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cadpedido_autenticacao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="14" splitType="Stretch"/>
+	</summary>
+</jasperReport>

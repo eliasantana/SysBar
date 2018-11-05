@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b64a5a42-f26a-487d-9be6-65bb12ef908c">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="211"/>
+	<parameter name="inicio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fim" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tbcontas_a_pagar.`Descricao` AS tbcontas_a_pagar_Descricao,
+     tbcontas_a_pagar.`valor` AS tbcontas_a_pagar_valor,
+     tbcontas_a_pagar.`data_vencito` AS tbcontas_a_pagar_data_vencito,
+     tbcontas_a_pagar.`data_pagto` AS tbcontas_a_pagar_data_pagto,
+     tbcontas_a_pagar.`valor_pagto` AS tbcontas_a_pagar_valor_pagto
+FROM
+     `tbcontas_a_pagar` tbcontas_a_pagar
+WHERE tbcontas_a_pagar.`data_pagto` between $P{inicio} and $P{fim}
+ORDER BY tbcontas_a_pagar.`data_pagto` ASC]]>
+	</queryString>
+	<field name="tbcontas_a_pagar_Descricao" class="java.lang.String"/>
+	<field name="tbcontas_a_pagar_valor" class="java.lang.Double"/>
+	<field name="tbcontas_a_pagar_data_vencito" class="java.sql.Date"/>
+	<field name="tbcontas_a_pagar_data_pagto" class="java.sql.Date"/>
+	<field name="tbcontas_a_pagar_valor_pagto" class="java.lang.Double"/>
+	<variable name="soma" class="java.lang.Double" resetType="Group" resetGroup="dataDePagamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{tbcontas_a_pagar_valor_pagto}]]></variableExpression>
+	</variable>
+	<variable name="geral" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{tbcontas_a_pagar_valor_pagto}]]></variableExpression>
+	</variable>
+	<group name="dataDePagamento">
+		<groupExpression><![CDATA[$F{tbcontas_a_pagar_data_pagto}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<staticText>
+					<reportElement x="0" y="0" width="100" height="20" uuid="aaa68997-82f6-4ba2-9f2d-c25c55fd0e64"/>
+					<textElement>
+						<font fontName="Yu Gothic UI Light" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Data de Pagamento]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="100" y="0" width="74" height="20" uuid="c7381fda-c168-40d4-864e-cac50c850d2f"/>
+					<textFieldExpression><![CDATA[$F{tbcontas_a_pagar_data_pagto}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="0" y="30" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="f38a43d4-5d83-4621-8212-8a86dd4b6085"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Yu Gothic UI Light" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Descrição]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="193" y="30" width="101" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="275be904-900b-47db-ad73-5b8d25c7d829"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Yu Gothic UI Light" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Valor Pago]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="193" y="0" width="66" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="d7bc45b0-b873-4c9f-a53a-1cff84b4ab6a"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Yu Gothic UI Light" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{soma}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="93" height="79" uuid="7291640b-29de-4837-8e40-cb93af3de271"/>
+				<imageExpression><![CDATA["C:\\SysBar\\logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="93" y="11" width="100" height="53" forecolor="#000000" backcolor="#FFFFFF" uuid="2488d97a-9adb-41d7-a2af-ee039377c3f6"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="28" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[SysBar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="93" y="59" width="462" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="83f893e5-bf17-4cb5-9c34-43e8693ace0b"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Sistema de Gerenciamento de Bares e Restaurantes]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="0" width="555" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="d46715b0-88df-46ee-9aef-c3ae8528830a"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Relatório de Contas Pagas]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="57" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="193" height="20" uuid="bce5e4f3-dd8a-4d46-9d8f-7c088c905d23"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcontas_a_pagar_Descricao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="193" y="0" width="66" height="20" uuid="928c3b66-fb80-4895-815d-df39d5796dc9"/>
+				<textElement textAlignment="Right">
+					<font fontName="Yu Gothic UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcontas_a_pagar_valor_pagto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="83" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="217" y="0" width="338" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="d025f06c-f860-41c4-965f-2e7c03d48aa7"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[SysBar - Systema de Gerenciamento de Bares e Restaurantes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="217" y="20" width="338" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="bc9259cc-4d60-456d-b4d7-13b9e321dd29"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Av. Rua 0, 32 - Carneiro Leão  - Carpina - PE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="217" y="40" width="338" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="da187fd6-9f22-4070-a07f-c3132cddfc86"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Fone: +55(81)9749-6602]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="193" y="0" width="66" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="69a91f9c-16ac-4078-883c-d26b65ac62e8"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Yu Gothic UI Light" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{geral}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="198" pageHeight="255" columnWidth="176" leftMargin="11" rightMargin="11" topMargin="28" bottomMargin="28" uuid="43b7bee3-d37e-4f25-8ea8-31bb906a2b74">
+	<property name="ireport.zoom" value="5.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="144"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="funcionario" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     tbcontas_a_pagar.`id` AS tbcontas_a_pagar_id,
+     tbcontas_a_pagar.`Descricao` AS tbcontas_a_pagar_Descricao,
+     tbcontas_a_pagar.`valor` AS tbcontas_a_pagar_valor,
+     tbcontas_a_pagar.`data_vencito` AS tbcontas_a_pagar_data_vencito,
+     tbcontas_a_pagar.`data_pagto` AS tbcontas_a_pagar_data_pagto,
+     tbcontas_a_pagar.`valor_pagto` AS tbcontas_a_pagar_valor_pagto,
+     tbcontas_a_pagar.`tbcadfuncionario_id` AS tbcontas_a_pagar_tbcadfuncionario_id,
+     tbcontas_a_pagar.`tbGrupo_id` AS tbcontas_a_pagar_tbGrupo_id
+FROM
+     `tbcontas_a_pagar` tbcontas_a_pagar
+WHERE id=$P{id}]]>
+	</queryString>
+	<field name="tbcontas_a_pagar_id" class="java.lang.Integer"/>
+	<field name="tbcontas_a_pagar_Descricao" class="java.lang.String"/>
+	<field name="tbcontas_a_pagar_valor" class="java.lang.Double"/>
+	<field name="tbcontas_a_pagar_data_vencito" class="java.sql.Date"/>
+	<field name="tbcontas_a_pagar_data_pagto" class="java.sql.Date"/>
+	<field name="tbcontas_a_pagar_valor_pagto" class="java.lang.Double"/>
+	<field name="tbcontas_a_pagar_tbcadfuncionario_id" class="java.lang.Integer"/>
+	<field name="tbcontas_a_pagar_tbGrupo_id" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="0" width="158" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="0dd63eba-2ae5-4660-b3f9-e5d67f353491"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[SysBar - Sistema de Gerenciamento ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="9" width="158" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="a2e8bd73-90ff-4c38-9d0a-e78dba5b905c"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[de Bares e Restaurantes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="100" y="19" width="58" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="fa66a486-04f4-4569-8438-6065eefdc9dc"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[- CARPINA]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="19" width="100" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="6ee3245f-ee6e-4b99-8302-f13a401b449a"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="30" width="158" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="7577b7ce-e376-40ed-ac5f-e81bb5e7ccb2"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Av.Estácio Coimbra, 559 - Carpina - PE - 55818-001]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="40" width="158" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="abe51e51-d837-4b1b-adb4-b418e24ff364"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Fone (81)9.99749-6602 - C.N.P.J. 01.000.102.0001/0001-99]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="144" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement x="0" y="6" width="176" height="13" forecolor="#000000" backcolor="#FFFFFF" uuid="f73cdb71-f39a-49ed-87bd-64a1363671f6"/>
+				<textElement textAlignment="Center" rotation="None">
+					<font fontName="SimSun" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="26" width="126" height="14" forecolor="#000000" backcolor="#FFFFFF" uuid="71367ae7-d6b5-4c77-98e2-ce1c6ae27920"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Recebi de SysBar a quantida de ]]></text>
+			</staticText>
+			<textField pattern="###0.000;-###0.000" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="126" y="26" width="50" height="14" forecolor="#000000" backcolor="#FFFFFF" uuid="75d84f7f-5383-4681-bcf2-f00c0dc5604d"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["R$ "+$F{tbcontas_a_pagar_valor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="40" width="176" height="14" forecolor="#000000" backcolor="#FFFFFF" uuid="688ac44d-1aa4-43cf-930a-7e0f7143edea"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Referente ao serviço a baixo relacionado:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="54" width="176" height="14" forecolor="#000000" backcolor="#FFFFFF" uuid="4f8df155-b7f6-4fe9-a58c-e6002e1192bb"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbcontas_a_pagar_Descricao}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="17" y="107" width="116" height="1" uuid="2a32a29e-0d14-4516-a844-56d48c229d8e"/>
+			</line>
+			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="33" y="69" width="100" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="856b144a-28cb-492b-a5ad-6b28cfd6aa28"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="69" width="58" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="44dd156f-cada-4cb2-8202-4adfe02a08c7"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Carpina,]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="33" y="108" width="82" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="958341ca-6f4c-4644-9eaf-9eabf876ba49"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{funcionario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+</jasperReport>
