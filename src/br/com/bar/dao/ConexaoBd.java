@@ -21,10 +21,10 @@ public class ConexaoBd {
 
     public static Connection conector() {
         
-        /*
-        Instancia o controler parâmetro e carrega os dados do arquivo param.txt
         
-        */ 
+        //Instancia o controler parâmetro e carrega os dados do arquivo param.txt
+        
+        
         ControlerParametro cp = new ControlerParametro();
         ArrayList<String> d = new ArrayList<>();
         d=cp.lerArquivoParametro();
@@ -33,29 +33,35 @@ public class ConexaoBd {
         String ipServidor = d.get(0);
         String usuario = d.get(1);
         String senha = d.get(2);
-        String banco = d.get(3);
+        String banco = d.get(3);        
         String porta = d.get(4);
+         
         
         /*
-          String driver="com.mysql.jdbc.Driver";
-          String url="jdbc:mysql://192.168.0.108:3306/dbbar";
+          String driver="com.mysql.cj.jdbc.Driver";
+          String url="jdbc:mysql://localhost:3306/dbbar?useTimezone=true&serverTimezone=UTC";
           String user="root";
           String password="202649";
-         */
+         
+        */
         Connection conexao = null;
+        
+
         // Informa os dados registrados no arquivo de parâmetro
-        String driver = "com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://"+ipServidor+":"+porta+"/"+banco;
+        
+        String driver = "com.mysql.cj.jdbc.Driver";
+        String url = "jdbc:mysql://"+ipServidor+":"+porta+"/"+banco ;
         String user = usuario;
         String password = senha;
 
         try {
             Class.forName(driver);
-            conexao = DriverManager.getConnection(url, user, password);
+            conexao = DriverManager.getConnection(url, user, password);           
             return conexao;
 
         } catch (ClassNotFoundException | SQLException e) {
-
+            System.out.println("br.com.bar.dao.ConexaoBd.conector()" + e);
+            
         }
         return conexao;
     }

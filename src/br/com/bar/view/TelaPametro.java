@@ -10,8 +10,7 @@ import br.com.br.controler.ControlerParametro;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.JOptionPane;
-import org.apache.tools.ant.taskdefs.Sleep;
+
 
 /**
  *
@@ -24,14 +23,15 @@ public class TelaPametro extends javax.swing.JFrame {
      */
     public TelaPametro() {
         initComponents();
+        
         ControlerParametro parametro = new ControlerParametro();
-
+        
         txtIpServidor.setText(parametro.lerArquivoParametro().get(0));
         txtUsuario.setText(parametro.lerArquivoParametro().get(1));
         txtSenha.setText(parametro.lerArquivoParametro().get(2));
         txtNomeBanco.setText(parametro.lerArquivoParametro().get(3));
         txtPorta.setText(parametro.lerArquivoParametro().get(4));
-
+        
     }
 
     /**

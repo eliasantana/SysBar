@@ -25,11 +25,11 @@ import java.sql.*;
  */
 public class ControlerParametro {
 
-    /*
-    Connection conexao = ConexaoBd.conector();
-    PreparedStatement pst = null;
-    ResultSet rs = null;
-     */
+    
+    //Connection conexao = ConexaoBd.conector();
+    //PreparedStatement pst = null;
+    //ResultSet rs = null;
+    
     private final static String NOME_EMPRESA = "SysBar - Sistema Gerenciamentode Bar";
     private final static String CAMINHO_PARAMETRO = "C:/SysBar/param.txt";
     private final static String CAMINHO_FOTO_FUNCIONARIO = "C:/SysBar/Fotos";
@@ -63,7 +63,7 @@ public class ControlerParametro {
             gravaARquivo.println(ipServidor);
             gravaARquivo.println(usuario);
             gravaARquivo.println(senha);
-            gravaARquivo.println(nomeBanco);
+            gravaARquivo.println(nomeBanco.concat("?useTimezone=true&serverTimezone=UTC"));
             gravaARquivo.println(porta);
 
             gravaARquivo.flush();
@@ -80,6 +80,7 @@ public class ControlerParametro {
         ArrayList<String> parametros = new ArrayList<>();
 
         try {
+            
             File arquivoParametro = new File(CAMINHO_PARAMETRO);
 
             FileReader ler = new FileReader(arquivoParametro);
@@ -89,6 +90,7 @@ public class ControlerParametro {
 
             while ((dados = reader.readLine()) != null) {
                 parametros.add(dados);
+                
             }
 
         } catch (IOException e) {
