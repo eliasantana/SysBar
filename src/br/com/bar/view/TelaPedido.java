@@ -48,7 +48,8 @@ public class TelaPedido extends javax.swing.JFrame {
         txtTotal.setEnabled(false);
         txtCodigoProduto.setEnabled(false);
         txtQuantidade.setEnabled(false);
-
+        
+       
     }
 
     public void recebeOperador(String operador, String cargo) {
