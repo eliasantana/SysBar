@@ -32,7 +32,7 @@ public class ControlerPedido {
     PreparedStatement pst = null;
     ResultSet rs = null;
     ControlerMesa cm = new ControlerMesa();
-    
+
     //Formata data atual para o banco de dados
     public String myDataAtual() {
         Date dataAtual = new Date();
@@ -82,6 +82,28 @@ public class ControlerPedido {
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, idFuncionario);
+            rs = pst.executeQuery();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro listaPedidos" + e);
+        }
+        return rs;
+    }
+
+    public ResultSet listaPedidos() {
+
+        String sql = "SELECT \n"
+                + "m.numero_mesa AS 'MESA',\n"
+                + "date_format(p.data,'%d/%m/%Y') AS 'DATA', \n"
+                + "p.status as 'SITUAÇÃO', \n"
+                + "p.id_pedido as 'N. PEDIDO',\n"
+                + "g.nome as 'Garçom' \n"
+                + "FROM cadpedido p \n"
+                + "INNER JOIN cadmesa m on m.id=p.cadmesa_id \n"
+                + "INNER JOIN tbcadfuncionario g on g.id = p.tbcadfuncionario_id\n"
+                + "WHERE p.status=0;";
+        try {
+            pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
@@ -294,29 +316,28 @@ public class ControlerPedido {
     }
 
     public boolean excluiItemPedido(String idItemPEdido) {
-    
-       boolean resp=false;
-       String sql="DELETE FROM detalhe_mesa WHERE id=?";
-       
+
+        boolean resp = false;
+        String sql = "DELETE FROM detalhe_mesa WHERE id=?";
+
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, idItemPEdido);
             pst.executeUpdate();
-            resp=true;
-            
+            resp = true;
+
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerPedido.excluiItemPedido()");
         }
         return resp;
     }
-    
-    
-    public String autentica(String idFunc, String nMesa, String nPedido, String data){
-        String autenticacao="";
-        
-        autenticacao = idFunc+"."+nMesa+"."+nPedido+"."+data;
-        
+
+    public String autentica(String idFunc, String nMesa, String nPedido, String data) {
+        String autenticacao = "";
+
+        autenticacao = idFunc + "." + nMesa + "." + nPedido + "." + data;
+
         return autenticacao;
     }
-    
+
 }

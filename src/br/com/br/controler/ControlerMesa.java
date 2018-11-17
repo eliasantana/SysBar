@@ -13,6 +13,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -170,6 +172,22 @@ public class ControlerMesa {
             JOptionPane.showMessageDialog(null, "Erro listaMesaLivre" + e);
         }
     }
+    // Lista as mesas livres do garçom selecionado
+    public ResultSet listaMesaLivre(String idGarcom) {
+
+        String sql = "SELECT numero_mesa FROM cadmesa WHERE status='0' AND tbCadFuncionario_id=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, idGarcom);
+            rs = pst.executeQuery();     
+
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro listaMesaLivre" + e);
+        }
+        return rs;
+    }
+    
 
     public String localizaIdMesa(String numeroMesa) {
         String id = null;

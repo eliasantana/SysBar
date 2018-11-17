@@ -74,6 +74,27 @@ public class ControlerProduto {
         }
         return rs;
     }
+    public ResultSet listaProdutoDisponivel() {
+
+        String sql = "SELECT \n"
+                + "	p.id as 'ID', \n"
+                + "	p.nome as 'PRODUTO',\n"
+                + "	p.qtd as 'QTD', \n"
+                + "	p.valor as 'VALOR',\n"
+                + "	g.nome as 'GRUPO'\n"
+                + "FROM tbproduto p\n"
+                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            
+            rs = pst.executeQuery();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ErroListarProdutoPorFornecedor" + e);
+        }
+        return rs;
+    }
 
     public ResultSet rankingProdutosVendidos() {
 

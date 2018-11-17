@@ -240,7 +240,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         getContentPane().add(peinelEsquerdo);
-        peinelEsquerdo.setBounds(0, 0, 370, 532);
+        peinelEsquerdo.setBounds(0, 0, 370, 531);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -281,7 +281,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(btnProdutoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel5)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         btnProdutoLayout.setVerticalGroup(
             btnProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,7 +309,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(btnConfiguracaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         btnConfiguracaoLayout.setVerticalGroup(
             btnConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,7 +337,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(btnConasApagarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         btnConasApagarLayout.setVerticalGroup(
             btnConasApagarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,14 +393,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(btnFuncionariosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         btnFuncionariosLayout.setVerticalGroup(
             btnFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnFuncionariosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         btnLogout.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -450,7 +450,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(btnCaixaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel12)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         btnCaixaLayout.setVerticalGroup(
             btnCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -482,7 +482,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(btnFuncionarios1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel11)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         btnFuncionarios1Layout.setVerticalGroup(
             btnFuncionarios1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -559,7 +559,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnConfiguracao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFuncionarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnFuncionarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnConasApagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
