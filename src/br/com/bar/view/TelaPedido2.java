@@ -17,8 +17,11 @@ import br.com.br.controler.ControlerMesa;
 import br.com.br.controler.ControlerPedido;
 import br.com.br.controler.ControlerProduto;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.Calendar;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
@@ -46,11 +49,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
         cFunc.carregaComboFuncionario(comboGarcom, "Garçom");
         tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos()));
         // Oculta caixa de pesquisa
-        lblPesquisa.setVisible(false);
-        txtPesquisa.setVisible(false);
+        lblPesquisa.setVisible(true);
+        txtPesquisa.setVisible(true);
         Calendar c = Calendar.getInstance();
         lblData.setText(u.formataDataBr(c.getTime()));
-       bloqueiaCampos();
+        bloqueiaCampos();
+
     }
 
     /**
@@ -67,15 +71,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        comboGarcom = new javax.swing.JComboBox<>();
         txtIdGarcom = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblNumeroMesa = new javax.swing.JTable();
-        btnListar = new javax.swing.JButton();
         btnAbrirPedido = new javax.swing.JButton();
         txtIdMesa = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jTabbedPane = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPedidosAbertos = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -90,14 +91,20 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lblProduto = new javax.swing.JLabel();
         lblValor = new javax.swing.JLabel();
-        lblData = new javax.swing.JLabel();
         lblPesquisa = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         lbltotal = new javax.swing.JLabel();
         txtNumeroPedido = new javax.swing.JTextField();
         lblMensagem = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         lblData1 = new javax.swing.JLabel();
+        lblData = new javax.swing.JLabel();
+        lblData2 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        comboGarcom = new javax.swing.JComboBox<>();
+        btnListar = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -130,17 +137,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        comboGarcom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboGarcomActionPerformed(evt);
-            }
-        });
-        getContentPane().add(comboGarcom);
-        comboGarcom.setBounds(10, 37, 192, 35);
-
         txtIdGarcom.setText("idGarcom");
         getContentPane().add(txtIdGarcom);
-        txtIdGarcom.setBounds(820, 60, 50, 30);
+        txtIdGarcom.setBounds(1010, 60, 50, 30);
 
         tblNumeroMesa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblNumeroMesa.setModel(new javax.swing.table.DefaultTableModel(
@@ -148,10 +147,13 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 {null},
                 {null},
                 {null},
+                {null},
+                {null},
+                {null},
                 {null}
             },
             new String [] {
-                "Numero da Mesa"
+                "Mesas Disponíveis"
             }
         ));
         tblNumeroMesa.setRowHeight(25);
@@ -163,17 +165,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblNumeroMesa);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 124, 192, 373);
+        jScrollPane1.setBounds(200, 290, 230, 220);
 
-        btnListar.setText("Listar Mesas");
-        btnListar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnListar);
-        btnListar.setBounds(10, 83, 93, 35);
-
+        btnAbrirPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Pedido.png"))); // NOI18N
         btnAbrirPedido.setText("Abrir Pedido");
         btnAbrirPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,31 +175,27 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAbrirPedido);
-        btnAbrirPedido.setBounds(109, 83, 93, 35);
+        btnAbrirPedido.setBounds(200, 520, 230, 50);
 
         txtIdMesa.setText("idMesa");
         getContentPane().add(txtIdMesa);
-        txtIdMesa.setBounds(820, 140, 50, 30);
+        txtIdMesa.setBounds(1010, 140, 50, 30);
 
-        jLabel2.setText("Garçom");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 14, 70, 14);
-
-        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTabbedPane.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabbedPane1MouseClicked(evt);
+                jTabbedPaneMouseClicked(evt);
             }
         });
 
         tblPedidosAbertos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-
+                "MESA", "SITUAÇÃO", "PEDIDO", "GARÇOM"
             }
         ));
         tblPedidosAbertos.setRowHeight(25);
@@ -216,7 +206,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tblPedidosAbertos);
 
-        jTabbedPane1.addTab("Pedidos Abertos", jScrollPane2);
+        jTabbedPane.addTab("Pedidos Abertos", jScrollPane2);
 
         tblDetalhePedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -232,7 +222,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         tblDetalhePedido.setRowHeight(25);
         jScrollPane3.setViewportView(tblDetalhePedido);
 
-        jTabbedPane1.addTab("Detalhe Pedido", jScrollPane3);
+        jTabbedPane.addTab("Detalhe Pedido", jScrollPane3);
 
         tblListaProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -253,17 +243,17 @@ public class TelaPedido2 extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(tblListaProduto);
 
-        jTabbedPane1.addTab("Lista de Produtos", jScrollPane6);
+        jTabbedPane.addTab("Lista de Produtos", jScrollPane6);
 
-        getContentPane().add(jTabbedPane1);
-        jTabbedPane1.setBounds(210, 270, 583, 230);
+        getContentPane().add(jTabbedPane);
+        jTabbedPane.setBounds(440, 280, 580, 290);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Produto")));
 
-        lblCodigo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
+        lblCodigo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
         lblCodigo.setText("Código");
 
-        lblQtd.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
+        lblQtd.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
         lblQtd.setText("Qtd");
 
         txtQtd.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
@@ -297,35 +287,32 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblQtd)
                     .addComponent(lblCodigo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtQtd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodigoProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(44, Short.MAX_VALUE))
+                    .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblCodigo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblQtd)))
-                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCodigo)
+                    .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblQtd)
+                    .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(220, 60, 301, 161);
+        jPanel1.setBounds(440, 60, 290, 161);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Produto")));
 
@@ -355,31 +342,30 @@ public class TelaPedido2 extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(550, 60, 250, 70);
-
-        lblData.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        lblData.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblData.setText("jLabel3");
-        getContentPane().add(lblData);
-        lblData.setBounds(670, 10, 200, 48);
+        jPanel2.setBounds(740, 60, 250, 70);
 
         lblPesquisa.setText("Pesquisar Produto");
         getContentPane().add(lblPesquisa);
-        lblPesquisa.setBounds(220, 240, 120, 14);
+        lblPesquisa.setBounds(770, 230, 120, 14);
 
+        txtPesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPesquisaFocusGained(evt);
+            }
+        });
         txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtPesquisaKeyReleased(evt);
             }
         });
         getContentPane().add(txtPesquisa);
-        txtPesquisa.setBounds(340, 230, 180, 30);
+        txtPesquisa.setBounds(770, 250, 220, 30);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Total")));
 
         lbltotal.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         lbltotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbltotal.setText("jLabel3");
+        lbltotal.setText("0,00");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -395,24 +381,114 @@ public class TelaPedido2 extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(550, 140, 250, 80);
+        jPanel3.setBounds(740, 140, 250, 80);
 
         txtNumeroPedido.setText("nPedido");
         getContentPane().add(txtNumeroPedido);
-        txtNumeroPedido.setBounds(820, 100, 50, 30);
+        txtNumeroPedido.setBounds(1010, 100, 50, 30);
 
-        lblMensagem.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        lblMensagem.setText("jLabel3");
+        lblMensagem.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
+        lblMensagem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(lblMensagem);
-        lblMensagem.setBounds(210, 510, 580, 48);
+        lblMensagem.setBounds(400, 510, 580, 0);
+
+        jPanel4.setBackground(new java.awt.Color(52, 73, 94));
+        jPanel4.setForeground(new java.awt.Color(52, 73, 94));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
 
         lblData1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
+        lblData1.setForeground(new java.awt.Color(255, 255, 255));
         lblData1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblData1.setText("Lançamento de Pedido");
-        getContentPane().add(lblData1);
-        lblData1.setBounds(220, 10, 470, 48);
+        lblData1.setText("SysBar");
 
-        setSize(new java.awt.Dimension(920, 599));
+        lblData.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
+        lblData.setForeground(new java.awt.Color(255, 255, 255));
+        lblData.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblData.setText("jLabel3");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblData1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblData1)
+                .addGap(18, 18, 18)
+                .addComponent(lblData)
+                .addContainerGap(263, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel4);
+        jPanel4.setBounds(0, 0, 190, 590);
+
+        lblData2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
+        lblData2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblData2.setText("Sys Bar - Lançamento de Pedido");
+        getContentPane().add(lblData2);
+        lblData2.setBounds(200, 10, 870, 48);
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Garçom")));
+
+        comboGarcom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboGarcomActionPerformed(evt);
+            }
+        });
+
+        btnListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/mesa32x32.png"))); // NOI18N
+        btnListar.setText("Listar Mesas");
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comboGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(comboGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel5);
+        jPanel5.setBounds(200, 60, 230, 160);
+
+        setSize(new java.awt.Dimension(1084, 625));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -486,12 +562,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tblPedidosAbertosMouseClicked
 
-    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+    private void jTabbedPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPaneMouseClicked
         // Exibe caixa de pesquisa e lista todos os produtos disponível no estoque
-        lblPesquisa.setVisible(true);
-        txtPesquisa.setVisible(true);
+
         tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
-    }//GEN-LAST:event_jTabbedPane1MouseClicked
+    }//GEN-LAST:event_jTabbedPaneMouseClicked
 
     private void txtCodigoProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCodigoProdutoMouseClicked
 
@@ -538,8 +613,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                     txtQtd.requestFocus();
 
                 } else {
-                   
-                    
+
                     lbltotal.setText(String.format("%7.2f", calculaPedido()));
                     lblMensagem.setText(null);
 
@@ -568,7 +642,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                             if (ec.temNoEstoque(pp.getTbproduto_id())) {
                                 // Adiciona o produto ao pedido     
                                 cproduto.adicionaProdutoAoPedido(pp);
-                                
+
                                 // Retira o produto do estoque
                                 ec.retiraEstoque(pp, pp.getQtd());
 
@@ -590,7 +664,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
                                 txtQtd.setText(null);
                             }
 
-                            
                             tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(txtIdMesa.getText(), txtNumeroPedido.getText())));
                         }
 
@@ -621,6 +694,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Lista o produto localizado pelas inicias do nome
         tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.pesquisarProduto(txtPesquisa.getText())));
     }//GEN-LAST:event_txtPesquisaKeyReleased
+
+    private void txtPesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPesquisaFocusGained
+        // Vai para a tabela de listagem de produto
+        jTabbedPane.setSelectedIndex(2);
+        tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
+    }//GEN-LAST:event_txtPesquisaFocusGained
 
     private double calculaPedido() {
         double valor = Double.parseDouble(lblValor.getText().replaceAll(",", "."));
@@ -670,22 +749,25 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JButton btnListar;
     private javax.swing.JComboBox<String> comboGarcom;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblData1;
+    private javax.swing.JLabel lblData2;
     private javax.swing.JLabel lblMensagem;
     private javax.swing.JLabel lblPesquisa;
     private javax.swing.JLabel lblProduto;
@@ -708,10 +790,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
         txtCodigoProduto.setText(null);
         lblProduto.setText(null);
         lblValor.setText(null);
-        txtQtd.setText(null);  
+        txtQtd.setText(null);
         lbltotal.setText(null);
-       
-       
+
     }
 
     private void bloqueiaCampos() {

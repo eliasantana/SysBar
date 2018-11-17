@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="212" pageHeight="255" columnWidth="186" leftMargin="13" rightMargin="13" topMargin="13" bottomMargin="13" uuid="6bf524dd-a04e-495b-8bcf-77062fa32fea">
 	<property name="ireport.zoom" value="5.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="566"/>
+	<property name="ireport.y" value="617"/>
 	<parameter name="garcom" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -14,6 +14,10 @@
 	<parameter name="id_pedido" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="npessoas" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="total_pessoas" class="java.lang.Double"/>
 	<queryString>
 		<![CDATA[SELECT
      tbproduto.`nome` AS tbproduto_nome,
@@ -210,7 +214,7 @@ WHERE
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="51" splitType="Stretch">
+		<band height="72" splitType="Stretch">
 			<line>
 				<reportElement x="0" y="0" width="172" height="1" uuid="6b075125-91bb-4668-a03c-f2682aa5b436"/>
 				<graphicElement>
@@ -281,12 +285,44 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$V{SOMA} + $P{tx}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="29" y="47" width="74" height="14" forecolor="#000000" backcolor="#FFFFFF" uuid="a8da5839-c5b4-4dbf-9006-2e2cf940ecfe"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Numero de Pessoas...:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="29" y="61" width="74" height="11" forecolor="#000000" backcolor="#FFFFFF" uuid="9a4e486c-1a7e-4eeb-aa54-1548118a3b68"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Total por pessoas...:]]></text>
+			</staticText>
+			<textField pattern="###0;-###0" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="109" y="47" width="24" height="9" forecolor="#000000" backcolor="#FFFFFF" uuid="d90e6d62-4f93-4483-81e1-7b3a9289f8a7"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{npessoas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="109" y="61" width="23" height="9" forecolor="#000000" backcolor="#FFFFFF" uuid="5e0f8714-c70f-433e-9af9-dbf6d2dc38ba"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SimSun" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total_pessoas}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="24" splitType="Stretch">
+		<band height="23" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="0" width="186" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="833d29da-2a63-4c2f-9d85-bd78315b10d4"/>
+				<reportElement mode="Transparent" x="0" y="2" width="186" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="833d29da-2a63-4c2f-9d85-bd78315b10d4"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SimSun" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -294,7 +330,7 @@ WHERE
 				<text><![CDATA[********************** Autenticação ***********************]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="0" y="10" width="183" height="11" forecolor="#000000" backcolor="#FFFFFF" uuid="198a9170-5336-4556-977a-d2a7554769c2"/>
+				<reportElement mode="Transparent" x="0" y="12" width="183" height="11" forecolor="#000000" backcolor="#FFFFFF" uuid="198a9170-5336-4556-977a-d2a7554769c2"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Arial" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>

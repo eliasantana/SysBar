@@ -384,7 +384,7 @@ public class ControlerFuncionario extends Funcionario {
             while (rs.next()){
                 garcom = rs.getString("nome");
             }
-            System.out.println("br.com.br.controler.ControlerFuncionario.retornaGarcom()" + garcom);
+            
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerFuncionario.retornaGarcom()");
         }

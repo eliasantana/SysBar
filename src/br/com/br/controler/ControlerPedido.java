@@ -97,7 +97,7 @@ public class ControlerPedido {
                 + "date_format(p.data,'%d/%m/%Y') AS 'DATA', \n"
                 + "p.status as 'SITUAÇÃO', \n"
                 + "p.id_pedido as 'N. PEDIDO',\n"
-                + "g.nome as 'Garçom' \n"
+                + "g.nome as 'GARÇOM' \n"
                 + "FROM cadpedido p \n"
                 + "INNER JOIN cadmesa m on m.id=p.cadmesa_id \n"
                 + "INNER JOIN tbcadfuncionario g on g.id = p.tbcadfuncionario_id\n"

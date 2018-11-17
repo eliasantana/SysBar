@@ -54,7 +54,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     Log l = new Log();
     Date data = new Date();
-    
+
     public TelaCaixa() {
         initComponents();
 
@@ -62,7 +62,6 @@ public class TelaCaixa extends javax.swing.JFrame {
         checkTxServico.setSelected(true);
         txtIdMEsa.setVisible(false);
         txtIdPedido.setVisible(true);
-        
 
         try {
 
@@ -155,6 +154,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblGarcom = new javax.swing.JLabel();
         btnImprimir = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jSpinFieldPessoas = new com.toedter.components.JSpinField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -330,13 +330,13 @@ public class TelaCaixa extends javax.swing.JFrame {
         checkDinheiro.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         checkDinheiro.setText("Dinheiro");
         painelDireito.add(checkDinheiro);
-        checkDinheiro.setBounds(250, 290, 90, 28);
+        checkDinheiro.setBounds(250, 290, 90, 29);
 
         buttonGroup1.add(checkCartao);
         checkCartao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         checkCartao.setText("Cartão");
         painelDireito.add(checkCartao);
-        checkCartao.setBounds(250, 260, 110, 28);
+        checkCartao.setBounds(250, 260, 110, 29);
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel10.setText("R$");
@@ -372,7 +372,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             }
         });
         painelDireito.add(checkTxServico);
-        checkTxServico.setBounds(30, 460, 190, 28);
+        checkTxServico.setBounds(30, 460, 190, 29);
 
         jLabel13.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         jLabel13.setText("Total Geral");
@@ -456,17 +456,17 @@ public class TelaCaixa extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Logout");
         painelDireito.add(jLabel3);
-        jLabel3.setBounds(290, 580, 130, 15);
+        jLabel3.setBounds(290, 580, 130, 14);
 
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Receber Pagamento");
         painelDireito.add(jLabel18);
-        jLabel18.setBounds(30, 580, 130, 15);
+        jLabel18.setBounds(30, 580, 130, 14);
 
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel24.setText("Fechar Caixa");
         painelDireito.add(jLabel24);
-        jLabel24.setBounds(170, 580, 130, 15);
+        jLabel24.setBounds(170, 580, 130, 14);
 
         jPanel2.setBackground(new java.awt.Color(52, 73, 94));
 
@@ -567,7 +567,6 @@ public class TelaCaixa extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario (2).png"))); // NOI18N
         jLabel4.setText("Contas a Pagar");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -611,10 +610,12 @@ public class TelaCaixa extends javax.swing.JFrame {
                                     .addComponent(comboMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(16, Short.MAX_VALUE))
+                        .addContainerGap(18, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSpinFieldPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addGap(39, 39, 39))))
@@ -653,8 +654,10 @@ public class TelaCaixa extends javax.swing.JFrame {
                         .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jSpinFieldPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -739,6 +742,16 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void lblReceberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReceberMouseClicked
         // Fecha pedido
+
+        // Calcula valor
+        int nPesoas = jSpinFieldPessoas.getValue();
+        if (nPesoas <= 0) {
+            nPesoas = 1;
+        }
+        Double totalGeral = Double.parseDouble(txtTotalGeral.getText().replaceAll(",", "."));
+        Double totalPessoas = totalGeral / nPesoas;
+        System.out.println(nPesoas);
+        
         // Instancia um produto
         Pedido p = new Pedido();
         p.setTotal(txtTotalGeral.getText().replaceAll(",", "."));
@@ -769,11 +782,11 @@ public class TelaCaixa extends javax.swing.JFrame {
                 // Pega a hora atual
                 String horaAtual = utils.formataDataHora(data, "h");
                 //Gera Autenticacao
-                String autentica = cp.autentica(func.localizaId(lblGarcom.getText()), comboMesa.getSelectedItem().toString(), txtIdPedido.getText(), dtAtual+"."+horaAtual);
+                String autentica = cp.autentica(func.localizaId(lblGarcom.getText()), comboMesa.getSelectedItem().toString(), txtIdPedido.getText(), dtAtual + "." + horaAtual);
                 p.setAutenticacao(autentica);
-                
+
                 cp.fechaPedido(p);
-                
+
                 //Início do Registro de log
                 l.setFuncionalidade("Recebimento");
                 l.setDescricao(l.getUsuario() + " Recebeu R$ " + p.getTotalPago() + " Pedido: " + txtIdPedido.getText() + " Comissão:" + p.getComissao());
@@ -793,6 +806,8 @@ public class TelaCaixa extends javax.swing.JFrame {
                 dados.put("titulo", "COMPROVANTE DE PAGAMENTO");
                 dados.put("tx", Double.parseDouble(txtTaxaServico.getText().replaceAll(",", ".")));
                 dados.put("id_pedido", p.getId());
+                dados.put("npessoas", nPesoas);
+                dados.put("total_pessoas", totalPessoas);
 
                 try {
                     JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "cupom.jasper", dados, conexao);
@@ -901,7 +916,14 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void btnImprimirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMouseClicked
         //Imprime cupom
-
+        // Calcula valor
+        int nPesoas = jSpinFieldPessoas.getValue();
+        if (nPesoas <= 0) {
+            nPesoas = 1;
+        }
+        Double totalGeral = Double.parseDouble(txtTotalGeral.getText().replaceAll(",", "."));
+        Double totalPessoas = totalGeral / nPesoas;
+        System.out.println(nPesoas);
         //Início do Registro de log
         l.setFuncionalidade("Imprimir");
         l.setDescricao(l.getUsuario() + "Imprimiu a parcial do pedido N." + txtIdPedido.getText() + " Comissão: " + txtTaxaServico.getText());
@@ -917,6 +939,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         dados.put("garcom", lblGarcom.getText());
         dados.put("titulo", "PARCIAL DE CONSUMO");
         dados.put("tx", Double.parseDouble(txtTaxaServico.getText().replaceAll(",", ".")));
+        dados.put("npessoas", nPesoas);
+        dados.put("total_pessoas", totalPessoas);
 
         try {
             JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "cupom.jasper", dados, conexao);
@@ -968,10 +992,10 @@ public class TelaCaixa extends javax.swing.JFrame {
                     Date dt = new Date();
                     param.put("data", df.format(dt));
                     param.put("id_perador", cx.getIdFuncionario());
-                    
+
                     // Troca imagem de status
                     caixa.statusCaixa(lblStatus, caixa.temMovimentacao(cx.getIdFuncionario()));
-                    
+
                     try {
 
                         JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "relMovimentacaoOperador.jasper", param, conexao);
@@ -995,8 +1019,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         TelaContasApagar contaApagar = new TelaContasApagar();
         contaApagar.recebeOperador(lblOperador.getText(), lblCargo.getText());
         contaApagar.setVisible(true);
-        
-       
+
 
     }//GEN-LAST:event_jLabel4MouseClicked
 
@@ -1013,17 +1036,16 @@ public class TelaCaixa extends javax.swing.JFrame {
         DefaultCategoryDataset ds = new DefaultCategoryDataset();
 
         try {
-            
+
             while (rs.next()) {
                 ds.setValue(rs.getDouble("entradas"), "Entradas", rs.getString("data"));
                 ds.setValue(rs.getDouble("saidas"), "Saídas", rs.getString("data"));
             }
-            
 
         } catch (SQLException e) {
             System.out.println("Não há movimentação a ser listada ");
         }
-        
+
         // Criando Gráfico de Barras'
         JFreeChart graficoBarras = ChartFactory.createBarChart("Movimentação Financeira", "Período", "Movimentação em R$", ds, PlotOrientation.VERTICAL, true, true, false);
         // Cria e recebe a categoria de plotagem do gráfico de barras
@@ -1036,9 +1058,9 @@ public class TelaCaixa extends javax.swing.JFrame {
         // Cria janela do gráfico
         ChartFrame frame = new ChartFrame("Gráfico Movimentação do Período", graficoBarras);
         // Define a dimensão do gráfico
-        frame.setSize(800,600);
+        frame.setSize(800, 600);
         //
-        
+
         frame.setVisible(true);
 
     }//GEN-LAST:event_btnGraficoMouseClicked
@@ -1046,8 +1068,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
         l.setUsuario(operador);
-        String id =  func.localizaIdLogin(operador);           
-        caixa.statusCaixa(lblStatus,caixa.temMovimentacao(Integer.parseInt(id)));
+        String id = func.localizaIdLogin(operador);
+        caixa.statusCaixa(lblStatus, caixa.temMovimentacao(Integer.parseInt(id)));
     }
 
     public void limpaForm() {
@@ -1133,6 +1155,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private com.toedter.components.JSpinField jSpinFieldPessoas;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblEntradas;
     private javax.swing.JLabel lblGarcom;

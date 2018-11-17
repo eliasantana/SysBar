@@ -175,7 +175,7 @@ public class ControlerMesa {
     // Lista as mesas livres do garçom selecionado
     public ResultSet listaMesaLivre(String idGarcom) {
 
-        String sql = "SELECT numero_mesa FROM cadmesa WHERE status='0' AND tbCadFuncionario_id=?";
+        String sql = "SELECT numero_mesa AS 'Mesas Disponíveis' FROM cadmesa WHERE status='0' AND tbCadFuncionario_id=?";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, idGarcom);
