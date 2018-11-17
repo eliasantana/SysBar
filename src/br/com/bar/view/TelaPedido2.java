@@ -5,13 +5,18 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.model.Grupo;
 import br.com.bar.model.Pedido;
 import br.com.bar.model.Produto;
+import br.com.bar.model.ProdutoPedido;
 import br.com.bar.util.Util;
+import br.com.br.controler.ControlerEstoque;
 import br.com.br.controler.ControlerFuncionario;
+import br.com.br.controler.ControlerGrupo;
 import br.com.br.controler.ControlerMesa;
 import br.com.br.controler.ControlerPedido;
 import br.com.br.controler.ControlerProduto;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
@@ -22,16 +27,21 @@ import net.proteanit.sql.DbUtils;
  * @author elias
  */
 public class TelaPedido2 extends javax.swing.JFrame {
+
     ControlerFuncionario cFunc = new ControlerFuncionario();
     ControlerMesa cm = new ControlerMesa();
     ControlerPedido cp = new ControlerPedido();
     ControlerProduto cproduto = new ControlerProduto();
+    ControlerEstoque est = new ControlerEstoque();
+    ControlerGrupo cg = new ControlerGrupo();
+
     Util u = new Util();
+
     /**
      * Creates new form TelaPedido2
      */
     public TelaPedido2() {
-        
+
         initComponents();
         cFunc.carregaComboFuncionario(comboGarcom, "Garçom");
         tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos()));
@@ -40,6 +50,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         txtPesquisa.setVisible(false);
         Calendar c = Calendar.getInstance();
         lblData.setText(u.formataDataBr(c.getTime()));
+       bloqueiaCampos();
     }
 
     /**
@@ -85,6 +96,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         lbltotal = new javax.swing.JLabel();
         txtNumeroPedido = new javax.swing.JTextField();
+        lblMensagem = new javax.swing.JLabel();
+        lblData1 = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -127,7 +140,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         txtIdGarcom.setText("idGarcom");
         getContentPane().add(txtIdGarcom);
-        txtIdGarcom.setBounds(230, 20, 50, 30);
+        txtIdGarcom.setBounds(820, 60, 50, 30);
 
         tblNumeroMesa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblNumeroMesa.setModel(new javax.swing.table.DefaultTableModel(
@@ -172,7 +185,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         txtIdMesa.setText("idMesa");
         getContentPane().add(txtIdMesa);
-        txtIdMesa.setBounds(350, 20, 50, 30);
+        txtIdMesa.setBounds(820, 140, 50, 30);
 
         jLabel2.setText("Garçom");
         getContentPane().add(jLabel2);
@@ -297,14 +310,13 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15))
+                        .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblCodigo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -346,13 +358,20 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jPanel2.setBounds(550, 60, 250, 70);
 
         lblData.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
+        lblData.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblData.setText("jLabel3");
         getContentPane().add(lblData);
-        lblData.setBounds(640, 10, 158, 48);
+        lblData.setBounds(670, 10, 200, 48);
 
         lblPesquisa.setText("Pesquisar Produto");
         getContentPane().add(lblPesquisa);
         lblPesquisa.setBounds(220, 240, 120, 14);
+
+        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisaKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtPesquisa);
         txtPesquisa.setBounds(340, 230, 180, 30);
 
@@ -378,17 +397,28 @@ public class TelaPedido2 extends javax.swing.JFrame {
         getContentPane().add(jPanel3);
         jPanel3.setBounds(550, 140, 250, 80);
 
-        txtNumeroPedido.setText("idMesa");
+        txtNumeroPedido.setText("nPedido");
         getContentPane().add(txtNumeroPedido);
-        txtNumeroPedido.setBounds(290, 20, 50, 30);
+        txtNumeroPedido.setBounds(820, 100, 50, 30);
 
-        setSize(new java.awt.Dimension(920, 552));
+        lblMensagem.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
+        lblMensagem.setText("jLabel3");
+        getContentPane().add(lblMensagem);
+        lblMensagem.setBounds(210, 510, 580, 48);
+
+        lblData1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
+        lblData1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblData1.setText("Lançamento de Pedido");
+        getContentPane().add(lblData1);
+        lblData1.setBounds(220, 10, 470, 48);
+
+        setSize(new java.awt.Dimension(920, 599));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboGarcomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboGarcomActionPerformed
-        
-        
+
+
     }//GEN-LAST:event_comboGarcomActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
@@ -401,9 +431,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
     private void btnAbrirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirPedidoActionPerformed
         // Abre pedido
-        if (cp.temPedido(txtIdMesa.getText())){
-                        JOptionPane.showMessageDialog(null, "Esta mesa já possui um pedido escolha outra!");
-        }else {
+        if (cp.temPedido(txtIdMesa.getText())) {
+            JOptionPane.showMessageDialog(null, "Esta mesa já possui um pedido escolha outra!");
+        } else {
             Pedido p = new Pedido();
             p.setCadMesaId(txtIdMesa.getText());
             String dataAtual = cp.myDataAtual();
@@ -411,16 +441,16 @@ public class TelaPedido2 extends javax.swing.JFrame {
             p.setStatus("0"); // Pedido Aberto
             p.setIdFuncionario(txtIdGarcom.getText());
             //p.setId_pedido(txtNumeroPedido.getText());
-            
+
             int op = JOptionPane.showConfirmDialog(null, "Confirma a abertura do Pedido?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-            
+
             if (op == JOptionPane.YES_OPTION) {
 
                 if (cp.geraPedido(p)) {
                     int linha = tblNumeroMesa.getSelectedRow();
                     String numero_mesa = tblNumeroMesa.getModel().getValueAt(linha, 0).toString();
                     JOptionPane.showMessageDialog(null, "Pedido Gerado!");
-                    
+
                     tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos()));
                     cm.trocaStatusMesa(numero_mesa, "1");
                     tblNumeroMesa.setModel(DbUtils.resultSetToTableModel(cm.listaMesaLivre(txtIdGarcom.getText())));
@@ -448,6 +478,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
         String numPedido = tblPedidosAbertos.getModel().getValueAt(linha, 3).toString();
         tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(numeroMesa, numPedido)));
         txtNumeroPedido.setText(numPedido);
+        txtIdGarcom.setText(cFunc.localizaId(tblPedidosAbertos.getModel().getValueAt(linha, 4).toString()));
+        txtIdMesa.setText(cm.localizaIdMesa(numeroMesa));
+        txtCodigoProduto.setEnabled(true);
+        txtQtd.setEnabled(true);
+        txtCodigoProduto.requestFocus();
+
     }//GEN-LAST:event_tblPedidosAbertosMouseClicked
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
@@ -490,32 +526,110 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private void txtQtdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtQtdMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_txtQtdMouseClicked
-
+    // Calcula o total da venda 
     private void txtQtdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQtdKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-            lbltotal.setText(String.format("%7.2f",calculaPedido()));
+        // Verifica se a tecla pressionada é a tecla enter
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                // Caso a quantidade não seja informada pede ao usuário que digite novamente!
+                if (txtQtd.getText().isEmpty()) {
+                    lblMensagem.setText("Quantidade inválida!");
+                    lblMensagem.setForeground(Color.red);
+                    txtQtd.requestFocus();
+
+                } else {
+                   
+                    
+                    lbltotal.setText(String.format("%7.2f", calculaPedido()));
+                    lblMensagem.setText(null);
+
+                    // Verifica se o pedido foi selecionado
+                    if (txtNumeroPedido.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Por favor selecione um pedido!");
+                    } else {
+                        // Confirma pedido
+                        int op = JOptionPane.showConfirmDialog(null, "Confirma a inclusão do produto? \n " + lblProduto.getText(), "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+
+                        if (op == JOptionPane.YES_OPTION) {
+                            // Instancia um objeto Produto Pedido
+                            ProdutoPedido pp = new ProdutoPedido();
+                            // Seta dados no objeto
+                            pp.setTbproduto_id(txtCodigoProduto.getText());
+                            pp.setQtd(txtQtd.getText());
+                            pp.setValorUnit(lblValor.getText().replaceAll(",", "."));
+                            pp.setTotal(lbltotal.getText().replaceAll(",", "."));
+                            pp.setData(cp.myDataAtual());
+                            pp.setCadmesa_id(txtIdMesa.getText());
+                            pp.setCadpedido_id_pedido(txtNumeroPedido.getText());
+                            pp.setTbcadfuncionario_id(txtIdGarcom.getText());
+
+                            ControlerEstoque ec = new ControlerEstoque();
+
+                            if (ec.temNoEstoque(pp.getTbproduto_id())) {
+                                // Adiciona o produto ao pedido     
+                                cproduto.adicionaProdutoAoPedido(pp);
+                                
+                                // Retira o produto do estoque
+                                ec.retiraEstoque(pp, pp.getQtd());
+
+                                // Registra movimentação 
+                                if (est.registraMovimentacao(pp.getTbproduto_id(), pp.getQtd(), "2", null)) {
+                                    System.out.println("Movimentação registrada!");
+                                }
+                                // Limpa label de mensagem de produto indisponível 
+                                lblMensagem.setText(null);
+                                limpaform();
+                                bloqueiaCampos();
+
+                            } else {
+                                // Exibe mensagem de produto indisponpivel no momento
+                                lblMensagem.setForeground(Color.red);
+                                lblMensagem.setText(lblProduto.getText() + " indisponível!");
+                                txtCodigoProduto.requestFocus();
+                                txtCodigoProduto.setText(null);
+                                txtQtd.setText(null);
+                            }
+
+                            
+                            tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(txtIdMesa.getText(), txtNumeroPedido.getText())));
+                        }
+
+                    }
+                }
+            } catch (Exception e) {
+                lblMensagem.setText("Quantidade inválida tente novamente!");
+                lblMensagem.setOpaque(false);
+                lblMensagem.setForeground(Color.red);
+                txtQtd.requestFocus();
+            }
+
         }
     }//GEN-LAST:event_txtQtdKeyPressed
 
     private void tblListaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaProdutoMouseClicked
         // Carega dados do produto
         int linha = tblListaProduto.getSelectedRow();
-        txtCodigoProduto.setText(tblListaProduto.getModel().getValueAt(linha, 0).toString());        
+        txtCodigoProduto.setText(tblListaProduto.getModel().getValueAt(linha, 0).toString());
         lblProduto.setText(tblListaProduto.getModel().getValueAt(linha, 1).toString());
         lblValor.setText(tblListaProduto.getModel().getValueAt(linha, 3).toString());
         txtQtd.requestFocus();
-        
-                
-        
+
+
     }//GEN-LAST:event_tblListaProdutoMouseClicked
 
-    private  double calculaPedido(){
+    private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
+        // Lista o produto localizado pelas inicias do nome
+        tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.pesquisarProduto(txtPesquisa.getText())));
+    }//GEN-LAST:event_txtPesquisaKeyReleased
+
+    private double calculaPedido() {
         double valor = Double.parseDouble(lblValor.getText().replaceAll(",", "."));
         int qtd = Integer.parseInt(txtQtd.getText());
         double total = valor * qtd;
-        
+
         return total;
     }
+
     /**
      * @param args the command line arguments
      */
@@ -571,6 +685,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblData;
+    private javax.swing.JLabel lblData1;
+    private javax.swing.JLabel lblMensagem;
     private javax.swing.JLabel lblPesquisa;
     private javax.swing.JLabel lblProduto;
     private javax.swing.JLabel lblQtd;
@@ -587,4 +703,19 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JTextField txtPesquisa;
     private javax.swing.JTextField txtQtd;
     // End of variables declaration//GEN-END:variables
+
+    private void limpaform() {
+        txtCodigoProduto.setText(null);
+        lblProduto.setText(null);
+        lblValor.setText(null);
+        txtQtd.setText(null);  
+        lbltotal.setText(null);
+       
+       
+    }
+
+    private void bloqueiaCampos() {
+        txtCodigoProduto.setEnabled(false);
+        txtQtd.setEnabled(false);
+    }
 }

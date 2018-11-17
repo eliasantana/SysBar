@@ -74,6 +74,7 @@ public class ControlerProduto {
         }
         return rs;
     }
+
     public ResultSet listaProdutoDisponivel() {
 
         String sql = "SELECT \n"
@@ -83,11 +84,12 @@ public class ControlerProduto {
                 + "	p.valor as 'VALOR',\n"
                 + "	g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
-                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id";
+                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id "
+                + "WHERE p.qtd > 0";
 
         try {
             pst = conexao.prepareStatement(sql);
-            
+
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
@@ -102,17 +104,16 @@ public class ControlerProduto {
                 + "FROM dbbar.detalhe_mesa dtm\n"
                 + "INNER JOIN tbproduto p on p.id=dtm.tbproduto_id \n"
                 + "group by p.nome";
-        
+
         try {
-            
-            pst=conexao.prepareStatement(sql);
-            rs=pst.executeQuery();
-            
+
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+
         } catch (SQLException e) {
             System.out.println("Erro rankingProdutosVendidos");
         }
-        
-        
+
         return rs;
     }
 
@@ -371,6 +372,25 @@ public class ControlerProduto {
             System.out.println("br.com.br.controler.ControlerProduto.reajusteGrupoProduto()" + e);
         }
 
+    }
+
+    public ResultSet pesquisarProduto(String nome) {
+        
+        String sql = "SELECT p.id as 'ID', p.nome as 'PRODUTO', p.qtd as 'QTD',  p.valor as 'VALOR', g.nome as 'GRUPO'\n"
+                + "FROM tbproduto p\n"
+                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id\n"
+                + "WHERE p.nome LIKE ? AND p.qtd > 0 ";
+        
+        try {
+             pst=conexao.prepareStatement(sql);
+             pst.setString(1, nome+"%");
+             rs=pst.executeQuery();
+             
+        } catch (Exception e) {
+            System.out.println("br.com.br.controler.ControlerProduto.pesquisarProduto()" + e);
+        }
+        return rs;
+    
     }
 
 }
