@@ -275,7 +275,7 @@ public class ControlerPedido {
     // Envia um produto para a cozinha
     public void enviaProdutoCozinha(ArrayList<String> produtoCozinha) {
 
-        String sql = "INSERT INTO tbcozinha (codProduto, produto, qtd, funcionario, mesa, data, status) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO tbcozinha (codProduto, produto, qtd, funcionario, mesa, data, status, npedido) VALUES (?,?,?,?,?,?,?,?)";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -287,6 +287,7 @@ public class ControlerPedido {
             pst.setString(5, produtoCozinha.get(4));
             pst.setString(6, produtoCozinha.get(5));
             pst.setString(7, produtoCozinha.get(6));
+            pst.setString(8, produtoCozinha.get(7));
 
             pst.executeUpdate();
 

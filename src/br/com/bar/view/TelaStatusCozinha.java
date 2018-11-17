@@ -26,7 +26,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
     public void recebeOperador(String operador) {
          lblGarcom.setText(operador.toUpperCase());
         ControlerCozinha status = new ControlerCozinha();
-        tblStatus.setModel(DbUtils.resultSetToTableModel(status.statusCozinha(lblGarcom.getText())));
+        tblStatus.setModel(DbUtils.resultSetToTableModel(status.statusCozinha(operador)));
     }
 
     /**
@@ -120,7 +120,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         lblGarcom.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
         lblGarcom.setText("jLabel2");
         getContentPane().add(lblGarcom);
-        lblGarcom.setBounds(10, 120, 190, 40);
+        lblGarcom.setBounds(10, 120, 380, 40);
 
         setSize(new java.awt.Dimension(406, 362));
         setLocationRelativeTo(null);

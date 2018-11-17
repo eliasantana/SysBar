@@ -19,6 +19,7 @@ import br.com.br.controler.ControlerProduto;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -54,6 +55,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
         Calendar c = Calendar.getInstance();
         lblData.setText(u.formataDataBr(c.getTime()));
         bloqueiaCampos();
+        txtIdGarcom.setVisible(false);
+        txtIdMesa.setVisible(false);
+        txtNumeroPedido.setVisible(false);
+        txtNumeroMesa.setVisible(false);
+        
 
     }
 
@@ -105,6 +111,10 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         comboGarcom = new javax.swing.JComboBox<>();
         btnListar = new javax.swing.JButton();
+        txtNumeroMesa = new javax.swing.JTextField();
+        panelFechar = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        btnCozinha = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -135,6 +145,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jScrollPane5.setViewportView(jTable2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
         getContentPane().setLayout(null);
 
         txtIdGarcom.setText("idGarcom");
@@ -220,6 +232,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         ));
         tblDetalhePedido.setRowHeight(25);
+        tblDetalhePedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDetalhePedidoMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblDetalhePedido);
 
         jTabbedPane.addTab("Detalhe Pedido", jScrollPane3);
@@ -446,7 +463,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblData2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblData2.setText("Sys Bar - Lançamento de Pedido");
         getContentPane().add(lblData2);
-        lblData2.setBounds(200, 10, 870, 48);
+        lblData2.setBounds(200, 10, 740, 48);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Garçom")));
 
@@ -488,7 +505,47 @@ public class TelaPedido2 extends javax.swing.JFrame {
         getContentPane().add(jPanel5);
         jPanel5.setBounds(200, 60, 230, 160);
 
-        setSize(new java.awt.Dimension(1084, 625));
+        txtNumeroMesa.setText("nMesa");
+        getContentPane().add(txtNumeroMesa);
+        txtNumeroMesa.setBounds(1010, 180, 50, 30);
+
+        panelFechar.setBackground(new java.awt.Color(52, 73, 94));
+        panelFechar.setForeground(new java.awt.Color(52, 73, 94));
+        panelFechar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelFecharMouseClicked(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("X");
+
+        javax.swing.GroupLayout panelFecharLayout = new javax.swing.GroupLayout(panelFechar);
+        panelFechar.setLayout(panelFecharLayout);
+        panelFecharLayout.setHorizontalGroup(
+            panelFecharLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+        panelFecharLayout.setVerticalGroup(
+            panelFecharLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(panelFechar);
+        panelFechar.setBounds(1020, 0, 50, 50);
+
+        btnCozinha.setText("Status Cozinha");
+        btnCozinha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCozinhaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCozinha);
+        btnCozinha.setBounds(440, 230, 270, 40);
+
+        setSize(new java.awt.Dimension(1068, 586));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -551,6 +608,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Selciona um pedido
         int linha = tblPedidosAbertos.getSelectedRow();
         String numeroMesa = tblPedidosAbertos.getModel().getValueAt(linha, 0).toString();
+        txtNumeroMesa.setText(numeroMesa);
         String numPedido = tblPedidosAbertos.getModel().getValueAt(linha, 3).toString();
         tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(numeroMesa, numPedido)));
         txtNumeroPedido.setText(numPedido);
@@ -559,7 +617,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         txtCodigoProduto.setEnabled(true);
         txtQtd.setEnabled(true);
         txtCodigoProduto.requestFocus();
-
+        comboGarcom.setSelectedItem(tblPedidosAbertos.getModel().getValueAt(linha, 4).toString());
     }//GEN-LAST:event_tblPedidosAbertosMouseClicked
 
     private void jTabbedPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPaneMouseClicked
@@ -701,6 +759,45 @@ public class TelaPedido2 extends javax.swing.JFrame {
         tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
     }//GEN-LAST:event_txtPesquisaFocusGained
 
+    private void tblDetalhePedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetalhePedidoMouseClicked
+        // Envia porduto para a cozinha
+        int linha = tblDetalhePedido.getSelectedRow();
+
+        ArrayList<String> pCozinha = new ArrayList<>();
+
+        //codProduto, produto, qtd, funcionario, mesa, data, status
+        pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 1).toString()); // Código Produto
+        pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 0).toString()); // Produto
+        pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 2).toString()); // Qtd         
+        pCozinha.add(comboGarcom.getSelectedItem().toString()); // Nome do Funcionario
+        pCozinha.add(txtNumeroMesa.getText()); // Numero da mesa
+        pCozinha.add(cp.myDataAtual()); // Data Atual 
+        pCozinha.add("Pendente"); // Status Pendente - Liberado
+        pCozinha.add(txtNumeroPedido.getText());
+
+        if (evt.getButton() == 3) {
+
+            int op = JOptionPane.showConfirmDialog(null, "Enviar o prato \n" + pCozinha.get(1) + "Para a cozinha?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+
+            if (op == JOptionPane.YES_OPTION) {
+
+                cp.enviaProdutoCozinha(pCozinha);
+
+            }
+        }
+    }//GEN-LAST:event_tblDetalhePedidoMouseClicked
+
+    private void btnCozinhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCozinhaActionPerformed
+        TelaStatusCozinha status = new TelaStatusCozinha();
+        status.recebeOperador(comboGarcom.getSelectedItem().toString());
+        status.setVisible(true);
+    }//GEN-LAST:event_btnCozinhaActionPerformed
+
+    private void panelFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelFecharMouseClicked
+        // Fecha a janela atual
+        this.dispose();
+    }//GEN-LAST:event_panelFecharMouseClicked
+
     private double calculaPedido() {
         double valor = Double.parseDouble(lblValor.getText().replaceAll(",", "."));
         int qtd = Integer.parseInt(txtQtd.getText());
@@ -746,9 +843,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbrirPedido;
+    private javax.swing.JButton btnCozinha;
     private javax.swing.JButton btnListar;
     private javax.swing.JComboBox<String> comboGarcom;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -774,6 +873,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JLabel lblQtd;
     private javax.swing.JLabel lblValor;
     private javax.swing.JLabel lbltotal;
+    private javax.swing.JPanel panelFechar;
     private javax.swing.JTable tblDetalhePedido;
     private javax.swing.JTable tblListaProduto;
     private javax.swing.JTable tblNumeroMesa;
@@ -781,6 +881,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JTextField txtCodigoProduto;
     private javax.swing.JTextField txtIdGarcom;
     private javax.swing.JTextField txtIdMesa;
+    private javax.swing.JTextField txtNumeroMesa;
     private javax.swing.JTextField txtNumeroPedido;
     private javax.swing.JTextField txtPesquisa;
     private javax.swing.JTextField txtQtd;

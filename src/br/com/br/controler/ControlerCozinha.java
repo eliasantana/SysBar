@@ -89,47 +89,59 @@ public class ControlerCozinha {
 
         return false;
     }
+
+    // Retorna a lista dos produtos enviados para a cozinha pelo operador garçom
     
-    // Retorna os pedidos pendentes do operador informado no parâmetro do método
-     public ResultSet statusCozinha(String operador ){
+    public ResultSet statusCozinha(String operador) {
+        /*
+        String sql = "SELECT "
+                + "produto as 'PRODUTO', "
+                + "qtd as 'QTD', "
+                + "mesa as 'N. MESA', "
+                + "status as 'STATUS'"
+                + "FROM "
+                + "dbbar.tbcozinha where funcionario=? and status='pendente';";
+        */
+        // Listas os pratos enviados a cozinha pelo garçom
+        String sql = "SELECT\n"
+                + "produto as 'PRODUTO', \n"
+                + "qtd as 'QTD', \n"
+                + "mesa as 'N. MESA', \n"
+                + "status as 'STATUS',\n"
+                + "npedido as 'N.PEDIDO'\n"
+                + "FROM \n"
+                + "dbbar.tbcozinha where funcionario=? and data=curdate()\n"
+                + "ORDER BY id asc;";
         
-         String sql="SELECT "
-                 + "produto as 'PRODUTO', "
-                 + "qtd as 'QTD', "
-                 + "mesa as 'N. MESA', "
-                 + "status as 'STATUS'"
-                 + "FROM "
-                 + "dbbar.tbcozinha where funcionario=? and status='pendente';";
-         
-         try {
-            pst=conexao.prepareStatement(sql);
+        try {
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, operador);
-            rs=pst.executeQuery();
-            
+            rs = pst.executeQuery();
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "erroStatusCozinha"+e);
+            JOptionPane.showMessageDialog(null, "erroStatusCozinha" + e);
         }
-         
-         return rs;
+
+        return rs;
     }
-     
-     public int pratoPendente(){
-         
-         int qtd=0;
-         String sql="SELECT * FROM dbbar.tbcozinha where status='pendente'";
-         
-         try {
-            pst=conexao.prepareStatement(sql);
-            rs=pst.executeQuery();
-                        
-            while (rs.next()){
-                qtd = qtd+1;
+
+    public int pratoPendente() {
+
+        int qtd = 0;
+        String sql = "SELECT * FROM dbbar.tbcozinha where status='pendente'";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                qtd = qtd + 1;
             }
-             
-         } catch (SQLException e) {
-             System.out.println("br.com.br.controler.ControlerCozinha.pratoPendente()");
-         }
-         
-         return  qtd;
-     }
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCozinha.pratoPendente()");
+        }
+
+        return qtd;
+    }
 }
