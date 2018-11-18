@@ -279,6 +279,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtQtdMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtQtdMouseEntered(evt);
+            }
         });
         txtQtd.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -797,6 +800,10 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Fecha a janela atual
         this.dispose();
     }//GEN-LAST:event_panelFecharMouseClicked
+
+    private void txtQtdMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtQtdMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQtdMouseEntered
 
     private double calculaPedido() {
         double valor = Double.parseDouble(lblValor.getText().replaceAll(",", "."));

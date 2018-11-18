@@ -63,6 +63,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         txtIdMEsa.setVisible(false);
         txtIdPedido.setVisible(false);
 
+        
+        
         try {
 
             lblSaídas.setText("R$ " + String.format("%9.2f", caixa.totalizaSaida(lblOperador.getText())));
@@ -87,6 +89,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         double saldo = caixa.totalizaEntradas(lblOperador.getText()) - caixa.totalizaSaida(lblOperador.getText());
 
         lblSaldo.setText("RS" + String.format("%9.2f", saldo));
+        
+        
     }
 
     /**
@@ -134,7 +138,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         btnFecharCaixa = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        lblReceberPAgamento = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnFechar = new javax.swing.JLabel();
@@ -459,10 +463,10 @@ public class TelaCaixa extends javax.swing.JFrame {
         painelDireito.add(jLabel3);
         jLabel3.setBounds(290, 580, 130, 14);
 
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("Receber Pagamento");
-        painelDireito.add(jLabel18);
-        jLabel18.setBounds(30, 580, 130, 14);
+        lblReceberPAgamento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblReceberPAgamento.setText("Receber Pagamento");
+        painelDireito.add(lblReceberPAgamento);
+        lblReceberPAgamento.setBounds(30, 580, 130, 14);
 
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel24.setText("Fechar Caixa");
@@ -1076,6 +1080,10 @@ public class TelaCaixa extends javax.swing.JFrame {
         l.setUsuario(operador);
         String id = func.localizaIdLogin(operador);
         caixa.statusCaixa(lblStatus, caixa.temMovimentacao(Integer.parseInt(id)));
+        if ("Caixa Fechado".equals(lblStatus.getText())){
+            lblReceber.setVisible(false);
+            lblReceberPAgamento.setVisible(false);
+        }
     }
 
     public void limpaForm() {
@@ -1143,7 +1151,6 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -1168,6 +1175,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel lblGarcom;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblReceber;
+    private javax.swing.JLabel lblReceberPAgamento;
     private javax.swing.JLabel lblSaldo;
     private javax.swing.JLabel lblSaídas;
     private javax.swing.JLabel lblStatus;

@@ -269,6 +269,7 @@ public class ControlerCaixa {
         if (status){
             label.setIcon(new ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCancel.png")));
             label.setText("Caixa Fechado");
+            
         }else {
             label.setIcon(new ImageIcon(getClass().getResource("/br/com/bar/imagens/btnOk.png")));
             label.setText("Caixa Aberto");
