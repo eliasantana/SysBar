@@ -45,7 +45,7 @@ public class ConexaoBd {
           String password="202649";
          
         
-        Connection conexao = null;
+          Connection conexao = null;
         
 
         // Informa os dados registrados no arquivo de parâmetro
