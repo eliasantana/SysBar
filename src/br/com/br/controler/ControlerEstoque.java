@@ -107,12 +107,14 @@ public class ControlerEstoque {
 
     /*
         Verifica se o produto inserido possui quantidade em estoque.
+        e retor sua quantidade.
      */
-    public boolean temNoEstoque(String id) {
+    
+    public int temNoEstoque(String id) {
 
         String sql = "SELECT * FROM dbbar.tbproduto WHERE id=?";
         boolean tem = false;
-
+        int qtd=0;
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, id);
@@ -121,6 +123,9 @@ public class ControlerEstoque {
             while (rs.next()) {
 
                 tem = rs.getInt("qtd") > 0;
+                if (tem){
+                  qtd = rs.getInt("qtd");
+                }
 
             }
 
@@ -128,7 +133,7 @@ public class ControlerEstoque {
             System.out.println("br.com.br.controler.EstoqueControler.temNoEstoque()" + e);
         }
 
-        return tem;
+        return qtd;
     }
 
     // Carrega os tipos de movimentação

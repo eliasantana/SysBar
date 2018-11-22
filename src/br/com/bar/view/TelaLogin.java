@@ -67,6 +67,10 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         txtLogin = new javax.swing.JTextField();
         txtSenha = new javax.swing.JPasswordField();
@@ -87,7 +91,6 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Identificação do Usuário");
         jPanel1.add(jLabel7);
         jLabel7.setBounds(40, 260, 230, 30);
@@ -95,6 +98,26 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
         jPanel1.add(jLabel3);
         jLabel3.setBounds(60, 80, 160, 190);
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("1.1.10");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(40, 320, 170, 20);
+
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("TechSys  ");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(20, 370, 240, 20);
+
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Versão");
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(40, 300, 170, 20);
+
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Software Licenciado para: [EMPRESA]");
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(20, 340, 230, 20);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 300, 430);
@@ -178,7 +201,6 @@ public class TelaLogin extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("X");
         jPanel3.add(jLabel5);
 
@@ -194,7 +216,7 @@ public class TelaLogin extends javax.swing.JFrame {
         lblMsg.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblMsg.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.add(lblMsg);
-        lblMsg.setBounds(50, 380, 250, 30);
+        lblMsg.setBounds(50, 370, 250, 30);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(290, 0, 320, 430);
@@ -380,11 +402,15 @@ public class TelaLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
