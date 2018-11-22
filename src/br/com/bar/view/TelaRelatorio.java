@@ -1,5 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ * Esta tela é responsável por exibir os relatórios na tela do sistema
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -19,10 +19,12 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import br.com.bar.dao.Log;
+import java.util.Calendar;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author elias
+ * @author Elias Santana
  */
 public class TelaRelatorio extends javax.swing.JFrame {
 
@@ -35,11 +37,12 @@ public class TelaRelatorio extends javax.swing.JFrame {
      * Creates new form TelaRelatorio
      */
     public TelaRelatorio() {
+
         initComponents();
         f.carregaComboCargo(comboCargos);
-
-        //dataInicio.setDate(dt);
-        //dataFim.setDate(dt);
+        Calendar c = Calendar.getInstance();
+        dataInicio.setDate(c.getTime());
+        dataFim.setDate(c.getTime());
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -107,30 +110,25 @@ public class TelaRelatorio extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Relatórios");
         jPanel1.add(jLabel1);
         jLabel1.setBounds(110, 40, 147, 48);
 
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Usuário");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(280, 50, 49, 15);
+        jLabel6.setBounds(280, 50, 49, 14);
 
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Cargo");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(280, 80, 49, 15);
+        jLabel7.setBounds(280, 80, 49, 14);
 
-        lblcargo.setForeground(new java.awt.Color(0, 0, 0));
         lblcargo.setText("cargo");
         jPanel1.add(lblcargo);
-        lblcargo.setBounds(340, 80, 80, 15);
+        lblcargo.setBounds(340, 80, 80, 14);
 
-        lblUsuario.setForeground(new java.awt.Color(0, 0, 0));
         lblUsuario.setText("usuario");
         jPanel1.add(lblUsuario);
-        lblUsuario.setBounds(340, 50, 80, 15);
+        lblUsuario.setBounds(340, 50, 80, 14);
 
         jPanel6.setBackground(new java.awt.Color(91, 91, 95));
 
@@ -348,7 +346,7 @@ public class TelaRelatorio extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Relatórios Financeiros"))));
 
         comboFinanceiro.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        comboFinanceiro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Relatório de Comissão Sitético", "Relatório de Comissão Análitico", "Contas Vencidas", "Contas a Vencer", "Contas Pagas", "Relatório de Caixa - Diário" }));
+        comboFinanceiro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Relatório de Comissão Sitético", "Relatório de Comissão Análitico", "Contas Vencidas", "Contas a Vencer", "Relatório de Saídas", "Relatório de Entradas" }));
 
         btnOKFinanceiro.setText("OK");
         btnOKFinanceiro.addActionListener(new java.awt.event.ActionListener() {
@@ -575,8 +573,10 @@ public class TelaRelatorio extends javax.swing.JFrame {
         HashMap datas = new HashMap();
         HashMap dtGeral = new HashMap();
         String dtInicio = cap.myData(dataInicio);
-        String dtFim = cap.myData(dataFim);
 
+        String dtFim = cap.myData(dataFim);
+        System.out.println(dtInicio);
+        System.out.println(dtFim);
         //datas.put("dtInicio", dtInicio);
         //datas.put("dtFim", dtFim);
         ReportUtil rpu = new ReportUtil();
@@ -642,15 +642,14 @@ public class TelaRelatorio extends javax.swing.JFrame {
                     System.out.println("Erro ao abrir relatório de contas a vencer");
                 }
                 break;
-            case 4:
+            case 4: // Imprime relatóriode de Saída de caixa / Despesas
                 try {
-
+                    
                     HashMap periodo = new HashMap();
-                    periodo.put("inicio", dtInicio);
-                    periodo.put("fim", dtFim);
-
-                    JasperPrint print = JasperFillManager.fillReport("c:/sysbar/rel/relContasPagas.jasper", periodo, conexao);
-                    JasperViewer.viewReport(print, false);
+                    periodo.put("dt_inicio", dtInicio);
+                    periodo.put("dt_fim", dtFim);
+                                        
+                    rpu.imprimiRelatorioTela("Saidas.jasper", periodo);
                     // Início do registro de Log
 
                     l.setFuncionalidade("Relatório");
@@ -662,16 +661,33 @@ public class TelaRelatorio extends javax.swing.JFrame {
                     System.out.println("Erro ao abrir relatório de contas pagas");
                 }
                 break;
-            case 5: // Relatório financeiro - Parcial
+            case 5:
+                /*
+                 * Relatório de Fechamento Entradas
+                 * 
+                 */
+
+                // Instancia classe responsável pela impressão do relatório
+                ReportUtil reportUtil = new ReportUtil();
+                // Instancia HashMap de parâmetros
+                HashMap map = new HashMap();
+                map.put("inicio", dtInicio);
+                map.put("fim", dtFim);
 
                 try {
-                    JasperPrint print = JasperFillManager.fillReport("c:/sysbar/rel/relFechamentoCaixa.jasper", null, conexao);
-                    JasperViewer.viewReport(print, false);
-                } catch (JRException e) {
-                    System.out.println("br.com.bar.view.TelaRelatorio.btnOKFinanceiroActionPerformed()" + e);
+                    /*
+                    O metodo imprimiRelatorioTela abre o relatório informado
+                    caso não haja movimentação de saída no dia ele abrirá o relatório de caixa 2
+                    que relaciona apenas as entradas do dia.
+                     */
+                    reportUtil.imprimiRelatorioTela("relCaixa.jasper", map);
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Você ainda não possui movimentação!");
                 }
 
                 break;
+           
         }
 
 

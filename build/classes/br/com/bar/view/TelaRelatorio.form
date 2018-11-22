@@ -63,9 +63,6 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Yu Gothic UI Light" size="36" style="0"/>
             </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
           </Properties>
           <Constraints>
@@ -76,9 +73,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
           </Properties>
           <Constraints>
@@ -89,9 +83,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Cargo"/>
           </Properties>
           <Constraints>
@@ -102,9 +93,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblcargo">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="cargo"/>
           </Properties>
           <Constraints>
@@ -115,9 +103,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblUsuario">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="usuario"/>
           </Properties>
           <Constraints>
@@ -655,8 +640,8 @@
                         <StringItem index="1" value="Relat&#xf3;rio de Comiss&#xe3;o An&#xe1;litico"/>
                         <StringItem index="2" value="Contas Vencidas"/>
                         <StringItem index="3" value="Contas a Vencer"/>
-                        <StringItem index="4" value="Contas Pagas"/>
-                        <StringItem index="5" value="Relat&#xf3;rio de Caixa - Di&#xe1;rio"/>
+                        <StringItem index="4" value="Relat&#xf3;rio de Sa&#xed;das"/>
+                        <StringItem index="5" value="Relat&#xf3;rio de Entradas"/>
                       </StringArray>
                     </Property>
                   </Properties>
