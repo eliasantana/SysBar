@@ -37,7 +37,7 @@ public class ControlerContasApagar {
 
     // Lista todas as contas cadastradas
     public ResultSet listaContasApagar(String opcao) {
-        
+
         String filtro = "";
 
         if ("Pagas".equals(opcao)) {
@@ -48,8 +48,7 @@ public class ControlerContasApagar {
         } else {
             filtro = "ca.id > 0";
 
-        }       
-             
+        }
 
         String sql = "SELECT \n"
                 + "	ca.id as 'Id', \n"
@@ -326,48 +325,52 @@ public class ControlerContasApagar {
 
         return resp;
     }
-    // Este método realiza um lançamento multiplo conforme quantidade de parcelas informadas
     
-    public boolean lancamentoMultiplo (int qtdVezes,JDateChooser dateChooser, Contas conta){
-        boolean resp=false;
+    // Este método realiza um lançamento multiplo conforme quantidade de parcelas informadas
+
+    public boolean lancamentoMultiplo(int qtdVezes, JDateChooser dateChooser, Contas conta) {
+        boolean resp = false;
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date dataInicial = dateChooser.getCalendar().getTime();
         Calendar c = Calendar.getInstance();
         c.setTime(dataInicial);
-        
-        String novaDescricao=null;
+
+        String novaDescricao = null;
         String descricao = conta.getDescricao();
-        int prazo=0;
+        int prazo = 0;
         // Adiciona 30 dias ao prazo inicial incrementando mais 30 a cada interação
-        
-        for (int i=1; i <= qtdVezes;i++){
-            prazo = prazo+30;
+
+        for (int i = 1; i <= qtdVezes; i++) {
+            
+            dataInicial = dateChooser.getCalendar().getTime();
+            c = Calendar.getInstance();
+            c.setTime(dataInicial);
+            
+            prazo = prazo + 30;
             //Seta no calendário o prazo informado
-            c.add(c.DAY_OF_MONTH, prazo);
+            c.add(c.MONTH, i); // Incrementa o mês em mais 1
             // altera o vencimento da parcela
             conta.setDataVencto(df.format(c.getTime()));
             // Adiciona o número de referencia da parcela ex: 1/3
-            novaDescricao = descricao + " " + i + "/"+qtdVezes;
-                        
+            novaDescricao = descricao + " " + i + "/" + qtdVezes;
+
             // Seta nova descrição
             conta.setDescricao(novaDescricao);
-            // Se a conta for adicionaca corretamente returna TRUE           
-            adicionaConta(conta);
-              System.out.println(novaDescricao + " " +conta.getDataVencto());          
+            
+            adicionaConta(conta); // Adiciona conta ao banco de dados
+            System.out.println(novaDescricao + " " + conta.getDataVencto());
             // Incrementa o prazo
-            //prazo = prazo+30;
+           
             // Inicia um nova instância
             dataInicial = new Date();
-           
+
             // Seta a nova instancia ao calendário
             c.setTime(dataInicial);
-            
-            
-            resp=true;
+
+            resp = true;
         }
-       
+
         return resp;
     }
-   
-    
+
 }

@@ -32,6 +32,7 @@ import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
+import org.xhtmlrenderer.layout.Breaker;
 
 /**
  *
@@ -60,6 +61,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
         txtIdGrupo.setVisible(false);
         jdateChooserPagamento.setVisible(false);
         lblDataDePAgamento.setVisible(false);
+        lblDataDePAgamento.setText("Data de Pagamento");
         txtValorPago.setVisible(false);
         btnBaixar.setVisible(false);
         lblValorPago.setVisible(false);
@@ -91,7 +93,6 @@ public class TelaContasApagar extends javax.swing.JFrame {
         painelEsquerdo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         txtDescricao = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
@@ -107,6 +108,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
         combofunc = new javax.swing.JComboBox<>();
         jCheckMultiplo = new javax.swing.JCheckBox();
         jSpinQtd = new com.toedter.components.JSpinField();
+        jLabel9 = new javax.swing.JLabel();
         painelDireito = new javax.swing.JPanel();
         lblOperador = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
@@ -117,9 +119,6 @@ public class TelaContasApagar extends javax.swing.JFrame {
         btnGraficoDeDespesas = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblContas = new javax.swing.JTable();
-        checkEmAberto = new javax.swing.JCheckBox();
-        checkPagas = new javax.swing.JCheckBox();
-        checkTudo = new javax.swing.JCheckBox();
         txtIdGrupo = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         tbnFechar = new javax.swing.JLabel();
@@ -131,7 +130,9 @@ public class TelaContasApagar extends javax.swing.JFrame {
         lblExcluir = new javax.swing.JLabel();
         btnAlterar = new javax.swing.JPanel();
         alt = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        comboFiltro = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -150,12 +151,6 @@ public class TelaContasApagar extends javax.swing.JFrame {
         jLabel2.setText("Contas a Pagar");
         painelEsquerdo.add(jLabel2);
         jLabel2.setBounds(30, 100, 307, 64);
-
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Descrição");
-        painelEsquerdo.add(jLabel6);
-        jLabel6.setBounds(20, 170, 110, 20);
 
         txtDescricao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -251,6 +246,12 @@ public class TelaContasApagar extends javax.swing.JFrame {
         painelEsquerdo.add(jSpinQtd);
         jSpinQtd.setBounds(190, 280, 150, 40);
 
+        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Descrição");
+        painelEsquerdo.add(jLabel9);
+        jLabel9.setBounds(20, 170, 110, 20);
+
         getContentPane().add(painelEsquerdo);
         painelEsquerdo.setBounds(0, 0, 360, 520);
 
@@ -339,44 +340,6 @@ public class TelaContasApagar extends javax.swing.JFrame {
 
         painelDireito.add(jScrollPane1);
         jScrollPane1.setBounds(0, 140, 610, 280);
-
-        checkEmAberto.setBackground(new java.awt.Color(204, 204, 204));
-        buttonGroup1.add(checkEmAberto);
-        checkEmAberto.setText("Aberto");
-        checkEmAberto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                checkEmAbertoMouseClicked(evt);
-            }
-        });
-        painelDireito.add(checkEmAberto);
-        checkEmAberto.setBounds(80, 70, 81, 23);
-
-        checkPagas.setBackground(new java.awt.Color(204, 204, 204));
-        buttonGroup1.add(checkPagas);
-        checkPagas.setText("Pagas");
-        checkPagas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                checkPagasMouseClicked(evt);
-            }
-        });
-        painelDireito.add(checkPagas);
-        checkPagas.setBounds(10, 100, 70, 23);
-
-        checkTudo.setBackground(new java.awt.Color(204, 204, 204));
-        buttonGroup1.add(checkTudo);
-        checkTudo.setText("Tudo");
-        checkTudo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                checkTudoMouseClicked(evt);
-            }
-        });
-        checkTudo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkTudoActionPerformed(evt);
-            }
-        });
-        painelDireito.add(checkTudo);
-        checkTudo.setBounds(10, 70, 70, 23);
         painelDireito.add(txtIdGrupo);
         txtIdGrupo.setBounds(60, 20, 40, 30);
 
@@ -414,7 +377,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
             }
         });
 
-        lblLimpar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblLimpar.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         lblLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fechar.png"))); // NOI18N
         lblLimpar.setText("Limpar");
         lblLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -443,7 +406,8 @@ public class TelaContasApagar extends javax.swing.JFrame {
             }
         });
 
-        lblAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionar.png"))); // NOI18N
+        lblAdicionar.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        lblAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
         lblAdicionar.setText("Adicionar");
         lblAdicionar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -473,6 +437,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
             }
         });
 
+        lblExcluir.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         lblExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
         lblExcluir.setText("Excluir");
         lblExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -486,9 +451,8 @@ public class TelaContasApagar extends javax.swing.JFrame {
         btnExcluirLayout.setHorizontalGroup(
             btnExcluirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnExcluirLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         btnExcluirLayout.setVerticalGroup(
             btnExcluirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -506,7 +470,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
             }
         });
 
-        alt.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        alt.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         alt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapis.png"))); // NOI18N
         alt.setText("Alterar");
         alt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -521,7 +485,8 @@ public class TelaContasApagar extends javax.swing.JFrame {
             btnAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnAlterarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(alt, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                .addComponent(alt, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                .addContainerGap())
         );
         btnAlterarLayout.setVerticalGroup(
             btnAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -529,11 +494,42 @@ public class TelaContasApagar extends javax.swing.JFrame {
         );
 
         painelDireito.add(btnAlterar);
-        btnAlterar.setBounds(500, 70, 110, 54);
+        btnAlterar.setBounds(500, 70, 100, 54);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        painelDireito.add(jComboBox1);
-        jComboBox1.setBounds(80, 100, 57, 22);
+        jPanel2.setPreferredSize(new java.awt.Dimension(78, 32));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/filtro32x32.png"))); // NOI18N
+
+        comboFiltro.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        comboFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Filtrar]", "Tudo", "Pagas", "Aberto" }));
+        comboFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboFiltroActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(comboFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        painelDireito.add(jPanel2);
+        jPanel2.setBounds(10, 70, 150, 55);
 
         getContentPane().add(painelDireito);
         painelDireito.setBounds(360, 0, 620, 520);
@@ -556,27 +552,6 @@ public class TelaContasApagar extends javax.swing.JFrame {
         // Fecha tela principal
         this.dispose();
     }//GEN-LAST:event_tbnFecharMouseClicked
-
-    private void checkPagasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkPagasMouseClicked
-        // Lista todas as contas pagas
-        String opcao = checkPagas.getText();
-        tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar(opcao)));
-    }//GEN-LAST:event_checkPagasMouseClicked
-
-    private void checkEmAbertoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkEmAbertoMouseClicked
-        // Lista todas as contas emaberto
-        String opcao = checkEmAberto.getText();
-        tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar(opcao)));
-    }//GEN-LAST:event_checkEmAbertoMouseClicked
-
-    private void checkTudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkTudoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkTudoActionPerformed
-
-    private void checkTudoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkTudoMouseClicked
-        // Exibe todos os registros
-        tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar(checkTudo.getText())));
-    }//GEN-LAST:event_checkTudoMouseClicked
 
     private void txtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyReleased
         // Substitui virgula por ponto ao digitar
@@ -805,8 +780,13 @@ public class TelaContasApagar extends javax.swing.JFrame {
         // Exibe caixa quantidade
         if (jCheckMultiplo.isSelected()) {
             jSpinQtd.setVisible(true);
+            lblDataDePAgamento.setVisible(true);
+            lblDataDePAgamento.setText("Parcelas");
+
         } else {
             jSpinQtd.setVisible(false);
+            lblDataDePAgamento.setVisible(false);
+            lblDataDePAgamento.setText("Data de Pagamento");
         }
     }//GEN-LAST:event_jCheckMultiploMouseClicked
 
@@ -834,26 +814,26 @@ public class TelaContasApagar extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Lançamento múltiplo realiado com sucesso!");
                     tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
 
-                } else {
-                    // Caso o checkList não esteja selecionado executa a parcela de forma padrão
+                }
+            } else {
+                // Caso o checkList não esteja selecionado executa a parcela de forma padrão
 
-                    if (cc.adicionaConta(c)) {
-                        //Registra operação no log
-                        l.setFuncionalidade("Salvar");
-                        l.setDescricao(l.getUsuario() + " adicionou uma nova conta ->" + txtDescricao.getText());
-                        l.gravaLog(l);
-                        // fim do registro de log
-                        limpaForm();
-                        JOptionPane.showMessageDialog(null, "Cadasto Relizado com sucesso!");
-                        String opcao = checkEmAberto.getText();
-                        tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar(opcao)));
-                    }
+                if (cc.adicionaConta(c)) {
+                    //Registra operação no log
+                    l.setFuncionalidade("Salvar");
+                    l.setDescricao(l.getUsuario() + " adicionou uma nova conta ->" + txtDescricao.getText());
+                    l.gravaLog(l);
+                    // fim do registro de log
+                    limpaForm();
+                    JOptionPane.showMessageDialog(null, "Cadasto Relizado com sucesso!");
+                    
+                    tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
                 }
             }
         }
     }//GEN-LAST:event_lblAdicionarMouseClicked
-    
-   
+
+
     private void altMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_altMouseClicked
         // Altera apenas contas em aberto
         Contas c = new Contas();
@@ -865,16 +845,20 @@ public class TelaContasApagar extends javax.swing.JFrame {
         c.setDataPagto(cc.myData(jdateChooserPagamento));
 
         if ("".equals(c.getDataPagto())) {
+            if ("".equals(txtIdConta.getText())) {
+                JOptionPane.showMessageDialog(null, "Selecione uma conta para continuar!");
+            } else {
 
-            if (cc.alteraConta(c)) {
+                if (cc.alteraConta(c)) {
 
-                JOptionPane.showMessageDialog(null, "Conta alterada!");
-                tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
-                limpaForm();
-                //Regisra operação no log
-                l.setFuncionalidade("Alterar");
-                l.setDescricao(l.getUsuario() + " alterou a conta ->" + c.getDescricao() + " Data de Vencimento: " + c.getDataVencto());
-                l.gravaLog(l);
+                    JOptionPane.showMessageDialog(null, "Conta alterada!");
+                    tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
+                    limpaForm();
+                    //Regisra operação no log
+                    l.setFuncionalidade("Alterar");
+                    l.setDescricao(l.getUsuario() + " alterou a conta ->" + c.getDescricao() + " Data de Vencimento: " + c.getDataVencto());
+                    l.gravaLog(l);
+                }
             }
 
         } else {
@@ -894,12 +878,12 @@ public class TelaContasApagar extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLimparMouseClicked
 
     private void lblExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExcluirMouseClicked
-        
-    
-     //Eclui conta
+
+        //Exclui conta
         Contas c = new Contas();
         c.setId(txtIdConta.getText());
         c.setDataPagto(cc.myData(jdateChooserPagamento));
+        c.setDescricao(txtDescricao.getText());
 
         if (c.getDataPagto().isEmpty()) {
 
@@ -908,20 +892,52 @@ public class TelaContasApagar extends javax.swing.JFrame {
             } else {
                 // Registra operação no log
                 l.setFuncionalidade("Excluir");
-                l.setDescricao(l.getUsuario() + " excluiu a conta ->" + txtDescricao.getText() + " Vencimento: " + df.format(jdateChooserVencimento.getCalendar().getTime()) + " Valor R$ " + txtValor.getText());
+                try {
+
+                    l.setDescricao(l.getUsuario() + " excluiu a conta ->" + txtDescricao.getText() + " Vencimento: " + df.format(jdateChooserVencimento.getCalendar().getTime()) + " Valor R$ " + txtValor.getText());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Selecione uma conta para continuar!");
+
+                }
                 l.gravaLog(l);
                 // Fim registro de log
-                cc.excluiConta(c);
-                tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Tudo")));
+                if (c.getDescricao() == null || "".equals(c.getDescricao()) ) {
+                    
+                } else {
+
+                    cc.excluiConta(c);
+                }
+                tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));  // Filtro Aberto | Tudo
+                limpaForm();
             }
         } else {
             JOptionPane.showMessageDialog(null, "Contas Pagas não podem ser excluída!");
             limpaForm();
 
         }
-    
-    
+
+
     }//GEN-LAST:event_lblExcluirMouseClicked
+
+    private void comboFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFiltroActionPerformed
+        
+        String op = comboFiltro.getSelectedItem().toString();
+                System.out.println(op);
+                        
+        switch (op){
+            case "Aberto":
+                
+                tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar(op)));
+                break;
+            case "Pagas":
+                tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar(op)));
+                break;
+            case "Tudo":
+                tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar(op)));
+                break;
+        }
+        
+    }//GEN-LAST:event_comboFiltroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -968,21 +984,20 @@ public class TelaContasApagar extends javax.swing.JFrame {
     private javax.swing.JPanel btnSalvar;
     private javax.swing.JPanel btnSalvar1;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JCheckBox checkEmAberto;
-    private javax.swing.JCheckBox checkPagas;
-    private javax.swing.JCheckBox checkTudo;
+    private javax.swing.JComboBox<String> comboFiltro;
     private javax.swing.JComboBox<String> comboGrupoDespesas;
     private javax.swing.JComboBox<String> combofunc;
     private javax.swing.JCheckBox jCheckMultiplo;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.components.JSpinField jSpinQtd;
     private com.toedter.calendar.JDateChooser jdateChooserPagamento;
