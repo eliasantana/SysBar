@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
@@ -200,7 +201,7 @@ public class ControlerContasApagar {
 
     // Exibe menu ao clicar com o botão direito do mouse.
     // Extorna uma conta paga
-    public JPopupMenu menu(Contas c) {
+    public JPopupMenu menu(Contas c, JLabel operador) {
 
         JPopupMenu menudireito = new JPopupMenu();
 
@@ -219,7 +220,7 @@ public class ControlerContasApagar {
                         // Registro de log
 
                         Log log = new Log();
-                        log.setUsuario("Elias");
+                        log.setUsuario(operador.getText());
                         log.setFuncionalidade("Extorno");
                         log.setDescricao(log.getUsuario() + " extornou a conta -> " + c.getDescricao());
                         log.gravaLog(log);
