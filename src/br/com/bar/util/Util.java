@@ -5,7 +5,10 @@
  */
 package br.com.bar.util;
 
+import br.com.bar.model.DadosEmpresa;
+import br.com.br.controler.ControlerDadosEmpresa;
 import java.awt.Color;
+import java.awt.Image;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -16,6 +19,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.CategoryPlot;
@@ -27,7 +34,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * @author elias
  */
 public class Util {
-
+     ControlerDadosEmpresa cd = new ControlerDadosEmpresa();
+     
     // Retorna o número mês atual
     public String formataData(Date data) {
 
@@ -124,4 +132,12 @@ public class Util {
         return d;
     }
 
+    public Icon carregaLogo(){
+        DadosEmpresa d = cd.selecionaDados();
+        ImageIcon imageIcon = new ImageIcon(d.getLogo());
+        
+        Icon i = new ImageIcon(imageIcon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH));
+        
+        return i;
+    }
 }

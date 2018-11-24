@@ -17,8 +17,7 @@ public class DadosEmpresa {
     private int numero;
     private String bairro;
     private String cep; 
-    private String cidade; 
-    private String estado;
+    private String cidade;    
     private String uf; 
     private String telefone;
     private String celular; 
@@ -82,14 +81,7 @@ public class DadosEmpresa {
         this.cidade = cidade;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
+   
     public String getUf() {
         return uf;
     }

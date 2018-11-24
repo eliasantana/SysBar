@@ -65,6 +65,9 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnCaixa2 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
+        btnDadosEmpresa = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblCargo = new javax.swing.JLabel();
         lblitulo = new javax.swing.JLabel();
@@ -285,6 +288,26 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnCaixa2.add(jLabel27);
         jLabel27.setBounds(0, 70, 150, 40);
 
+        btnDadosEmpresa.setBackground(new java.awt.Color(153, 153, 153));
+        btnDadosEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDadosEmpresaMouseClicked(evt);
+            }
+        });
+        btnDadosEmpresa.setLayout(null);
+
+        jLabel28.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(52, 73, 94));
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel28.setText("Dados Empresa");
+        btnDadosEmpresa.add(jLabel28);
+        jLabel28.setBounds(0, 70, 160, 40);
+
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/cadastro-64.png"))); // NOI18N
+        btnDadosEmpresa.add(jLabel29);
+        jLabel29.setBounds(0, 10, 160, 70);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -312,6 +335,8 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                 .addComponent(btnGrupo2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGrupo3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDadosEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -323,7 +348,8 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                     .addComponent(btnGrupo2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGrupo1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGrupo3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGrupo3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDadosEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnPrecos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -335,26 +361,28 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(20, 90, 880, 320);
+        jPanel2.setBounds(20, 90, 1040, 320);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setLayout(null);
 
+        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("jLabel3");
         jPanel1.add(lblCargo);
-        lblCargo.setBounds(570, 50, 90, 15);
+        lblCargo.setBounds(830, 50, 110, 30);
 
         lblitulo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
         lblitulo.setText("Configurações do Sistema");
         jPanel1.add(lblitulo);
         lblitulo.setBounds(20, 10, 550, 60);
 
+        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("jLabel3");
         jPanel1.add(lblOperador);
-        lblOperador.setBounds(570, 20, 90, 15);
+        lblOperador.setBounds(830, 10, 110, 30);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(50, 0, 810, 430);
+        jPanel1.setBounds(50, 0, 950, 430);
 
         jPanel3.setBackground(new java.awt.Color(52, 73, 94));
 
@@ -372,9 +400,9 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addComponent(lblFechar, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(lblFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,9 +412,9 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(870, 0, 50, 40);
+        jPanel3.setBounds(1020, 0, 50, 40);
 
-        setSize(new java.awt.Dimension(914, 428));
+        setSize(new java.awt.Dimension(1071, 428));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -469,6 +497,12 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnCaixa2MouseClicked
 
+    private void btnDadosEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDadosEmpresaMouseClicked
+        // Chama tela de Cadastro de dados da empresa
+        TelaCadastroEmpresa empresa = new TelaCadastroEmpresa();
+        empresa.setVisible(true);
+    }//GEN-LAST:event_btnDadosEmpresaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -511,6 +545,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     private javax.swing.JPanel btnCaixa;
     private javax.swing.JPanel btnCaixa1;
     private javax.swing.JPanel btnCaixa2;
+    private javax.swing.JPanel btnDadosEmpresa;
     private javax.swing.JPanel btnFuncionario;
     private javax.swing.JPanel btnGrupo;
     private javax.swing.JPanel btnGrupo1;
@@ -536,6 +571,8 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
