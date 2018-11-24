@@ -93,31 +93,31 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel7.setText("Identificação do Usuário");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(40, 260, 230, 30);
+        jLabel7.setBounds(50, 200, 230, 30);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(60, 80, 160, 190);
+        jLabel3.setBounds(70, 20, 160, 190);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("1.1.10");
+        jLabel2.setText("1.1.15");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(40, 320, 170, 20);
+        jLabel2.setBounds(60, 320, 170, 20);
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("TechSys  ");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(20, 370, 240, 20);
+        jLabel8.setBounds(30, 360, 240, 20);
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Versão");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(40, 300, 170, 20);
+        jLabel9.setBounds(60, 300, 170, 20);
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Software Licenciado para: [EMPRESA]");
+        jLabel10.setText("Software Licenciado para: [EMPRESA MODELO]");
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(20, 340, 230, 20);
+        jLabel10.setBounds(0, 340, 300, 20);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 300, 430);
@@ -126,6 +126,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel2.setLayout(null);
 
         txtLogin.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        txtLogin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtLogin.setBorder(null);
         txtLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtLogin.setMargin(null);
@@ -143,6 +144,7 @@ public class TelaLogin extends javax.swing.JFrame {
         txtLogin.setBounds(50, 180, 250, 40);
 
         txtSenha.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        txtSenha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSenha.setBorder(null);
         txtSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

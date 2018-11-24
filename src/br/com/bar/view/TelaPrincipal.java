@@ -15,6 +15,8 @@ import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JOptionPane;
 
 /**
@@ -55,7 +57,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
             lblAviso.setText("Ateção! Você possui contas a pagar!");
             lblAviso.setForeground(Color.YELLOW);
         }
-
+        
+        // Determina tempo de execução
+        
+        long timeMilis=6000; // milisegundos
+        Timer timer = new  Timer();
+        TimerTask atualizaEstatistica = new TimerTask() {
+            @Override
+            public void run() {
+                estatistica();
+            }
+                     
+        };
+        timer.scheduleAtFixedRate(atualizaEstatistica, 0, timeMilis);
+        
+        
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -86,7 +102,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblLivres = new javax.swing.JLabel();
         lblOcupadas = new javax.swing.JLabel();
         lblAviso = new javax.swing.JLabel();
-        lblTaxaDeOcupação = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblOperador = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
@@ -127,7 +142,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel2.setText("SysBar");
 
         jPanel2.setBackground(new java.awt.Color(52, 73, 94));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(255, 255, 255)), "Taxa de Ocupação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(255, 255, 255)))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "Taxa de Ocupação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(255, 255, 255)), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(255, 255, 255)))); // NOI18N
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel15.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
@@ -195,46 +210,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         lblAviso.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
 
-        lblTaxaDeOcupação.setForeground(new java.awt.Color(255, 255, 255));
-        lblTaxaDeOcupação.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnAtualizarBranco.png"))); // NOI18N
-        lblTaxaDeOcupação.setText("Atualizar Taxa de Ocupação");
-        lblTaxaDeOcupação.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblTaxaDeOcupaçãoMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout peinelEsquerdoLayout = new javax.swing.GroupLayout(peinelEsquerdo);
         peinelEsquerdo.setLayout(peinelEsquerdoLayout);
         peinelEsquerdoLayout.setHorizontalGroup(
             peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(peinelEsquerdoLayout.createSequentialGroup()
+                .addGap(43, 43, 43)
                 .addGroup(peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(peinelEsquerdoLayout.createSequentialGroup()
-                        .addGap(91, 91, 91)
+                        .addGap(64, 64, 64)
                         .addGroup(peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(peinelEsquerdoLayout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addGroup(peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTaxaDeOcupação, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         peinelEsquerdoLayout.setVerticalGroup(
             peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(peinelEsquerdoLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(lblTaxaDeOcupação)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(105, Short.MAX_VALUE)
+                .addGroup(peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, peinelEsquerdoLayout.createSequentialGroup()
+                        .addComponent(lblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(72, 72, 72))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, peinelEsquerdoLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addGap(57, 57, 57)))
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
         );
@@ -808,8 +813,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnProdutoMouseEntered
 
-    private void lblTaxaDeOcupaçãoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTaxaDeOcupaçãoMouseClicked
-        
+    public void estatistica(){
         ArrayList<Double> estatiscas = new ArrayList<>();
         estatiscas = m.estatistica();
 
@@ -817,8 +821,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblOcupadas.setText(String.format("%9.1f", estatiscas.get(1)) + "%");
         lblNmesaLivre.setText(String.format("%9.0f", estatiscas.get(2)));
         lblNmesaOcupada.setText(String.format("%9.0f", estatiscas.get(3)));
-    }//GEN-LAST:event_lblTaxaDeOcupaçãoMouseClicked
-
+    }
     private void btnLogout1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogout1MouseClicked
         // Chama a tela Pedido 2
         TelaPedido2 pedido2 = new TelaPedido2();
@@ -898,7 +901,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblNmesaOcupada;
     private javax.swing.JLabel lblOcupadas;
     private javax.swing.JLabel lblOperador;
-    private javax.swing.JLabel lblTaxaDeOcupação;
     private javax.swing.JPanel peinelEsquerdo;
     // End of variables declaration//GEN-END:variables
 }
