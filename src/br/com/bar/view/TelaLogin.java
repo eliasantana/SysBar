@@ -166,9 +166,10 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/login_1.png"))); // NOI18N
         jLabel4.setText("Senha");
         jPanel2.add(jLabel4);
-        jLabel4.setBounds(50, 230, 70, 30);
+        jLabel4.setBounds(50, 230, 110, 30);
 
         btnLogin.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         btnLogin.setText("Entrar");
@@ -216,6 +217,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario_branco.png"))); // NOI18N
         jLabel6.setText("Login");
         jPanel2.add(jLabel6);
         jLabel6.setBounds(50, 150, 250, 30);

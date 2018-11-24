@@ -69,15 +69,15 @@ public class TelaPametro extends javax.swing.JFrame {
 
         jLabel2.setText("Nome do Banco de Dados:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(41, 93, 220, 15);
+        jLabel2.setBounds(41, 93, 220, 14);
 
         jLabel3.setText("Porta:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(201, 204, 110, 15);
+        jLabel3.setBounds(201, 204, 110, 14);
 
         jLabel4.setText("Usuário do Banco");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(41, 144, 130, 15);
+        jLabel4.setBounds(41, 144, 130, 14);
         getContentPane().add(txtIpServidor);
         txtIpServidor.setBounds(41, 224, 126, 30);
         getContentPane().add(txtPorta);
@@ -89,7 +89,7 @@ public class TelaPametro extends javax.swing.JFrame {
 
         jLabel5.setText("Senha");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(201, 144, 130, 15);
+        jLabel5.setBounds(201, 144, 130, 14);
 
         bnSalvar.setBackground(new java.awt.Color(30, 139, 195));
         bnSalvar.setForeground(new java.awt.Color(255, 255, 255));
@@ -106,7 +106,7 @@ public class TelaPametro extends javax.swing.JFrame {
 
         jLabel6.setText("IP do Servidor (localhost):");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(41, 204, 160, 15);
+        jLabel6.setBounds(41, 204, 160, 14);
 
         jPanel1.setBackground(new java.awt.Color(243, 156, 18));
         jPanel1.setLayout(null);
@@ -150,6 +150,7 @@ public class TelaPametro extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 370, 80);
 
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnBackup.png"))); // NOI18N
         jLabel8.setText("Realizar Backup agora!");
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
