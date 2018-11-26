@@ -1,0 +1,174 @@
+commit 068e838c1523c8499a8f724e17a3b4fb1f4a5e60
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Nov 24 19:16:31 2018 -0300
+
+    Versão 1.1.19
+    Ajustes no Layout da Tela de Login
+            - Adicção de icones na tela inicial
+
+commit e3f18473b389828f956010a13fa06eb05734cc78
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Nov 24 18:03:05 2018 -0300
+
+    Versão 1.1.17
+    TELA DE LOGIN
+            - Adicionado mensagem de licença de software para empresa cadastrada
+
+commit 47cbe6fe079014361f1dbf1ac8b29e1ee033ef6c
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Nov 24 14:42:45 2018 -0300
+
+    Versão 1.1.16
+    TELA CADASTRO EMPRESA
+            - Adicionado os dados da empresa
+            - Adicionando as funcionalidades ADICIONAR / EXLUCIR / ALTERAR
+
+commit 9f4cf56307b057d8721177e291f2887feda1564a
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Nov 23 21:27:39 2018 -0300
+
+    Versão 1.1.15
+    Ajustes de Layout
+
+commit 3484ea4e23e8054a4d0761bb83f50c59daad7b6e
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Nov 23 16:54:09 2018 -0300
+
+    Versão 1.1.14
+    
+    Construção da tela de cadastro de Despesas
+
+commit e2031d3a4e137827d927837f295468faa2a199a4
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Nov 23 12:43:58 2018 -0300
+
+    Fix do último commit Versão 1.1.13
+
+commit ea7ae1a2c59d86052c521f790f13cf1f8ddeb12c
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Nov 23 12:33:43 2018 -0300
+
+    Versão 1.1.13
+    
+    Tela Cadastro de Despesas
+            Ajustes
+                    - Ajuste no Layout
+                    - Ajustes na checagem dos campos antes de qualquer CRUD
+            Correções
+                    - Correção no mês ao gerar a parcela
+                    - Remoção dos CheckBox de filtro de contas
+                    - Adição do comboFiltro com as opções anteriores
+
+commit 545f90505e4c6a465903ea3d3b210e047702d649
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Nov 23 08:44:41 2018 -0300
+
+    Versão 1.1.12
+    
+    Tela Cadastro de Despesas
+            Ajustes
+                    - Ajuste no Layout
+                    - Adição Verificação de contas já existentes
+            Correções
+                    - Registro do operador no log contas a pagar na opção Extorno
+                    - Aterações no local da ação click co o botão do mouse.
+                      Ação Movida do componente PANEL para o LABEL(botões).
+
+commit 2825bbbeca1a9f59e8779bee52663791e0ad9ff5
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Nov 22 18:15:00 2018 -0300
+
+    Versão 1.1.11
+            - Correção de Bug na liberação de produtos com quantidade maior que a
+              quatidade em estoque.
+            - Adição de label com a versão do sistema
+
+commit ac6955ab17870119cf5d01d3a65320ccdad1b285
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Nov 22 16:31:03 2018 -0300
+
+    Versão 1.1.10
+    - ADICIONADO AVISO SOBRE FALTA DE MOVIMENTAÇÃO DE CAIXA NA
+      EXCESSÃO GERADA PELA ABERTURA O RELATÓRIO DE CAIXA.
+
+commit ee9d2a6ca167252834514fe86e4729fe100bca09
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Nov 22 14:55:20 2018 -0300
+
+    - ADICIONADO OS RELATÓRIOS DE ENTRADA E SAÍDA
+    - CORREÇÃO RELATÓRIO DE CAIXA
+
+commit 9eca5543196b5fc51cd5869ccffc51426629bf56
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Nov 20 09:59:37 2018 -0300
+
+    Versão 1.0.9.0 Ajustes na tela Inicial
+            - Adicionado icones ao usuário logado, perfil e data
+
+commit 842073217ba0f74d7011ee4a94c3db03a07ded33
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sun Nov 18 20:51:42 2018 -0300
+
+    TELA CAIXA
+            Verificação de caixa Fechado.
+            Se fechado desabilita o botão receber
+
+commit 9546fdf02bc48e47d6087480e80ce66953155783
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Nov 17 15:29:36 2018 -0300
+
+    TELA STATUS COZINHA
+            - Alteração na exibição do status do prato enviado a cozinha
+           - Exibe todos os produtos enviados a cozinha pelo garçom na data atual
+             ordenados pelo id do produto
+            - Adicionado acesso a tela de lançamento de produtos no pedido na tela inicial
+        - Ajustes na tela  principal
+            - adicionado acesso a tela de pedidos
+
+commit d77f3e73ec2e613ea2268c2499fef4c1055c9f98
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Nov 17 11:06:00 2018 -0300
+
+    VERSÃO 1.2 - TELA PEDIDO 2
+            - Correção no Layout
+    TELA CAIXA
+            - Adicionado componente (Jspinner) Número de pessoas
+            - Alteração no Cupom (PARCIAL / COMPROVANTE DE PAGAMENTO)
+          Adicionado parâmetros que recebe o valor do pedido e divide pelo
+              numero de participantes.
+
+commit 054c1c28ff77e2ea3269d4fcb82425f3de082b56
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Nov 17 12:18:17 2018 -0300
+
+    VERSÃO 1.1 - TELA PEDIDO 2
+            - Correção no Lançamento de Pedido Gerencia
+            - Desbloqueio dos campos quantidade e codigo só após seleçãodo pedido
+            - Pesquisa por iniciais do nome do produto
+            - Atualização da tabela detalhe do pedido
+            - Adicionado exibição de mensagem de erro ou valor inválido
+            - Totalização do produto localizado
+
+commit 98a4e21f06ca84f6863de3f9d1e4f41f573ae965
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Nov 17 07:30:43 2018 -0300
+
+    Cadastro de Pedidos - Gerencia 1.0 - Localização de Produto e totalização da venda
+
+commit 715c3d40d76c46ba4d188b87b2c92e5748478c5a
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Nov 16 12:45:45 2018 -0300
+
+    CORREÇÃO DE BUGS
+
+commit f753e2d80b7357465aaee6111e249045541a8ef0
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Nov 13 13:50:00 2018 -0300
+
+    CORREÇÃO NA CONEXÃO DO BANCO DE DADOS COMPATÍVEL MYSQL8
+
+commit 46a17fb555332c0b8e6c73857dcc869538033586
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Nov 5 18:00:26 2018 -0300
+
+    ProjBar  Versão 1.0.8.0 - CORREÇÃO DE BUGS REL. PARCIAL

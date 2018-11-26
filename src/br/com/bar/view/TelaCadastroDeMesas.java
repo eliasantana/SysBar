@@ -82,20 +82,14 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jCheckBoxTroca = new javax.swing.JCheckBox();
         menuBar = new javax.swing.JPanel();
-        btnSalvarMesa = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
-        btnExcluir = new javax.swing.JPanel();
         btnLixeira = new javax.swing.JLabel();
-        btnAlterar = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
-        btnLimpar = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMesas = new javax.swing.JTable();
         jCheckBoxTudo = new javax.swing.JCheckBox();
         txtIdNovoGarcom = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -277,42 +271,30 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 370, 524);
 
-        btnSalvarMesa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSalvarMesaMouseClicked(evt);
-            }
-        });
-
         jLabel16.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/SalvarMesas.png"))); // NOI18N
         jLabel16.setText("Salvar");
-        btnSalvarMesa.add(jLabel16);
-
-        btnExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnExcluirMouseClicked(evt);
+                jLabel16MouseClicked(evt);
             }
         });
 
         btnLixeira.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         btnLixeira.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
         btnLixeira.setText("Excluir");
-        btnExcluir.add(btnLixeira);
-
-        btnAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnLixeira.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAlterarMouseClicked(evt);
+                btnLixeiraMouseClicked(evt);
             }
         });
 
         jLabel17.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapis.png"))); // NOI18N
         jLabel17.setText("Alterar");
-        btnAlterar.add(jLabel17);
-
-        btnLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnLimparMouseClicked(evt);
+                jLabel17MouseClicked(evt);
             }
         });
 
@@ -321,43 +303,30 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/limparCinza.png"))); // NOI18N
         jLabel18.setText("Limpar");
 
-        javax.swing.GroupLayout btnLimparLayout = new javax.swing.GroupLayout(btnLimpar);
-        btnLimpar.setLayout(btnLimparLayout);
-        btnLimparLayout.setHorizontalGroup(
-            btnLimparLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnLimparLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel18)
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-        btnLimparLayout.setVerticalGroup(
-            btnLimparLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout menuBarLayout = new javax.swing.GroupLayout(menuBar);
         menuBar.setLayout(menuBarLayout);
         menuBarLayout.setHorizontalGroup(
             menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuBarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnSalvarMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(btnLixeira, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
         menuBarLayout.setVerticalGroup(
             menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnSalvarMesa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-            .addComponent(btnExcluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(menuBarLayout.createSequentialGroup()
-                .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 3, Short.MAX_VALUE))
+            .addComponent(btnLixeira, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getContentPane().add(menuBar);
@@ -397,25 +366,17 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         getContentPane().add(txtIdNovoGarcom);
         txtIdNovoGarcom.setBounds(460, 30, 70, 29);
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        jLabel5.setText("Cargo");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(670, 40, 60, 16);
-
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        jLabel6.setText("Operador");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(670, 20, 60, 16);
-
         lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
+        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("Operador");
         getContentPane().add(lblOperador);
-        lblOperador.setBounds(730, 20, 60, 16);
+        lblOperador.setBounds(730, 10, 110, 30);
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
+        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("Cargo");
         getContentPane().add(lblCargo);
-        lblCargo.setBounds(730, 40, 60, 16);
+        lblCargo.setBounds(730, 40, 90, 40);
 
         jPanel2.setBackground(new java.awt.Color(44, 62, 80));
 
@@ -458,65 +419,6 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
     }//GEN-LAST:event_comboGarcomActionPerformed
 
-    private void btnSalvarMesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMesaMouseClicked
-
-        // Localiza id do funcionário
-        String nome = comboGarcom.getSelectedItem().toString();
-        txtIdGarcom.setText(f.localizaId(nome));
-
-        // Salva funcionário no banco
-        m.setId_funcionario(txtIdGarcom.getText());
-        m.setNumeroMesa(txtNumeroMesa.getText());
-        m.setStatus("0");
-
-        int op = JOptionPane.showConfirmDialog(null, "Salvar Mesa", "Incluir mesa?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-        // Solicita confirmação do Usuário
-        if (op == JOptionPane.YES_OPTION) {
-                // Registro de Log
-                log.setFuncionalidade("Salvar");
-                log.setDescricao(log.getUsuario() + " salvou uma mesa -> " + m.getNumeroMesa());
-                log.gravaLog(log);
-                //Fim do registro de log
-
-            if (cm.adicionaMesa(m)) { // Adiciona mesa
-                JOptionPane.showMessageDialog(null, "Mesa salva com sucesso!");
-
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Operação cancelada");
-        }
-        tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
-        txtNumeroMesa.setText(null);
-    }//GEN-LAST:event_btnSalvarMesaMouseClicked
-
-    private void btnExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseClicked
-        // Exclui Mesam
-        m.setId(txtIdMesa.getText());
-
-        int op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esta mesa?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-
-        if (op == JOptionPane.YES_OPTION) {
-            
-            // Inicio do registro de Log
-            log.setFuncionalidade("Excluir");
-            log.setDescricao(log.getUsuario() + " excluiu a mesa " + txtNumeroMesa.getText());
-            log.gravaLog(log);
-            // Fim do registro de LOG
-            
-            if (cm.excluiMesa(m)) {
-                JOptionPane.showMessageDialog(null, "Mesa Excluída com sucesso");
-                tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
-                limpaForm();
-
-            }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Operação cancelada com sucesso!");
-
-        }
-
-    }//GEN-LAST:event_btnExcluirMouseClicked
-
     private void limpaForm() {
         txtIdGarcom.setText(null);
         txtNumeroMesa.setText(null);
@@ -539,10 +441,6 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         // Fehcajanela
         this.dispose();
     }//GEN-LAST:event_jLabel15MouseClicked
-
-    private void btnLimparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimparMouseClicked
-        limparMesa();
-    }//GEN-LAST:event_btnLimparMouseClicked
 
     private void txtNumeroMesaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroMesaKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -587,34 +485,6 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jCheckBoxTudoMouseClicked
-
-    private void btnAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseClicked
-        // Altera Mesa
-
-        Mesa mesa = new Mesa();
-        mesa.setId(txtIdMesa.getText());
-        mesa.setNumeroMesa(txtNumeroMesa.getText());
-        mesa.setStatus("0");
-        mesa.setId_funcionario(txtIdNovoGarcom.getText());
-
-        int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração desta Mesa?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-           // Inicio do registro de log
-              log.setFuncionalidade("Alterar");
-              log.setDescricao(log.getUsuario() + " alterou dados da mesa -> " + txtNumeroMesa.getText()
-                      + ": " + comboGarcom.getSelectedItem().toString() + " -> " + comboNovoGarcom.getSelectedItem().toString() );
-              log.gravaLog(log);
-           // Fim do registro de LOG
-        if (op == JOptionPane.YES_OPTION) {
-  
-            if (cm.alteraMesa(mesa)) {
-                JOptionPane.showMessageDialog(null, "Mesa Alterada!");
-                tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Alteração Cancelada!");
-        }
-
-    }//GEN-LAST:event_btnAlterarMouseClicked
 
     private void jCheckBoxTrocaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxTrocaMouseClicked
         //Exibe painel de Troca
@@ -664,6 +534,91 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBoxTrocaActionPerformed
 
+    private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
+           // Localiza id do funcionário
+        String nome = comboGarcom.getSelectedItem().toString();
+        txtIdGarcom.setText(f.localizaId(nome));
+
+        // Salva funcionário no banco
+        m.setId_funcionario(txtIdGarcom.getText());
+        m.setNumeroMesa(txtNumeroMesa.getText());
+        m.setStatus("0");
+
+        int op = JOptionPane.showConfirmDialog(null, "Salvar Mesa", "Incluir mesa?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+        // Solicita confirmação do Usuário
+        if (op == JOptionPane.YES_OPTION) {
+                // Registro de Log
+                log.setFuncionalidade("Salvar");
+                log.setDescricao(log.getUsuario() + " salvou uma mesa -> " + m.getNumeroMesa());
+                log.gravaLog(log);
+                //Fim do registro de log
+
+            if (cm.adicionaMesa(m)) { // Adiciona mesa
+                JOptionPane.showMessageDialog(null, "Mesa salva com sucesso!");
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Operação cancelada");
+        }
+        tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
+        txtNumeroMesa.setText(null);
+    }//GEN-LAST:event_jLabel16MouseClicked
+
+    private void btnLixeiraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLixeiraMouseClicked
+         // Exclui Mesam
+        m.setId(txtIdMesa.getText());
+
+        int op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esta mesa?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+
+        if (op == JOptionPane.YES_OPTION) {
+            
+            // Inicio do registro de Log
+            log.setFuncionalidade("Excluir");
+            log.setDescricao(log.getUsuario() + " excluiu a mesa " + txtNumeroMesa.getText());
+            log.gravaLog(log);
+            // Fim do registro de LOG
+            
+            if (cm.excluiMesa(m)) {
+                JOptionPane.showMessageDialog(null, "Mesa Excluída com sucesso");
+                tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
+                limpaForm();
+
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Operação cancelada com sucesso!");
+
+        }
+    }//GEN-LAST:event_btnLixeiraMouseClicked
+
+    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
+                // Altera Mesa
+
+        Mesa mesa = new Mesa();
+        mesa.setId(txtIdMesa.getText());
+        mesa.setNumeroMesa(txtNumeroMesa.getText());
+        mesa.setStatus("0");
+        mesa.setId_funcionario(txtIdNovoGarcom.getText());
+
+        int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração desta Mesa?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+           // Inicio do registro de log
+              log.setFuncionalidade("Alterar");
+              log.setDescricao(log.getUsuario() + " alterou dados da mesa -> " + txtNumeroMesa.getText()
+                      + ": " + comboGarcom.getSelectedItem().toString() + " -> " + comboNovoGarcom.getSelectedItem().toString() );
+              log.gravaLog(log);
+           // Fim do registro de LOG
+        if (op == JOptionPane.YES_OPTION) {
+  
+            if (cm.alteraMesa(mesa)) {
+                JOptionPane.showMessageDialog(null, "Mesa Alterada!");
+                tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Alteração Cancelada!");
+        }
+
+    }//GEN-LAST:event_jLabel17MouseClicked
+
     private void selecionaIdMesa() {
         // Seleciona o id da mesa
         int linha = tblMesas.getSelectedRow();
@@ -710,11 +665,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel btnAlterar;
-    private javax.swing.JPanel btnExcluir;
-    private javax.swing.JPanel btnLimpar;
     private javax.swing.JLabel btnLixeira;
-    private javax.swing.JPanel btnSalvarMesa;
     private javax.swing.JComboBox<String> comboGarcom;
     private javax.swing.JComboBox<String> comboNovoGarcom;
     private javax.swing.JCheckBox jCheckBoxTroca;
@@ -729,8 +680,6 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

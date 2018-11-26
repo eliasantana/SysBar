@@ -134,7 +134,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         lblNome.setText("Nome *");
         jPanel1.add(lblNome);
-        lblNome.setBounds(10, 14, 130, 15);
+        lblNome.setBounds(10, 14, 130, 14);
         jPanel1.add(txtNome);
         txtNome.setBounds(10, 27, 365, 30);
         jPanel1.add(txtEndereço);
@@ -142,15 +142,15 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         jLabel2.setText("Endereço");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(10, 68, 90, 15);
+        jLabel2.setBounds(10, 68, 90, 14);
 
         jLabel3.setText("Cep");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(230, 130, 70, 15);
+        jLabel3.setBounds(230, 130, 70, 14);
 
         jLabel4.setText("Bairro");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(10, 130, 100, 15);
+        jLabel4.setBounds(10, 130, 100, 14);
         jPanel1.add(txtBairro);
         txtBairro.setBounds(10, 150, 201, 30);
 
@@ -164,7 +164,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         jLabel5.setText("Cidade");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(340, 130, 90, 15);
+        jLabel5.setBounds(340, 130, 90, 14);
         jPanel1.add(txtCidade);
         txtCidade.setBounds(340, 150, 169, 30);
         jPanel1.add(txtEmail);
@@ -172,7 +172,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         jLabel6.setText("E-mail");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(10, 190, 100, 15);
+        jLabel6.setBounds(10, 190, 100, 14);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -194,7 +194,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         lblTelefone.setText("Telefone *");
         jPanel1.add(lblTelefone);
-        lblTelefone.setBounds(10, 250, 90, 15);
+        lblTelefone.setBounds(10, 250, 90, 14);
 
         try {
             txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
@@ -210,11 +210,11 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         jLabel9.setText("Cargos");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(10, 310, 110, 15);
+        jLabel9.setBounds(10, 310, 110, 14);
 
         jLabel10.setText("Login");
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(270, 190, 90, 15);
+        jLabel10.setBounds(270, 190, 90, 14);
         jPanel1.add(txtLogin);
         txtLogin.setBounds(270, 210, 140, 30);
         jPanel1.add(txtSenha);
@@ -222,7 +222,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         jLabel11.setText("Senha");
         jPanel1.add(jLabel11);
-        jLabel11.setBounds(420, 190, 90, 15);
+        jLabel11.setBounds(420, 190, 90, 14);
 
         comboSituacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ativo", "Inativo" }));
         comboSituacao.addActionListener(new java.awt.event.ActionListener() {
@@ -235,11 +235,11 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         jLabel12.setText("Situação");
         jPanel1.add(jLabel12);
-        jLabel12.setBounds(190, 310, 70, 15);
+        jLabel12.setBounds(190, 310, 70, 14);
 
         jLabel13.setText("Bloqueio");
         jPanel1.add(jLabel13);
-        jLabel13.setBounds(270, 310, 120, 15);
+        jLabel13.setBounds(270, 310, 120, 14);
 
         comboBloqueio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Desbloqueado", "Bloqueado" }));
         jPanel1.add(comboBloqueio);
@@ -258,11 +258,11 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         jLabel1.setText("Cpf");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(360, 250, 70, 15);
+        jLabel1.setBounds(360, 250, 70, 14);
 
         jLabel7.setText("Rg");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(230, 250, 50, 15);
+        jLabel7.setBounds(230, 250, 50, 14);
 
         try {
             txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -278,7 +278,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         jLabel8.setText("CNH");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(500, 250, 80, 15);
+        jLabel8.setBounds(500, 250, 80, 14);
 
         txtCnh.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         jPanel1.add(txtCnh);
@@ -324,32 +324,31 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jPanel4.add(jLabel15);
         jLabel15.setBounds(252, 29, 126, 78);
         jPanel4.add(txtId);
-        txtId.setBounds(407, 47, 39, 19);
+        txtId.setBounds(407, 47, 39, 20);
         jPanel4.add(txtCaminho);
-        txtCaminho.setBounds(452, 47, 146, 19);
+        txtCaminho.setBounds(452, 47, 146, 20);
 
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("Operador");
         jPanel4.add(jLabel22);
-        jLabel22.setBounds(661, 30, 46, 15);
+        jLabel22.setBounds(661, 30, 46, 14);
 
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("Cargo");
         jPanel4.add(jLabel23);
-        jLabel23.setBounds(661, 51, 29, 15);
+        jLabel23.setBounds(661, 51, 29, 14);
 
         lblOperador.setForeground(new java.awt.Color(255, 255, 255));
         lblOperador.setText("Operador");
         jPanel4.add(lblOperador);
-        lblOperador.setBounds(725, 30, 46, 15);
+        lblOperador.setBounds(720, 30, 114, 20);
 
         lblCargo.setForeground(new java.awt.Color(255, 255, 255));
         lblCargo.setText("Operador");
         jPanel4.add(lblCargo);
-        lblCargo.setBounds(725, 51, 46, 15);
+        lblCargo.setBounds(721, 51, 50, 14);
 
         lblFechar.setFont(new java.awt.Font("Yu Gothic", 1, 24)); // NOI18N
-        lblFechar.setForeground(new java.awt.Color(0, 0, 0));
         lblFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFechar.setText("x");
         lblFechar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
