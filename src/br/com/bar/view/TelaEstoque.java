@@ -54,8 +54,6 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         lblNomeOperador = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
         btnLogout = new javax.swing.JPanel();
@@ -70,6 +68,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -100,29 +99,17 @@ public class TelaEstoque extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(null);
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("Cargo");
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(30, 50, 80, 20);
-
-        jLabel7.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("Operador");
-        jPanel1.add(jLabel7);
-        jLabel7.setBounds(30, 20, 80, 20);
-
         lblNomeOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        lblNomeOperador.setForeground(new java.awt.Color(0, 0, 0));
+        lblNomeOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblNomeOperador.setText("jLabel6");
         jPanel1.add(lblNomeOperador);
-        lblNomeOperador.setBounds(120, 20, 80, 20);
+        lblNomeOperador.setBounds(30, 30, 110, 32);
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        lblCargo.setForeground(new java.awt.Color(0, 0, 0));
+        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("jLabel6");
         jPanel1.add(lblCargo);
-        lblCargo.setBounds(120, 50, 80, 20);
+        lblCargo.setBounds(30, 60, 130, 40);
 
         btnLogout.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -132,9 +119,14 @@ public class TelaEstoque extends javax.swing.JFrame {
         });
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/power.png"))); // NOI18N
         jLabel10.setText("Logout");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnLogoutLayout = new javax.swing.GroupLayout(btnLogout);
         btnLogout.setLayout(btnLogoutLayout);
@@ -142,19 +134,16 @@ public class TelaEstoque extends javax.swing.JFrame {
             btnLogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnLogoutLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                 .addContainerGap())
         );
         btnLogoutLayout.setVerticalGroup(
             btnLogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnLogoutLayout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel10)
-                .addGap(30, 30, 30))
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
         );
 
         jPanel1.add(btnLogout);
-        btnLogout.setBounds(30, 310, 190, 98);
+        btnLogout.setBounds(40, 230, 190, 98);
 
         btnProduto1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnProduto1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -166,26 +155,25 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnEntrada.png"))); // NOI18N
         jLabel9.setText("Gerenciar Estoque");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnProduto1Layout = new javax.swing.GroupLayout(btnProduto1);
         btnProduto1.setLayout(btnProduto1Layout);
         btnProduto1Layout.setHorizontalGroup(
             btnProduto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnProduto1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
         );
         btnProduto1Layout.setVerticalGroup(
             btnProduto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnProduto1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel9)
-                .addContainerGap(28, Short.MAX_VALUE))
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
         );
 
         jPanel1.add(btnProduto1);
-        btnProduto1.setBounds(30, 200, 189, 98);
+        btnProduto1.setBounds(40, 120, 182, 98);
 
         btnProduto2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnProduto2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -197,26 +185,25 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnFornecedor-64.png"))); // NOI18N
         jLabel11.setText("Fornecedores");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnProduto2Layout = new javax.swing.GroupLayout(btnProduto2);
         btnProduto2.setLayout(btnProduto2Layout);
         btnProduto2Layout.setHorizontalGroup(
             btnProduto2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnProduto2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
         );
         btnProduto2Layout.setVerticalGroup(
             btnProduto2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnProduto2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
         );
 
         jPanel1.add(btnProduto2);
-        btnProduto2.setBounds(230, 200, 198, 98);
+        btnProduto2.setBounds(240, 120, 194, 98);
 
         jPanel2.setBackground(new java.awt.Color(52, 73, 94));
 
@@ -236,18 +223,18 @@ public class TelaEstoque extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 2, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(590, 0, 50, 40);
+        jPanel2.setBounds(420, 0, 50, 40);
 
         btnGraficoRanking.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnGraficoRanking.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -255,51 +242,38 @@ public class TelaEstoque extends javax.swing.JFrame {
                 btnGraficoRankingMouseClicked(evt);
             }
         });
+        btnGraficoRanking.setLayout(null);
 
         jLabel12.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btngrafico2-48.png"))); // NOI18N
+        btnGraficoRanking.add(jLabel12);
+        jLabel12.setBounds(21, 24, 48, 50);
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel3.setText("Proutos");
+        btnGraficoRanking.add(jLabel3);
+        jLabel3.setBounds(90, 30, 81, 20);
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel4.setText("Mais Vendidos");
+        btnGraficoRanking.add(jLabel4);
+        jLabel4.setBounds(90, 50, 86, 20);
 
-        javax.swing.GroupLayout btnGraficoRankingLayout = new javax.swing.GroupLayout(btnGraficoRanking);
-        btnGraficoRanking.setLayout(btnGraficoRankingLayout);
-        btnGraficoRankingLayout.setHorizontalGroup(
-            btnGraficoRankingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnGraficoRankingLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(jLabel12)
-                .addGap(30, 30, 30)
-                .addGroup(btnGraficoRankingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addContainerGap())
-        );
-        btnGraficoRankingLayout.setVerticalGroup(
-            btnGraficoRankingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGraficoRankingLayout.createSequentialGroup()
-                .addGroup(btnGraficoRankingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(btnGraficoRankingLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(btnGraficoRankingLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)))
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
+        btnGraficoRanking.add(jLabel13);
+        jLabel13.setBounds(0, 0, 190, 100);
 
         jPanel1.add(btnGraficoRanking);
-        btnGraficoRanking.setBounds(230, 310, 198, 98);
+        btnGraficoRanking.setBounds(240, 230, 190, 100);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(320, 0, 640, 530);
+        jPanel1.setBounds(320, 0, 470, 410);
 
-        setSize(new java.awt.Dimension(960, 530));
+        setSize(new java.awt.Dimension(786, 408));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -309,21 +283,31 @@ public class TelaEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
-        // Sai do sistema e Chama a tela de login
-        dispose();
-        TelaLogin login = new TelaLogin();
-        login.setVisible(true);
+        
     }//GEN-LAST:event_btnLogoutMouseClicked
 
     private void btnProduto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProduto1MouseClicked
+        
+    }//GEN-LAST:event_btnProduto1MouseClicked
+
+    private void btnProduto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProduto2MouseClicked
+      
+    }//GEN-LAST:event_btnProduto2MouseClicked
+
+    private void btnGraficoRankingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGraficoRankingMouseClicked
+
+        
+    }//GEN-LAST:event_btnGraficoRankingMouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         // Chama a tela de Gereciamento de Estoque
         TelaMovimentacao m = new TelaMovimentacao();
         m.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
         m.setVisible(true);
-    }//GEN-LAST:event_btnProduto1MouseClicked
+    }//GEN-LAST:event_jLabel9MouseClicked
 
-    private void btnProduto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProduto2MouseClicked
-        // Chama tela de cadastro de fornecedorese
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+          // Chama tela de cadastro de fornecedorese
         
         TelaCadastroFornecedor cadastro = new TelaCadastroFornecedor();
         cadastro.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
@@ -336,10 +320,10 @@ public class TelaEstoque extends javax.swing.JFrame {
         l.setDescricao(l.getUsuario() + " acessou a " + l.getFuncionalidade());
         l.gravaLog(l);
         // Fim do Registro de Log
-    }//GEN-LAST:event_btnProduto2MouseClicked
+    }//GEN-LAST:event_jLabel11MouseClicked
 
-    private void btnGraficoRankingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGraficoRankingMouseClicked
-        // Cria  gráfico de produtos mais vendidos
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+               // Cria  gráfico de produtos mais vendidos
         ResultSet rs = cp.rankingProdutosVendidos();
         DefaultCategoryDataset ds = new DefaultCategoryDataset();
         
@@ -361,8 +345,14 @@ public class TelaEstoque extends javax.swing.JFrame {
         frame.setSize(800, 650);
         frame.setVisible(true);
         
-        
-    }//GEN-LAST:event_btnGraficoRankingMouseClicked
+    }//GEN-LAST:event_jLabel13MouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+       // Sai do sistema e Chama a tela de login
+        dispose();
+        TelaLogin login = new TelaLogin();
+        login.setVisible(true);
+    }//GEN-LAST:event_jLabel10MouseClicked
 
     /**
      * @param args the command line arguments
@@ -408,12 +398,11 @@ public class TelaEstoque extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
