@@ -134,7 +134,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         jPanel3.setBounds(345, 0, 50, 38);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 450, 150);
+        jPanel1.setBounds(-2, 0, 390, 150);
 
         jLabel4.setText("Fornecedor");
 
@@ -237,7 +237,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         getContentPane().add(btnEditar);
         btnEditar.setBounds(150, 450, 84, 50);
 
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnExcluir.png"))); // NOI18N
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -245,9 +245,9 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnExcluir);
-        btnExcluir.setBounds(240, 450, 110, 48);
+        btnExcluir.setBounds(240, 450, 110, 32);
 
-        setSize(new java.awt.Dimension(395, 514));
+        setSize(new java.awt.Dimension(386, 514));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

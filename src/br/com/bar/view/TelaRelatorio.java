@@ -306,7 +306,7 @@ public class TelaRelatorio extends javax.swing.JFrame {
         jtablePanel.addTab("Financeiro", painelfinanceiro);
 
         comboRelProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        comboRelProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Produtos em Estoque", "Relatório de Compras (Posição Estoque)" }));
+        comboRelProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Produtos em Estoque", "Relatório de Compras (Posição Estoque)", "Relatório de Movimentação Estoque" }));
 
         btnOk.setText("OK");
         btnOk.addActionListener(new java.awt.event.ActionListener() {
@@ -712,7 +712,7 @@ public class TelaRelatorio extends javax.swing.JFrame {
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         //Abre relatório
-
+        
         int opcao = comboRelProduto.getSelectedIndex();
         switch (opcao) {
             case 0:
@@ -732,6 +732,10 @@ public class TelaRelatorio extends javax.swing.JFrame {
                 } catch (JRException e) {
                     System.out.println("Erro relatório de posição do Estoque");
                 }
+                break;
+            case 2:
+                //Adicionar relatório de movimentação de Estoque
+                
                 break;
         }
     }//GEN-LAST:event_btnOkActionPerformed

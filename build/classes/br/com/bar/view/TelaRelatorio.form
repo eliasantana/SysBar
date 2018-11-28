@@ -505,9 +505,10 @@
                   <Font name="Yu Gothic UI Light" size="14" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
+                  <StringArray count="3">
                     <StringItem index="0" value="Produtos em Estoque"/>
                     <StringItem index="1" value="Relat&#xf3;rio de Compras (Posi&#xe7;&#xe3;o Estoque)"/>
+                    <StringItem index="2" value="Relat&#xf3;rio de Movimenta&#xe7;&#xe3;o Estoque"/>
                   </StringArray>
                 </Property>
               </Properties>
