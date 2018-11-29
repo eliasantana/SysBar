@@ -61,13 +61,11 @@ public class TelaRanking extends javax.swing.JFrame {
         painelSuperior.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("de Vendas");
         painelSuperior.add(jLabel1);
         jLabel1.setBounds(180, 80, 106, 32);
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Ranking");
         painelSuperior.add(jLabel2);
         jLabel2.setBounds(119, 38, 119, 48);
@@ -107,10 +105,10 @@ public class TelaRanking extends javax.swing.JFrame {
         getContentPane().add(painelSuperior);
         painelSuperior.setBounds(0, 0, 408, 124);
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setForeground(new java.awt.Color(153, 153, 153));
 
-        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Período")));
 
         jLabel4.setText("Inicio");

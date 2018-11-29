@@ -93,7 +93,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/grupos2 (2).png"))); // NOI18N
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(32, 12, 64, 64);
+        jLabel7.setBounds(30, 20, 64, 64);
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(52, 73, 94));
@@ -101,7 +101,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         jPanel1.add(jLabel6);
         jLabel6.setBounds(267, 68, 78, 25);
 
-        jPanel3.setBackground(new java.awt.Color(44, 62, 80));
+        jPanel3.setBackground(new java.awt.Color(38, 53, 61));
 
         lblFechar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblFechar.setForeground(new java.awt.Color(255, 255, 255));
@@ -134,7 +134,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 400, 110);
 
-        jPanel2.setBackground(new java.awt.Color(44, 62, 80));
+        jPanel2.setBackground(new java.awt.Color(38, 53, 61));
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -142,7 +142,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
 
         txtNomeGrupo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
 
-        btnSalvar.setBackground(new java.awt.Color(44, 62, 80));
+        btnSalvar.setBackground(new java.awt.Color(38, 53, 61));
         btnSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSalvarMouseClicked(evt);
@@ -171,7 +171,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnExceluir.setBackground(new java.awt.Color(44, 62, 80));
+        btnExceluir.setBackground(new java.awt.Color(38, 53, 61));
         btnExceluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnExceluirMouseClicked(evt);
@@ -205,7 +205,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnEditar.setBackground(new java.awt.Color(44, 62, 80));
+        btnEditar.setBackground(new java.awt.Color(38, 53, 61));
         btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnEditarMouseClicked(evt);
@@ -234,7 +234,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnConsultar.setBackground(new java.awt.Color(44, 62, 80));
+        btnConsultar.setBackground(new java.awt.Color(38, 53, 61));
         btnConsultar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnConsultarMouseClicked(evt);

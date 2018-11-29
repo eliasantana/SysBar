@@ -84,7 +84,6 @@ public class TelaCadastroDeOcorrencia extends javax.swing.JFrame {
         });
 
         lblBtnNovaOcorrencia.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        lblBtnNovaOcorrencia.setForeground(new java.awt.Color(0, 0, 0));
         lblBtnNovaOcorrencia.setText("Nova ocorrência");
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnAdicionar.png"))); // NOI18N
@@ -109,16 +108,14 @@ public class TelaCadastroDeOcorrencia extends javax.swing.JFrame {
         );
 
         panelDireito.add(btnCadastrar);
-        btnCadastrar.setBounds(0, 100, 240, 56);
+        btnCadastrar.setBounds(0, 100, 240, 54);
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        lblCargo.setForeground(new java.awt.Color(0, 0, 0));
         lblCargo.setText("Cargo");
         panelDireito.add(lblCargo);
         lblCargo.setBounds(30, 50, 130, 20);
 
         lblLogin.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        lblLogin.setForeground(new java.awt.Color(0, 0, 0));
         lblLogin.setText("Login");
         panelDireito.add(lblLogin);
         lblLogin.setBounds(30, 30, 130, 20);
@@ -139,7 +136,6 @@ public class TelaCadastroDeOcorrencia extends javax.swing.JFrame {
         });
 
         lblAlterar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        lblAlterar.setForeground(new java.awt.Color(0, 0, 0));
         lblAlterar.setText("Alterar");
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapis.png"))); // NOI18N
@@ -164,7 +160,7 @@ public class TelaCadastroDeOcorrencia extends javax.swing.JFrame {
         );
 
         panelDireito.add(btnAlterar);
-        btnAlterar.setBounds(0, 155, 240, 60);
+        btnAlterar.setBounds(0, 155, 240, 58);
 
         btnXcluir.setBackground(new java.awt.Color(232, 126, 4));
         btnXcluir.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -182,7 +178,6 @@ public class TelaCadastroDeOcorrencia extends javax.swing.JFrame {
         });
 
         lblExcluir.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        lblExcluir.setForeground(new java.awt.Color(0, 0, 0));
         lblExcluir.setText("Excluir");
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
@@ -207,18 +202,17 @@ public class TelaCadastroDeOcorrencia extends javax.swing.JFrame {
         );
 
         panelDireito.add(btnXcluir);
-        btnXcluir.setBounds(0, 210, 240, 60);
+        btnXcluir.setBounds(0, 210, 240, 58);
 
         getContentPane().add(panelDireito);
         panelDireito.setBounds(0, 0, 240, 440);
 
-        jPanel1.setBackground(new java.awt.Color(52, 73, 94));
+        jPanel1.setBackground(new java.awt.Color(38, 53, 61));
         jPanel1.setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(243, 156, 18));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("X");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -262,7 +256,7 @@ public class TelaCadastroDeOcorrencia extends javax.swing.JFrame {
 
         jLabel5.setText("Descrição");
         panelCadastro.add(jLabel5);
-        jLabel5.setBounds(23, 19, 100, 15);
+        jLabel5.setBounds(23, 19, 100, 14);
 
         tblOcorrencia.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         tblOcorrencia.setModel(new javax.swing.table.DefaultTableModel(
@@ -301,7 +295,7 @@ public class TelaCadastroDeOcorrencia extends javax.swing.JFrame {
         panelCadastro.add(jLabel6);
         jLabel6.setBounds(399, 42, 110, 48);
         panelCadastro.add(txtId);
-        txtId.setBounds(375, 17, 49, 19);
+        txtId.setBounds(375, 17, 49, 20);
 
         camadas.setLayer(panelCadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
 

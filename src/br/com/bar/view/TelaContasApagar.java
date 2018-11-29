@@ -138,7 +138,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(null);
 
-        painelEsquerdo.setBackground(new java.awt.Color(52, 73, 94));
+        painelEsquerdo.setBackground(new java.awt.Color(38, 53, 61));
         painelEsquerdo.setLayout(null);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/CalendarioCinzaClaro.png"))); // NOI18N
@@ -343,7 +343,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
         painelDireito.add(txtIdGrupo);
         txtIdGrupo.setBounds(60, 20, 40, 30);
 
-        jPanel1.setBackground(new java.awt.Color(52, 73, 94));
+        jPanel1.setBackground(new java.awt.Color(38, 53, 61));
 
         tbnFechar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         tbnFechar.setForeground(new java.awt.Color(255, 255, 255));
@@ -359,17 +359,19 @@ public class TelaContasApagar extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tbnFechar, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(tbnFechar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 10, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(tbnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         painelDireito.add(jPanel1);
-        jPanel1.setBounds(570, -10, 50, 50);
+        jPanel1.setBounds(570, 0, 50, 40);
 
         btnSalvar1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -516,7 +518,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(comboFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -534,7 +536,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
         getContentPane().add(painelDireito);
         painelDireito.setBounds(360, 0, 620, 520);
 
-        setSize(new java.awt.Dimension(975, 524));
+        setSize(new java.awt.Dimension(976, 524));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

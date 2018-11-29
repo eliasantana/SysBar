@@ -105,7 +105,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel3.setBounds(70, 20, 160, 190);
 
         lblVersao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersao.setText("1.1.17");
+        lblVersao.setText("1.2.4");
         jPanel1.add(lblVersao);
         lblVersao.setBounds(60, 320, 170, 20);
 

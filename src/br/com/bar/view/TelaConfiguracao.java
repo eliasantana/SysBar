@@ -81,14 +81,14 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(null);
 
-        jPanel2.setBackground(new java.awt.Color(52, 73, 94));
+        jPanel2.setBackground(new java.awt.Color(38, 53, 61));
         jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel2MouseClicked(evt);
             }
         });
 
-        btnGrupo.setBackground(new java.awt.Color(153, 153, 153));
+        btnGrupo.setBackground(new java.awt.Color(204, 204, 204));
         btnGrupo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGrupoMouseClicked(evt);
@@ -108,7 +108,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnGrupo.add(jLabel12);
         jLabel12.setBounds(0, 20, 160, 40);
 
-        btnGrupo1.setBackground(new java.awt.Color(153, 153, 153));
+        btnGrupo1.setBackground(new java.awt.Color(204, 204, 204));
         btnGrupo1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGrupo1MouseClicked(evt);
@@ -128,7 +128,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnGrupo1.add(jLabel13);
         jLabel13.setBounds(0, 20, 160, 40);
 
-        btnGrupo2.setBackground(new java.awt.Color(153, 153, 153));
+        btnGrupo2.setBackground(new java.awt.Color(204, 204, 204));
         btnGrupo2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGrupo2MouseClicked(evt);
@@ -148,7 +148,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnGrupo2.add(jLabel14);
         jLabel14.setBounds(0, 20, 160, 40);
 
-        btnFuncionario.setBackground(new java.awt.Color(153, 153, 153));
+        btnFuncionario.setBackground(new java.awt.Color(204, 204, 204));
         btnFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnFuncionarioMouseClicked(evt);
@@ -168,7 +168,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnFuncionario.add(jLabel18);
         jLabel18.setBounds(0, 70, 150, 40);
 
-        btnPrecos.setBackground(new java.awt.Color(153, 153, 153));
+        btnPrecos.setBackground(new java.awt.Color(204, 204, 204));
         btnPrecos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnPrecosMouseClicked(evt);
@@ -188,7 +188,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnPrecos.add(jLabel19);
         jLabel19.setBounds(0, 70, 150, 40);
 
-        btnLog.setBackground(new java.awt.Color(153, 153, 153));
+        btnLog.setBackground(new java.awt.Color(204, 204, 204));
         btnLog.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLogMouseClicked(evt);
@@ -208,7 +208,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnLog.add(jLabel20);
         jLabel20.setBounds(0, 70, 150, 40);
 
-        btnCaixa.setBackground(new java.awt.Color(153, 153, 153));
+        btnCaixa.setBackground(new java.awt.Color(204, 204, 204));
         btnCaixa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCaixaMouseClicked(evt);
@@ -228,7 +228,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnCaixa.add(jLabel21);
         jLabel21.setBounds(0, 70, 150, 40);
 
-        btnCaixa1.setBackground(new java.awt.Color(153, 153, 153));
+        btnCaixa1.setBackground(new java.awt.Color(204, 204, 204));
         btnCaixa1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCaixa1MouseClicked(evt);
@@ -248,7 +248,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnCaixa1.add(jLabel23);
         jLabel23.setBounds(0, 70, 150, 40);
 
-        btnGrupo3.setBackground(new java.awt.Color(153, 153, 153));
+        btnGrupo3.setBackground(new java.awt.Color(204, 204, 204));
         btnGrupo3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGrupo3MouseClicked(evt);
@@ -268,7 +268,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnGrupo3.add(jLabel25);
         jLabel25.setBounds(0, 20, 160, 50);
 
-        btnCaixa2.setBackground(new java.awt.Color(153, 153, 153));
+        btnCaixa2.setBackground(new java.awt.Color(204, 204, 204));
         btnCaixa2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCaixa2MouseClicked(evt);
@@ -288,7 +288,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnCaixa2.add(jLabel27);
         jLabel27.setBounds(0, 70, 150, 40);
 
-        btnDadosEmpresa.setBackground(new java.awt.Color(153, 153, 153));
+        btnDadosEmpresa.setBackground(new java.awt.Color(204, 204, 204));
         btnDadosEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnDadosEmpresaMouseClicked(evt);
@@ -384,7 +384,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(50, 0, 950, 430);
 
-        jPanel3.setBackground(new java.awt.Color(52, 73, 94));
+        jPanel3.setBackground(new java.awt.Color(38, 53, 61));
 
         lblFechar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblFechar.setForeground(new java.awt.Color(255, 255, 255));

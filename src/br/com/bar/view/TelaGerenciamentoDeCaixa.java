@@ -47,9 +47,7 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtIdCaixa = new javax.swing.JTextField();
@@ -67,42 +65,28 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Gerenciamento");
         jPanel1.add(jLabel1);
         jLabel1.setBounds(110, 10, 230, 48);
 
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Operador");
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(230, 80, 80, 20);
-
         lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        lblOperador.setForeground(new java.awt.Color(0, 0, 0));
+        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("Operador");
         jPanel1.add(lblOperador);
-        lblOperador.setBounds(310, 80, 81, 16);
-
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Cargo");
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(240, 100, 40, 20);
+        lblOperador.setBounds(291, 66, 100, 30);
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        lblCargo.setForeground(new java.awt.Color(0, 0, 0));
+        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("cargo");
         jPanel1.add(lblCargo);
-        lblCargo.setBounds(320, 100, 81, 16);
+        lblCargo.setBounds(290, 100, 81, 30);
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("de Caixa");
         jPanel1.add(jLabel6);
         jLabel6.setBounds(120, 60, 86, 32);
         jPanel1.add(txtIdCaixa);
-        txtIdCaixa.setBounds(12, 110, 51, 19);
+        txtIdCaixa.setBounds(12, 110, 51, 20);
 
         jPanel2.setBackground(new java.awt.Color(44, 62, 80));
 
@@ -262,8 +246,6 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
     private javax.swing.JButton LiberarCaixa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;

@@ -25,19 +25,17 @@ public class TelaEstoque extends javax.swing.JFrame {
     /**
      * Creates new form TelaEstoque
      */
-    
     ControlerProduto cp = new ControlerProduto();
-    
+
     public TelaEstoque() {
         initComponents();
-        
-        
+
     }
-    
-    public void recebeOperador(String nomeOperador, String cargo){
+
+    public void recebeOperador(String nomeOperador, String cargo) {
         lblCargo.setText(cargo);
         lblNomeOperador.setText(nomeOperador);
-        
+
     }
 
     /**
@@ -74,7 +72,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(null);
 
-        painelEsquerdo.setBackground(new java.awt.Color(52, 73, 94));
+        painelEsquerdo.setBackground(new java.awt.Color(38, 53, 61));
         painelEsquerdo.setLayout(null);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/produto128x128.png"))); // NOI18N
@@ -94,7 +92,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel8.setBounds(30, 260, 280, 60);
 
         getContentPane().add(painelEsquerdo);
-        painelEsquerdo.setBounds(0, 0, 322, 530);
+        painelEsquerdo.setBounds(0, 0, 322, 410);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(null);
@@ -205,7 +203,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         jPanel1.add(btnProduto2);
         btnProduto2.setBounds(240, 120, 194, 98);
 
-        jPanel2.setBackground(new java.awt.Color(52, 73, 94));
+        jPanel2.setBackground(new java.awt.Color(38, 53, 61));
 
         jLabel1.setBackground(new java.awt.Color(52, 73, 94));
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
@@ -283,20 +281,20 @@ public class TelaEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
-        
+
     }//GEN-LAST:event_btnLogoutMouseClicked
 
     private void btnProduto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProduto1MouseClicked
-        
+
     }//GEN-LAST:event_btnProduto1MouseClicked
 
     private void btnProduto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProduto2MouseClicked
-      
+
     }//GEN-LAST:event_btnProduto2MouseClicked
 
     private void btnGraficoRankingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGraficoRankingMouseClicked
 
-        
+
     }//GEN-LAST:event_btnGraficoRankingMouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
@@ -307,12 +305,12 @@ public class TelaEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
-          // Chama tela de cadastro de fornecedorese
-        
+        // Chama tela de cadastro de fornecedorese
+
         TelaCadastroFornecedor cadastro = new TelaCadastroFornecedor();
         cadastro.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
         cadastro.setVisible(true);
-        
+
         // Inicio do Registro de log
         Log l = new Log();
         l.setUsuario(lblNomeOperador.getText());
@@ -323,35 +321,40 @@ public class TelaEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
-               // Cria  gráfico de produtos mais vendidos
+        // Cria  gráfico de produtos mais vendidos
         ResultSet rs = cp.rankingProdutosVendidos();
         DefaultCategoryDataset ds = new DefaultCategoryDataset();
-        
-        
+
         try {
-            while (rs.next()){
+            while (rs.next()) {
                 ds.addValue(rs.getDouble("quantidade"), "Quantidade", rs.getString("nome"));
             }
-            
+
         } catch (SQLException e) {
             System.out.println("erro ao Ranking de listarProdutos");
         }
-        
-        JFreeChart graficoBarras= ChartFactory.createBarChart3D("Produtos mais Vendidos", "Prodtutos", "Quantidade", ds, PlotOrientation.HORIZONTAL, true, false, true);
+
+        JFreeChart graficoBarras = ChartFactory.createBarChart3D("Produtos mais Vendidos", "Prodtutos", "Quantidade", ds, PlotOrientation.HORIZONTAL, true, false, true);
         CategoryPlot categoryPlot = graficoBarras.getCategoryPlot();
         graficoBarras.getCategoryPlot().getRenderer().setSeriesPaint(0, Color.ORANGE);
         categoryPlot.setRangeGridlinePaint(Color.black);
         ChartFrame frame = new ChartFrame("Gráfico - Produto Mais Vendidos", graficoBarras);
         frame.setSize(800, 650);
         frame.setVisible(true);
-        
+
     }//GEN-LAST:event_jLabel13MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-       // Sai do sistema e Chama a tela de login
-        dispose();
-        TelaLogin login = new TelaLogin();
-        login.setVisible(true);
+        // Sai do sistema e Chama tela de login
+        if ("Gerente".equals(lblCargo.getText())) {
+
+            dispose();
+        } else {
+            dispose();
+            TelaLogin login = new TelaLogin();
+            login.setVisible(true);
+
+        }
     }//GEN-LAST:event_jLabel10MouseClicked
 
     /**

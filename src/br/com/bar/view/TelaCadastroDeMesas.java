@@ -99,7 +99,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(null);
 
-        jPanel1.setBackground(new java.awt.Color(52, 73, 94));
+        jPanel1.setBackground(new java.awt.Color(38, 53, 61));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logoMesa.png"))); // NOI18N
 
@@ -146,7 +146,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
             }
         });
 
-        panelTroca.setBackground(new java.awt.Color(52, 73, 94));
+        panelTroca.setBackground(new java.awt.Color(38, 53, 61));
 
         comboNovoGarcom.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
 
@@ -186,7 +186,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jCheckBoxTroca.setBackground(new java.awt.Color(52, 73, 94));
+        jCheckBoxTroca.setBackground(new java.awt.Color(38, 53, 61));
         jCheckBoxTroca.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
         jCheckBoxTroca.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBoxTroca.setText("Troca Mesa Garçom");
@@ -378,7 +378,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         getContentPane().add(lblCargo);
         lblCargo.setBounds(730, 40, 90, 40);
 
-        jPanel2.setBackground(new java.awt.Color(44, 62, 80));
+        jPanel2.setBackground(new java.awt.Color(38, 53, 61));
 
         jLabel15.setBackground(new java.awt.Color(255, 255, 255));
         jLabel15.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N

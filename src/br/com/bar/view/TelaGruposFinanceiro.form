@@ -94,7 +94,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="32" y="12" width="-1" height="-1"/>
+              <AbsoluteConstraints x="30" y="20" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -117,7 +117,7 @@
         <Container class="javax.swing.JPanel" name="jPanel3">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="50" green="3e" red="2c" type="rgb"/>
+              <Color blue="3d" green="35" red="26" type="rgb"/>
             </Property>
           </Properties>
           <Constraints>
@@ -167,7 +167,7 @@
     <Container class="javax.swing.JPanel" name="jPanel2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="50" green="3e" red="2c" type="rgb"/>
+          <Color blue="3d" green="35" red="26" type="rgb"/>
         </Property>
       </Properties>
       <Constraints>
@@ -264,7 +264,7 @@
         <Container class="javax.swing.JPanel" name="btnSalvar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="50" green="3e" red="2c" type="rgb"/>
+              <Color blue="3d" green="35" red="26" type="rgb"/>
             </Property>
           </Properties>
           <Events>
@@ -311,7 +311,7 @@
         <Container class="javax.swing.JPanel" name="btnExceluir">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="50" green="3e" red="2c" type="rgb"/>
+              <Color blue="3d" green="35" red="26" type="rgb"/>
             </Property>
           </Properties>
           <Events>
@@ -361,7 +361,7 @@
         <Container class="javax.swing.JPanel" name="btnEditar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="50" green="3e" red="2c" type="rgb"/>
+              <Color blue="3d" green="35" red="26" type="rgb"/>
             </Property>
           </Properties>
           <Events>
@@ -408,7 +408,7 @@
         <Container class="javax.swing.JPanel" name="btnConsultar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="50" green="3e" red="2c" type="rgb"/>
+              <Color blue="3d" green="35" red="26" type="rgb"/>
             </Property>
           </Properties>
           <Events>

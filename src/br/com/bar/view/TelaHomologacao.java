@@ -95,7 +95,6 @@ public class TelaHomologacao extends javax.swing.JFrame {
         });
 
         btnHomologacaoInd.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        btnHomologacaoInd.setForeground(new java.awt.Color(0, 0, 0));
         btnHomologacaoInd.setText("Homologação Individual");
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/funcionario.png"))); // NOI18N
@@ -121,7 +120,7 @@ public class TelaHomologacao extends javax.swing.JFrame {
         );
 
         panelEsquerdo.add(btnCadastrar);
-        btnCadastrar.setBounds(0, 100, 260, 56);
+        btnCadastrar.setBounds(0, 100, 260, 54);
 
         lblLogin.setBackground(new java.awt.Color(0, 0, 0));
         lblLogin.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
@@ -151,7 +150,6 @@ public class TelaHomologacao extends javax.swing.JFrame {
         });
 
         btnHNomologa.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        btnHNomologa.setForeground(new java.awt.Color(0, 0, 0));
         btnHNomologa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnHomologacao.png"))); // NOI18N
         btnHNomologa.setText("Homologa Individual");
         btnHNomologa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -187,11 +185,10 @@ public class TelaHomologacao extends javax.swing.JFrame {
         getContentPane().add(panelEsquerdo);
         panelEsquerdo.setBounds(0, 0, 260, 520);
 
-        jPanel1.setBackground(new java.awt.Color(52, 73, 94));
+        jPanel1.setBackground(new java.awt.Color(38, 53, 61));
         jPanel1.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("X");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {

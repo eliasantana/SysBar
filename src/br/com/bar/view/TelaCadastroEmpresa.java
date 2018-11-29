@@ -123,7 +123,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(null);
 
-        jPanel1.setBackground(new java.awt.Color(52, 73, 94));
+        jPanel1.setBackground(new java.awt.Color(38, 53, 61));
         jPanel1.setForeground(new java.awt.Color(52, 73, 94));
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
@@ -185,9 +185,9 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 344, 540);
+        jPanel1.setBounds(0, 0, 354, 540);
 
-        jPanel2.setBackground(new java.awt.Color(52, 73, 94));
+        jPanel2.setBackground(new java.awt.Color(38, 53, 61));
 
         lblFechar.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
         lblFechar.setForeground(new java.awt.Color(255, 255, 255));
@@ -229,7 +229,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         lblData.setBounds(660, 40, 110, 32);
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 36)); // NOI18N
-        jLabel3.setText("Cadastro Empesa");
+        jLabel3.setText("Cadastro Empresa");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(360, 80, 310, 50);
         getContentPane().add(txtNomeEmpresa);

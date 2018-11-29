@@ -85,12 +85,9 @@ public class TelaPedido extends javax.swing.JFrame {
         txtNumeroPedido = new javax.swing.JTextField();
         txtNumeroMesa = new javax.swing.JTextField();
         painelDireito = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
-        btnFechar = new javax.swing.JLabel();
         tblMenu = new javax.swing.JPanel();
         txtCodigoProduto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -109,6 +106,8 @@ public class TelaPedido extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDetalhe = new javax.swing.JTable();
         lblMensagem = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        btnFechar = new javax.swing.JLabel();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -116,7 +115,7 @@ public class TelaPedido extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(null);
 
-        peinelsquerdo.setBackground(new java.awt.Color(52, 73, 94));
+        peinelsquerdo.setBackground(new java.awt.Color(38, 53, 61));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/mesa128x128Claro.png"))); // NOI18N
 
@@ -136,7 +135,7 @@ public class TelaPedido extends javax.swing.JFrame {
             }
         });
 
-        painelPedido.setBackground(new java.awt.Color(52, 73, 94));
+        painelPedido.setBackground(new java.awt.Color(38, 53, 61));
 
         btnConfirar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         btnConfirar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Pedido.png"))); // NOI18N
@@ -189,7 +188,7 @@ public class TelaPedido extends javax.swing.JFrame {
                 .addGap(0, 34, Short.MAX_VALUE))
         );
 
-        jCheckBox1.setBackground(new java.awt.Color(52, 73, 94));
+        jCheckBox1.setBackground(new java.awt.Color(38, 53, 61));
         jCheckBox1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setText("Abrir Pedido");
@@ -274,41 +273,23 @@ public class TelaPedido extends javax.swing.JFrame {
         painelDireito.setBackground(new java.awt.Color(204, 204, 204));
         painelDireito.setLayout(null);
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        jLabel4.setText("Cargo");
-        painelDireito.add(jLabel4);
-        jLabel4.setBounds(32, 58, 50, 20);
-
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        jLabel5.setText("Operador");
-        painelDireito.add(jLabel5);
-        jLabel5.setBounds(32, 32, 72, 20);
-
         lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("jLabel3");
         painelDireito.add(lblOperador);
-        lblOperador.setBounds(110, 32, 91, 20);
+        lblOperador.setBounds(20, 10, 91, 30);
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("jLabel3");
         painelDireito.add(lblCargo);
-        lblCargo.setBounds(110, 58, 91, 20);
+        lblCargo.setBounds(20, 50, 91, 30);
 
         lblData.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
+        lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario24x24.png"))); // NOI18N
         lblData.setText("22/11/2017");
         painelDireito.add(lblData);
-        lblData.setBounds(252, 32, 105, 32);
-
-        btnFechar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        btnFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnFechar.setText("X");
-        btnFechar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnFecharMouseClicked(evt);
-            }
-        });
-        painelDireito.add(btnFechar);
-        btnFechar.setBounds(480, 32, 41, 29);
+        lblData.setBounds(355, 40, 150, 32);
 
         txtCodigoProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 24)); // NOI18N
         txtCodigoProduto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -405,26 +386,26 @@ public class TelaPedido extends javax.swing.JFrame {
                     .addGroup(tblMenuLayout.createSequentialGroup()
                         .addGroup(tblMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(tblMenuLayout.createSequentialGroup()
-                                .addGap(136, 136, 136)
-                                .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(tblMenuLayout.createSequentialGroup()
-                                .addGroup(tblMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(7, 7, 7)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7)))
-                        .addGap(32, 32, 32)
-                        .addGroup(tblMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(tblMenuLayout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel9)
-                                .addGap(68, 68, 68))
-                            .addComponent(txtTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(69, 149, Short.MAX_VALUE))
-                    .addGroup(tblMenuLayout.createSequentialGroup()
-                        .addComponent(btnEstadoPedido)
+                                .addGroup(tblMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(tblMenuLayout.createSequentialGroup()
+                                        .addGap(136, 136, 136)
+                                        .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(tblMenuLayout.createSequentialGroup()
+                                        .addGroup(tblMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(7, 7, 7)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel7)))
+                                .addGap(32, 32, 32)
+                                .addGroup(tblMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(tblMenuLayout.createSequentialGroup()
+                                        .addGap(30, 30, 30)
+                                        .addComponent(jLabel9)
+                                        .addGap(68, 68, 68))
+                                    .addComponent(txtTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnEstadoPedido))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         tblMenuLayout.setVerticalGroup(
@@ -535,6 +516,32 @@ public class TelaPedido extends javax.swing.JFrame {
         lblMensagem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         painelDireito.add(lblMensagem);
         lblMensagem.setBounds(20, 300, 520, 28);
+
+        jPanel1.setBackground(new java.awt.Color(38, 53, 61));
+
+        btnFechar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnFechar.setForeground(new java.awt.Color(255, 255, 255));
+        btnFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnFechar.setText("X");
+        btnFechar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFecharMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnFechar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnFechar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        painelDireito.add(jPanel1);
+        jPanel1.setBounds(520, 0, 40, 40);
 
         getContentPane().add(painelDireito);
         painelDireito.setBounds(390, 0, 560, 530);
@@ -838,12 +845,11 @@ public class TelaPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

@@ -71,8 +71,6 @@ public class TelaConzinha extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btnAlteraRefeicao = new javax.swing.JPanel();
         btnLiberaRefeicao = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -82,7 +80,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(null);
 
-        painelEsquerdo.setBackground(new java.awt.Color(52, 73, 94));
+        painelEsquerdo.setBackground(new java.awt.Color(38, 53, 61));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -123,7 +121,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         );
 
         getContentPane().add(painelEsquerdo);
-        painelEsquerdo.setBounds(0, 0, 270, 547);
+        painelEsquerdo.setBounds(0, 0, 270, 546);
 
         paineldireito.setLayout(null);
 
@@ -242,23 +240,17 @@ public class TelaConzinha extends javax.swing.JFrame {
         );
 
         paineldireito.add(btnAlteraRefeicao);
-        btnAlteraRefeicao.setBounds(353, 441, 182, 85);
+        btnAlteraRefeicao.setBounds(353, 441, 178, 85);
 
-        jLabel7.setText("Operador");
-        paineldireito.add(jLabel7);
-        jLabel7.setBounds(606, 32, 70, 15);
-
-        jLabel8.setText("Cargo");
-        paineldireito.add(jLabel8);
-        jLabel8.setBounds(610, 50, 60, 15);
-
+        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("jLabel9");
         paineldireito.add(lblOperador);
-        lblOperador.setBounds(688, 32, 80, 15);
+        lblOperador.setBounds(688, 16, 80, 30);
 
+        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("jLabel10");
         paineldireito.add(lblCargo);
-        lblCargo.setBounds(688, 53, 80, 15);
+        lblCargo.setBounds(688, 53, 80, 40);
 
         jPanel1.setBackground(new java.awt.Color(52, 73, 94));
 
@@ -409,8 +401,6 @@ public class TelaConzinha extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCargo;

@@ -101,8 +101,6 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         txtCaminho = new javax.swing.JTextField();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -309,17 +307,15 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 100, 720, 380);
 
-        jPanel4.setBackground(new java.awt.Color(52, 73, 94));
+        jPanel4.setBackground(new java.awt.Color(243, 156, 18));
         jPanel4.setLayout(null);
 
         jLabel14.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 48)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Cadastro");
         jPanel4.add(jLabel14);
         jLabel14.setBounds(49, 19, 185, 78);
 
         jLabel15.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 24)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Funcionário ");
         jPanel4.add(jLabel15);
         jLabel15.setBounds(252, 29, 126, 78);
@@ -328,25 +324,15 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jPanel4.add(txtCaminho);
         txtCaminho.setBounds(452, 47, 146, 20);
 
-        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setText("Operador");
-        jPanel4.add(jLabel22);
-        jLabel22.setBounds(661, 30, 46, 14);
-
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setText("Cargo");
-        jPanel4.add(jLabel23);
-        jLabel23.setBounds(661, 51, 29, 14);
-
-        lblOperador.setForeground(new java.awt.Color(255, 255, 255));
+        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("Operador");
         jPanel4.add(lblOperador);
-        lblOperador.setBounds(720, 30, 114, 20);
+        lblOperador.setBounds(720, 20, 114, 30);
 
-        lblCargo.setForeground(new java.awt.Color(255, 255, 255));
+        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("Operador");
         jPanel4.add(lblCargo);
-        lblCargo.setBounds(721, 51, 50, 14);
+        lblCargo.setBounds(721, 51, 100, 40);
 
         lblFechar.setFont(new java.awt.Font("Yu Gothic", 1, 24)); // NOI18N
         lblFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -929,8 +915,6 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

@@ -245,7 +245,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnExcluir);
-        btnExcluir.setBounds(240, 450, 110, 32);
+        btnExcluir.setBounds(240, 450, 110, 50);
 
         setSize(new java.awt.Dimension(386, 514));
         setLocationRelativeTo(null);

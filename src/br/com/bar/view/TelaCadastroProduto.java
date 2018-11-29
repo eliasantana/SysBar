@@ -119,7 +119,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(null);
 
-        painelEsquerdo.setBackground(new java.awt.Color(52, 73, 94));
+        painelEsquerdo.setBackground(new java.awt.Color(38, 53, 61));
         painelEsquerdo.setLayout(null);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/produto128x128.png"))); // NOI18N
@@ -451,7 +451,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         getContentPane().add(txtIdFor);
         txtIdFor.setBounds(590, 40, 100, 30);
 
-        jPanel3.setBackground(new java.awt.Color(52, 73, 94));
+        jPanel3.setBackground(new java.awt.Color(38, 53, 61));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));

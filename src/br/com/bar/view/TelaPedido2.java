@@ -179,6 +179,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(200, 290, 230, 220);
 
+        btnAbrirPedido.setBackground(new java.awt.Color(204, 204, 204));
         btnAbrirPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Pedido.png"))); // NOI18N
         btnAbrirPedido.setText("Abrir Pedido");
         btnAbrirPedido.addActionListener(new java.awt.event.ActionListener() {
@@ -328,7 +329,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblQtd)
                     .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -358,7 +359,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblProduto)
                     .addComponent(lblValor))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2);
@@ -397,7 +398,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(lbltotal)
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel3);
@@ -407,7 +408,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         getContentPane().add(txtNumeroPedido);
         txtNumeroPedido.setBounds(1010, 100, 50, 30);
 
-        jPanel4.setBackground(new java.awt.Color(52, 73, 94));
+        jPanel4.setBackground(new java.awt.Color(38, 53, 61));
         jPanel4.setForeground(new java.awt.Color(52, 73, 94));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
@@ -470,6 +471,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
 
+        btnListar.setBackground(new java.awt.Color(204, 204, 204));
         btnListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/mesa32x32.png"))); // NOI18N
         btnListar.setText("Listar Mesas");
         btnListar.addActionListener(new java.awt.event.ActionListener() {
@@ -496,7 +498,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 .addComponent(comboGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel5);
@@ -523,16 +525,17 @@ public class TelaPedido2 extends javax.swing.JFrame {
         panelFechar.setLayout(panelFecharLayout);
         panelFecharLayout.setHorizontalGroup(
             panelFecharLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
         panelFecharLayout.setVerticalGroup(
             panelFecharLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         getContentPane().add(panelFechar);
-        panelFechar.setBounds(1020, 0, 50, 50);
+        panelFechar.setBounds(1030, 0, 40, 40);
 
+        btnCozinha.setBackground(new java.awt.Color(204, 204, 204));
         btnCozinha.setText("Status Cozinha");
         btnCozinha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -547,7 +550,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         getContentPane().add(lblMensagem);
         lblMensagem.setBounds(450, 530, 580, 80);
 
-        setSize(new java.awt.Dimension(1068, 630));
+        setSize(new java.awt.Dimension(1068, 588));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

@@ -165,7 +165,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(null);
 
-        painelEsquerdo.setBackground(new java.awt.Color(52, 73, 94));
+        painelEsquerdo.setBackground(new java.awt.Color(38, 53, 61));
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -473,7 +473,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         painelDireito.add(jLabel24);
         jLabel24.setBounds(170, 580, 130, 14);
 
-        jPanel2.setBackground(new java.awt.Color(52, 73, 94));
+        jPanel2.setBackground(new java.awt.Color(38, 53, 61));
 
         btnFechar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnFechar.setForeground(new java.awt.Color(255, 255, 255));
