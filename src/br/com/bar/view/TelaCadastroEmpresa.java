@@ -34,6 +34,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         initComponents();
         // Instancia o objeto e executa o método retornando um objetodo tipo
         // Dados empresa
+        radioVisualizar.setSelected(true);
         txtUrlBackup.setVisible(false);
 
         d = dados.selecionaDados();
@@ -76,6 +77,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -116,6 +118,9 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         txtUF = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         lblCaminho = new javax.swing.JLabel();
+        jpanelImpressao = new javax.swing.JPanel();
+        radioDireto = new javax.swing.JRadioButton();
+        radioVisualizar = new javax.swing.JRadioButton();
 
         jLabel1.setText("jLabel1");
 
@@ -185,7 +190,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 354, 540);
+        jPanel1.setBounds(0, 0, 344, 540);
 
         jPanel2.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -386,6 +391,43 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         getContentPane().add(lblCaminho);
         lblCaminho.setBounds(660, 390, 190, 40);
 
+        jpanelImpressao.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Tipo de Impressão - Recibo")));
+
+        buttonGroup1.add(radioDireto);
+        radioDireto.setText("Imprimir Direto");
+
+        buttonGroup1.add(radioVisualizar);
+        radioVisualizar.setText("Visualizar Primeiro");
+        radioVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioVisualizarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpanelImpressaoLayout = new javax.swing.GroupLayout(jpanelImpressao);
+        jpanelImpressao.setLayout(jpanelImpressaoLayout);
+        jpanelImpressaoLayout.setHorizontalGroup(
+            jpanelImpressaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpanelImpressaoLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jpanelImpressaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(radioDireto)
+                    .addComponent(radioVisualizar))
+                .addContainerGap(73, Short.MAX_VALUE))
+        );
+        jpanelImpressaoLayout.setVerticalGroup(
+            jpanelImpressaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpanelImpressaoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(radioDireto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(radioVisualizar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jpanelImpressao);
+        jpanelImpressao.setBounds(650, 450, 210, 80);
+
         setSize(new java.awt.Dimension(902, 542));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -404,7 +446,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         try {
 
             d.setNumero(Integer.parseInt(txtNumero.getText()));
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             System.out.println("br.com.bar.view.TelaCadastroEmpresa.lblAlterarMouseClicked()" + e);
         }
         d.setCep(txtCep.getText());
@@ -415,6 +457,14 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         d.setCnpj(txtCnpj.getText());
         d.setUrlbackup(txtUrlBackup.getText());
         d.setUf(txtUF.getText());
+        String btnSelecionado=buttonGroup1.getSelection().toString();
+        
+        if ("Imprimir Direto".equals(btnSelecionado)){
+            // 1 - Imprime na Tela 0 - Imprime Direto
+            d.setImprimir_na_tela(0); // Na tela
+        }else {
+            d.setImprimir_na_tela(1); // Direto para impressora
+        }
 
         if ("".equals(txtNomeEmpresa.getText()) || txtNomeEmpresa.getText() == null) {
             JOptionPane.showMessageDialog(null, "Dados inválidos, preencha todos os campos para continuar!");
@@ -498,7 +548,15 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         d.setCnpj(txtCnpj.getText());
         d.setUrlbackup(txtUrlBackup.getText());
         d.setUf(txtUF.getText());
-
+       String btnSelecionado=buttonGroup1.getSelection().toString();
+        System.out.println(btnSelecionado);
+        if ((radioDireto.isSelected())){
+            // 1 - Imprime na Tela 0 - Imprime Direto
+            d.setImprimir_na_tela(1); // Direto para impressora
+        }else {
+            d.setImprimir_na_tela(0); // Na tela
+        }
+        
         if ("".equals(txtNomeEmpresa.getText()) || txtNomeEmpresa.getText() == null) {
             JOptionPane.showMessageDialog(null, "Dados inválidos, preencha todos os campos para continuar!");
         } else {
@@ -512,6 +570,10 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_lblEditarMouseClicked
+
+    private void radioVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioVisualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioVisualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -550,6 +612,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSelecionarArquivo;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -569,6 +632,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jpanelImpressao;
     private javax.swing.JLabel lblAdicionar;
     private javax.swing.JLabel lblCaminho;
     private javax.swing.JLabel lblData;
@@ -578,6 +642,8 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblPerfil;
+    private javax.swing.JRadioButton radioDireto;
+    private javax.swing.JRadioButton radioVisualizar;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JFormattedTextField txtCelular;
     private javax.swing.JFormattedTextField txtCep;

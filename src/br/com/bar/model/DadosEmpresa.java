@@ -25,7 +25,7 @@ public class DadosEmpresa {
     private String logo;
     private String cnpj;
     private String urlbackup;
-    
+    private int imprimir_na_tela;
             
     
     
@@ -144,6 +144,14 @@ public class DadosEmpresa {
 
     public void setUrlbackup(String urlbackup) {
         this.urlbackup = urlbackup;
+    }
+
+    public void setImprimir_na_tela(int imprimir_na_tela) {
+        this.imprimir_na_tela = imprimir_na_tela;
+    }
+
+    public int getImprimir_na_tela() {
+        return imprimir_na_tela;
     }
     
     

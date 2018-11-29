@@ -14,6 +14,7 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 
@@ -132,7 +133,7 @@ public class ControlerDadosEmpresa {
        
         
         String sql = "UPDATE tb_dados_empresa  SET"
-                + " nome_empresa=?, endereco=?, numero=?, bairro=?, cep=?, cidade=?, uf=?, telefone=?, celular=?, email=?, logo=?, cnpj=?, urlbackup=?  "
+                + " nome_empresa=?, endereco=?, numero=?, bairro=?, cep=?, cidade=?, uf=?, telefone=?, celular=?, email=?, logo=?, cnpj=?, urlbackup=?, imprimir_na_tela=?  "
                 + " WHERE id=?";
 
         try {
@@ -151,15 +152,18 @@ public class ControlerDadosEmpresa {
             pst.setString(11, d.getLogo());
             pst.setString(12, d.getCnpj());
             pst.setString(13, d.getUrlbackup());
-            pst.setInt(14, d.getId());
+            pst.setInt(14, d.getImprimir_na_tela());
+            pst.setInt(15, d.getId());
             
             pst.executeUpdate();
 
             resp = true;
-        } catch (Exception e) {
+        } catch (SQLException e) {
                 System.out.println("br.com.br.controler.ControlerDadosEmpresa.alteraDados()" +e);
         }
 
         return resp;
     }
+    
+    
 }
