@@ -32,6 +32,7 @@ import org.jfree.chart.*;
 import org.jfree.data.category.DefaultCategoryDataset;
 import br.com.bar.util.Util;
 import java.awt.Color;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 
@@ -63,8 +64,6 @@ public class TelaCaixa extends javax.swing.JFrame {
         txtIdMEsa.setVisible(false);
         txtIdPedido.setVisible(false);
 
-        
-        
         try {
 
             lblSaídas.setText("R$ " + String.format("%9.2f", caixa.totalizaSaida(lblOperador.getText())));
@@ -89,8 +88,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         double saldo = caixa.totalizaEntradas(lblOperador.getText()) - caixa.totalizaSaida(lblOperador.getText());
 
         lblSaldo.setText("RS" + String.format("%9.2f", saldo));
-        
-        
+
     }
 
     /**
@@ -761,7 +759,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         Double totalGeral = Double.parseDouble(txtTotalGeral.getText().replaceAll(",", "."));
         Double totalPessoas = totalGeral / nPesoas;
         System.out.println(nPesoas);
-        
+
         // Instancia um produto
         Pedido p = new Pedido();
         p.setTotal(txtTotalGeral.getText().replaceAll(",", "."));
@@ -1080,7 +1078,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         l.setUsuario(operador);
         String id = func.localizaIdLogin(operador);
         caixa.statusCaixa(lblStatus, caixa.temMovimentacao(Integer.parseInt(id)));
-        if ("Caixa Fechado".equals(lblStatus.getText())){
+        if ("Caixa Fechado".equals(lblStatus.getText())) {
             lblReceber.setVisible(false);
             lblReceberPAgamento.setVisible(false);
         }

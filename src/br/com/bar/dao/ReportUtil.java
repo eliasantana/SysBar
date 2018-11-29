@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -58,8 +59,18 @@ public class ReportUtil {
                 JOptionPane.showMessageDialog(null, "Você não possuí movimentação!");
                 
             
-        }
-        
+        }      
 
+    }
+    
+    //Imprime Relatório direto na impressora
+    public void impressaoDireta(String relatorio, HashMap map){
+        try {
+            JasperPrint printLocal = JasperFillManager.fillReport(url+relatorio,map,conexao);
+            JasperPrintManager.printPage(printLocal, 0, false);
+            
+        } catch (JRException e) {
+            System.out.println("br.com.bar.dao.ReportUtil.impressaoDireta()"+e);
+        }
     }
 }
