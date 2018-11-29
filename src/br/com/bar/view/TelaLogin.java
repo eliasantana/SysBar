@@ -49,7 +49,9 @@ public class TelaLogin extends javax.swing.JFrame {
        
         if (conexao!=null){
                DadosEmpresa dadosEmpresa = d.selecionaDados();
-               lblLicenca.setText("Software licenciado para " + dadosEmpresa.getNome_empresa());
+               lblLicenca.setText("Software licenciado \n para ");
+               lbllicenca2.setText( dadosEmpresa.getNome_empresa() );
+               lblCnpjEmpresa.setText(dadosEmpresa.getCnpj());
         }else {
             
             TelaPametro param = new TelaPametro();
@@ -76,6 +78,8 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         lblLicenca = new javax.swing.JLabel();
+        lbllicenca2 = new javax.swing.JLabel();
+        lblCnpjEmpresa = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         txtLogin = new javax.swing.JTextField();
         txtSenha = new javax.swing.JPasswordField();
@@ -107,22 +111,32 @@ public class TelaLogin extends javax.swing.JFrame {
         lblVersao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblVersao.setText("1.2.4");
         jPanel1.add(lblVersao);
-        lblVersao.setBounds(60, 320, 170, 20);
+        lblVersao.setBounds(60, 280, 170, 20);
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("TechSys  ");
+        jLabel8.setText("Developed by Re7 ");
         jPanel1.add(jLabel8);
         jLabel8.setBounds(30, 360, 240, 20);
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Versão");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(60, 300, 170, 20);
+        jLabel9.setBounds(60, 260, 170, 20);
 
         lblLicenca.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLicenca.setText("xxxxx");
         jPanel1.add(lblLicenca);
-        lblLicenca.setBounds(0, 340, 300, 20);
+        lblLicenca.setBounds(10, 300, 270, 20);
+
+        lbllicenca2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbllicenca2.setText("empresa");
+        jPanel1.add(lbllicenca2);
+        lbllicenca2.setBounds(20, 320, 260, 14);
+
+        lblCnpjEmpresa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCnpjEmpresa.setText("cnpj");
+        jPanel1.add(lblCnpjEmpresa);
+        lblCnpjEmpresa.setBounds(20, 340, 260, 14);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 300, 430);
@@ -421,9 +435,11 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lblCnpjEmpresa;
     private javax.swing.JLabel lblLicenca;
     private javax.swing.JLabel lblMsg;
     private javax.swing.JLabel lblVersao;
+    private javax.swing.JLabel lbllicenca2;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables

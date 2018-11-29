@@ -7,6 +7,7 @@ package br.com.bar.view;
 
 import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.Log;
+import br.com.bar.model.DadosEmpresa;
 import br.com.bar.model.MovimentacaoCaixa;
 import br.com.bar.model.Pedido;
 import br.com.bar.util.Util;
@@ -31,6 +32,7 @@ import net.sf.jasperreports.view.JasperViewer;
 import org.jfree.chart.*;
 import org.jfree.data.category.DefaultCategoryDataset;
 import br.com.bar.util.Util;
+import br.com.br.controler.ControlerDadosEmpresa;
 import java.awt.Color;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import org.jfree.chart.plot.CategoryPlot;
@@ -51,6 +53,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     ControlerFuncionario func = new ControlerFuncionario();
     ControlerParametro cparam = new ControlerParametro();
     Connection conexao = ConexaoBd.conector();
+    ControlerDadosEmpresa de = new ControlerDadosEmpresa();
     Util utils = new Util();
 
     Log l = new Log();
@@ -949,14 +952,23 @@ public class TelaCaixa extends javax.swing.JFrame {
         dados.put("tx", Double.parseDouble(txtTaxaServico.getText().replaceAll(",", ".")));
         dados.put("npessoas", nPesoas);
         dados.put("total_pessoas", totalPessoas);
+        DadosEmpresa dadosEmpresa = de.selecionaDados();
+        System.out.println(dadosEmpresa.getImprimir_na_tela());
+            try {
+                if (dadosEmpresa.getImprimir_na_tela() == 0) {
+                    JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "cupom.jasper", dados, conexao);
+                    JasperViewer.viewReport(print, false);
 
-        try {
-            JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "cupom.jasper", dados, conexao);
-            JasperViewer.viewReport(print, false);
-        } catch (JRException e) {
-            System.out.println("br.com.bar.view.TelaCaixa.btnImprimirMouseClicked()" + e);
-        }
+                } else {
+                    JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "cupom.jasper", dados, conexao);
+                   JasperPrintManager.printPage(print, 0, false);
+                }
+            } catch (JRException e) {
+                System.out.println("br.com.bar.view.TelaCaixa.btnImprimirMouseClicked()" + e);
+            }
 
+
+    
     }//GEN-LAST:event_btnImprimirMouseClicked
 
     private void btnListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListarMouseClicked
@@ -1003,11 +1015,17 @@ public class TelaCaixa extends javax.swing.JFrame {
 
                     // Troca imagem de status
                     caixa.statusCaixa(lblStatus, caixa.temMovimentacao(cx.getIdFuncionario()));
-
+                    DadosEmpresa dadosEmpresa = de.selecionaDados();
                     try {
-
-                        JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "relMovimentacaoOperador.jasper", param, conexao);
-                        JasperViewer.viewReport(print, false);
+                        if (dadosEmpresa.getImprimir_na_tela()==0){
+                            
+                            JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "relMovimentacaoOperador.jasper", param, conexao);
+                            JasperViewer.viewReport(print, false);
+                        }else {
+                            JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "relMovimentacaoOperador.jasper", param, conexao);
+                            JasperPrintManager.printPage(print, 0, false);
+                            
+                        }
 
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaCaixa.btnFecharCaixaMouseClicked()" + e);

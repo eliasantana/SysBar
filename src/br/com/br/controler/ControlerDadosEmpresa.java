@@ -99,6 +99,7 @@ public class ControlerDadosEmpresa {
                 d.setLogo(rs.getString("logo"));
                 d.setCnpj(rs.getString("cnpj"));
                 d.setUrlbackup(rs.getString("urlbackup"));
+                d.setImprimir_na_tela(rs.getInt("imprimir_na_tela"));
 
             }
 
