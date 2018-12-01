@@ -410,7 +410,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="770" y="230" width="120" height="-1"/>
+          <AbsoluteConstraints x="450" y="230" width="120" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -421,7 +421,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="770" y="250" width="220" height="30"/>
+          <AbsoluteConstraints x="450" y="250" width="220" height="30"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -716,6 +716,9 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/br/com/bar/imagens/btnCozinha.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Status Cozinha"/>
       </Properties>
       <Events>
@@ -723,7 +726,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="440" y="230" width="270" height="40"/>
+          <AbsoluteConstraints x="200" y="220" width="230" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>

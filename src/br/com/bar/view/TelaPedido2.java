@@ -367,7 +367,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         lblPesquisa.setText("Pesquisar Produto");
         getContentPane().add(lblPesquisa);
-        lblPesquisa.setBounds(770, 230, 120, 14);
+        lblPesquisa.setBounds(450, 230, 120, 14);
 
         txtPesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -380,7 +380,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtPesquisa);
-        txtPesquisa.setBounds(770, 250, 220, 30);
+        txtPesquisa.setBounds(450, 250, 220, 30);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Total")));
 
@@ -536,6 +536,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         panelFechar.setBounds(1030, 0, 40, 40);
 
         btnCozinha.setBackground(new java.awt.Color(204, 204, 204));
+        btnCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCozinha.png"))); // NOI18N
         btnCozinha.setText("Status Cozinha");
         btnCozinha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -543,7 +544,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCozinha);
-        btnCozinha.setBounds(440, 230, 270, 40);
+        btnCozinha.setBounds(200, 220, 230, 57);
 
         lblMensagem.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblMensagem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -729,8 +730,10 @@ public class TelaPedido2 extends javax.swing.JFrame {
                                 txtCodigoProduto.setText(null);
                                 txtQtd.setText(null);
                             }
-
+                            //Atualiza a tabela de detalhe do pedido    
                             tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(txtIdMesa.getText(), txtNumeroPedido.getText())));
+                            // Atualiza os produtos disponível no Estoque
+                            tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
                         }
 
                     }
