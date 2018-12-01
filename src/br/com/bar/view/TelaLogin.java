@@ -49,7 +49,7 @@ public class TelaLogin extends javax.swing.JFrame {
        
         if (conexao!=null){
                DadosEmpresa dadosEmpresa = d.selecionaDados();
-               lblLicenca.setText("Software licenciado \n para ");
+               lblLicenca.setText("Copyright Todos os Direitos reservados para");
                lbllicenca2.setText( dadosEmpresa.getNome_empresa() );
                lblCnpjEmpresa.setText(dadosEmpresa.getCnpj());
         }else {
@@ -72,14 +72,14 @@ public class TelaLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         lblVersao = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         lblLicenca = new javax.swing.JLabel();
         lbllicenca2 = new javax.swing.JLabel();
         lblCnpjEmpresa = new javax.swing.JLabel();
+        lblVersao1 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         txtLogin = new javax.swing.JTextField();
         txtSenha = new javax.swing.JPasswordField();
@@ -99,44 +99,47 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(null);
 
-        jLabel7.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jLabel7.setText("Identificação do Usuário");
-        jPanel1.add(jLabel7);
-        jLabel7.setBounds(50, 200, 230, 30);
-
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(70, 20, 160, 190);
+        jLabel3.setBounds(70, 10, 130, 190);
 
         lblVersao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersao.setText("1.2.4");
+        lblVersao.setText("Software licenciado para");
         jPanel1.add(lblVersao);
-        lblVersao.setBounds(60, 280, 170, 20);
+        lblVersao.setBounds(60, 200, 170, 20);
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Developed by Re7 ");
+        jLabel8.setText("(81)9997-496602");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(30, 360, 240, 20);
+        jLabel8.setBounds(30, 390, 240, 20);
 
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Versão");
-        jPanel1.add(jLabel9);
-        jLabel9.setBounds(60, 260, 170, 20);
-
+        lblLicenca.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lblLicenca.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLicenca.setText("xxxxx");
         jPanel1.add(lblLicenca);
-        lblLicenca.setBounds(10, 300, 270, 20);
+        lblLicenca.setBounds(0, 350, 290, 20);
 
+        lbllicenca2.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         lbllicenca2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbllicenca2.setText("empresa");
         jPanel1.add(lbllicenca2);
-        lbllicenca2.setBounds(20, 320, 260, 14);
+        lbllicenca2.setBounds(10, 210, 260, 40);
 
         lblCnpjEmpresa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCnpjEmpresa.setText("cnpj");
         jPanel1.add(lblCnpjEmpresa);
-        lblCnpjEmpresa.setBounds(20, 340, 260, 14);
+        lblCnpjEmpresa.setBounds(20, 250, 260, 14);
+
+        lblVersao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblVersao1.setText("Versão 1.2.9");
+        jPanel1.add(lblVersao1);
+        lblVersao1.setBounds(70, 270, 170, 20);
+
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Re7 Desenvolvimento de Software");
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(30, 370, 240, 20);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 300, 430);
@@ -429,7 +432,6 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -439,6 +441,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel lblLicenca;
     private javax.swing.JLabel lblMsg;
     private javax.swing.JLabel lblVersao;
+    private javax.swing.JLabel lblVersao1;
     private javax.swing.JLabel lbllicenca2;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JPasswordField txtSenha;
