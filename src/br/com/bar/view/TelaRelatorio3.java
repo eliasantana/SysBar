@@ -342,7 +342,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
             case "Grupo Financeiro":
                 try {
 
-                    rpu.imprimiRelatorioTela("relGruposFinanceiro.jasper");
+                    rpu.imprimiRelatorioTela("relGruposFinanceiro.jasper",rodape(dados));
                     // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
@@ -363,7 +363,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     map.put("dtInicio", dataInicio);
                     map.put("dtFim", dataFim);
 
-                    rpu.imprimiRelatorioTela("relSintComissao.jasper", map);
+                    rpu.imprimiRelatorioTela("relSintComissao.jasper", rodape(dados, map));
                     // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
@@ -384,7 +384,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     map.put("dataInicio", dataInicio);
                     map.put("dataFim", dataFim);
 
-                    rpu.imprimiRelatorioTela("comissaoGeral.jasper", map);
+                    rpu.imprimiRelatorioTela("comissaoGeral.jasper", rodape(dados, map));
                     // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
@@ -399,7 +399,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
             case "Contas Vecidas":
                 try {
 
-                    rpu.imprimiRelatorioTela("contasApagarVencidas.jasper");
+                    rpu.imprimiRelatorioTela("contasApagarVencidas.jasper",rodape(dados));
                     // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
@@ -414,7 +414,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
             case "Conta à (Vencer)":
                 try {
 
-                    rpu.imprimiRelatorioTela("contasAvencer.jasper");
+                    rpu.imprimiRelatorioTela("contasAvencer.jasper",rodape(dados));
                     // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
@@ -435,7 +435,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     map.put("dt_inicio", dataInicio);
                     map.put("dt_fim", dataFim);
 
-                    rpu.imprimiRelatorioTela("Saidas.jasper", map);
+                    rpu.imprimiRelatorioTela("Saidas.jasper", rodape(dados, map));
                     // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
@@ -456,7 +456,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     map.put("inicio", dataInicio);
                     map.put("fim", dataFim);
 
-                    rpu.imprimiRelatorioTela("relCaixa.jasper", map);
+                    rpu.imprimiRelatorioTela("relCaixa.jasper", rodape(dados, map));
                     // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
@@ -476,7 +476,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     map.put("inicio", dataInicio);
                     map.put("fim", dataFim);
 
-                    rpu.imprimiRelatorioTela("caixaSintetico.jasper", map);
+                    rpu.imprimiRelatorioTela("caixaSintetico.jasper", rodape(dados, map));
                     // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
@@ -585,7 +585,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     case "Comissão (Analítico)":
                         habilitaData();
                         break;
-                    case "Saidas.jasper":
+                    case "Saídas de Caixa":
                         habilitaData();
                         break;
                     case "Entradas de Caixa":
@@ -635,6 +635,15 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
 
     private HashMap rodape(DadosEmpresa d) {
         HashMap map = new HashMap();
+        map.put("end1", dados.getNome_empresa() + " - " + " Endereço: " + dados.getEndereco() + "," + dados.getNumero() + " - " + "Bairro: " + dados.getBairro() + " - " + " Cidade: " + dados.getCidade());
+        map.put("end2", "CEP: "+dados.getCep() + " - " + "UF :"  +dados.getUf() + " Telefone: " + dados.getTelefone() + " email-" + dados.getEmail());
+        map.put("cnpj", "C.N.P.J " + dados.getCnpj());
+        map.put("logo", d.getLogo());
+        
+        return map;
+    }
+    private HashMap rodape(DadosEmpresa d, HashMap map) {
+        
         map.put("end1", dados.getNome_empresa() + " - " + " Endereço: " + dados.getEndereco() + "," + dados.getNumero() + " - " + "Bairro: " + dados.getBairro() + " - " + " Cidade: " + dados.getCidade());
         map.put("end2", "CEP: "+dados.getCep() + " - " + "UF :"  +dados.getUf() + " Telefone: " + dados.getTelefone() + " email-" + dados.getEmail());
         map.put("cnpj", "C.N.P.J " + dados.getCnpj());
