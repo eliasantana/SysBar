@@ -8,15 +8,10 @@ package br.com.br.controler;
 
 import br.com.bar.dao.ConexaoBd;
 import br.com.bar.model.DadosEmpresa;
-import com.mysql.cj.protocol.Resultset;
-import java.awt.Component;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 
 /**
  *
@@ -47,7 +42,7 @@ public class ControlerDadosEmpresa {
             pst.setString(2, d.getEndereco());
             pst.setInt(3, d.getNumero());
             pst.setString(4, d.getBairro());
-            pst.setString(5, d.getUf());
+            pst.setString(5, d.getCep());
 
             pst.setString(6, d.getCidade());
             pst.setString(7, d.getUf());
@@ -62,7 +57,7 @@ public class ControlerDadosEmpresa {
 
             resp = true;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
             System.out.println("br.com.br.controler.ControlerDadosEmpresa.adicionaDados()" + e);
         }
@@ -103,7 +98,7 @@ public class ControlerDadosEmpresa {
 
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerDadosEmpresa.selecionaDados()" + e);
         }
 
@@ -121,7 +116,7 @@ public class ControlerDadosEmpresa {
             pst.executeUpdate();
 
             resp = true;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerDadosEmpresa.excluiEmpresa()" + e);
         }
         return resp;
@@ -130,9 +125,7 @@ public class ControlerDadosEmpresa {
     public boolean alteraDados(DadosEmpresa d) {
 
         boolean resp = false;
-        
-       
-        
+              
         String sql = "UPDATE tb_dados_empresa  SET"
                 + " nome_empresa=?, endereco=?, numero=?, bairro=?, cep=?, cidade=?, uf=?, telefone=?, celular=?, email=?, logo=?, cnpj=?, urlbackup=?, imprimir_na_tela=?  "
                 + " WHERE id=?";
@@ -143,7 +136,7 @@ public class ControlerDadosEmpresa {
             pst.setString(2, d.getEndereco());
             pst.setInt(3, d.getNumero());
             pst.setString(4, d.getBairro());
-            pst.setString(5, d.getUf());
+            pst.setString(5, d.getCep());
 
             pst.setString(6, d.getCidade());
             pst.setString(7, d.getUf());
@@ -166,5 +159,22 @@ public class ControlerDadosEmpresa {
         return resp;
     }
     
-    
+    public int localizaIdEmpresa(String nome){
+       int id=0;
+        String sql="SELECT id FROM tb_dados_empresa WHERE nome_empresa=?";
+        
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, nome);
+            rs=pst.executeQuery();
+            
+            while (rs.next()) {
+                id = rs.getInt(("id"));
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerDadosEmpresa.localizaIdEmpresa()" + e);
+        }
+        return id;
+    }
 }

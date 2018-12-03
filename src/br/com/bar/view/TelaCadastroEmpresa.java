@@ -52,6 +52,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         txtCnpj.setText(d.getCnpj());
         txtUrlBackup.setText(d.getUrlbackup());
         lblCaminho.setText(txtUrlBackup.getText());
+        txturlLogo.setText(d.getLogo());
 
         d = dados.selecionaDados();
 
@@ -83,6 +84,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        txturlLogo = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         lblFechar = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
@@ -140,7 +142,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("Adicionar Logo");
+        jLabel17.setText("Carregar Logo do Sistema");
         jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel17MouseClicked(evt);
@@ -164,15 +166,18 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
                         .addGap(43, 43, 43)
                         .addComponent(jLabel4))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(126, 126, 126)
                         .addComponent(jLabel2)))
                 .addContainerGap(56, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                    .addComponent(txturlLogo))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -184,7 +189,9 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(1, 1, 1)
+                .addComponent(txturlLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addContainerGap(140, Short.MAX_VALUE))
         );
@@ -456,6 +463,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         d.setEmail(txtEmail.getText());
         d.setCnpj(txtCnpj.getText());
         d.setUrlbackup(txtUrlBackup.getText());
+        d.setLogo(txturlLogo.getText());
         d.setUf(txtUF.getText());
         String btnSelecionado=buttonGroup1.getSelection().toString();
         
@@ -516,13 +524,13 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         //Seleciona local do Arquivo
 
         JFileChooser chooser = new JFileChooser(p.getCAMINHO_FOTO_FUNCIONARIO());
-        chooser.setDialogTitle("Seleciona caminho do Backup");
+        chooser.setDialogTitle("Selecionar Logo do Sistema");
         chooser.showOpenDialog(this);
 
         File file = chooser.getSelectedFile();
         String caminho = file.getAbsolutePath();
+        txturlLogo.setText(caminho);
         ImageIcon imageIcon = new ImageIcon(caminho);
-
         Icon i = new ImageIcon(imageIcon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH));
 
         lblLogo.setIcon(i);
@@ -531,13 +539,14 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private void lblEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMouseClicked
         
          // Instancia objeto dados
+        d.setId(dados.localizaIdEmpresa(txtNomeEmpresa.getText()));
         d.setNome_empresa(txtNomeEmpresa.getText());
         d.setEndereco(txtEndereco.getText());
         d.setBairro(txtBairro.getText());
         try {
 
             d.setNumero(Integer.parseInt(txtNumero.getText()));
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             System.out.println("br.com.bar.view.TelaCadastroEmpresa.lblAlterarMouseClicked()" + e);
         }
         d.setCep(txtCep.getText());
@@ -548,8 +557,8 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         d.setCnpj(txtCnpj.getText());
         d.setUrlbackup(txtUrlBackup.getText());
         d.setUf(txtUF.getText());
-       String btnSelecionado=buttonGroup1.getSelection().toString();
-        System.out.println(btnSelecionado);
+        d.setLogo(txturlLogo.getText());
+        
         if ((radioDireto.isSelected())){
             // 1 - Imprime na Tela 0 - Imprime Direto
             d.setImprimir_na_tela(1); // Direto para impressora
@@ -656,5 +665,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtTelefone;
     private javax.swing.JTextField txtUF;
     private javax.swing.JFormattedTextField txtUrlBackup;
+    private javax.swing.JTextField txturlLogo;
     // End of variables declaration//GEN-END:variables
 }
