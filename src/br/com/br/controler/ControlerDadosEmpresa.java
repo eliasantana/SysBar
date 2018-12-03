@@ -47,7 +47,7 @@ public class ControlerDadosEmpresa {
             pst.setString(2, d.getEndereco());
             pst.setInt(3, d.getNumero());
             pst.setString(4, d.getBairro());
-            pst.setString(5, d.getUf());
+            pst.setString(5, d.getCep());
 
             pst.setString(6, d.getCidade());
             pst.setString(7, d.getUf());
@@ -143,7 +143,7 @@ public class ControlerDadosEmpresa {
             pst.setString(2, d.getEndereco());
             pst.setInt(3, d.getNumero());
             pst.setString(4, d.getBairro());
-            pst.setString(5, d.getUf());
+            pst.setString(5, d.getCep());
 
             pst.setString(6, d.getCidade());
             pst.setString(7, d.getUf());

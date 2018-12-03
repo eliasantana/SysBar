@@ -7,8 +7,10 @@ package br.com.bar.view;
 
 import br.com.bar.dao.Log;
 import br.com.bar.dao.ReportUtil;
+import br.com.bar.model.DadosEmpresa;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerContasApagar;
+import br.com.br.controler.ControlerDadosEmpresa;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -27,12 +29,13 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
     ArrayList<String> listaRelFinanceiro = new ArrayList<>();
     ArrayList<String> listaRelFuncionario = new ArrayList<>();
     ArrayList<String> listaRelMesas = new ArrayList<>();
-    
+
     ReportUtil rpu = new ReportUtil();
     ControlerContasApagar contasApagar = new ControlerContasApagar();
+    ControlerDadosEmpresa ce = new ControlerDadosEmpresa();
     Util u = new Util();
     Log l = new Log();
-    
+    DadosEmpresa dados = ce.selecionaDados();
 
     public TelaRelatorio3() {
         initComponents();
@@ -40,16 +43,16 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
         Calendar c = Calendar.getInstance();
         dtInicio.setDate(c.getTime());
         dtFim.setDate(c.getTime());
-        
+
         dtInicio.setVisible(false);
         dtFim.setVisible(false);
-        
+
         // Produto      
         listaRelProduto.add("Grupo de Produtos");
         listaRelProduto.add("Produtos em Estoque");
         listaRelProduto.add("Posição do Estoque - Compras");
-        listaRelProduto.add("Movimentação"); // Falta
-        listaRelProduto.add("Grupo de Produtos");
+        //listaRelProduto.add("Movimentação"); // Falta
+        
         // Financeiro
         listaRelFinanceiro.add("Grupo Financeiro");
         listaRelFinanceiro.add("Comissão (Sintético)");
@@ -295,134 +298,134 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
             case "Grupo de Produtos":
                 try {
                     
-                    rpu.imprimiRelatorioTela("relGruposProduto.jasper");
+                    rpu.imprimiRelatorioTela("relGruposProduto.jasper", rodape(dados));
                     // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Grupo de Produtos");                    
+                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Grupo de Produtos");
                     l.gravaLog(l);
-                    
+
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Grupo de Produtos" + e);
                 }
 
                 break;
-                
+
             case "Produtos em Estoque":
                 try {
-                    rpu.imprimiRelatorioTela("relProdutos.jasper");
-                     // Registra Operação no Log
-                    l.setFuncionalidade("Relatório");
-                    l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " de Produtos em Estoque");                    
-                    l.gravaLog(l);
-                    
-                } catch (JRException e) {
-                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Produto em Estoque"+ e);
-                }
-                break;
-                
-            case "Posição do Estoque - Compras":
-                try {
-                    rpu.imprimiRelatorioTela("relPosicaoEstoque.jasper");
+                    rpu.imprimiRelatorioTela("relProdutos.jasper",rodape(dados));
                     // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Posição do Estoque - Compras");                    
+                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " de Produtos em Estoque");
                     l.gravaLog(l);
-                    
+
                 } catch (JRException e) {
-                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() Posição do Estoque"+ e);
+                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Produto em Estoque" + e);
                 }
                 break;
-                
+
+            case "Posição do Estoque - Compras":
+                try {
+                    rpu.imprimiRelatorioTela("relPosicaoEstoque.jasper",rodape(dados));
+                    // Registra Operação no Log
+                    l.setFuncionalidade("Relatório");
+                    l.setUsuario(lblOperaodr.getText());
+                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Posição do Estoque - Compras");
+                    l.gravaLog(l);
+
+                } catch (JRException e) {
+                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() Posição do Estoque" + e);
+                }
+                break;
+
             case "Grupo Financeiro":
                 try {
-                    
+
                     rpu.imprimiRelatorioTela("relGruposFinanceiro.jasper");
                     // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Grupo Financeiro");                    
+                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Grupo Financeiro");
                     l.gravaLog(l);
-                    
+
                 } catch (JRException e) {
-                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Grupo Financeiro"+ e);
+                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Grupo Financeiro" + e);
                 }
                 break;
-                
+
             case "Comissão (Sintético)":
                 try {
                     HashMap map = new HashMap();
                     String dataInicio = u.formataDataBanco(dtInicio.getDate());
                     String dataFim = u.formataDataBanco(dtFim.getDate());
-                    
+
                     map.put("dtInicio", dataInicio);
                     map.put("dtFim", dataFim);
-                    
-                    rpu.imprimiRelatorioTela("relSintComissao.jasper",map);
+
+                    rpu.imprimiRelatorioTela("relSintComissao.jasper", map);
                     // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Comissão (Sintético)");                    
+                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Comissão (Sintético)");
                     l.gravaLog(l);
-                    
+
                 } catch (JRException e) {
-                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Sintético"+ e);
+                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Sintético" + e);
                 }
                 break;
-                
+
             case "Comissão (Analítico)":
                 try {
                     HashMap map = new HashMap();
                     String dataInicio = u.formataDataBanco(dtInicio.getDate());
                     String dataFim = u.formataDataBanco(dtFim.getDate());
-                    
+
                     map.put("dataInicio", dataInicio);
                     map.put("dataFim", dataFim);
-                    
-                    rpu.imprimiRelatorioTela("comissaoGeral.jasper",map);
+
+                    rpu.imprimiRelatorioTela("comissaoGeral.jasper", map);
                     // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Comissão (Analítico)");                    
+                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Comissão (Analítico)");
                     l.gravaLog(l);
-                    
+
                 } catch (JRException e) {
-                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Comissão Análítico"+ e);
+                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Comissão Análítico" + e);
                 }
                 break;
-                
+
             case "Contas Vecidas":
                 try {
-                                       
+
                     rpu.imprimiRelatorioTela("contasApagarVencidas.jasper");
                     // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Contas Vecidas");                    
+                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Contas Vecidas");
                     l.gravaLog(l);
-                    
+
                 } catch (JRException e) {
-                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Contas Vencidas"+ e);
+                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Contas Vencidas" + e);
                 }
                 break;
-                
+
             case "Conta à (Vencer)":
                 try {
-                                       
+
                     rpu.imprimiRelatorioTela("contasAvencer.jasper");
                     // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Conta à (Vencer)");                    
+                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Conta à (Vencer)");
                     l.gravaLog(l);
-                    
+
                 } catch (JRException e) {
-                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Contas a Vencer"+ e);
+                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Contas a Vencer" + e);
                 }
                 break;
-            
+
             case "Saídas de Caixa":
                 try {
                     HashMap map = new HashMap();
@@ -436,14 +439,14 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Saídas de Caixa");                    
+                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Saídas de Caixa");
                     l.gravaLog(l);
-                    
+
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Saída de Caixa" + e);
                 }
                 break;
-                
+
             case "Entradas de Caixa":
                 try {
                     HashMap map = new HashMap();
@@ -454,12 +457,12 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     map.put("fim", dataFim);
 
                     rpu.imprimiRelatorioTela("relCaixa.jasper", map);
-                     // Registra Operação no Log
+                    // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Entradas de Caixa");                    
+                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Entradas de Caixa");
                     l.gravaLog(l);
-                    
+
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Entrada de Caixa" + e);
                 }
@@ -474,77 +477,75 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     map.put("fim", dataFim);
 
                     rpu.imprimiRelatorioTela("caixaSintetico.jasper", map);
-                     // Registra Operação no Log
+                    // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Caixa Sintético");                    
+                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Caixa Sintético");
                     l.gravaLog(l);
-                    
+
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Caixa Sintético" + e);
                 }
                 break;
-                
+
             case "Funcionários Ativos":
                 try {
-                    
+
                     HashMap map = new HashMap();
-                    map.put("b", 0);   
+                    map.put("b", 0);
                     rpu.imprimiRelatorioTela("relFuncBlocDesb.jasper", map);
                     // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Funcionários Ativos");                    
+                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Funcionários Ativos");
                     l.gravaLog(l);
 
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Funcionários Ativos" + e);
                 }
                 break;
-                
+
             case "Funcionários Inativos":
                 try {
-                    
+
                     HashMap map = new HashMap();
-                    map.put("b", 1);   
+                    map.put("b", 1);
                     rpu.imprimiRelatorioTela("relFuncBlocDesb.jasper", map);
-                     // Registra Operação no Log
+                    // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Funcionários Inativos");                    
+                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Funcionários Inativos");
                     l.gravaLog(l);
 
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Funcionários Inativo" + e);
                 }
                 break;
-                
+
             case "Funcionários Geral":
                 try {
-                                      
+
                     rpu.imprimiRelatorioTela("relGeralDeFuncionarios.jasper");
-                     // Registra Operação no Log
+                    // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Funcionários Geral");                    
+                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Funcionários Geral");
                     l.gravaLog(l);
-
 
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Entrada de Caixa" + e);
                 }
                 break;
-                
+
             case "Relatório de Mesas":
                 try {
-                                      
+
                     rpu.imprimiRelatorioTela("relatorioDeMesas.jasper");
-                     // Registra Operação no Log
+                    // Registra Operação no Log
                     l.setFuncionalidade("Relatório");
                     l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Relatório de Mesas");                    
+                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Relatório de Mesas");
                     l.gravaLog(l);
-
 
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Relatório de Mesas" + e);
@@ -562,55 +563,57 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
     }//GEN-LAST:event_radioFinanceiroMouseClicked
 
     private void comboReltorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboReltorioActionPerformed
-       
+
     }//GEN-LAST:event_comboReltorioActionPerformed
 
     private void comboReltorioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboReltorioItemStateChanged
         try {
-            
-        String opcao = comboReltorio.getSelectedItem().toString();
-        
-        if (null == opcao){
-            desabilitaData();
-        }else switch (opcao) {
-            
-            case "Comissão (Sintético)":
-                habilitaData();
-                break;
-            case "Contas Vecidas":
-                habilitaData();
-                break;
-            case "Comissão (Analítico)":
-                habilitaData();
-                break;
-            case "Saidas.jasper":
-                habilitaData();
-                break;
-            case "Entradas de Caixa":
-                habilitaData();
-                break;
-            case "Caixa Sintético":
-                habilitaData();
-                break;
-                
-            default:
+
+            String opcao = comboReltorio.getSelectedItem().toString();
+
+            if (null == opcao) {
                 desabilitaData();
-                break;
-        }
-        
+            } else {
+                switch (opcao) {
+
+                    case "Comissão (Sintético)":
+                        habilitaData();
+                        break;
+                    case "Contas Vecidas":
+                        habilitaData();
+                        break;
+                    case "Comissão (Analítico)":
+                        habilitaData();
+                        break;
+                    case "Saidas.jasper":
+                        habilitaData();
+                        break;
+                    case "Entradas de Caixa":
+                        habilitaData();
+                        break;
+                    case "Caixa Sintético":
+                        habilitaData();
+                        break;
+
+                    default:
+                        desabilitaData();
+                        break;
+                }
+            }
+
         } catch (NullPointerException e) {
             System.out.println("br.com.bar.view.TelaRelatorio3.comboReltorioItemStateChanged()");
         }
     }//GEN-LAST:event_comboReltorioItemStateChanged
 
     private void radioFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioFuncionarioMouseClicked
-        if (radioFuncionario.isSelected()){
+        if (radioFuncionario.isSelected()) {
             listaRelatorios(listaRelFuncionario);
         }
     }//GEN-LAST:event_radioFuncionarioMouseClicked
 
     private void radioMesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioMesaMouseClicked
-         if (radioMesa.isSelected()){
+        if (radioMesa.isSelected()) {
             listaRelatorios(listaRelMesas);
         }
     }//GEN-LAST:event_radioMesaMouseClicked
@@ -619,14 +622,25 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
         lblCargo.setText(perfil);
 
     }
-    
-    public void habilitaData(){
-         dtInicio.setVisible(true);
-         dtFim.setVisible(true);
+
+    public void habilitaData() {
+        dtInicio.setVisible(true);
+        dtFim.setVisible(true);
     }
-    public void desabilitaData(){
-         dtInicio.setVisible(false);
-         dtFim.setVisible(false);
+
+    public void desabilitaData() {
+        dtInicio.setVisible(false);
+        dtFim.setVisible(false);
+    }
+
+    private HashMap rodape(DadosEmpresa d) {
+        HashMap map = new HashMap();
+        map.put("end1", dados.getNome_empresa() + " - " + " Endereço: " + dados.getEndereco() + "," + dados.getNumero() + " - " + "Bairro: " + dados.getBairro() + " - " + " Cidade: " + dados.getCidade());
+        map.put("end2", "CEP: "+dados.getCep() + " - " + "UF :"  +dados.getUf() + " Telefone: " + dados.getTelefone() + " email-" + dados.getEmail());
+        map.put("cnpj", "C.N.P.J " + dados.getCnpj());
+        map.put("logo", d.getLogo());
+        
+        return map;
     }
 
     /**
