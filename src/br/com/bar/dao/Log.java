@@ -33,6 +33,15 @@ public class Log {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat shf = new SimpleDateFormat("h:mm");
 
+    public Log() {
+    }
+
+    public Log(String usuario, String funcionalidade, String descricao) {
+        this.usuario = usuario;
+        this.funcionalidade = funcionalidade;
+        this.descricao = descricao;
+    }
+
 
     
     public String getUsuario() {

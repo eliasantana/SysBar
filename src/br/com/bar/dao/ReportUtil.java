@@ -62,6 +62,22 @@ public class ReportUtil {
         }      
 
     }
+    // Este método abre na tela um relatório passado como parâmetro
+    public void imprimiRelatorioTela(String relatorio) throws JRException {
+        // Instancia o objeto 
+
+        try {
+            JasperPrint jasperPrint = JasperFillManager.fillReport(url + relatorio, null, conexao);
+            JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (NullPointerException e) {
+                System.out.println("br.com.bar.dao.ReportUtil.imprimiRelatorioTela() " +relatorio+" " +e);
+                JOptionPane.showMessageDialog(null, "Você não possuí movimentação!");
+                
+            
+        }      
+
+    }
     
     //Imprime Relatório direto na impressora
     public void impressaoDireta(String relatorio, HashMap map){
