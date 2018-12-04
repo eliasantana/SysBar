@@ -6,10 +6,9 @@
  */
 package br.com.bar.dao;
 
+import br.com.bar.model.DadosEmpresa;
 import java.sql.Connection;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -88,5 +87,24 @@ public class ReportUtil {
         } catch (JRException e) {
             System.out.println("br.com.bar.dao.ReportUtil.impressaoDireta()"+e);
         }
+    }
+    
+    public HashMap rodape(DadosEmpresa d) {
+        HashMap map = new HashMap();
+        map.put("end1", d.getNome_empresa() + " - " + " Endereço: " + d.getEndereco() + "," + d.getNumero() + " - " + "Bairro: " + d.getBairro() + " - " + " Cidade: " + d.getCidade());
+        map.put("end2", "CEP: "+d.getCep() + " - " + "UF :"  +d.getUf() + " Telefone: " + d.getTelefone() + " email-" + d.getEmail());
+        map.put("cnpj", "C.N.P.J " + d.getCnpj());
+        map.put("logo", d.getLogo());
+        
+        return map;
+    }
+    public HashMap rodape(DadosEmpresa d, HashMap map) {
+        
+        map.put("end1", d.getNome_empresa() + " - " + " Endereço: " + d.getEndereco() + "," + d.getNumero() + " - " + "Bairro: " + d.getBairro() + " - " + " Cidade: " + d.getCidade());
+        map.put("end2", "CEP: "+d.getCep() + " - " + "UF :"  +d.getUf() + " Telefone: " + d.getTelefone() + " email-" + d.getEmail());
+        map.put("cnpj", "C.N.P.J " + d.getCnpj());
+        map.put("logo", d.getLogo());
+        
+        return map;
     }
 }

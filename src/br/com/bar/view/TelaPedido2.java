@@ -47,6 +47,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     public TelaPedido2() {
 
         initComponents();
+        lbllogo.setIcon(u.carregaLogo());
         cFunc.carregaComboFuncionario(comboGarcom, "Garçom");
         tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos()));
         // Oculta caixa de pesquisa
@@ -103,7 +104,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lbltotal = new javax.swing.JLabel();
         txtNumeroPedido = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        lbllogo = new javax.swing.JLabel();
         lblData1 = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
         lblData2 = new javax.swing.JLabel();
@@ -411,7 +412,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(38, 53, 61));
         jPanel4.setForeground(new java.awt.Color(52, 73, 94));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
+        lbllogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbllogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
 
         lblData1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         lblData1.setForeground(new java.awt.Color(255, 255, 255));
@@ -432,7 +434,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lbllogo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lblData1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -446,7 +448,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbllogo, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblData1)
                 .addGap(18, 18, 18)
@@ -863,7 +865,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboGarcom;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -887,6 +888,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JLabel lblProduto;
     private javax.swing.JLabel lblQtd;
     private javax.swing.JLabel lblValor;
+    private javax.swing.JLabel lbllogo;
     private javax.swing.JLabel lbltotal;
     private javax.swing.JPanel panelFechar;
     private javax.swing.JTable tblDetalhePedido;

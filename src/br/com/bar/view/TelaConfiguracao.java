@@ -500,6 +500,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     private void btnDadosEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDadosEmpresaMouseClicked
         // Chama tela de Cadastro de dados da empresa
         TelaCadastroEmpresa empresa = new TelaCadastroEmpresa();
+        empresa.recebeOperador(lblOperador.getText(), lblCargo.getText());
         empresa.setVisible(true);
     }//GEN-LAST:event_btnDadosEmpresaMouseClicked
 

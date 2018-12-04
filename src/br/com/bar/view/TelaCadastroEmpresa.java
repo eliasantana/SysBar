@@ -60,11 +60,18 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     }
 
     // Recebe dados para identificação do operador
-    public void recebeOperador(String operador, String pefil, String dataAtual) {
+    public void recebeOperador(String operador, String perfil, String dataAtual) {
 
         lblOperador.setText(operador);
-        lblPerfil.setText(pefil);
+        lblPerfil.setText(perfil);
         lblData.setText(dataAtual);
+
+    }
+    public void recebeOperador(String operador, String perfil) {
+
+        lblOperador.setText(operador);
+        lblPerfil.setText(perfil);
+        
 
     }
 

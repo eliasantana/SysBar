@@ -6,6 +6,7 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.Log;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerContasApagar;
 import br.com.br.controler.ControlerCozinha;
 import br.com.br.controler.ControlerMesa;
@@ -32,7 +33,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     ControlerParametro param = new ControlerParametro();
     ControlerContasApagar cc = new ControlerContasApagar();
     ControlerCozinha cz= new ControlerCozinha();
-    
+    Util u = new Util();
+            
     Log log = new Log();
     
 
@@ -41,7 +43,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
-
+        lblLogo.setIcon(u.carregaLogo());
         lblData.setText(df.format(data)); // Exibe data atual
         ArrayList<Double> estatiscas = new ArrayList<>();
         estatiscas = m.estatistica();
@@ -92,7 +94,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         peinelEsquerdo = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
@@ -135,7 +137,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         peinelEsquerdo.setBackground(new java.awt.Color(52, 73, 94));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -217,29 +220,32 @@ public class TelaPrincipal extends javax.swing.JFrame {
         peinelEsquerdoLayout.setHorizontalGroup(
             peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(peinelEsquerdoLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
                 .addGroup(peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(peinelEsquerdoLayout.createSequentialGroup()
-                        .addGap(64, 64, 64)
+                        .addGap(43, 43, 43)
                         .addGroup(peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(peinelEsquerdoLayout.createSequentialGroup()
+                                .addGap(64, 64, 64)
+                                .addComponent(jLabel2)
+                                .addGap(14, 14, 14)
+                                .addComponent(lblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(peinelEsquerdoLayout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         peinelEsquerdoLayout.setVerticalGroup(
             peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(peinelEsquerdoLayout.createSequentialGroup()
-                .addContainerGap(104, Short.MAX_VALUE)
+                .addContainerGap(52, Short.MAX_VALUE)
+                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, peinelEsquerdoLayout.createSequentialGroup()
                         .addComponent(lblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(72, 72, 72))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, peinelEsquerdoLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2)
                         .addGap(57, 57, 57)))
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -313,7 +319,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(btnConfiguracaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         btnConfiguracaoLayout.setVerticalGroup(
             btnConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,7 +403,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(btnFuncionariosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         btnFuncionariosLayout.setVerticalGroup(
             btnFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -454,7 +460,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(btnCaixaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel12)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         btnCaixaLayout.setVerticalGroup(
             btnCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -486,7 +492,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(btnFuncionarios1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel11)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         btnFuncionarios1Layout.setVerticalGroup(
             btnFuncionarios1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -883,7 +889,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel btnMesas;
     private javax.swing.JPanel btnProduto;
     private javax.swing.JPanel btnRelatorios;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -905,6 +910,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblFEchar;
     private javax.swing.JLabel lblLivres;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblNmesaLivre;
     private javax.swing.JLabel lblNmesaOcupada;
     private javax.swing.JLabel lblOcupadas;

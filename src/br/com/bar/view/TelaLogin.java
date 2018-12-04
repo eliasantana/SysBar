@@ -9,6 +9,7 @@ import br.com.bar.dao.AutenticaUsuario;
 import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.Log;
 import br.com.bar.model.DadosEmpresa;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerParametro;
@@ -31,7 +32,7 @@ public class TelaLogin extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
     ControlerDadosEmpresa d = new ControlerDadosEmpresa();
-    
+    Util u = new Util();
     
     Date dataAtual = new Date();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -44,9 +45,11 @@ public class TelaLogin extends javax.swing.JFrame {
 
     public TelaLogin() {
         initComponents();
-
+        
         conexao = ConexaoBd.conector();
-       
+        // Carrega o ícone setado no Cadastro Empresa
+        lblLogo.setIcon(u.carregaLogo());
+        
         if (conexao!=null){
                DadosEmpresa dadosEmpresa = d.selecionaDados();
                lblLicenca.setText("Copyright Todos os Direitos reservados para");
@@ -72,7 +75,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
         lblVersao = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         lblLicenca = new javax.swing.JLabel();
@@ -99,9 +102,10 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(null);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(70, 10, 130, 190);
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
+        jPanel1.add(lblLogo);
+        lblLogo.setBounds(20, 10, 230, 190);
 
         lblVersao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblVersao.setText("Software licenciado para");
@@ -428,7 +432,6 @@ public class TelaLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -439,6 +442,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblCnpjEmpresa;
     private javax.swing.JLabel lblLicenca;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblMsg;
     private javax.swing.JLabel lblVersao;
     private javax.swing.JLabel lblVersao1;

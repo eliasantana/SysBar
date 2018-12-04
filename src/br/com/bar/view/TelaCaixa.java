@@ -62,18 +62,17 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     public TelaCaixa() {
         initComponents();
-
+        lblLLogo.setIcon(utils.carregaLogo());
         caixa.listaMesaOcupada(comboMesa);
         checkTxServico.setSelected(true);
         txtIdMEsa.setVisible(false);
         txtIdPedido.setVisible(false);
-           // Desabilita textFild de pagamento
+        // Desabilita textFild de pagamento
         txtValorPago.setVisible(false);
         txtTroco.setVisible(false);
         lblCifra.setVisible(false);
         lblPago.setVisible(false);
         lblTroco.setVisible(false);
-       
 
         try {
 
@@ -123,6 +122,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         lblSaldo = new javax.swing.JLabel();
         btnGrafico = new javax.swing.JLabel();
+        lblLLogo = new javax.swing.JLabel();
         painelDireito = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
@@ -229,6 +229,8 @@ public class TelaCaixa extends javax.swing.JFrame {
             }
         });
 
+        lblLLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout painelEsquerdoLayout = new javax.swing.GroupLayout(painelEsquerdo);
         painelEsquerdo.setLayout(painelEsquerdoLayout);
         painelEsquerdoLayout.setHorizontalGroup(
@@ -236,14 +238,15 @@ public class TelaCaixa extends javax.swing.JFrame {
             .addGroup(painelEsquerdoLayout.createSequentialGroup()
                 .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(72, 72, 72)
+                        .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnGrafico)
+                            .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painelEsquerdoLayout.createSequentialGroup()
                         .addGap(55, 55, 55)
-                        .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addComponent(jLabel14))
+                        .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel14)
                             .addGroup(painelEsquerdoLayout.createSequentialGroup()
                                 .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -256,20 +259,20 @@ public class TelaCaixa extends javax.swing.JFrame {
                                     .addComponent(lblEntradas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGrafico)
-                            .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addGap(60, 60, 60)
+                        .addComponent(lblLLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         painelEsquerdoLayout.setVerticalGroup(
             painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                .addGap(162, 162, 162)
+                .addGap(22, 22, 22)
+                .addComponent(lblLLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
-                .addGap(39, 39, 39)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel14)
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
                     .addComponent(lblEntradas))
@@ -285,7 +288,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                 .addComponent(btnAtualizar)
                 .addGap(18, 18, 18)
                 .addComponent(btnGrafico)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         getContentPane().add(painelEsquerdo);
@@ -508,7 +511,9 @@ public class TelaCaixa extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnFechar, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -701,7 +706,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void btnFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFecharMouseClicked
         // Fecha Janela
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_btnFecharMouseClicked
 
     private void comboMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMesaActionPerformed
@@ -829,7 +834,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                 HashMap dados = new HashMap();
                 Date dt = new Date();
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                
+
                 dados.put("data", df.format(dt));
                 dados.put("garcom", lblGarcom.getText());
                 dados.put("titulo", "COMPROVANTE DE PAGAMENTO");
@@ -881,9 +886,14 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
         //Sai da tela Caixa
-        dispose();
-        TelaLogin login = new TelaLogin();
-        login.setVisible(true);
+        if ("Gerente".equals(lblCargo.getText())) {
+
+            dispose();
+        }else {
+            dispose();
+            TelaLogin login = new TelaLogin();
+            login.setVisible(true);
+        }
 
     }//GEN-LAST:event_jLabel17MouseClicked
 
@@ -1075,7 +1085,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         TelaContasApagar contaApagar = new TelaContasApagar();
         contaApagar.recebeOperador(lblOperador.getText(), lblCargo.getText());
         contaApagar.setVisible(true);
-      
+
 
     }//GEN-LAST:event_jLabel4MouseClicked
 
@@ -1123,7 +1133,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void checkDinheiroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkDinheiroMouseClicked
         //Abilita textFild para recebimento em dinheiro
-        if (checkDinheiro.isSelected()){
+        if (checkDinheiro.isSelected()) {
             habilitaTextFildPagamento();
         }
     }//GEN-LAST:event_checkDinheiroMouseClicked
@@ -1132,7 +1142,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         if (checkCartao.isSelected()) {
             desabilitaTextFildPagamento();
         }
-        
+
     }//GEN-LAST:event_checkCartaoMouseClicked
     public void recebeOperador(String operador, String cargo) {
         lblOperador.setText(operador);
@@ -1231,6 +1241,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel lblCifra;
     private javax.swing.JLabel lblEntradas;
     private javax.swing.JLabel lblGarcom;
+    private javax.swing.JLabel lblLLogo;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblPago;
     private javax.swing.JLabel lblReceber;
@@ -1270,14 +1281,16 @@ public class TelaCaixa extends javax.swing.JFrame {
         }
 
     }
-    private void habilitaTextFildPagamento(){
+
+    private void habilitaTextFildPagamento() {
         txtValorPago.setVisible(true);
         txtTroco.setVisible(true);
         lblCifra.setVisible(true);
         lblPago.setVisible(true);
         lblTroco.setVisible(true);
     }
-    private void desabilitaTextFildPagamento(){
+
+    private void desabilitaTextFildPagamento() {
         txtValorPago.setVisible(false);
         txtTroco.setVisible(false);
         lblCifra.setVisible(false);

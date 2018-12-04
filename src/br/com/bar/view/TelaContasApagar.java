@@ -7,8 +7,11 @@ package br.com.bar.view;
 
 import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.Log;
+import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.Contas;
+import br.com.bar.model.DadosEmpresa;
 import br.com.br.controler.ControlerContasApagar;
+import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerGrupo;
 import java.awt.event.KeyEvent;
@@ -46,9 +49,10 @@ public class TelaContasApagar extends javax.swing.JFrame {
     ControlerContasApagar cc = new ControlerContasApagar();
     ControlerFuncionario cf = new ControlerFuncionario();
     ControlerGrupo grupo = new ControlerGrupo();
-
+    ReportUtil rpu=new ReportUtil();
     SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     Connection conexao = ConexaoBd.conector();
+    ControlerDadosEmpresa de = new ControlerDadosEmpresa();
 
     // Instacia um registro de log
     Log l = new Log();
@@ -713,8 +717,11 @@ public class TelaContasApagar extends javax.swing.JFrame {
                             parametros.put("id", Integer.parseInt(txtIdConta.getText()));
 
                             try {
-                                JasperPrint print = JasperFillManager.fillReport("C:/SysBar/rel/reciboDePagamento.jasper", parametros, conexao);
-                                JasperViewer.viewReport(print, false);
+                                //JasperPrint print = JasperFillManager.fillReport("C:/SysBar/rel/reciboDePagamento.jasper", parametros, conexao);
+                                //JasperViewer.viewReport(print, false);
+                                DadosEmpresa dados = de.selecionaDados();
+                                
+                                rpu.imprimiRelatorioTela("reciboDePagamento.jasper", rpu.rodape(dados, parametros));
                                 combofunc.setVisible(false);
 
                             } catch (JRException ex) {
