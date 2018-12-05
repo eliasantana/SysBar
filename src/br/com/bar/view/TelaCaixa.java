@@ -7,6 +7,7 @@ package br.com.bar.view;
 
 import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.Log;
+import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.model.MovimentacaoCaixa;
 import br.com.bar.model.Pedido;
@@ -109,7 +110,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         double saldo = caixa.totalizaEntradas(lblOperador.getText()) - caixa.totalizaSaida(lblOperador.getText());
 
         lblSaldo.setText("RS" + String.format("%9.2f", saldo));
-        */
+         */
     }
 
     /**
@@ -491,6 +492,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         painelDireito.add(lblTroco);
         lblTroco.setBounds(240, 360, 170, 30);
 
+        txtTroco.setEditable(false);
         txtTroco.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtTroco.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtTroco.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -669,12 +671,6 @@ public class TelaCaixa extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(39, 39, 39))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -705,7 +701,13 @@ public class TelaCaixa extends javax.swing.JFrame {
                                         .addComponent(comboMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addContainerGap(18, Short.MAX_VALUE))))
+                        .addContainerGap(18, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addGap(42, 42, 42))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -886,6 +888,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Pedido fechado com sucesso!");
                 //tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePedido(comboMesa.getSelectedItem().toString())));
                 // Imprime cupom de pagamento
+
                 HashMap dados = new HashMap();
                 Date dt = new Date();
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -916,7 +919,6 @@ public class TelaCaixa extends javax.swing.JFrame {
                 limpaForm();
                 lblEntradas.setText(String.format("%9.2f", caixa.totalizaEntradas()));
                 atualizaCaixa();
-               
 
                 try {
 
@@ -1090,12 +1092,18 @@ public class TelaCaixa extends javax.swing.JFrame {
                     panelGrafico.setVisible(false);
                     panelMovimentacao.setVisible(false);
                     try {
+                        ReportUtil rpu = new ReportUtil();
                         if (dadosEmpresa.getImprimir_na_tela() == 0) {
+                            /*   
+                            JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "relMovimentacaoOperador.jasper", param, conexao);
+                            JasperViewer.viewReport(print, false);*/
+                            
+                            DadosEmpresa dados_empresa = de.selecionaDados();// Retorna dadados da empresa
+                            rpu.imprimiRelatorioTela("relMovimentacaoOperador.jasper",rpu.rodape(dadosEmpresa, param));
 
-                            JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "relMovimentacaoOperador.jasper", param, conexao);
-                            JasperViewer.viewReport(print, false);
                         } else {
-                            JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "relMovimentacaoOperador.jasper", param, conexao);
+                            JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param), conexao);
+                            
                             JasperPrintManager.printPage(print, 0, false);
 
                         }
@@ -1193,7 +1201,6 @@ public class TelaCaixa extends javax.swing.JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Não é possível exibir Movimentação \n Caixa Fechado!");
-            
 
         }
 

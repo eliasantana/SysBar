@@ -60,13 +60,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     }
 
     // Recebe dados para identificação do operador
-    public void recebeOperador(String operador, String perfil, String dataAtual) {
-
-        lblOperador.setText(operador);
-        lblPerfil.setText(perfil);
-        lblData.setText(dataAtual);
-
-    }
+    
     public void recebeOperador(String operador, String perfil) {
 
         lblOperador.setText(operador);
@@ -96,7 +90,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         lblFechar = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblPerfil = new javax.swing.JLabel();
-        lblData = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtNomeEmpresa = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -241,11 +234,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         lblPerfil.setText("Perfil");
         getContentPane().add(lblPerfil);
         lblPerfil.setBounds(530, 40, 110, 32);
-
-        lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
-        lblData.setText("Data");
-        getContentPane().add(lblData);
-        lblData.setBounds(660, 40, 110, 32);
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 36)); // NOI18N
         jLabel3.setText("Cadastro Empresa");
@@ -651,7 +639,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JPanel jpanelImpressao;
     private javax.swing.JLabel lblAdicionar;
     private javax.swing.JLabel lblCaminho;
-    private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblEditar;
     private javax.swing.JLabel lblExcluir;
     private javax.swing.JLabel lblFechar;

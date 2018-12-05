@@ -546,7 +546,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCozinha);
-        btnCozinha.setBounds(200, 220, 230, 57);
+        btnCozinha.setBounds(800, 530, 230, 57);
 
         lblMensagem.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblMensagem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
