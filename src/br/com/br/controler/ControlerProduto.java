@@ -327,8 +327,10 @@ public class ControlerProduto {
     public void reajustaValorProduto(String id, double valorProduto, double fator) {
         DecimalFormat formatador = new DecimalFormat("0.00");
         String sqlUpdate = "UPDATE tbproduto SET valor=? WHERE id=?";
-
-        double novoValor = (valorProduto * fator) + valorProduto;
+        System.out.println(fator);
+        //double novoValor = (valorProduto * fator) + valorProduto;
+        double novoValor = (valorProduto * fator/100) + valorProduto;
+        System.out.println("novo valor"+novoValor);
 
         try {
             pst = conexao.prepareStatement(sqlUpdate);

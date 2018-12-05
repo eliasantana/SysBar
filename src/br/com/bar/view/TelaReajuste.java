@@ -72,9 +72,9 @@ public class TelaReajuste extends javax.swing.JFrame {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(260, 70, 130, 40);
         jPanel1.add(txtId);
-        txtId.setBounds(12, 100, 37, 19);
+        txtId.setBounds(12, 100, 37, 20);
         jPanel1.add(txtValor);
-        txtValor.setBounds(55, 100, 50, 19);
+        txtValor.setBounds(55, 100, 50, 20);
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(52, 73, 94));
@@ -161,13 +161,22 @@ public class TelaReajuste extends javax.swing.JFrame {
 
         btnAplicar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/aplly.png"))); // NOI18N
         btnAplicar.setText("Aplicar");
+        btnAplicar.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                btnAplicarAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         btnAplicar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAplicarActionPerformed(evt);
             }
         });
         getContentPane().add(btnAplicar);
-        btnAplicar.setBounds(330, 250, 120, 50);
+        btnAplicar.setBounds(330, 250, 117, 50);
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         jLabel5.setText("%");
@@ -206,7 +215,7 @@ public class TelaReajuste extends javax.swing.JFrame {
 
         jLabel6.setText("Fator de Reajuste");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(10, 230, 122, 15);
+        jLabel6.setBounds(10, 230, 122, 14);
 
         setSize(new java.awt.Dimension(485, 542));
         setLocationRelativeTo(null);
@@ -282,6 +291,10 @@ public class TelaReajuste extends javax.swing.JFrame {
          txtPercentual.setText(valor);
        
     }//GEN-LAST:event_txtPercentualKeyReleased
+
+    private void btnAplicarAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_btnAplicarAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAplicarAncestorAdded
 
     /**
      * @param args the command line arguments
