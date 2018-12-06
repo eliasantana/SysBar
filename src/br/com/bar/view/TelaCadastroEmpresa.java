@@ -32,13 +32,18 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
      */
     public TelaCadastroEmpresa() {
         initComponents();
+         lblAdicionar.setVisible(false);
+        
         // Instancia o objeto e executa o método retornando um objetodo tipo
         // Dados empresa
         radioVisualizar.setSelected(true);
         txtUrlBackup.setVisible(false);
 
         d = dados.selecionaDados();
-
+        // Oculta o botão adicionar se o dados da empresa for diferente de vazio
+        if (d.getNome_empresa().isEmpty()){
+            lblAdicionar.setVisible(true);
+        }
         txtNomeEmpresa.setText(d.getNome_empresa());
         txtEndereco.setText(d.getEndereco());
         txtNumero.setText(String.valueOf(d.getNumero()));
@@ -57,6 +62,11 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         d = dados.selecionaDados();
 
         lblLogo.setIcon(u.carregaLogo());
+        //Desabilita itens
+        btnSelecionarArquivo.setVisible(false);
+        lblTextocaminhoBanco.setVisible(false);
+        txturlLogo.setVisible(false);
+        lblCaminho.setVisible(false);
     }
 
     // Recebe dados para identificação do operador
@@ -110,7 +120,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         txtCnpj = new javax.swing.JFormattedTextField();
         txtUrlBackup = new javax.swing.JFormattedTextField();
-        jLabel16 = new javax.swing.JLabel();
         btnSelecionarArquivo = new javax.swing.JButton();
         txtNumero = new javax.swing.JFormattedTextField();
         lblExcluir = new javax.swing.JLabel();
@@ -119,10 +128,11 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         txtEmail = new javax.swing.JTextField();
         txtUF = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        lblCaminho = new javax.swing.JLabel();
         jpanelImpressao = new javax.swing.JPanel();
         radioDireto = new javax.swing.JRadioButton();
         radioVisualizar = new javax.swing.JRadioButton();
+        lblTextocaminhoBanco = new javax.swing.JLabel();
+        lblCaminho = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -247,7 +257,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         getContentPane().add(jLabel5);
         jLabel5.setBounds(360, 200, 180, 16);
         getContentPane().add(txtEndereco);
-        txtEndereco.setBounds(610, 220, 263, 30);
+        txtEndereco.setBounds(610, 220, 250, 30);
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         jLabel6.setText("Endereço");
@@ -328,11 +338,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         getContentPane().add(txtUrlBackup);
         txtUrlBackup.setBounds(360, 490, 210, 30);
 
-        jLabel16.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel16.setText("Caminho Backup do Bando de Dados");
-        getContentPane().add(jLabel16);
-        jLabel16.setBounds(650, 370, 210, 16);
-
         btnSelecionarArquivo.setText("Salvar Brackup em ...");
         btnSelecionarArquivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -388,11 +393,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         getContentPane().add(jLabel14);
         jLabel14.setBounds(360, 320, 120, 16);
 
-        lblCaminho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/bd.png"))); // NOI18N
-        lblCaminho.setText("Caminho");
-        getContentPane().add(lblCaminho);
-        lblCaminho.setBounds(660, 390, 190, 40);
-
         jpanelImpressao.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Tipo de Impressão - Recibo")));
 
         buttonGroup1.add(radioDireto);
@@ -428,7 +428,17 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         );
 
         getContentPane().add(jpanelImpressao);
-        jpanelImpressao.setBounds(650, 450, 210, 80);
+        jpanelImpressao.setBounds(650, 380, 210, 80);
+
+        lblTextocaminhoBanco.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        lblTextocaminhoBanco.setText("Caminho Backup do Bando de Dados");
+        getContentPane().add(lblTextocaminhoBanco);
+        lblTextocaminhoBanco.setBounds(650, 460, 210, 16);
+
+        lblCaminho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/bd.png"))); // NOI18N
+        lblCaminho.setText("Caminho");
+        getContentPane().add(lblCaminho);
+        lblCaminho.setBounds(660, 480, 190, 40);
 
         setSize(new java.awt.Dimension(902, 542));
         setLocationRelativeTo(null);
@@ -624,7 +634,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -645,6 +654,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblPerfil;
+    private javax.swing.JLabel lblTextocaminhoBanco;
     private javax.swing.JRadioButton radioDireto;
     private javax.swing.JRadioButton radioVisualizar;
     private javax.swing.JTextField txtBairro;

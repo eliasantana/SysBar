@@ -24,6 +24,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
        lblOperador.setText(operador);
        lblCargo.setText(cargo);
        
+       
    }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,12 +60,6 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnCaixa1 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        btnGrupo3 = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        btnCaixa2 = new javax.swing.JPanel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
         btnDadosEmpresa = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
@@ -248,46 +243,6 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnCaixa1.add(jLabel23);
         jLabel23.setBounds(0, 70, 150, 40);
 
-        btnGrupo3.setBackground(new java.awt.Color(204, 204, 204));
-        btnGrupo3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGrupo3MouseClicked(evt);
-            }
-        });
-        btnGrupo3.setLayout(null);
-
-        jLabel24.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(52, 73, 94));
-        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel24.setText("Ocorrencias");
-        btnGrupo3.add(jLabel24);
-        jLabel24.setBounds(0, 70, 160, 40);
-
-        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnOcorrencia-32.png"))); // NOI18N
-        btnGrupo3.add(jLabel25);
-        jLabel25.setBounds(0, 20, 160, 50);
-
-        btnCaixa2.setBackground(new java.awt.Color(204, 204, 204));
-        btnCaixa2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCaixa2MouseClicked(evt);
-            }
-        });
-        btnCaixa2.setLayout(null);
-
-        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario (2).png"))); // NOI18N
-        btnCaixa2.add(jLabel26);
-        jLabel26.setBounds(0, 10, 150, 70);
-
-        jLabel27.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(52, 73, 94));
-        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel27.setText("Homologa Ponto");
-        btnCaixa2.add(jLabel27);
-        jLabel27.setBounds(0, 70, 150, 40);
-
         btnDadosEmpresa.setBackground(new java.awt.Color(204, 204, 204));
         btnDadosEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -321,9 +276,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                 .addComponent(btnCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCaixa1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCaixa2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(537, 537, 537))
+                .addGap(707, 707, 707))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -333,8 +286,6 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                 .addComponent(btnGrupo1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGrupo2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGrupo3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDadosEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -348,20 +299,18 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                     .addComponent(btnGrupo2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGrupo1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGrupo3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDadosEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnPrecos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLog, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCaixa1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCaixa2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCaixa1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(20, 90, 1040, 320);
+        jPanel2.setBounds(20, 90, 880, 320);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setLayout(null);
@@ -369,20 +318,17 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("jLabel3");
         jPanel1.add(lblCargo);
-        lblCargo.setBounds(830, 50, 110, 30);
+        lblCargo.setBounds(670, 50, 110, 30);
 
         lblitulo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
         lblitulo.setText("Configurações do Sistema");
         jPanel1.add(lblitulo);
-        lblitulo.setBounds(20, 10, 550, 60);
+        lblitulo.setBounds(60, 10, 550, 60);
 
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("jLabel3");
         jPanel1.add(lblOperador);
-        lblOperador.setBounds(830, 10, 110, 30);
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(50, 0, 950, 430);
+        lblOperador.setBounds(670, 20, 110, 30);
 
         jPanel3.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -400,9 +346,9 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(lblFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -411,10 +357,13 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                 .addComponent(lblFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        getContentPane().add(jPanel3);
-        jPanel3.setBounds(1020, 0, 50, 40);
+        jPanel1.add(jPanel3);
+        jPanel3.setBounds(780, 0, 50, 40);
 
-        setSize(new java.awt.Dimension(1071, 428));
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(50, 0, 830, 430);
+
+        setSize(new java.awt.Dimension(924, 428));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -423,53 +372,16 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_lblFecharMouseClicked
 
-    private void btnFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFuncionarioMouseClicked
-        TelaPametro paraPametro = new TelaPametro();
-        paraPametro.setVisible(true);
-        
-    }//GEN-LAST:event_btnFuncionarioMouseClicked
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel2MouseClicked
 
-    private void btnGrupoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGrupoMouseClicked
-        // Exibe cadastro de grupos
-        TelaGruposProdutos grupos = new TelaGruposProdutos();
-        grupos.recebeOperador(lblitulo.getText());
-        grupos.setVisible(true);
-
-    }//GEN-LAST:event_btnGrupoMouseClicked
-
-    private void btnGrupo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGrupo1MouseClicked
-        //  Chama tela de configuração financeira
-        TelaGruposFinanceiro gf = new TelaGruposFinanceiro();
-        gf.setVisible(true);
-    }//GEN-LAST:event_btnGrupo1MouseClicked
-
-    private void btnGrupo2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGrupo2MouseClicked
-        // Chama tela cadastro demesas
-        TelaCadastroDeMesas m = new TelaCadastroDeMesas();
-        m.setVisible(true);
-    }//GEN-LAST:event_btnGrupo2MouseClicked
-
-    private void btnPrecosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrecosMouseClicked
-        // Calcula reajuste de produtos 
-        TelaReajuste reajuste = new TelaReajuste();
-        reajuste.setVisible(true);
-    }//GEN-LAST:event_btnPrecosMouseClicked
-
-    private void btnLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogMouseClicked
-        
-    // Abre tela de log
-    TelaLog tl = new TelaLog();
-    tl.recebeOperador(lblOperador.getText(), lblCargo.getText());
-    tl.setVisible(true);
-        
-    }//GEN-LAST:event_btnLogMouseClicked
-
-    private void btnCaixaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaixaMouseClicked
-        // Abre a tela de gerenciamento de caixa
-        TelaGerenciamentoDeCaixa gx = new TelaGerenciamentoDeCaixa();
-        gx.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        gx.setVisible(true);
-    }//GEN-LAST:event_btnCaixaMouseClicked
+    private void btnDadosEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDadosEmpresaMouseClicked
+        // Chama tela de Cadastro de dados da empresa
+        TelaCadastroEmpresa empresa = new TelaCadastroEmpresa();
+        empresa.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        empresa.setVisible(true);
+    }//GEN-LAST:event_btnDadosEmpresaMouseClicked
 
     private void btnCaixa1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaixa1MouseClicked
         // Chama a tela de Gerenciametno de Pedido
@@ -478,31 +390,52 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         gp.setVisible(true);
     }//GEN-LAST:event_btnCaixa1MouseClicked
 
-    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel2MouseClicked
+    private void btnCaixaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaixaMouseClicked
+        // Abre a tela de gerenciamento de caixa
+        TelaGerenciamentoDeCaixa gx = new TelaGerenciamentoDeCaixa();
+        gx.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        gx.setVisible(true);
+    }//GEN-LAST:event_btnCaixaMouseClicked
 
-    private void btnGrupo3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGrupo3MouseClicked
-        // Chama a tela de Ocorrencias
-        TelaCadastroDeOcorrencia telaOcorrencia = new TelaCadastroDeOcorrencia();
-        telaOcorrencia.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        telaOcorrencia.setVisible(true);
-    }//GEN-LAST:event_btnGrupo3MouseClicked
+    private void btnLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogMouseClicked
 
-    private void btnCaixa2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaixa2MouseClicked
-        // Chama tela Homologa ponto
-        TelaHomologacao th = new TelaHomologacao();
-        th.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        th.setVisible(true);
-        
-    }//GEN-LAST:event_btnCaixa2MouseClicked
+        // Abre tela de log
+        TelaLog tl = new TelaLog();
+        tl.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        tl.setVisible(true);
 
-    private void btnDadosEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDadosEmpresaMouseClicked
-        // Chama tela de Cadastro de dados da empresa
-        TelaCadastroEmpresa empresa = new TelaCadastroEmpresa();
-        empresa.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        empresa.setVisible(true);
-    }//GEN-LAST:event_btnDadosEmpresaMouseClicked
+    }//GEN-LAST:event_btnLogMouseClicked
+
+    private void btnPrecosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrecosMouseClicked
+        // Calcula reajuste de produtos
+        TelaReajuste reajuste = new TelaReajuste();
+        reajuste.setVisible(true);
+    }//GEN-LAST:event_btnPrecosMouseClicked
+
+    private void btnFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFuncionarioMouseClicked
+        TelaPametro paraPametro = new TelaPametro();
+        paraPametro.setVisible(true);
+
+    }//GEN-LAST:event_btnFuncionarioMouseClicked
+
+    private void btnGrupo2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGrupo2MouseClicked
+        // Chama tela cadastro demesas
+        TelaCadastroDeMesas m = new TelaCadastroDeMesas();
+        m.setVisible(true);
+    }//GEN-LAST:event_btnGrupo2MouseClicked
+
+    private void btnGrupo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGrupo1MouseClicked
+        //  Chama tela de configuração financeira
+        TelaGruposFinanceiro gf = new TelaGruposFinanceiro();
+        gf.setVisible(true);
+    }//GEN-LAST:event_btnGrupo1MouseClicked
+
+    private void btnGrupoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGrupoMouseClicked
+        // Exibe cadastro de grupos
+        TelaGruposProdutos grupos = new TelaGruposProdutos();
+        grupos.recebeOperador(lblitulo.getText());
+        grupos.setVisible(true);
+    }//GEN-LAST:event_btnGrupoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -545,13 +478,11 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnCaixa;
     private javax.swing.JPanel btnCaixa1;
-    private javax.swing.JPanel btnCaixa2;
     private javax.swing.JPanel btnDadosEmpresa;
     private javax.swing.JPanel btnFuncionario;
     private javax.swing.JPanel btnGrupo;
     private javax.swing.JPanel btnGrupo1;
     private javax.swing.JPanel btnGrupo2;
-    private javax.swing.JPanel btnGrupo3;
     private javax.swing.JPanel btnLog;
     private javax.swing.JPanel btnPrecos;
     private javax.swing.JLabel jLabel10;
@@ -568,10 +499,6 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel8;
