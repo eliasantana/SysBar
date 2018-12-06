@@ -60,7 +60,7 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtNomeGrupo = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        btnAdicionar = new javax.swing.JLabel();
         btnExceluir = new javax.swing.JPanel();
         lblExclur = new javax.swing.JLabel();
         btnEditar = new javax.swing.JPanel();
@@ -113,7 +113,7 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
 
         lblOperador.setText("jLabel4");
         jPanel1.add(lblOperador);
-        lblOperador.setBounds(24, 93, 34, 15);
+        lblOperador.setBounds(24, 93, 34, 14);
 
         jPanel3.setBackground(new java.awt.Color(44, 62, 80));
 
@@ -161,13 +161,13 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvarCinza.png"))); // NOI18N
-        jLabel3.setText("Salvar");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAdicionar.setBackground(new java.awt.Color(153, 153, 153));
+        btnAdicionar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvarCinza.png"))); // NOI18N
+        btnAdicionar.setText("Adicionar");
+        btnAdicionar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                btnAdicionarMouseClicked(evt);
             }
         });
 
@@ -177,14 +177,14 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
             btnSalvarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnSalvarLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addComponent(btnAdicionar)
                 .addContainerGap())
         );
         btnSalvarLayout.setVerticalGroup(
             btnSalvarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnSalvarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(btnAdicionar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -296,6 +296,7 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblGrupos.setRowHeight(20);
         tblGrupos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblGruposMouseClicked(evt);
@@ -441,29 +442,35 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnEditarMouseClicked
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void btnAdicionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdicionarMouseClicked
         
         // Adiciona um grupo
         Grupo g = new Grupo();
         g.setNomeGrupo(txtNomeGrupo.getText());
-
+        // Se o grupo de produto for vazio exibe mensagem
         if (g.getNomeGrupo().equals("")) {
             JOptionPane.showMessageDialog(null, "Informe o nome do grupo para continuar!");
         } else {
-            if (cg.adicionarGrupoProduto(g)) {
-                JOptionPane.showMessageDialog(null, "Grupo adicionado com sucesso!");
-                limpaForm();
-                tblGrupos.setModel(DbUtils.resultSetToTableModel(cg.atualizaGrupoProduto(tblGrupos)));
-                //Regisra log
-                l.setUsuario(lblOperador.getText());
-                l.setFuncionalidade("Salvar");
-                l.setDescricao(l.getUsuario() + " adicionou o grupo -> " + g.getNomeGrupo());
-                l.gravaLog(l);
+            // Verifica se o grupo de produto existe
+            if (cg.temGrupoProduto(txtNomeGrupo.getText())){
+                JOptionPane.showMessageDialog(null, "Este grupo já existe!");
+            }else {
+                
+                if (cg.adicionarGrupoProduto(g)) {
+                    JOptionPane.showMessageDialog(null, "Grupo adicionado com sucesso!");
+                    limpaForm();
+                    tblGrupos.setModel(DbUtils.resultSetToTableModel(cg.atualizaGrupoProduto(tblGrupos)));
+                    //Regisra log
+                    l.setUsuario(lblOperador.getText());
+                    l.setFuncionalidade("Salvar");
+                    l.setDescricao(l.getUsuario() + " adicionou o grupo -> " + g.getNomeGrupo());
+                    l.gravaLog(l);
 
+                }
             }
 
         }
-    }//GEN-LAST:event_jLabel3MouseClicked
+    }//GEN-LAST:event_btnAdicionarMouseClicked
 
     private void lblConsultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultarMouseClicked
         String nomeBotao = lblConsultar.getText();
@@ -536,13 +543,13 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnAdicionar;
     private javax.swing.JPanel btnConsultar;
     private javax.swing.JPanel btnEditar;
     private javax.swing.JPanel btnExceluir;
     private javax.swing.JPanel btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

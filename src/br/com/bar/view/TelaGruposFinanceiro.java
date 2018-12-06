@@ -152,7 +152,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(153, 153, 153));
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvarCinza.png"))); // NOI18N
-        jLabel3.setText("Salvar");
+        jLabel3.setText("Adicionar");
 
         javax.swing.GroupLayout btnSalvarLayout = new javax.swing.GroupLayout(btnSalvar);
         btnSalvar.setLayout(btnSalvarLayout);
@@ -278,6 +278,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblGruposFinanceiro.setRowHeight(20);
         tblGruposFinanceiro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblGruposFinanceiroMouseClicked(evt);
@@ -376,11 +377,16 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         if (g.getNomeGrupo().equals("")) {
             JOptionPane.showMessageDialog(null, "Informe o nome do grupo para continuar!");
         } else {
-            if (cg.adicionarGrupo(g)) {
-                JOptionPane.showMessageDialog(null, "Grupo adicionado com sucesso!");
-                limpaForm();
-                tblGruposFinanceiro.setModel(DbUtils.resultSetToTableModel(cg.atualizaTabela(tblGruposFinanceiro)));
+            if (cg.temGrupo(txtNomeGrupo.getText())){
+                JOptionPane.showMessageDialog(null, "Este grupo já existe!");
+            }else {
+                
+                if (cg.adicionarGrupo(g)) {
+                    JOptionPane.showMessageDialog(null, "Grupo adicionado com sucesso!");
+                    limpaForm();
+                    tblGruposFinanceiro.setModel(DbUtils.resultSetToTableModel(cg.atualizaTabela(tblGruposFinanceiro)));
 
+                }
             }
 
         }

@@ -189,7 +189,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAbrirPedido);
-        btnAbrirPedido.setBounds(200, 520, 230, 50);
+        btnAbrirPedido.setBounds(200, 530, 230, 50);
 
         txtIdMesa.setText("idMesa");
         getContentPane().add(txtIdMesa);
@@ -453,11 +453,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 .addComponent(lblData1)
                 .addGap(18, 18, 18)
                 .addComponent(lblData)
-                .addContainerGap(287, Short.MAX_VALUE))
+                .addContainerGap(297, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel4);
-        jPanel4.setBounds(0, 0, 190, 590);
+        jPanel4.setBounds(0, 0, 190, 600);
 
         lblData2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         lblData2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -553,7 +553,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         getContentPane().add(lblMensagem);
         lblMensagem.setBounds(450, 530, 580, 80);
 
-        setSize(new java.awt.Dimension(1068, 588));
+        setSize(new java.awt.Dimension(1068, 595));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
