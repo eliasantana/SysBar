@@ -148,4 +148,22 @@ public class ControlerFornecedor {
         
         return idFor;
     }
+    
+    public boolean temFornecedor(Fornecedor f){
+        
+        boolean resp=false;
+        String sql="SELECT nome FROM tbfornecedores WHERE nome =?";
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, f.getNome());
+            rs=pst.executeQuery();
+            
+            while (rs.next()){
+                resp=true;
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerFornecedor.temFornecedor()"+e);
+        }
+        return resp;
+    }
 }

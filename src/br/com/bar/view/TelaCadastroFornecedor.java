@@ -35,14 +35,13 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         lblOperador.setText(operador);
 
     }
-    
-    private void limparform(){
-        
+
+    private void limparform() {
+
         txtFornecedor.setText(null);
         txtTelefone.setText(null);
         txtEmail.setText(null);
-        
-        
+
     }
 
     /**
@@ -217,8 +216,8 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 140, 400, 310);
 
-        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvarCinza.png"))); // NOI18N
-        btnSalvar.setText("Salvar");
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
+        btnSalvar.setText("Adicionar");
         btnSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSalvarMouseClicked(evt);
@@ -227,7 +226,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         getContentPane().add(btnSalvar);
         btnSalvar.setBounds(50, 450, 87, 48);
 
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapisCinza.png"))); // NOI18N
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapis.png"))); // NOI18N
         btnEditar.setText("Alterar");
         btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -258,14 +257,18 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         f.setNome(txtFornecedor.getText());
         f.setEmail(txtEmail.getText());
         f.setTelefone(txtTelefone.getText());
+        
+        if (cf.temFornecedor(f)) {
+            JOptionPane.showMessageDialog(null, "O fornecedor "+f.getNome() + " já está cadastrado!");
+        } else {
 
-        cf.cadastraFornecedor(f);
+            cf.cadastraFornecedor(f);
+        }
         // Inicio do Registro de Log
-        
+
         // Limpa Formulário após inclusão
-        
         limparform();
-        
+
         Log l = new Log();
         l.setUsuario(lblOperador.getText());
         l.setDescricao("Tela Fornecedores");
@@ -301,7 +304,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
             log.setDescricao(log.getUsuario() + " excluiu o forncedor ->" + f.getNome());
             log.gravaLog(log);
             // Fim do registro de log
-        }else {
+        } else {
             JOptionPane.showMessageDialog(null, "Operação Cancelada!");
         }
 
@@ -315,18 +318,18 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         txtFornecedor.setText(tblFornecedores.getModel().getValueAt(linha, 1).toString());
         txtTelefone.setText(tblFornecedores.getModel().getValueAt(linha, 2).toString());
         txtEmail.setText(tblFornecedores.getModel().getValueAt(linha, 3).toString());
-        
+
     }//GEN-LAST:event_tblFornecedoresMouseClicked
 
     private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
         // Executa o método de alteração de produto
-        
+
         Fornecedor f = new Fornecedor();
         f.setCodigo(Integer.parseInt(txtIdFor.getText()));
         f.setNome(txtFornecedor.getText());
         f.setTelefone(txtTelefone.getText());
         f.setEmail(txtEmail.getText());
-        
+
         cf.alteraFornecedor(f);
         tblFornecedores.setModel(DbUtils.resultSetToTableModel(cf.listaFornecedor()));
         // Inicio do Resigtro de Log

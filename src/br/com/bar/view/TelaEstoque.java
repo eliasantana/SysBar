@@ -7,7 +7,6 @@ package br.com.bar.view;
 
 import br.com.bar.dao.Log;
 import br.com.br.controler.ControlerProduto;
-import com.lowagie.text.pdf.PdfName;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -299,6 +298,9 @@ public class TelaEstoque extends javax.swing.JFrame {
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         // Chama a tela de Gereciamento de Estoque
+        if ("Gerente".equals(lblCargo.getText())) {
+            dispose();
+        }
         TelaMovimentacao m = new TelaMovimentacao();
         m.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
         m.setVisible(true);

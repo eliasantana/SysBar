@@ -282,9 +282,9 @@
     <Component class="javax.swing.JLabel" name="btnSalvar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/br/com/bar/imagens/salvarCinza.png"/>
+          <Image iconType="3" name="/br/com/bar/imagens/adicionas32x32.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Salvar"/>
+        <Property name="text" type="java.lang.String" value="Adicionar"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSalvarMouseClicked"/>
@@ -298,7 +298,7 @@
     <Component class="javax.swing.JLabel" name="btnEditar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/br/com/bar/imagens/lapisCinza.png"/>
+          <Image iconType="3" name="/br/com/bar/imagens/lapis.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Alterar"/>
       </Properties>
