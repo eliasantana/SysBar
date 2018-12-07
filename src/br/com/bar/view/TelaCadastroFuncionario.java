@@ -286,7 +286,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jPanel1.add(lbltemMesa);
         lbltemMesa.setBounds(410, 360, 260, 30);
 
-        jButton1.setText("Mais....");
+        jButton1.setText("Exibir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -383,14 +383,14 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         lblCadastrar.setBackground(new java.awt.Color(52, 73, 94));
         lblCadastrar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
         lblCadastrar.setForeground(new java.awt.Color(52, 73, 94));
-        lblCadastrar.setText("Salvar");
+        lblCadastrar.setText("Adicionar");
         lblCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblCadastrarMouseClicked(evt);
             }
         });
         jPanel3.add(lblCadastrar);
-        lblCadastrar.setBounds(60, 30, 60, 60);
+        lblCadastrar.setBounds(60, 30, 140, 60);
 
         lblSair.setBackground(new java.awt.Color(52, 73, 94));
         lblSair.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N

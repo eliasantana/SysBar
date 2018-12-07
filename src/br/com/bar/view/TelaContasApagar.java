@@ -27,15 +27,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
-import org.xhtmlrenderer.layout.Breaker;
 
 /**
  *
@@ -237,6 +233,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
         painelEsquerdo.add(combofunc);
         combofunc.setBounds(160, 450, 180, 40);
 
+        jCheckMultiplo.setBackground(new java.awt.Color(38, 53, 61));
         jCheckMultiplo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         jCheckMultiplo.setForeground(new java.awt.Color(255, 255, 255));
         jCheckMultiplo.setText("Lançamento Multiplo");
@@ -931,7 +928,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
     private void comboFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFiltroActionPerformed
         
         String op = comboFiltro.getSelectedItem().toString();
-                System.out.println(op);
+             
                         
         switch (op){
             case "Aberto":

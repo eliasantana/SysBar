@@ -358,8 +358,7 @@ public class ControlerContasApagar {
             conta.setDescricao(novaDescricao);
             
             adicionaConta(conta); // Adiciona conta ao banco de dados
-            System.out.println(novaDescricao + " " + conta.getDataVencto());
-            // Incrementa o prazo
+           
            
             // Inicia um nova instância
             dataInicial = new Date();

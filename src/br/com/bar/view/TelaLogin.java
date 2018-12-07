@@ -107,12 +107,12 @@ public class TelaLogin extends javax.swing.JFrame {
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
         jPanel1.add(lblLogo);
-        lblLogo.setBounds(20, 10, 230, 190);
+        lblLogo.setBounds(20, 20, 230, 190);
 
         lblVersao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblVersao.setText("Software licenciado para");
         jPanel1.add(lblVersao);
-        lblVersao.setBounds(60, 200, 170, 20);
+        lblVersao.setBounds(60, 220, 170, 20);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -130,17 +130,17 @@ public class TelaLogin extends javax.swing.JFrame {
         lbllicenca2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbllicenca2.setText("empresa");
         jPanel1.add(lbllicenca2);
-        lbllicenca2.setBounds(20, 210, 260, 40);
+        lbllicenca2.setBounds(20, 230, 260, 40);
 
         lblCnpjEmpresa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCnpjEmpresa.setText("cnpj");
         jPanel1.add(lblCnpjEmpresa);
-        lblCnpjEmpresa.setBounds(20, 250, 260, 14);
+        lblCnpjEmpresa.setBounds(20, 270, 260, 14);
 
         lblVersao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblVersao1.setText("Versão 1.4.7");
         jPanel1.add(lblVersao1);
-        lblVersao1.setBounds(60, 270, 170, 20);
+        lblVersao1.setBounds(60, 290, 170, 20);
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("rese7.suporte@gmail.com");
@@ -209,12 +209,12 @@ public class TelaLogin extends javax.swing.JFrame {
         btnLogin.setText("Entrar");
         btnLogin.setBorder(null);
         btnLogin.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 btnLoginAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
