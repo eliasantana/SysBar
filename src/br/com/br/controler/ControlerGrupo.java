@@ -94,7 +94,7 @@ public class ControlerGrupo {
     // Grupo Produto
     public ResultSet atualizaGrupoProduto(JTable tabela) {
 
-        //String sql="SELECT * FROM cad_grupo_produto";
+        
         String sql = "SELECT id AS 'ID', nome AS 'NOME' FROM cad_grupo_produto";
 
         try {

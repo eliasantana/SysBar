@@ -11,7 +11,6 @@ import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.model.MovimentacaoCaixa;
 import br.com.bar.model.Pedido;
-import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCaixa;
 import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerMesa;
@@ -66,7 +65,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     public TelaCaixa() {
         initComponents();
-        lblLLogo.setIcon(utils.carregaLogo());
+        //lblLLogo.setIcon(utils.carregaLogo());
         caixa.listaMesaOcupada(comboMesa);
         checkTxServico.setSelected(true);
         txtIdMEsa.setVisible(false);
@@ -1267,6 +1266,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_checkDinheiroActionPerformed
     public void recebeOperador(String operador, String cargo) {
+        lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
         l.setUsuario(operador);

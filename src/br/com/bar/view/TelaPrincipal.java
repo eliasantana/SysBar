@@ -450,22 +450,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/caixa.png"))); // NOI18N
         jLabel12.setText("Caixa");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnCaixaLayout = new javax.swing.GroupLayout(btnCaixa);
         btnCaixa.setLayout(btnCaixaLayout);
         btnCaixaLayout.setHorizontalGroup(
             btnCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCaixaLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnCaixaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
         );
         btnCaixaLayout.setVerticalGroup(
             btnCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCaixaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         btnFuncionarios1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -783,20 +784,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogoutMouseClicked
 
     private void btnCaixaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaixaMouseClicked
-        // Chama tela do Caixa
-        
-        TelaCaixa caixa = new TelaCaixa();
-        caixa.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        caixa.setVisible(true);
-        
-        // Inicio do registro de log
-        
-        log.setFuncionalidade("Caixa");
-        log.setDescricao(log.getUsuario() + " acessou a funcionalidade caixa ");
-        log.gravaLog(log);
-        
-        //
-        
+      
     }//GEN-LAST:event_btnCaixaMouseClicked
 
     private void btnFuncionarios1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFuncionarios1MouseClicked
@@ -840,6 +828,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pedido2.setVisible(true);
                 
     }//GEN-LAST:event_btnLancarPedidoMouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+         // Chama tela do Caixa
+        
+        TelaCaixa caixa = new TelaCaixa();
+        caixa.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        caixa.setVisible(true);
+        
+        // Inicio do registro de log
+        
+        log.setFuncionalidade("Caixa");
+        log.setDescricao(log.getUsuario() + " acessou a funcionalidade caixa ");
+        log.gravaLog(log);
+        
+        //
+        
+    }//GEN-LAST:event_jLabel12MouseClicked
 
     /**
      * @param args the command line arguments
