@@ -33,7 +33,7 @@ public class ControlerProduto {
                 + "	p.id as 'ID', \n"
                 + "	p.nome as 'PRODUTO',\n"
                 + "	p.qtd as 'QTD', \n"
-                + "	p.valor as 'VALOR',\n"
+                + "	format(p.valor,2,'de_DE') as 'VALOR',\n"
                 + "	p.qtd_max AS 'MAX',\n"
                 + "	p.qtd_min AS 'MIN',\n"
                 + "	g.nome as 'GRUPO'\n"
@@ -212,7 +212,7 @@ public class ControlerProduto {
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ErroAdicionaProduto " + e);
+            System.out.println("br.com.br.controler.ControlerProduto.adicionaProduto()" + e);
         }
 
         return false;
@@ -388,11 +388,28 @@ public class ControlerProduto {
              pst.setString(1, nome+"%");
              rs=pst.executeQuery();
              
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerProduto.pesquisarProduto()" + e);
         }
         return rs;
     
     }
-
+    
+    // Verifica se o produto informado existe e retorna um Boolean
+    public boolean temProduto(Produto p){
+        boolean resp=false;
+        String sql="SELECT nome FROM tbproduto WHERE nome=?";
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, p.getNome());
+            rs = pst.executeQuery();
+            
+            while (rs.next()){
+                resp=true;
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerProduto.temProduto()"+e);
+        }
+        return resp;
+    }
 }
