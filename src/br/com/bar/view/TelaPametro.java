@@ -167,8 +167,8 @@ public class TelaPametro extends javax.swing.JFrame {
 
     private void bnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnSalvarActionPerformed
         ControlerParametro parametro = new ControlerParametro();
-        parametro.ciarArquivoParametro(txtIpServidor.getText(), txtUsuario.getText(), txtSenha.getText(), txtNomeBanco.getText(), txtPorta.getText());
-        dispose();
+        parametro.criarArquivoParametro(txtIpServidor.getText(), txtUsuario.getText(), txtSenha.getText(), txtNomeBanco.getText(), txtPorta.getText());
+        System.exit(0);
     }//GEN-LAST:event_bnSalvarActionPerformed
 
     private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked

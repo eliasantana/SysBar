@@ -5,6 +5,7 @@
  */
 package br.com.bar.dao;
 
+import br.com.bar.view.TelaPametro;
 import br.com.br.controler.ControlerParametro;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,6 +28,14 @@ public class ConexaoBd {
           
         /*        
             
+       
+          String driver="com.mysql.cj.jdbc.Driver";
+          String url="jdbc:mysql://localhost:3306/dbbar?useTimezone=true&serverTimezone=UTC";
+          String user="root";
+          String password="202649";
+         
+         */
+        
             ArrayList<String> d = new ArrayList<>();
             d = cp.lerArquivoParametro();
             
@@ -35,26 +44,18 @@ public class ConexaoBd {
             String senha = d.get(2);
             String banco = d.get(3);
             String porta = d.get(4);
-       
-         */
         
-        
-          String driver="com.mysql.cj.jdbc.Driver";
-          String url="jdbc:mysql://localhost:3306/dbbar?useTimezone=true&serverTimezone=UTC";
-          String user="root";
-          String password="202649";
-         
         
           Connection conexao = null;
         
 
         // Informa os dados registrados no arquivo de parâmetro
-        /*
+        
         String driver = "com.mysql.cj.jdbc.Driver";
-        String url = "jdbc:mysql://"+ipServidor+":"+porta+"/"+banco ;
+        String url = "jdbc:mysql://"+ipServidor+":"+porta+"/"+banco +"?useTimezone=true&serverTimezone=UTC";
         String user = usuario;
         String password = senha;
-        */
+        
         try {
             Class.forName(driver);
             conexao = DriverManager.getConnection(url, user, password);           
@@ -63,6 +64,8 @@ public class ConexaoBd {
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("br.com.bar.dao.ConexaoBd.conector()" + e);
             
+            TelaPametro parametro = new TelaPametro();
+            parametro.setVisible(true);
         }
         return conexao;
             }

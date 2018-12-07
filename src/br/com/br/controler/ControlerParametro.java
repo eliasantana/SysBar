@@ -53,7 +53,7 @@ public class ControlerParametro {
         return QTD_TENTATIVA;
     }
 
-    public void ciarArquivoParametro(String ipServidor, String usuario, String senha, String nomeBanco, String porta) {
+    public void criarArquivoParametro(String ipServidor, String usuario, String senha, String nomeBanco, String porta) {
 
         try {
 
@@ -63,7 +63,7 @@ public class ControlerParametro {
             gravaARquivo.println(ipServidor);
             gravaARquivo.println(usuario);
             gravaARquivo.println(senha);
-            gravaARquivo.println(nomeBanco.concat("?useTimezone=true&serverTimezone=UTC"));
+            gravaARquivo.println(nomeBanco);
             gravaARquivo.println(porta);
 
             gravaARquivo.flush();
@@ -76,7 +76,12 @@ public class ControlerParametro {
     }
 
     public ArrayList<String> lerArquivoParametro() {
-
+        if (arquivoExiste()){
+            
+        }else {
+            System.out.println("não localizado");
+            criarArquivoParametro("0", "0", "0", "0", "0");
+        }
         ArrayList<String> parametros = new ArrayList<>();
 
         try {
