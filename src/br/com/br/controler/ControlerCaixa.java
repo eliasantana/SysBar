@@ -191,7 +191,7 @@ public class ControlerCaixa {
 
     public ResultSet listaCaixa() {
 
-        String sql = "SELECT m.id AS 'ID', m.data AS 'DATA', m.saldo AS 'SALDO', f.nome AS 'OPERADOR' FROM dbbar.tbmovimentacao m\n"
+        String sql = "SELECT m.id AS 'ID', m.data AS 'DATA', format(m.saldo,2,'de_DE') AS 'SALDO', f.nome AS 'OPERADOR' FROM dbbar.tbmovimentacao m\n"
                 + "INNER JOIN tbcadfuncionario f on f.id = m.tbcadfuncionario_id\n"
                 + "WHERE data=curdate();";
 

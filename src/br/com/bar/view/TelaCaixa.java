@@ -74,7 +74,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         // Desabilita textFild de pagamento
         txtValorPago.setVisible(false);
         txtTroco.setVisible(false);
-        lblCifra.setVisible(false);
+
         lblPago.setVisible(false);
         lblTroco.setVisible(false);
         //Desabilita o painel de movimentação e o painel de Gráfico
@@ -85,32 +85,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         // Carrega o combobox com os meses menores que o atual
         carregaComboPeriodo(comboMes, mes);
         comboMes.setSelectedIndex(Integer.parseInt(mes) - 1);
-        /*
-        try {
-
-            lblSaidas.setText("R$ " + String.format("%9.2f", caixa.totalizaSaida(lblOperador.getText())));
-        } catch (NullPointerException e) {
-            lblSaidas.setText("0.00");
-        }
-
-        try {
-
-            lblEntradas.setText("R$ " + String.format("%9.2f", caixa.totalizaEntradas(lblOperador.getText())));
-        } catch (NullPointerException e) {
-            lblEntradas.setText("0.00");
-        }
-
-        if (lblTotal.getText().isEmpty()) {
-
-        } else {
-            calculaTaxa();
-        }
-
-        //double saldo = caixa.totalizaEntradas(lblOperador.getText()) - caixa.totalizaSaida();
-        double saldo = caixa.totalizaEntradas(lblOperador.getText()) - caixa.totalizaSaida(lblOperador.getText());
-
-        lblSaldo.setText("RS" + String.format("%9.2f", saldo));
-         */
+        
     }
 
     /**
@@ -142,38 +117,38 @@ public class TelaCaixa extends javax.swing.JFrame {
         painelDireito = new javax.swing.JPanel();
         lblOperador = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        txtValorPago = new javax.swing.JTextField();
-        checkDinheiro = new javax.swing.JCheckBox();
-        checkCartao = new javax.swing.JCheckBox();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        txtTaxaServico = new javax.swing.JTextField();
-        lblPago = new javax.swing.JLabel();
-        checkTxServico = new javax.swing.JCheckBox();
-        jLabel13 = new javax.swing.JLabel();
-        txtTotalGeral = new javax.swing.JTextField();
-        lblReceber = new javax.swing.JLabel();
-        lblTroco = new javax.swing.JLabel();
-        txtTroco = new javax.swing.JTextField();
-        lblCifra = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        btnFecharCaixa = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        lblReceberPAgamento = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnFechar = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        percent = new javax.swing.JLabel();
+        tgeral = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        lblReceber = new javax.swing.JLabel();
+        lblReceberPAgamento = new javax.swing.JLabel();
+        btnFecharCaixa = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        lblTotal = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        lblPago = new javax.swing.JLabel();
+        txtValorPago = new javax.swing.JTextField();
+        txtTroco = new javax.swing.JTextField();
+        lblTroco = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        checkDinheiro = new javax.swing.JCheckBox();
+        checkCartao = new javax.swing.JCheckBox();
+        checkTxServico = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         comboMesa = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDetalhePedido = new javax.swing.JTable();
         txtIdMEsa = new javax.swing.JTextField();
-        lblTotal = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txtIdPedido = new javax.swing.JTextField();
         btnListar = new javax.swing.JButton();
@@ -364,193 +339,13 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("jLabel2");
         painelDireito.add(lblOperador);
-        lblOperador.setBounds(250, 10, 90, 30);
+        lblOperador.setBounds(130, 50, 90, 30);
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("jLabel2");
         painelDireito.add(lblCargo);
-        lblCargo.setBounds(250, 50, 90, 30);
-
-        jLabel7.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Forma de Pagamento");
-        painelDireito.add(jLabel7);
-        jLabel7.setBounds(10, 150, 410, 48);
-
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        jLabel5.setText("Forma de Pagamento");
-        painelDireito.add(jLabel5);
-        jLabel5.setBounds(200, 210, 190, 30);
-
-        txtValorPago.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        txtValorPago.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtValorPago.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtValorPagoMouseClicked(evt);
-            }
-        });
-        txtValorPago.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtValorPagoActionPerformed(evt);
-            }
-        });
-        txtValorPago.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtValorPagoKeyPressed(evt);
-            }
-        });
-        painelDireito.add(txtValorPago);
-        txtValorPago.setBounds(70, 390, 130, 40);
-
-        buttonGroup1.add(checkDinheiro);
-        checkDinheiro.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        checkDinheiro.setText("Dinheiro");
-        checkDinheiro.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                checkDinheiroMouseClicked(evt);
-            }
-        });
-        painelDireito.add(checkDinheiro);
-        checkDinheiro.setBounds(250, 290, 90, 29);
-
-        buttonGroup1.add(checkCartao);
-        checkCartao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        checkCartao.setText("Cartão");
-        checkCartao.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                checkCartaoMouseClicked(evt);
-            }
-        });
-        painelDireito.add(checkCartao);
-        checkCartao.setBounds(250, 260, 110, 29);
-
-        jLabel10.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jLabel10.setText("R$");
-        painelDireito.add(jLabel10);
-        jLabel10.setBounds(30, 260, 40, 30);
-
-        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jLabel11.setText("10%");
-        painelDireito.add(jLabel11);
-        jLabel11.setBounds(30, 320, 40, 30);
-
-        txtTaxaServico.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        txtTaxaServico.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtTaxaServico.setText("0.00");
-        painelDireito.add(txtTaxaServico);
-        txtTaxaServico.setBounds(70, 310, 130, 40);
-
-        lblPago.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        lblPago.setText("Pago");
-        painelDireito.add(lblPago);
-        lblPago.setBounds(70, 360, 100, 30);
-
-        checkTxServico.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        checkTxServico.setText("Taxa de Serviço");
-        checkTxServico.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                checkTxServicoMouseClicked(evt);
-            }
-        });
-        checkTxServico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkTxServicoActionPerformed(evt);
-            }
-        });
-        painelDireito.add(checkTxServico);
-        checkTxServico.setBounds(30, 460, 190, 29);
-
-        jLabel13.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        jLabel13.setText("Total Geral");
-        painelDireito.add(jLabel13);
-        jLabel13.setBounds(30, 210, 170, 30);
-
-        txtTotalGeral.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        txtTotalGeral.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtTotalGeral.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTotalGeralActionPerformed(evt);
-            }
-        });
-        painelDireito.add(txtTotalGeral);
-        txtTotalGeral.setBounds(70, 250, 130, 40);
-
-        lblReceber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblReceber.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/caixa.png"))); // NOI18N
-        lblReceber.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblReceberMouseClicked(evt);
-            }
-        });
-        painelDireito.add(lblReceber);
-        lblReceber.setBounds(30, 510, 120, 64);
-
-        lblTroco.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        lblTroco.setText("Troco");
-        painelDireito.add(lblTroco);
-        lblTroco.setBounds(240, 360, 170, 30);
-
-        txtTroco.setEditable(false);
-        txtTroco.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        txtTroco.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtTroco.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtTrocoFocusGained(evt);
-            }
-        });
-        txtTroco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTrocoActionPerformed(evt);
-            }
-        });
-        txtTroco.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtTrocoKeyPressed(evt);
-            }
-        });
-        painelDireito.add(txtTroco);
-        txtTroco.setBounds(240, 390, 130, 40);
-
-        lblCifra.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        lblCifra.setText("R$");
-        painelDireito.add(lblCifra);
-        lblCifra.setBounds(30, 400, 40, 30);
-
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/power.png"))); // NOI18N
-        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel17MouseClicked(evt);
-            }
-        });
-        painelDireito.add(jLabel17);
-        jLabel17.setBounds(300, 520, 120, 50);
-
-        btnFecharCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Maquineta.png"))); // NOI18N
-        btnFecharCaixa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnFecharCaixaMouseClicked(evt);
-            }
-        });
-        painelDireito.add(btnFecharCaixa);
-        btnFecharCaixa.setBounds(190, 486, 96, 90);
-
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Logout");
-        painelDireito.add(jLabel3);
-        jLabel3.setBounds(290, 580, 130, 14);
-
-        lblReceberPAgamento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblReceberPAgamento.setText("Receber Pagamento");
-        painelDireito.add(lblReceberPAgamento);
-        lblReceberPAgamento.setBounds(30, 580, 130, 14);
-
-        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel24.setText("Fechar Caixa");
-        painelDireito.add(jLabel24);
-        jLabel24.setBounds(170, 580, 130, 14);
+        lblCargo.setBounds(30, 50, 90, 30);
 
         jPanel2.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -585,10 +380,304 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblStatus.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         painelDireito.add(lblStatus);
-        lblStatus.setBounds(10, 10, 140, 60);
+        lblStatus.setBounds(220, 40, 140, 40);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Sub-total")));
+
+        jLabel13.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
+        jLabel13.setText("Total Geral");
+
+        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Tx. Serviço");
+
+        percent.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 36)); // NOI18N
+        percent.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        tgeral.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 36)); // NOI18N
+        tgeral.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(tgeral, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(31, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(percent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(percent, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tgeral, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        painelDireito.add(jPanel3);
+        jPanel3.setBounds(30, 90, 350, 120);
+
+        lblReceber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblReceber.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/caixa.png"))); // NOI18N
+        lblReceber.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblReceberMouseClicked(evt);
+            }
+        });
+
+        lblReceberPAgamento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblReceberPAgamento.setText("Receber Pagamento");
+
+        btnFecharCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Maquineta.png"))); // NOI18N
+        btnFecharCaixa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFecharCaixaMouseClicked(evt);
+            }
+        });
+
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel24.setText("Fechar Caixa");
+
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/power.png"))); // NOI18N
+        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel17MouseClicked(evt);
+            }
+        });
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Logout");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(lblReceber, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(btnFecharCaixa)
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(120, 120, 120)
+                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblReceberPAgamento, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(lblReceber))
+                    .addComponent(btnFecharCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel24)
+                    .addComponent(lblReceberPAgamento)
+                    .addComponent(jLabel3))
+                .addGap(0, 16, Short.MAX_VALUE))
+        );
+
+        painelDireito.add(jPanel6);
+        jPanel6.setBounds(30, 520, 370, 120);
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Total Geral"));
+
+        lblTotal.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
+        lblTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 8, Short.MAX_VALUE))
+        );
+
+        painelDireito.add(jPanel7);
+        jPanel7.setBounds(30, 220, 350, 80);
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        lblPago.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
+        lblPago.setText("Pago");
+
+        txtValorPago.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        txtValorPago.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtValorPago.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtValorPagoMouseClicked(evt);
+            }
+        });
+        txtValorPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtValorPagoActionPerformed(evt);
+            }
+        });
+        txtValorPago.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtValorPagoKeyPressed(evt);
+            }
+        });
+
+        txtTroco.setEditable(false);
+        txtTroco.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        txtTroco.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtTroco.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTrocoFocusGained(evt);
+            }
+        });
+        txtTroco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTrocoActionPerformed(evt);
+            }
+        });
+        txtTroco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTrocoKeyPressed(evt);
+            }
+        });
+
+        lblTroco.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
+        lblTroco.setText("Troco");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtValorPago)
+                    .addComponent(lblPago, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(72, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPago, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtValorPago, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        painelDireito.add(jPanel5);
+        jPanel5.setBounds(30, 390, 350, 100);
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Forma de Pagamento")));
+
+        buttonGroup1.add(checkDinheiro);
+        checkDinheiro.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        checkDinheiro.setText("Dinheiro");
+        checkDinheiro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                checkDinheiroMouseClicked(evt);
+            }
+        });
+        checkDinheiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkDinheiroActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(checkCartao);
+        checkCartao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        checkCartao.setText("Cartão");
+        checkCartao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                checkCartaoMouseClicked(evt);
+            }
+        });
+
+        checkTxServico.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        checkTxServico.setText("Taxa de Serviço");
+        checkTxServico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                checkTxServicoMouseClicked(evt);
+            }
+        });
+        checkTxServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkTxServicoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(checkDinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(checkCartao, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkTxServico, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkCartao)
+                    .addComponent(checkDinheiro)
+                    .addComponent(checkTxServico))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        painelDireito.add(jPanel4);
+        jPanel4.setBounds(30, 310, 350, 65);
 
         getContentPane().add(painelDireito);
-        painelDireito.setBounds(830, 0, 450, 650);
+        painelDireito.setBounds(830, 0, 430, 660);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -616,13 +705,6 @@ public class TelaCaixa extends javax.swing.JFrame {
         tblDetalhePedido.setRowHeight(22);
         jScrollPane1.setViewportView(tblDetalhePedido);
 
-        lblTotal.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        lblTotal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-
-        jLabel8.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("Total R$ ");
-
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Caixa");
@@ -645,7 +727,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         lblGarcom.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
 
-        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/impressora64x64.png"))); // NOI18N
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Impressora32x32.png"))); // NOI18N
         btnImprimir.setText("Imprimir Parcial");
         btnImprimir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -661,7 +743,8 @@ public class TelaCaixa extends javax.swing.JFrame {
             }
         });
 
-        jLabel21.setText("Pessoas");
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel21.setText("N. Pessoas");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -671,43 +754,34 @@ public class TelaCaixa extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel21)
-                                    .addComponent(jSpinFieldPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(51, 51, 51)
-                                .addComponent(jLabel8)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(77, 77, 77)
-                                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(42, 42, 42)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtIdMEsa, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
-                                        .addComponent(txtIdPedido)))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel22)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lblGarcom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(comboMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addContainerGap(18, Short.MAX_VALUE))
+                                .addGap(77, 77, 77)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtIdMEsa, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                            .addComponent(txtIdPedido)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel22)
+                            .addGap(18, 18, 18)
+                            .addComponent(lblGarcom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(comboMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(42, 42, 42))))
+                        .addComponent(jLabel21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSpinFieldPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -732,24 +806,15 @@ public class TelaCaixa extends javax.swing.JFrame {
                     .addComponent(jLabel22)
                     .addComponent(lblGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel8)
-                    .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel21)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSpinFieldPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jSpinFieldPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtIdMEsa, txtIdPedido});
@@ -757,7 +822,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(380, 0, 460, 650);
 
-        setSize(new java.awt.Dimension(1254, 650));
+        setSize(new java.awt.Dimension(1254, 654));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -771,13 +836,9 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     }//GEN-LAST:event_comboMesaActionPerformed
 
-    private void txtTotalGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalGeralActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTotalGeralActionPerformed
-
     private void checkTxServicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkTxServicoMouseClicked
         // Retira taxa de serviço
-        txtTaxaServico.setText("00.00");
+        
         txtValorPago.setText("00.00");
         txtTroco.setText("00.00");
         calculaTaxa();
@@ -802,7 +863,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             txtTroco.requestFocus();
-            double totalGeral = Double.parseDouble(txtTotalGeral.getText().replace(",", "."));
+            double totalGeral = Double.parseDouble(lblTotal.getText().replace(",", "."));
             double totalPago = Double.parseDouble(txtValorPago.getText().replace(",", "."));
 
             if (totalPago >= totalGeral) {
@@ -839,14 +900,14 @@ public class TelaCaixa extends javax.swing.JFrame {
         if (nPesoas <= 0) {
             nPesoas = 1;
         }
-        Double totalGeral = Double.parseDouble(txtTotalGeral.getText().replaceAll(",", "."));
+        Double totalGeral = Double.parseDouble(lblTotal.getText().replaceAll(",", "."));
         Double totalPessoas = totalGeral / nPesoas;
         System.out.println(nPesoas);
 
         // Instancia um produto
         Pedido p = new Pedido();
-        p.setTotal(txtTotalGeral.getText().replaceAll(",", "."));
-        p.setComissao(txtTaxaServico.getText().replaceAll(",", "."));
+        p.setTotal(tgeral.getText().replaceAll(",", "."));
+        p.setComissao(percent.getText().replaceAll(",", "."));
         p.setTotalPago(txtValorPago.getText().replaceAll(",", "."));
         p.setStatus("1");
         p.setOperador(lblOperador.getText());
@@ -896,7 +957,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                 dados.put("data", df.format(dt));
                 dados.put("garcom", lblGarcom.getText());
                 dados.put("titulo", "COMPROVANTE DE PAGAMENTO");
-                dados.put("tx", Double.parseDouble(txtTaxaServico.getText().replaceAll(",", ".")));
+                dados.put("tx", Double.parseDouble(percent.getText().replaceAll(",", ".")));
                 dados.put("id_pedido", p.getId());
                 dados.put("npessoas", nPesoas);
                 dados.put("total_pessoas", totalPessoas);
@@ -973,8 +1034,10 @@ public class TelaCaixa extends javax.swing.JFrame {
                 total = Double.parseDouble(rs.getString("total"));
                 totalGeral = totalGeral + total;
             }
+            
             // Formata e exibe o total geral do pedido
-            lblTotal.setText(String.format("%9.2f", totalGeral));
+            
+            tgeral.setText(String.format("%9.2f", totalGeral));
 
         } catch (NumberFormatException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao calcular o total da compra" + e);
@@ -1000,12 +1063,12 @@ public class TelaCaixa extends javax.swing.JFrame {
         if (nPesoas <= 0) {
             nPesoas = 1;
         }
-        Double totalGeral = Double.parseDouble(txtTotalGeral.getText().replaceAll(",", "."));
+        Double totalGeral = Double.parseDouble(lblTotal.getText().replaceAll(",", "."));
         Double totalPessoas = totalGeral / nPesoas;
         System.out.println(nPesoas);
         //Início do Registro de log
         l.setFuncionalidade("Imprimir");
-        l.setDescricao(l.getUsuario() + "Imprimiu a parcial do pedido N." + txtIdPedido.getText() + " Comissão: " + txtTaxaServico.getText());
+        l.setDescricao(l.getUsuario() + "Imprimiu a parcial do pedido N." + txtIdPedido.getText() + " Comissão: " + percent.getText());
         l.gravaLog(l);
 
         //
@@ -1017,7 +1080,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         dados.put("id_pedido", txtIdPedido.getText());
         dados.put("garcom", lblGarcom.getText());
         dados.put("titulo", "PARCIAL DE CONSUMO");
-        dados.put("tx", Double.parseDouble(txtTaxaServico.getText().replaceAll(",", ".")));
+        dados.put("tx", Double.parseDouble(percent.getText().replaceAll(",", ".")));
         dados.put("npessoas", nPesoas);
         dados.put("total_pessoas", totalPessoas);
         dados.put("mesa", comboMesa.getSelectedItem().toString());
@@ -1093,25 +1156,19 @@ public class TelaCaixa extends javax.swing.JFrame {
                     panelMovimentacao.setVisible(false);
                     try {
                         ReportUtil rpu = new ReportUtil();
-                        if (dadosEmpresa.getImprimir_na_tela() == 0) {
-                            /*   
-                            JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "relMovimentacaoOperador.jasper", param, conexao);
-                            JasperViewer.viewReport(print, false);*/
-                            
+                        if (dadosEmpresa.getImprimir_na_tela() == 0) {                          
+
                             DadosEmpresa dados_empresa = de.selecionaDados();// Retorna dadados da empresa
-                            rpu.imprimiRelatorioTela("relMovimentacaoOperador.jasper",rpu.rodape(dadosEmpresa, param));
+                            rpu.imprimiRelatorioTela("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param));
 
                         } else {
                             JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param), conexao);
-                            
                             JasperPrintManager.printPage(print, 0, false);
-
                         }
 
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaCaixa.btnFecharCaixaMouseClicked()" + e);
                     }
-
                 }
             }
         } else {
@@ -1205,6 +1262,10 @@ public class TelaCaixa extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_checkExibirMouseClicked
+
+    private void checkDinheiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDinheiroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkDinheiroActionPerformed
     public void recebeOperador(String operador, String cargo) {
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
@@ -1220,8 +1281,8 @@ public class TelaCaixa extends javax.swing.JFrame {
     public void limpaForm() {
         txtIdMEsa.setText(null);
         txtIdPedido.setText(null);
-        txtTaxaServico.setText(null);
-        txtTotalGeral.setText(null);
+        percent.setText(null);
+        tgeral.setText(null);
         txtTroco.setText(null);
         txtValorPago.setText(null);
     }
@@ -1297,7 +1358,6 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboMes;
     private javax.swing.JComboBox<String> comboMesa;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1308,20 +1368,21 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.components.JSpinField jSpinFieldPessoas;
     private javax.swing.JLabel labelEntradas;
     private javax.swing.JLabel labelSaidas;
     private javax.swing.JLabel labelSaldo;
     private javax.swing.JLabel lblCargo;
-    private javax.swing.JLabel lblCifra;
     private javax.swing.JLabel lblEntradas;
     private javax.swing.JLabel lblGarcom;
     private javax.swing.JLabel lblLLogo;
@@ -1338,11 +1399,11 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JPanel painelEsquerdo;
     private javax.swing.JPanel panelGrafico;
     private javax.swing.JPanel panelMovimentacao;
+    private javax.swing.JLabel percent;
     private javax.swing.JTable tblDetalhePedido;
+    private javax.swing.JLabel tgeral;
     private javax.swing.JTextField txtIdMEsa;
     private javax.swing.JTextField txtIdPedido;
-    private javax.swing.JTextField txtTaxaServico;
-    private javax.swing.JTextField txtTotalGeral;
     private javax.swing.JTextField txtTroco;
     private javax.swing.JTextField txtValorPago;
     // End of variables declaration//GEN-END:variables
@@ -1350,18 +1411,24 @@ public class TelaCaixa extends javax.swing.JFrame {
     private void calculaTaxa() {
 
         double txServico = 0.10; // 10%
-        double totalConta = Double.parseDouble(lblTotal.getText().replaceAll(",", "."));
+        //double totalConta = Double.parseDouble(lblTotal.getText().replaceAll(",", "."));
+        double totalConta = Double.parseDouble(tgeral.getText().replaceAll(",", "."));
         double totalTxServico = totalConta * txServico;
         double totalPago = 0;
         double troco = 0;
 
         if (checkTxServico.isSelected()) {
 
-            txtTotalGeral.setText(String.format("%9.2f", totalConta + totalTxServico));
-            txtTaxaServico.setText(String.format("%9.2f", totalTxServico));
+            // txtTotalGeral.setText(String.format("%9.2f", totalConta + totalTxServico));
+            lblTotal.setText(String.format("%9.2f", totalConta + totalTxServico));
+            //txtTaxaServico.setText(String.format("%9.2f", totalTxServico));
+            percent.setText(String.format("%9.2f", totalTxServico));
+
         } else {
-            txtTotalGeral.setText(String.format("%9.2f", totalConta));
-            txtTaxaServico.setText("00.00");
+            //txtTotalGeral.setText(String.format("%9.2f", totalConta));
+            //tgeral.setText(String.format("%9.2f", totalConta));
+            lblTotal.setText(tgeral.getText());
+            percent.setText("00.00");
 
         }
 
@@ -1370,7 +1437,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private void habilitaTextFildPagamento() {
         txtValorPago.setVisible(true);
         txtTroco.setVisible(true);
-        lblCifra.setVisible(true);
+
         lblPago.setVisible(true);
         lblTroco.setVisible(true);
     }
@@ -1378,7 +1445,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private void desabilitaTextFildPagamento() {
         txtValorPago.setVisible(false);
         txtTroco.setVisible(false);
-        lblCifra.setVisible(false);
+
         lblPago.setVisible(false);
         lblTroco.setVisible(false);
     }

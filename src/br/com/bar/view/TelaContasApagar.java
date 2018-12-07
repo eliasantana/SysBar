@@ -667,7 +667,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
 
         c.setId(txtIdConta.getText());
         c.setDataPagto(cc.myData(jdateChooserPagamento));
-        c.setValoPagto(txtValorPago.getText());
+        c.setValoPagto(txtValorPago.getText().replaceAll(",", "."));
         c.setOperador(lblOperador.getText());
 
         if (c.getDataPagto().isEmpty()) {
@@ -714,8 +714,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
                             parametros.put("id", Integer.parseInt(txtIdConta.getText()));
 
                             try {
-                                //JasperPrint print = JasperFillManager.fillReport("C:/SysBar/rel/reciboDePagamento.jasper", parametros, conexao);
-                                //JasperViewer.viewReport(print, false);
+                                
                                 DadosEmpresa dados = de.selecionaDados();
                                 
                                 rpu.imprimiRelatorioTela("reciboDePagamento.jasper", rpu.rodape(dados, parametros));
@@ -803,7 +802,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
 
         c.setDescricao(txtDescricao.getText());
         c.setDataVencto(cc.myData(jdateChooserVencimento));
-        c.setValor(txtValor.getText());
+        c.setValor(txtValor.getText().replaceAll(",", "."));
         c.setGrupoId(txtIdGrupo.getText());
         c.setFuncionarioId(txtIdFuncionario.getText());
 
@@ -819,7 +818,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
                 if (cc.lancamentoMultiplo(jSpinQtd.getValue(), jdateChooserVencimento, c)) {
                     JOptionPane.showMessageDialog(null, "Lançamento múltiplo realiado com sucesso!");
                     tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
-
+                    limpaForm();
                 }
             } else {
                 // Caso o checkList não esteja selecionado executa a parcela de forma padrão
@@ -831,7 +830,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
                     l.gravaLog(l);
                     // fim do registro de log
                     limpaForm();
-                    JOptionPane.showMessageDialog(null, "Cadasto Relizado com sucesso!");
+                    JOptionPane.showMessageDialog(null, "Cadastro Relizado com sucesso!");
                     
                     tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
                 }
