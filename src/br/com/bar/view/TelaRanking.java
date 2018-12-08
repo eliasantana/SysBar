@@ -8,12 +8,8 @@ package br.com.bar.view;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCaixa;
 import br.com.br.controler.ControlerContasApagar;
-import com.sun.corba.se.spi.logging.CORBALogDomains;
-import com.toedter.calendar.JDateChooser;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
-import org.jfree.chart.*;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
