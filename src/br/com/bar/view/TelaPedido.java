@@ -695,7 +695,7 @@ public class TelaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void txtQuantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyPressed
-        // Calcula o total do produto
+        // Calcula o total do produto 
         ProdutoPedido pp = new ProdutoPedido();
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -706,7 +706,7 @@ public class TelaPedido extends javax.swing.JFrame {
 
                 calculaTotal();
                 int op = JOptionPane.showConfirmDialog(null, "Confirma a inclusão do produto?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-
+                // Instancia objeto ProdutoPedido
                 if (op == JOptionPane.YES_OPTION) {
                     pp.setTbproduto_id(txtCodigoProduto.getText());
                     pp.setQtd(txtQuantidade.getText());
@@ -726,7 +726,7 @@ public class TelaPedido extends javax.swing.JFrame {
                         // Retira o produto do estoque
                         ec.retiraEstoque(pp, pp.getQtd());
                         // Registra movimentação 
-                        if (est.registraMovimentacao(pp.getTbproduto_id(), pp.getQtd(), "2", null)){
+                        if (est.registraMovimentacao(pp.getTbproduto_id(), pp.getQtd(), est.localizaIdOperacao("Saída"), null)){
                             System.out.println("Movimentação registrada!");
                         }
                        // Limpa label de mensagem de produto indisponível 

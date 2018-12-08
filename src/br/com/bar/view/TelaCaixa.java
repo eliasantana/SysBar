@@ -905,7 +905,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         // Instancia um produto
         Pedido p = new Pedido();
-        p.setTotal(tgeral.getText().replaceAll(",", "."));
+        p.setTotal(lblTotal.getText().replaceAll(",", "."));
         p.setComissao(percent.getText().replaceAll(",", "."));
         p.setTotalPago(txtValorPago.getText().replaceAll(",", "."));
         p.setStatus("1");

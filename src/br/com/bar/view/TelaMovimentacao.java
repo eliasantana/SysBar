@@ -36,7 +36,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         lblData.setText(df.format(dataAtual));
         txtIdProduto.setVisible(false);
-        txtIdOperacao.setVisible(false);
+        txtIdOperacao.setVisible(true);
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -420,8 +420,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
     private void radioProdutoNovoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioProdutoNovoMouseClicked
 
         if (radioProdutoNovo.isSelected()) {
-
-            
+           
             panelProdutos.setVisible(true);
             tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
         }
@@ -453,6 +452,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
         int linha = tblProduto.getSelectedRow();
         txtIdProduto.setText(tblProduto.getModel().getValueAt(linha, 0).toString());
         txtQuantidade.requestFocus();
+        txtIdOperacao.setText(est.localizaIdOperacao(comboOperacao.getSelectedItem().toString()));
     }//GEN-LAST:event_tblProdutoMouseClicked
 
     private void radioPesquisaNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioPesquisaNomeMouseClicked
@@ -482,7 +482,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisarMouseClicked
 
     private void comboOperacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboOperacaoActionPerformed
-
+/*
         String op = comboOperacao.getSelectedItem().toString();
         System.out.println(op);
         if ("Saída".equals(op)) {
@@ -492,7 +492,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
         } else if ("Devolução".equals(op)) {
             panelProdutos.setVisible(true);
             tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
-        }
+        }*/
     }//GEN-LAST:event_comboOperacaoActionPerformed
 
     private void comboOperacaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboOperacaoItemStateChanged
