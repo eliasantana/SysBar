@@ -41,9 +41,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
         initComponents();
 
         Calendar c = Calendar.getInstance();
-        dtInicio.setDate(c.getTime());
-        dtFim.setDate(c.getTime());
-
+      
         dtInicio.setVisible(false);
         dtFim.setVisible(false);
 
