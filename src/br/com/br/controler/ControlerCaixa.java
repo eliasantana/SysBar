@@ -120,8 +120,7 @@ public class ControlerCaixa {
      */
     public double totalizaEntradas(String operador) {
         String sql = "SELECT sum(total) as 'total' FROM dbbar.cadpedido where data = curdate() AND operador=?";
-        //String sql = "SELECT sum(total) as 'total' FROM dbbar.detalhe_mesa where data=curdate()";
-
+        
         double total = 0;
         try {
             pst = conexao.prepareStatement(sql);
