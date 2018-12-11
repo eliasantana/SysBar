@@ -116,6 +116,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lblMensagem = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -265,7 +266,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jTabbedPane.addTab("Lista de Produtos", jScrollPane6);
 
         getContentPane().add(jTabbedPane);
-        jTabbedPane.setBounds(450, 290, 580, 230);
+        jTabbedPane.setBounds(450, 310, 580, 230);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Produto")));
 
@@ -535,10 +536,10 @@ public class TelaPedido2 extends javax.swing.JFrame {
         getContentPane().add(panelFechar);
         panelFechar.setBounds(1030, 0, 40, 40);
 
-        lblMensagem.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblMensagem.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
         lblMensagem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(lblMensagem);
-        lblMensagem.setBounds(450, 530, 580, 50);
+        lblMensagem.setBounds(450, 540, 580, 40);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCozinha.png"))); // NOI18N
         jLabel3.setText("Status Cozinha");
@@ -548,7 +549,17 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(800, 240, 190, 48);
+        jLabel3.setBounds(750, 230, 150, 48);
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnEnviar.png"))); // NOI18N
+        jLabel4.setText("Enviar  prato (cozinha)");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(750, 280, 160, 40);
 
         setSize(new java.awt.Dimension(1068, 595));
         setLocationRelativeTo(null);
@@ -813,6 +824,33 @@ public class TelaPedido2 extends javax.swing.JFrame {
         status.setVisible(true);
     }//GEN-LAST:event_jLabel3MouseClicked
 
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        // Envia prato para cozinha
+        // Envia porduto para a cozinha
+        int linha = tblDetalhePedido.getSelectedRow();
+
+        ArrayList<String> pCozinha = new ArrayList<>();
+
+        //codProduto, produto, qtd, funcionario, mesa, data, status
+        pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 1).toString()); // Código Produto
+        pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 0).toString()); // Produto
+        pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 2).toString()); // Qtd         
+        pCozinha.add(comboGarcom.getSelectedItem().toString()); // Nome do Funcionario
+        pCozinha.add(txtNumeroMesa.getText()); // Numero da mesa
+        pCozinha.add(cp.myDataAtual()); // Data Atual 
+        pCozinha.add("Pendente"); // Status Pendente - Liberado
+        pCozinha.add(txtNumeroPedido.getText());
+
+            int op = JOptionPane.showConfirmDialog(null, "Enviar o prato \n" + pCozinha.get(1) + "Para a cozinha?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+
+            if (op == JOptionPane.YES_OPTION) {
+
+                cp.enviaProdutoCozinha(pCozinha);
+
+            }
+        
+    }//GEN-LAST:event_jLabel4MouseClicked
+
     private double calculaPedido() {
         double valor = Double.parseDouble(lblValor.getText().replaceAll(",", "."));
         int qtd = Integer.parseInt(txtQtd.getText());
@@ -863,6 +901,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
