@@ -726,7 +726,7 @@ public class TelaPedido extends javax.swing.JFrame {
                         // Retira o produto do estoque
                         ec.retiraEstoque(pp, pp.getQtd());
                         // Registra movimentação 
-                        if (est.registraMovimentacao(pp.getTbproduto_id(), pp.getQtd(), est.localizaIdOperacao("Saída"), null)){
+                        if (est.registraMovimentacao(pp.getTbproduto_id(), pp.getQtd(), est.localizaIdOperacao("Venda"), null)){
                             System.out.println("Movimentação registrada!");
                         }
                        // Limpa label de mensagem de produto indisponível 

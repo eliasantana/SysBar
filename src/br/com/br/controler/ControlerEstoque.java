@@ -139,7 +139,7 @@ public class ControlerEstoque {
     // Carrega os tipos de movimentação
     public void carregaComboOperacao(JComboBox combo) {
 
-        String sql = "SELECT * FROM tboperacao";
+        String sql = "SELECT * FROM tboperacao WHERE operacao <> 'Venda' ";
 
         try {
             pst = conexao.prepareStatement(sql);

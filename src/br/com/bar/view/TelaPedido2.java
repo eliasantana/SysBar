@@ -706,14 +706,14 @@ public class TelaPedido2 extends javax.swing.JFrame {
                             System.out.println("Qtd: " + qtdEstoque);
                             
                             if (Integer.parseInt(pp.getQtd())<= qtdEstoque) {
-                                // Adiciona o produto ao pedido                 --- > atenção
+                                // Adiciona o produto ao pedido                 
                                 cproduto.adicionaProdutoAoPedido(pp);    
 
-                                // Retira o produto do estoque                  ---> Atenção
+                                // Retira o produto do estoque                 
                                 ec.retiraEstoque(pp, pp.getQtd());
 
                                 // Registra movimentação 
-                                if (est.registraMovimentacao(pp.getTbproduto_id(), pp.getQtd(), "Saída", null)) {
+                                if (est.registraMovimentacao(pp.getTbproduto_id(), pp.getQtd(), est.localizaIdOperacao("Venda"), null)) {
                                     System.out.println("Movimentação registrada!");
                                 }
                                 // Limpa label de mensagem de produto indisponível 

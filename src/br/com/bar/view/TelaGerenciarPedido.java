@@ -302,7 +302,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                     // Fim do Registro de Log
 
                     // Registra Movimentação
-                    ce.registraMovimentacao(txtIdProduto.getText(), txtQtd.getText(), "1", "O cliente desistiu do produto");
+                    ce.registraMovimentacao(txtIdProduto.getText(), txtQtd.getText(), ce.localizaIdOperacao("Devolução"), "O cliente desistiu do produto");
                     tblDetalhe.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString())));
                 } else {
                     JOptionPane.showMessageDialog(null, "Não foi possível devolver produto ao estoque!");

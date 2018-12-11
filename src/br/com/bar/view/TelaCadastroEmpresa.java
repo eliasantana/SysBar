@@ -33,7 +33,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     public TelaCadastroEmpresa() {
         initComponents();
          lblAdicionar.setVisible(false);
-        
+         txtIdEmpresa.setVisible(false);
         // Instancia o objeto e executa o método retornando um objetodo tipo
         // Dados empresa
         radioVisualizar.setSelected(true);
@@ -58,9 +58,8 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         txtUrlBackup.setText(d.getUrlbackup());
         lblCaminho.setText(txtUrlBackup.getText());
         txturlLogo.setText(d.getLogo());
-
-        d = dados.selecionaDados();
-
+        txtIdEmpresa.setText(String.valueOf(d.getId()));      
+        
         lblLogo.setIcon(u.carregaLogo());
         //Desabilita itens
         btnSelecionarArquivo.setVisible(false);
@@ -96,6 +95,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txturlLogo = new javax.swing.JTextField();
+        txtIdEmpresa = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         lblFechar = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
@@ -143,6 +143,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(38, 53, 61));
         jPanel1.setForeground(new java.awt.Color(52, 73, 94));
 
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 0, 36)); // NOI18N
@@ -170,40 +171,45 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                    .addComponent(txturlLogo))
+                .addGap(68, 68, 68))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addComponent(jLabel4))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addComponent(jLabel2)))
+                        .addGap(150, 150, 150)
+                        .addComponent(txtIdEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addComponent(jLabel2)))))
                 .addContainerGap(56, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                    .addComponent(txturlLogo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txturlLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addComponent(txtIdEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -243,7 +249,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         lblPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblPerfil.setText("Perfil");
         getContentPane().add(lblPerfil);
-        lblPerfil.setBounds(530, 40, 110, 32);
+        lblPerfil.setBounds(520, 40, 110, 32);
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 36)); // NOI18N
         jLabel3.setText("Cadastro Empresa");
@@ -544,7 +550,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private void lblEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMouseClicked
         
          // Instancia objeto dados
-        d.setId(dados.localizaIdEmpresa(txtNomeEmpresa.getText()));
+        d.setId(Integer.parseInt(txtIdEmpresa.getText()));
         d.setNome_empresa(txtNomeEmpresa.getText());
         d.setEndereco(txtEndereco.getText());
         d.setBairro(txtBairro.getText());
@@ -564,6 +570,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         d.setUf(txtUF.getText());
         d.setLogo(txturlLogo.getText());
         
+        System.out.println("nome Empresa" +d.getNome_empresa());
         if ((radioDireto.isSelected())){
             // 1 - Imprime na Tela 0 - Imprime Direto
             d.setImprimir_na_tela(1); // Direto para impressora
@@ -664,6 +671,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtCnpj;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
+    private javax.swing.JTextField txtIdEmpresa;
     private javax.swing.JTextField txtNomeEmpresa;
     private javax.swing.JFormattedTextField txtNumero;
     private javax.swing.JFormattedTextField txtTelefone;

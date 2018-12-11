@@ -36,7 +36,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         lblData.setText(df.format(dataAtual));
         txtIdProduto.setVisible(false);
-        txtIdOperacao.setVisible(true);
+        txtIdOperacao.setVisible(false);
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -92,6 +92,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         btnFechar = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
+        lblDica = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -199,6 +200,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
         });
 
         txtAreaObservacao.setColumns(20);
+        txtAreaObservacao.setLineWrap(true);
         txtAreaObservacao.setRows(5);
         jScrollPane1.setViewportView(txtAreaObservacao);
 
@@ -214,7 +216,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
                     .addGroup(panelProdutosLayout.createSequentialGroup()
                         .addComponent(lblPesquisa)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panelProdutosLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProdutosLayout.createSequentialGroup()
                         .addGroup(panelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelProdutosLayout.createSequentialGroup()
                                 .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -227,11 +229,11 @@ public class TelaMovimentacao extends javax.swing.JFrame {
                         .addGroup(panelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
                             .addGroup(panelProdutosLayout.createSequentialGroup()
                                 .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(blbIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(blbIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6))
                         .addGap(88, 88, 88))))
         );
         panelProdutosLayout.setVerticalGroup(
@@ -244,7 +246,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
                     .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtIdOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 13, Short.MAX_VALUE)
+                .addGap(0, 3, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
             .addGroup(panelProdutosLayout.createSequentialGroup()
@@ -262,7 +264,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
         );
 
         getContentPane().add(panelProdutos);
-        panelProdutos.setBounds(10, 220, 830, 330);
+        panelProdutos.setBounds(10, 240, 830, 320);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Operação")));
 
@@ -409,6 +411,10 @@ public class TelaMovimentacao extends javax.swing.JFrame {
         getContentPane().add(painelTopo);
         painelTopo.setBounds(0, 0, 840, 130);
 
+        lblDica.setText("Dica:");
+        getContentPane().add(lblDica);
+        lblDica.setBounds(470, 220, 360, 14);
+
         setSize(new java.awt.Dimension(841, 560));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -435,7 +441,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
 
     private void jRadioButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton1MouseClicked
         // Chama a tela de cadastro de Produtos
-       
+
         panelProdutos.setVisible(false);
         TelaCadastroProduto cp = new TelaCadastroProduto();
         cp.recebeOperador(lblOperador.getText(), lblCargo.getText());
@@ -450,6 +456,12 @@ public class TelaMovimentacao extends javax.swing.JFrame {
         // Seleciona dados da tabela
 
         int linha = tblProduto.getSelectedRow();
+        try {
+            txtIdProduto.setText(tblProduto.getModel().getValueAt(linha, 0).toString());
+
+        } catch (ArrayIndexOutOfBoundsException e) {          
+
+        }
         txtIdProduto.setText(tblProduto.getModel().getValueAt(linha, 0).toString());
         txtQuantidade.requestFocus();
         txtIdOperacao.setText(est.localizaIdOperacao(comboOperacao.getSelectedItem().toString()));
@@ -482,17 +494,25 @@ public class TelaMovimentacao extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisarMouseClicked
 
     private void comboOperacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboOperacaoActionPerformed
-/*
+        
         String op = comboOperacao.getSelectedItem().toString();
-        System.out.println(op);
-        if ("Saída".equals(op)) {
-
-            panelProdutos.setVisible(true);
-            tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
-        } else if ("Devolução".equals(op)) {
-            panelProdutos.setVisible(true);
-            tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
-        }*/
+        
+        switch(op){
+            case "Entrada":
+                lblDica.setText("Utilize quando receber produto do fornecedor.");
+            break;
+            case "Saída":
+                lblDica.setText("Utilize para retirada direta do estoque.");
+            break;
+            case "Devolução":
+                lblDica.setText("Devolve produto ao forcedor.");
+            break;
+            case "Descarte":
+                lblDica.setText("Utilize quando não for possível o reaproveitamento.");
+            break;
+            
+        }
+            
     }//GEN-LAST:event_comboOperacaoActionPerformed
 
     private void comboOperacaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboOperacaoItemStateChanged
@@ -510,8 +530,8 @@ public class TelaMovimentacao extends javax.swing.JFrame {
             // Realiza a entrada de um produto já cadastrado
             case "Entrada":
 
-                if (est.registraMovimentacao(txtIdProduto.getText(), txtQuantidade.getText(), txtIdOperacao.getText(), txtAreaObservacao.getText())) {
-
+                if (est.registraMovimentacao(txtIdProduto.getText(), txtQuantidade.getText(), txtIdOperacao.getText(), txtAreaObservacao.getText() )) {
+                    // Adiciona quantidae no estoque
                     if (est.entradaDeProduto(txtIdProduto.getText(), txtQuantidade.getText())) {
                         JOptionPane.showMessageDialog(null, "Produto Adicionado com sucesso");
                         limpaTela();
@@ -538,17 +558,13 @@ public class TelaMovimentacao extends javax.swing.JFrame {
 
             case "Saída": // retira um prpoduto do estoque
 
-                if (txtAreaObservacao.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Por favor informe o motivo desta operação");
-                }
-
                 p.setId(txtIdProduto.getText());
                 p.setQtd(txtQuantidade.getText());
 
                 // Retira o produto do estoque
                 est.retiraEstoque(p, p.getQtd());
                 // Registra movimentação
-                if (est.registraMovimentacao(p.getId(), p.getQtd(), "2", txtAreaObservacao.getText())) {
+                if (est.registraMovimentacao(p.getId(), p.getQtd(), est.localizaIdOperacao("Saída"), txtAreaObservacao.getText())) {
 
                     JOptionPane.showMessageDialog(null, "Produto retirado do estoque com sucesso");
 
@@ -570,18 +586,22 @@ public class TelaMovimentacao extends javax.swing.JFrame {
                 }
                 break;
 
-            case "Devolução":
+            case "Devolução":// Devolve o produto ao fornecedor gerando uma saída no estoque
                 // Exibe painel
                 panelProdutos.setVisible(true);
-                // Devolve o produto ao estoque gerando um entrada.
+                
 
                 Produto produto = new Produto();
                 produto.setId(txtIdProduto.getText());
                 produto.setQtd(txtQuantidade.getText());
-
-                if (est.entradaDeProduto(produto.getId(), produto.getQtd())) {
-                    JOptionPane.showMessageDialog(null, "Entrada de produto realizada com sucesso!");
-                    est.registraMovimentacao(produto.getId(), produto.getQtd(), "4", txtAreaObservacao.getText());
+                int op= JOptionPane.showConfirmDialog(null, "Devolver produto ao fornecedor?","Atenção!",JOptionPane.YES_NO_OPTION);
+                // Solicita confirmação ao operador
+                if (op==JOptionPane.YES_OPTION) {
+                    
+                    //Retira do estoque o produto 
+                    est.retiraEstoque(produto, produto.getQtd());
+                    JOptionPane.showMessageDialog(null, "Devolução de produto realizada com sucesso!");
+                    est.registraMovimentacao(produto.getId(), produto.getQtd(), est.localizaIdOperacao(operacao), txtAreaObservacao.getText());
                     tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
 
                     // Início do Registro de Log
@@ -597,6 +617,44 @@ public class TelaMovimentacao extends javax.swing.JFrame {
                     txtIdProduto.setText(null);
                     txtIdOperacao.setText(null);
 
+                }else {
+                    JOptionPane.showMessageDialog(null, "Operação cancelada!");                    
+                }
+
+                break;
+                
+            case "Descarte":// Retira o produto o estoque
+                // Exibe painel
+                panelProdutos.setVisible(true);               
+
+                Produto pDescarte = new Produto();
+                pDescarte.setId(txtIdProduto.getText());
+                pDescarte.setQtd(txtQuantidade.getText());
+                int confirma= JOptionPane.showConfirmDialog(null, "Descartar este produto?","Atenção!",JOptionPane.YES_NO_OPTION);
+                // Solicita confirmação ao operador
+                if (confirma==JOptionPane.YES_OPTION) {
+                    
+                    //Retira do estoque o produto 
+                    est.retiraEstoque(pDescarte, pDescarte.getQtd());
+                    JOptionPane.showMessageDialog(null, "O produto foi descartado!");
+                    est.registraMovimentacao(pDescarte.getId(), pDescarte.getQtd(), est.localizaIdOperacao(operacao), txtAreaObservacao.getText());
+                    tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
+
+                    // Início do Registro de Log
+                    l.setFuncionalidade(comboOperacao.getSelectedItem().toString());
+                    l.setUsuario(lblOperador.getText());
+                    l.setDescricao(l.getUsuario() + " realizou uma " + l.getFuncionalidade() + "Produto-> " + txtIdProduto.getText() + " Motivo : " + txtAreaObservacao.getText());
+                    l.gravaLog(l);
+
+                    // Fim do Registro de Log 
+                    // limpa campos
+                    txtAreaObservacao.setText(null);
+                    txtQuantidade.setText(null);
+                    txtIdProduto.setText(null);
+                    txtIdOperacao.setText(null);
+
+                }else {
+                    JOptionPane.showMessageDialog(null, "Operação cancelada!");                    
                 }
 
                 break;
@@ -610,8 +668,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisarKeyReleased
 
     private void txtQuantidadeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQuantidadeFocusGained
-       // Adiciona data e o tipo de movimentação no TextAreObservação
-       txtAreaObservacao.setText(comboOperacao.getSelectedItem().toString() + " - " + lblOperador.getText());
+              txtAreaObservacao.setText(comboOperacao.getSelectedItem().toString() +" - "+ lblOperador.getText() +": ");            
     }//GEN-LAST:event_txtQuantidadeFocusGained
 
     /**
@@ -668,6 +725,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblData;
+    private javax.swing.JLabel lblDica;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblPesquisa;
     private javax.swing.JPanel painelTopo;
