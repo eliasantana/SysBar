@@ -75,6 +75,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblCargo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        lblREmovePrato = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -184,24 +185,30 @@ public class TelaConzinha extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/power.png"))); // NOI18N
         jLabel4.setText("Logout");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnlogoutLayout = new javax.swing.GroupLayout(btnlogout);
         btnlogout.setLayout(btnlogoutLayout);
         btnlogoutLayout.setHorizontalGroup(
             btnlogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnlogoutLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jLabel4)
-                .addContainerGap(40, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnlogoutLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                .addContainerGap())
         );
         btnlogoutLayout.setVerticalGroup(
             btnlogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnlogoutLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel4)
-                .addContainerGap(34, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnlogoutLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         paineldireito.add(btnlogout);
@@ -278,6 +285,17 @@ public class TelaConzinha extends javax.swing.JFrame {
         paineldireito.add(jPanel1);
         jPanel1.setBounds(860, 0, 40, 40);
 
+        lblREmovePrato.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblREmovePrato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fechar.png"))); // NOI18N
+        lblREmovePrato.setText("Remove prato");
+        lblREmovePrato.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblREmovePratoMouseClicked(evt);
+            }
+        });
+        paineldireito.add(lblREmovePrato);
+        lblREmovePrato.setBounds(570, 440, 160, 80);
+
         getContentPane().add(paineldireito);
         paineldireito.setBounds(270, 0, 900, 550);
 
@@ -317,24 +335,9 @@ public class TelaConzinha extends javax.swing.JFrame {
     }//GEN-LAST:event_tblCozinhaMouseClicked
 
     private void btnlogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlogoutMouseClicked
+                
+      
         
-        if (cc.pratoPendente()>0){
-            JOptionPane.showMessageDialog(null,"Realize a liberação dos pratos \n pendentes para continuar");
-        }else {
-        
-            // Faz logout
-            Log l = new Log();
-
-            l.setDescricao(lblOperador.getText() + "Fez logout no sistema");
-            l.setFuncionalidade("Logout");
-            l.setUsuario(lblOperador.getText());
-            l.gravaLog(l);
-
-            dispose();
-            TelaLogin login = new TelaLogin();
-            login.setVisible(true);
-    } 
-
 
     }//GEN-LAST:event_btnlogoutMouseClicked
 
@@ -356,6 +359,50 @@ public class TelaConzinha extends javax.swing.JFrame {
         }
        
     }//GEN-LAST:event_btnLiberaRefeicaoMouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+         if (cc.pratoPendente()>0){
+            JOptionPane.showMessageDialog(null,"Realize a liberação dos pratos \n pendentes para continuar");
+        }else {
+        
+            // Faz logout
+            Log l = new Log();
+
+            l.setDescricao(lblOperador.getText() + "Fez logout no sistema");
+            l.setFuncionalidade("Logout");
+            l.setUsuario(lblOperador.getText());
+            l.gravaLog(l);
+
+            dispose();
+            TelaLogin login = new TelaLogin();
+            login.setVisible(true);
+    } 
+    }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void lblREmovePratoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblREmovePratoMouseClicked
+           // Remove prato Cozinha
+           if ("Gerente".equals(lblCargo.getText())){
+               
+               if (txtidProdutoCozinha.getText().isEmpty()) {
+                   JOptionPane.showMessageDialog(null, "Selecione um item antes de excluir!");
+               } else {
+                   int resp = JOptionPane.showConfirmDialog(null, "Deseja remover este item?", "Atenção!", JOptionPane.YES_NO_OPTION);
+                   if (resp == JOptionPane.YES_OPTION) {
+                       if (cc.removePrato(txtidProdutoCozinha.getText())) {
+                           JOptionPane.showMessageDialog(null, "Produto removido!");
+                           tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
+                       }
+
+                   } else {
+                       JOptionPane.showMessageDialog(null, "Operação cancelada!");
+                   }
+               }
+           }else {
+               // Desabilita o botão remove prato para o usuários com cargo diferente de gerente.
+               lblREmovePrato.setVisible(false);
+           }
+        
+    }//GEN-LAST:event_lblREmovePratoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -405,6 +452,7 @@ public class TelaConzinha extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblOperador;
+    private javax.swing.JLabel lblREmovePrato;
     private javax.swing.JPanel painelEsquerdo;
     private javax.swing.JPanel paineldireito;
     private javax.swing.JTable tblCozinha;

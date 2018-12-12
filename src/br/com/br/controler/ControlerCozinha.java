@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Clock;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -93,15 +94,7 @@ public class ControlerCozinha {
     // Retorna a lista dos produtos enviados para a cozinha pelo operador garçom
     
     public ResultSet statusCozinha(String operador) {
-        /*
-        String sql = "SELECT "
-                + "produto as 'PRODUTO', "
-                + "qtd as 'QTD', "
-                + "mesa as 'N. MESA', "
-                + "status as 'STATUS'"
-                + "FROM "
-                + "dbbar.tbcozinha where funcionario=? and status='pendente';";
-        */
+        
         // Listas os pratos enviados a cozinha pelo garçom
         String sql = "SELECT\n"
                 + "produto as 'PRODUTO', \n"
@@ -143,5 +136,24 @@ public class ControlerCozinha {
         }
 
         return qtd;
+    }
+    // Remove produto da tabela cozinha 
+    // Recurso utilizado quando o produto for descartado
+    public boolean removePrato(String idProduto){
+        boolean resp=false;
+        
+        String sql="DELETE FROM tbcozinha where id=?";
+        
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, idProduto);
+            pst.executeUpdate();
+            resp=true;
+            
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCozinha.removePrato()" + e);
+        }
+        
+        return resp;
     }
 }
