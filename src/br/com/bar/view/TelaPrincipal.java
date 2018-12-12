@@ -825,6 +825,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void btnLancarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLancarPedidoMouseClicked
         // Chama a tela Pedido 2
         TelaPedido2 pedido2 = new TelaPedido2();
+        pedido2.recebeOperador(lblOperador.getText(), lblCargo.getText());
         pedido2.setVisible(true);
                 
     }//GEN-LAST:event_btnLancarPedidoMouseClicked

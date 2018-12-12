@@ -101,13 +101,13 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("Operador");
         jPanel1.add(lblOperador);
-        lblOperador.setBounds(220, 80, 90, 32);
+        lblOperador.setBounds(200, 90, 90, 32);
 
         LblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         LblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         LblCargo.setText("Cargo");
         jPanel1.add(LblCargo);
-        LblCargo.setBounds(320, 80, 70, 30);
+        LblCargo.setBounds(300, 90, 100, 30);
 
         jPanel2.setBackground(new java.awt.Color(44, 62, 80));
 

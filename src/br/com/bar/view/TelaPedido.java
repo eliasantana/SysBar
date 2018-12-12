@@ -509,7 +509,7 @@ public class TelaPedido extends javax.swing.JFrame {
         jTabbedPane1.addTab("Detalhe Pedido", jScrollPane2);
 
         painelDireito.add(jTabbedPane1);
-        jTabbedPane1.setBounds(10, 340, 540, 170);
+        jTabbedPane1.setBounds(10, 310, 540, 200);
 
         lblMensagem.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblMensagem.setForeground(new java.awt.Color(255, 0, 0));
