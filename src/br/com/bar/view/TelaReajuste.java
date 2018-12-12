@@ -19,15 +19,42 @@ public class TelaReajuste extends javax.swing.JFrame {
     /**
      * Creates new form TelaReajuste
      */
-    
     ControlerProduto cp = new ControlerProduto();
     ControlerGrupo cg = new ControlerGrupo();
-            
     
     public TelaReajuste() {
         initComponents();
         txtId.setVisible(false);
         txtValor.setVisible(false);
+        desabilitaFator();
+        desabilitaValorDireto();
+        
+    }
+    
+    private void desabilitaFator() {
+        lblFatorReajuste.setEnabled(false);
+        txtPercentual.setEnabled(false);
+        lblPercentual.setEnabled(false);
+    }
+    
+    private void habilitaFator() {
+        lblFatorReajuste.setEnabled(true);
+        txtPercentual.setEnabled(true);
+        lblPercentual.setEnabled(true);
+        
+    }
+    
+    private void desabilitaValorDireto() {
+        lblCifra.setEnabled(false);
+        txtValorDireto.setEnabled(false);
+        lblValorDireto.setEnabled(false);
+        
+    }
+    
+    private void habilitaValorDireto() {
+        lblCifra.setEnabled(true);
+        txtValorDireto.setEnabled(true);
+        lblValorDireto.setEnabled(true);
     }
 
     /**
@@ -40,6 +67,7 @@ public class TelaReajuste extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
@@ -48,16 +76,24 @@ public class TelaReajuste extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtNomeProduto = new javax.swing.JTextField();
+        panelFormaReajuste = new javax.swing.JPanel();
+        lblFatorReajuste = new javax.swing.JLabel();
+        txtPercentual = new javax.swing.JTextField();
+        lblCifra = new javax.swing.JLabel();
+        radioFator = new javax.swing.JRadioButton();
+        radioValorDireto = new javax.swing.JRadioButton();
+        lblValorDireto = new javax.swing.JLabel();
+        txtValorDireto = new javax.swing.JTextField();
+        lblPercentual = new javax.swing.JLabel();
+        btnAplicar = new javax.swing.JButton();
+        panelProdutos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProdutos = new javax.swing.JTable();
-        txtPercentual = new javax.swing.JTextField();
-        btnAplicar = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtNomeProduto = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
         checkGrupo = new javax.swing.JCheckBox();
         checkUnitario = new javax.swing.JCheckBox();
-        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setUndecorated(true);
@@ -70,7 +106,7 @@ public class TelaReajuste extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(52, 73, 94));
         jLabel1.setText("de Preços");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(260, 70, 130, 40);
+        jLabel1.setBounds(420, 70, 130, 40);
         jPanel1.add(txtId);
         txtId.setBounds(12, 100, 37, 20);
         jPanel1.add(txtValor);
@@ -80,7 +116,7 @@ public class TelaReajuste extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(52, 73, 94));
         jLabel7.setText("Reajuste ");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(130, 20, 270, 50);
+        jLabel7.setBounds(290, 20, 270, 50);
 
         jPanel2.setBackground(new java.awt.Color(52, 73, 94));
 
@@ -99,9 +135,7 @@ public class TelaReajuste extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,56 +145,74 @@ public class TelaReajuste extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(450, 0, 40, 40);
+        jPanel2.setBounds(750, 0, 40, 40);
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/money-64.png"))); // NOI18N
         jPanel1.add(jLabel15);
-        jLabel15.setBounds(30, 30, 80, 50);
+        jLabel15.setBounds(190, 30, 80, 50);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 490, 130);
+        jPanel1.setBounds(0, 0, 790, 130);
 
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        jLabel3.setText("Produto");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 127, 170, 20);
+        panelFormaReajuste.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Forma de Reajuste"));
 
-        txtNomeProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        getContentPane().add(txtNomeProduto);
-        txtNomeProduto.setBounds(10, 154, 440, 30);
-
-        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        tblProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblProdutosMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblProdutos);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 320, 442, 216);
+        lblFatorReajuste.setText("Fator de Reajuste");
 
         txtPercentual.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtPercentual.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtPercentual.setText("0.0");
+        txtPercentual.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPercentualFocusGained(evt);
+            }
+        });
         txtPercentual.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtPercentualKeyReleased(evt);
             }
         });
-        getContentPane().add(txtPercentual);
-        txtPercentual.setBounds(10, 250, 112, 50);
 
-        btnAplicar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/aplly.png"))); // NOI18N
-        btnAplicar.setText("Aplicar");
+        lblCifra.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
+        lblCifra.setText("R$");
+
+        buttonGroup2.add(radioFator);
+        radioFator.setText("Fator");
+        radioFator.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioFatorActionPerformed(evt);
+            }
+        });
+
+        buttonGroup2.add(radioValorDireto);
+        radioValorDireto.setText("Valor Direto");
+        radioValorDireto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioValorDiretoActionPerformed(evt);
+            }
+        });
+
+        lblValorDireto.setText("Valor Direto");
+
+        txtValorDireto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        txtValorDireto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtValorDireto.setText("0,00");
+        txtValorDireto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtValorDiretoFocusGained(evt);
+            }
+        });
+        txtValorDireto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtValorDiretoKeyReleased(evt);
+            }
+        });
+
+        lblPercentual.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
+        lblPercentual.setText("%");
+
+        btnAplicar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/aplicar.png"))); // NOI18N
+        btnAplicar.setText("Aplicar Reajuste");
         btnAplicar.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -175,13 +227,116 @@ public class TelaReajuste extends javax.swing.JFrame {
                 btnAplicarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAplicar);
-        btnAplicar.setBounds(330, 250, 117, 50);
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        jLabel5.setText("%");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(130, 260, 50, 30);
+        javax.swing.GroupLayout panelFormaReajusteLayout = new javax.swing.GroupLayout(panelFormaReajuste);
+        panelFormaReajuste.setLayout(panelFormaReajusteLayout);
+        panelFormaReajusteLayout.setHorizontalGroup(
+            panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFormaReajusteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFatorReajuste, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelFormaReajusteLayout.createSequentialGroup()
+                        .addComponent(txtPercentual, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblPercentual, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10)
+                .addComponent(lblCifra, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtValorDireto, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblValorDireto))
+                .addGap(36, 36, 36))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFormaReajusteLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(radioFator, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(radioValorDireto)
+                .addGap(76, 76, 76))
+            .addGroup(panelFormaReajusteLayout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(btnAplicar, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelFormaReajusteLayout.setVerticalGroup(
+            panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFormaReajusteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radioFator)
+                    .addComponent(radioValorDireto))
+                .addGap(26, 26, 26)
+                .addGroup(panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFatorReajuste)
+                    .addComponent(lblValorDireto))
+                .addGap(6, 6, 6)
+                .addGroup(panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(txtPercentual, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtValorDireto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPercentual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCifra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
+                .addComponent(btnAplicar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(85, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(panelFormaReajuste);
+        panelFormaReajuste.setBounds(10, 210, 330, 320);
+
+        panelProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Produtos"));
+
+        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tblProdutos.setRowHeight(20);
+        tblProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProdutosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblProdutos);
+
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
+        jLabel3.setText("Pesquisar Produto");
+
+        txtNomeProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout panelProdutosLayout = new javax.swing.GroupLayout(panelProdutos);
+        panelProdutos.setLayout(panelProdutosLayout);
+        panelProdutosLayout.setHorizontalGroup(
+            panelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelProdutosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(panelProdutosLayout.createSequentialGroup()
+                        .addGroup(panelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 138, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        panelProdutosLayout.setVerticalGroup(
+            panelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProdutosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(txtNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        getContentPane().add(panelProdutos);
+        panelProdutos.setBounds(360, 140, 410, 390);
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Tipo de Reajuste"));
 
         buttonGroup1.add(checkGrupo);
         checkGrupo.setText("Grupo");
@@ -195,8 +350,6 @@ public class TelaReajuste extends javax.swing.JFrame {
                 checkGrupoActionPerformed(evt);
             }
         });
-        getContentPane().add(checkGrupo);
-        checkGrupo.setBounds(10, 190, 100, 23);
 
         buttonGroup1.add(checkUnitario);
         checkUnitario.setText("Unitário");
@@ -210,57 +363,131 @@ public class TelaReajuste extends javax.swing.JFrame {
                 checkUnitarioActionPerformed(evt);
             }
         });
-        getContentPane().add(checkUnitario);
-        checkUnitario.setBounds(130, 190, 140, 23);
 
-        jLabel6.setText("Fator de Reajuste");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(10, 230, 122, 14);
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 76, Short.MAX_VALUE)
+                .addComponent(checkGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(checkUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkGrupo)
+                    .addComponent(checkUnitario))
+                .addContainerGap(8, Short.MAX_VALUE))
+        );
 
-        setSize(new java.awt.Dimension(485, 542));
+        getContentPane().add(jPanel5);
+        jPanel5.setBounds(10, 140, 330, 60);
+
+        setSize(new java.awt.Dimension(790, 542));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void checkGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkGrupoActionPerformed
-        // TODO add your handling code here:
+        if (checkGrupo.isSelected()) {
+            desabilitaValorDireto();
+            habilitaFator();
+            radioValorDireto.setEnabled(false);
+            radioFator.setSelected(true);
+        }
     }//GEN-LAST:event_checkGrupoActionPerformed
 
     private void checkUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkUnitarioActionPerformed
-        // TODO add your handling code here:
+        if (checkUnitario.isSelected()) {
+            radioValorDireto.setEnabled(true);
+            txtId.setText(null);
+            radioFator.setSelected(true);
+            habilitaFator();
+            
+        }
     }//GEN-LAST:event_checkUnitarioActionPerformed
 
     private void btnAplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarActionPerformed
-        
-        if (checkUnitario.isSelected()){
-            if (txtId.getText().isEmpty()){
-                JOptionPane.showMessageDialog(null, "Nenhum produto selecionado, tente novamente!");
+        int resp = JOptionPane.showConfirmDialog(null, "Confirma o reajuste?","Atenção!",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE);
+       
+        if (resp == JOptionPane.YES_OPTION){
+            // Informa ao usuário para selecionar um forma de reajuste
+        if (checkGrupo.isSelected() || checkUnitario.isSelected()) {
+            
+            if (checkGrupo.isSelected() & radioFator.isSelected()) {
+                // Reajusta grupo pelo percentual
+                Double percentual = Double.parseDouble(txtPercentual.getText());
+                // Reajusta caso o percentual seja maior que zero
+                if (percentual > 0) {
+                    if (txtId.getText().isEmpty()) { // VErifica se o produto foi seleciondo
+                        JOptionPane.showMessageDialog(null, "Selecione um grupo!");
+                    } else {
+                        // Reajusta o grupo de produto
+                        cp.reajusteGrupoProduto(txtId.getText(), txtPercentual.getText());
+                        tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
+                        txtPercentual.setText("0.0");
+                        txtId.setText(null);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Percentual inválido");
+                }
+                // Aplica reajuste unitário por fator de reajuste
+            } else if (checkUnitario.isSelected() && radioFator.isSelected()) {
+                Double percentual = Double.parseDouble(txtPercentual.getText());
+                if (percentual > 0) { // Se o percentual for maior que zero continua
+                    if (txtId.getText().isEmpty()) { // Solicita que o usuario selecione um produto
+                        JOptionPane.showMessageDialog(null, "Selecione um produto \n para continuar!");
+                    } else {
+                        // Aplica reajuste 
+                        cp.reajustaValorProduto(txtId.getText(), Double.parseDouble(txtValor.getText().replaceAll(",", ".")), Double.parseDouble(txtPercentual.getText()));
+                        tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Percentual inválido!");
+                }
+                // Reajusta valor diretamente a partir do valor informado pelo usuário
+            }else if (checkUnitario.isSelected() && radioValorDireto.isSelected()){
                 
-            }else {
-                cp.reajustaValorProduto(txtId.getText(), Double.parseDouble(txtValor.getText()),Double.parseDouble(txtPercentual.getText()));
-                tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
+                double vDireto = Double.parseDouble(txtValorDireto.getText().replace(",", "."));
+                if (vDireto > 0){ // Informa que o produto não foi selecionado
+                    if (txtId.getText().isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Selecione um produto para cotinuar!");
+                    }else {
+                        // Aplica reajuste a partir do valor informado
+                        cp.reajustaValorProduto(txtId.getText(), vDireto);
+                        tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
+                        txtId.setText(null);
+                        txtValorDireto.setText("0,00");
+                    }
+                }else {
+                    JOptionPane.showMessageDialog(null, "Valor invalido!");
+                }
             }
             
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um tipo de reajuste!");
+        }     
         }else {
-            if (txtId.getText().isEmpty()){
-                JOptionPane.showMessageDialog(null, "Nenum grupo selecionado, selecione um grupo para continuar!");
-            }else {
-                cp.reajusteGrupoProduto(txtId.getText(), txtPercentual.getText());
-            }
+            JOptionPane.showMessageDialog(null, "Reajuste cancelado!");
         }
-        
+
+           
         
     }//GEN-LAST:event_btnAplicarActionPerformed
 
     private void checkUnitarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkUnitarioMouseClicked
-       // Lista produtos para reajuste
-       
+        // Lista produtos para reajuste
+
         tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
     }//GEN-LAST:event_checkUnitarioMouseClicked
 
     private void checkGrupoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkGrupoMouseClicked
         // Lista grupo
         tblProdutos.setModel(DbUtils.resultSetToTableModel(cg.listaGrupoProduto()));
-        
+
     }//GEN-LAST:event_checkGrupoMouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
@@ -272,29 +499,58 @@ public class TelaReajuste extends javax.swing.JFrame {
         // TODO add your handling code here:
         int linha = tblProdutos.getSelectedRow();
         
-        if (checkGrupo.isSelected()){
-           txtId.setText(tblProdutos.getModel().getValueAt(linha,0).toString());
-           
+        if (checkGrupo.isSelected()) {
+            txtId.setText(tblProdutos.getModel().getValueAt(linha, 0).toString());
             
-        }else {
-            txtId.setText(tblProdutos.getModel().getValueAt(linha,0).toString());                   
+        } else {
+            txtId.setText(tblProdutos.getModel().getValueAt(linha, 0).toString());
             txtValor.setText(tblProdutos.getModel().getValueAt(linha, 2).toString());
+            txtValorDireto.setText(txtValor.getText());
         }
         
-        
-        
+
     }//GEN-LAST:event_tblProdutosMouseClicked
 
     private void txtPercentualKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPercentualKeyReleased
         // Substitui a virgula por ponto
-         String valor = txtPercentual.getText().replace(",", ".");
-         txtPercentual.setText(valor);
-       
+        String valor = txtPercentual.getText().replace(",", ".");
+        txtPercentual.setText(valor);
+
     }//GEN-LAST:event_txtPercentualKeyReleased
 
     private void btnAplicarAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_btnAplicarAncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAplicarAncestorAdded
+
+    private void txtValorDiretoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorDiretoKeyReleased
+        // Susbstitui virgula por ponto
+
+    }//GEN-LAST:event_txtValorDiretoKeyReleased
+
+    private void radioFatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioFatorActionPerformed
+        // Habilita fator de reajuste
+        habilitaFator();
+        desabilitaValorDireto();
+        txtPercentual.requestFocus();
+
+    }//GEN-LAST:event_radioFatorActionPerformed
+
+    private void radioValorDiretoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioValorDiretoActionPerformed
+        // Habilita alteração informando diretamente o valor desejado para o produto
+        desabilitaFator();
+        habilitaValorDireto();
+        txtValorDireto.requestFocus();
+    }//GEN-LAST:event_radioValorDiretoActionPerformed
+
+    private void txtPercentualFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPercentualFocusGained
+        //Seleciona radio button
+        radioFator.setSelected(true);
+    }//GEN-LAST:event_txtPercentualFocusGained
+
+    private void txtValorDiretoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorDiretoFocusGained
+        // Seleciona radio button
+        radioValorDireto.setSelected(true);
+    }//GEN-LAST:event_txtValorDiretoFocusGained
 
     /**
      * @param args the command line arguments
@@ -334,22 +590,31 @@ public class TelaReajuste extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAplicar;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JCheckBox checkGrupo;
     private javax.swing.JCheckBox checkUnitario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCifra;
+    private javax.swing.JLabel lblFatorReajuste;
+    private javax.swing.JLabel lblPercentual;
+    private javax.swing.JLabel lblValorDireto;
+    private javax.swing.JPanel panelFormaReajuste;
+    private javax.swing.JPanel panelProdutos;
+    private javax.swing.JRadioButton radioFator;
+    private javax.swing.JRadioButton radioValorDireto;
     private javax.swing.JTable tblProdutos;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNomeProduto;
     private javax.swing.JTextField txtPercentual;
     private javax.swing.JTextField txtValor;
+    private javax.swing.JTextField txtValorDireto;
     // End of variables declaration//GEN-END:variables
 }
