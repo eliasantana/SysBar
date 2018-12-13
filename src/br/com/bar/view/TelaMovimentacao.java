@@ -505,7 +505,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
                 lblDica.setText("Utilize para retirada direta do estoque.");
             break;
             case "Devolução":
-                lblDica.setText("Devolve produto ao forcedor.");
+                lblDica.setText("Devolve produto ao fornecedor.");
             break;
             case "Descarte":
                 lblDica.setText("Utilize quando não for possível o reaproveitamento.");

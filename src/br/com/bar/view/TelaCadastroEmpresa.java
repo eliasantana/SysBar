@@ -225,7 +225,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 344, 590);
+        jPanel1.setBounds(0, 0, 354, 590);
 
         jPanel2.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -374,7 +374,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblExcluir);
-        lblExcluir.setBounds(790, 150, 90, 32);
+        lblExcluir.setBounds(790, 140, 90, 50);
 
         lblAdicionar.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
@@ -385,10 +385,10 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblAdicionar);
-        lblAdicionar.setBounds(580, 150, 100, 32);
+        lblAdicionar.setBounds(580, 142, 100, 50);
 
         lblEditar.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        lblEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapis.png"))); // NOI18N
+        lblEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvar32x32.png"))); // NOI18N
         lblEditar.setText("Salvar");
         lblEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -396,7 +396,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblEditar);
-        lblEditar.setBounds(690, 150, 90, 32);
+        lblEditar.setBounds(700, 140, 80, 50);
         getContentPane().add(txtEmail);
         txtEmail.setBounds(640, 390, 250, 30);
         getContentPane().add(txtUF);
@@ -536,12 +536,12 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         if (op==JOptionPane.YES_OPTION){
             
             if (dados.excluiEmpresa(objEmpresa)) {
-                JOptionPane.showMessageDialog(null, "Dados Excluídos com sucesso!");
+                JOptionPane.showMessageDialog(null, "Dados excluídos com sucesso!");
             } else {
                 JOptionPane.showMessageDialog(null, " Não foi possível excluir os dados!");
             }
         }else {
-                JOptionPane.showMessageDialog(null, " Operação cancdelada!");
+                JOptionPane.showMessageDialog(null, " Operação cancelada!");
             
         }
     }//GEN-LAST:event_lblExcluirMouseClicked

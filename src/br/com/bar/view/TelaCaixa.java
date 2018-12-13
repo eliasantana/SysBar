@@ -918,7 +918,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         p.setCadMesaId(txtIdMEsa.getText());
         // Solicita confirmação do usuário
-        int op = JOptionPane.showConfirmDialog(null, "Fecha este pedido ?", "Atenção", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
+        int op = JOptionPane.showConfirmDialog(null, "Fechar este pedido?", "Atenção", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
 
         if (op == JOptionPane.YES_OPTION) {  // Se confirmado feha o pedido
 
@@ -1120,7 +1120,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         cx.setStatus(1);
         cx.setIdFuncionario(Integer.parseInt(func.localizaIdLogin(lblOperador.getText())));
 
-        int op = JOptionPane.showConfirmDialog(null, lblOperador.getText() + " Tem certeza que deseja fechar seu caixa?", "Atenção", JOptionPane.YES_NO_OPTION);
+        int op = JOptionPane.showConfirmDialog(null, lblOperador.getText().toUpperCase() + " Tem certeza que deseja fechar seu caixa?", "Atenção", JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE);
 
         if (op == JOptionPane.YES_OPTION) {
 

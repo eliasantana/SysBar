@@ -278,7 +278,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jTabbedPanePedido.addTab("Lista de Produtos", jScrollPane6);
 
         getContentPane().add(jTabbedPanePedido);
-        jTabbedPanePedido.setBounds(450, 310, 580, 190);
+        jTabbedPanePedido.setBounds(450, 290, 580, 190);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Produto")));
 
@@ -379,7 +379,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         lblPesquisa.setText("Pesquisar Produto");
         getContentPane().add(lblPesquisa);
-        lblPesquisa.setBounds(450, 510, 120, 14);
+        lblPesquisa.setBounds(450, 230, 120, 14);
 
         txtPesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -392,7 +392,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtPesquisa);
-        txtPesquisa.setBounds(450, 530, 220, 30);
+        txtPesquisa.setBounds(450, 250, 220, 30);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Total")));
 
@@ -493,7 +493,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         lblData2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         lblData2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblData2.setText("Sys Bar - Lançamento de Pedido");
+        lblData2.setText("SysBar - Lançamento de Pedido");
         getContentPane().add(lblData2);
         lblData2.setBounds(200, 10, 740, 48);
 
@@ -574,7 +574,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblMensagem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMensagem.setText("* sem mensagem");
         getContentPane().add(lblMensagem);
-        lblMensagem.setBounds(690, 520, 340, 40);
+        lblMensagem.setBounds(450, 480, 580, 30);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCozinha.png"))); // NOI18N
@@ -584,7 +584,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(910, 230, 70, 48);
+        jLabel3.setBounds(790, 510, 70, 48);
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnEnviar.png"))); // NOI18N
@@ -594,18 +594,18 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(750, 240, 90, 40);
+        jLabel4.setBounds(630, 520, 90, 40);
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Gerenicar Pedido");
+        jLabel5.setText("Gerenciar Pedido");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(570, 280, 150, 23);
+        jLabel5.setBounds(450, 560, 150, 23);
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel6.setText("Status Cozinha");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(900, 280, 90, 20);
+        jLabel6.setBounds(780, 560, 90, 20);
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/relatorios48x48.png"))); // NOI18N
@@ -615,12 +615,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(610, 230, 80, 50);
+        jLabel7.setBounds(490, 510, 80, 50);
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
-        jLabel8.setText("Enviar  prato (cozinha)");
+        jLabel8.setText("Enviar Prato (cozinha)");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(740, 280, 150, 23);
+        jLabel8.setBounds(620, 560, 150, 23);
 
         setSize(new java.awt.Dimension(1068, 595));
         setLocationRelativeTo(null);
@@ -765,7 +765,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Por favor selecione um pedido!");
                     } else {
                         // Confirma pedido
-                        int op = JOptionPane.showConfirmDialog(null, "Confirma a inclusão do produto? \n " + lblProduto.getText(), "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                        int op = JOptionPane.showConfirmDialog(null, "Confirma a inclusão do produto? \n " + lblProduto.getText(), "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
                         if (op == JOptionPane.YES_OPTION) {
                             // Instancia um objeto Produto Pedido
@@ -910,7 +910,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         pCozinha.add("Pendente"); // Status Pendente - Liberado
         pCozinha.add(txtNumeroPedido.getText());
 
-            int op = JOptionPane.showConfirmDialog(null, "Enviar o prato \n" + pCozinha.get(1) + "Para a cozinha?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(null, "Enviar o prato \n " + pCozinha.get(1) + " para a cozinha? ", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {
 

@@ -291,7 +291,7 @@ public class ControlerPedido {
 
             pst.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Produto " + produtoCozinha.get(0) + " - " + produtoCozinha.get(1) + " Enviado para a Cozinha");
+            JOptionPane.showMessageDialog(null, "Produto " + produtoCozinha.get(0) + " - " + produtoCozinha.get(1) + " enviado para a cozinha");
 
         } catch (HeadlessException | SQLException e) {
 

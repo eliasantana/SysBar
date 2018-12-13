@@ -675,7 +675,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (cz.pratoPendente()>0){
             JOptionPane.showMessageDialog(null, "Existem pratos com liberação pendente!");
         }        
-        int op = JOptionPane.showConfirmDialog(null, "Confirma a saída?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+        int op = JOptionPane.showConfirmDialog(null, "Confirma a saída?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
               
         if (op == JOptionPane.YES_OPTION) {
 
@@ -764,7 +764,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         
         if (nMesasOcupadas> 0){
-            int op = JOptionPane.showConfirmDialog(null, "Existe pedidos em aberto! \n Deseja Sair assim mesmo?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(null, "Existem pedidos em aberto! \nDeseja sair mesmo assim?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {
 

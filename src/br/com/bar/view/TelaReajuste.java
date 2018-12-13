@@ -32,13 +32,13 @@ public class TelaReajuste extends javax.swing.JFrame {
     }
     
     private void desabilitaFator() {
-        lblFatorReajuste.setEnabled(false);
+       
         txtPercentual.setEnabled(false);
         lblPercentual.setEnabled(false);
     }
     
     private void habilitaFator() {
-        lblFatorReajuste.setEnabled(true);
+       
         txtPercentual.setEnabled(true);
         lblPercentual.setEnabled(true);
         
@@ -47,14 +47,13 @@ public class TelaReajuste extends javax.swing.JFrame {
     private void desabilitaValorDireto() {
         lblCifra.setEnabled(false);
         txtValorDireto.setEnabled(false);
-        lblValorDireto.setEnabled(false);
         
     }
     
     private void habilitaValorDireto() {
         lblCifra.setEnabled(true);
         txtValorDireto.setEnabled(true);
-        lblValorDireto.setEnabled(true);
+       
     }
 
     /**
@@ -77,12 +76,10 @@ public class TelaReajuste extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         panelFormaReajuste = new javax.swing.JPanel();
-        lblFatorReajuste = new javax.swing.JLabel();
         txtPercentual = new javax.swing.JTextField();
         lblCifra = new javax.swing.JLabel();
         radioFator = new javax.swing.JRadioButton();
         radioValorDireto = new javax.swing.JRadioButton();
-        lblValorDireto = new javax.swing.JLabel();
         txtValorDireto = new javax.swing.JTextField();
         lblPercentual = new javax.swing.JLabel();
         btnAplicar = new javax.swing.JButton();
@@ -157,14 +154,17 @@ public class TelaReajuste extends javax.swing.JFrame {
 
         panelFormaReajuste.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Forma de Reajuste"));
 
-        lblFatorReajuste.setText("Fator de Reajuste");
-
         txtPercentual.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtPercentual.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtPercentual.setText("0.0");
+        txtPercentual.setText("0,0");
         txtPercentual.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtPercentualFocusGained(evt);
+            }
+        });
+        txtPercentual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPercentualActionPerformed(evt);
             }
         });
         txtPercentual.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -177,7 +177,7 @@ public class TelaReajuste extends javax.swing.JFrame {
         lblCifra.setText("R$");
 
         buttonGroup2.add(radioFator);
-        radioFator.setText("Fator");
+        radioFator.setText("Por Fator");
         radioFator.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioFatorActionPerformed(evt);
@@ -185,14 +185,12 @@ public class TelaReajuste extends javax.swing.JFrame {
         });
 
         buttonGroup2.add(radioValorDireto);
-        radioValorDireto.setText("Valor Direto");
+        radioValorDireto.setText("Por Valor");
         radioValorDireto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioValorDiretoActionPerformed(evt);
             }
         });
-
-        lblValorDireto.setText("Valor Direto");
 
         txtValorDireto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtValorDireto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -233,43 +231,35 @@ public class TelaReajuste extends javax.swing.JFrame {
         panelFormaReajusteLayout.setHorizontalGroup(
             panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFormaReajusteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblFatorReajuste, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelFormaReajusteLayout.createSequentialGroup()
-                        .addComponent(txtPercentual, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblPercentual, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10)
-                .addComponent(lblCifra, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtValorDireto, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblValorDireto))
-                .addGap(36, 36, 36))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFormaReajusteLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(radioFator, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioValorDireto)
-                .addGap(76, 76, 76))
-            .addGroup(panelFormaReajusteLayout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(btnAplicar, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelFormaReajusteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelFormaReajusteLayout.createSequentialGroup()
+                        .addComponent(txtPercentual, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblPercentual, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblCifra, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
+                    .addGroup(panelFormaReajusteLayout.createSequentialGroup()
+                        .addComponent(radioFator, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtValorDireto, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(radioValorDireto))
+                .addGap(36, 36, 36))
         );
         panelFormaReajusteLayout.setVerticalGroup(
             panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFormaReajusteLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(46, 46, 46)
                 .addGroup(panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(radioFator)
                     .addComponent(radioValorDireto))
-                .addGap(26, 26, 26)
-                .addGroup(panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblFatorReajuste)
-                    .addComponent(lblValorDireto))
-                .addGap(6, 6, 6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(txtPercentual, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtValorDireto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -339,7 +329,7 @@ public class TelaReajuste extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Tipo de Reajuste"));
 
         buttonGroup1.add(checkGrupo);
-        checkGrupo.setText("Grupo");
+        checkGrupo.setText("Por Grupo");
         checkGrupo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 checkGrupoMouseClicked(evt);
@@ -352,7 +342,7 @@ public class TelaReajuste extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(checkUnitario);
-        checkUnitario.setText("Unitário");
+        checkUnitario.setText("Por Valor Unitário");
         checkUnitario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 checkUnitarioMouseClicked(evt);
@@ -369,10 +359,11 @@ public class TelaReajuste extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 76, Short.MAX_VALUE)
+                .addGap(17, 17, 17)
                 .addComponent(checkGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(checkUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addComponent(checkUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -419,7 +410,7 @@ public class TelaReajuste extends javax.swing.JFrame {
             
             if (checkGrupo.isSelected() & radioFator.isSelected()) {
                 // Reajusta grupo pelo percentual
-                Double percentual = Double.parseDouble(txtPercentual.getText());
+                Double percentual = Double.parseDouble(txtPercentual.getText().replaceAll(",", ".") );
                 // Reajusta caso o percentual seja maior que zero
                 if (percentual > 0) {
                     if (txtId.getText().isEmpty()) { // VErifica se o produto foi seleciondo
@@ -428,7 +419,7 @@ public class TelaReajuste extends javax.swing.JFrame {
                         // Reajusta o grupo de produto
                         cp.reajusteGrupoProduto(txtId.getText(), txtPercentual.getText());
                         tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
-                        txtPercentual.setText("0.0");
+                        txtPercentual.setText("0,0");
                         txtId.setText(null);
                     }
                 } else {
@@ -436,10 +427,10 @@ public class TelaReajuste extends javax.swing.JFrame {
                 }
                 // Aplica reajuste unitário por fator de reajuste
             } else if (checkUnitario.isSelected() && radioFator.isSelected()) {
-                Double percentual = Double.parseDouble(txtPercentual.getText());
+                Double percentual = Double.parseDouble(txtPercentual.getText().replaceAll(",", "."));
                 if (percentual > 0) { // Se o percentual for maior que zero continua
                     if (txtId.getText().isEmpty()) { // Solicita que o usuario selecione um produto
-                        JOptionPane.showMessageDialog(null, "Selecione um produto \n para continuar!");
+                        JOptionPane.showMessageDialog(null, "Selecione um produto para continuar!");
                     } else {
                         // Aplica reajuste 
                         cp.reajustaValorProduto(txtId.getText(), Double.parseDouble(txtValor.getText().replaceAll(",", ".")), Double.parseDouble(txtPercentual.getText()));
@@ -454,7 +445,7 @@ public class TelaReajuste extends javax.swing.JFrame {
                 double vDireto = Double.parseDouble(txtValorDireto.getText().replace(",", "."));
                 if (vDireto > 0){ // Informa que o produto não foi selecionado
                     if (txtId.getText().isEmpty()){
-                        JOptionPane.showMessageDialog(null, "Selecione um produto para cotinuar!");
+                        JOptionPane.showMessageDialog(null, "Selecione um produto para continuar!");
                     }else {
                         // Aplica reajuste a partir do valor informado
                         cp.reajustaValorProduto(txtId.getText(), vDireto);
@@ -463,7 +454,7 @@ public class TelaReajuste extends javax.swing.JFrame {
                         txtValorDireto.setText("0,00");
                     }
                 }else {
-                    JOptionPane.showMessageDialog(null, "Valor invalido!");
+                    JOptionPane.showMessageDialog(null, "Valor inválido!");
                 }
             }
             
@@ -552,6 +543,10 @@ public class TelaReajuste extends javax.swing.JFrame {
         radioValorDireto.setSelected(true);
     }//GEN-LAST:event_txtValorDiretoFocusGained
 
+    private void txtPercentualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPercentualActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPercentualActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -603,9 +598,7 @@ public class TelaReajuste extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCifra;
-    private javax.swing.JLabel lblFatorReajuste;
     private javax.swing.JLabel lblPercentual;
-    private javax.swing.JLabel lblValorDireto;
     private javax.swing.JPanel panelFormaReajuste;
     private javax.swing.JPanel panelProdutos;
     private javax.swing.JRadioButton radioFator;

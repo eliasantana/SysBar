@@ -7,10 +7,8 @@ package br.com.bar.view;
 
 import br.com.bar.dao.Log;
 import br.com.br.controler.ControlerCozinha;
-import java.util.Date;
 import java.util.TimerTask;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -47,6 +45,12 @@ public class TelaConzinha extends javax.swing.JFrame {
 
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
+        if ("Gerente".equals(lblCargo.getText())) {
+            lblREmovePrato.setVisible(true);
+        } else {
+            lblREmovePrato.setVisible(false);
+
+        }
 
     }
 
@@ -212,7 +216,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         );
 
         paineldireito.add(btnlogout);
-        btnlogout.setBounds(186, 441, 161, 85);
+        btnlogout.setBounds(210, 450, 161, 85);
 
         btnAlteraRefeicao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -247,17 +251,17 @@ public class TelaConzinha extends javax.swing.JFrame {
         );
 
         paineldireito.add(btnAlteraRefeicao);
-        btnAlteraRefeicao.setBounds(353, 441, 178, 85);
+        btnAlteraRefeicao.setBounds(370, 450, 178, 85);
 
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("jLabel9");
         paineldireito.add(lblOperador);
-        lblOperador.setBounds(688, 16, 80, 30);
+        lblOperador.setBounds(688, 16, 130, 30);
 
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("jLabel10");
         paineldireito.add(lblCargo);
-        lblCargo.setBounds(688, 53, 80, 40);
+        lblCargo.setBounds(688, 53, 130, 40);
 
         jPanel1.setBackground(new java.awt.Color(52, 73, 94));
 
@@ -287,14 +291,14 @@ public class TelaConzinha extends javax.swing.JFrame {
 
         lblREmovePrato.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblREmovePrato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fechar.png"))); // NOI18N
-        lblREmovePrato.setText("Remove prato");
+        lblREmovePrato.setText("Remove Prato");
         lblREmovePrato.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblREmovePratoMouseClicked(evt);
             }
         });
         paineldireito.add(lblREmovePrato);
-        lblREmovePrato.setBounds(570, 440, 160, 80);
+        lblREmovePrato.setBounds(580, 450, 160, 80);
 
         getContentPane().add(paineldireito);
         paineldireito.setBounds(270, 0, 900, 550);
@@ -315,13 +319,12 @@ public class TelaConzinha extends javax.swing.JFrame {
             l.gravaLog(l);
             dispose();
         } else {
-            
-            if (cc.pratoPendente()>0){ // Verifica se existem pratos pendentes na cozinha.
+
+            if (cc.pratoPendente() > 0) { // Verifica se existem pratos pendentes na cozinha.
                 JOptionPane.showMessageDialog(null, "Existem pratos pendentes!");
             }
             l.setDescricao(l.getUsuario() + " Saiu da tela cozinha");
             l.gravaLog(l);
-
             System.exit(0);
         }
 
@@ -335,9 +338,7 @@ public class TelaConzinha extends javax.swing.JFrame {
     }//GEN-LAST:event_tblCozinhaMouseClicked
 
     private void btnlogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlogoutMouseClicked
-                
-      
-        
+
 
     }//GEN-LAST:event_btnlogoutMouseClicked
 
@@ -357,14 +358,14 @@ public class TelaConzinha extends javax.swing.JFrame {
 
             tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
         }
-       
+
     }//GEN-LAST:event_btnLiberaRefeicaoMouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-         if (cc.pratoPendente()>0){
-            JOptionPane.showMessageDialog(null,"Realize a liberação dos pratos \n pendentes para continuar");
-        }else {
-        
+        if (cc.pratoPendente() > 0) {
+            JOptionPane.showMessageDialog(null, "Realize a liberação dos pratos \n pendentes para continuar");
+        } else {
+
             // Faz logout
             Log l = new Log();
 
@@ -376,32 +377,32 @@ public class TelaConzinha extends javax.swing.JFrame {
             dispose();
             TelaLogin login = new TelaLogin();
             login.setVisible(true);
-    } 
+        }
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void lblREmovePratoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblREmovePratoMouseClicked
-           // Remove prato Cozinha
-           if ("Gerente".equals(lblCargo.getText())){
-               
-               if (txtidProdutoCozinha.getText().isEmpty()) {
-                   JOptionPane.showMessageDialog(null, "Selecione um item antes de excluir!");
-               } else {
-                   int resp = JOptionPane.showConfirmDialog(null, "Deseja remover este item?", "Atenção!", JOptionPane.YES_NO_OPTION);
-                   if (resp == JOptionPane.YES_OPTION) {
-                       if (cc.removePrato(txtidProdutoCozinha.getText())) {
-                           JOptionPane.showMessageDialog(null, "Produto removido!");
-                           tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
-                       }
+        // Remove prato Cozinha
+        if ("Gerente".equals(lblCargo.getText())) {
 
-                   } else {
-                       JOptionPane.showMessageDialog(null, "Operação cancelada!");
-                   }
-               }
-           }else {
-               // Desabilita o botão remove prato para o usuários com cargo diferente de gerente.
-               lblREmovePrato.setVisible(false);
-           }
-        
+            if (txtidProdutoCozinha.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Selecione um item antes de excluir!");
+            } else {
+                int resp = JOptionPane.showConfirmDialog(null, "Deseja remover este item?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (resp == JOptionPane.YES_OPTION) {
+                    if (cc.removePrato(txtidProdutoCozinha.getText())) {
+                        JOptionPane.showMessageDialog(null, "Produto removido!");
+                        tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Operação cancelada!");
+                }
+            }
+        } else {
+            // Desabilita o botão remove prato para o usuários com cargo diferente de gerente.
+            lblREmovePrato.setVisible(false);
+        }
+
     }//GEN-LAST:event_lblREmovePratoMouseClicked
 
     /**
