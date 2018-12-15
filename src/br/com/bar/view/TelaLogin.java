@@ -7,9 +7,12 @@ package br.com.bar.view;
 
 import br.com.bar.dao.AutenticaUsuario;
 import br.com.bar.dao.ConexaoBd;
+import br.com.bar.dao.CriptoGrafa;
 import br.com.bar.dao.Log;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.util.Util;
+import br.com.br.controler.ControlerAtivacao;
+
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerParametro;
@@ -21,7 +24,7 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import org.codehaus.groovy.tools.shell.util.SimpleCompletor;
+
 
 /**
  *
@@ -32,6 +35,11 @@ public class TelaLogin extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
     ControlerDadosEmpresa d = new ControlerDadosEmpresa();
+    ControlerAtivacao ativacao = new ControlerAtivacao();
+   
+    
+    CriptoGrafa criptoGrafa = new CriptoGrafa();
+    
     Util u = new Util();
     
     Date dataAtual = new Date();
@@ -45,11 +53,12 @@ public class TelaLogin extends javax.swing.JFrame {
 
     public TelaLogin() {
         initComponents();
-        
+         DadosEmpresa dados = d.selecionaDados();
         conexao = ConexaoBd.conector();
         // Carrega o ícone setado no Cadastro Empresa
         lblLogo.setIcon(u.carregaLogo());
         
+        /*
         if (conexao!=null){
                DadosEmpresa dadosEmpresa = d.selecionaDados();
                lblLicenca.setText("Copyright Todos os Direitos reservados para");
@@ -61,8 +70,42 @@ public class TelaLogin extends javax.swing.JFrame {
             param.setAlwaysOnTop(true); // Coloca a janela parêmetro na frente da tela de login
             param.setVisible(true);
         }
-        
+        */
+        String chave = criptoGrafa.decripta(dados.getLicenca());
+        long dias = u.retornaTotalDeDias(chave);
+       
+        if (dias > 10){
+            if (conexao != null) {
+                DadosEmpresa dadosEmpresa = d.selecionaDados();
+                lblLicenca.setText("Copyright Todos os Direitos reservados para");
+                lbllicenca2.setText(dadosEmpresa.getNome_empresa());
+                lblCnpjEmpresa.setText(dadosEmpresa.getCnpj());
+            } else {
 
+                TelaPametro param = new TelaPametro();
+                param.setAlwaysOnTop(true); // Coloca a janela parêmetro na frente da tela de login
+                param.setVisible(true);
+            }
+            
+        }else if (dias >0 && dias <=10){
+            
+            TelaGerenciadorDeLicenca g = new TelaGerenciadorDeLicenca();
+            g.recebeDias(dias,"Sua licença expira em " + String.valueOf(dias) + " dias.");
+            g.setAlwaysOnTop(true);
+            g.setVisible(true);
+            
+        }else {
+            TelaGerenciadorDeLicenca g = new TelaGerenciadorDeLicenca();
+            g.recebeDias(dias,"Sua licença Expirou!");
+            
+            g.setAlwaysOnTop(true);
+            g.setVisible(true);
+        }
+        
+        
+        
+        
+        
     }
 
     /**

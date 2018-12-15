@@ -38,34 +38,26 @@ public class TelaTeste extends javax.swing.JFrame {
     public TelaTeste() {
         initComponents();
         
-        Calendar c = Calendar.getInstance();
-        int dtAtual = Integer.parseInt(u.formataDataBanco(c.getTime()));
        
-        System.out.println("Data Atual: " + dtAtual);
-        System.out.println("----------------------------------------------------");
-        System.out.println("Chave Licença: " + e.getLicenca() );
-        int licenca = Integer.parseInt(criptoGrafa.decripta(e.getLicenca()));
-        System.out.println("Licença Decriptografada: " + licenca);
-       
-        if (dtAtual<=licenca){
-            System.out.println("Licença Ativa");
-        }else {
-            System.out.println("Licença Expirada");
-            
-        }
         
-        System.out.println("Data De CAdastro: " + e.getDts());
+        System.out.println("Dts: " + e.getDts());
         
-        String dataString = e.getLicenca();
-        System.out.println("data String" + e.getLicenca());
-        java.sql.Date date = java.sql.Date.valueOf(dataString);
+        String dataString = criptoGrafa.decripta(e.getLicenca());
+        System.out.println("Data Licença" + dataString);
+        
+       /* java.sql.Date date = java.sql.Date.valueOf(dataString);
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         System.out.println("SimpleDateFormat " + df.format(date));
         
         LocalDate hoje = LocalDate.now();
         LocalDate dtChave = LocalDate.parse(dataString);
-        long dias = ChronoUnit.DAYS.between(hoje, dtChave);
-        System.out.println("Dias" + dias);
+        //long dias = ChronoUnit.DAYS.between(hoje, dtChave);
+        System.out.println("Faltam " + u.retornaTotalDeDias(dataString) + " dias para sua licença expirar");*/
+       
+        Date d = u.converteData(dataString);
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        System.out.println(df.format(d.getTime()));
+       
     }
 
     /**
@@ -79,7 +71,6 @@ public class TelaTeste extends javax.swing.JFrame {
 
         txtMensagem = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,13 +78,6 @@ public class TelaTeste extends javax.swing.JFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("valida");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
             }
         });
 
@@ -108,22 +92,15 @@ public class TelaTeste extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
                 .addGap(156, 156, 156))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(txtMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
-                        .addComponent(jButton3)))
+                .addGap(75, 75, 75)
+                .addComponent(txtMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(jButton2)
                 .addContainerGap(123, Short.MAX_VALUE))
         );
 
@@ -132,13 +109,9 @@ public class TelaTeste extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
+       ativacao.validaLicenca();
          
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        System.out.println(criptoGrafa.decripta(e.getLicenca()));
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,7 +150,6 @@ public class TelaTeste extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JTextField txtMensagem;
     // End of variables declaration//GEN-END:variables
 }

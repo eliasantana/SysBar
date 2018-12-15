@@ -9,10 +9,12 @@ import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.CriptoGrafa;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.util.Util;
+import br.com.bar.view.TelaGerenciadorDeLicenca;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Calendar;
 
 /**
@@ -20,6 +22,7 @@ import java.util.Calendar;
  * @author Elias Santana
  */
 public class ControlerAtivacao {
+
     Connection conexao = ConexaoBd.conector();
     PreparedStatement pst = null;
     ResultSet rs = null;
@@ -27,40 +30,54 @@ public class ControlerAtivacao {
     ControlerDadosEmpresa ce = new ControlerDadosEmpresa();
     DadosEmpresa empresa = ce.selecionaDados();
     Util u = new Util();
+
     public ControlerAtivacao() {
-        
+
     }
+
     // Atualiza a licença de uso
-    public boolean renovaLicenca(String dataRenovacao,String chave){
-        
+    public boolean renovaLicenca(String dataRenovacao, String chave) {
+
         boolean resp = false;
-        String sql="UPDATE tb_dados_empresa SET dts=?, chave=? WHERE id=?";
-        
+        String sql = "UPDATE tb_dados_empresa SET dts=?, chave=? WHERE id=?";
+
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, dataRenovacao);
             pst.setString(2, chave);
             pst.setInt(3, empresa.getId());
-            
+
             pst.executeUpdate();
-            resp=true;
-                    
+            resp = true;
+
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerAtivacao.renovaLicenca()"+e);
+            System.out.println("br.com.br.controler.ControlerAtivacao.renovaLicenca()" + e);
         }
-        return  resp;
+        return resp;
     }
-    
-    public boolean validaLicenca(String chave){
-        Calendar c = Calendar.getInstance();
+
+    // Valida a licenda de acordo com a chave armazenada no banco
+    public boolean validaLicenca() {
+        boolean resp;
+        String chave = c.decripta(empresa.getLicenca());
+
+        long diasRestantes = u.retornaTotalDeDias(chave);
+
+        System.out.println("Válido Até: " + chave);
+        System.out.println("Dias Restantes " + diasRestantes);
         
-        String dataAtual=u.formataDataBanco(c.getTime());
-        System.out.println("Data Atual" + dataAtual);
-        boolean resp=false;
-        
-         
-        
-        return  resp;
+
+        // Checa se a licença é válida
+        if (diasRestantes < 0) {
+            
+            resp=false;
+            System.out.println("Licença Expirada");
+        } else {
+            resp=true;
+            System.out.println("Licença Válida");
+        }
+
+        return resp;
     }
-    
+
 }

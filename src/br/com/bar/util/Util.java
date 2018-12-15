@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -140,4 +141,28 @@ public class Util {
         
         return i;
     }
+    
+    public long retornaTotalDeDias(String data){
+        // Converte  para o tipo date a String informada
+        java.sql.Date date  = java.sql.Date.valueOf(data);
+        SimpleDateFormat df = new SimpleDateFormat();
+        // Pega a Data Atual
+        LocalDate localDate = LocalDate.now();
+        //Converte para LocalDate
+        LocalDate dtFinal = LocalDate.parse(data);        
+        
+        long dias = ChronoUnit.DAYS.between(localDate, dtFinal);
+        
+        return dias;
+    }
+    
+    public Date converteData(String stringData){
+        
+        java.sql.Date dataConvertida = java.sql.Date.valueOf(stringData);
+        
+        return dataConvertida;
+    }
+        
+    
+            
 }
