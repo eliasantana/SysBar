@@ -26,6 +26,8 @@ public class DadosEmpresa {
     private String cnpj;
     private String urlbackup;
     private int imprimir_na_tela;
+    private String licenca;
+    private String dts;
             
     
     
@@ -153,6 +155,23 @@ public class DadosEmpresa {
     public int getImprimir_na_tela() {
         return imprimir_na_tela;
     }
+
+    public void setLicenca(String chave) {
+        this.licenca = chave;
+    }
+
+    public String getLicenca() {
+        return licenca;
+    }
+
+    public void setDts(String dts) {
+        this.dts = dts;
+    }
+
+    public String getDts() {
+        return dts;
+    }
+    
     
     
     
