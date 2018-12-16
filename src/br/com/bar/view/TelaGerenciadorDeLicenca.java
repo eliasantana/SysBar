@@ -6,11 +6,13 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.CriptoGrafa;
+import br.com.bar.dao.Email;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerAtivacao;
 import br.com.br.controler.ControlerDadosEmpresa;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -30,6 +32,12 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
         initComponents();
         lblDias.setVisible(false);
         this.setAlwaysOnTop(true);
+        
+        panelInstalarChave.setVisible(false);
+        
+        if ("Sua licença Expirou!".equals(lblMensagem.getText())){
+            panelInstalarChave.setVisible(true);
+        }
         
     }
     
@@ -56,13 +64,13 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         lblMensagem = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnSolicitaLicenca = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        panelInstalarChave = new javax.swing.JPanel();
         lblChave = new javax.swing.JLabel();
         lblDias = new javax.swing.JLabel();
 
@@ -133,10 +141,20 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(25, 182, 437, 26);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/email.png"))); // NOI18N
-        jButton2.setText("Solicitar nova licença agora");
-        getContentPane().add(jButton2);
-        jButton2.setBounds(20, 210, 400, 41);
+        btnSolicitaLicenca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/email.png"))); // NOI18N
+        btnSolicitaLicenca.setText("Solicitar nova licença agora");
+        btnSolicitaLicenca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSolicitaLicencaMouseClicked(evt);
+            }
+        });
+        btnSolicitaLicenca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSolicitaLicencaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSolicitaLicenca);
+        btnSolicitaLicenca.setBounds(20, 210, 400, 41);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel8.setText("R. Amambaí, 246 - Candeias, Jaboatão dos Guararapes - PE, 54430-160");
@@ -163,7 +181,7 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
         getContentPane().add(jLabel11);
         jLabel11.setBounds(30, 350, 348, 15);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelInstalarChave.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblChave.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblChave.setText("Instalar Nova Chave");
@@ -173,19 +191,19 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelInstalarChaveLayout = new javax.swing.GroupLayout(panelInstalarChave);
+        panelInstalarChave.setLayout(panelInstalarChaveLayout);
+        panelInstalarChaveLayout.setHorizontalGroup(
+            panelInstalarChaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblChave, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelInstalarChaveLayout.setVerticalGroup(
+            panelInstalarChaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblChave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel3);
-        jPanel3.setBounds(310, 380, 140, 40);
+        getContentPane().add(panelInstalarChave);
+        panelInstalarChave.setBounds(310, 380, 140, 40);
 
         lblDias.setText("jLabel2");
         getContentPane().add(lblDias);
@@ -212,6 +230,39 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
         TelaAtivacao a = new TelaAtivacao();
         a.setVisible(true);
     }//GEN-LAST:event_lblChaveMouseClicked
+
+    private void btnSolicitaLicencaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitaLicencaActionPerformed
+        // Solicita nova Licennça
+        Email email = new Email();
+        ControlerDadosEmpresa ce = new ControlerDadosEmpresa();
+        // Seleciona os dados do cadastro da empresa
+        DadosEmpresa dados = ce.selecionaDados();
+        
+        
+        String assunto = "SysBar - Solicitação de Renovação " + dados.getNome_empresa();
+        String mensagem = "Solicitante: "
+                + dados.getNome_empresa() 
+                
+                + "\nEndereço: " + dados.getEndereco()
+                +","+dados.getNumero()
+                + " \nBairro:" + dados.getBairro()
+                + "CEP: "+dados.getCep() 
+                + "  Cidade: "+dados.getCidade() 
+                + "  Uf: "+dados.getUf() 
+                + "\nTelefone: "+dados.getTelefone()
+                + "\nCNPJ: " + dados.getCnpj()
+                + "\nLicença Atual: " + dados.getLicenca()+ "\nObs: Teste de Envio de mensagem a partir do botão de solicitação de renovação"
+                ;  
+       
+        if (email.enviaEmail("janiel.freitas@gmail.com", assunto, mensagem)){
+            btnSolicitaLicenca.setText("Solicitação Enviada!");
+        }
+        
+    }//GEN-LAST:event_btnSolicitaLicencaActionPerformed
+
+    private void btnSolicitaLicencaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSolicitaLicencaMouseClicked
+        
+    }//GEN-LAST:event_btnSolicitaLicencaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -249,7 +300,7 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnSolicitaLicenca;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -261,9 +312,9 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblChave;
     private javax.swing.JLabel lblDias;
     private javax.swing.JLabel lblMensagem;
+    private javax.swing.JPanel panelInstalarChave;
     // End of variables declaration//GEN-END:variables
 }
