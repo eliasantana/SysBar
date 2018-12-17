@@ -95,7 +95,6 @@ public class TelaAtivacao extends javax.swing.JFrame {
         jLabel2.setText("SysBar");
 
         lblMensagem.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        lblMensagem.setText("Mensagem");
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel4.setText("Nova Chave de Ativação");

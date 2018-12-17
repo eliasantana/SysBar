@@ -28,7 +28,7 @@ public class Email {
             SimpleEmail email = new SimpleEmail();
             email.setDebug(true);
             email.setHostName("smtp.gmail.com");
-            email.setAuthentication("rese7.suporte@gmail.com", "JE09@2018");
+            email.setAuthentication("rese7.contato@gmail.com", "JE09@2018");
             email.setSSL(true);
             // se.addTo("rese7.comercial@gmail.com");
             email.addTo(e_mail);

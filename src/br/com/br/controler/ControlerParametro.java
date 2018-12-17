@@ -80,7 +80,7 @@ public class ControlerParametro {
             
         }else {
             System.out.println("não localizado");
-            criarArquivoParametro("0", "0", "0", "0", "0");
+            criarArquivoParametro("localhost", "usuario", "password", "dbbar", "3306");
         }
         ArrayList<String> parametros = new ArrayList<>();
 

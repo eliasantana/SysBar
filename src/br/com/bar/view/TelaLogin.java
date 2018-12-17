@@ -21,27 +21,27 @@ import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLSyntaxErrorException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
-
 
 /**
  *
  * @author elias
  */
 public class TelaLogin extends javax.swing.JFrame {
-    Connection conexao=null;
+
+    Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
     ControlerDadosEmpresa d = new ControlerDadosEmpresa();
     ControlerAtivacao ativacao = new ControlerAtivacao();
-   
-    
+
     CriptoGrafa criptoGrafa = new CriptoGrafa();
-    
+
     Util u = new Util();
-    
+
     Date dataAtual = new Date();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat hora = new SimpleDateFormat("h:mm");
@@ -53,11 +53,11 @@ public class TelaLogin extends javax.swing.JFrame {
 
     public TelaLogin() {
         initComponents();
-         DadosEmpresa dados = d.selecionaDados();
+        DadosEmpresa dados = d.selecionaDados();
         conexao = ConexaoBd.conector();
         // Carrega o ícone setado no Cadastro Empresa
         lblLogo.setIcon(u.carregaLogo());
-        
+
         /*
         if (conexao!=null){
                DadosEmpresa dadosEmpresa = d.selecionaDados();
@@ -70,40 +70,47 @@ public class TelaLogin extends javax.swing.JFrame {
             param.setAlwaysOnTop(true); // Coloca a janela parêmetro na frente da tela de login
             param.setVisible(true);
         }
-        */
+         */
+        // Descriptogafa a chave informada no cadastro empresa
         String chave = criptoGrafa.decripta(dados.getLicenca());
         long dias = u.retornaTotalDeDias(chave);
-       
-        if (dias > 10){
+        
+        if (dias > 10) {
             if (conexao != null) {
+                // Retorna os dados da empresa
                 DadosEmpresa dadosEmpresa = d.selecionaDados();
                 lblLicenca.setText("Copyright Todos os Direitos reservados para");
                 lbllicenca2.setText(dadosEmpresa.getNome_empresa());
                 lblCnpjEmpresa.setText(dadosEmpresa.getCnpj());
             } else {
-
+                // Caso a conexão retorne null chama da tela de parâmetro
                 TelaPametro param = new TelaPametro();
-                param.setAlwaysOnTop(true); // Coloca a janela parêmetro na frente da tela de login
+                // Fica a janela ja frente da sdemais
+                param.setAlwaysOnTop(true); 
+                // Exibe Tela de Parâmetro 
                 param.setVisible(true);
             }
-            
-        }else if (dias >0 && dias <=10){
-            
+
+        } else if (dias > 0 && dias <= 10) {
+             // Chma o gerenciador de licença e permite o login
+            DadosEmpresa dadosEmpresa = d.selecionaDados();
+            lblLicenca.setText("Copyright Todos os Direitos reservados para");
+            lbllicenca2.setText(dadosEmpresa.getNome_empresa());
+            lblCnpjEmpresa.setText(dadosEmpresa.getCnpj());
+           
             TelaGerenciadorDeLicenca g = new TelaGerenciadorDeLicenca();
-            g.recebeDias(dias,"Sua licença expira em " + String.valueOf(dias) + " dias.");
+            g.recebeDias(dias, " Sua licença expira em " + String.valueOf(dias) + " dias.");
             g.setAlwaysOnTop(true);
             g.setVisible(true);
-            
-        }else {
+
+        } else {
+            // Chama o gerenciador  de licença e saí do sistema
             TelaGerenciadorDeLicenca g = new TelaGerenciadorDeLicenca();
-            g.recebeDias(dias,"Sua licença Expirou!");
-            
+            g.recebeDias(dias, " Sua licença Expirou!");
             g.setAlwaysOnTop(true);
             g.setVisible(true);
-        } 
-        
-        
-        
+        }
+
     }
 
     /**
@@ -310,19 +317,17 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-       realizaLogin();
+        realizaLogin();
     }//GEN-LAST:event_btnLoginActionPerformed
-    private void realizaLogin(){
+    private void realizaLogin() {
         // Cria log
         Log l = new Log();
-        
+
         l.setFuncionalidade("Login");
         l.setUsuario(txtLogin.getText());
         l.setDescricao(l.getUsuario() + " Logou no Sistema");
-        
 
         // Autentica Usuário
-        
         ControlerParametro p = new ControlerParametro();
         ControlerFuncionario cf = new ControlerFuncionario();
         AutenticaUsuario autentica = new AutenticaUsuario();
@@ -336,18 +341,18 @@ public class TelaLogin extends javax.swing.JFrame {
             if ("1".equals(bloqueio)) {
                 JOptionPane.showMessageDialog(null, "Usuário Bloqueado! \n Procure um administrador!");
                 //Início do Registro de Log
-                
+
                 l.setFuncionalidade("Acesso Negado");
-                l.setDescricao("O usuário "+txtLogin.getText() + " Bloqueado tentou acessar o sistema!");
+                l.setDescricao("O usuário " + txtLogin.getText() + " Bloqueado tentou acessar o sistema!");
                 l.gravaLog(l);
                 // Fim do Registro de Log
-                
+
             } else if ("1".equals(status)) {
                 JOptionPane.showMessageDialog(null, "Usuário Inativo! \n Procure um administrador!");
                 //Início do Registro de Log
-                
+
                 l.setFuncionalidade("Acesso Negado");
-                l.setDescricao("O usuário "+txtLogin.getText() + " Inativo tentou acessar o sistema!");
+                l.setDescricao("O usuário " + txtLogin.getText() + " Inativo tentou acessar o sistema!");
                 l.gravaLog(l);
                 // Fim do Registro de Log
             } else {
@@ -382,7 +387,7 @@ public class TelaLogin extends javax.swing.JFrame {
                         break;
                     case "Cozinheiro": // Vai para Cozinha
                         TelaConzinha cozinha = new TelaConzinha();
-                        cozinha.recebeOperador(autentica.enviaOperador(),autentica.enviarCargo());
+                        cozinha.recebeOperador(autentica.enviaOperador(), autentica.enviarCargo());
                         cozinha.setVisible(true);
                         this.dispose();
                         break;
@@ -396,7 +401,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 cp.bloqueiaLogin(cf.localizaIdLogin(txtLogin.getText()));
                 //Início do Registro de Log
                 l.setFuncionalidade("Acesso Negado");
-                l.setDescricao("O usuário "+txtLogin.getText() + " por motivos de segurança foi bloqueado");
+                l.setDescricao("O usuário " + txtLogin.getText() + " por motivos de segurança foi bloqueado");
                 l.gravaLog(l);
                 // Fim do Registro de Log
             } else {
@@ -404,7 +409,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 lblMsg.setForeground(Color.white);
                 lblMsg.setText("Restam " + tentavias + " tentativas \n Antes do bloqueio!");
                 //Início do Registro de Log
-                
+
                 l.setFuncionalidade("Acesso Negado");
                 l.setDescricao(txtLogin.getText() + " tentou acessar o sistema -> " + tentavias + " vezes");
                 l.gravaLog(l);

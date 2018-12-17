@@ -31,13 +31,8 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
     public TelaGerenciadorDeLicenca() {
         initComponents();
         lblDias.setVisible(false);
-        this.setAlwaysOnTop(true);
-        
-        panelInstalarChave.setVisible(false);
-        
-        if ("Sua licença Expirou!".equals(lblMensagem.getText())){
-            panelInstalarChave.setVisible(true);
-        }
+        this.setAlwaysOnTop(true);   
+       
         
     }
     
@@ -251,10 +246,10 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
                 + "  Uf: "+dados.getUf() 
                 + "\nTelefone: "+dados.getTelefone()
                 + "\nCNPJ: " + dados.getCnpj()
-                + "\nLicença Atual: " + dados.getLicenca()+ "\nObs: Teste de Envio de mensagem a partir do botão de solicitação de renovação"
+                + "\nLicença Atual: " + dados.getLicenca()+ "\nObs: "+ lblMensagem.getText()
                 ;  
        
-        if (email.enviaEmail("janiel.freitas@gmail.com", assunto, mensagem)){
+        if (email.enviaEmail("rese7.suporte@gmail.com", assunto, mensagem)){
             btnSolicitaLicenca.setText("Solicitação Enviada!");
         }
         
