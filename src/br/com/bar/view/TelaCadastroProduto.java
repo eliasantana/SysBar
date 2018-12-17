@@ -371,11 +371,11 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                 .addComponent(lblRotulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtLocalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLocalizar, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(radioNome)
-                        .addComponent(radioGrupo)))
+                        .addComponent(radioGrupo))
+                    .addComponent(btnFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -600,7 +600,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         txtValor.setText(tblProduto.getModel().getValueAt(linha, 3).toString());
         txtQtdMax.setText(tblProduto.getModel().getValueAt(linha, 4).toString());
         txtQtdMin.setText(tblProduto.getModel().getValueAt(linha, 5).toString());
-        comboGrupoProduto.setSelectedItem(tblProduto.getModel().getValueAt(linha, 6).toString());
+        comboGrupoProduto.setSelectedItem(tblProduto.getModel().getValueAt(linha, 6).toString());       
 
         txtIdGrupo.setText(g.localizaIdGrupoProduto(comboGrupoProduto));
 

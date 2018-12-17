@@ -17,6 +17,7 @@ import br.com.br.controler.ControlerMesa;
 import br.com.br.controler.ControlerPedido;
 import br.com.br.controler.ControlerProduto;
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -701,6 +702,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Exibe caixa de pesquisa e lista todos os produtos disponível no estoque
 
         tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
+        tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(txtNumeroMesa.getText(), txtNumeroPedido.getText())));
          int index =jTabbedPanePedido.getSelectedIndex();
          if ("Lista de Produtos".equals(jTabbedPanePedido.getTitleAt(index))){
              lblPesquisa.setVisible(true);
@@ -762,10 +764,10 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
                     // Verifica se o pedido foi selecionado
                     if (txtNumeroPedido.getText().isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "Por favor selecione um pedido!");
+                        JOptionPane.showMessageDialog(null, "Por favor, selecione um pedido!");
                     } else {
                         // Confirma pedido
-                        int op = JOptionPane.showConfirmDialog(null, "Confirma a inclusão do produto? \n " + lblProduto.getText(), "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                        int op = JOptionPane.showConfirmDialog(null, "Confirma a inclusão do produto?\n" + lblProduto.getText(), "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
                         if (op == JOptionPane.YES_OPTION) {
                             // Instancia um objeto Produto Pedido
@@ -804,7 +806,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                             } else {
                                 // Exibe mensagem de produto indisponpivel no momento
                                 lblMensagem.setForeground(Color.red);
-                                lblMensagem.setText(lblProduto.getText() + " com quantidade insuficiente \n " + "existem em estoque apenas " + qtdEstoque + " unidades");
+                                lblMensagem.setText(lblProduto.getText() + " com quantidade insuficiente " + "existem em estoque apenas " + qtdEstoque + " unidades");
                                 txtCodigoProduto.requestFocus();
                                 txtCodigoProduto.setText(null);
                                 txtQtd.setText(null);
@@ -817,7 +819,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
                     }
                 }
-            } catch (Exception e) {
+            } catch (HeadlessException | NumberFormatException e) {
                 lblMensagem.setText("Quantidade inválida tente novamente!");
                 lblMensagem.setOpaque(false);
                 lblMensagem.setForeground(Color.red);
@@ -867,7 +869,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         if (evt.getButton() == 3) {
 
-            int op = JOptionPane.showConfirmDialog(null, "Enviar o prato \n" + pCozinha.get(1) + "Para a cozinha?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(null, "Enviar o prato\n " + pCozinha.get(1) + " Para a cozinha?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {
 
@@ -910,7 +912,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         pCozinha.add("Pendente"); // Status Pendente - Liberado
         pCozinha.add(txtNumeroPedido.getText());
 
-            int op = JOptionPane.showConfirmDialog(null, "Enviar o prato \n " + pCozinha.get(1) + " para a cozinha? ", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(null, "Enviar o prato\n" + pCozinha.get(1) + " para a cozinha? ", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {
 
