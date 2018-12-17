@@ -100,9 +100,7 @@ public class TelaLogin extends javax.swing.JFrame {
             
             g.setAlwaysOnTop(true);
             g.setVisible(true);
-        }
-        
-        
+        } 
         
         
         
