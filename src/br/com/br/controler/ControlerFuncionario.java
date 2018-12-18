@@ -29,8 +29,9 @@ public class ControlerFuncionario extends Funcionario {
 
     public boolean adicionaFuncionario(Funcionario f) {
         boolean resp = false;
-        String sql = "INSERT INTO tbcadfuncionario (nome, endereco, bairro, cep, cidade, email,foto,telefone,login,cargo,senha,status,bloqueado,rg,cpf,cnh,observacao) \n"
-                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO tbcadfuncionario "
+                + "(nome, endereco, bairro, cep, cidade, email,foto,telefone,login,cargo,senha,status,bloqueado,rg,cpf,cnh,observacao,numero,uf,telefone_recado,complemento) \n"
+                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -51,12 +52,18 @@ public class ControlerFuncionario extends Funcionario {
             pst.setString(15, f.getRg());
             pst.setString(16, f.getCnh());
             pst.setString(17, f.getObservacao());
+            pst.setString(18, f.getNumero());
+            pst.setString(19, f.getUf());
+            pst.setString(20, f.getTelefone_recado());
+            pst.setString(21, f.getComplemento());            
 
             pst.executeUpdate();
+            
             resp = true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro adicionarFuncionario: " + e);
+            JOptionPane.showMessageDialog(null, "Erro ao tentar adicionar o funcionario!");
+            System.out.println("br.com.br.controler.ControlerFuncionario.adicionaFuncionario()"+e);
         }
 
         return resp;
@@ -136,7 +143,7 @@ public class ControlerFuncionario extends Funcionario {
             resposta = true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Este funcionário possui mesas \n e não deve ser excluído!");
+            JOptionPane.showMessageDialog(null, "Este funcionário possui mesas \ne não pode ser excluído!");
         }
         return resposta;
     }
@@ -162,7 +169,11 @@ public class ControlerFuncionario extends Funcionario {
                 + "rg=?,"
                 + "cpf=?,"
                 + "cnh=?, "
-                + "observacao=? "
+                + "observacao=?,"
+                + "numero=?,"
+                + "uf=?,"
+                + "telefone_recado=?,"
+                + "complemento=?"
                 + "WHERE id=?";
 
         try {
@@ -184,14 +195,17 @@ public class ControlerFuncionario extends Funcionario {
             pst.setString(15, f.getCpf());
             pst.setString(16, f.getCnh());
             pst.setString(17, f.getObservacao());
-
-            pst.setString(18, id);
+            pst.setString(18, f.getNumero());
+            pst.setString(19, f.getUf());
+            pst.setString(20, f.getTelefone_recado());
+            pst.setString(21, f.getComplemento());    
+            pst.setString(22, id);
 
             pst.executeUpdate();
             resp = true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro alterarFunconário()!");
+            System.out.println("br.com.br.controler.ControlerFuncionario.alterar()" +e);
         }
 
         return resp;

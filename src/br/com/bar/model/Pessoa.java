@@ -10,7 +10,7 @@ package br.com.bar.model;
  * @author elias
  */
 public class Pessoa {
-    
+
     private String nome;
     private String endereco;
     private String bairro;
@@ -18,6 +18,10 @@ public class Pessoa {
     private String cidade;
     private String email;
     private String telefone;
+    private String numero;
+    private String uf;
+    private String telefone_recado;
+    private String complemento;
 
     public String getNome() {
         return nome;
@@ -74,5 +78,39 @@ public class Pessoa {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-        
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+
+    public String getTelefone_recado() {
+        return telefone_recado;
+    }
+
+    public void setTelefone_recado(String telefone_recado) {
+        this.telefone_recado = telefone_recado;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+    
+    
+    
 }

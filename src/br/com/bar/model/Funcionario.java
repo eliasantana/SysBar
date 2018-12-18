@@ -11,7 +11,6 @@ package br.com.bar.model;
  */
 public class Funcionario extends Pessoa{
     private String id;
-
     private String foto;
     private String telefone;
     private String cargo;
@@ -21,6 +20,8 @@ public class Funcionario extends Pessoa{
     private String bloqueado;
     private String rg;
     private String observacao;
+   
+    
     
     public String getId() {
         return id;
@@ -120,5 +121,6 @@ public class Funcionario extends Pessoa{
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
+    
     
 }
