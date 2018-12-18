@@ -79,7 +79,7 @@ public class TelaLogin extends javax.swing.JFrame {
             if (conexao != null) {
                 // Retorna os dados da empresa
                 DadosEmpresa dadosEmpresa = d.selecionaDados();
-                lblLicenca.setText("Copyright Todos os Direitos reservados para");
+                lblLicenca.setText("Copyright todos os direitos reservados para");
                 lbllicenca2.setText(dadosEmpresa.getNome_empresa());
                 lblCnpjEmpresa.setText(dadosEmpresa.getCnpj());
             } else {
@@ -155,7 +155,7 @@ public class TelaLogin extends javax.swing.JFrame {
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
         jPanel1.add(lblLogo);
-        lblLogo.setBounds(20, 20, 230, 190);
+        lblLogo.setBounds(20, 20, 250, 190);
 
         lblVersao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblVersao.setText("Software licenciado para");
@@ -164,7 +164,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("(81)9997-496602 |  (81) 99678-1659");
+        jLabel8.setText("(81)9974-96602 | (81) 99678-1659");
         jPanel1.add(jLabel8);
         jLabel8.setBounds(30, 390, 240, 20);
 
@@ -186,7 +186,7 @@ public class TelaLogin extends javax.swing.JFrame {
         lblCnpjEmpresa.setBounds(20, 270, 260, 14);
 
         lblVersao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersao1.setText("Versão 1.6.9");
+        lblVersao1.setText("Versão 1.7.2");
         jPanel1.add(lblVersao1);
         lblVersao1.setBounds(60, 290, 170, 20);
 
