@@ -70,7 +70,7 @@ public class ControlerParametro {
             gravaARquivo.close();
 
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao gravar o arquivo de parâmetro");
+            JOptionPane.showMessageDialog(null, "Erro ao gravar o arquivo de parâmetro"+e);
         }
 
     }

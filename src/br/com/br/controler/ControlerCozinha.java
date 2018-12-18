@@ -10,10 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Clock;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
+
 
 /**
  *
@@ -27,12 +26,12 @@ public class ControlerCozinha {
 
     public ResultSet listaProdutosCozinha() {
 
-        String sql = "SELECT id AS 'ORDEM', "
+        String sql = "SELECT id AS 'SEQUÊNCIA', "
                 + "produto AS 'PRODUTO',"
                 + "qtd AS 'QTD',"
-                + "funcionario AS 'FUNCIONÁRIO', "
+                + "funcionario AS 'GARÇOM', "
                 + "mesa AS 'MESA', "
-                + "status AS 'SITUAÇÃO' "
+                + "status AS 'STATUS' "
                 + "FROM dbbar.tbcozinha WHERE status='Pendente'";
 
         try {

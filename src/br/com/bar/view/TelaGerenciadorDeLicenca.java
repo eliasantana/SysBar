@@ -172,7 +172,7 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
         jLabel10.setBounds(30, 330, 348, 15);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel11.setText("email: rese7.comercial@gmai.com / rese7.suporte@gmail.com");
+        jLabel11.setText("email: rese7.contato@gmai.com / rese7.suporte@gmail.com");
         getContentPane().add(jLabel11);
         jLabel11.setBounds(30, 350, 348, 15);
 

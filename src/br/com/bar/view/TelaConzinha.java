@@ -178,9 +178,10 @@ public class TelaConzinha extends javax.swing.JFrame {
         jScrollPane1.setBounds(12, 116, 861, 319);
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("SOLICITAÇÕES");
         paineldireito.add(jLabel2);
-        jLabel2.setBounds(167, 22, 305, 64);
+        jLabel2.setBounds(27, 22, 630, 64);
 
         btnlogout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -332,6 +333,7 @@ public class TelaConzinha extends javax.swing.JFrame {
 
     private void tblCozinhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCozinhaMouseClicked
         int linha = tblCozinha.getSelectedRow();
+        // Captura o Id do prato
         txtidProdutoCozinha.setText(tblCozinha.getModel().getValueAt(linha, 0).toString());
 
 

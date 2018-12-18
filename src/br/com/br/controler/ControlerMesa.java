@@ -32,9 +32,9 @@ public class ControlerMesa {
         if (tudo) {
 
             String sql = "SELECT dbbar.cadmesa.id as 'ID',\n"
-                    + "	   dbbar.tbcadfuncionario.nome as 'GARÇON RESPONSÁVEL',\n"
-                    + "        dbbar.cadmesa.numero_mesa AS 'NUMERO DA MESA',\n"
-                    + "        dbbar.cadmesa.status AS 'SITUAÇÃO'\n"
+                    + "	   dbbar.tbcadfuncionario.nome as 'GARÇOM RESPONSÁVEL',\n"
+                    + "        dbbar.cadmesa.numero_mesa AS 'NÚMERO DA MESA',\n"
+                    + "        dbbar.cadmesa.status AS 'STATUS'\n"
                     + "   FROM dbbar.cadmesa\n"
                     + "   INNER JOIN dbbar.tbcadfuncionario ON \n"
                     + "        dbbar.cadmesa.`tbCadFuncionario_id` = dbbar.tbcadfuncionario.id "
@@ -51,9 +51,9 @@ public class ControlerMesa {
         } else {
 
             String sql = "SELECT dbbar.cadmesa.id as 'ID',\n"
-                    + "	   dbbar.tbcadfuncionario.nome as 'GARÇON RESPONSÁVEL',\n"
-                    + "        dbbar.cadmesa.numero_mesa AS 'NUMERO DA MESA',\n"
-                    + "        dbbar.cadmesa.status AS 'SITUAÇÃO'\n"
+                    + "	   dbbar.tbcadfuncionario.nome as 'GARÇOM RESPONSÁVEL',\n"
+                    + "        dbbar.cadmesa.numero_mesa AS 'NÚMERO DA MESA',\n"
+                    + "        dbbar.cadmesa.status AS 'STATUS'\n"
                     + "   FROM dbbar.cadmesa\n"
                     + "   INNER JOIN dbbar.tbcadfuncionario ON \n"
                     + "        dbbar.cadmesa.`tbCadFuncionario_id` = dbbar.tbcadfuncionario.id "
