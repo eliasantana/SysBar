@@ -6,6 +6,8 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.Backup;
+import br.com.bar.model.DadosEmpresa;
+import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerParametro;
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -18,9 +20,8 @@ import java.util.Date;
  */
 public class TelaPametro extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaPaametro
-     */
+    ControlerDadosEmpresa empresa = new ControlerDadosEmpresa();
+    
     public TelaPametro() {
         initComponents();
         
@@ -185,7 +186,7 @@ public class TelaPametro extends javax.swing.JFrame {
         boolean bkpCriado = bkp.Backup();
         
         if (bkpCriado) {
-            System.out.println("Backup criado!");
+            System.out.println("Criando Arquivo de Backup!");
             
             try {
                 // Inicia a Thread que aguardará 15 segundos 
@@ -196,7 +197,7 @@ public class TelaPametro extends javax.swing.JFrame {
                 // Verifica se o arquivo existe
                 if (f.exists()) {
                     // Captura a data e a hora        
-                    
+                    System.out.println("Preparando o arquivo!...");
                     String formatoData = "ddMMyyy";
                     String formatoHora = "hhmmss";
                     Date data = new Date();
@@ -204,18 +205,21 @@ public class TelaPametro extends javax.swing.JFrame {
                     SimpleDateFormat hf = new SimpleDateFormat(formatoHora);
                     String dt = df.format(data);
                     String h = hf.format(data);
-                 
+                    DadosEmpresa dados = new DadosEmpresa();
+                    // Carrega dados do cadastro da empresa
+                    dados = empresa.selecionaDados();
                     // Renomeia o arquivo concatenando a data e a hora em que o arquivo foi criado.
                     
-                    File f2 = new File("C:/SysBar/backup/bkpdumpSYSBAR" + dt + h + ".sql");
+                    //File f2 = new File("C:/SysBar/backup/bkpdumpSYSBAR" + dt + h + ".sql");
+                    File f2 = new File("C:/SysBar/backup/bkp-"+dados.getNome_empresa()+"-" + dt +"-"+ h + ".sql");
                     
                     // Retor na verdadeiro se o arquivo for renomeado com sucesso.
                     boolean resp = f.renameTo(f2);
                     
                     if (resp) {
-                        System.out.println("Arquivo Renomeado com Sucesso!");
+                        System.out.println("Bakup finalizado com sucesso!");
                     } else {
-                        System.out.println("falha ao renomear arquivo de backup");
+                        System.out.println("Falha ao renomear o arquivo de backup");
 
                     }
                 } else {

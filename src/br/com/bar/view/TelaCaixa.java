@@ -155,8 +155,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblGarcom = new javax.swing.JLabel();
         btnImprimir = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jSpinFieldPessoas = new com.toedter.components.JSpinField();
         jLabel21 = new javax.swing.JLabel();
+        jSpinFieldPessoas = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -338,13 +338,13 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("jLabel2");
         painelDireito.add(lblOperador);
-        lblOperador.setBounds(130, 50, 90, 30);
+        lblOperador.setBounds(30, 30, 90, 40);
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("jLabel2");
         painelDireito.add(lblCargo);
-        lblCargo.setBounds(30, 50, 90, 30);
+        lblCargo.setBounds(120, 30, 90, 40);
 
         jPanel2.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -379,7 +379,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblStatus.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         painelDireito.add(lblStatus);
-        lblStatus.setBounds(220, 40, 140, 40);
+        lblStatus.setBounds(220, 30, 140, 40);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Sub-total")));
 
@@ -693,7 +693,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "PRODUTO", "COD.", "QTD.", "VALOR", "TOTAL"
+                "PRODUTO", "COD.", "QTD.", "VALOR R$", "TOTAL R$"
             }
         ));
         tblDetalhePedido.setRowHeight(22);
@@ -717,7 +717,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         });
 
         jLabel22.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        jLabel22.setText("Garçom");
+        jLabel22.setText("Garçom:");
 
         lblGarcom.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
 
@@ -740,6 +740,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel21.setText("N. Pessoas");
 
+        jSpinFieldPessoas.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -758,12 +760,12 @@ public class TelaCaixa extends javax.swing.JFrame {
                             .addComponent(txtIdMEsa, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
                             .addComponent(txtIdPedido)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel22)
-                            .addGap(18, 18, 18)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(lblGarcom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(comboMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -801,14 +803,14 @@ public class TelaCaixa extends javax.swing.JFrame {
                     .addComponent(lblGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jSpinFieldPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(66, Short.MAX_VALUE))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSpinFieldPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtIdMEsa, txtIdPedido});
@@ -890,10 +892,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         // Fecha pedido
 
         // Calcula valor
-        int nPesoas = jSpinFieldPessoas.getValue();
-        if (nPesoas <= 0) {
-            nPesoas = 1;
-        }
+        int nPesoas = Integer.parseInt(jSpinFieldPessoas.getValue().toString());
+       
         Double totalGeral = Double.parseDouble(lblTotal.getText().replaceAll(",", "."));
         Double totalPessoas = totalGeral / nPesoas;
         System.out.println(nPesoas);
@@ -1025,7 +1025,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             ResultSet rs = cp.detalhePorPedido(comboMesa.getSelectedItem().toString(), txtIdPedido.getText());
 
             while (rs.next()) {
-                total = Double.parseDouble(rs.getString("total").replaceAll(",", "."));
+                total = Double.parseDouble(rs.getString("total R$").replaceAll(",", "."));
                 
                 totalGeral = totalGeral + total;
             }
@@ -1054,10 +1054,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         // Calcula valor
         DadosEmpresa dadosEmpresa = de.selecionaDados();
 
-        int nPesoas = jSpinFieldPessoas.getValue();
-        if (nPesoas <= 0) {
-            nPesoas = 1;
-        }
+        int nPesoas = Integer.parseInt(jSpinFieldPessoas.getValue().toString());
+        
         Double totalGeral = Double.parseDouble(lblTotal.getText().replaceAll(",", "."));
         Double totalPessoas = totalGeral / nPesoas;
         System.out.println(nPesoas);
@@ -1376,7 +1374,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private com.toedter.components.JSpinField jSpinFieldPessoas;
+    private javax.swing.JSpinner jSpinFieldPessoas;
     private javax.swing.JLabel labelEntradas;
     private javax.swing.JLabel labelSaidas;
     private javax.swing.JLabel labelSaldo;

@@ -463,14 +463,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(lblData1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -573,7 +570,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblMensagem.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
         lblMensagem.setForeground(new java.awt.Color(153, 153, 153));
         lblMensagem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblMensagem.setText("* sem mensagem");
         getContentPane().add(lblMensagem);
         lblMensagem.setBounds(450, 480, 580, 30);
 
@@ -619,7 +615,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jLabel7.setBounds(490, 510, 80, 50);
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
-        jLabel8.setText("Enviar Prato (cozinha)");
+        jLabel8.setText("Enviar para Cozinha");
         getContentPane().add(jLabel8);
         jLabel8.setBounds(620, 560, 150, 23);
 
@@ -696,6 +692,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         txtQtd.setEnabled(true);
         txtCodigoProduto.requestFocus();
         comboGarcom.setSelectedItem(tblPedidosAbertos.getModel().getValueAt(linha, 4).toString());
+        jTabbedPanePedido.setSelectedIndex(1);
     }//GEN-LAST:event_tblPedidosAbertosMouseClicked
 
     private void jTabbedPanePedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPanePedidoMouseClicked

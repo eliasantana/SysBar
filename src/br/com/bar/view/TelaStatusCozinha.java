@@ -24,7 +24,9 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
     }
 
     public void recebeOperador(String operador) {
-         lblGarcom.setText(operador.toUpperCase());
+         
+         
+        lblGarcom.setText("Garçom: "+operador);
         ControlerCozinha status = new ControlerCozinha();
         tblStatus.setModel(DbUtils.resultSetToTableModel(status.statusCozinha(operador)));
     }

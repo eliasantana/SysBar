@@ -23,12 +23,9 @@ public class ConexaoBd {
     public static Connection conector() {
         ControlerParametro cp = new ControlerParametro();
         
-        //Instancia o controler parâmetro e carrega os dados do arquivo param.txt
-       
+        //Instancia o controler parâmetro e carrega os dados do arquivo param.txt  
           
-        /*        
-            
-       
+        /*            
           String driver="com.mysql.cj.jdbc.Driver";
           String url="jdbc:mysql://localhost:3306/dbbar?useTimezone=true&serverTimezone=UTC";
           String user="root";
