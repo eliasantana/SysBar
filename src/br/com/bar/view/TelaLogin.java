@@ -164,7 +164,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("(81)99749-6602 | (81) 99678-1659");
+        jLabel8.setText("(81) 99749-6602 | (81) 99678-1659");
         jPanel1.add(jLabel8);
         jLabel8.setBounds(30, 390, 240, 20);
 

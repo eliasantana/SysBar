@@ -33,7 +33,7 @@ public class ControlerProduto {
                 + "	p.id as 'ID', \n"
                 + "	p.nome as 'PRODUTO',\n"
                 + "	p.qtd as 'QTD', \n"
-                + "	format(p.valor,2,'de_DE') as 'VALOR',\n"
+                + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"
                 + "	p.qtd_max AS 'MAX',\n"
                 + "	p.qtd_min AS 'MIN',\n"
                 + "	g.nome as 'GRUPO'\n"

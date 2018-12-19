@@ -310,13 +310,13 @@ public class TelaMovimentacao extends javax.swing.JFrame {
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("Operador");
         painelTopo.add(lblOperador);
-        lblOperador.setBounds(220, 90, 90, 30);
+        lblOperador.setBounds(390, 90, 90, 30);
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("Cargo");
         painelTopo.add(lblCargo);
-        lblCargo.setBounds(340, 90, 110, 30);
+        lblCargo.setBounds(510, 90, 110, 30);
 
         jPanel4.setBackground(new java.awt.Color(38, 53, 91));
 
@@ -353,7 +353,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
         lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario24x24.png"))); // NOI18N
         lblData.setText("jLabel9");
         painelTopo.add(lblData);
-        lblData.setBounds(440, 90, 140, 30);
+        lblData.setBounds(610, 90, 140, 30);
 
         getContentPane().add(painelTopo);
         painelTopo.setBounds(0, 0, 750, 130);
@@ -551,19 +551,19 @@ public class TelaMovimentacao extends javax.swing.JFrame {
         
         switch(op){
             case "Entrada":
-                lblDica.setText("Utilize quando receber produto do fornecedor.");
+                lblDica.setText("Obs: Utilize quando receber um produto do fornecedor.");
                 txtAreaObservacao.setText(op+ " - " + lblOperador.getText());
             break;
             case "Saída":
-                lblDica.setText("Utilize para retirada direta do estoque.");
+                lblDica.setText("Obs: Utilize quando retirar um produto direto do estoque.");
                 txtAreaObservacao.setText(op+ " - " + lblOperador.getText());
             break;
             case "Devolução":
-                lblDica.setText("Devolve produto ao fornecedor.");
+                lblDica.setText("Obs: Utilize quando devolver um produto ao fornecedor.");
                 txtAreaObservacao.setText(op+ " - " + lblOperador.getText());
             break;
             case "Descarte":
-                lblDica.setText("Utilize quando não for possível o reaproveitamento.");
+                lblDica.setText("Obs: Utilize quando não for possível o reaproveitamento.");
                 txtAreaObservacao.setText(op+ " - " + lblOperador.getText());
             break;
              

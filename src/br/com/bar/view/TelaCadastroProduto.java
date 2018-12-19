@@ -8,11 +8,13 @@ package br.com.bar.view;
 import br.com.bar.dao.Log;
 import br.com.bar.model.Fornecedor;
 import br.com.bar.model.Produto;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerEstoque;
 import br.com.br.controler.ControlerFornecedor;
 import br.com.br.controler.ControlerGrupo;
 import br.com.br.controler.ControlerProduto;
 import java.awt.event.KeyEvent;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
@@ -26,6 +28,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     ControlerGrupo g = new ControlerGrupo();
     ControlerEstoque e = new ControlerEstoque();
     ControlerFornecedor cf = new ControlerFornecedor();
+    Util u = new Util();
 
     Log l = new Log();
 
@@ -37,7 +40,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
         txtIdGrupo.setVisible(false);
         txtIdProduto.setVisible(false);
-        txtIdFor.setVisible(false);
+        txtIdFor.setVisible(false);        
+        btnAlteraProduto.setEnabled(false);
+        btnExcluir.setEnabled(false);
         g.carregaComboGrupoProduto(comboGrupoProduto);
         tblProduto.setModel(DbUtils.resultSetToTableModel(cp.listaProduto()));
         cf.carregaComboFornecedor(comboFornecedor);
@@ -46,6 +51,8 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         } else {
             btnAdicionarFornecedor.setEnabled(false);
         }
+        Calendar c = Calendar.getInstance();
+        lblData.setText(u.formataDataBr(c.getTime()));
 
     }
 
@@ -97,6 +104,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         tblProduto = new javax.swing.JTable();
         lblRotulo = new javax.swing.JLabel();
         txtLocalizar = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
         radioNome = new javax.swing.JRadioButton();
         radioGrupo = new javax.swing.JRadioButton();
         btnFiltrar = new javax.swing.JButton();
@@ -112,6 +120,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         txtIdFor = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
+        lblData = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -197,7 +206,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Fornecedores");
+        jLabel6.setText("Fornecedor");
         painelEsquerdo.add(jLabel6);
         jLabel6.setBounds(20, 480, 170, 30);
 
@@ -336,12 +345,36 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
 
-        btnFiltrar.setText("Listar por Fornedcedor");
+        btnFiltrar.setText("Filtrar por Fornecedor");
         btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFiltrarActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(radioNome)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(radioGrupo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radioNome)
+                    .addComponent(radioGrupo)
+                    .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -350,32 +383,24 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblRotulo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtLocalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(radioNome)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(radioGrupo)
-                                .addGap(29, 29, 29)
-                                .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(txtLocalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(lblRotulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtLocalizar, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(radioNome)
-                        .addComponent(radioGrupo))
-                    .addComponent(btnFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblRotulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtLocalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -390,6 +415,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
         jPanel2.setLayout(null);
 
+        btnExcluir.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -398,7 +424,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btnExcluir);
-        btnExcluir.setBounds(460, 10, 100, 50);
+        btnExcluir.setBounds(370, 10, 100, 50);
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/limparCinza.png"))); // NOI18N
@@ -409,7 +435,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jLabel10);
-        jLabel10.setBounds(180, 10, 110, 50);
+        jLabel10.setBounds(160, 10, 110, 50);
 
         btnSalvar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
@@ -431,7 +457,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btnAlteraProduto);
-        btnAlteraProduto.setBounds(320, 10, 110, 50);
+        btnAlteraProduto.setBounds(260, 10, 110, 50);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(430, 450, 620, 70);
@@ -441,14 +467,14 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("Operador:");
         getContentPane().add(lblOperador);
-        lblOperador.setBounds(880, 20, 120, 30);
+        lblOperador.setBounds(700, 40, 120, 30);
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblCargo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("Cargo:");
         getContentPane().add(lblCargo);
-        lblCargo.setBounds(880, 60, 130, 30);
+        lblCargo.setBounds(810, 40, 100, 30);
         getContentPane().add(txtIdFor);
         txtIdFor.setBounds(590, 40, 100, 30);
 
@@ -482,6 +508,12 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3);
         jPanel3.setBounds(1020, 0, 40, 40);
+
+        lblData.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario24x24.png"))); // NOI18N
+        lblData.setText("jLabel8");
+        getContentPane().add(lblData);
+        lblData.setBounds(910, 40, 90, 30);
 
         setSize(new java.awt.Dimension(1058, 570));
         setLocationRelativeTo(null);
@@ -603,6 +635,8 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         comboGrupoProduto.setSelectedItem(tblProduto.getModel().getValueAt(linha, 6).toString());       
 
         txtIdGrupo.setText(g.localizaIdGrupoProduto(comboGrupoProduto));
+        btnAlteraProduto.setEnabled(true);
+        btnExcluir.setEnabled(true);
 
 
     }//GEN-LAST:event_tblProdutoMouseClicked
@@ -649,36 +683,40 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_radioGrupoMouseClicked
 
     private void btnAlteraProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlteraProdutoMouseClicked
+        if (btnAlteraProduto.isEnabled()){
+            
+            Fornecedor f = new Fornecedor();
+            f.setNome(comboFornecedor.getSelectedItem().toString());
+            f.setCodigo(Integer.parseInt(cf.localizaForecedor(f)));
 
-        Fornecedor f = new Fornecedor();
-        f.setNome(comboFornecedor.getSelectedItem().toString());
-        f.setCodigo(Integer.parseInt(cf.localizaForecedor(f)));
+            Produto p = new Produto();
 
-        Produto p = new Produto();
+            p.setId(txtIdProduto.getText());
+            p.setNome(txtDescricao.getText());
+            p.setQtd(txtQuantidade.getText());
+            p.setValor(txtValor.getText());
+            p.setQtdMax(txtQtdMax.getText());
+            p.setQtdMin(txtQtdMin.getText());
+            p.setTbGrupoId(txtIdGrupo.getText());
+            p.setIdFornecedor(f.getCodigo());
 
-        p.setId(txtIdProduto.getText());
-        p.setNome(txtDescricao.getText());
-        p.setQtd(txtQuantidade.getText());
-        p.setValor(txtValor.getText());
-        p.setQtdMax(txtQtdMax.getText());
-        p.setQtdMin(txtQtdMin.getText());
-        p.setTbGrupoId(txtIdGrupo.getText());
-        p.setIdFornecedor(f.getCodigo());
+            int op = JOptionPane.showConfirmDialog(null, "Confirma alteração?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            if (op == JOptionPane.YES_OPTION) {
 
-        int op = JOptionPane.showConfirmDialog(null, "Confirma alteração?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-        if (op == JOptionPane.YES_OPTION) {
+                if (cp.alteraProduto(p)) {
+                    JOptionPane.showMessageDialog(null, "Produto Adicionado com sucesso");
+                    tblProduto.setModel(DbUtils.resultSetToTableModel(cp.listaProduto()));
+                    //Registra log
+                    l.setFuncionalidade("Alterar");
+                    l.setDescricao(l.getUsuario() + " alterou o produto " + txtDescricao.getText());
+                    l.gravaLog(l);
+                    btnExcluir.setEnabled(false);
+                    btnAlteraProduto.setEnabled(false);
 
-            if (cp.alteraProduto(p)) {
-                JOptionPane.showMessageDialog(null, "Produto Adicionado com sucesso");
-                tblProduto.setModel(DbUtils.resultSetToTableModel(cp.listaProduto()));
-                //Registra log
-                l.setFuncionalidade("Alterar");
-                l.setDescricao(l.getUsuario() + " alterou o produto " + txtDescricao.getText());
-                l.gravaLog(l);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Adição cancelada");
 
-            } else {
-                JOptionPane.showMessageDialog(null, "Adição cancelada");
-
+                }
             }
         }
 
@@ -692,22 +730,29 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdicionarFornecedorMouseClicked
 
     private void btnExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseClicked
+
         // Exclui um produto
-        Produto p = new Produto();
-        p.setId(txtIdProduto.getText());
-        p.setNome(txtDescricao.getText());
-        int op = JOptionPane.showConfirmDialog(null, "Deseja Excluir este produto? \n" + p.getNome(), "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-        if (op == JOptionPane.YES_OPTION) {
-            if (cp.excluiProduto(p)) {
+        if (btnExcluir.isEnabled()){
+            
+            Produto p = new Produto();
+            p.setId(txtIdProduto.getText());
+            p.setNome(txtDescricao.getText());
+            int op = JOptionPane.showConfirmDialog(null, "Deseja Excluir este produto? \n" + p.getNome(), "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            if (op == JOptionPane.YES_OPTION) {
+                if (cp.excluiProduto(p)) {
 
-                // Registra exlusão no log
-                Log log = new Log();
-                log.setFuncionalidade("Excluir");
-                log.setDescricao(l.getUsuario() + " Excluiu o produto " + p.getNome() + " do estoque");
-                log.gravaLog(log);
+                    // Registra exlusão no log
+                    Log log = new Log();
+                    log.setFuncionalidade("Excluir");
+                    log.setDescricao(l.getUsuario() + " Excluiu o produto " + p.getNome() + " do estoque");
+                    log.gravaLog(log);
 
-                JOptionPane.showMessageDialog(null, "Produto excluído com sucesso!");
-                tblProduto.setModel(DbUtils.resultSetToTableModel(cp.listaProduto()));
+                    JOptionPane.showMessageDialog(null, "Produto excluído com sucesso!");
+                    tblProduto.setModel(DbUtils.resultSetToTableModel(cp.listaProduto()));
+                    limpaForm();
+                    btnExcluir.setEnabled(false);
+                    btnAlteraProduto.setEnabled(false);
+                }
             }
         }
 
@@ -731,9 +776,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
 
-        if ("Limpar".equals(btnFiltrar.getText())) {
+        if ("Remover Filtro".equals(btnFiltrar.getText())) {
             tblProduto.setModel(DbUtils.resultSetToTableModel(cp.listaProduto()));
-            btnFiltrar.setText("Listar por Fornedcedor");
+            btnFiltrar.setText("Filrar por Fornecedor");
         } else {
 
             Fornecedor f = new Fornecedor();
@@ -741,7 +786,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             f.setCodigo(Integer.parseInt(cf.localizaForecedor(f)));
             // Lista os produtos do fornecedor selecionado na combobox
             tblProduto.setModel(DbUtils.resultSetToTableModel(cp.listaProduto(f)));
-            btnFiltrar.setText("Limpar");
+            btnFiltrar.setText("Remover Filtro");
         }
 
     }//GEN-LAST:event_btnFiltrarActionPerformed
@@ -826,8 +871,10 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCargo;
+    private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblGrupoProduto;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblRotulo;
