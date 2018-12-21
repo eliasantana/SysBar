@@ -239,6 +239,7 @@ public class ControlerFuncionario extends Funcionario {
                
                 rs = pst.executeQuery(sqlTodos);
 
+                combo.removeAllItems();
                 while (rs.next()) {
                     combo.addItem(rs.getString("nome"));
                 }
@@ -252,7 +253,7 @@ public class ControlerFuncionario extends Funcionario {
                 pst = conexao.prepareStatement(sql);
                 pst.setString(1, filtro);
                 rs = pst.executeQuery();
-
+                combo.removeAllItems();
                 while (rs.next()) {
                     combo.addItem(rs.getString("nome"));
                 }
@@ -263,9 +264,49 @@ public class ControlerFuncionario extends Funcionario {
         }
 
     }
+    public void carregaComboFuncionario(JComboBox combo, String filtro,String remove) {
+
+        // Carrega combo com o nome do funciário a partir do critério indicado em filtro e retira o nome do uncionario
+        // indicado em remove
+        String sql = "SELECT * FROM tbcadfuncionario where cargo=? AND status=0 AND bloqueado=0 AND nome<>?";
+        String sqlTodos = "SELECT * FROM tbcadfuncionario WHERE status=0 AND bloqueado=0";
+        
+        if ("todos".equals(filtro)){
+            
+            try {
+                pst = conexao.prepareStatement(sqlTodos);
+                
+                rs = pst.executeQuery(sqlTodos);
+
+                combo.removeAllItems();
+                while (rs.next()) {
+                    combo.addItem(rs.getString("nome"));
+                }
+
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Erro carregaComboFuncionário" + e);
+            }
+        }else {
+            
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, filtro);
+                pst.setString(2, remove);
+                rs = pst.executeQuery();
+                combo.removeAllItems();
+                while (rs.next()) {
+                    combo.addItem(rs.getString("nome"));
+                }
+
+            } catch (SQLException e) {
+                System.out.println("br.com.br.controler.ControlerFuncionario.carregaComboFuncionario()"+e);
+            }
+        }
+
+    }
     public void carregaComboFuncionario(JComboBox combo) {
 
-        // Carrega combo com o nome do funciário a partir do critério indicado em filtro
+        // Carrega combo com o login do funcionário
         // Recurso utilizado na tela de log
         String sql = "SELECT * FROM tbcadfuncionario";
 

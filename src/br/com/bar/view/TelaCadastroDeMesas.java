@@ -11,6 +11,8 @@ import br.com.bar.model.Mesa;
 import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerMesa;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
@@ -40,6 +42,8 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         panelTroca.setVisible(false);
         txtIdNovoGarcom.setVisible(false);
         btnLixeira.setEnabled(false);
+        lblTrocaTodas.setEnabled(false);
+        btnTrocaGarcom.setEnabled(false);
 
         f.carregaComboFuncionario(comboGarcom, "Garçom");
 
@@ -69,6 +73,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -80,17 +85,18 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         txtNumeroMesa = new javax.swing.JTextField();
         panelTroca = new javax.swing.JPanel();
         comboNovoGarcom = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        btnTrocaGarçom = new javax.swing.JLabel();
+        btnTrocaGarcom = new javax.swing.JLabel();
+        lblTrocaTodas = new javax.swing.JLabel();
         jCheckBoxTroca = new javax.swing.JCheckBox();
+        checkTrocaGeral = new javax.swing.JCheckBox();
+        txtIdNovoGarcom = new javax.swing.JTextField();
         menuBar = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         btnLixeira = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMesas = new javax.swing.JTable();
         jCheckBoxTudo = new javax.swing.JCheckBox();
-        txtIdNovoGarcom = new javax.swing.JTextField();
         lblOperador = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -133,7 +139,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         jLabel14.setBackground(new java.awt.Color(52, 73, 94));
         jLabel14.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Garçom Responsável");
+        jLabel14.setText("Garçom Atual");
 
         jLabel13.setBackground(new java.awt.Color(52, 73, 94));
         jLabel13.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
@@ -146,33 +152,41 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtNumeroMesaKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNumeroMesaKeyReleased(evt);
+            }
         });
 
         panelTroca.setBackground(new java.awt.Color(38, 53, 61));
 
         comboNovoGarcom.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/troca.png"))); // NOI18N
-        jLabel3.setText("Troca Geral");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+        comboNovoGarcom.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                comboNovoGarcomFocusGained(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Novo Garçom Responsável");
+        jLabel4.setText("Novo Garçom");
 
-        btnTrocaGarçom.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        btnTrocaGarçom.setForeground(new java.awt.Color(255, 255, 255));
-        btnTrocaGarçom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapisCinza.png"))); // NOI18N
-        btnTrocaGarçom.setText("Troca Garçom");
-        btnTrocaGarçom.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnTrocaGarcom.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        btnTrocaGarcom.setForeground(new java.awt.Color(255, 255, 255));
+        btnTrocaGarcom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapisCinza.png"))); // NOI18N
+        btnTrocaGarcom.setText("Troca Garçom");
+        btnTrocaGarcom.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnTrocaGarçomMouseClicked(evt);
+                btnTrocaGarcomMouseClicked(evt);
+            }
+        });
+
+        lblTrocaTodas.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        lblTrocaTodas.setForeground(new java.awt.Color(255, 255, 255));
+        lblTrocaTodas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/troca.png"))); // NOI18N
+        lblTrocaTodas.setText("Trocar todas as mesas");
+        lblTrocaTodas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblTrocaTodasMouseClicked(evt);
             }
         });
 
@@ -181,14 +195,17 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         panelTrocaLayout.setHorizontalGroup(
             panelTrocaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTrocaLayout.createSequentialGroup()
-                .addGroup(panelTrocaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(comboNovoGarcom, 0, 238, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(71, Short.MAX_VALUE))
-            .addGroup(panelTrocaLayout.createSequentialGroup()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(btnTrocaGarçom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelTrocaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTrocaLayout.createSequentialGroup()
+                        .addGroup(panelTrocaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(comboNovoGarcom, 0, 238, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelTrocaLayout.createSequentialGroup()
+                        .addComponent(btnTrocaGarcom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblTrocaTodas, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         panelTrocaLayout.setVerticalGroup(
             panelTrocaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,17 +214,18 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboNovoGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelTrocaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTrocaGarçom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(btnTrocaGarcom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTrocaTodas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1))
         );
 
         jCheckBoxTroca.setBackground(new java.awt.Color(38, 53, 61));
+        buttonGroup1.add(jCheckBoxTroca);
         jCheckBoxTroca.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
         jCheckBoxTroca.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBoxTroca.setText("Troca Mesa Garçom");
+        jCheckBoxTroca.setText("Troca Mesa");
         jCheckBoxTroca.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jCheckBoxTrocaMouseClicked(evt);
@@ -216,6 +234,17 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         jCheckBoxTroca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxTrocaActionPerformed(evt);
+            }
+        });
+
+        checkTrocaGeral.setBackground(new java.awt.Color(38, 53, 61));
+        buttonGroup1.add(checkTrocaGeral);
+        checkTrocaGeral.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        checkTrocaGeral.setForeground(new java.awt.Color(255, 255, 255));
+        checkTrocaGeral.setText("Troca Geral");
+        checkTrocaGeral.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                checkTrocaGeralMouseClicked(evt);
             }
         });
 
@@ -231,13 +260,13 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                         .addGap(28, 28, 28))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(txtIdGarcom, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtIdMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(panelTroca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jCheckBoxTroca))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtIdGarcom, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtIdMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtIdNovoGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(panelTroca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel14)
@@ -246,7 +275,11 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13)
                                     .addComponent(txtNumeroMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jCheckBoxTroca)
+                                .addGap(47, 47, 47)
+                                .addComponent(checkTrocaGeral)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -270,14 +303,17 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                         .addGap(5, 5, 5)
                         .addComponent(txtNumeroMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jCheckBoxTroca)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBoxTroca)
+                    .addComponent(checkTrocaGeral))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelTroca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtIdGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtIdMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addComponent(txtIdMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdNovoGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -344,16 +380,14 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         jScrollPane1.setBounds(380, 100, 550, 350);
 
         jCheckBoxTudo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jCheckBoxTudo.setText("Tudo");
+        jCheckBoxTudo.setText("Listar todas as mesas");
         jCheckBoxTudo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jCheckBoxTudoMouseClicked(evt);
             }
         });
         getContentPane().add(jCheckBoxTudo);
-        jCheckBoxTudo.setBounds(390, 60, 130, 33);
-        getContentPane().add(txtIdNovoGarcom);
-        txtIdNovoGarcom.setBounds(460, 30, 70, 29);
+        jCheckBoxTudo.setBounds(390, 60, 210, 33);
 
         lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
@@ -401,12 +435,14 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboGarcomItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboGarcomItemStateChanged
-
+       
     }//GEN-LAST:event_comboGarcomItemStateChanged
 
     private void comboGarcomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboGarcomActionPerformed
         tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
         txtNumeroMesa.setText(null);
+        
+       
     }//GEN-LAST:event_comboGarcomActionPerformed
 
     private void limpaForm() {
@@ -420,7 +456,8 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
 
     private void tblMesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMesasMouseClicked
         if (jCheckBoxTroca.isSelected()) {
-            txtIdNovoGarcom.setText(f.localizaId(comboNovoGarcom.getSelectedItem().toString()));            
+            txtIdNovoGarcom.setText(f.localizaId(comboNovoGarcom.getSelectedItem().toString()));    
+            btnTrocaGarcom.setEnabled(true);
         } 
         selecionaIdMesa();
     }//GEN-LAST:event_tblMesasMouseClicked
@@ -462,12 +499,12 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     private void jCheckBoxTudoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxTudoMouseClicked
 
         // Exibe todas as mesas de todos os garçom
-        if ("Tudo" == jCheckBoxTudo.getText()) {
+        if ("Listar todas as mesas" == jCheckBoxTudo.getText()) {
             jCheckBoxTudo.setText("Retornar");
-            filtro = true;
-            tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
+          
+            tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
         } else {
-            jCheckBoxTudo.setText("Tudo");
+            jCheckBoxTudo.setText("Listar todas as mesas");
             tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), false)));
         }
 
@@ -476,49 +513,70 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
 
     private void jCheckBoxTrocaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxTrocaMouseClicked
         //Exibe painel de Troca
+       
         if (jCheckBoxTroca.isSelected()) {
+            
             panelTroca.setVisible(true);
-            f.carregaComboFuncionario(comboNovoGarcom, "Garçom");
+            //f.carregaComboFuncionario(comboNovoGarcom, "Garçom");
+            f.carregaComboFuncionario(comboNovoGarcom, "Garçom",comboGarcom.getSelectedItem().toString());
+            btnTrocaGarcom.setEnabled(false);
+            lblTrocaTodas.setEnabled(false);
         }else {
             panelTroca.setVisible(false);
+            f.carregaComboFuncionario(comboNovoGarcom, "Garçom",comboGarcom.getSelectedItem().toString());
         }
     }//GEN-LAST:event_jCheckBoxTrocaMouseClicked
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void lblTrocaTodasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTrocaTodasMouseClicked
         // Troca garçom
-        txtIdNovoGarcom.setText(f.localizaId(comboNovoGarcom.getSelectedItem().toString()));
-
+        if (lblTrocaTodas.isEnabled()){
+        try {
+            
+            txtIdNovoGarcom.setText(f.localizaId(comboNovoGarcom.getSelectedItem().toString()));
+        } catch (Exception e) {
+            
+            
+        }
         txtIdGarcom.setText(f.localizaId(comboGarcom.getSelectedItem().toString()));
-        txtIdNovoGarcom.setText(f.localizaId(comboNovoGarcom.getSelectedItem().toString()));
+        //txtIdNovoGarcom.setText(f.localizaId(comboNovoGarcom.getSelectedItem().toString()));
 
-        Funcionario novo = new Funcionario();
-        Funcionario antigo = new Funcionario();
+            
+            Funcionario novo = new Funcionario();
+            Funcionario antigo = new Funcionario();
 
-        novo.setId(txtIdNovoGarcom.getText());
-        novo.setNome(comboNovoGarcom.getSelectedItem().toString());
-        antigo.setId(txtIdGarcom.getText());
-        antigo.setNome(comboGarcom.getSelectedItem().toString());
+            novo.setId(txtIdNovoGarcom.getText()); 
+            try {
+                
+            novo.setNome(comboNovoGarcom.getSelectedItem().toString());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Garçom inválido!");
+                System.out.println("br.com.bar.view.TelaCadastroDeMesas.lblTrocaTodasMouseClicked()"+e);
+            }
+            
+            antigo.setId(txtIdGarcom.getText());
+            antigo.setNome(comboGarcom.getSelectedItem().toString());
 
-        int op = JOptionPane.showConfirmDialog(null, "Confirma a troca de Garçom? \n " + antigo.getNome() + " -> " + novo.getNome(), "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(null, "Confirma a troca de todas as mesas do garçom\n" + antigo.getNome() + " para o garçom " + novo.getNome(), "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
-        if (op == JOptionPane.YES_OPTION) {
+            if (op == JOptionPane.YES_OPTION) {
 
-            if (txtIdGarcom.getText().equals(txtIdNovoGarcom.getText())) {
-                JOptionPane.showMessageDialog(null, "Escolha um garçom diferente para continuar");
-            } else {
-
-                if (cm.trocaGarcom(antigo, novo)) {
-                    JOptionPane.showMessageDialog(null, "Troca realizada com sucesso!");
-                    tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
+                if (txtIdGarcom.getText().equals(txtIdNovoGarcom.getText())) {
+                    JOptionPane.showMessageDialog(null, "Escolha um garçom diferente para continuar");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Troca cancelada!");
 
+                    if (cm.trocaGarcom(antigo, novo)) {
+                        JOptionPane.showMessageDialog(null, "Troca realizada com sucesso!");
+                        tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Troca cancelada!");
+
+                    }
                 }
             }
         }
 
 
-    }//GEN-LAST:event_jLabel3MouseClicked
+    }//GEN-LAST:event_lblTrocaTodasMouseClicked
 
     private void jCheckBoxTrocaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxTrocaActionPerformed
         // TODO add your handling code here:
@@ -591,33 +649,63 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLixeiraMouseClicked
 
-    private void btnTrocaGarçomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrocaGarçomMouseClicked
+    private void btnTrocaGarcomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrocaGarcomMouseClicked
                 // Altera Mesa
+        if (btnTrocaGarcom.isEnabled()){
+                    
+            Mesa mesa = new Mesa();
+            mesa.setId(txtIdMesa.getText());
+            mesa.setNumeroMesa(txtNumeroMesa.getText());
+            mesa.setStatus("0");
+            mesa.setId_funcionario(txtIdNovoGarcom.getText());
 
-        Mesa mesa = new Mesa();
-        mesa.setId(txtIdMesa.getText());
-        mesa.setNumeroMesa(txtNumeroMesa.getText());
-        mesa.setStatus("0");
-        mesa.setId_funcionario(txtIdNovoGarcom.getText());
-
-        int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração de garçom para esta mesa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-           // Inicio do registro de log
-              log.setFuncionalidade("Alterar");
-              log.setDescricao(log.getUsuario() + " alterou dados da mesa -> " + txtNumeroMesa.getText()
-                      + ": " + comboGarcom.getSelectedItem().toString() + " -> " + comboNovoGarcom.getSelectedItem().toString() );
-              log.gravaLog(log);
-           // Fim do registro de LOG
-        if (op == JOptionPane.YES_OPTION) {
-  
-            if (cm.alteraMesa(mesa)) {
-                JOptionPane.showMessageDialog(null, "Alteração de garçom para a mesa informada realizada com sucesso!");
-                tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
+            int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração de garçom para esta mesa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            // Inicio do registro de log
+            log.setFuncionalidade("Alterar");
+            log.setDescricao(log.getUsuario() + " alterou dados da mesa -> " + txtNumeroMesa.getText()
+                    + ": " + comboGarcom.getSelectedItem().toString() + " -> " + comboNovoGarcom.getSelectedItem().toString());
+            log.gravaLog(log);
+            // Fim do registro de LOG
+            if (op == JOptionPane.YES_OPTION) {
+                if ("".equals(txtIdGarcom.getText())&&"".equals(txtIdNovoGarcom.getText())){
+                    JOptionPane.showMessageDialog(null, "Selecione uma mesa para realizar a troca!");
+                }else if (txtIdGarcom.getText().equals(txtIdNovoGarcom.getText())){
+                    JOptionPane.showMessageDialog(null, "Selecione um garçom diferente para continuar!");
+                }else {                    
+                    if (cm.alteraMesa(mesa)) {
+                        JOptionPane.showMessageDialog(null, "Alteração de garçom para a mesa informada realizada com sucesso!");
+                        tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
+                        btnTrocaGarcom.setEnabled(false);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Alteração cancelada com sucesso!");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Alteração cancelada com sucesso!");
         }
 
-    }//GEN-LAST:event_btnTrocaGarçomMouseClicked
+    }//GEN-LAST:event_btnTrocaGarcomMouseClicked
+
+    private void txtNumeroMesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroMesaKeyReleased
+        // Aceita apenas número
+        txtNumeroMesa.setText(txtNumeroMesa.getText().replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_txtNumeroMesaKeyReleased
+
+    private void checkTrocaGeralMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkTrocaGeralMouseClicked
+       // Habilita CheckBox
+       if (checkTrocaGeral.isSelected()) {
+            panelTroca.setVisible(true);
+            //f.carregaComboFuncionario(comboNovoGarcom, "Garçom");
+            f.carregaComboFuncionario(comboNovoGarcom, "Garçom",comboGarcom.getSelectedItem().toString());
+            lblTrocaTodas.setEnabled(true);
+        }else {
+            panelTroca.setVisible(false);
+        }
+       
+    }//GEN-LAST:event_checkTrocaGeralMouseClicked
+
+    private void comboNovoGarcomFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboNovoGarcomFocusGained
+         f.carregaComboFuncionario(comboNovoGarcom, "Garçom",comboGarcom.getSelectedItem().toString());
+    }//GEN-LAST:event_comboNovoGarcomFocusGained
 
     private void selecionaIdMesa() {
         // Seleciona o id da mesa
@@ -629,6 +717,9 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         txtIdGarcom.setText(f.localizaId(nomeFuncionario));
         btnLixeira.setEnabled(true);
     }
+    
+    
+   
 
     /**
      * @param args the command line arguments
@@ -667,7 +758,9 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnLixeira;
-    private javax.swing.JLabel btnTrocaGarçom;
+    private javax.swing.JLabel btnTrocaGarcom;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JCheckBox checkTrocaGeral;
     private javax.swing.JComboBox<String> comboGarcom;
     private javax.swing.JComboBox<String> comboNovoGarcom;
     private javax.swing.JCheckBox jCheckBoxTroca;
@@ -678,13 +771,13 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblOperador;
+    private javax.swing.JLabel lblTrocaTodas;
     private javax.swing.JPanel menuBar;
     private javax.swing.JPanel panelTroca;
     private javax.swing.JTable tblMesas;
