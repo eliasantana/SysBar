@@ -58,7 +58,7 @@ public class ControlerFornecedor {
     
     public ResultSet listaFornecedor(){
         // Lista todos os fornecedores
-        String sql="SELECT * FROM  tbfornecedores";
+        String sql="SELECT id as 'ID', nome as 'NOME', telefone as 'TELEFONE', email as 'E-MAIL' FROM  tbfornecedores";
         
         try {
             pst=conexao.prepareStatement(sql);
@@ -81,10 +81,10 @@ public class ControlerFornecedor {
             pst=conexao.prepareStatement(sql);
             pst.setInt(1, f.getCodigo());
             pst.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Fornecedor Excluído com sucesso!");
+            JOptionPane.showMessageDialog(null, "Fornecedor excluído com sucesso!");
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerFornecedor.excluirFornecedor()" + e);
-            JOptionPane.showMessageDialog(null, "Erro ao excluir fornecedor!");
+            JOptionPane.showMessageDialog(null, "O fornecedor possui produtos cadastrados e não pode ser excluído!");
         }
     }
     

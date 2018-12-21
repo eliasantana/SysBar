@@ -7,7 +7,9 @@ package br.com.bar.view;
 
 import br.com.bar.dao.Log;
 import br.com.bar.model.Fornecedor;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerFornecedor;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
@@ -19,6 +21,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
 
     ControlerFornecedor cf = new ControlerFornecedor();
     Log log = new Log();
+    Util u = new Util();
 
     /**
      * Creates new form TelaCadastroFornecedor
@@ -27,12 +30,17 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         initComponents();
         tblFornecedores.setModel(DbUtils.resultSetToTableModel(cf.listaFornecedor()));
         txtIdFor.setVisible(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        
     }
 
     public void recebeOperador(String operador, String cargo) {
 
         lblCargo.setText(cargo);
         lblOperador.setText(operador);
+        Calendar c = Calendar.getInstance();
+        lblData.setText(u.formataDataBr(c.getTime()));
 
     }
 
@@ -62,6 +70,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         txtIdFor = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
+        lblData = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtFornecedor = new javax.swing.JTextField();
@@ -72,7 +81,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         tblFornecedores = new javax.swing.JTable();
         txtTelefone = new javax.swing.JFormattedTextField();
         btnSalvar = new javax.swing.JLabel();
-        btnEditar = new javax.swing.JLabel();
+        btnAlterar = new javax.swing.JLabel();
         btnExcluir = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -85,23 +94,25 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         jLabel1.setText("Fornecedores");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(122, 42, 204, 48);
+        jLabel1.setBounds(120, 30, 204, 48);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnFornecedor.png"))); // NOI18N
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(0, 0, 116, 120);
+        jLabel3.setBounds(0, 0, 116, 100);
 
+        lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("Operador");
         jPanel1.add(lblOperador);
-        lblOperador.setBounds(100, 100, 120, 32);
+        lblOperador.setBounds(60, 100, 120, 32);
         jPanel1.add(jLabel12);
         jLabel12.setBounds(122, 156, 42, 0);
 
+        lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("Cargo");
         jPanel1.add(lblCargo);
-        lblCargo.setBounds(220, 100, 110, 40);
+        lblCargo.setBounds(170, 100, 110, 30);
         jPanel1.add(txtIdFor);
         txtIdFor.setBounds(388, 156, 34, 20);
 
@@ -131,6 +142,12 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3);
         jPanel3.setBounds(345, 0, 50, 38);
+
+        lblData.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario24x24.png"))); // NOI18N
+        lblData.setText("jLabel2");
+        jPanel1.add(lblData);
+        lblData.setBounds(280, 100, 100, 30);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(-2, 0, 390, 150);
@@ -166,10 +183,11 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblFornecedores);
 
         try {
-            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtTelefone.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -189,7 +207,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel4))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,8 +232,9 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtEmail, txtTelefone});
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 140, 400, 310);
+        jPanel2.setBounds(0, 140, 390, 310);
 
+        btnSalvar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
         btnSalvar.setText("Adicionar");
         btnSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -224,18 +243,20 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSalvar);
-        btnSalvar.setBounds(50, 450, 87, 48);
+        btnSalvar.setBounds(27, 450, 110, 48);
 
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapis.png"))); // NOI18N
-        btnEditar.setText("Alterar");
-        btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAlterar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapis.png"))); // NOI18N
+        btnAlterar.setText("Alterar");
+        btnAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnEditarMouseClicked(evt);
+                btnAlterarMouseClicked(evt);
             }
         });
-        getContentPane().add(btnEditar);
-        btnEditar.setBounds(150, 450, 84, 50);
+        getContentPane().add(btnAlterar);
+        btnAlterar.setBounds(134, 450, 100, 50);
 
+        btnExcluir.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -257,9 +278,9 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         f.setNome(txtFornecedor.getText());
         f.setEmail(txtEmail.getText());
         f.setTelefone(txtTelefone.getText());
-        
+
         if (cf.temFornecedor(f)) {
-            JOptionPane.showMessageDialog(null, "O fornecedor "+f.getNome() + " já está cadastrado!");
+            JOptionPane.showMessageDialog(null, "O fornecedor " + f.getNome() + " já está cadastrado!");
         } else {
 
             cf.cadastraFornecedor(f);
@@ -288,24 +309,26 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     private void btnExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseClicked
         // Executa  método de exclusão de fornecedores 
 
+        if (btnExcluir.isEnabled()){
         Fornecedor f = new Fornecedor();
         f.setCodigo(Integer.parseInt(txtIdFor.getText()));
         f.setNome(txtFornecedor.getText());
+            
+            int op = JOptionPane.showConfirmDialog(null, "Confirma a exclusão do fornecedor " + f.getNome() + "?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            if (op == JOptionPane.YES_OPTION) {
 
-        int op = JOptionPane.showConfirmDialog(null, f.getNome(), "Confirma a exclusão do fornecedor?", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-        if (op == JOptionPane.YES_OPTION) {
-
-            cf.excluirFornecedor(f);
-            // Atualiza tabela forncedores
-            tblFornecedores.setModel(DbUtils.resultSetToTableModel(cf.listaFornecedor()));
-            // Início do Registro de log
-            log.setFuncionalidade("Exclusão");
-            log.setUsuario(lblOperador.getText());
-            log.setDescricao(log.getUsuario() + " excluiu o forncedor ->" + f.getNome());
-            log.gravaLog(log);
-            // Fim do registro de log
-        } else {
-            JOptionPane.showMessageDialog(null, "Operação Cancelada!");
+                cf.excluirFornecedor(f);
+                // Atualiza tabela forncedores
+                tblFornecedores.setModel(DbUtils.resultSetToTableModel(cf.listaFornecedor()));
+                // Início do Registro de log
+                log.setFuncionalidade("Exclusão");
+                log.setUsuario(lblOperador.getText());
+                log.setDescricao(log.getUsuario() + " Excluiu o fornecedor ->" + f.getNome());
+                log.gravaLog(log);
+                // Fim do registro de log
+            } else {
+                JOptionPane.showMessageDialog(null, "Exclusão cancelada com sucesso!");
+            }
         }
 
     }//GEN-LAST:event_btnExcluirMouseClicked
@@ -318,26 +341,37 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         txtFornecedor.setText(tblFornecedores.getModel().getValueAt(linha, 1).toString());
         txtTelefone.setText(tblFornecedores.getModel().getValueAt(linha, 2).toString());
         txtEmail.setText(tblFornecedores.getModel().getValueAt(linha, 3).toString());
+        btnAlterar.setEnabled(true);
+        btnExcluir.setEnabled(true);
 
     }//GEN-LAST:event_tblFornecedoresMouseClicked
 
-    private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
+    private void btnAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseClicked
         // Executa o método de alteração de produto
 
-        Fornecedor f = new Fornecedor();
-        f.setCodigo(Integer.parseInt(txtIdFor.getText()));
-        f.setNome(txtFornecedor.getText());
-        f.setTelefone(txtTelefone.getText());
-        f.setEmail(txtEmail.getText());
+        
+        if (btnAlterar.isEnabled()){            
+            Fornecedor f = new Fornecedor();
+            f.setCodigo(Integer.parseInt(txtIdFor.getText()));
+            f.setNome(txtFornecedor.getText());
+            f.setTelefone(txtTelefone.getText());
+            f.setEmail(txtEmail.getText());
+            int op = JOptionPane.showConfirmDialog(null, "Deseja realmente realizar a alteração?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            if (op == JOptionPane.YES_OPTION) {
 
-        cf.alteraFornecedor(f);
-        tblFornecedores.setModel(DbUtils.resultSetToTableModel(cf.listaFornecedor()));
-        // Inicio do Resigtro de Log
-        log.setUsuario(lblOperador.getText());
-        log.setFuncionalidade("Alterar");
-        log.setDescricao(log.getUsuario() + " alterou o fornecedor -> " + f.getNome());
-        // Fim do registro de log
-    }//GEN-LAST:event_btnEditarMouseClicked
+                cf.alteraFornecedor(f);
+                tblFornecedores.setModel(DbUtils.resultSetToTableModel(cf.listaFornecedor()));
+                // Inicio do Resigtro de Log
+                log.setUsuario(lblOperador.getText());
+                log.setFuncionalidade("Alterar");
+                log.setDescricao(log.getUsuario() + " alterou o fornecedor -> " + f.getNome());
+                // Fim do registro de log
+            } else {
+                JOptionPane.showMessageDialog(null, "Operação cancelada!");
+            }
+        }
+            
+    }//GEN-LAST:event_btnAlterarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -375,7 +409,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnEditar;
+    private javax.swing.JLabel btnAlterar;
     private javax.swing.JLabel btnExcluir;
     private javax.swing.JLabel btnSalvar;
     private javax.swing.JLabel jLabel1;
@@ -389,6 +423,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCargo;
+    private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JTable tblFornecedores;

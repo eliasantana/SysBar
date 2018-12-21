@@ -32,9 +32,9 @@ public class ControlerMesa {
         if (tudo) {
 
             String sql = "SELECT dbbar.cadmesa.id as 'ID',\n"
-                    + "	   dbbar.tbcadfuncionario.nome as 'GARÇOM RESPONSÁVEL',\n"
-                    + "        dbbar.cadmesa.numero_mesa AS 'NÚMERO DA MESA',\n"
-                    + "        dbbar.cadmesa.status AS 'STATUS'\n"
+                    + "	   dbbar.tbcadfuncionario.nome as 'GARÇOM' ,\n"
+                    + "        dbbar.cadmesa.numero_mesa AS 'NÚMERO DA MESA'\n"
+                    //+ "        dbbar.cadmesa.status AS 'STATUS'\n"
                     + "   FROM dbbar.cadmesa\n"
                     + "   INNER JOIN dbbar.tbcadfuncionario ON \n"
                     + "        dbbar.cadmesa.`tbCadFuncionario_id` = dbbar.tbcadfuncionario.id "
@@ -51,9 +51,9 @@ public class ControlerMesa {
         } else {
 
             String sql = "SELECT dbbar.cadmesa.id as 'ID',\n"
-                    + "	   dbbar.tbcadfuncionario.nome as 'GARÇOM RESPONSÁVEL',\n"
-                    + "        dbbar.cadmesa.numero_mesa AS 'NÚMERO DA MESA',\n"
-                    + "        dbbar.cadmesa.status AS 'STATUS'\n"
+                    + "	   dbbar.tbcadfuncionario.nome as 'GARÇOM',\n"
+                    + "        dbbar.cadmesa.numero_mesa AS 'NÚMERO DA MESA'\n"
+                    //+ "        dbbar.cadmesa.status AS 'STATUS'\n"
                     + "   FROM dbbar.cadmesa\n"
                     + "   INNER JOIN dbbar.tbcadfuncionario ON \n"
                     + "        dbbar.cadmesa.`tbCadFuncionario_id` = dbbar.tbcadfuncionario.id "
@@ -88,8 +88,10 @@ public class ControlerMesa {
             pst.executeUpdate();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Mesa Cadastrada, selecione outra!");
+            JOptionPane.showMessageDialog(null, "Este número de mesa já está sendo utilizado, informe outro!");
+            System.out.println("br.com.br.controler.ControlerMesa.adicionaMesa()" +e);
         }
+                
         return resp;
 
     }
@@ -108,7 +110,7 @@ public class ControlerMesa {
             resp = true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro excluirMesa");
+            JOptionPane.showMessageDialog(null, "Esta mesa não pode ser excluída!");
         }
         return resp;
 

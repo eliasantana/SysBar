@@ -53,7 +53,8 @@ public class ControlerGrupo {
 
         } catch (SQLException e) {
 
-            JOptionPane.showMessageDialog(null, "Erro excluirGrupo" + e);
+            JOptionPane.showMessageDialog(null, "Este grupo possui contas cadastradas e não pode ser excluído!");
+            System.out.println("br.com.br.controler.ControlerGrupo.excluirGrupo()"+e);
         }
         return false;
     }
@@ -71,14 +72,15 @@ public class ControlerGrupo {
 
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro alteraGrupo" + e);
+            System.out.println("br.com.br.controler.ControlerGrupo.alteraGrupo()"+e);
+            JOptionPane.showMessageDialog(null, "Este grupo possui contas cadastradas e não pode ser excluído!" + e);
         }
         return false;
     }
 
     public ResultSet atualizaTabela(JTable tabela) {
 
-        String sql = "SELECT * FROM tbgrupo";
+        String sql = "SELECT id as 'ID', grupo as 'GRUPO' FROM tbgrupo";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -136,8 +138,9 @@ public class ControlerGrupo {
             return true;
 
         } catch (SQLException e) {
-
-            JOptionPane.showMessageDialog(null, "Erro excluirGrupo" + e);
+            
+            System.out.println("br.com.br.controler.ControlerGrupo.excluirGrupoProduto()"+e);
+            JOptionPane.showMessageDialog(null,"Este grupo possui produtos cadastrados e não pode ser excluído! ");
         }
         return false;
     }
@@ -154,7 +157,7 @@ public class ControlerGrupo {
 
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro alteraGrupo" + e);
+            System.out.println("br.com.br.controler.ControlerGrupo.alteraGrupoProduto()"+e);
         }
         return false;
     }
