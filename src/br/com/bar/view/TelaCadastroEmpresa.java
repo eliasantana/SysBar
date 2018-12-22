@@ -538,10 +538,10 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             if (dados.excluiEmpresa(objEmpresa)) {
                 JOptionPane.showMessageDialog(null, "Dados excluídos com sucesso!");
             } else {
-                JOptionPane.showMessageDialog(null, " Não foi possível excluir os dados!");
+                JOptionPane.showMessageDialog(null, " Não foi possível excluir os dados desta empresa!");
             }
         }else {
-                JOptionPane.showMessageDialog(null, " Operação cancelada!");
+                JOptionPane.showMessageDialog(null, " Exclusão cancelada com sucesso!");
             
         }
     }//GEN-LAST:event_lblExcluirMouseClicked
@@ -602,12 +602,16 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         if ("".equals(txtNomeEmpresa.getText()) || txtNomeEmpresa.getText() == null) {
             JOptionPane.showMessageDialog(null, "Dados inválidos, preencha todos os campos para continuar!");
         } else {
-            if (dados.alteraDados(d)) {
-                JOptionPane.showMessageDialog(null, "Dados alterados com sucesso!");
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Impossível alterar dados");
-
+            int op = JOptionPane.showConfirmDialog(null,"Confirma a alteração?","Atenção",JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE );
+            if (op == JOptionPane.YES_OPTION){
+                
+                if (dados.alteraDados(d)) {
+                    JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Não foi possível alterar os dados!");
+                }
+            }else {
+                JOptionPane.showMessageDialog(null, "Alteração cancelada com sucesso!");
             }
         }
         
