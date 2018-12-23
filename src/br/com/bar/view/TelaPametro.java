@@ -10,8 +10,14 @@ import br.com.bar.model.DadosEmpresa;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerParametro;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -21,7 +27,7 @@ import java.util.Date;
 public class TelaPametro extends javax.swing.JFrame {
 
     ControlerDadosEmpresa empresa = new ControlerDadosEmpresa();
-    
+    DadosEmpresa dados = empresa.selecionaDados();
     public TelaPametro() {
         initComponents();
         
@@ -212,12 +218,15 @@ public class TelaPametro extends javax.swing.JFrame {
                     
                     //File f2 = new File("C:/SysBar/backup/bkpdumpSYSBAR" + dt + h + ".sql");
                     File f2 = new File("C:/SysBar/backup/bkp-"+dados.getNome_empresa()+"-" + dt +"-"+ h + ".sql");
-                    
+                   
                     // Retor na verdadeiro se o arquivo for renomeado com sucesso.
-                    boolean resp = f.renameTo(f2);
+                    boolean resp = f.renameTo(f2); 
                     
                     if (resp) {
-                        System.out.println("Bakup finalizado com sucesso!");
+                        System.out.println("Bakup finalizado com sucesso!"); 
+                        String destino = dados.getUrlbackup()+"\\"+f2.getName();
+                        // Copiar o arquivo de backup para o local de bakup selecionado no cadastro.
+                        copyBakup(f2.getAbsolutePath(), destino);
                     } else {
                         System.out.println("Falha ao renomear o arquivo de backup");
 
@@ -233,7 +242,21 @@ public class TelaPametro extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jLabel8MouseClicked
-
+    public void copyBakup(String origem, String destino){
+         //System.out.println("Backup copiado de->" + origem + " para " + destino);
+         Path pathOrigem = Paths.get(origem);
+         Path pathDestino = Paths.get(destino);
+         System.out.println(pathDestino.toString());
+         System.out.println(pathOrigem.toString());
+         
+        try {
+            Files.copy(pathOrigem, pathDestino);
+            System.out.println("Backup copiado com sucesso!");
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPametro.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("br.com.bar.view.TelaPametro.copyBakup()");
+        }
+    }
     /**
      * @param args the command line arguments
      */

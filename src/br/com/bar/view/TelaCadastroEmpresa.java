@@ -62,10 +62,10 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         
         lblLogo.setIcon(u.carregaLogo());
         //Desabilita itens
-        btnSelecionarArquivo.setVisible(false);
-        lblTextocaminhoBanco.setVisible(false);
-        txturlLogo.setVisible(false);
-        lblCaminho.setVisible(false);
+        btnSelecionarArquivo.setVisible(true);
+        lblTextocaminhoBanco.setVisible(true);
+        txturlLogo.setVisible(true);
+        lblCaminho.setVisible(true);
     }
 
     // Recebe dados para identificação do operador
@@ -120,7 +120,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         txtCnpj = new javax.swing.JFormattedTextField();
-        btnSelecionarArquivo = new javax.swing.JButton();
         txtNumero = new javax.swing.JFormattedTextField();
         lblExcluir = new javax.swing.JLabel();
         lblAdicionar = new javax.swing.JLabel();
@@ -135,6 +134,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         lblCaminho = new javax.swing.JLabel();
         txtComplemento = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
+        btnSelecionarArquivo = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -175,17 +175,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                            .addComponent(txturlLogo))
-                        .addGap(68, 68, 68))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtUrlBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(136, 136, 136))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -195,11 +184,19 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
                             .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(150, 150, 150)
-                        .addComponent(txtIdEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtIdEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtUrlBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addComponent(jLabel4)))
                 .addContainerGap(56, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                    .addComponent(txturlLogo))
+                .addGap(68, 68, 68))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,15 +214,15 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
                 .addComponent(txturlLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addGap(39, 39, 39)
-                .addComponent(txtIdEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtUrlBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtIdEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUrlBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 354, 590);
+        jPanel1.setBounds(0, 0, 344, 590);
 
         jPanel2.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -352,15 +349,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         getContentPane().add(txtCnpj);
         txtCnpj.setBounds(600, 210, 290, 30);
 
-        btnSelecionarArquivo.setText("Salvar Brackup em ...");
-        btnSelecionarArquivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSelecionarArquivoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnSelecionarArquivo);
-        btnSelecionarArquivo.setBounds(350, 530, 210, 40);
-
         txtNumero.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         getContentPane().add(txtNumero);
         txtNumero.setBounds(620, 270, 46, 30);
@@ -445,14 +433,14 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jpanelImpressao.setBounds(640, 450, 250, 80);
 
         lblTextocaminhoBanco.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        lblTextocaminhoBanco.setText("Caminho Backup do Bando de Dados");
+        lblTextocaminhoBanco.setText("Local de Backup");
         getContentPane().add(lblTextocaminhoBanco);
         lblTextocaminhoBanco.setBounds(360, 450, 210, 16);
 
         lblCaminho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/bd.png"))); // NOI18N
         lblCaminho.setText("Caminho");
         getContentPane().add(lblCaminho);
-        lblCaminho.setBounds(360, 470, 190, 40);
+        lblCaminho.setBounds(360, 520, 190, 40);
         getContentPane().add(txtComplemento);
         txtComplemento.setBounds(680, 270, 210, 30);
 
@@ -460,6 +448,15 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jLabel16.setText("Número");
         getContentPane().add(jLabel16);
         jLabel16.setBounds(620, 250, 60, 16);
+
+        btnSelecionarArquivo.setText("Selecionar ...");
+        btnSelecionarArquivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionarArquivoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSelecionarArquivo);
+        btnSelecionarArquivo.setBounds(360, 470, 100, 40);
 
         setSize(new java.awt.Dimension(902, 585));
         setLocationRelativeTo(null);
@@ -518,7 +515,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private void btnSelecionarArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarArquivoActionPerformed
         //Seleciona local do Arquivo
 
-        JFileChooser chooser = new JFileChooser(p.getCAMINHO_FOTO_FUNCIONARIO());
+        JFileChooser chooser = new JFileChooser("c:/");
         chooser.setDialogTitle("Selecionar Logo");
         chooser.showOpenDialog(this);
 
