@@ -53,7 +53,8 @@ public class Backup {
             
             try {
                 // Inicia a Thread que aguardará 15 segundos 
-                Thread.sleep(15000);
+                //Thread.sleep(15000);
+                Thread.sleep(10000);
                 // Localiza o arquivo de backup.
                 File f = new File("C:/SysBar/backup/bkpdumpSYSBAR.sql");
                 
