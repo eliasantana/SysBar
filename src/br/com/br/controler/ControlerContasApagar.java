@@ -51,14 +51,14 @@ public class ControlerContasApagar {
         }
 
         String sql = "SELECT \n"
-                + "	ca.id as 'Id', \n"
-                + "	ca.descricao as 'Descrição', \n"
-                + "	format(ca.valor,2,'de_DE') as 'Valor',  \n"
-                + "	date_format(ca.data_vencito,'%d/%m/%Y') AS 'Vencimento', \n"
-                + "	date_format(ca.data_pagto,'%d/%m/%Y') AS 'Data de Pagamento', \n"
-                + "	ca.valor_pagto AS 'Pago', \n"
-                + "	f.nome AS 'Operador', \n"
-                + "	gp.grupo AS 'Grupo'\n"
+                + "	ca.id as 'ID', \n"
+                + "	ca.descricao as 'DESCRIÇÃO', \n"
+                + "	format(ca.valor,2,'de_DE') as 'VALOR',  \n"
+                + "	date_format(ca.data_vencito,'%d/%m/%Y') AS 'VENCIMENTO', \n"
+                + "	date_format(ca.data_pagto,'%d/%m/%Y') AS 'PAGAMENTO', \n"
+                + "	format(ca.valor_pagto,2,'de_DE') AS 'PAGO', \n"
+                + "	f.nome AS 'OPERADOR', \n"
+                + "	gp.grupo AS 'GRUPO'\n"
                 + "FROM tbcontas_a_pagar ca\n"
                 + "INNER JOIN tbcadfuncionario f on f.id=ca.tbcadfuncionario_id\n"
                 + "INNER JOIN tbgrupo gp on gp.id=ca.tbGrupo_id "
@@ -139,7 +139,7 @@ public class ControlerContasApagar {
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro adicionaConta" + e);
+            System.out.println("br.com.br.controler.ControlerContasApagar.adicionaConta()" + e);
         }
         return false;
     }

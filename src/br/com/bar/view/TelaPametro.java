@@ -6,6 +6,7 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.Backup;
+import br.com.bar.dao.Log;
 import br.com.bar.model.DadosEmpresa;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerParametro;
@@ -28,6 +29,7 @@ public class TelaPametro extends javax.swing.JFrame {
 
     ControlerDadosEmpresa empresa = new ControlerDadosEmpresa();
     DadosEmpresa dados = empresa.selecionaDados();
+    Log l = new Log();
     public TelaPametro() {
         initComponents();
         
@@ -227,6 +229,7 @@ public class TelaPametro extends javax.swing.JFrame {
                         String destino = dados.getUrlbackup()+"\\"+f2.getName();
                         // Copiar o arquivo de backup para o local de bakup selecionado no cadastro.
                         copyBakup(f2.getAbsolutePath(), destino);
+                        
                     } else {
                         System.out.println("Falha ao renomear o arquivo de backup");
 

@@ -6,6 +6,7 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.Backup;
+import static java.lang.Thread.sleep;
 
 /**
  *
@@ -20,25 +21,27 @@ public class TelaSplash extends javax.swing.JFrame {
         initComponents();
         this.setAlwaysOnTop(true);
         Backup b = new Backup();
-        
+
         // Inicializa tela splash
         lblMensagem.setText("Realizando backup do sistema aguarde um momento...");
-        new Thread(){
-            public void run(){
-                b.realizaBackup();
-                for (int i=0; i< 101;i++){
+       
+        new Thread() {
+            public void run() {
+                b.realizaBackup();                
+                
+                for (int i = 0; i < 101; i++) {
                     try {
                         sleep(80); // Ajusta a velocidade de atualização da barra de progresso
                         barraDeProgresso.setValue(i);
                         //Exibe Mensagems de acordo do o nível de carregamento da barra de progresso
-                        if (i<30){
-                             lblMensagem.setText("Carregando módulos do Sistema...");
-                        }else if (i>30 && i<60){
-                             lblMensagem.setText("Módulos Carregados!....");
-                        }else if (i>=60 && i<90){
-                             lblMensagem.setText("Checando licença de uso...");
-                        }else {
-                             lblMensagem.setText("Carregando o Sistema...");
+                        if (i < 30) {
+                            lblMensagem.setText("Carregando módulos do Sistema...");
+                        } else if (i > 30 && i < 60) {
+                            lblMensagem.setText("Módulos Carregados!....");
+                        } else if (i >= 60 && i < 90) {
+                            lblMensagem.setText("Checando licença de uso...");
+                        } else {
+                            lblMensagem.setText("Carregando o Sistema...");
                         }
                     } catch (InterruptedException e) {
                         System.out.println(".run()" + e);
@@ -62,49 +65,62 @@ public class TelaSplash extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         barraDeProgresso = new javax.swing.JProgressBar();
         lblMensagem = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(null);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo_1.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, -1, -1));
-
-        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel9.setText("rese7.contato@gmail.com");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 230, -1));
-
-        jLabel8.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("Copyright todos os direitos reservados para:");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, 290, -1));
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel10.setText("RESE7 - Soluções em TI");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 280, -1));
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(0, 20, 200, 175);
 
         barraDeProgresso.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 10)); // NOI18N
         barraDeProgresso.setStringPainted(true);
-        getContentPane().add(barraDeProgresso, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 320, 20));
+        jPanel1.add(barraDeProgresso);
+        barraDeProgresso.setBounds(200, 160, 320, 20);
         barraDeProgresso.getAccessibleContext().setAccessibleName("");
 
         lblMensagem.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 10)); // NOI18N
         lblMensagem.setText("mensagem");
-        getContentPane().add(lblMensagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 320, -1));
+        jPanel1.add(lblMensagem);
+        lblMensagem.setBounds(200, 140, 320, 14);
 
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel11.setText("(81) 99749-6602 | (81) 99678-1659");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 240, -1));
+        jPanel1.add(jLabel11);
+        jLabel11.setBounds(200, 110, 240, 20);
+
+        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel9.setText("rese7.contato@gmail.com");
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(200, 90, 230, 20);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel10.setText("RESE7 - Soluções em TI");
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(200, 70, 280, 22);
+
+        jLabel8.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel8.setText("Copyright todos os direitos reservados para:");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(200, 50, 290, 20);
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 250));
 
         setSize(new java.awt.Dimension(539, 252));
         setLocationRelativeTo(null);
@@ -152,6 +168,7 @@ public class TelaSplash extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblMensagem;
     // End of variables declaration//GEN-END:variables
 }

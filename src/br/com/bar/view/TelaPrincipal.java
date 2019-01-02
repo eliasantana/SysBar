@@ -54,7 +54,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblNmesaOcupada.setText(String.format("%9.0f", estatiscas.get(3)));
         
         if (cc.contasVencidas()) {
-            JOptionPane.showMessageDialog(null, "Atenção \n Você possui contas com vencimento para hoje");
+            JOptionPane.showMessageDialog(null, "Atenção!\nVocê possui contas vencidas ou com vencimento para hoje.");
             jLabel7.setForeground(Color.red);
             lblAviso.setText("Ateção! Você possui contas a pagar!");
             lblAviso.setForeground(Color.YELLOW);
@@ -224,27 +224,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addGap(70, 70, 70)
                         .addGroup(peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(peinelEsquerdoLayout.createSequentialGroup()
                         .addGap(40, 40, 40)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(peinelEsquerdoLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(lblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         peinelEsquerdoLayout.setVerticalGroup(
             peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(peinelEsquerdoLayout.createSequentialGroup()
-                .addContainerGap(65, Short.MAX_VALUE)
-                .addGroup(peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, peinelEsquerdoLayout.createSequentialGroup()
-                        .addComponent(lblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(72, 72, 72))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, peinelEsquerdoLayout.createSequentialGroup()
-                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2)
-                        .addGap(46, 46, 46)))
+                .addContainerGap(51, Short.MAX_VALUE)
+                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(16, 16, 16)
+                .addComponent(lblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
         );
@@ -285,10 +283,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnProduto.setLayout(btnProdutoLayout);
         btnProdutoLayout.setHorizontalGroup(
             btnProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnProdutoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel5)
-                .addContainerGap(78, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnProdutoLayout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72))
         );
         btnProdutoLayout.setVerticalGroup(
             btnProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,7 +314,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(btnConfiguracaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         btnConfiguracaoLayout.setVerticalGroup(
             btnConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,7 +398,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(btnFuncionariosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         btnFuncionariosLayout.setVerticalGroup(
             btnFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -490,7 +488,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(btnFuncionarios1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel11)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         btnFuncionarios1Layout.setVerticalGroup(
             btnFuncionarios1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -613,7 +611,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnConfiguracao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFuncionarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnFuncionarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -690,7 +688,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaEstoque p = new TelaEstoque();
         p.recebeOperador(lblOperador.getText(), lblCargo.getText());
         p.setVisible(true);
-        
+        // Inicio do Registro de Log
         log.setDescricao(lblOperador.getText() + " acessou o Estoque");
         log.setFuncionalidade("Estoque");
         log.setUsuario(lblOperador.getText());

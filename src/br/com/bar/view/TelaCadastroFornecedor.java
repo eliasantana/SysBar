@@ -243,7 +243,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSalvar);
-        btnSalvar.setBounds(27, 450, 110, 48);
+        btnSalvar.setBounds(40, 450, 110, 48);
 
         btnAlterar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapis.png"))); // NOI18N
@@ -254,7 +254,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(134, 450, 100, 50);
+        btnAlterar.setBounds(150, 450, 100, 50);
 
         btnExcluir.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
@@ -265,7 +265,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnExcluir);
-        btnExcluir.setBounds(240, 450, 110, 50);
+        btnExcluir.setBounds(250, 450, 110, 50);
 
         setSize(new java.awt.Dimension(386, 514));
         setLocationRelativeTo(null);
@@ -293,7 +293,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         Log l = new Log();
         l.setUsuario(lblOperador.getText());
         l.setDescricao("Tela Fornecedores");
-        l.setFuncionalidade(l.getUsuario() + " Cadastrou um Fornecedor " + f.getNome());
+        l.setFuncionalidade(l.getUsuario() + " Cadastrou um novo fornecedor " + f.getNome());
         l.gravaLog(l);
 
         // Atualiza Tabela

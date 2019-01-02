@@ -69,6 +69,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
         txtIdGrupo.setText(grupo.localizaIdGrupo(comboGrupoDespesas));
         combofunc.setVisible(false);
         jSpinQtd.setVisible(false);
+        btnGraficoDeDespesas.setVisible(false);
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -322,7 +323,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
         painelDireito.add(Menu);
         Menu.setBounds(0, 440, 620, 80);
 
-        tblContas.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        tblContas.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         tblContas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -331,7 +332,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
 
             }
         ));
-        tblContas.setRowHeight(22);
+        tblContas.setRowHeight(25);
         tblContas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblContasMouseClicked(evt);
@@ -537,7 +538,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
         getContentPane().add(painelDireito);
         painelDireito.setBounds(360, 0, 620, 520);
 
-        setSize(new java.awt.Dimension(976, 524));
+        setSize(new java.awt.Dimension(976, 516));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -805,34 +806,38 @@ public class TelaContasApagar extends javax.swing.JFrame {
         c.setValor(txtValor.getText().replaceAll(",", "."));
         c.setGrupoId(txtIdGrupo.getText());
         c.setFuncionarioId(txtIdFuncionario.getText());
+        if ("".equals(c.getDescricao())){
+            JOptionPane.showMessageDialog(null, "Preencha todos os dados para continuar!");
+        }else {
+            
+            // Verifica se a conta Existe
+            if (cc.existeConta(txtIdConta.getText())) {
 
-        // Verifica se a conta Existe
-        if (cc.existeConta(txtIdConta.getText())) {
+                JOptionPane.showMessageDialog(null, "Conta já cadastrada!");
 
-            JOptionPane.showMessageDialog(null, "Conta já cadastrada!");
-
-        } else {
-
-            if (jCheckMultiplo.isSelected()) {
-
-                if (cc.lancamentoMultiplo(jSpinQtd.getValue(), jdateChooserVencimento, c)) {
-                    JOptionPane.showMessageDialog(null, "Lançamento múltiplo realiado com sucesso!");
-                    tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
-                    limpaForm();
-                }
             } else {
-                // Caso o checkList não esteja selecionado executa a parcela de forma padrão
 
-                if (cc.adicionaConta(c)) {
-                    //Registra operação no log
-                    l.setFuncionalidade("Salvar");
-                    l.setDescricao(l.getUsuario() + " adicionou uma nova conta ->" + txtDescricao.getText());
-                    l.gravaLog(l);
-                    // fim do registro de log
-                    limpaForm();
-                    JOptionPane.showMessageDialog(null, "Cadastro Relizado com sucesso!");
-                    
-                    tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
+                if (jCheckMultiplo.isSelected()) {
+
+                    if (cc.lancamentoMultiplo(jSpinQtd.getValue(), jdateChooserVencimento, c)) {
+                        JOptionPane.showMessageDialog(null, "Lançamento múltiplo realiado com sucesso!");
+                        tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
+                        limpaForm();
+                    }
+                } else {
+                    // Caso o checkList não esteja selecionado executa a parcela de forma padrão
+
+                    if (cc.adicionaConta(c)) {
+                        //Registra operação no log
+                        l.setFuncionalidade("Salvar");
+                        l.setDescricao(l.getUsuario() + " adicionou uma nova conta ->" + txtDescricao.getText());
+                        l.gravaLog(l);
+                        // fim do registro de log
+                        limpaForm();
+                        JOptionPane.showMessageDialog(null, "Cadastro Relizado com sucesso!");
+
+                        tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
+                    }
                 }
             }
         }
