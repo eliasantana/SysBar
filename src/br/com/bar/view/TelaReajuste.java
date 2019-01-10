@@ -28,6 +28,8 @@ public class TelaReajuste extends javax.swing.JFrame {
         txtValor.setVisible(false);
         desabilitaFator();
         desabilitaValorDireto();
+        lblPesquisarProduto.setVisible(false);
+        txtNomeProduto.setVisible(false);
         
     }
     
@@ -86,7 +88,7 @@ public class TelaReajuste extends javax.swing.JFrame {
         panelProdutos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProdutos = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
+        lblPesquisarProduto = new javax.swing.JLabel();
         txtNomeProduto = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         checkGrupo = new javax.swing.JCheckBox();
@@ -291,10 +293,15 @@ public class TelaReajuste extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblProdutos);
 
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        jLabel3.setText("Pesquisar Produto");
+        lblPesquisarProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
+        lblPesquisarProduto.setText("Pesquisar Produto");
 
         txtNomeProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        txtNomeProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomeProdutoKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelProdutosLayout = new javax.swing.GroupLayout(panelProdutos);
         panelProdutos.setLayout(panelProdutosLayout);
@@ -306,7 +313,7 @@ public class TelaReajuste extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(panelProdutosLayout.createSequentialGroup()
                         .addGroup(panelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPesquisarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 138, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -315,7 +322,7 @@ public class TelaReajuste extends javax.swing.JFrame {
             panelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProdutosLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblPesquisarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(txtNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -432,8 +439,10 @@ public class TelaReajuste extends javax.swing.JFrame {
                     if (txtId.getText().isEmpty()) { // Solicita que o usuario selecione um produto
                         JOptionPane.showMessageDialog(null, "Selecione um produto para continuar!");
                     } else {
-                        // Aplica reajuste 
-                        cp.reajustaValorProduto(txtId.getText(), Double.parseDouble(txtValor.getText().replaceAll(",", ".")), Double.parseDouble(txtPercentual.getText()));
+                        // Aplica reajuste e exibe mensagem caso o produto seja atualizado
+                        if (cp.reajustaValorProduto(txtId.getText(), Double.parseDouble(txtValor.getText().replaceAll(",", ".")), Double.parseDouble(txtPercentual.getText().replaceAll(",", ".")))){
+                            JOptionPane.showMessageDialog(null, "Produto reajustado com sucesso!");
+                        }
                         tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
                     }
                 } else {
@@ -473,6 +482,8 @@ public class TelaReajuste extends javax.swing.JFrame {
         // Lista produtos para reajuste
 
         tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
+        lblPesquisarProduto.setVisible(true);
+        txtNomeProduto.setVisible(true);
     }//GEN-LAST:event_checkUnitarioMouseClicked
 
     private void checkGrupoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkGrupoMouseClicked
@@ -503,10 +514,7 @@ public class TelaReajuste extends javax.swing.JFrame {
     }//GEN-LAST:event_tblProdutosMouseClicked
 
     private void txtPercentualKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPercentualKeyReleased
-        // Substitui a virgula por ponto
-        String valor = txtPercentual.getText().replace(",", ".");
-        txtPercentual.setText(valor);
-
+       
     }//GEN-LAST:event_txtPercentualKeyReleased
 
     private void btnAplicarAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_btnAplicarAncestorAdded
@@ -546,6 +554,11 @@ public class TelaReajuste extends javax.swing.JFrame {
     private void txtPercentualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPercentualActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPercentualActionPerformed
+
+    private void txtNomeProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeProdutoKeyReleased
+        // Localiza Produto
+        tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.pesquisarProduto(txtNomeProduto.getText())));
+    }//GEN-LAST:event_txtNomeProdutoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -590,7 +603,6 @@ public class TelaReajuste extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkUnitario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
@@ -599,6 +611,7 @@ public class TelaReajuste extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCifra;
     private javax.swing.JLabel lblPercentual;
+    private javax.swing.JLabel lblPesquisarProduto;
     private javax.swing.JPanel panelFormaReajuste;
     private javax.swing.JPanel panelProdutos;
     private javax.swing.JRadioButton radioFator;

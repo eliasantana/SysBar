@@ -10,6 +10,8 @@ import br.com.br.controler.ControlerCaixa;
 import br.com.br.controler.ControlerContasApagar;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
@@ -20,9 +22,12 @@ public class TelaRanking extends javax.swing.JFrame {
 
     ControlerContasApagar cAp = new ControlerContasApagar();
     ControlerCaixa cc = new ControlerCaixa();
+    Util u = new Util();
 
     public TelaRanking() {
         initComponents();
+        jdataInicio.setDate(new Date());
+        jdataFim.setDate(new Date());
     }
 
     /**
@@ -107,7 +112,7 @@ public class TelaRanking extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Período")));
 
-        jLabel4.setText("Inicio");
+        jLabel4.setText("Início");
 
         jLabel5.setText("Fim");
 
@@ -116,7 +121,7 @@ public class TelaRanking extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(47, 47, 47)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jdataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -124,15 +129,15 @@ public class TelaRanking extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jdataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jdataFim, jdataInicio});
 
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
@@ -140,11 +145,11 @@ public class TelaRanking extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jdataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jdataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         btnImprimirResultado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/impressora64x64.png"))); // NOI18N
-        btnImprimirResultado.setText("Imprimir Resultado");
+        btnImprimirResultado.setText("Imprimir");
 
         btnGerarGráfico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btngrafico2-48.png"))); // NOI18N
         btnGerarGráfico.setText("Gerar Gráfico");
@@ -158,36 +163,33 @@ public class TelaRanking extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnImprimirResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnGerarGráfico, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(btnImprimirResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(32, 32, 32)
-                    .addComponent(btnGerarGráfico, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(140, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
-                .addComponent(btnImprimirResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(157, 157, 157)
-                    .addComponent(btnGerarGráfico)
-                    .addContainerGap(165, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnImprimirResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGerarGráfico))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 120, 410, 370);
+        jPanel2.setBounds(0, 120, 410, 210);
 
-        setSize(new java.awt.Dimension(408, 489));
+        setSize(new java.awt.Dimension(408, 328));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -197,33 +199,26 @@ public class TelaRanking extends javax.swing.JFrame {
     }//GEN-LAST:event_lblFecharMouseClicked
 
     private void btnGerarGráficoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerarGráficoMouseClicked
-        // TODO add your handling code here:
-
-        DefaultCategoryDataset data = new DefaultCategoryDataset();
-        
-        
+        // Gera gráfico no periodo selecionado
+        if (jdataInicio.getDate().after(jdataFim.getDate())){
+            JOptionPane.showMessageDialog(null, "Data de início inválida!\nA data inicial não pode ser maior que a data final!");
+        }else {
             
-            try {
+            DefaultCategoryDataset data = new DefaultCategoryDataset();
 
+            try {
                 ResultSet rs = cc.rakingDeVendas(cAp.myData(jdataInicio), cAp.myData(jdataFim));
-                
                 while (rs.next()) {
                     data.setValue(rs.getDouble("total"), "Garçom", rs.getString("nome"));
-                   
-                    
                 }
-                
+
                 Util u = new Util();
                 u.geraGraficoBarras(data, "Ranking de Vendas " + "Período " + u.formataDataBr(jdataInicio.getDate()) + " - " + u.formataDataBr(jdataFim.getDate()));
 
-                
             } catch (SQLException e) {
-                System.out.println("Erro ao gerarGráfico" + e );
+                System.out.println("Erro ao gerarGráfico" + e);
             }
-
-        
-        
-        
+        }
 
 
     }//GEN-LAST:event_btnGerarGráficoMouseClicked

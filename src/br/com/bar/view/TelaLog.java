@@ -7,6 +7,7 @@ package br.com.bar.view;
 
 import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.Log;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerLog;
 import java.sql.Connection;
@@ -30,29 +31,23 @@ public class TelaLog extends javax.swing.JFrame {
      */
     Log l = new Log();
     ControlerLog lc = new ControlerLog();
-
     ControlerFuncionario f = new ControlerFuncionario();
     Connection conexao = ConexaoBd.conector();
-    
+    Util u = new Util();
 
     public TelaLog() {
         initComponents();
         f.carregaComboFuncionario(comboUsuario);
-        
         Date dataAtual = new Date();
-
         jDateChooserInicio.setDate(dataAtual);
         jDateChooserFim.setDate(dataAtual);
-        
     }
-    
-    public void recebeOperador(String operador, String cargo){
-        
-      lblOperador.setText(operador);
-      lblCargo.setText(cargo);
-       
-       
-                
+
+    public void recebeOperador(String operador, String cargo) {
+
+        lblOperador.setText(operador);
+        lblCargo.setText(cargo);
+
     }
 
     /**
@@ -93,9 +88,11 @@ public class TelaLog extends javax.swing.JFrame {
         lbltitulo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
         lbltitulo.setText("Gerenciamento de Logs");
 
+        lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("jLabel6");
 
+        lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("lblCargo");
 
@@ -115,9 +112,9 @@ public class TelaLog extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 24, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,14 +131,16 @@ public class TelaLog extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(42, 42, 42)
-                .addComponent(lbltitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(115, 115, 115)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbltitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(271, 271, 271)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(28, 28, 28)
+                        .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(111, 111, 111))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,28 +149,40 @@ public class TelaLog extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblOperador)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblCargo))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel6)
-                        .addComponent(lbltitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(lbltitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblOperador)
+                    .addComponent(lblCargo))
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 960, 90);
+        jPanel1.setBounds(0, 0, 960, 120);
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        jLabel2.setText("Inicio");
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jLabel2.setText("Início");
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel3.setText("Fim");
 
         tblLog.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -253,14 +264,14 @@ public class TelaLog extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(painelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(comboUsuario)
+                        .addComponent(comboUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                         .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnImprimir))
                     .addComponent(jDateChooserFim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jDateChooserInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         getContentPane().add(painelCentral);
@@ -278,18 +289,18 @@ public class TelaLog extends javax.swing.JFrame {
     private void btnListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListarMouseClicked
         // Lista todos os logs
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            
-        
+
         try {
-             // Pega data do componente e conferte para string
-             String dtInicio = df.format(jDateChooserInicio.getDate().getTime());
+            // Pega data do componente e converte para string
+            String dtInicio = df.format(jDateChooserInicio.getDate().getTime());
             String dtFim = df.format(jDateChooserFim.getDate().getTime());
             // Lista a cessos com base no intervalor de datas informardos
             tblLog.setModel(DbUtils.resultSetToTableModel(lc.listaLog(tblLog, dtInicio, dtFim, comboUsuario.getSelectedItem().toString())));
 
         } catch (Exception e) {
+            System.out.println("br.com.bar.view.TelaLog.btnListarMouseClicked()" + e);
             // Havendo uma excessão a tabela será carregada com todos os logs da tabela 
-            tblLog.setModel(DbUtils.resultSetToTableModel(lc.listaLog(tblLog)));
+            //tblLog.setModel(DbUtils.resultSetToTableModel(lc.listaLog(tblLog)));
         }
 
 
@@ -303,35 +314,34 @@ public class TelaLog extends javax.swing.JFrame {
 
     private void comboUsuarioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboUsuarioItemStateChanged
         // TODO add your handling code here:
-        String funcionario = comboUsuario.getSelectedItem().toString();
-        tblLog.setModel(DbUtils.resultSetToTableModel(lc.listaLog(tblLog, funcionario)));
+        //String funcionario = comboUsuario.getSelectedItem().toString();
+        // tblLog.setModel(DbUtils.resultSetToTableModel(lc.listaLog(tblLog, funcionario)));
 
     }//GEN-LAST:event_comboUsuarioItemStateChanged
 
     private void btnImprimirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMouseClicked
         // TODO add your handling code here:
-        
+
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String dtIni = df.format(jDateChooserInicio.getDate().getTime());
         String dtfim = df.format(jDateChooserFim.getDate().getTime());
-        
-              
-        
-        
+
         HashMap param = new HashMap();
         param.put("nome", comboUsuario.getSelectedItem().toString());
         param.put("dtinicio", dtIni);
         param.put("dtfim", dtfim);
-       
+        // Adiciona o período ao relatório as datas no formato BR 
+        param.put("dataInicio", u.formataDataBr(jDateChooserInicio.getDate()));
+        param.put("dataFim", u.formataDataBr(jDateChooserFim.getDate()));
+
         try {
-            JasperPrint print = JasperFillManager.fillReport("c:/SysBar/rel/relatorioDeLog.jasper", param,conexao);
-            JasperViewer.viewReport(print,false);
-            
-                    
+            JasperPrint print = JasperFillManager.fillReport("c:/SysBar/rel/relatorioDeLog.jasper", param, conexao);
+            JasperViewer.viewReport(print, false);
+
         } catch (JRException e) {
             System.out.println("br.com.bar.view.TelaLog.jLabel5MouseClicked() + e");
         }
-        
+
     }//GEN-LAST:event_btnImprimirMouseClicked
 
     /**

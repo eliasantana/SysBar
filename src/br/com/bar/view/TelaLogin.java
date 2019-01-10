@@ -280,9 +280,9 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("SysBar");
+        jLabel1.setText("MasterFood");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(90, 60, 150, 70);
+        jLabel1.setBounds(30, 60, 280, 70);
 
         jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

@@ -42,7 +42,7 @@ public class ControlerContasApagar {
 
         if ("Pagas".equals(opcao)) {
             filtro = "ca.data_pagto IS NOT NULL";
-        } else if ("Aberto".equals(opcao)) {
+        } else if ("Abertas".equals(opcao)) {
 
             filtro = "ca.data_pagto IS NULL";
         } else {
@@ -53,10 +53,10 @@ public class ControlerContasApagar {
         String sql = "SELECT \n"
                 + "	ca.id as 'ID', \n"
                 + "	ca.descricao as 'DESCRIÇÃO', \n"
-                + "	format(ca.valor,2,'de_DE') as 'VALOR',  \n"
+                + "	format(ca.valor,2,'de_DE') as 'VALOR R$',  \n"
                 + "	date_format(ca.data_vencito,'%d/%m/%Y') AS 'VENCIMENTO', \n"
                 + "	date_format(ca.data_pagto,'%d/%m/%Y') AS 'PAGAMENTO', \n"
-                + "	format(ca.valor_pagto,2,'de_DE') AS 'PAGO', \n"
+                + "	format(ca.valor_pagto,2,'de_DE') AS 'PAGO R$', \n"
                 + "	f.nome AS 'OPERADOR', \n"
                 + "	gp.grupo AS 'GRUPO'\n"
                 + "FROM tbcontas_a_pagar ca\n"

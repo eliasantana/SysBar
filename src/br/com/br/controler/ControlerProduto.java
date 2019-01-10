@@ -311,7 +311,7 @@ public class ControlerProduto {
 
     public ResultSet listaProdutoParaReajuste() {
 
-        String sql = "SELECT id, nome, format(valor,2,'de_DE') as valor FROM dbbar.tbproduto";
+        String sql = "SELECT id AS 'ID', nome AS 'NOME', format(valor,2,'de_DE') as 'VALOR R$' FROM dbbar.tbproduto";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -324,10 +324,10 @@ public class ControlerProduto {
         return rs;
     }
 
-    public void reajustaValorProduto(String id, double valorProduto, double fator) {
+    public boolean reajustaValorProduto(String id, double valorProduto, double fator) {
         DecimalFormat formatador = new DecimalFormat("0.00");
         String sqlUpdate = "UPDATE tbproduto SET valor=? WHERE id=?";
-       
+        boolean resp=false;
         //double novoValor = (valorProduto * fator) + valorProduto;
         double novoValor = (valorProduto * fator/100) + valorProduto;       
 
@@ -336,11 +336,12 @@ public class ControlerProduto {
             pst.setString(1, formatador.format(novoValor).replaceAll(",", "."));
             pst.setString(2, id);
             pst.executeUpdate();
+            resp=true;
 
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerProduto.reajustaValorProduto()" + e);
         }
-
+        return resp;
     }
     // Reajusta valor do produto pelo valor informado
     public void reajustaValorProduto(String id, double valorProduto) {
