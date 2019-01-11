@@ -99,9 +99,9 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         jLabel9.setBounds(0, 70, 160, 40);
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/grupos2 (2).png"))); // NOI18N
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/grupo128x128.png"))); // NOI18N
         btnGrupo.add(jLabel12);
-        jLabel12.setBounds(0, 20, 160, 40);
+        jLabel12.setBounds(0, 0, 160, 80);
 
         btnGrupo1.setBackground(new java.awt.Color(204, 204, 204));
         btnGrupo1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -114,14 +114,14 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(52, 73, 94));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Grupos Financeiro");
+        jLabel10.setText("Grupos Financeiros");
         btnGrupo1.add(jLabel10);
         jLabel10.setBounds(0, 70, 160, 40);
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/grupos2 (2).png"))); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/grupo128x128.png"))); // NOI18N
         btnGrupo1.add(jLabel13);
-        jLabel13.setBounds(0, 20, 160, 40);
+        jLabel13.setBounds(0, 0, 160, 80);
 
         btnGrupo2.setBackground(new java.awt.Color(204, 204, 204));
         btnGrupo2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -141,7 +141,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/mesas64x64.png"))); // NOI18N
         btnGrupo2.add(jLabel14);
-        jLabel14.setBounds(0, 20, 160, 40);
+        jLabel14.setBounds(0, 0, 160, 80);
 
         btnFuncionario.setBackground(new java.awt.Color(204, 204, 204));
         btnFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -152,9 +152,9 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnFuncionario.setLayout(null);
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/bd.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/bd64x64.png"))); // NOI18N
         btnFuncionario.add(jLabel8);
-        jLabel8.setBounds(0, 20, 150, 40);
+        jLabel8.setBounds(0, 10, 150, 70);
 
         jLabel18.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(52, 73, 94));
@@ -172,9 +172,9 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnPrecos.setLayout(null);
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/money-64.png"))); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/money.png"))); // NOI18N
         btnPrecos.add(jLabel15);
-        jLabel15.setBounds(0, 20, 150, 50);
+        jLabel15.setBounds(0, 0, 150, 80);
 
         jLabel19.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(52, 73, 94));
@@ -192,9 +192,9 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnLog.setLayout(null);
 
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnlog.png"))); // NOI18N
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/log64x64.png"))); // NOI18N
         btnLog.add(jLabel16);
-        jLabel16.setBounds(0, 20, 150, 50);
+        jLabel16.setBounds(0, 0, 150, 80);
 
         jLabel20.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(52, 73, 94));
@@ -239,7 +239,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         jLabel23.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(52, 73, 94));
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setText("Gerenciar Pedido");
+        jLabel23.setText("Gerenciar Pedidos");
         btnCaixa1.add(jLabel23);
         jLabel23.setBounds(0, 70, 150, 40);
 
@@ -323,7 +323,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         lblitulo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
         lblitulo.setText("Configurações do Sistema");
         jPanel1.add(lblitulo);
-        lblitulo.setBounds(60, 10, 550, 60);
+        lblitulo.setBounds(80, 10, 550, 60);
 
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("jLabel3");

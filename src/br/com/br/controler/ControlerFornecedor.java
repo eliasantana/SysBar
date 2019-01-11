@@ -58,7 +58,7 @@ public class ControlerFornecedor {
     
     public ResultSet listaFornecedor(){
         // Lista todos os fornecedores
-        String sql="SELECT id as 'ID', nome as 'NOME', telefone as 'TELEFONE', email as 'E-MAIL' FROM  tbfornecedores";
+        String sql="SELECT id as 'CÓDIGO', nome as 'NOME', telefone as 'TELEFONE', email as 'E-MAIL' FROM  tbfornecedores";
         
         try {
             pst=conexao.prepareStatement(sql);

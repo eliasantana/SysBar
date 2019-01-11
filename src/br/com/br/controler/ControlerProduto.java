@@ -26,11 +26,12 @@ public class ControlerProduto {
     Connection conexao = ConexaoBd.conector();
     PreparedStatement pst = null;
     ResultSet rs = null;
-
+    // Lista todos os produtos em estoque
     public ResultSet listaProduto() {
-
+   
+   
         String sql = "SELECT \n"
-                + "	p.id as 'ID', \n"
+                + "	p.id as 'CÓDIGO', \n"
                 + "	p.nome as 'PRODUTO',\n"
                 + "	p.qtd as 'QTD', \n"
                 + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"

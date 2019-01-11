@@ -91,17 +91,17 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(52, 73, 94));
         jLabel1.setText("Grupos");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(114, 12, 147, 64);
+        jLabel1.setBounds(140, 10, 147, 64);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/grupos2 (2).png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/grupo128x128.png"))); // NOI18N
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(30, 20, 64, 64);
+        jLabel7.setBounds(0, 0, 120, 90);
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(52, 73, 94));
-        jLabel6.setText("Financeiro");
+        jLabel6.setText("Financeiros");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(267, 68, 78, 25);
+        jLabel6.setBounds(267, 68, 130, 25);
 
         jPanel3.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -154,7 +154,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         lblAdicionar.setBackground(new java.awt.Color(153, 153, 153));
         lblAdicionar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblAdicionar.setForeground(new java.awt.Color(255, 255, 255));
-        lblAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvarCinza.png"))); // NOI18N
+        lblAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionar.png"))); // NOI18N
         lblAdicionar.setText("Adicionar");
 
         javax.swing.GroupLayout btnSalvarLayout = new javax.swing.GroupLayout(btnSalvar);
@@ -185,7 +185,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         lblExcluir.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblExcluir.setForeground(new java.awt.Color(255, 255, 255));
         lblExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lixeiraCinza.png"))); // NOI18N
-        lblExcluir.setText("Exluir");
+        lblExcluir.setText("Excluir");
         lblExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblExcluirMouseClicked(evt);
@@ -197,8 +197,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         btnExceluirLayout.setHorizontalGroup(
             btnExceluirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnExceluirLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblExcluir)
+                .addComponent(lblExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
                 .addContainerGap())
         );
         btnExceluirLayout.setVerticalGroup(
@@ -231,9 +230,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         btnEditar.setLayout(btnEditarLayout);
         btnEditarLayout.setHorizontalGroup(
             btnEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnEditarLayout.createSequentialGroup()
-                .addGap(0, 10, Short.MAX_VALUE)
-                .addComponent(lblAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(lblAlterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
         );
         btnEditarLayout.setVerticalGroup(
             btnEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,7 +276,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         lblConsultar.setBackground(new java.awt.Color(153, 153, 153));
         lblConsultar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblConsultar.setForeground(new java.awt.Color(255, 255, 255));
-        lblConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/tabelaCinza.png"))); // NOI18N
+        lblConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/localizar32x32.png"))); // NOI18N
         lblConsultar.setText("Consultar");
 
         javax.swing.GroupLayout btnConsultarLayout = new javax.swing.GroupLayout(btnConsultar);
@@ -306,24 +303,28 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNomeGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtIdGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtNomeGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtIdGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addComponent(panelTabela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnExceluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnExceluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

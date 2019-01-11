@@ -71,6 +71,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtFornecedor = new javax.swing.JTextField();
@@ -91,10 +92,10 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(243, 156, 18));
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        jLabel1.setText("Fornecedores");
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
+        jLabel1.setText("de Fornecedores");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(120, 30, 204, 48);
+        jLabel1.setBounds(180, 50, 270, 48);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnFornecedor.png"))); // NOI18N
         jPanel1.add(jLabel3);
@@ -104,7 +105,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("Operador");
         jPanel1.add(lblOperador);
-        lblOperador.setBounds(60, 100, 120, 32);
+        lblOperador.setBounds(160, 110, 120, 32);
         jPanel1.add(jLabel12);
         jLabel12.setBounds(122, 156, 42, 0);
 
@@ -112,7 +113,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("Cargo");
         jPanel1.add(lblCargo);
-        lblCargo.setBounds(170, 100, 110, 30);
+        lblCargo.setBounds(270, 110, 110, 30);
         jPanel1.add(txtIdFor);
         txtIdFor.setBounds(388, 156, 34, 20);
 
@@ -133,24 +134,33 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(345, 0, 50, 38);
+        jPanel3.setBounds(440, 0, 50, 38);
 
         lblData.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario24x24.png"))); // NOI18N
         lblData.setText("jLabel2");
         jPanel1.add(lblData);
-        lblData.setBounds(280, 100, 100, 30);
+        lblData.setBounds(380, 110, 100, 30);
+
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
+        jLabel2.setText("Cadastro");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(120, 10, 135, 48);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(-2, 0, 390, 150);
+        jPanel1.setBounds(-2, 0, 490, 150);
 
         jLabel4.setText("Fornecedor");
 
@@ -195,8 +205,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,9 +214,10 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtEmail)))
+                    .addComponent(jLabel4)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,7 +242,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtEmail, txtTelefone});
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 140, 390, 310);
+        jPanel2.setBounds(0, 140, 490, 310);
 
         btnSalvar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
@@ -243,7 +253,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSalvar);
-        btnSalvar.setBounds(40, 450, 110, 48);
+        btnSalvar.setBounds(90, 450, 110, 48);
 
         btnAlterar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapis.png"))); // NOI18N
@@ -254,7 +264,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(150, 450, 100, 50);
+        btnAlterar.setBounds(200, 450, 100, 50);
 
         btnExcluir.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
@@ -265,9 +275,9 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnExcluir);
-        btnExcluir.setBounds(250, 450, 110, 50);
+        btnExcluir.setBounds(300, 450, 110, 50);
 
-        setSize(new java.awt.Dimension(386, 514));
+        setSize(new java.awt.Dimension(488, 514));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -414,6 +424,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JLabel btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;

@@ -143,6 +143,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblMsg = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(52, 73, 94));
@@ -186,7 +187,7 @@ public class TelaLogin extends javax.swing.JFrame {
         lblCnpjEmpresa.setBounds(20, 270, 260, 14);
 
         lblVersao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersao1.setText("Versão 1.7.9");
+        lblVersao1.setText("Versão 1.8.1");
         jPanel1.add(lblVersao1);
         lblVersao1.setBounds(60, 290, 170, 20);
 
@@ -278,11 +279,11 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel2.add(btnLogin);
         btnLogin.setBounds(50, 320, 250, 40);
 
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("MasterFood");
+        jLabel1.setText("Food");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(30, 60, 280, 70);
+        jLabel1.setBounds(170, 90, 90, 40);
 
         jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -308,6 +309,12 @@ public class TelaLogin extends javax.swing.JFrame {
         lblMsg.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.add(lblMsg);
         lblMsg.setBounds(50, 370, 250, 30);
+
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Master");
+        jPanel2.add(jLabel2);
+        jLabel2.setBounds(60, 40, 190, 70);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(290, 0, 320, 430);
@@ -493,6 +500,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

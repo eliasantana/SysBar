@@ -32,11 +32,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     Connection conexao = null;
     ControlerParametro param = new ControlerParametro();
     ControlerContasApagar cc = new ControlerContasApagar();
-    ControlerCozinha cz= new ControlerCozinha();
+    ControlerCozinha cz = new ControlerCozinha();
     Util u = new Util();
-            
+
     Log log = new Log();
-    
 
     /**
      * Creates new form TelaPrincipal
@@ -52,38 +51,35 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblOcupadas.setText(String.format("%9.1f", estatiscas.get(1)) + "%");
         lblNmesaLivre.setText(String.format("%9.0f", estatiscas.get(2)));
         lblNmesaOcupada.setText(String.format("%9.0f", estatiscas.get(3)));
-        
+
         if (cc.contasVencidas()) {
             JOptionPane.showMessageDialog(null, "Atenção!\nVocê possui contas vencidas ou com vencimento para hoje.");
             jLabel7.setForeground(Color.red);
-            lblAviso.setText("Ateção! Você possui contas a pagar!");
+            lblAviso.setText("Atenção! Você possui contas a pagar!");
             lblAviso.setForeground(Color.YELLOW);
         }
-        
+
         // Determina tempo de execução
-        
-        long timeMilis=6000; // milisegundos
-        Timer timer = new  Timer();
+        long timeMilis = 6000; // milisegundos
+        Timer timer = new Timer();
         TimerTask atualizaEstatistica = new TimerTask() {
             @Override
             public void run() {
                 estatistica();
             }
-                     
+
         };
         timer.scheduleAtFixedRate(atualizaEstatistica, 0, timeMilis);
-        
-        
+
     }
 
     public void recebeOperador(String operador, String cargo) {
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
         log.setUsuario(operador);
-        
 
     }
- 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -118,8 +114,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         btnFuncionarios = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        btnLogout = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
         btnCaixa = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         btnFuncionarios1 = new javax.swing.JPanel();
@@ -130,6 +124,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblFEchar = new javax.swing.JLabel();
         btnLancarPedido = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -232,7 +227,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addGroup(peinelEsquerdoLayout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         peinelEsquerdoLayout.setVerticalGroup(
             peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,22 +244,29 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         getContentPane().add(peinelEsquerdo);
-        peinelEsquerdo.setBounds(0, 0, 370, 531);
+        peinelEsquerdo.setBounds(0, 0, 360, 531);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setLayout(null);
 
         lblOperador.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("jLabel5");
+        jPanel1.add(lblOperador);
+        lblOperador.setBounds(210, 50, 116, 32);
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("jLabel6");
+        jPanel1.add(lblCargo);
+        lblCargo.setBounds(330, 50, 124, 32);
 
         lblData.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         lblData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario24x24.png"))); // NOI18N
         lblData.setText("jLabel5");
+        jPanel1.add(lblData);
+        lblData.setBounds(460, 50, 120, 30);
 
         btnProduto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnProduto.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -277,25 +279,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/produto.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/estoque.png"))); // NOI18N
         jLabel5.setText("Estoque");
 
         javax.swing.GroupLayout btnProdutoLayout = new javax.swing.GroupLayout(btnProduto);
         btnProduto.setLayout(btnProdutoLayout);
         btnProdutoLayout.setHorizontalGroup(
             btnProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnProdutoLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
+            .addGroup(btnProdutoLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         btnProdutoLayout.setVerticalGroup(
             btnProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnProdutoLayout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(31, 31, 31))
+            .addGroup(btnProdutoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        jPanel1.add(btnProduto);
+        btnProduto.setBounds(211, 208, 195, 99);
 
         btnConfiguracao.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnConfiguracao.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -305,25 +310,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/configuracao32x32.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/configuracaoCinzaEscuro.png"))); // NOI18N
         jLabel6.setText("Configurações");
 
         javax.swing.GroupLayout btnConfiguracaoLayout = new javax.swing.GroupLayout(btnConfiguracao);
         btnConfiguracao.setLayout(btnConfiguracaoLayout);
         btnConfiguracaoLayout.setHorizontalGroup(
             btnConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnConfiguracaoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnConfiguracaoLayout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         btnConfiguracaoLayout.setVerticalGroup(
             btnConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnConfiguracaoLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        jPanel1.add(btnConfiguracao);
+        btnConfiguracao.setBounds(210, 320, 195, 99);
 
         btnConasApagar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnConasApagar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -333,7 +341,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario (2).png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/contas.png"))); // NOI18N
         jLabel7.setText("Contas a Pagar");
 
         javax.swing.GroupLayout btnConasApagarLayout = new javax.swing.GroupLayout(btnConasApagar);
@@ -342,16 +350,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
             btnConasApagarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnConasApagarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                .addContainerGap())
         );
         btnConasApagarLayout.setVerticalGroup(
             btnConasApagarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnConasApagarLayout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(30, 30, 30))
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
+
+        jPanel1.add(btnConasApagar);
+        btnConasApagar.setBounds(412, 208, 190, 99);
 
         btnMesas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnMesas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -368,18 +379,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnMesas.setLayout(btnMesasLayout);
         btnMesasLayout.setHorizontalGroup(
             btnMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnMesasLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnMesasLayout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         btnMesasLayout.setVerticalGroup(
             btnMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnMesasLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addGap(31, 31, 31))
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
+
+        jPanel1.add(btnMesas);
+        btnMesas.setBounds(10, 98, 195, 99);
 
         btnFuncionarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnFuncionarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -398,45 +412,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
             btnFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnFuncionariosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel9)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                .addContainerGap())
         );
         btnFuncionariosLayout.setVerticalGroup(
             btnFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnFuncionariosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel9)
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-
-        btnLogout.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        btnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnLogoutMouseClicked(evt);
-            }
-        });
-
-        jLabel10.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/power.png"))); // NOI18N
-        jLabel10.setText("Sair");
-
-        javax.swing.GroupLayout btnLogoutLayout = new javax.swing.GroupLayout(btnLogout);
-        btnLogout.setLayout(btnLogoutLayout);
-        btnLogoutLayout.setHorizontalGroup(
-            btnLogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnLogoutLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        btnLogoutLayout.setVerticalGroup(
-            btnLogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnLogoutLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+
+        jPanel1.add(btnFuncionarios);
+        btnFuncionarios.setBounds(10, 320, 195, 99);
 
         btnCaixa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnCaixa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -446,7 +434,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         jLabel12.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/caixa.png"))); // NOI18N
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnBaixar2.png"))); // NOI18N
         jLabel12.setText("Caixa");
         jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -458,14 +446,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnCaixa.setLayout(btnCaixaLayout);
         btnCaixaLayout.setHorizontalGroup(
             btnCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnCaixaLayout.createSequentialGroup()
+            .addGroup(btnCaixaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
+                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                .addContainerGap())
         );
         btnCaixaLayout.setVerticalGroup(
             btnCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(btnCaixaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        jPanel1.add(btnCaixa);
+        btnCaixa.setBounds(10, 208, 195, 99);
 
         btnFuncionarios1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnFuncionarios1.setPreferredSize(new java.awt.Dimension(167, 98));
@@ -486,18 +481,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnFuncionarios1.setLayout(btnFuncionarios1Layout);
         btnFuncionarios1Layout.setHorizontalGroup(
             btnFuncionarios1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnFuncionarios1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11)
-                .addContainerGap(62, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnFuncionarios1Layout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         btnFuncionarios1Layout.setVerticalGroup(
             btnFuncionarios1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnFuncionarios1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel11)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        jPanel1.add(btnFuncionarios1);
+        btnFuncionarios1.setBounds(209, 98, 195, 99);
 
         btnRelatorios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnRelatorios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -514,18 +512,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnRelatorios.setLayout(btnRelatoriosLayout);
         btnRelatoriosLayout.setHorizontalGroup(
             btnRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnRelatoriosLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel16)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnRelatoriosLayout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         btnRelatoriosLayout.setVerticalGroup(
             btnRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnRelatoriosLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel16)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        jPanel1.add(btnRelatorios);
+        btnRelatorios.setBounds(410, 320, 195, 99);
 
         jPanel3.setBackground(new java.awt.Color(52, 73, 94));
 
@@ -545,7 +546,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(lblFEchar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 21, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -554,7 +555,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(lblFEchar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jPanel1.add(jPanel3);
+        jPanel3.setBounds(573, 0, 40, 41);
+
         btnLancarPedido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        btnLancarPedido.setPreferredSize(new java.awt.Dimension(193, 108));
         btnLancarPedido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLancarPedidoMouseClicked(evt);
@@ -562,7 +567,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         jLabel17.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/pedidos.png"))); // NOI18N
         jLabel17.setText("Lançar Pedido");
 
@@ -570,112 +575,49 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnLancarPedido.setLayout(btnLancarPedidoLayout);
         btnLancarPedidoLayout.setHorizontalGroup(
             btnLancarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnLancarPedidoLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnLancarPedidoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                 .addContainerGap())
         );
         btnLancarPedidoLayout.setVerticalGroup(
             btnLancarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnLancarPedidoLayout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addComponent(jLabel17)
-                .addGap(30, 30, 30))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnProduto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnMesas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnLancarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnConfiguracao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFuncionarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnConasApagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(55, 55, 55))
+                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnConfiguracao, btnFuncionarios, btnFuncionarios1, btnProduto});
+        jPanel1.add(btnLancarPedido);
+        btnLancarPedido.setBounds(410, 98, 195, 99);
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCaixa, btnConasApagar});
-
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblOperador)
-                    .addComponent(lblCargo)
-                    .addComponent(lblData))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConfiguracao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConasApagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFuncionarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnLancarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFuncionarios1, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                    .addComponent(btnRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnFuncionarios, btnLogout, btnMesas});
+        jLabel10.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/power.png"))); // NOI18N
+        jLabel10.setText("Sair");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(412, 450, 195, 69);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(370, 0, 590, 530);
+        jPanel1.setBounds(360, 0, 610, 530);
 
-        setSize(new java.awt.Dimension(953, 530));
+        setSize(new java.awt.Dimension(972, 530));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblFEcharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFEcharMouseClicked
-        
+
         // Fecha tela principal
-        
-        if (cz.pratoPendente()>0){
+        if (cz.pratoPendente() > 0) {
             JOptionPane.showMessageDialog(null, "Existem pratos com liberação pendente!");
-        }        
+        }
         int op = JOptionPane.showConfirmDialog(null, "Confirma a saída?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-              
+
         if (op == JOptionPane.YES_OPTION) {
 
             System.exit(0);
@@ -699,50 +641,49 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void btnConfiguracaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracaoMouseClicked
         // Chama a tela de configuração
         //Registra log
-        
+
         log.setFuncionalidade("Configuração");
         log.setUsuario(lblOperador.getText());
         log.setDescricao(log.getUsuario() + " acessou as Configurações do Sistema");
         log.gravaLog(log);
         // Fim do log
-        
+
         TelaConfiguracao config = new TelaConfiguracao();
         config.recebeOperador(lblOperador.getText(), lblCargo.getText());
         config.setVisible(true);
     }//GEN-LAST:event_btnConfiguracaoMouseClicked
 
     private void btnConasApagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConasApagarMouseClicked
-        
+
         //Registra log
         log.setFuncionalidade("Contas a Pagar");
         log.setDescricao(log.getUsuario() + " acessou a funcionalidade " + log.getFuncionalidade());
         log.gravaLog(log);
         // Chama o contas a pagar
-        
+
         TelaContasApagar contas = new TelaContasApagar();
         contas.recebeOperador(lblOperador.getText(), lblCargo.getText());
         contas.setVisible(true);
-        
-        
+
 
     }//GEN-LAST:event_btnConasApagarMouseClicked
 
     private void btnMesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMesasMouseClicked
         // Chama o cadastro de Mesas
-        TelaCadastroDeMesas mesas = new TelaCadastroDeMesas();        
+        TelaCadastroDeMesas mesas = new TelaCadastroDeMesas();
         mesas.recebeOperador(lblOperador.getText(), lblCargo.getText());
         mesas.setVisible(true);
         log.setFuncionalidade("Cadastro de Mesa");
         log.setUsuario(lblOperador.getText());
         log.setDescricao(log.getUsuario() + " acessou " + log.getFuncionalidade());
         log.gravaLog(log);
-        
+
     }//GEN-LAST:event_btnMesasMouseClicked
 
     private void btnFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFuncionariosMouseClicked
         // Chama Tela Cadastro de Funcionários
         TelaCadastroFuncionario func = new TelaCadastroFuncionario();
-        func.recebeOperador(lblOperador.getText(),lblCargo.getText());
+        func.recebeOperador(lblOperador.getText(), lblCargo.getText());
         func.setVisible(true);
         // Inicio do registro de log
         log.setFuncionalidade("Cadastro de Funcionário");
@@ -750,40 +691,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         log.setDescricao(log.getUsuario() + " acessou o" + log.getFuncionalidade());
         log.gravaLog(log);
         // Fim do regisro de log
-        
+
     }//GEN-LAST:event_btnFuncionariosMouseClicked
 
-    private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
-        // Sai do sistema e Chama a tela de login e avisa ao usuário se existe pedios em aberto.
-           
-        ArrayList <Double> dadosOcupacao = new ArrayList<>();
-        
-        dadosOcupacao = m.estatistica();
-        double nMesasOcupadas = dadosOcupacao.get(1);
-        
-        
-        if (nMesasOcupadas> 0){
-            int op = JOptionPane.showConfirmDialog(null, "Existem pedidos em aberto! \nDeseja sair mesmo assim?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-
-            if (op == JOptionPane.YES_OPTION) {
-
-                dispose();
-                TelaLogin login = new TelaLogin();
-                login.setVisible(true);
-            }else {
-                JOptionPane.showMessageDialog(null, "Feche todos os pedidos antes de continuar!");
-            }
-            
-        }else {
-            dispose();
-            TelaLogin login = new TelaLogin();
-                login.setVisible(true);
-        }
-        
-    }//GEN-LAST:event_btnLogoutMouseClicked
-
     private void btnCaixaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaixaMouseClicked
-      
+
     }//GEN-LAST:event_btnCaixaMouseClicked
 
     private void btnFuncionarios1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFuncionarios1MouseClicked
@@ -802,17 +714,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnRelatoriosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRelatoriosMouseClicked
         // Abre tela de Relatórios
-       TelaRelatorio3 tr3 = new TelaRelatorio3();
-       tr3.recebeOperador(lblOperador.getText(), lblCargo.getText());
-       tr3.setVisible(true);
-       
+        TelaRelatorio3 tr3 = new TelaRelatorio3();
+        tr3.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        tr3.setVisible(true);
+
     }//GEN-LAST:event_btnRelatoriosMouseClicked
 
     private void btnProdutoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdutoMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_btnProdutoMouseEntered
 
-    public void estatistica(){
+    public void estatistica() {
         ArrayList<Double> estatiscas = new ArrayList<>();
         estatiscas = m.estatistica();
 
@@ -826,25 +738,51 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaPedido2 pedido2 = new TelaPedido2();
         pedido2.recebeOperador(lblOperador.getText(), lblCargo.getText());
         pedido2.setVisible(true);
-                
+
     }//GEN-LAST:event_btnLancarPedidoMouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
-         // Chama tela do Caixa
-        
+        // Chama tela do Caixa
+
         TelaCaixa caixa = new TelaCaixa();
         caixa.recebeOperador(lblOperador.getText(), lblCargo.getText());
         caixa.setVisible(true);
-        
+
         // Inicio do registro de log
-        
         log.setFuncionalidade("Caixa");
         log.setDescricao(log.getUsuario() + " acessou a funcionalidade caixa ");
         log.gravaLog(log);
-        
+
         //
-        
+
     }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        // Sai do sistema e Chama a tela de login e avisa ao usuário se existe pedios em aberto.
+
+        ArrayList<Double> dadosOcupacao = new ArrayList<>();
+
+        dadosOcupacao = m.estatistica();
+        double nMesasOcupadas = dadosOcupacao.get(1);
+
+        if (nMesasOcupadas > 0) {
+            int op = JOptionPane.showConfirmDialog(null, "Existem pedidos em aberto! \nDeseja sair mesmo assim?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+
+            if (op == JOptionPane.YES_OPTION) {
+
+                dispose();
+                TelaLogin login = new TelaLogin();
+                login.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Feche todos os pedidos antes de continuar!");
+            }
+
+        } else {
+            dispose();
+            TelaLogin login = new TelaLogin();
+            login.setVisible(true);
+        }
+    }//GEN-LAST:event_jLabel10MouseClicked
 
     /**
      * @param args the command line arguments
@@ -888,7 +826,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel btnFuncionarios;
     private javax.swing.JPanel btnFuncionarios1;
     private javax.swing.JPanel btnLancarPedido;
-    private javax.swing.JPanel btnLogout;
     private javax.swing.JPanel btnMesas;
     private javax.swing.JPanel btnProduto;
     private javax.swing.JPanel btnRelatorios;

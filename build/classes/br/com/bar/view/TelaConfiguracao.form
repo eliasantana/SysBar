@@ -134,12 +134,12 @@
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/br/com/bar/imagens/grupos2 (2).png"/>
+                  <Image iconType="3" name="/br/com/bar/imagens/grupo128x128.png"/>
                 </Property>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="20" width="160" height="40"/>
+                  <AbsoluteConstraints x="0" y="0" width="160" height="80"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -168,7 +168,7 @@
                   <Color blue="5e" green="49" red="34" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Grupos Financeiro"/>
+                <Property name="text" type="java.lang.String" value="Grupos Financeiros"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -180,12 +180,12 @@
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/br/com/bar/imagens/grupos2 (2).png"/>
+                  <Image iconType="3" name="/br/com/bar/imagens/grupo128x128.png"/>
                 </Property>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="20" width="160" height="40"/>
+                  <AbsoluteConstraints x="0" y="0" width="160" height="80"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -231,7 +231,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="20" width="160" height="40"/>
+                  <AbsoluteConstraints x="0" y="0" width="160" height="80"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -255,12 +255,12 @@
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/br/com/bar/imagens/bd.png"/>
+                  <Image iconType="3" name="/br/com/bar/imagens/bd64x64.png"/>
                 </Property>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="20" width="150" height="40"/>
+                  <AbsoluteConstraints x="0" y="10" width="150" height="70"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -301,12 +301,12 @@
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/br/com/bar/imagens/money-64.png"/>
+                  <Image iconType="3" name="/br/com/bar/imagens/money.png"/>
                 </Property>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="20" width="150" height="50"/>
+                  <AbsoluteConstraints x="0" y="0" width="150" height="80"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -347,12 +347,12 @@
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/br/com/bar/imagens/btnlog.png"/>
+                  <Image iconType="3" name="/br/com/bar/imagens/log64x64.png"/>
                 </Property>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="20" width="150" height="50"/>
+                  <AbsoluteConstraints x="0" y="0" width="150" height="80"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -457,7 +457,7 @@
                   <Color blue="5e" green="49" red="34" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Gerenciar Pedido"/>
+                <Property name="text" type="java.lang.String" value="Gerenciar Pedidos"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -553,7 +553,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="60" y="10" width="550" height="60"/>
+              <AbsoluteConstraints x="80" y="10" width="550" height="60"/>
             </Constraint>
           </Constraints>
         </Component>

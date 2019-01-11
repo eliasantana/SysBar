@@ -82,19 +82,19 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="114" y="12" width="-1" height="-1"/>
+              <AbsoluteConstraints x="140" y="10" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/br/com/bar/imagens/grupos2 (2).png"/>
+              <Image iconType="3" name="/br/com/bar/imagens/grupo128x128.png"/>
             </Property>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="30" y="20" width="-1" height="-1"/>
+              <AbsoluteConstraints x="0" y="0" width="120" height="90"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -106,11 +106,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="5e" green="49" red="34" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Financeiro"/>
+            <Property name="text" type="java.lang.String" value="Financeiros"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="267" y="68" width="-1" height="-1"/>
+              <AbsoluteConstraints x="267" y="68" width="130" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -182,15 +182,22 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtNomeGrupo" min="-2" pref="349" max="-2" attributes="0"/>
-                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="txtIdGrupo" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtNome" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
+                          <Component id="txtNomeGrupo" min="-2" pref="349" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="txtIdGrupo" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtNome" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Component id="panelTabela" alignment="0" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
@@ -198,11 +205,11 @@
                   <Component id="btnSalvar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnConsultar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnEditar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="btnExceluir" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnEditar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -298,7 +305,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/br/com/bar/imagens/salvarCinza.png"/>
+                  <Image iconType="3" name="/br/com/bar/imagens/adicionar.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Adicionar"/>
               </Properties>
@@ -319,8 +326,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="lblExcluir" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblExcluir" pref="78" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -350,7 +356,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/bar/imagens/lixeiraCinza.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Exluir"/>
+                <Property name="text" type="java.lang.String" value="Excluir"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblExcluirMouseClicked"/>
@@ -371,10 +377,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
-                      <Component id="lblAlterar" min="-2" pref="79" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="lblAlterar" alignment="1" pref="89" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -503,7 +506,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/br/com/bar/imagens/tabelaCinza.png"/>
+                  <Image iconType="3" name="/br/com/bar/imagens/localizar32x32.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Consultar"/>
               </Properties>
