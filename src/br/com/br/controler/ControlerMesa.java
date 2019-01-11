@@ -31,7 +31,7 @@ public class ControlerMesa {
 
         if (tudo) {
 
-            String sql = "SELECT dbbar.cadmesa.id as 'ID',\n"
+            String sql = "SELECT dbbar.cadmesa.id as 'CÓDIGO INTERNO',\n"
                     + "	   dbbar.tbcadfuncionario.nome as 'GARÇOM' ,\n"
                     + "        dbbar.cadmesa.numero_mesa AS 'NÚMERO DA MESA'\n"
                     //+ "        dbbar.cadmesa.status AS 'STATUS'\n"
@@ -50,7 +50,7 @@ public class ControlerMesa {
 
         } else {
 
-            String sql = "SELECT dbbar.cadmesa.id as 'ID',\n"
+            String sql = "SELECT dbbar.cadmesa.id as 'CÓDIGO INTERNO',\n"
                     + "	   dbbar.tbcadfuncionario.nome as 'GARÇOM',\n"
                     + "        dbbar.cadmesa.numero_mesa AS 'NÚMERO DA MESA'\n"
                     //+ "        dbbar.cadmesa.status AS 'STATUS'\n"

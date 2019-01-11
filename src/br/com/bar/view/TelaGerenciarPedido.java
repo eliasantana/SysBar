@@ -31,9 +31,9 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     public TelaGerenciarPedido() {
         initComponents();
         cp.carregaComboPedido(jcomboPedido);
-        txtIdProduto.setVisible(false);
-        txtQtd.setVisible(false);
-        txtIDItem.setVisible(false);
+        txtIdProduto.setVisible(true);
+        txtQtd.setVisible(true);
+        txtIDItem.setVisible(true);
         lblRemoverItemDoPedido.setVisible(false);
     }
 
@@ -93,21 +93,21 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         jLabel3.setBounds(10, 20, 64, 64);
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
-        jLabel5.setText("de pedidos");
+        jLabel5.setText("de Pedidos");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(110, 50, 160, 32);
+        jLabel5.setBounds(260, 50, 160, 32);
 
         lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("Operador");
         jPanel1.add(lblOperador);
-        lblOperador.setBounds(340, 90, 90, 32);
+        lblOperador.setBounds(470, 90, 90, 32);
 
         LblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         LblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         LblCargo.setText("Cargo");
         jPanel1.add(LblCargo);
-        LblCargo.setBounds(440, 90, 100, 30);
+        LblCargo.setBounds(570, 90, 100, 30);
 
         jPanel2.setBackground(new java.awt.Color(44, 62, 80));
 
@@ -137,7 +137,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(520, 0, 40, 30);
+        jPanel2.setBounds(640, 0, 40, 30);
 
         jcomboPedido.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jcomboPedido.addActionListener(new java.awt.event.ActionListener() {
@@ -174,7 +174,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         lblNumeroMesa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         lblNumeroMesa1.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        lblNumeroMesa1.setText("Pedido");
+        lblNumeroMesa1.setText("N. Pedido");
 
         lblNumeroMesa2.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         lblNumeroMesa2.setText("Mesa:");
@@ -193,29 +193,31 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblNumeroMesa2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblNumeroMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblNumeroMesa1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jcomboPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIDItem, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblRemoverItemDoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(139, 139, 139))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblNumeroMesa2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblNumeroMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(lblNumeroMesa1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jcomboPedido, javax.swing.GroupLayout.Alignment.LEADING, 0, 121, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtIDItem, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(64, 64, 64)
+                                .addComponent(lblRemoverItemDoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 183, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,9 +237,9 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                        .addGap(35, 35, 35)
-                        .addComponent(lblRemoverItemDoPedido)
-                        .addGap(25, 25, 25))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblRemoverItemDoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(142, 142, 142)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,12 +247,12 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                                 .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtIDItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(51, 51, 51))))
+                        .addGap(62, 62, 62))))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnListar, jcomboPedido});
 
-        setSize(new java.awt.Dimension(556, 481));
+        setSize(new java.awt.Dimension(683, 481));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -279,7 +281,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         // Captura número da linha selecionada 
         
         int linha = tblDetalhe.getSelectedRow();
-        txtIdProduto.setText(tblDetalhe.getModel().getValueAt(linha, 1).toString());
+        txtIdProduto.setText(tblDetalhe.getModel().getValueAt(linha, 0).toString());
         txtQtd.setText(tblDetalhe.getModel().getValueAt(linha, 2).toString());
         txtIDItem.setText(tblDetalhe.getModel().getValueAt(linha, 5).toString());
         lblRemoverItemDoPedido.setVisible(true);
@@ -288,7 +290,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     private void lblRemoverItemDoPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoverItemDoPedidoMouseClicked
         // Remove item do pedido e devolte ao estoque
 
-        int op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este item do pedido?", "Atenção", JOptionPane.YES_NO_OPTION);
+        int op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este item do pedido?", "Atenção!", JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE);
         if (op == JOptionPane.YES_OPTION) {
 
             if (cp.excluiItemPedido(txtIDItem.getText())) {
@@ -311,6 +313,9 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
 
                 }
             }
+        }else {
+            JOptionPane.showMessageDialog(null, "Remoção cancelada com sucesso!");
+
         }
 
     }//GEN-LAST:event_lblRemoverItemDoPedidoMouseClicked

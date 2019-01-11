@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
@@ -72,7 +73,7 @@ public class ControlerLog {
     public ResultSet listaLog(JTable tabela, String dataInicio, String dataFim, String filtro) {
 
         String sql = "SELECT \n"
-                + "id as 'ID', \n"
+                + "id as 'CÓDIGO', \n"
                 + "date_format(data,'%d/%m/%Y')  as 'DATA', \n"
                 + "hora as 'HORA', \n"
                 + "usuario as 'USUÁRIO', \n"
@@ -87,6 +88,12 @@ public class ControlerLog {
             pst.setString(3, dataFim);
 
             rs = pst.executeQuery();
+           
+            if (rs.next()){
+               
+           }else {
+                JOptionPane.showMessageDialog(null, "Não há nenhum registro encontrado para o período e usuário informados!");
+            }
 
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerLog.listaLog()" + e);

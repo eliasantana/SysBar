@@ -312,7 +312,7 @@ public class ControlerProduto {
 
     public ResultSet listaProdutoParaReajuste() {
 
-        String sql = "SELECT id AS 'ID', nome AS 'NOME', format(valor,2,'de_DE') as 'VALOR R$' FROM dbbar.tbproduto";
+        String sql = "SELECT id AS 'CÓDIGO', nome AS 'NOME', format(valor,2,'de_DE') as 'VALOR R$' FROM dbbar.tbproduto";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -388,7 +388,7 @@ public class ControlerProduto {
                 reajustaValorProduto(rs.getString("id"), Double.parseDouble(rs.getString("tbproduto_valor")), Double.parseDouble(fator));
 
             }
-            JOptionPane.showMessageDialog(null, "Grupo de produtos reajustados com sucesso!");
+            JOptionPane.showMessageDialog(null, "Grupo de produtos reajustado com sucesso!");
         } catch (NumberFormatException | SQLException e) {
             System.out.println("br.com.br.controler.ControlerProduto.reajusteGrupoProduto()" + e);
         }
@@ -397,7 +397,7 @@ public class ControlerProduto {
 
     public ResultSet pesquisarProduto(String nome) {
         
-        String sql = "SELECT p.id as 'ID', p.nome as 'PRODUTO', p.qtd as 'QTD',  p.valor as 'VALOR', g.nome as 'GRUPO'\n"
+        String sql = "SELECT p.id as 'CÓDIGO', p.nome as 'PRODUTO', p.qtd as 'QTD',  format(p.valor,2,'de_DE') as 'VALOR R$', g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id\n"
                 + "WHERE p.nome LIKE ? AND p.qtd > 0 ";

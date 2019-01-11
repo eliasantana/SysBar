@@ -30,6 +30,7 @@ public class TelaReajuste extends javax.swing.JFrame {
         desabilitaValorDireto();
         lblPesquisarProduto.setVisible(false);
         txtNomeProduto.setVisible(false);
+        btnAplicar.setEnabled(false);
         
     }
     
@@ -105,7 +106,7 @@ public class TelaReajuste extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(52, 73, 94));
         jLabel1.setText("de Preços");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(420, 70, 130, 40);
+        jLabel1.setBounds(230, 60, 130, 40);
         jPanel1.add(txtId);
         txtId.setBounds(12, 100, 37, 20);
         jPanel1.add(txtValor);
@@ -115,7 +116,7 @@ public class TelaReajuste extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(52, 73, 94));
         jLabel7.setText("Reajuste ");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(290, 20, 270, 50);
+        jLabel7.setBounds(130, 10, 270, 50);
 
         jPanel2.setBackground(new java.awt.Color(52, 73, 94));
 
@@ -149,7 +150,7 @@ public class TelaReajuste extends javax.swing.JFrame {
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/money-64.png"))); // NOI18N
         jPanel1.add(jLabel15);
-        jLabel15.setBounds(190, 30, 80, 50);
+        jLabel15.setBounds(60, 10, 80, 60);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 790, 130);
@@ -241,13 +242,11 @@ public class TelaReajuste extends javax.swing.JFrame {
                 .addGroup(panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFormaReajusteLayout.createSequentialGroup()
                         .addComponent(txtPercentual, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblPercentual, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(lblCifra, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
-                    .addGroup(panelFormaReajusteLayout.createSequentialGroup()
-                        .addComponent(radioFator, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addComponent(lblCifra))
+                    .addComponent(radioFator, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelFormaReajusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtValorDireto, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -294,7 +293,7 @@ public class TelaReajuste extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblProdutos);
 
         lblPesquisarProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        lblPesquisarProduto.setText("Pesquisar Produto");
+        lblPesquisarProduto.setText("Pesquisar ");
 
         txtNomeProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         txtNomeProduto.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -458,7 +457,9 @@ public class TelaReajuste extends javax.swing.JFrame {
                     }else {
                         // Aplica reajuste a partir do valor informado
                         cp.reajustaValorProduto(txtId.getText(), vDireto);
+                        
                         tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
+                        JOptionPane.showMessageDialog(null, "Produto reajustado com sucesso!");
                         txtId.setText(null);
                         txtValorDireto.setText("0,00");
                     }
@@ -489,6 +490,8 @@ public class TelaReajuste extends javax.swing.JFrame {
     private void checkGrupoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkGrupoMouseClicked
         // Lista grupo
         tblProdutos.setModel(DbUtils.resultSetToTableModel(cg.listaGrupoProduto()));
+        lblPesquisarProduto.setVisible(false);
+        txtNomeProduto.setVisible(false);
 
     }//GEN-LAST:event_checkGrupoMouseClicked
 
@@ -509,7 +512,7 @@ public class TelaReajuste extends javax.swing.JFrame {
             txtValor.setText(tblProdutos.getModel().getValueAt(linha, 2).toString());
             txtValorDireto.setText(txtValor.getText());
         }
-        
+        btnAplicar.setEnabled(true);
 
     }//GEN-LAST:event_tblProdutosMouseClicked
 

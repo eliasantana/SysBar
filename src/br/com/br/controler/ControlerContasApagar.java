@@ -51,7 +51,7 @@ public class ControlerContasApagar {
         }
 
         String sql = "SELECT \n"
-                + "	ca.id as 'ID', \n"
+                + "	ca.id as 'CÓDIGO', \n"
                 + "	ca.descricao as 'DESCRIÇÃO', \n"
                 + "	format(ca.valor,2,'de_DE') as 'VALOR R$',  \n"
                 + "	date_format(ca.data_vencito,'%d/%m/%Y') AS 'VENCIMENTO', \n"
@@ -102,11 +102,12 @@ public class ControlerContasApagar {
             rs = pst.executeQuery();
 
             combo.removeAllItems();
+            combo.addItem("Selecione...");
             while (rs.next()) {
                 combo.addItem(rs.getString("grupo"));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ListarGrupos" + e);
+            System.out.println("br.com.br.controler.ControlerContasApagar.listaGrupos()" +e);
         }
         return rs;
     }
@@ -225,6 +226,7 @@ public class ControlerContasApagar {
                         log.gravaLog(log);
                         // Fim do registro de log
                         JOptionPane.showMessageDialog(null, "Extorno realizado com sucesso!");
+                        
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Extorno cancelado");

@@ -143,12 +143,13 @@ public class ControlerPedido {
 
     public ResultSet detalhePorPedidoId(String numeroMesa, String numeroPedido) {
 
-        String sql = "SELECT dbbar.tbproduto.nome AS 'PRODUTO',\n"
+        String sql = "SELECT "
                 + "	dbbar.detalhe_mesa.tbproduto_id AS 'CÓDIGO',\n"
+                + "dbbar.tbproduto.nome AS 'PRODUTO',\n"
                 + "	dbbar.detalhe_mesa.qtd AS 'QTD',\n"
                 + "	format(dbbar.detalhe_mesa.`valorUnit`,2,'de_DE') AS 'VALOR R$',\n"
                 + "	format(dbbar.detalhe_mesa.`Total`,2,'de_DE') AS 'TOTAL R$',\n"
-                + "	dbbar.detalhe_mesa.id AS 'ITEM'\n"
+                + "	dbbar.detalhe_mesa.id AS 'CÓDIGO INTERNO'\n"
                 + "FROM dbbar.detalhe_mesa INNER JOIN dbbar.cadmesa ON \n"
                 + "	dbbar.detalhe_mesa.cadmesa_id = dbbar.cadmesa.id \n"
                 + "INNER JOIN dbbar.tbproduto ON \n"
