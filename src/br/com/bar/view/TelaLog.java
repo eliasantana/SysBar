@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -41,6 +42,7 @@ public class TelaLog extends javax.swing.JFrame {
         Date dataAtual = new Date();
         jDateChooserInicio.setDate(dataAtual);
         jDateChooserFim.setDate(dataAtual);
+        btnImprimir.setEnabled(false);
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -302,18 +304,23 @@ public class TelaLog extends javax.swing.JFrame {
     private void btnListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListarMouseClicked
         // Lista todos os logs
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        if ("Selecione...".equals(comboUsuario.getSelectedItem().toString())){
+            JOptionPane.showMessageDialog(null, "Selecione um usuário!");
+        }else {
+            
+            try {
+                // Pega data do componente e converte para string
+                String dtInicio = df.format(jDateChooserInicio.getDate().getTime());
+                String dtFim = df.format(jDateChooserFim.getDate().getTime());
+                // Lista a cessos com base no intervalor de datas informardos e habilita ou desabilita o botão conforme resultado da pesquisa.
+                //tblLog.setModel(DbUtils.resultSetToTableModel(lc.listaLog(tblLog, dtInicio, dtFim, comboUsuario.getSelectedItem().toString())));
 
-        try {
-            // Pega data do componente e converte para string
-            String dtInicio = df.format(jDateChooserInicio.getDate().getTime());
-            String dtFim = df.format(jDateChooserFim.getDate().getTime());
-            // Lista a cessos com base no intervalor de datas informardos
-            tblLog.setModel(DbUtils.resultSetToTableModel(lc.listaLog(tblLog, dtInicio, dtFim, comboUsuario.getSelectedItem().toString())));
+                lc.listaLog(tblLog, dtInicio, dtFim, comboUsuario.getSelectedItem().toString(), btnImprimir);
 
-        } catch (Exception e) {
-            System.out.println("br.com.bar.view.TelaLog.btnListarMouseClicked()" + e);
-            // Havendo uma excessão a tabela será carregada com todos os logs da tabela 
-            //tblLog.setModel(DbUtils.resultSetToTableModel(lc.listaLog(tblLog)));
+            } catch (Exception e) {
+                System.out.println("br.com.bar.view.TelaLog.btnListarMouseClicked()" + e);
+
+            }
         }
 
 
@@ -333,26 +340,29 @@ public class TelaLog extends javax.swing.JFrame {
     }//GEN-LAST:event_comboUsuarioItemStateChanged
 
     private void btnImprimirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMouseClicked
-        // TODO add your handling code here:
+        
+        // Imprime o resultado da pesquisa e exibe o relatório em tela
+        if (btnImprimir.isEnabled()){
+            
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            String dtIni = df.format(jDateChooserInicio.getDate().getTime());
+            String dtfim = df.format(jDateChooserFim.getDate().getTime());
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String dtIni = df.format(jDateChooserInicio.getDate().getTime());
-        String dtfim = df.format(jDateChooserFim.getDate().getTime());
+            HashMap param = new HashMap();
+            param.put("nome", comboUsuario.getSelectedItem().toString());
+            param.put("dtinicio", dtIni);
+            param.put("dtfim", dtfim);
+            // Adiciona o período ao relatório as datas no formato BR 
+            param.put("dataInicio", u.formataDataBr(jDateChooserInicio.getDate()));
+            param.put("dataFim", u.formataDataBr(jDateChooserFim.getDate()));
 
-        HashMap param = new HashMap();
-        param.put("nome", comboUsuario.getSelectedItem().toString());
-        param.put("dtinicio", dtIni);
-        param.put("dtfim", dtfim);
-        // Adiciona o período ao relatório as datas no formato BR 
-        param.put("dataInicio", u.formataDataBr(jDateChooserInicio.getDate()));
-        param.put("dataFim", u.formataDataBr(jDateChooserFim.getDate()));
+            try {
+                JasperPrint print = JasperFillManager.fillReport("c:/SysBar/rel/relatorioDeLog.jasper", param, conexao);
+                JasperViewer.viewReport(print, false);
 
-        try {
-            JasperPrint print = JasperFillManager.fillReport("c:/SysBar/rel/relatorioDeLog.jasper", param, conexao);
-            JasperViewer.viewReport(print, false);
-
-        } catch (JRException e) {
-            System.out.println("br.com.bar.view.TelaLog.jLabel5MouseClicked() + e");
+            } catch (JRException e) {
+                System.out.println("br.com.bar.view.TelaLog.jLabel5MouseClicked() + e");
+            }
         }
 
     }//GEN-LAST:event_btnImprimirMouseClicked

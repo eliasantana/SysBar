@@ -24,6 +24,8 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import javax.swing.JTable;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -43,11 +45,9 @@ public class ControlerContasApagar {
         if ("Pagas".equals(opcao)) {
             filtro = "ca.data_pagto IS NOT NULL";
         } else if ("Abertas".equals(opcao)) {
-
             filtro = "ca.data_pagto IS NULL";
         } else {
             filtro = "ca.id > 0";
-
         }
 
         String sql = "SELECT \n"
@@ -69,7 +69,7 @@ public class ControlerContasApagar {
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro listaContasApagar" + e);
+            System.out.println("br.com.br.controler.ControlerContasApagar.listaContasApagar()" + e);
         }
         return rs;
     }
@@ -107,7 +107,7 @@ public class ControlerContasApagar {
                 combo.addItem(rs.getString("grupo"));
             }
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerContasApagar.listaGrupos()" +e);
+            System.out.println("br.com.br.controler.ControlerContasApagar.listaGrupos()" + e);
         }
         return rs;
     }
@@ -184,7 +184,7 @@ public class ControlerContasApagar {
 
             if (op == JOptionPane.YES_OPTION) {
                 pst.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Extorno realizado com sucesso!!!!!!");
+                JOptionPane.showMessageDialog(null, "Extorno realizado com sucesso!");
 
             } else {
                 JOptionPane.showMessageDialog(null, "Operação cancelada");
@@ -218,7 +218,6 @@ public class ControlerContasApagar {
 
                     if (cc.baixarConta(c)) {
                         // Registro de log
-
                         Log log = new Log();
                         log.setUsuario(operador.getText());
                         log.setFuncionalidade("Extorno");
@@ -231,9 +230,7 @@ public class ControlerContasApagar {
                 } else {
                     JOptionPane.showMessageDialog(null, "Extorno cancelado");
                 }
-
             }
-
         });
 
         menudireito.add(extornar);
@@ -327,9 +324,8 @@ public class ControlerContasApagar {
 
         return resp;
     }
-    
-    // Este método realiza um lançamento multiplo conforme quantidade de parcelas informadas
 
+    // Este método realiza um lançamento multiplo conforme quantidade de parcelas informadas
     public boolean lancamentoMultiplo(int qtdVezes, JDateChooser dateChooser, Contas conta) {
         boolean resp = false;
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -343,11 +339,11 @@ public class ControlerContasApagar {
         // Adiciona 30 dias ao prazo inicial incrementando mais 30 a cada interação
 
         for (int i = 1; i <= qtdVezes; i++) {
-            
+
             dataInicial = dateChooser.getCalendar().getTime();
             c = Calendar.getInstance();
             c.setTime(dataInicial);
-            
+
             prazo = prazo + 30;
             //Seta no calendário o prazo informado
             c.add(c.MONTH, i); // Incrementa o mês em mais 1
@@ -358,10 +354,9 @@ public class ControlerContasApagar {
 
             // Seta nova descrição
             conta.setDescricao(novaDescricao);
-            
+
             adicionaConta(conta); // Adiciona conta ao banco de dados
-           
-           
+
             // Inicia um nova instância
             dataInicial = new Date();
 

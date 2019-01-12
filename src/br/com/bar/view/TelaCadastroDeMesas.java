@@ -362,7 +362,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "N. da Mesa", "Garçom Responsável", "Status"
+
             }
         ));
         tblMesas.setRowHeight(22);

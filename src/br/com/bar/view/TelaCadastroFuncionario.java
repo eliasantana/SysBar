@@ -37,7 +37,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
      */
     public TelaCadastroFuncionario() {
         initComponents();
-        txtCaminho.setVisible(false);
+        txtCaminho.setVisible(true);
         funcionario.carregaFuncionario(tblFuncionarioCadastrado);
         txtId.setVisible(false);
         jtableGuias.setVisible(false);
@@ -52,6 +52,45 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         Date data = new Date();
         lblData.setText(u.formataDataBr(data));
 
+    }
+    
+    public void recebeFuncionario(Funcionario f){
+    
+        txtNome.setText(f.getNome());
+        txtEndereço.setText(f.getEndereco());
+        txtBairro.setText(f.getBairro());
+        txtCep.setText(f.getBairro());
+        txtCidade.setText(f.getCidade());
+        txtCep.setText(f.getCep());
+        txtTelefone.setText(f.getTelefone());
+        txtEmail.setText(f.getEmail());
+        txtLogin.setText(f.getLogin());
+        txtSenha.setText(f.getSenha());
+        txtComplemento.setText(f.getComplemento());
+        txtNumero.setText(f.getNumero());
+        txtRg.setText(f.getRg());
+        txtCpf.setText(f.getCpf());
+        txtCnh.setText(f.getCnh());
+        txtTelRecado.setText(f.getTelefone_recado());
+        comboCargo.setSelectedItem(f.getCargo());
+        txtCaminho.setText(f.getFoto());
+        
+         if (f.getStatus().equals("0")) {
+            comboSituacao.setSelectedItem("Ativo");
+        } else {
+            comboSituacao.setSelectedItem("Inativo");
+        }
+        
+        if (f.getBloqueado().equals("0")) {
+            comboBloqueio.setSelectedItem("Desbloqueado");
+        } else {
+            comboBloqueio.setSelectedItem("Bloqueado");
+        }
+        /*
+        ImageIcon imageIcon = new ImageIcon(txtCaminho.getText());
+        Icon icon = new ImageIcon(imageIcon.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_SMOOTH));
+        lblFoto.setIcon(icon);
+        */
     }
 
     /**
@@ -158,7 +197,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jPanel1.add(jLabel2);
         jLabel2.setBounds(10, 160, 60, 20);
 
-        jLabel3.setText("Cep");
+        jLabel3.setText("CEP");
         jPanel1.add(jLabel3);
         jLabel3.setBounds(250, 110, 70, 20);
 
@@ -339,12 +378,12 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 48)); // NOI18N
         jLabel14.setText("Cadastro");
         jPanel4.add(jLabel14);
-        jLabel14.setBounds(50, 10, 185, 78);
+        jLabel14.setBounds(50, 0, 185, 78);
 
         jLabel15.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 24)); // NOI18N
         jLabel15.setText("de Funcionários");
         jPanel4.add(jLabel15);
-        jLabel15.setBounds(240, 40, 200, 50);
+        jLabel15.setBounds(210, 50, 200, 40);
         jPanel4.add(txtId);
         txtId.setBounds(430, 40, 39, 20);
         jPanel4.add(txtCaminho);
@@ -914,7 +953,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         if (funcionario.temMesa(f)) {
 
-            lbltemMesa.setText("*Este funcionário possui mesas casdastradas!");
+            lbltemMesa.setText("*Este funcionário possui mesas cadastradas!");
             lbltemMesa.setForeground(Color.red);
             lbltemMesa.setVisible(true);
         } else {

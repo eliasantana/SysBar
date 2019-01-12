@@ -55,22 +55,23 @@ public class ControlerFuncionario extends Funcionario {
             pst.setString(18, f.getNumero());
             pst.setString(19, f.getUf());
             pst.setString(20, f.getTelefone_recado());
-            pst.setString(21, f.getComplemento());            
+            pst.setString(21, f.getComplemento());
 
             pst.executeUpdate();
-            
+
             resp = true;
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao tentar adicionar o funcionario!");
-            System.out.println("br.com.br.controler.ControlerFuncionario.adicionaFuncionario()"+e);
+            System.out.println("br.com.br.controler.ControlerFuncionario.adicionaFuncionario()" + e);
         }
 
         return resp;
 
     }
-    // Carrega dados da tabelade funcionários
 
+    // Carrega dados da tabelade funcionários
+    // Excluir métodos após finalização da implementação da nova tela funcionários
     public void carregaFuncionario(JTable tabela) {
 
         String slq = "SELECT * FROM tbcadfuncionario";
@@ -86,6 +87,25 @@ public class ControlerFuncionario extends Funcionario {
             JOptionPane.showMessageDialog(null, "Erro carregaFuncionario");
         }
 
+    }
+
+    public ResultSet carregaFuncionario(String texto) {
+
+        String slq = "SELECT id AS 'CÓDIGO', nome AS 'NOME', cpf AS 'CPF', rg AS 'RG',telefone AS 'TELEFONE'\n"
+                + "FROM dbbar.tbcadfuncionario\n"
+                + "WHERE nome like ?;";
+
+        try {
+            pst = conexao.prepareStatement(slq);
+            pst.setString(1, texto + "%");
+            rs = pst.executeQuery();
+
+        } catch (SQLException e) {
+
+            System.out.println("br.com.br.controler.ControlerFuncionario.carregaFuncionario()" + e);
+        }
+
+        return rs;
     }
 
     public void contatoFuncionario(JTable tabela) {
@@ -198,14 +218,14 @@ public class ControlerFuncionario extends Funcionario {
             pst.setString(18, f.getNumero());
             pst.setString(19, f.getUf());
             pst.setString(20, f.getTelefone_recado());
-            pst.setString(21, f.getComplemento());    
+            pst.setString(21, f.getComplemento());
             pst.setString(22, id);
 
             pst.executeUpdate();
             resp = true;
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerFuncionario.alterar()" +e);
+            System.out.println("br.com.br.controler.ControlerFuncionario.alterar()" + e);
         }
 
         return resp;
@@ -231,12 +251,12 @@ public class ControlerFuncionario extends Funcionario {
         // Carrega combo com o nome do funciário a partir do critério indicado em filtro
         String sql = "SELECT * FROM tbcadfuncionario where cargo=? AND status=0 AND bloqueado=0";
         String sqlTodos = "SELECT * FROM tbcadfuncionario WHERE status=0 AND bloqueado=0";
-        
-        if ("todos".equals(filtro)){
-            
+
+        if ("todos".equals(filtro)) {
+
             try {
                 pst = conexao.prepareStatement(sql);
-               
+
                 rs = pst.executeQuery(sqlTodos);
 
                 combo.removeAllItems();
@@ -247,8 +267,8 @@ public class ControlerFuncionario extends Funcionario {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Erro carregaComboFuncionário" + e);
             }
-        }else {
-            
+        } else {
+
             try {
                 pst = conexao.prepareStatement(sql);
                 pst.setString(1, filtro);
@@ -264,18 +284,19 @@ public class ControlerFuncionario extends Funcionario {
         }
 
     }
-    public void carregaComboFuncionario(JComboBox combo, String filtro,String remove) {
+
+    public void carregaComboFuncionario(JComboBox combo, String filtro, String remove) {
 
         // Carrega combo com o nome do funciário a partir do critério indicado em filtro e retira o nome do uncionario
         // indicado em remove
         String sql = "SELECT * FROM tbcadfuncionario where cargo=? AND status=0 AND bloqueado=0 AND nome<>?";
         String sqlTodos = "SELECT * FROM tbcadfuncionario WHERE status=0 AND bloqueado=0";
-        
-        if ("todos".equals(filtro)){
-            
+
+        if ("todos".equals(filtro)) {
+
             try {
                 pst = conexao.prepareStatement(sqlTodos);
-                
+
                 rs = pst.executeQuery(sqlTodos);
 
                 combo.removeAllItems();
@@ -286,8 +307,8 @@ public class ControlerFuncionario extends Funcionario {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Erro carregaComboFuncionário" + e);
             }
-        }else {
-            
+        } else {
+
             try {
                 pst = conexao.prepareStatement(sql);
                 pst.setString(1, filtro);
@@ -299,25 +320,24 @@ public class ControlerFuncionario extends Funcionario {
                 }
 
             } catch (SQLException e) {
-                System.out.println("br.com.br.controler.ControlerFuncionario.carregaComboFuncionario()"+e);
+                System.out.println("br.com.br.controler.ControlerFuncionario.carregaComboFuncionario()" + e);
             }
         }
 
     }
+
+    // Carrega combo com o login do funcionário
     public void carregaComboFuncionario(JComboBox combo) {
 
-        // Carrega combo com o login do funcionário
         // Recurso utilizado na tela de log
         String sql = "SELECT * FROM tbcadfuncionario";
 
         try {
             pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery();
-
+            combo.addItem("Selecione...");
             while (rs.next()) {
                 combo.addItem(rs.getString("login"));
-                
-                
             }
 
         } catch (SQLException e) {
@@ -425,28 +445,68 @@ public class ControlerFuncionario extends Funcionario {
     }
 
     public String retornaGarcom(String numeroMesa) {
-        String garcom=null;
+        String garcom = null;
         String sql = "SELECT cm.numero_mesa, cf.nome \n"
                 + "FROM dbbar.cadmesa cm\n"
                 + "INNER JOIN tbcadfuncionario cf on cf.id=cm.tbcadFuncionario_id\n"
                 + "WHERE cm.numero_mesa=?";
-        
+
         try {
-            pst=conexao.prepareStatement(sql);
-            pst.setString(1,numeroMesa);
-            rs=pst.executeQuery();
-            
-            while (rs.next()){
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, numeroMesa);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
                 garcom = rs.getString("nome");
             }
-            
+
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerFuncionario.retornaGarcom()");
         }
         return garcom;
     }
-    
-    
-    
-    
+
+    public Funcionario localizaFuncionario(String id) {
+
+        String sql = "SELECT * FROM tbcadfuncionario WHERE id=?";
+
+        Funcionario f = new Funcionario();
+        try {
+
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, id);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+
+                f.setId(rs.getString("id"));
+                f.setNome(rs.getString("nome"));
+                f.setEndereco(rs.getString("endereco"));
+                f.setBairro(rs.getString("bairro"));
+                f.setCep(rs.getString("cep"));
+                f.setCidade(rs.getString("cidade"));
+                f.setEmail(rs.getString("email"));
+                f.setFoto(rs.getString("foto"));
+                f.setLogin(rs.getString("login"));
+                f.setCargo(rs.getString("cargo"));
+                f.setSenha(rs.getString("senha"));
+                f.setStatus(rs.getString("status"));
+                f.setBloqueado(rs.getString("bloqueado"));
+                f.setRg(rs.getString("rg"));
+                f.setCpf(rs.getString("cpf"));
+                f.setCnh(rs.getString("cnh"));
+                f.setObservacao(rs.getString("observacao"));
+                f.setNumero(rs.getString("numero"));
+                f.setUf(rs.getString("uf"));
+                f.setTelefone_recado(rs.getString("telefone_recado"));
+                f.setTelefone(rs.getString("telefone"));
+                f.setComplemento(rs.getString("complemento"));
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerFuncionario.localizaFuncionario()" + e);
+        }
+        return f;
+    }
 }

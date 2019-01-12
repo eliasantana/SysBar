@@ -11,8 +11,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -69,6 +72,8 @@ public class ControlerLog {
 
         return rs;
     }
+    // Lista os registros de log no período especificado retornando um ResultSet
+   
 
     public ResultSet listaLog(JTable tabela, String dataInicio, String dataFim, String filtro) {
 
@@ -88,10 +93,10 @@ public class ControlerLog {
             pst.setString(3, dataFim);
 
             rs = pst.executeQuery();
-           
-            if (rs.next()){
-               
-           }else {
+            // Avalia e retorna uma Mensagem conforme o resultado da pesquisa.
+            if (rs.next()) {
+
+            } else {
                 JOptionPane.showMessageDialog(null, "Não há nenhum registro encontrado para o período e usuário informados!");
             }
 
@@ -100,6 +105,45 @@ public class ControlerLog {
         }
 
         return rs;
+    }
+
+    // Lista os registros de Log no período especificado retornando um Boolean
+    // mudando o estado do objeto btn passado no parâmetro conforme resultado da pesquisa.
+    public void listaLog(JTable tabela, String dataInicio, String dataFim, String filtro, JLabel btn) {
+       
+        String sql = "SELECT \n"
+                + "id as 'CÓDIGO', \n"
+                + "date_format(data,'%d/%m/%Y')  as 'DATA', \n"
+                + "hora as 'HORA', \n"
+                + "usuario as 'USUÁRIO', \n"
+                + "funcionalidade as 'FUNCIONALIDADE', \n"
+                + "descricao  as 'DESCRIÇÃO'\n"
+                + "FROM dbbar.tb_log where usuario=? and data between ? and ?";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, filtro);
+            pst.setString(2, dataInicio);
+            pst.setString(3, dataFim);
+
+            rs = pst.executeQuery();
+            // Avalia retorno do Objeto ResultSet carregando a tabela e habilitando
+            // os objetos necessarios.
+            if (rs.next()) {
+               
+                btn.setEnabled(true);
+                tabela.setModel(DbUtils.resultSetToTableModel(rs));
+            } else {
+                tabela.setModel(DbUtils.resultSetToTableModel(rs));
+                JOptionPane.showMessageDialog(null, "Não há nenhum registro encontrado para o período e usuário informados!");
+                 btn.setEnabled(false);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerLog.listaLog()" + e);
+        }
+
+       
     }
 
 }
