@@ -431,14 +431,14 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jpanelImpressao.setBounds(640, 380, 250, 80);
 
         lblTextocaminhoBanco.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        lblTextocaminhoBanco.setText("Local de Backup");
+        lblTextocaminhoBanco.setText("Local de Backup:");
         getContentPane().add(lblTextocaminhoBanco);
-        lblTextocaminhoBanco.setBounds(360, 380, 210, 16);
+        lblTextocaminhoBanco.setBounds(360, 470, 210, 16);
 
         lblCaminho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/bd.png"))); // NOI18N
         lblCaminho.setText("Caminho");
         getContentPane().add(lblCaminho);
-        lblCaminho.setBounds(360, 490, 190, 40);
+        lblCaminho.setBounds(360, 490, 340, 40);
         getContentPane().add(txtComplemento);
         txtComplemento.setBounds(680, 220, 210, 30);
 
@@ -454,7 +454,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSelecionarArquivo);
-        btnSelecionarArquivo.setBounds(360, 400, 100, 40);
+        btnSelecionarArquivo.setBounds(450, 460, 100, 30);
 
         setSize(new java.awt.Dimension(906, 585));
         setLocationRelativeTo(null);

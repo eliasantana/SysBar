@@ -70,25 +70,6 @@ public class ControlerFuncionario extends Funcionario {
 
     }
 
-    // Carrega dados da tabelade funcionários
-    // Excluir métodos após finalização da implementação da nova tela funcionários
-    public void carregaFuncionario(JTable tabela) {
-
-        String slq = "SELECT * FROM tbcadfuncionario";
-
-        try {
-            pst = conexao.prepareStatement(slq);
-            rs = pst.executeQuery();
-
-            tabela.setModel(DbUtils.resultSetToTableModel(rs));
-
-        } catch (SQLException e) {
-
-            JOptionPane.showMessageDialog(null, "Erro carregaFuncionario");
-        }
-
-    }
-
     public ResultSet carregaFuncionario(String texto) {
 
         String slq = "SELECT id AS 'CÓDIGO', nome AS 'NOME', cpf AS 'CPF', rg AS 'RG',telefone AS 'TELEFONE'\n"
@@ -108,6 +89,7 @@ public class ControlerFuncionario extends Funcionario {
         return rs;
     }
 
+    /*Excluir depois 
     public void contatoFuncionario(JTable tabela) {
 
         String slq = "SELECT \n"
@@ -130,7 +112,7 @@ public class ControlerFuncionario extends Funcionario {
         }
 
     }
-
+     */
     public String exibeHistorico(Funcionario f) {
 
         String sql = "SELECT observacao FROM tbcadfuncionario WHERE id =?";
@@ -163,7 +145,7 @@ public class ControlerFuncionario extends Funcionario {
             resposta = true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Este funcionário possui mesas \ne não pode ser excluído!");
+            JOptionPane.showMessageDialog(null, "Este funcionário possui mesas e não pode ser excluído!");
         }
         return resposta;
     }
@@ -173,22 +155,18 @@ public class ControlerFuncionario extends Funcionario {
         boolean resp = false;
 
         String sql = "UPDATE tbcadfuncionario SET "
-                + "nome=?, "
+              
                 + "endereco=?, "
                 + "bairro=?, "
                 + "cep=?, "
                 + "cidade=?, "
                 + "email=?,"
                 + "foto=?,"
-                + "telefone=?,"
-                + "login=?,"
+                + "telefone=?,"              
                 + "cargo=?,"
                 + "senha=?,"
                 + "status=?,"
-                + "bloqueado=?,"
-                + "rg=?,"
-                + "cpf=?,"
-                + "cnh=?, "
+                + "bloqueado=?,"                
                 + "observacao=?,"
                 + "numero=?,"
                 + "uf=?,"
@@ -197,29 +175,24 @@ public class ControlerFuncionario extends Funcionario {
                 + "WHERE id=?";
 
         try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, f.getNome());
-            pst.setString(2, f.getEndereco());
-            pst.setString(3, f.getBairro());
-            pst.setString(4, f.getCep());
-            pst.setString(5, f.getCidade());
-            pst.setString(6, f.getEmail());
-            pst.setString(7, f.getFoto());
-            pst.setString(8, f.getTelefone());
-            pst.setString(9, f.getLogin());
-            pst.setString(10, f.getCargo());
-            pst.setString(11, f.getSenha());
-            pst.setString(12, f.getStatus());
-            pst.setString(13, f.getBloqueado());
-            pst.setString(14, f.getRg());
-            pst.setString(15, f.getCpf());
-            pst.setString(16, f.getCnh());
-            pst.setString(17, f.getObservacao());
-            pst.setString(18, f.getNumero());
-            pst.setString(19, f.getUf());
-            pst.setString(20, f.getTelefone_recado());
-            pst.setString(21, f.getComplemento());
-            pst.setString(22, id);
+            pst = conexao.prepareStatement(sql);            
+            pst.setString(1, f.getEndereco());
+            pst.setString(2, f.getBairro());
+            pst.setString(3, f.getCep());
+            pst.setString(4, f.getCidade());
+            pst.setString(5, f.getEmail());
+            pst.setString(6, f.getFoto());
+            pst.setString(7, f.getTelefone());          
+            pst.setString(8, f.getCargo());
+            pst.setString(9, f.getSenha());
+            pst.setString(10, f.getStatus());
+            pst.setString(11, f.getBloqueado());
+            pst.setString(12, f.getObservacao());
+            pst.setString(13, f.getNumero());
+            pst.setString(14, f.getUf());
+            pst.setString(15, f.getTelefone_recado());
+            pst.setString(16, f.getComplemento());
+            pst.setString(17, id);
 
             pst.executeUpdate();
             resp = true;

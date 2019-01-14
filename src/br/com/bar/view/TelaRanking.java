@@ -28,6 +28,7 @@ public class TelaRanking extends javax.swing.JFrame {
         initComponents();
         jdataInicio.setDate(new Date());
         jdataFim.setDate(new Date());
+        this.setAlwaysOnTop(true);
     }
 
     /**

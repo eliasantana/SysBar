@@ -405,22 +405,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/funcionario (3).png"))); // NOI18N
         jLabel9.setText("Funcionários");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnFuncionariosLayout = new javax.swing.GroupLayout(btnFuncionarios);
         btnFuncionarios.setLayout(btnFuncionariosLayout);
         btnFuncionariosLayout.setHorizontalGroup(
             btnFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnFuncionariosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
         );
         btnFuncionariosLayout.setVerticalGroup(
             btnFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnFuncionariosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
         );
 
         jPanel1.add(btnFuncionarios);
@@ -681,16 +680,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMesasMouseClicked
 
     private void btnFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFuncionariosMouseClicked
-        // Chama Tela Cadastro de Funcionários
-        TelaCadastroFuncionario func = new TelaCadastroFuncionario();
-        func.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        func.setVisible(true);
-        // Inicio do registro de log
-        log.setFuncionalidade("Cadastro de Funcionário");
-        log.setUsuario(lblOperador.getText());
-        log.setDescricao(log.getUsuario() + " acessou o" + log.getFuncionalidade());
-        log.gravaLog(log);
-        // Fim do regisro de log
+       
 
     }//GEN-LAST:event_btnFuncionariosMouseClicked
 
@@ -783,6 +773,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
             login.setVisible(true);
         }
     }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        // Chama Tela Cadastro de Funcionários
+        TelaPesquisaFuncionario pesqFunc = new TelaPesquisaFuncionario();
+        pesqFunc.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        pesqFunc.setVisible(true);
+        
+        // Inicio do registro de log
+        log.setFuncionalidade("Cadastro de Funcionário");
+        log.setUsuario(lblOperador.getText());
+        log.setDescricao(log.getUsuario() + " acessou o" + log.getFuncionalidade());
+        log.gravaLog(log);
+        // Fim do regisro de log
+    }//GEN-LAST:event_jLabel9MouseClicked
 
     /**
      * @param args the command line arguments

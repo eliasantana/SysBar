@@ -37,25 +37,32 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
      */
     public TelaCadastroFuncionario() {
         initComponents();
-        txtCaminho.setVisible(true);
-        funcionario.carregaFuncionario(tblFuncionarioCadastrado);
+        txtCaminho.setVisible(false);
         txtId.setVisible(false);
+        txtOperacao.setVisible(false);
         jtableGuias.setVisible(false);
-        desabilitabotoes();
+
     }
 
-    public void recebeOperador(String operador, String cargo) {
+    public void recebeOperador(String operador, String cargo, String operacao) {
 
         lblCargo.setText(cargo);
         lblOperador.setText(operador);
+        txtOperacao.setText(operacao);
         l.setUsuario(operador);
         Date data = new Date();
-        lblData.setText(u.formataDataBr(data));
 
+        if ("Adicionar".equals(operacao)) {
+
+        } else {
+
+            carregaFoto();
+            bloqueiaCampos();
+        }
     }
-    
-    public void recebeFuncionario(Funcionario f){
-    
+
+    public void recebeFuncionario(Funcionario f) {
+        txtId.setText(f.getId());
         txtNome.setText(f.getNome());
         txtEndereço.setText(f.getEndereco());
         txtBairro.setText(f.getBairro());
@@ -74,23 +81,19 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         txtTelRecado.setText(f.getTelefone_recado());
         comboCargo.setSelectedItem(f.getCargo());
         txtCaminho.setText(f.getFoto());
-        
-         if (f.getStatus().equals("0")) {
+
+        if (f.getStatus().equals("0")) {
             comboSituacao.setSelectedItem("Ativo");
         } else {
             comboSituacao.setSelectedItem("Inativo");
         }
-        
+
         if (f.getBloqueado().equals("0")) {
             comboBloqueio.setSelectedItem("Desbloqueado");
         } else {
             comboBloqueio.setSelectedItem("Bloqueado");
         }
-        /*
-        ImageIcon imageIcon = new ImageIcon(txtCaminho.getText());
-        Icon icon = new ImageIcon(imageIcon.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_SMOOTH));
-        lblFoto.setIcon(icon);
-        */
+
     }
 
     /**
@@ -146,6 +149,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         lblTelefone1 = new javax.swing.JLabel();
         txtComplemento = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jToggleHistorico = new javax.swing.JToggleButton();
+        jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -156,27 +162,10 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         lblFechar = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        lblAlterar = new javax.swing.JLabel();
-        lblCadastrar = new javax.swing.JLabel();
-        lblSair = new javax.swing.JLabel();
-        lblExcluir = new javax.swing.JLabel();
-        lblLimparFormulario = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        txtOperacao = new javax.swing.JTextField();
         jtableGuias = new javax.swing.JTabbedPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblFuncionarioCadastrado = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblContatos = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtHistorico = new javax.swing.JTextArea();
-        jPanel6 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -233,7 +222,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+            .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,7 +230,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(570, 10, 120, 150);
+        jPanel2.setBounds(570, 10, 140, 150);
 
         lblTelefone.setText("Celular");
         jPanel1.add(lblTelefone);
@@ -294,7 +283,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         comboBloqueio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Desbloqueado", "Bloqueado" }));
         jPanel1.add(comboBloqueio);
-        comboBloqueio.setBounds(270, 290, 125, 30);
+        comboBloqueio.setBounds(270, 290, 100, 30);
 
         jLabel17.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 24)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(52, 73, 94));
@@ -305,7 +294,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jLabel17);
-        jLabel17.setBounds(600, 160, 70, 50);
+        jLabel17.setBounds(610, 160, 70, 50);
 
         jLabel1.setText("CPF");
         jPanel1.add(jLabel1);
@@ -337,7 +326,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         lbltemMesa.setFont(new java.awt.Font("Yu Gothic Light", 0, 12)); // NOI18N
         jPanel1.add(lbltemMesa);
-        lbltemMesa.setBounds(410, 290, 260, 30);
+        lbltemMesa.setBounds(10, 320, 340, 20);
         jPanel1.add(txtNumero);
         txtNumero.setBounds(490, 80, 60, 30);
 
@@ -369,6 +358,39 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jPanel1.add(jLabel24);
         jLabel24.setBounds(130, 110, 100, 20);
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvar24x24.png"))); // NOI18N
+        jButton1.setText("Salvar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(380, 290, 91, 30);
+
+        jToggleHistorico.setText("Histórico");
+        jToggleHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleHistoricoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jToggleHistorico);
+        jToggleHistorico.setBounds(475, 290, 90, 30);
+
+        jButton2.setText("Ranking de Vendas");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2);
+        jButton2.setBounds(570, 290, 140, 30);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 100, 720, 340);
 
@@ -378,26 +400,26 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 48)); // NOI18N
         jLabel14.setText("Cadastro");
         jPanel4.add(jLabel14);
-        jLabel14.setBounds(50, 0, 185, 78);
+        jLabel14.setBounds(30, 0, 185, 78);
 
         jLabel15.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 24)); // NOI18N
         jLabel15.setText("de Funcionários");
         jPanel4.add(jLabel15);
-        jLabel15.setBounds(210, 50, 200, 40);
+        jLabel15.setBounds(190, 50, 200, 40);
         jPanel4.add(txtId);
-        txtId.setBounds(430, 40, 39, 20);
+        txtId.setBounds(380, 10, 60, 30);
         jPanel4.add(txtCaminho);
-        txtCaminho.setBounds(430, 60, 146, 20);
+        txtCaminho.setBounds(450, 10, 100, 30);
 
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("Operador");
         jPanel4.add(lblOperador);
-        lblOperador.setBounds(600, 50, 114, 30);
+        lblOperador.setBounds(420, 50, 114, 30);
 
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("Operador");
         jPanel4.add(lblCargo);
-        lblCargo.setBounds(690, 50, 100, 30);
+        lblCargo.setBounds(510, 50, 100, 30);
 
         lblFechar.setFont(new java.awt.Font("Yu Gothic", 1, 24)); // NOI18N
         lblFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -413,114 +435,29 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(lblFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(lblFechar)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblFechar))
         );
 
         jPanel4.add(jPanel5);
-        jPanel5.setBounds(910, 0, 40, 40);
+        jPanel5.setBounds(680, 0, 40, 40);
 
         lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario24x24.png"))); // NOI18N
         lblData.setText("Data");
         jPanel4.add(lblData);
-        lblData.setBounds(780, 50, 110, 30);
+        lblData.setBounds(610, 50, 110, 30);
+        jPanel4.add(txtOperacao);
+        txtOperacao.setBounds(560, 10, 100, 30);
 
         getContentPane().add(jPanel4);
-        jPanel4.setBounds(0, 0, 950, 100);
-
-        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel3.setLayout(null);
-
-        lblAlterar.setBackground(new java.awt.Color(52, 73, 94));
-        lblAlterar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
-        lblAlterar.setForeground(new java.awt.Color(52, 73, 94));
-        lblAlterar.setText("Alterar");
-        lblAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblAlterarMouseClicked(evt);
-            }
-        });
-        jPanel3.add(lblAlterar);
-        lblAlterar.setBounds(60, 200, 90, 50);
-
-        lblCadastrar.setBackground(new java.awt.Color(52, 73, 94));
-        lblCadastrar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
-        lblCadastrar.setForeground(new java.awt.Color(52, 73, 94));
-        lblCadastrar.setText("Adicionar");
-        lblCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCadastrarMouseClicked(evt);
-            }
-        });
-        jPanel3.add(lblCadastrar);
-        lblCadastrar.setBounds(60, 30, 140, 60);
-
-        lblSair.setBackground(new java.awt.Color(52, 73, 94));
-        lblSair.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
-        lblSair.setForeground(new java.awt.Color(52, 73, 94));
-        lblSair.setText("Sair");
-        lblSair.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblSairMouseClicked(evt);
-            }
-        });
-        jPanel3.add(lblSair);
-        lblSair.setBounds(60, 260, 100, 40);
-
-        lblExcluir.setBackground(new java.awt.Color(52, 73, 94));
-        lblExcluir.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
-        lblExcluir.setForeground(new java.awt.Color(52, 73, 94));
-        lblExcluir.setText("Excluir");
-        lblExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblExcluirMouseClicked(evt);
-            }
-        });
-        jPanel3.add(lblExcluir);
-        lblExcluir.setBounds(60, 140, 100, 60);
-
-        lblLimparFormulario.setBackground(new java.awt.Color(52, 73, 94));
-        lblLimparFormulario.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
-        lblLimparFormulario.setForeground(new java.awt.Color(52, 73, 94));
-        lblLimparFormulario.setText("Limpar");
-        lblLimparFormulario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblLimparFormularioMouseClicked(evt);
-            }
-        });
-        jPanel3.add(lblLimparFormulario);
-        lblLimparFormulario.setBounds(60, 90, 100, 50);
-
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvarCinza.png"))); // NOI18N
-        jPanel3.add(jLabel16);
-        jLabel16.setBounds(10, 34, 40, 40);
-
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapisCinza.png"))); // NOI18N
-        jPanel3.add(jLabel18);
-        jLabel18.setBounds(10, 210, 50, 40);
-
-        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lixeiraCinza.png"))); // NOI18N
-        jPanel3.add(jLabel19);
-        jLabel19.setBounds(10, 150, 40, 40);
-
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/limparCinza.png"))); // NOI18N
-        jPanel3.add(jLabel20);
-        jLabel20.setBounds(10, 100, 76, 40);
-
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/SairCinza.png"))); // NOI18N
-        jPanel3.add(jLabel21);
-        jLabel21.setBounds(10, 270, 76, 30);
-
-        getContentPane().add(jPanel3);
-        jPanel3.setBounds(720, 100, 230, 340);
+        jPanel4.setBounds(0, 0, 730, 100);
 
         jtableGuias.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -531,103 +468,16 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             }
         });
 
-        tblFuncionarioCadastrado.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblFuncionarioCadastrado.setRowHeight(22);
-        tblFuncionarioCadastrado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblFuncionarioCadastradoMouseClicked(evt);
-            }
-        });
-        tblFuncionarioCadastrado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tblFuncionarioCadastradoKeyPressed(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblFuncionarioCadastrado);
-        if (tblFuncionarioCadastrado.getColumnModel().getColumnCount() > 0) {
-            tblFuncionarioCadastrado.getColumnModel().getColumn(0).setPreferredWidth(20);
-        }
-
-        jtableGuias.addTab("Geral", jScrollPane1);
-
-        tblContatos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblContatos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblContatosMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(tblContatos);
-
-        jtableGuias.addTab("Contatos", jScrollPane2);
-
         txtHistorico.setColumns(20);
         txtHistorico.setRows(5);
         jScrollPane3.setViewportView(txtHistorico);
 
-        jtableGuias.addTab("Histórico do Funcionário", jScrollPane3);
+        jtableGuias.addTab("Histórico", jScrollPane3);
 
         getContentPane().add(jtableGuias);
-        jtableGuias.setBounds(0, 450, 950, 250);
+        jtableGuias.setBounds(0, 440, 720, 220);
 
-        jButton1.setText("Listar Funcionários");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Ranking de Vendas");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        getContentPane().add(jPanel6);
-        jPanel6.setBounds(650, 430, 300, 50);
-
-        setSize(new java.awt.Dimension(949, 706));
+        setSize(new java.awt.Dimension(720, 716));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -655,12 +505,52 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         lblFoto.setIcon(icon);
     }//GEN-LAST:event_jLabel17MouseClicked
 
-    private void lblAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlterarMouseClicked
-        // Instanciao objeto funcionário
-        if (lblAlterar.isEnabled()) {
+    private void comboSituacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSituacaoActionPerformed
+        // Seleciona bloquio
+        if ("Inativo".equals(comboSituacao.getSelectedItem().toString())) {
+            comboBloqueio.setSelectedItem("Bloqueado");
+        } else {
+            comboBloqueio.setSelectedItem("Desbloqueado");
+        }
+    }//GEN-LAST:event_comboSituacaoActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Chama Tela Ranking
+        TelaRanking tr = new TelaRanking();
+        tr.setVisible(true);
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jtableGuiasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableGuiasMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtableGuiasMouseEntered
+
+    private void jtableGuiasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableGuiasMouseClicked
+
+    }//GEN-LAST:event_jtableGuiasMouseClicked
+
+    private void jToggleHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleHistoricoActionPerformed
+        // Ativa ou desativa o histórico
+        if (jToggleHistorico.isSelected()) {
+            jToggleHistorico.setText("Ocultar");
+            jtableGuias.setVisible(true);
+
+        } else {
+            jToggleHistorico.setText("Histórico");
+            jtableGuias.setVisible(false);
+        }
+    }//GEN-LAST:event_jToggleHistoricoActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if ("Adicionar".equals(txtOperacao.getText())) {
+            // Adiciona um novo funcionário
             Funcionario f = new Funcionario();
-            f.setId(txtId.getText());
+
+            f.setFoto(txtCaminho.getText());
             f.setNome(txtNome.getText());
             f.setEndereco(txtEndereço.getText());
             f.setBairro(txtBairro.getText());
@@ -670,11 +560,64 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             f.setLogin(txtLogin.getText());
             f.setSenha(txtSenha.getText());
             f.setTelefone(txtTelefone.getText());
+            f.setObservacao(txtHistorico.getText());
             f.setCargo(comboCargo.getSelectedItem().toString());
-            f.setFoto(txtCaminho.getText());
-            f.setRg(txtRg.getText());
+            f.setNumero(txtNumero.getText());
+            f.setComplemento(txtComplemento.getText());
+            f.setUf(txtUf.getText());
+            f.setTelefone_recado(txtTelRecado.getText());
+
+            String status = comboSituacao.getSelectedItem().toString();
+            if (status.equals("Ativo")) {
+
+                f.setStatus("0");
+            } else {
+                f.setStatus("1");
+            }
+            String bloqueio = comboBloqueio.getSelectedItem().toString();
+            if (bloqueio.equals("Desbloqueado")) {
+
+                f.setBloqueado("0");
+            } else {
+                f.setBloqueado("1");
+
+            }
+
             f.setCpf(txtCpf.getText());
             f.setCnh(txtCnh.getText());
+            f.setRg(txtRg.getText());
+
+            if (txtNome.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Funcionário inválido!");
+            } else if (funcionario.temFuncionario(txtId.getText())) {
+                JOptionPane.showMessageDialog(null, "Este funcionário já existe!\n Clique em 'Novo' para continuar!");
+            } else {
+
+                if (funcionario.adicionaFuncionario(f)) {
+                    JOptionPane.showMessageDialog(null, "Funcionário adicionado com sucesso!");
+                    limpaForm();
+                    // Início do registro de log
+                    l.setFuncionalidade("Salvar");
+                    l.setDescricao(l.getUsuario() + " adicionou ->" + f.getNome() + " ao cadastro de funcionário");
+                    l.gravaLog(l);
+
+                    //Fim do registro de log
+                }
+            }
+        } else {
+            // Altera dados dos funcionários
+
+            Funcionario f = new Funcionario();
+            f.setId(txtId.getText());          
+            f.setEndereco(txtEndereço.getText());
+            f.setBairro(txtBairro.getText());
+            f.setCep(txtCep.getText());
+            f.setCidade(txtCidade.getText());
+            f.setEmail(txtEmail.getText());
+            f.setSenha(txtSenha.getText());
+            f.setTelefone(txtTelefone.getText());
+            f.setCargo(comboCargo.getSelectedItem().toString());
+            f.setFoto(txtCaminho.getText());
             f.setObservacao(txtHistorico.getText());
             f.setCargo(comboCargo.getSelectedItem().toString());
             f.setNumero(txtNumero.getText());
@@ -714,8 +657,8 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                 } else {
                     // Altera as mesas do funcionário
                     if (cf.alterar(f, txtId.getText())) {
-                        JOptionPane.showMessageDialog(null, "Registro alterado com sucesso!");
-                        funcionario.carregaFuncionario(tblFuncionarioCadastrado);
+                        JOptionPane.showMessageDialog(null, "Dados alterados com sucesso!");
+                        limpaForm();
                         // Início do registro de log
                         l.setFuncionalidade("Alterar");
                         l.setDescricao(l.getUsuario() + " alterou o registro do funcioário ->" + f.getNome());
@@ -726,8 +669,8 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                 }
             } else {
                 if (cf.alterar(f, txtId.getText())) {
-                    JOptionPane.showMessageDialog(null, "Registro alterado com sucesso!");
-                    funcionario.carregaFuncionario(tblFuncionarioCadastrado);
+                    JOptionPane.showMessageDialog(null, "Dados alterados com sucesso!");
+
                     // Início do registro de log
                     l.setFuncionalidade("Alterar");
                     l.setDescricao(l.getUsuario() + " alterou o registro do funcioário ->" + f.getNome());
@@ -735,233 +678,11 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                     //Fim do registro de log
                 }
             }
-        }
-
-    }//GEN-LAST:event_lblAlterarMouseClicked
-
-    private void lblSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSairMouseClicked
-        this.dispose();
-    }//GEN-LAST:event_lblSairMouseClicked
-
-    private void lblExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExcluirMouseClicked
-        if (lblExcluir.isEnabled()) {
-
-            // Solicita confirmação do usuário antes de excluir
-            int op = JOptionPane.showConfirmDialog(null, "Confirma a exclusão?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-
-            if (op == JOptionPane.YES_OPTION) {
-                if (funcionario.excluirFuncionario(txtId.getText())) {
-                    JOptionPane.showMessageDialog(null, "Exclusão realizada com sucesso!");
-                    // Início do registro de log
-                    l.setFuncionalidade("Excluir");
-                    l.setDescricao(l.getUsuario() + " Excluiu ->" + txtNome.getText() + " do cadastro de funcionário");
-                    l.gravaLog(l);
-                    //Fim do registro de log
-                    limpaForm();
-                    funcionario.carregaFuncionario(tblFuncionarioCadastrado);
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Exclusão cancelada com sucesso!");
-            }
-        }
-
-
-    }//GEN-LAST:event_lblExcluirMouseClicked
-
-    private void lblLimparFormularioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLimparFormularioMouseClicked
-        if (lblLimparFormulario.isEnabled()) {
-
-            limpaForm();
-        }
-
-    }//GEN-LAST:event_lblLimparFormularioMouseClicked
-
-    private void lblCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCadastrarMouseClicked
-
-        Funcionario f = new Funcionario();
-
-        f.setFoto(txtCaminho.getText());
-        f.setNome(txtNome.getText());
-        f.setEndereco(txtEndereço.getText());
-        f.setBairro(txtBairro.getText());
-        f.setCep(txtCep.getText());
-        f.setCidade(txtCidade.getText());
-        f.setEmail(txtEmail.getText());
-        f.setLogin(txtLogin.getText());
-        f.setSenha(txtSenha.getText());
-        f.setTelefone(txtTelefone.getText());
-        f.setObservacao(txtHistorico.getText());
-        f.setCargo(comboCargo.getSelectedItem().toString());
-        f.setNumero(txtNumero.getText());
-        f.setComplemento(txtComplemento.getText());
-        f.setUf(txtUf.getText());
-        f.setTelefone_recado(txtTelRecado.getText());
-
-        String status = comboSituacao.getSelectedItem().toString();
-        if (status.equals("Ativo")) {
-
-            f.setStatus("0");
-        } else {
-            f.setStatus("1");
-        }
-        String bloqueio = comboBloqueio.getSelectedItem().toString();
-        if (bloqueio.equals("Desbloqueado")) {
-
-            f.setBloqueado("0");
-        } else {
-            f.setBloqueado("1");
 
         }
 
-        f.setCpf(txtCpf.getText());
-        f.setCnh(txtCnh.getText());
-        f.setRg(txtRg.getText());
 
-        //if (txtId.getText().isEmpty()) {
-        if (txtNome.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Funcionário inválido!");
-        } else if (funcionario.temFuncionario(txtId.getText())) {
-            JOptionPane.showMessageDialog(null, "Este funcionário já existe!\n Clique em 'Novo' para continuar!");
-        } else {
-
-            if (funcionario.adicionaFuncionario(f)) {
-                JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
-                funcionario.carregaFuncionario(tblFuncionarioCadastrado);
-
-                // Início do registro de log
-                l.setFuncionalidade("Salvar");
-                l.setDescricao(l.getUsuario() + " adicionou ->" + f.getNome() + " ao cadastro de funcionário");
-                l.gravaLog(l);
-
-                //Fim do registro de log
-            }
-        }
-
-    }//GEN-LAST:event_lblCadastrarMouseClicked
-
-    private void comboSituacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSituacaoActionPerformed
-        // Seleciona bloquio
-        if ("Inativo".equals(comboSituacao.getSelectedItem().toString())) {
-            comboBloqueio.setSelectedItem("Bloqueado");
-        } else {
-            comboBloqueio.setSelectedItem("Desbloqueado");
-        }
-    }//GEN-LAST:event_comboSituacaoActionPerformed
-
-    private void jtableGuiasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableGuiasMouseClicked
-        // Exibe tabela de Contatos
-
-        funcionario.contatoFuncionario(tblContatos);
-
-    }//GEN-LAST:event_jtableGuiasMouseClicked
-
-    private void tblFuncionarioCadastradoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblFuncionarioCadastradoKeyPressed
-        // Chama o método seleciona funcionario
-        selecionaFuncionario();
-    }//GEN-LAST:event_tblFuncionarioCadastradoKeyPressed
-
-    private void tblFuncionarioCadastradoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFuncionarioCadastradoMouseClicked
-        // Chama o método seleciona funcionario
-        selecionaFuncionario();
-        habilitaBotoes();
-    }//GEN-LAST:event_tblFuncionarioCadastradoMouseClicked
-
-    private void jtableGuiasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableGuiasMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtableGuiasMouseEntered
-
-    private void tblContatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblContatosMouseClicked
-        // Seleciona ID
-        Funcionario f = new ControlerFuncionario();
-        int linha = tblContatos.getSelectedRow();
-        f.setId(tblContatos.getModel().getValueAt(linha, 0).toString());
-
-        txtHistorico.setText(funcionario.exibeHistorico(f));
-    }//GEN-LAST:event_tblContatosMouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Exibe dados adicionais
-        jtableGuias.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // Chama Tela Ranking
-        TelaRanking tr = new TelaRanking();
-        tr.setVisible(true);
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-    public void selecionaFuncionario() {
-        // Carrega dados do funcionário selecionado
-
-        // captura o número da linha selecionada.
-        int linha = tblFuncionarioCadastrado.getSelectedRow();
-        txtId.setText(tblFuncionarioCadastrado.getModel().getValueAt(linha, 0).toString());
-        txtNome.setText(tblFuncionarioCadastrado.getModel().getValueAt(linha, 1).toString());
-        txtEndereço.setText(tblFuncionarioCadastrado.getModel().getValueAt(linha, 2).toString());
-        txtBairro.setText(tblFuncionarioCadastrado.getModel().getValueAt(linha, 3).toString());
-        txtCep.setText(tblFuncionarioCadastrado.getModel().getValueAt(linha, 4).toString());
-
-        // Captura excessão caso o funcionário não possua foto.
-        try {
-
-            txtCaminho.setText(tblFuncionarioCadastrado.getModel().getValueAt(linha, 7).toString());
-
-        } catch (Exception e) {
-            lblFoto.setIcon(null);
-        }
-
-        txtCidade.setText(tblFuncionarioCadastrado.getModel().getValueAt(linha, 5).toString());
-        txtEmail.setText(tblFuncionarioCadastrado.getModel().getValueAt(linha, 6).toString());
-        txtTelefone.setText(tblFuncionarioCadastrado.getModel().getValueAt(linha, 8).toString());
-        String cargo = tblFuncionarioCadastrado.getModel().getValueAt(linha, 10).toString();
-        comboCargo.setSelectedItem(cargo);
-        txtLogin.setText(tblFuncionarioCadastrado.getModel().getValueAt(linha, 9).toString());
-        txtSenha.setText(tblFuncionarioCadastrado.getModel().getValueAt(linha, 11).toString());
-
-        String situacao = tblFuncionarioCadastrado.getModel().getValueAt(linha, 12).toString();
-
-        if (situacao.equals("0")) {
-            comboSituacao.setSelectedItem("Ativo");
-        } else {
-            comboSituacao.setSelectedItem("Inativo");
-        }
-        String bloqueio = tblFuncionarioCadastrado.getModel().getValueAt(linha, 13).toString();
-
-        if (bloqueio.equals("0")) {
-            comboBloqueio.setSelectedItem("Desbloqueado");
-        } else {
-            comboBloqueio.setSelectedItem("Bloqueado");
-        }
-
-        try {
-
-            txtRg.setText(tblFuncionarioCadastrado.getModel().getValueAt(linha, 14).toString());
-            txtCpf.setText(tblFuncionarioCadastrado.getModel().getValueAt(linha, 15).toString());
-            txtCnh.setText(tblFuncionarioCadastrado.getModel().getValueAt(linha, 16).toString());
-
-        } catch (Exception e) {
-
-        }
-
-        ImageIcon imageIcon = new ImageIcon(txtCaminho.getText());
-        Icon icon = new ImageIcon(imageIcon.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_SMOOTH));
-        lblFoto.setIcon(icon);
-
-        Funcionario f = new Funcionario();
-        f.setId(txtId.getText());
-
-        if (funcionario.temMesa(f)) {
-
-            lbltemMesa.setText("*Este funcionário possui mesas cadastradas!");
-            lbltemMesa.setForeground(Color.red);
-            lbltemMesa.setVisible(true);
-        } else {
-            lbltemMesa.setVisible(false);
-        }
-
-        txtHistorico.setText(funcionario.exibeHistorico(f));
-    }
 
     public void limpaForm() {
         // Limpa formulário
@@ -974,7 +695,10 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         txtLogin.setText(null);
         txtSenha.setText(null);
         txtTelefone.setText(null);
-
+        txtCidade.setText(null);
+        txtComplemento.setText(null);
+        txtNumero.setText(null);
+        txtUf.setText(null);
         comboBloqueio.setSelectedItem("Desbloqueado");
         comboCargo.setSelectedItem("Cargos");
         comboSituacao.setSelectedItem("Ativo");
@@ -983,6 +707,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         txtRg.setText(null);
         txtCpf.setText(null);
         txtCnh.setText(null);
+        txtTelRecado.setText(null);
     }
 
     /**
@@ -1034,13 +759,8 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -1053,30 +773,20 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JToggleButton jToggleHistorico;
     private javax.swing.JTabbedPane jtableGuias;
-    private javax.swing.JLabel lblAlterar;
-    private javax.swing.JLabel lblCadastrar;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblData;
-    private javax.swing.JLabel lblExcluir;
     private javax.swing.JLabel lblFechar;
     private javax.swing.JLabel lblFoto;
-    private javax.swing.JLabel lblLimparFormulario;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblOperador;
-    private javax.swing.JLabel lblSair;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblTelefone1;
     private javax.swing.JLabel lbltemMesa;
-    private javax.swing.JTable tblContatos;
-    private javax.swing.JTable tblFuncionarioCadastrado;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCaminho;
     private javax.swing.JFormattedTextField txtCep;
@@ -1091,6 +801,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumero;
+    private javax.swing.JTextField txtOperacao;
     private javax.swing.JFormattedTextField txtRg;
     private javax.swing.JTextField txtSenha;
     private javax.swing.JFormattedTextField txtTelRecado;
@@ -1098,16 +809,23 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextField txtUf;
     // End of variables declaration//GEN-END:variables
 
-    private void desabilitabotoes() {
-        lblAlterar.setEnabled(false);
-        lblExcluir.setEnabled(false);
-        lblLimparFormulario.setEnabled(false);
+   
 
+    private void carregaFoto() {
+
+        ImageIcon imageIcon = new ImageIcon(txtCaminho.getText());
+        Icon icon = new ImageIcon(imageIcon.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_SMOOTH));
+        lblFoto.setIcon(icon);
     }
 
-    private void habilitaBotoes() {
-        lblAlterar.setEnabled(true);
-        lblExcluir.setEnabled(true);
-        lblLimparFormulario.setEnabled(true);
+    private void bloqueiaCampos() {
+        if ("Alterar".equals(txtOperacao.getText())) {
+            txtNome.setEnabled(false);
+            txtLogin.setEnabled(false);
+            txtRg.setEnabled(false);
+            txtCpf.setEnabled(false);
+            txtCnh.setEnabled(false);
+        }
+
     }
 }
