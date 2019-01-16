@@ -62,7 +62,7 @@ public class ControlerFuncionario extends Funcionario {
             resp = true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao tentar adicionar o funcionario!");
+            JOptionPane.showMessageDialog(null, "Erro ao tentar adicionar o funcionário - Contate o SUPORTE!");
             System.out.println("br.com.br.controler.ControlerFuncionario.adicionaFuncionario()" + e);
         }
 
@@ -89,30 +89,6 @@ public class ControlerFuncionario extends Funcionario {
         return rs;
     }
 
-    /*Excluir depois 
-    public void contatoFuncionario(JTable tabela) {
-
-        String slq = "SELECT \n"
-                + "id as 'ID',\n"
-                + "	nome as 'FUNCIONÁRIO', \n"
-                + "	telefone AS 'TELEFONE',\n"
-                + "	email AS 'E-MAIL', \n"
-                + "	cargo AS 'CARGO' \n"
-                + "from tbcadfuncionario ORDER BY nome ASC";
-
-        try {
-            pst = conexao.prepareStatement(slq);
-            rs = pst.executeQuery();
-
-            tabela.setModel(DbUtils.resultSetToTableModel(rs));
-
-        } catch (SQLException e) {
-
-            JOptionPane.showMessageDialog(null, "Erro contatoFuncionario()");
-        }
-
-    }
-     */
     public String exibeHistorico(Funcionario f) {
 
         String sql = "SELECT observacao FROM tbcadfuncionario WHERE id =?";
@@ -153,9 +129,9 @@ public class ControlerFuncionario extends Funcionario {
     public boolean alterar(Funcionario f, String id) {
         // Este método altera os dados do funcionário a partir do identificador  
         boolean resp = false;
-
+        /*
         String sql = "UPDATE tbcadfuncionario SET "
-              
+            
                 + "endereco=?, "
                 + "bairro=?, "
                 + "cep=?, "
@@ -171,18 +147,43 @@ public class ControlerFuncionario extends Funcionario {
                 + "numero=?,"
                 + "uf=?,"
                 + "telefone_recado=?,"
-                + "complemento=?"
+                + "complemento=?,"
+                + "cnh_validade=?,"
+                + "dt_desligamento=?,"
+                + "cnh=?"
                 + "WHERE id=?";
-
+         */
+        String sql = "UPDATE tbcadfuncionario SET\n"
+                + "endereco=?, \n"
+                + "bairro=?, \n"
+                + "cep=?, \n"
+                + "cidade=?, \n"
+                + "email=?,\n"
+                + "foto=?,\n"
+                + "telefone=?,\n"
+                + "cargo=?,\n"
+                + "senha=?,\n"
+                + "status=?,\n"
+                + "bloqueado=?,\n"
+                + "observacao=?,\n"
+                + "numero=?,\n"
+                + "uf=?,\n"
+                + "telefone_recado=?,\n"
+                + "complemento=?,\n"
+                + "cnh_validade=?,\n"
+                + "dt_desligamento=?,\n"
+                + "dt_admissao=?,\n"              
+                + "cnh=?\n"
+                + "WHERE id=?";
         try {
-            pst = conexao.prepareStatement(sql);            
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, f.getEndereco());
             pst.setString(2, f.getBairro());
             pst.setString(3, f.getCep());
             pst.setString(4, f.getCidade());
             pst.setString(5, f.getEmail());
             pst.setString(6, f.getFoto());
-            pst.setString(7, f.getTelefone());          
+            pst.setString(7, f.getTelefone());
             pst.setString(8, f.getCargo());
             pst.setString(9, f.getSenha());
             pst.setString(10, f.getStatus());
@@ -192,7 +193,11 @@ public class ControlerFuncionario extends Funcionario {
             pst.setString(14, f.getUf());
             pst.setString(15, f.getTelefone_recado());
             pst.setString(16, f.getComplemento());
-            pst.setString(17, id);
+            pst.setString(17, f.getDtvalidadeCNH());
+            pst.setString(18, f.getDtDesligamento());
+            pst.setString(19, f.getDtAdmissao());
+            pst.setString(20, f.getCnh());
+            pst.setString(21, id);
 
             pst.executeUpdate();
             resp = true;
@@ -382,23 +387,39 @@ public class ControlerFuncionario extends Funcionario {
 
     }
 
-    public boolean temFuncionario(String id) {
+    /*  
+        Pesquisa um nome no banco de dados remove os espaços em branco e 
+        compara com o nome localizado na base.
+     */
+    public boolean temFuncionario(String nome) {
+        boolean resp = false;
+        String str = "";
+        String strNome = "";
+        String nomeBanco = "";
 
-        String sql = "SELECT nome FROM tbcadfuncionario where id=?";
-
+        String sql = "SELECT nome FROM tbcadfuncionario where nome=?";
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, id);
+            pst.setString(1, nome);
             rs = pst.executeQuery();
 
             while (rs.next()) {
-                return true;
+                nomeBanco = rs.getString("nome");
+            }
+
+            str = nomeBanco.replaceAll(" ", "").toLowerCase();
+            strNome = nome.replaceAll(" ", "").toLowerCase();
+            System.out.println("Nome Digitado: " + strNome);
+            System.out.println("Nome Banco: " + str);
+
+            if (strNome.equals(str)) {
+                resp = true;
             }
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro localizaId" + e);
         }
-        return false;
+        return resp;
     }
 
     public void carregaComboCargo(JComboBox combo) {

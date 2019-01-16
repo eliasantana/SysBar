@@ -219,6 +219,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
         tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Adicionar");
         tcf.setVisible(true);
+       
     }//GEN-LAST:event_lblAdicionarMouseClicked
 
     private void tblFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFuncionarioMouseClicked
@@ -234,10 +235,10 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         Funcionario fLocalizado = cf.localizaFuncionario(f.getId());
 
         TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
-        tcf.recebeFuncionario(fLocalizado);
+        tcf.recebeFuncionario(fLocalizado);        
         tcf.setVisible(true);
         tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Alterar");
-
+        
 
     }//GEN-LAST:event_lblAlterarMouseClicked
 

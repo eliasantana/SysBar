@@ -54,15 +54,19 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         lblCargo.setText(cargo);
         lblOperador.setText(operador);
         txtOperacao.setText(operacao);
+        
         if ("Adicionar".equals(txtOperacao.getText())) {
             lblTiulo.setText("Inclusão");
             jDateValiadeCNH.setEnabled(false);
             comboBloqueio.setEnabled(false);
             comboSituacao.setEnabled(false);
+            jDateDesligamento.setEnabled(false);
         } else {
             lblTiulo.setText("Alteração");
             comboBloqueio.setEnabled(true);
             comboSituacao.setEnabled(true);
+            comboBloqueio.setEnabled(false);
+            jDateAdmissao.setEnabled(false);
         }
         l.setUsuario(operador);
 
@@ -74,6 +78,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         }
         if ("Alterar".equals(txtOperacao.getText()) && "".equals(txtCnh.getText())) {
             txtCnh.setEnabled(true);
+           
         }
 
     }
@@ -99,7 +104,8 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         comboCargo.setSelectedItem(f.getCargo());
         txtCaminho.setText(f.getFoto());
         comboUf.setSelectedItem(f.getUf());
-
+        txtHistorico.setText(f.getObservacao());
+      
         if (f.getStatus().equals("0")) {
             comboSituacao.setSelectedItem("Ativo");
         } else {
@@ -176,7 +182,8 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jDateDesligamento = new com.toedter.calendar.JDateChooser();
         jLabel18 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        jDateNascimento = new com.toedter.calendar.JDateChooser();
+        lblTelefone2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblTiulo = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -287,9 +294,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jPanel1.add(jPanel2);
         jPanel2.setBounds(570, 10, 140, 150);
 
-        lblTelefone.setText("Celular");
+        lblTelefone.setText("Data de Nascimento");
         jPanel1.add(lblTelefone);
-        lblTelefone.setBounds(150, 260, 90, 20);
+        lblTelefone.setBounds(290, 260, 130, 20);
 
         try {
             txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
@@ -391,7 +398,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         jLabel8.setText("Data de Desligamento");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(430, 260, 160, 20);
+        jLabel8.setBounds(560, 260, 140, 20);
 
         txtCnh.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###########"))));
         txtCnh.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -508,26 +515,23 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jPanel1.add(jLabel14);
         jLabel14.setBounds(290, 210, 80, 20);
         jPanel1.add(jDateAdmissao);
-        jDateAdmissao.setBounds(290, 280, 130, 30);
+        jDateAdmissao.setBounds(430, 280, 120, 30);
 
         jLabel16.setText("Validade CNH");
         jPanel1.add(jLabel16);
         jLabel16.setBounds(430, 210, 140, 20);
         jPanel1.add(jDateDesligamento);
-        jDateDesligamento.setBounds(430, 280, 120, 30);
+        jDateDesligamento.setBounds(560, 280, 120, 30);
 
         jLabel18.setText("Data de Admissão");
         jPanel1.add(jLabel18);
-        jLabel18.setBounds(290, 260, 110, 20);
+        jLabel18.setBounds(430, 260, 110, 20);
+        jPanel1.add(jDateNascimento);
+        jDateNascimento.setBounds(290, 280, 130, 30);
 
-        jButton3.setText("jButton3");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton3);
-        jButton3.setBounds(340, 30, 73, 23);
+        lblTelefone2.setText("Celular");
+        jPanel1.add(lblTelefone2);
+        lblTelefone2.setBounds(150, 260, 90, 20);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 100, 720, 390);
@@ -633,23 +637,25 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         JFileChooser selecionaArquivo = new JFileChooser(parametro.getCAMINHO_FOTO_FUNCIONARIO());
         selecionaArquivo.addChoosableFileFilter(extensionFilter);
         selecionaArquivo.setDialogTitle("Selecionar Foto");
-        selecionaArquivo.showOpenDialog(this);
 
-        // Recebe arquivos captura seu caminho
-        File file = selecionaArquivo.getSelectedFile();
-        String caminho = file.getAbsolutePath();
+        if (selecionaArquivo.APPROVE_OPTION == selecionaArquivo.showOpenDialog(this)) {
+            // Recebe arquivos captura seu caminho
+            File file = selecionaArquivo.getSelectedFile();
+            String caminho = file.getAbsolutePath();
+            txtCaminho.setText(caminho);
+            // adiciona imagem ao label foto
+            ImageIcon imageIcon = new ImageIcon(caminho);
+            Icon icon = new ImageIcon(imageIcon.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_SMOOTH));
+            lblFoto.setIcon(icon);
+        }
 
-        txtCaminho.setText(caminho);
-        // adiciona imagem ao label foto
-        ImageIcon imageIcon = new ImageIcon(caminho);
-        Icon icon = new ImageIcon(imageIcon.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_SMOOTH));
-        lblFoto.setIcon(icon);
     }//GEN-LAST:event_jLabel17MouseClicked
 
     private void comboSituacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSituacaoActionPerformed
         // Seleciona bloquio
         if ("Inativo".equals(comboSituacao.getSelectedItem().toString())) {
             comboBloqueio.setSelectedItem("Bloqueado");
+            comboBloqueio.setEnabled(false);
         } else {
             comboBloqueio.setSelectedItem("Desbloqueado");
         }
@@ -707,10 +713,14 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             f.setComplemento(txtComplemento.getText());
             f.setUf(comboUf.getSelectedItem().toString());
             f.setTelefone_recado(txtTelRecado.getText());
-
-            f.setDtAdmissao(u.formataDataBanco(jDateAdmissao.getDate()));
-            f.setDtDesligamento(u.formataDataBanco(jDateDesligamento.getDate()));
-            f.setDtvalidadeCNH(u.formataData(jDateValiadeCNH.getDate()));
+            
+            if (null!=jDateAdmissao.getDate()){
+                f.setDtAdmissao(u.formataDataBanco(jDateAdmissao.getDate()));    
+            }
+            if (null!=jDateValiadeCNH.getDate()){
+                f.setDtvalidadeCNH(u.formataDataBanco(jDateValiadeCNH.getDate()));
+            }
+                   
 
             String status = comboSituacao.getSelectedItem().toString();
             if (status.equals("Ativo")) {
@@ -732,18 +742,15 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             f.setCnh(txtCnh.getText());
             f.setRg(txtRg.getText());
 
-            if (txtNome.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Digite o nome do funcionário!");
-            } else if (funcionario.temFuncionario(txtId.getText())) {
-                JOptionPane.showMessageDialog(null, "Este funcionário já existe! Clique em 'Novo' para continuar!");
-            } else {
-                if ("Selecione...".equals(comboUf.getSelectedItem().toString())) {
-                    JOptionPane.showMessageDialog(null, "Selecione uma unidade da federação!");
-                } else {
+            if (valida()) {
 
+                if (funcionario.temFuncionario(f.getNome())) {
+                    JOptionPane.showMessageDialog(null, "Este funcionário já existe! Clique em 'Novo' para continuar!");
+                } else {
                     if (funcionario.adicionaFuncionario(f)) {
                         JOptionPane.showMessageDialog(null, "Funcionário adicionado com sucesso!");
                         limpaForm();
+                                
                         // Início do registro de log
                         l.setFuncionalidade("Salvar");
                         l.setDescricao(l.getUsuario() + " adicionou ->" + f.getNome() + " ao cadastro de funcionário");
@@ -752,8 +759,8 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                         //Fim do registro de log
                     }
                 }
-
             }
+
         } else {
             // Altera dados dos funcionários
 
@@ -774,6 +781,17 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             f.setComplemento(txtComplemento.getText());
             f.setUf(comboUf.getSelectedItem().toString());
             f.setTelefone_recado(txtTelRecado.getText());
+            f.setCnh(txtCnh.getText());
+            
+            if (null!=jDateDesligamento.getDate()){                
+                f.setDtDesligamento(u.formataDataBanco(jDateDesligamento.getDate()));
+            }
+            if (null!=jDateValiadeCNH.getDate()){                
+               f.setDtvalidadeCNH(u.formataDataBanco(jDateValiadeCNH.getDate()));   
+            }
+            if (null!=jDateAdmissao.getDate()){
+                f.setDtAdmissao(u.formataDataBanco(jDateAdmissao.getDate()));
+            }
 
             // Captura a situação
             String situacao = comboSituacao.getSelectedItem().toString();
@@ -805,14 +823,13 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                     // Se o funcionário possuir mesa, exibe mensagem e solicita transferida para outro 
                     JOptionPane.showMessageDialog(null, "Transfira as mesas do funcionário antes de continuar!");
                 } else {
-                    if ("Selecione...".equals(comboUf.getSelectedItem().toString())) {
-                        JOptionPane.showMessageDialog(null, "Selecione uma unidade da federação!");
-                    } else {
-
-                        // Altera as mesas do funcionário
+                    if (valida()){
+                        // Altera dados do funcionário
                         if (cf.alterar(f, txtId.getText())) {
                             JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
-                            limpaForm();
+                             this.dispose();
+                             TelaPesquisaFuncionario tpf = new TelaPesquisaFuncionario();
+                             tpf.setVisible(true);
                             // Início do registro de log
                             l.setFuncionalidade("Alterar");
                             l.setDescricao(l.getUsuario() + " alterou o registro do funcionário ->" + f.getNome());
@@ -820,27 +837,28 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
                             //Fim do registro de log
                         } else {
-                            JOptionPane.showMessageDialog(null, "Erro ao tentar alterar os dados - contate o suporte!");
+                            JOptionPane.showMessageDialog(null, "Erro ao tentar alterar os dados - contate o SUPORTE!");
+                        }                        
+                    }else {
+                         JOptionPane.showMessageDialog(null, "Não foi possível alterar os dados do funcionário!");
+                    }
+                }
+            } else {               
+                    if (valida()){
+                        
+                        if (cf.alterar(f, txtId.getText())) {
+                            JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+                             this.dispose();                             
+                            // Início do registro de log
+                            l.setFuncionalidade("Alterar");
+                            l.setDescricao(l.getUsuario() + " alterou o registro do funcionário ->" + f.getNome());
+                            l.gravaLog(l);
+                            //Fim do registro de log
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Erro ao tentar alterar os dados - contate o SUPORTE!");
+
                         }
                     }
-                }
-            } else {
-                if ("Selecione...".equals(comboUf.getSelectedItem().toString())) {
-                    JOptionPane.showMessageDialog(null, "Selecione uma unidade da federação!");
-                } else {
-
-                    if (cf.alterar(f, txtId.getText())) {
-                        JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
-
-                        // Início do registro de log
-                        l.setFuncionalidade("Alterar");
-                        l.setDescricao(l.getUsuario() + " alterou o registro do funcioário ->" + f.getNome());
-                        l.gravaLog(l);
-                        //Fim do registro de log
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Erro ao tentar alterar os dados - contate o suporte!");
-                    }
-                }
             }
 
         }
@@ -937,11 +955,6 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         txtCidade.setText(u.tamanhoMaximo(txtCidade.getText(), 40));
     }//GEN-LAST:event_txtCidadeKeyReleased
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        valida();
-
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     public void limpaForm() {
         // Limpa formulário
         txtId.setText(null);
@@ -1010,9 +1023,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboUf;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateAdmissao;
     private com.toedter.calendar.JDateChooser jDateDesligamento;
+    private com.toedter.calendar.JDateChooser jDateNascimento;
     private com.toedter.calendar.JDateChooser jDateValiadeCNH;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
@@ -1051,6 +1064,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblTelefone1;
+    private javax.swing.JLabel lblTelefone2;
     private javax.swing.JLabel lblTiulo;
     private javax.swing.JLabel lbltemMesa;
     private javax.swing.JTextField txtBairro;
@@ -1096,7 +1110,6 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
        Este método valida os campos do cadastro de Funcioinário retornando um Boolean
        como resposta final.
      */
-    
     public boolean valida() {
         // Seta  resposta padrão com TRUE.
         boolean resp = true;
@@ -1128,7 +1141,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         } else if ("".equals(txtSenha.getText())) {
             JOptionPane.showMessageDialog(null, "Informe uma Senha para continuar!");
             resp = false;
-        } else if ("".equals(txtRg.getText())|| "0000000000000".equals(txtRg.getText())) {
+        } else if ("".equals(txtRg.getText()) || "0000000000000".equals(txtRg.getText())) {
             JOptionPane.showMessageDialog(null, "Informe um RG para continuar!");
             resp = false;
         } else if ("   .   .   -  ".equals(txtCpf.getText()) || "000.000.000-00".equals(txtCpf.getText())) {
@@ -1141,10 +1154,10 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
              */
 
         } else if (!txtCnh.getText().isEmpty()) { // Se CNH estiver preenchida questiona a validade.
-            if ("0".equals(txtCnh.getText())){
-                 JOptionPane.showMessageDialog(null, "Informe uma CNH válida para continuar!");
-                 resp = false;
-            }else if (null == jDateValiadeCNH.getDate()) { // Se a data não for informada avisa o usuário.
+            if ("0".equals(txtCnh.getText())) {
+                JOptionPane.showMessageDialog(null, "Informe uma CNH válida para continuar!");
+                resp = false;
+            } else if (null == jDateValiadeCNH.getDate()) { // Se a data não for informada avisa o usuário.
                 JOptionPane.showMessageDialog(null, "Informe uma Data de Validade para continuar!");
                 resp = false;
             } else {  // Segue com a validação dos demias campos                            
