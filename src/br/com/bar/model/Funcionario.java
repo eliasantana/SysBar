@@ -20,7 +20,9 @@ public class Funcionario extends Pessoa{
     private String bloqueado;
     private String rg;
     private String observacao;
-   
+    private String dtvalidadeCNH;
+    private String dtDesligamento;
+    private String dtAdmissao;
     
     
     public String getId() {
@@ -120,6 +122,30 @@ public class Funcionario extends Pessoa{
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
+    }
+
+    public String getDtvalidadeCNH() {
+        return dtvalidadeCNH;
+    }
+
+    public void setDtvalidadeCNH(String dtvalidadeCNH) {
+        this.dtvalidadeCNH = dtvalidadeCNH;
+    }
+
+    public String getDtDesligamento() {
+        return dtDesligamento;
+    }
+
+    public void setDtDesligamento(String dtDesligamento) {
+        this.dtDesligamento = dtDesligamento;
+    }
+
+    public String getDtAdmissao() {
+        return dtAdmissao;
+    }
+
+    public void setDtAdmissao(String dtAdmissao) {
+        this.dtAdmissao = dtAdmissao;
     }
     
     

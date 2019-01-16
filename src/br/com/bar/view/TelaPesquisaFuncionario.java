@@ -8,6 +8,7 @@ package br.com.bar.view;
 import br.com.bar.dao.Log;
 import br.com.bar.model.Funcionario;
 import br.com.br.controler.ControlerFuncionario;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
@@ -18,19 +19,20 @@ import net.proteanit.sql.DbUtils;
 public class TelaPesquisaFuncionario extends javax.swing.JFrame {
 
     ControlerFuncionario cf = new ControlerFuncionario();
-    Log l = new  Log();
-    
+    Log l = new Log();
+
     public TelaPesquisaFuncionario() {
         initComponents();
         bloqueiaBotoes();
         //Matem a tela de pesquisa a frente da janela anterior.
-        
+
     }
 
-    public void recebeOperador(String operador, String perfil){
+    public void recebeOperador(String operador, String perfil) {
         lblOperador.setText(operador);
         lblPerfil.setText(perfil);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,7 +89,9 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(598, 0, -1, -1));
@@ -151,7 +155,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "CÓDIGO", "NOME", "CPF", "RG", "TELEFONE"
+                "CÓDIGO", "NOME", "CPF", "RG", "CELULAR"
             }
         ));
         tblFuncionario.setRowHeight(21);
@@ -207,13 +211,13 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
     private void lblPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPesquisaMouseClicked
         // Realiza Pesquisa
         tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario(txtFuncionario.getText())));
-        
+
     }//GEN-LAST:event_lblPesquisaMouseClicked
 
     private void lblAdicionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdicionarMouseClicked
         // Chama o cadastro de Funcionários
         TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
-        tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(),"Adicionar");
+        tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Adicionar");
         tcf.setVisible(true);
     }//GEN-LAST:event_lblAdicionarMouseClicked
 
@@ -228,41 +232,47 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         Funcionario f = new Funcionario();
         f.setId(String.valueOf(tblFuncionario.getModel().getValueAt(linha, 0).toString()));
         Funcionario fLocalizado = cf.localizaFuncionario(f.getId());
-        
+
         TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
         tcf.recebeFuncionario(fLocalizado);
         tcf.setVisible(true);
-        tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(),"Alterar");
-      
-        
+        tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Alterar");
+
+
     }//GEN-LAST:event_lblAlterarMouseClicked
 
     private void lblExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExcluirMouseClicked
-          // Solicita confirmação do usuário antes de excluir
+        // Solicita confirmação do usuário antes de excluir
+        if (lblExcluir.isEnabled()) {
+
             int op = JOptionPane.showConfirmDialog(null, "Confirma a exclusão do funcionário?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {
                 int linha = tblFuncionario.getSelectedRow();
+                l.setFuncionalidade("Excluir");
+                l.setDescricao(l.getUsuario() + " Excluiu ->" + tblFuncionario.getModel().getValueAt(linha, 1).toString() + " do cadastro de funcionários");
+                l.gravaLog(l);
+                //Fim do registro de log   
+                //Atualiza tela
                 if (cf.excluirFuncionario(tblFuncionario.getModel().getValueAt(linha, 0).toString())) {
+                    tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario("")));
                     JOptionPane.showMessageDialog(null, "Exclusão realizada com sucesso!");
                     // Início do registro de log
-                    l.setFuncionalidade("Excluir");
-                    l.setDescricao(l.getUsuario() + " Excluiu ->" + tblFuncionario.getModel().getValueAt(linha, 1).toString() + " do cadastro de funcionários");
-                    l.gravaLog(l);
-                    //Fim do registro de log   
-                    //Atualiza tela
-                    tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario(txtFuncionario.getText())));
 
                 }
 
             } else {
                 JOptionPane.showMessageDialog(null, "Exclusão cancelada com sucesso!");
             }
+        }
     }//GEN-LAST:event_lblExcluirMouseClicked
 
     private void txtFuncionarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFuncionarioKeyPressed
-       // Realiza Pesquisa
-        tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario(txtFuncionario.getText())));
+        // Realiza Pesquisa
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario(txtFuncionario.getText())));
+        }
     }//GEN-LAST:event_txtFuncionarioKeyPressed
 
     /**
@@ -321,15 +331,15 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void bloqueiaBotoes() {
-      
-       lblAlterar.setEnabled(false);
-       lblExcluir.setEnabled(false);
+
+        lblAlterar.setEnabled(false);
+        lblExcluir.setEnabled(false);
     }
+
     private void desbloqueiaBotoes() {
-      
-       lblAlterar.setEnabled(true);
-       lblExcluir.setEnabled(true);
+
+        lblAlterar.setEnabled(true);
+        lblExcluir.setEnabled(true);
     }
-    
-    
+
 }

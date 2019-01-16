@@ -30,7 +30,7 @@ public class ControlerFuncionario extends Funcionario {
     public boolean adicionaFuncionario(Funcionario f) {
         boolean resp = false;
         String sql = "INSERT INTO tbcadfuncionario "
-                + "(nome, endereco, bairro, cep, cidade, email,foto,telefone,login,cargo,senha,status,bloqueado,rg,cpf,cnh,observacao,numero,uf,telefone_recado,complemento) \n"
+                + "(nome, endereco, bairro, cep, cidade, email,foto,telefone,login,cargo,senha,status,bloqueado,cpf,rg,cnh,observacao,numero,uf,telefone_recado,complemento) \n"
                 + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
         try {
@@ -72,7 +72,7 @@ public class ControlerFuncionario extends Funcionario {
 
     public ResultSet carregaFuncionario(String texto) {
 
-        String slq = "SELECT id AS 'CÓDIGO', nome AS 'NOME', cpf AS 'CPF', rg AS 'RG',telefone AS 'TELEFONE'\n"
+        String slq = "SELECT id AS 'CÓDIGO', nome AS 'NOME', cpf AS 'CPF', rg AS 'RG',telefone_recado AS 'CELULAR'\n"
                 + "FROM dbbar.tbcadfuncionario\n"
                 + "WHERE nome like ?;";
 

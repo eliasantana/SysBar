@@ -69,7 +69,10 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel4" alignment="0" pref="41" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jLabel4" min="-2" pref="41" max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -215,7 +218,7 @@
                 <Column editable="true" title="NOME" type="java.lang.Object"/>
                 <Column editable="true" title="CPF" type="java.lang.Object"/>
                 <Column editable="true" title="RG" type="java.lang.Object"/>
-                <Column editable="true" title="TELEFONE" type="java.lang.Object"/>
+                <Column editable="true" title="CELULAR" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="rowHeight" type="int" value="21"/>

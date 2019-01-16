@@ -13,11 +13,14 @@ import br.com.br.controler.ControlerParametro;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -45,20 +48,34 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     }
 
     public void recebeOperador(String operador, String cargo, String operacao) {
+        Date data = new Date();
+        lblData.setText(u.formataDataBr(data));
 
         lblCargo.setText(cargo);
         lblOperador.setText(operador);
         txtOperacao.setText(operacao);
+        if ("Adicionar".equals(txtOperacao.getText())) {
+            lblTiulo.setText("Inclusão");
+            jDateValiadeCNH.setEnabled(false);
+            comboBloqueio.setEnabled(false);
+            comboSituacao.setEnabled(false);
+        } else {
+            lblTiulo.setText("Alteração");
+            comboBloqueio.setEnabled(true);
+            comboSituacao.setEnabled(true);
+        }
         l.setUsuario(operador);
-        Date data = new Date();
 
         if ("Adicionar".equals(operacao)) {
 
         } else {
-
             carregaFoto();
             bloqueiaCampos();
         }
+        if ("Alterar".equals(txtOperacao.getText()) && "".equals(txtCnh.getText())) {
+            txtCnh.setEnabled(true);
+        }
+
     }
 
     public void recebeFuncionario(Funcionario f) {
@@ -81,6 +98,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         txtTelRecado.setText(f.getTelefone_recado());
         comboCargo.setSelectedItem(f.getCargo());
         txtCaminho.setText(f.getFoto());
+        comboUf.setSelectedItem(f.getUf());
 
         if (f.getStatus().equals("0")) {
             comboSituacao.setSelectedItem("Ativo");
@@ -137,13 +155,11 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtCpf = new javax.swing.JFormattedTextField();
-        txtRg = new javax.swing.JFormattedTextField();
         jLabel8 = new javax.swing.JLabel();
         txtCnh = new javax.swing.JFormattedTextField();
         lbltemMesa = new javax.swing.JLabel();
         txtNumero = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
-        txtUf = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         txtTelRecado = new javax.swing.JFormattedTextField();
         lblTelefone1 = new javax.swing.JLabel();
@@ -152,8 +168,17 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jToggleHistorico = new javax.swing.JToggleButton();
         jButton2 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
+        txtRg = new javax.swing.JTextField();
+        comboUf = new javax.swing.JComboBox<>();
+        jDateValiadeCNH = new com.toedter.calendar.JDateChooser();
         jLabel14 = new javax.swing.JLabel();
+        jDateAdmissao = new com.toedter.calendar.JDateChooser();
+        jLabel16 = new javax.swing.JLabel();
+        jDateDesligamento = new com.toedter.calendar.JDateChooser();
+        jLabel18 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        lblTiulo = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         txtCaminho = new javax.swing.JTextField();
@@ -177,8 +202,20 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         lblNome.setText("Nome *");
         jPanel1.add(lblNome);
         lblNome.setBounds(10, 8, 130, 20);
+
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomeKeyReleased(evt);
+            }
+        });
         jPanel1.add(txtNome);
-        txtNome.setBounds(10, 27, 365, 30);
+        txtNome.setBounds(10, 27, 280, 30);
+
+        txtEndereço.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEndereçoKeyReleased(evt);
+            }
+        });
         jPanel1.add(txtEndereço);
         txtEndereço.setBounds(10, 80, 470, 30);
 
@@ -193,6 +230,12 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jLabel4.setText("Complemento");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(10, 110, 100, 20);
+
+        txtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBairroKeyReleased(evt);
+            }
+        });
         jPanel1.add(txtBairro);
         txtBairro.setBounds(130, 130, 110, 30);
 
@@ -207,14 +250,26 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jLabel5.setText("Cidade");
         jPanel1.add(jLabel5);
         jLabel5.setBounds(350, 110, 90, 20);
+
+        txtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCidadeKeyReleased(evt);
+            }
+        });
         jPanel1.add(txtCidade);
         txtCidade.setBounds(350, 130, 200, 30);
+
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEmailKeyReleased(evt);
+            }
+        });
         jPanel1.add(txtEmail);
-        txtEmail.setBounds(80, 180, 230, 30);
+        txtEmail.setBounds(100, 180, 230, 30);
 
         jLabel6.setText("E-mail");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(80, 160, 100, 20);
+        jLabel6.setBounds(100, 160, 100, 20);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -234,29 +289,46 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         lblTelefone.setText("Celular");
         jPanel1.add(lblTelefone);
-        lblTelefone.setBounds(590, 210, 90, 20);
+        lblTelefone.setBounds(150, 260, 90, 20);
 
         try {
             txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTelefoneKeyReleased(evt);
+            }
+        });
         jPanel1.add(txtTelefone);
-        txtTelefone.setBounds(450, 230, 130, 30);
+        txtTelefone.setBounds(10, 280, 130, 30);
 
-        comboCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Garçom", "Caixa", "Gerente", "Cozinheiro", "Estoquista", "" }));
+        comboCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Garçom", "Caixa", "Gerente", "Cozinheiro", "Estoquista" }));
         jPanel1.add(comboCargo);
-        comboCargo.setBounds(10, 290, 169, 30);
+        comboCargo.setBounds(10, 340, 130, 30);
 
         jLabel9.setText("Cargo");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(10, 270, 110, 14);
+        jLabel9.setBounds(10, 320, 110, 14);
 
         jLabel10.setText("Login");
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(320, 160, 90, 20);
+        jLabel10.setBounds(340, 160, 90, 20);
+
+        txtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtLoginKeyReleased(evt);
+            }
+        });
         jPanel1.add(txtLogin);
-        txtLogin.setBounds(320, 180, 120, 30);
+        txtLogin.setBounds(340, 180, 100, 30);
+
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyReleased(evt);
+            }
+        });
         jPanel1.add(txtSenha);
         txtSenha.setBounds(450, 180, 100, 30);
 
@@ -271,19 +343,19 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             }
         });
         jPanel1.add(comboSituacao);
-        comboSituacao.setBounds(190, 290, 70, 30);
+        comboSituacao.setBounds(146, 340, 100, 30);
 
         jLabel12.setText("Situação");
         jPanel1.add(jLabel12);
-        jLabel12.setBounds(190, 270, 70, 14);
+        jLabel12.setBounds(150, 320, 70, 14);
 
         jLabel13.setText("Bloqueio");
         jPanel1.add(jLabel13);
-        jLabel13.setBounds(270, 270, 120, 14);
+        jLabel13.setBounds(250, 320, 120, 14);
 
         comboBloqueio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Desbloqueado", "Bloqueado" }));
         jPanel1.add(comboBloqueio);
-        comboBloqueio.setBounds(270, 290, 100, 30);
+        comboBloqueio.setBounds(250, 340, 110, 30);
 
         jLabel17.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 24)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(52, 73, 94));
@@ -309,32 +381,42 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCpfKeyReleased(evt);
+            }
+        });
         jPanel1.add(txtCpf);
         txtCpf.setBounds(150, 230, 130, 30);
 
-        txtRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-        jPanel1.add(txtRg);
-        txtRg.setBounds(10, 230, 130, 30);
-
-        jLabel8.setText("CNH");
+        jLabel8.setText("Data de Desligamento");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(290, 210, 80, 20);
+        jLabel8.setBounds(430, 260, 160, 20);
 
-        txtCnh.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtCnh.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###########"))));
+        txtCnh.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCnhKeyReleased(evt);
+            }
+        });
         jPanel1.add(txtCnh);
-        txtCnh.setBounds(290, 230, 150, 30);
+        txtCnh.setBounds(290, 230, 130, 30);
 
         lbltemMesa.setFont(new java.awt.Font("Yu Gothic Light", 0, 12)); // NOI18N
         jPanel1.add(lbltemMesa);
-        lbltemMesa.setBounds(10, 320, 340, 20);
+        lbltemMesa.setBounds(0, 370, 340, 20);
+
+        txtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNumeroKeyReleased(evt);
+            }
+        });
         jPanel1.add(txtNumero);
         txtNumero.setBounds(490, 80, 60, 30);
 
         jLabel22.setText("Endereço");
         jPanel1.add(jLabel22);
         jLabel22.setBounds(10, 60, 90, 14);
-        jPanel1.add(txtUf);
-        txtUf.setBounds(10, 180, 60, 30);
 
         jLabel23.setText("Número");
         jPanel1.add(jLabel23);
@@ -346,11 +428,17 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         jPanel1.add(txtTelRecado);
-        txtTelRecado.setBounds(590, 230, 120, 30);
+        txtTelRecado.setBounds(150, 280, 130, 30);
 
         lblTelefone1.setText("Telefone");
         jPanel1.add(lblTelefone1);
-        lblTelefone1.setBounds(450, 210, 90, 20);
+        lblTelefone1.setBounds(10, 260, 90, 20);
+
+        txtComplemento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtComplementoKeyReleased(evt);
+            }
+        });
         jPanel1.add(txtComplemento);
         txtComplemento.setBounds(10, 130, 110, 30);
 
@@ -370,9 +458,15 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton1KeyReleased(evt);
+            }
+        });
         jPanel1.add(jButton1);
-        jButton1.setBounds(380, 290, 91, 30);
+        jButton1.setBounds(362, 339, 91, 32);
 
+        jToggleHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/consultar.png"))); // NOI18N
         jToggleHistorico.setText("Histórico");
         jToggleHistorico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -380,27 +474,71 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jToggleHistorico);
-        jToggleHistorico.setBounds(475, 290, 90, 30);
+        jToggleHistorico.setBounds(456, 339, 120, 32);
 
-        jButton2.setText("Ranking de Vendas");
+        jButton2.setText("Ranking Vendas");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(570, 290, 140, 30);
+        jButton2.setBounds(580, 339, 130, 32);
+
+        txtRg.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtRgKeyReleased(evt);
+            }
+        });
+        jPanel1.add(txtRg);
+        txtRg.setBounds(10, 230, 130, 30);
+
+        comboUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE" }));
+        comboUf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboUfActionPerformed(evt);
+            }
+        });
+        jPanel1.add(comboUf);
+        comboUf.setBounds(10, 180, 80, 30);
+        jPanel1.add(jDateValiadeCNH);
+        jDateValiadeCNH.setBounds(430, 230, 120, 30);
+
+        jLabel14.setText("CNH");
+        jPanel1.add(jLabel14);
+        jLabel14.setBounds(290, 210, 80, 20);
+        jPanel1.add(jDateAdmissao);
+        jDateAdmissao.setBounds(290, 280, 130, 30);
+
+        jLabel16.setText("Validade CNH");
+        jPanel1.add(jLabel16);
+        jLabel16.setBounds(430, 210, 140, 20);
+        jPanel1.add(jDateDesligamento);
+        jDateDesligamento.setBounds(430, 280, 120, 30);
+
+        jLabel18.setText("Data de Admissão");
+        jPanel1.add(jLabel18);
+        jLabel18.setBounds(290, 260, 110, 20);
+
+        jButton3.setText("jButton3");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3);
+        jButton3.setBounds(340, 30, 73, 23);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 100, 720, 340);
+        jPanel1.setBounds(0, 100, 720, 390);
 
         jPanel4.setBackground(new java.awt.Color(243, 156, 18));
         jPanel4.setLayout(null);
 
-        jLabel14.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 48)); // NOI18N
-        jLabel14.setText("Cadastro");
-        jPanel4.add(jLabel14);
-        jLabel14.setBounds(30, 0, 185, 78);
+        lblTiulo.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 48)); // NOI18N
+        lblTiulo.setText("Cadastro");
+        jPanel4.add(lblTiulo);
+        lblTiulo.setBounds(30, 0, 270, 78);
 
         jLabel15.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 24)); // NOI18N
         jLabel15.setText("de Funcionários");
@@ -421,7 +559,10 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jPanel4.add(lblCargo);
         lblCargo.setBounds(510, 50, 100, 30);
 
+        jPanel5.setBackground(new java.awt.Color(52, 73, 94));
+
         lblFechar.setFont(new java.awt.Font("Yu Gothic", 1, 24)); // NOI18N
+        lblFechar.setForeground(new java.awt.Color(255, 255, 255));
         lblFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFechar.setText("x");
         lblFechar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -475,7 +616,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jtableGuias.addTab("Histórico", jScrollPane3);
 
         getContentPane().add(jtableGuias);
-        jtableGuias.setBounds(0, 440, 720, 220);
+        jtableGuias.setBounds(0, 490, 720, 220);
 
         setSize(new java.awt.Dimension(720, 716));
         setLocationRelativeTo(null);
@@ -564,8 +705,12 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             f.setCargo(comboCargo.getSelectedItem().toString());
             f.setNumero(txtNumero.getText());
             f.setComplemento(txtComplemento.getText());
-            f.setUf(txtUf.getText());
+            f.setUf(comboUf.getSelectedItem().toString());
             f.setTelefone_recado(txtTelRecado.getText());
+
+            f.setDtAdmissao(u.formataDataBanco(jDateAdmissao.getDate()));
+            f.setDtDesligamento(u.formataDataBanco(jDateDesligamento.getDate()));
+            f.setDtvalidadeCNH(u.formataData(jDateValiadeCNH.getDate()));
 
             String status = comboSituacao.getSelectedItem().toString();
             if (status.equals("Ativo")) {
@@ -588,27 +733,32 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             f.setRg(txtRg.getText());
 
             if (txtNome.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Funcionário inválido!");
+                JOptionPane.showMessageDialog(null, "Digite o nome do funcionário!");
             } else if (funcionario.temFuncionario(txtId.getText())) {
-                JOptionPane.showMessageDialog(null, "Este funcionário já existe!\n Clique em 'Novo' para continuar!");
+                JOptionPane.showMessageDialog(null, "Este funcionário já existe! Clique em 'Novo' para continuar!");
             } else {
+                if ("Selecione...".equals(comboUf.getSelectedItem().toString())) {
+                    JOptionPane.showMessageDialog(null, "Selecione uma unidade da federação!");
+                } else {
 
-                if (funcionario.adicionaFuncionario(f)) {
-                    JOptionPane.showMessageDialog(null, "Funcionário adicionado com sucesso!");
-                    limpaForm();
-                    // Início do registro de log
-                    l.setFuncionalidade("Salvar");
-                    l.setDescricao(l.getUsuario() + " adicionou ->" + f.getNome() + " ao cadastro de funcionário");
-                    l.gravaLog(l);
+                    if (funcionario.adicionaFuncionario(f)) {
+                        JOptionPane.showMessageDialog(null, "Funcionário adicionado com sucesso!");
+                        limpaForm();
+                        // Início do registro de log
+                        l.setFuncionalidade("Salvar");
+                        l.setDescricao(l.getUsuario() + " adicionou ->" + f.getNome() + " ao cadastro de funcionário");
+                        l.gravaLog(l);
 
-                    //Fim do registro de log
+                        //Fim do registro de log
+                    }
                 }
+
             }
         } else {
             // Altera dados dos funcionários
 
             Funcionario f = new Funcionario();
-            f.setId(txtId.getText());          
+            f.setId(txtId.getText());
             f.setEndereco(txtEndereço.getText());
             f.setBairro(txtBairro.getText());
             f.setCep(txtCep.getText());
@@ -622,7 +772,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             f.setCargo(comboCargo.getSelectedItem().toString());
             f.setNumero(txtNumero.getText());
             f.setComplemento(txtComplemento.getText());
-            f.setUf(txtUf.getText());
+            f.setUf(comboUf.getSelectedItem().toString());
             f.setTelefone_recado(txtTelRecado.getText());
 
             // Captura a situação
@@ -655,27 +805,41 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                     // Se o funcionário possuir mesa, exibe mensagem e solicita transferida para outro 
                     JOptionPane.showMessageDialog(null, "Transfira as mesas do funcionário antes de continuar!");
                 } else {
-                    // Altera as mesas do funcionário
+                    if ("Selecione...".equals(comboUf.getSelectedItem().toString())) {
+                        JOptionPane.showMessageDialog(null, "Selecione uma unidade da federação!");
+                    } else {
+
+                        // Altera as mesas do funcionário
+                        if (cf.alterar(f, txtId.getText())) {
+                            JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+                            limpaForm();
+                            // Início do registro de log
+                            l.setFuncionalidade("Alterar");
+                            l.setDescricao(l.getUsuario() + " alterou o registro do funcionário ->" + f.getNome());
+                            l.gravaLog(l);
+
+                            //Fim do registro de log
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Erro ao tentar alterar os dados - contate o suporte!");
+                        }
+                    }
+                }
+            } else {
+                if ("Selecione...".equals(comboUf.getSelectedItem().toString())) {
+                    JOptionPane.showMessageDialog(null, "Selecione uma unidade da federação!");
+                } else {
+
                     if (cf.alterar(f, txtId.getText())) {
-                        JOptionPane.showMessageDialog(null, "Dados alterados com sucesso!");
-                        limpaForm();
+                        JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+
                         // Início do registro de log
                         l.setFuncionalidade("Alterar");
                         l.setDescricao(l.getUsuario() + " alterou o registro do funcioário ->" + f.getNome());
                         l.gravaLog(l);
-
                         //Fim do registro de log
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Erro ao tentar alterar os dados - contate o suporte!");
                     }
-                }
-            } else {
-                if (cf.alterar(f, txtId.getText())) {
-                    JOptionPane.showMessageDialog(null, "Dados alterados com sucesso!");
-
-                    // Início do registro de log
-                    l.setFuncionalidade("Alterar");
-                    l.setDescricao(l.getUsuario() + " alterou o registro do funcioário ->" + f.getNome());
-                    l.gravaLog(l);
-                    //Fim do registro de log
                 }
             }
 
@@ -683,6 +847,100 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1KeyReleased
+
+    private void txtNumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyReleased
+        // Aceita apenas número
+        txtNumero.setText(txtNumero.getText().replaceAll("[^0-9]", ""));
+        txtNumero.setText(u.tamanhoMaximo(txtNumero.getText(), 4));
+    }//GEN-LAST:event_txtNumeroKeyReleased
+
+    private void comboUfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboUfActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_comboUfActionPerformed
+
+    private void txtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyReleased
+        // Limita tanho do campo NOME
+        txtNome.setText(u.tamanhoMaximo(txtNome.getText(), 45));
+    }//GEN-LAST:event_txtNomeKeyReleased
+
+    private void txtEndereçoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEndereçoKeyReleased
+        // Limita tanho do campo ENDEREÇO
+        txtEndereço.setText(u.tamanhoMaximo(txtEndereço.getText(), 45));
+    }//GEN-LAST:event_txtEndereçoKeyReleased
+
+    private void txtRgKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRgKeyReleased
+        // Limita Tamanho do campo RG
+        txtRg.setText(u.tamanhoMaximo(txtRg.getText(), 13));
+
+
+    }//GEN-LAST:event_txtRgKeyReleased
+
+    private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
+        // Limita tamanho do campo CPF
+        txtCpf.setText(u.tamanhoMaximo(txtCpf.getText(), 14));
+    }//GEN-LAST:event_txtCpfKeyReleased
+
+    private void txtCnhKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCnhKeyReleased
+        // Limita tamanho do campo CNH
+        //txtCnh.setText(txtCnh.getText().replaceAll("[^0-9]", ""));
+        txtCnh.setText(u.tamanhoMaximo(txtCnh.getText(), 11));
+        try {
+
+            if (Integer.parseInt(txtCnh.getText()) > 0) {
+                jDateValiadeCNH.setEnabled(true);
+            } else {
+                jDateValiadeCNH.setEnabled(false);
+            }
+        } catch (NumberFormatException e) {
+
+        }
+    }//GEN-LAST:event_txtCnhKeyReleased
+
+    private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
+        // Limita tamnho do campo EMAIL
+        txtEmail.setText(u.tamanhoMaximo(txtEmail.getText(), 45));
+    }//GEN-LAST:event_txtEmailKeyReleased
+
+    private void txtLoginKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginKeyReleased
+        // Limita tamanho do campo LOGIN
+        txtLogin.setText(u.tamanhoMaximo(txtLogin.getText(), 10));
+    }//GEN-LAST:event_txtLoginKeyReleased
+
+    private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyReleased
+        // TODO add your handling code here:
+        txtSenha.setText(u.tamanhoMaximo(txtSenha.getText(), 10));
+    }//GEN-LAST:event_txtSenhaKeyReleased
+
+    private void txtTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyReleased
+        // limita tamanho do campo TELEFONE
+
+    }//GEN-LAST:event_txtTelefoneKeyReleased
+
+    private void txtBairroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBairroKeyReleased
+        // Limita tamanho do campo BAIRRO
+        txtBairro.setText(u.tamanhoMaximo(txtBairro.getText(), 35));
+    }//GEN-LAST:event_txtBairroKeyReleased
+
+    private void txtComplementoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtComplementoKeyReleased
+        // Limita tamanho do cmapo COMPLEMENTO
+        txtComplemento.setText(u.tamanhoMaximo(txtComplemento.getText(), 35));
+
+    }//GEN-LAST:event_txtComplementoKeyReleased
+
+    private void txtCidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyReleased
+        // Limita tamanho do compo CIDADE
+        txtCidade.setText(u.tamanhoMaximo(txtCidade.getText(), 40));
+    }//GEN-LAST:event_txtCidadeKeyReleased
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        valida();
+
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     public void limpaForm() {
         // Limpa formulário
@@ -698,7 +956,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         txtCidade.setText(null);
         txtComplemento.setText(null);
         txtNumero.setText(null);
-        txtUf.setText(null);
+        comboUf.setSelectedItem("Selecione...");
         comboBloqueio.setSelectedItem("Desbloqueado");
         comboCargo.setSelectedItem("Cargos");
         comboSituacao.setSelectedItem("Ativo");
@@ -749,8 +1007,13 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboBloqueio;
     private javax.swing.JComboBox<String> comboCargo;
     private javax.swing.JComboBox<String> comboSituacao;
+    private javax.swing.JComboBox<String> comboUf;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private com.toedter.calendar.JDateChooser jDateAdmissao;
+    private com.toedter.calendar.JDateChooser jDateDesligamento;
+    private com.toedter.calendar.JDateChooser jDateValiadeCNH;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -759,7 +1022,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
@@ -786,6 +1051,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblTelefone1;
+    private javax.swing.JLabel lblTiulo;
     private javax.swing.JLabel lbltemMesa;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCaminho;
@@ -802,14 +1068,11 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtOperacao;
-    private javax.swing.JFormattedTextField txtRg;
+    private javax.swing.JTextField txtRg;
     private javax.swing.JTextField txtSenha;
     private javax.swing.JFormattedTextField txtTelRecado;
     private javax.swing.JFormattedTextField txtTelefone;
-    private javax.swing.JTextField txtUf;
     // End of variables declaration//GEN-END:variables
-
-   
 
     private void carregaFoto() {
 
@@ -827,5 +1090,88 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             txtCnh.setEnabled(false);
         }
 
+    }
+
+    /* 
+       Este método valida os campos do cadastro de Funcioinário retornando um Boolean
+       como resposta final.
+     */
+    
+    public boolean valida() {
+        // Seta  resposta padrão com TRUE.
+        boolean resp = true;
+
+        if ("".equals(txtNome.getText())) {
+            JOptionPane.showMessageDialog(null, "Informe um Nome para continuar!");
+            resp = false;
+        } else if ("".equals(txtEndereço.getText())) {
+            JOptionPane.showMessageDialog(null, "Informe um Endereço para continuar!");
+            resp = false;
+        } else if ("".equals(txtNumero.getText())) {
+            JOptionPane.showMessageDialog(null, "Informe o Número para continuar!");
+            resp = false;
+        } else if ("".equals(txtBairro.getText())) {
+            JOptionPane.showMessageDialog(null, "Informe um Bairro para continuar!");
+            resp = false;
+        } else if ("     -   ".equals(txtCep.getText()) || "00000-000".equals(txtCep.getText())) {
+            JOptionPane.showMessageDialog(null, "Informe um CEP para continuar!");
+            resp = false;
+        } else if ("".equals(txtCidade.getText())) {
+            JOptionPane.showMessageDialog(null, "Informe uma Cidade para continuar!");
+            resp = false;
+        } else if ("Selecione...".equals(comboUf.getSelectedItem().toString())) {
+            JOptionPane.showMessageDialog(null, "Informe uma UF para continuar!");
+            resp = false;
+        } else if ("".equals(txtLogin.getText())) {
+            JOptionPane.showMessageDialog(null, "Informe um Login para continuar!");
+            resp = false;
+        } else if ("".equals(txtSenha.getText())) {
+            JOptionPane.showMessageDialog(null, "Informe uma Senha para continuar!");
+            resp = false;
+        } else if ("".equals(txtRg.getText())|| "0000000000000".equals(txtRg.getText())) {
+            JOptionPane.showMessageDialog(null, "Informe um RG para continuar!");
+            resp = false;
+        } else if ("   .   .   -  ".equals(txtCpf.getText()) || "000.000.000-00".equals(txtCpf.getText())) {
+            JOptionPane.showMessageDialog(null, "Informe um CPF para continuar!");
+            resp = false;
+            /*
+           - Caso CNH não seja preenchido segue com a verificação dos demais componentes do formulário
+           - Se CNH seja preenchido, questiona o preenchimento da validade da CNH e segue com a validação
+             dos demais componentes.
+             */
+
+        } else if (!txtCnh.getText().isEmpty()) { // Se CNH estiver preenchida questiona a validade.
+            if ("0".equals(txtCnh.getText())){
+                 JOptionPane.showMessageDialog(null, "Informe uma CNH válida para continuar!");
+                 resp = false;
+            }else if (null == jDateValiadeCNH.getDate()) { // Se a data não for informada avisa o usuário.
+                JOptionPane.showMessageDialog(null, "Informe uma Data de Validade para continuar!");
+                resp = false;
+            } else {  // Segue com a validação dos demias campos                            
+                if ("(  )     -    ".equals(txtTelRecado.getText()) || "(00)00000-0000".equals(txtTelRecado.getText())) {
+                    JOptionPane.showMessageDialog(null, "Informe um número de Celular para continuar!");
+                    resp = false;
+                } else if (null == jDateAdmissao.getDate()) {
+                    JOptionPane.showMessageDialog(null, "Informe a Data de Admissão para continuar!");
+                    resp = false;
+                } else if ("Selecione...".equals(comboCargo.getSelectedItem().toString())) {
+                    JOptionPane.showMessageDialog(null, "Informe um Cargo para continuar!");
+                    resp = false;
+                }
+            }
+        } else { // Comtinua validação se CNH e Validade estiverem preechidos corretamente.
+
+            if ("(  )     -    ".equals(txtTelRecado.getText()) || "(00)00000-0000".equals(txtTelRecado.getText())) {
+                JOptionPane.showMessageDialog(null, "Informe um número de Celular para continuar!");
+                resp = false;
+            } else if (null == jDateAdmissao.getDate()) {
+                JOptionPane.showMessageDialog(null, "Informe a Data de Admissão para continuar!");
+                resp = false;
+            } else if ("Selecione...".equals(comboCargo.getSelectedItem().toString())) {
+                JOptionPane.showMessageDialog(null, "Informe um Cargo para continuar!");
+                resp = false;
+            }
+        }
+        return resp;
     }
 }

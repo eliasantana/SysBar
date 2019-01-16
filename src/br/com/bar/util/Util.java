@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -23,6 +24,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import org.jfree.chart.*;
@@ -78,6 +80,7 @@ public class Util {
 
         } catch (Exception e) {
             System.out.println("Erro ao formatar data" + e);
+           
         }
        return dataBanco;
     }
@@ -162,7 +165,35 @@ public class Util {
         
         return dataConvertida;
     }
-        
     
-            
+    // Limita tamanho de um campo textFild    
+    public String tamanhoMaximo(String texto, int tamanho){
+        
+        String str = "";
+       if (texto.length() > tamanho){
+           str = texto.substring(0,tamanho);
+           texto=str;
+       }
+        return texto;        
+    }
+    
+   // Valida lista de ComboBox passada como parâmetro de retorna um Boolean como resultado
+   public boolean validaCombo(ArrayList<JComboBox> listaDeCombos){
+       boolean resp=false;
+       int igual=0;
+       
+      for (int i=0; listaDeCombos.size()>i;i++){
+          if ("Selecione...".equals(listaDeCombos.get(i).getSelectedItem().toString())){
+              igual++; 
+              
+          }
+      }
+      
+      if (igual==0){
+          resp=true;
+      }else {
+          JOptionPane.showMessageDialog(null, "A opção [Selecione...] não é válida!");
+      } 
+      return resp;
+   }
 }
