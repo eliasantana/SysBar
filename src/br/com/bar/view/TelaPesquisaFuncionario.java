@@ -25,14 +25,20 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         initComponents();
         bloqueiaBotoes();
         //Matem a tela de pesquisa a frente da janela anterior.
-
+       
     }
 
     public void recebeOperador(String operador, String perfil) {
         lblOperador.setText(operador);
         lblPerfil.setText(perfil);
     }
-
+    
+    public void atualizaTabela(String nome){
+        // Realiza Pesquisa
+        txtFuncionario.setText(nome);
+        tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario(txtFuncionario.getText())));
+    }
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -238,7 +244,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         tcf.recebeFuncionario(fLocalizado);        
         tcf.setVisible(true);
         tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Alterar");
-        
+        this.dispose();
 
     }//GEN-LAST:event_lblAlterarMouseClicked
 

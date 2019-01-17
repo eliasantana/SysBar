@@ -23,6 +23,7 @@ public class Funcionario extends Pessoa{
     private String dtvalidadeCNH;
     private String dtDesligamento;
     private String dtAdmissao;
+    private String dtNascimento;
     
     
     public String getId() {
@@ -147,6 +148,15 @@ public class Funcionario extends Pessoa{
     public void setDtAdmissao(String dtAdmissao) {
         this.dtAdmissao = dtAdmissao;
     }
+
+    public void setDtNascimento(String dtNascimento) {
+        this.dtNascimento = dtNascimento;
+    }
+
+    public String getDtNascimento() {
+        return dtNascimento;
+    }
     
+        
     
 }

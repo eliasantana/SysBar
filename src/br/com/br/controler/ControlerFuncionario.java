@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import net.proteanit.sql.DbUtils;
 
 /**
- *
+ * 
  * @author elias
  */
 public class ControlerFuncionario extends Funcionario {
@@ -30,8 +30,10 @@ public class ControlerFuncionario extends Funcionario {
     public boolean adicionaFuncionario(Funcionario f) {
         boolean resp = false;
         String sql = "INSERT INTO tbcadfuncionario "
-                + "(nome, endereco, bairro, cep, cidade, email,foto,telefone,login,cargo,senha,status,bloqueado,cpf,rg,cnh,observacao,numero,uf,telefone_recado,complemento) \n"
-                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                + "(nome, endereco, bairro, cep, cidade, email,foto,telefone,"
+                + "login,cargo,senha,status,bloqueado,cpf,rg,cnh,observacao,"
+                + "numero,uf,telefone_recado,complemento,dt_nascimento,dt_admissao,cnh_validade) \n"
+                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -56,6 +58,9 @@ public class ControlerFuncionario extends Funcionario {
             pst.setString(19, f.getUf());
             pst.setString(20, f.getTelefone_recado());
             pst.setString(21, f.getComplemento());
+            pst.setString(22, f.getDtAdmissao());
+            pst.setString(23, f.getDtNascimento());
+            pst.setString(24, f.getDtvalidadeCNH());
 
             pst.executeUpdate();
 
@@ -495,7 +500,10 @@ public class ControlerFuncionario extends Funcionario {
                 f.setTelefone_recado(rs.getString("telefone_recado"));
                 f.setTelefone(rs.getString("telefone"));
                 f.setComplemento(rs.getString("complemento"));
-
+                f.setDtAdmissao(rs.getString("dt_admissao"));
+                f.setDtDesligamento(rs.getString("dt_desligamento"));
+                f.setDtvalidadeCNH(rs.getString("cnh_validade"));
+                f.setDtNascimento(rs.getString("dt_nascimento"));
             }
 
         } catch (SQLException e) {

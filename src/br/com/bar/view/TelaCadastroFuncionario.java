@@ -15,6 +15,8 @@ import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -54,7 +56,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         lblCargo.setText(cargo);
         lblOperador.setText(operador);
         txtOperacao.setText(operacao);
-        
+
         if ("Adicionar".equals(txtOperacao.getText())) {
             lblTiulo.setText("Inclusão");
             jDateValiadeCNH.setEnabled(false);
@@ -67,6 +69,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             comboSituacao.setEnabled(true);
             comboBloqueio.setEnabled(false);
             jDateAdmissao.setEnabled(false);
+            jDateNascimento.setEnabled(false);
         }
         l.setUsuario(operador);
 
@@ -78,7 +81,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         }
         if ("Alterar".equals(txtOperacao.getText()) && "".equals(txtCnh.getText())) {
             txtCnh.setEnabled(true);
-           
+
         }
 
     }
@@ -105,7 +108,20 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         txtCaminho.setText(f.getFoto());
         comboUf.setSelectedItem(f.getUf());
         txtHistorico.setText(f.getObservacao());
-      
+
+        if (null != f.getDtAdmissao()) {
+            jDateAdmissao.setDate(u.converteData(f.getDtAdmissao()));
+        }
+        if (null != f.getDtDesligamento()) {
+            jDateDesligamento.setDate(u.converteData(f.getDtDesligamento()));
+        }
+        if (null != f.getDtvalidadeCNH()) {
+            jDateValiadeCNH.setDate(u.converteData(f.getDtvalidadeCNH()));
+        }
+        if (null != f.getDtNascimento()) {
+            jDateNascimento.setDate(u.converteData(f.getDtNascimento()));
+        }
+
         if (f.getStatus().equals("0")) {
             comboSituacao.setSelectedItem("Ativo");
         } else {
@@ -520,6 +536,22 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jLabel16.setText("Validade CNH");
         jPanel1.add(jLabel16);
         jLabel16.setBounds(430, 210, 140, 20);
+
+        jDateDesligamento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jDateDesligamentoFocusGained(evt);
+            }
+        });
+        jDateDesligamento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jDateDesligamentoMouseClicked(evt);
+            }
+        });
+        jDateDesligamento.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateDesligamentoPropertyChange(evt);
+            }
+        });
         jPanel1.add(jDateDesligamento);
         jDateDesligamento.setBounds(560, 280, 120, 30);
 
@@ -627,8 +659,10 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked
-        //Fecha janela de Cadastro
         this.dispose();
+        TelaPesquisaFuncionario tpf = new TelaPesquisaFuncionario();
+        tpf.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        tpf.setVisible(true);
     }//GEN-LAST:event_lblFecharMouseClicked
 
     private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
@@ -656,8 +690,12 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         if ("Inativo".equals(comboSituacao.getSelectedItem().toString())) {
             comboBloqueio.setSelectedItem("Bloqueado");
             comboBloqueio.setEnabled(false);
+            //Data Atual
+            Date dt = new Date();
+            jDateDesligamento.setDate(dt);
         } else {
             comboBloqueio.setSelectedItem("Desbloqueado");
+            jDateDesligamento.setDate(null);
         }
     }//GEN-LAST:event_comboSituacaoActionPerformed
 
@@ -713,14 +751,16 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             f.setComplemento(txtComplemento.getText());
             f.setUf(comboUf.getSelectedItem().toString());
             f.setTelefone_recado(txtTelRecado.getText());
-            
-            if (null!=jDateAdmissao.getDate()){
-                f.setDtAdmissao(u.formataDataBanco(jDateAdmissao.getDate()));    
+
+            if (null != jDateAdmissao.getDate()) {
+                f.setDtAdmissao(u.formataDataBanco(jDateAdmissao.getDate()));
             }
-            if (null!=jDateValiadeCNH.getDate()){
+            if (null != jDateValiadeCNH.getDate()) {
                 f.setDtvalidadeCNH(u.formataDataBanco(jDateValiadeCNH.getDate()));
             }
-                   
+            if (null != jDateNascimento.getDate()) {
+                f.setDtNascimento(u.formataDataBanco(jDateNascimento.getDate()));
+            }
 
             String status = comboSituacao.getSelectedItem().toString();
             if (status.equals("Ativo")) {
@@ -743,20 +783,23 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             f.setRg(txtRg.getText());
 
             if (valida()) {
+                int op = JOptionPane.showConfirmDialog(null, "Confirma a inclusão do funcionário?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
-                if (funcionario.temFuncionario(f.getNome())) {
-                    JOptionPane.showMessageDialog(null, "Este funcionário já existe! Clique em 'Novo' para continuar!");
-                } else {
-                    if (funcionario.adicionaFuncionario(f)) {
-                        JOptionPane.showMessageDialog(null, "Funcionário adicionado com sucesso!");
-                        limpaForm();
-                                
-                        // Início do registro de log
-                        l.setFuncionalidade("Salvar");
-                        l.setDescricao(l.getUsuario() + " adicionou ->" + f.getNome() + " ao cadastro de funcionário");
-                        l.gravaLog(l);
+                if (op == JOptionPane.YES_OPTION) {
 
-                        //Fim do registro de log
+                    if (funcionario.temFuncionario(f.getNome())) {
+                        JOptionPane.showMessageDialog(null, "Este funcionário já existe!");
+                    } else {
+                        if (funcionario.adicionaFuncionario(f)) {
+                            limpaForm();
+                            JOptionPane.showMessageDialog(null, "Funcionário adicionado com sucesso!");
+
+                            // Início do registro de log
+                            l.setFuncionalidade("Salvar");
+                            l.setDescricao(l.getUsuario() + " adicionou ->" + f.getNome() + " ao cadastro de funcionários");
+                            l.gravaLog(l);
+                            //Fim do registro de log
+                        }
                     }
                 }
             }
@@ -782,14 +825,14 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             f.setUf(comboUf.getSelectedItem().toString());
             f.setTelefone_recado(txtTelRecado.getText());
             f.setCnh(txtCnh.getText());
-            
-            if (null!=jDateDesligamento.getDate()){                
+
+            if (null != jDateDesligamento.getDate()) {
                 f.setDtDesligamento(u.formataDataBanco(jDateDesligamento.getDate()));
             }
-            if (null!=jDateValiadeCNH.getDate()){                
-               f.setDtvalidadeCNH(u.formataDataBanco(jDateValiadeCNH.getDate()));   
+            if (null != jDateValiadeCNH.getDate()) {
+                f.setDtvalidadeCNH(u.formataDataBanco(jDateValiadeCNH.getDate()));
             }
-            if (null!=jDateAdmissao.getDate()){
+            if (null != jDateAdmissao.getDate()) {
                 f.setDtAdmissao(u.formataDataBanco(jDateAdmissao.getDate()));
             }
 
@@ -823,42 +866,56 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                     // Se o funcionário possuir mesa, exibe mensagem e solicita transferida para outro 
                     JOptionPane.showMessageDialog(null, "Transfira as mesas do funcionário antes de continuar!");
                 } else {
-                    if (valida()){
-                        // Altera dados do funcionário
-                        if (cf.alterar(f, txtId.getText())) {
-                            JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
-                             this.dispose();
-                             TelaPesquisaFuncionario tpf = new TelaPesquisaFuncionario();
-                             tpf.setVisible(true);
-                            // Início do registro de log
-                            l.setFuncionalidade("Alterar");
-                            l.setDescricao(l.getUsuario() + " alterou o registro do funcionário ->" + f.getNome());
-                            l.gravaLog(l);
+                    if (valida()) {
 
-                            //Fim do registro de log
+                        int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração dos Dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                        if (op == JOptionPane.YES_OPTION) {
+
+                            // Altera dados do funcionário
+                            if (cf.alterar(f, txtId.getText())) {
+                                JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+                                this.dispose();
+
+                                TelaPesquisaFuncionario tpf = new TelaPesquisaFuncionario();
+                                tpf.atualizaTabela(f.getNome());
+                                tpf.recebeOperador(lblOperador.getText(), lblCargo.getText());
+                                tpf.setVisible(true);
+                                // Início do registro de log
+                                l.setFuncionalidade("Alterar");
+                                l.setDescricao(l.getUsuario() + " alterou o registro do funcionário ->" + f.getNome());
+                                l.gravaLog(l);
+
+                                //Fim do registro de log
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Erro ao tentar alterar os dados - contate o SUPORTE!");
+                            }
                         } else {
-                            JOptionPane.showMessageDialog(null, "Erro ao tentar alterar os dados - contate o SUPORTE!");
-                        }                        
-                    }else {
-                         JOptionPane.showMessageDialog(null, "Não foi possível alterar os dados do funcionário!");
+                            JOptionPane.showMessageDialog(null, "Alteração Candelada com sucesso!");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não foi possível alterar os dados do funcionário!");
                     }
                 }
-            } else {               
-                    if (valida()){
-                        
-                        if (cf.alterar(f, txtId.getText())) {
-                            JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
-                             this.dispose();                             
-                            // Início do registro de log
-                            l.setFuncionalidade("Alterar");
-                            l.setDescricao(l.getUsuario() + " alterou o registro do funcionário ->" + f.getNome());
-                            l.gravaLog(l);
-                            //Fim do registro de log
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Erro ao tentar alterar os dados - contate o SUPORTE!");
+            } else {
+                if (valida()) {
 
-                        }
+                    if (cf.alterar(f, txtId.getText())) {
+                        JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+                        this.dispose();
+                        TelaPesquisaFuncionario tpf = new TelaPesquisaFuncionario();
+                        //tpf.atualizaTabela(f.getNome());
+                        tpf.recebeOperador(lblOperador.getText(), lblCargo.getText());
+                        tpf.setVisible(true);
+                        // Início do registro de log
+                        l.setFuncionalidade("Alterar");
+                        l.setDescricao(l.getUsuario() + " alterou o registro do funcionário ->" + f.getNome());
+                        l.gravaLog(l);
+                        //Fim do registro de log
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Erro ao tentar alterar os dados - contate o SUPORTE!");
+
                     }
+                }
             }
 
         }
@@ -955,6 +1012,29 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         txtCidade.setText(u.tamanhoMaximo(txtCidade.getText(), 40));
     }//GEN-LAST:event_txtCidadeKeyReleased
 
+    private void jDateDesligamentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jDateDesligamentoFocusGained
+
+    }//GEN-LAST:event_jDateDesligamentoFocusGained
+
+    private void jDateDesligamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateDesligamentoMouseClicked
+
+    }//GEN-LAST:event_jDateDesligamentoMouseClicked
+
+    private void jDateDesligamentoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateDesligamentoPropertyChange
+        // Seleciona Inativo no combo situação
+        Date dtAtual = new Date();
+        if (null != jDateDesligamento.getDate()) {
+            comboSituacao.setSelectedItem("Inativo");
+            Date dt = jDateDesligamento.getDate();
+            if (dt.after(dtAtual)){
+                JOptionPane.showMessageDialog(null, "Informe uma Data de Desligamento menor ou igual que a data atual!");
+                jDateDesligamento.setDate(null);
+            }
+        }
+        
+        
+    }//GEN-LAST:event_jDateDesligamentoPropertyChange
+
     public void limpaForm() {
         // Limpa formulário
         txtId.setText(null);
@@ -970,6 +1050,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         txtComplemento.setText(null);
         txtNumero.setText(null);
         comboUf.setSelectedItem("Selecione...");
+        comboCargo.setSelectedItem("Selecione...");
         comboBloqueio.setSelectedItem("Desbloqueado");
         comboCargo.setSelectedItem("Cargos");
         comboSituacao.setSelectedItem("Ativo");
@@ -979,6 +1060,10 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         txtCpf.setText(null);
         txtCnh.setText(null);
         txtTelRecado.setText(null);
+        jDateAdmissao.setDate(null);
+        jDateDesligamento.setDate(null);
+        jDateNascimento.setDate(null);
+        jDateValiadeCNH.setDate(null);
     }
 
     /**
