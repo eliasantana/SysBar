@@ -25,20 +25,20 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         initComponents();
         bloqueiaBotoes();
         //Matem a tela de pesquisa a frente da janela anterior.
-       
+
     }
 
     public void recebeOperador(String operador, String perfil) {
         lblOperador.setText(operador);
         lblPerfil.setText(perfil);
     }
-    
-    public void atualizaTabela(String nome){
+
+    public void atualizaTabela(String nome) {
         // Realiza Pesquisa
         txtFuncionario.setText(nome);
         tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario(txtFuncionario.getText())));
     }
-  
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,11 +104,11 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 48)); // NOI18N
         jLabel3.setText("Cadastro ");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
         jLabel5.setText("de Funcionários");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/funcionario (3).png"))); // NOI18N
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
@@ -225,7 +225,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
         tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Adicionar");
         tcf.setVisible(true);
-       
+
     }//GEN-LAST:event_lblAdicionarMouseClicked
 
     private void tblFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFuncionarioMouseClicked
@@ -234,17 +234,23 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_tblFuncionarioMouseClicked
 
     private void lblAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlterarMouseClicked
-        //
-        int linha = tblFuncionario.getSelectedRow();
-        Funcionario f = new Funcionario();
-        f.setId(String.valueOf(tblFuncionario.getModel().getValueAt(linha, 0).toString()));
-        Funcionario fLocalizado = cf.localizaFuncionario(f.getId());
+        try {
+            if (lblAlterar.isEnabled()) {
+                int linha = tblFuncionario.getSelectedRow();
+                Funcionario f = new Funcionario();
+                f.setId(String.valueOf(tblFuncionario.getModel().getValueAt(linha, 0).toString()));
+                Funcionario fLocalizado = cf.localizaFuncionario(f.getId());
 
-        TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
-        tcf.recebeFuncionario(fLocalizado);        
-        tcf.setVisible(true);
-        tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Alterar");
-        this.dispose();
+                TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
+                tcf.recebeFuncionario(fLocalizado);
+                tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Alterar");
+                tcf.setVisible(true);
+                this.dispose();
+            }
+        } catch (NullPointerException e) {
+            lblAlterar.setEnabled(false);
+        }
+
 
     }//GEN-LAST:event_lblAlterarMouseClicked
 

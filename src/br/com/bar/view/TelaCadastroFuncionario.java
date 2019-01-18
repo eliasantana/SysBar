@@ -10,19 +10,13 @@ import br.com.bar.model.Funcionario;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerParametro;
-import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -37,16 +31,12 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     // Inicia Instância de log
     Log l = new Log();
 
-    /**
-     * Creates new form TelaCadastroFuncionario
-     */
     public TelaCadastroFuncionario() {
         initComponents();
         txtCaminho.setVisible(false);
         txtId.setVisible(false);
         txtOperacao.setVisible(false);
         jtableGuias.setVisible(false);
-
     }
 
     public void recebeOperador(String operador, String cargo, String operacao) {
@@ -63,6 +53,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             comboBloqueio.setEnabled(false);
             comboSituacao.setEnabled(false);
             jDateDesligamento.setEnabled(false);
+
         } else {
             lblTiulo.setText("Alteração");
             comboBloqueio.setEnabled(true);
@@ -70,13 +61,19 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             comboBloqueio.setEnabled(false);
             jDateAdmissao.setEnabled(false);
             jDateNascimento.setEnabled(false);
+            if (null!=jDateDesligamento.getDate()){
+                comboSituacao.setEnabled(false);
+                jDateDesligamento.setEnabled(false);
+                btnSalvar.setEnabled(false);
+            }
+
         }
         l.setUsuario(operador);
 
         if ("Adicionar".equals(operacao)) {
 
         } else {
-            carregaFoto();
+            //carregaFoto();
             bloqueiaCampos();
         }
         if ("Alterar".equals(txtOperacao.getText()) && "".equals(txtCnh.getText())) {
@@ -84,6 +81,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         }
 
+        carregaFoto();
     }
 
     public void recebeFuncionario(Funcionario f) {
@@ -108,7 +106,8 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         txtCaminho.setText(f.getFoto());
         comboUf.setSelectedItem(f.getUf());
         txtHistorico.setText(f.getObservacao());
-
+        System.out.println(f.getDtDesligamento());
+        
         if (null != f.getDtAdmissao()) {
             jDateAdmissao.setDate(u.converteData(f.getDtAdmissao()));
         }
@@ -187,7 +186,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         lblTelefone1 = new javax.swing.JLabel();
         txtComplemento = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         jToggleHistorico = new javax.swing.JToggleButton();
         jButton2 = new javax.swing.JButton();
         txtRg = new javax.swing.JTextField();
@@ -196,10 +195,10 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jDateAdmissao = new com.toedter.calendar.JDateChooser();
         jLabel16 = new javax.swing.JLabel();
-        jDateDesligamento = new com.toedter.calendar.JDateChooser();
         jLabel18 = new javax.swing.JLabel();
         jDateNascimento = new com.toedter.calendar.JDateChooser();
         lblTelefone2 = new javax.swing.JLabel();
+        jDateDesligamento = new com.toedter.calendar.JDateChooser();
         jPanel4 = new javax.swing.JPanel();
         lblTiulo = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -469,25 +468,25 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jPanel1.add(jLabel24);
         jLabel24.setBounds(130, 110, 100, 20);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvar24x24.png"))); // NOI18N
-        jButton1.setText("Salvar");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvar24x24.png"))); // NOI18N
+        btnSalvar.setText("Salvar");
+        btnSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btnSalvarMouseClicked(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
-        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnSalvar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jButton1KeyReleased(evt);
+                btnSalvarKeyReleased(evt);
             }
         });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(362, 339, 91, 32);
+        jPanel1.add(btnSalvar);
+        btnSalvar.setBounds(362, 339, 91, 32);
 
         jToggleHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/consultar.png"))); // NOI18N
         jToggleHistorico.setText("Histórico");
@@ -499,7 +498,8 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jPanel1.add(jToggleHistorico);
         jToggleHistorico.setBounds(456, 339, 120, 32);
 
-        jButton2.setText("Ranking Vendas");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/atualizar2.png"))); // NOI18N
+        jButton2.setText("Recontratar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -537,24 +537,6 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jPanel1.add(jLabel16);
         jLabel16.setBounds(430, 210, 140, 20);
 
-        jDateDesligamento.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jDateDesligamentoFocusGained(evt);
-            }
-        });
-        jDateDesligamento.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jDateDesligamentoMouseClicked(evt);
-            }
-        });
-        jDateDesligamento.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jDateDesligamentoPropertyChange(evt);
-            }
-        });
-        jPanel1.add(jDateDesligamento);
-        jDateDesligamento.setBounds(560, 280, 120, 30);
-
         jLabel18.setText("Data de Admissão");
         jPanel1.add(jLabel18);
         jLabel18.setBounds(430, 260, 110, 20);
@@ -564,6 +546,16 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         lblTelefone2.setText("Celular");
         jPanel1.add(lblTelefone2);
         lblTelefone2.setBounds(150, 260, 90, 20);
+
+        jDateDesligamento.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                jDateDesligamentoInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
+        jPanel1.add(jDateDesligamento);
+        jDateDesligamento.setBounds(560, 280, 130, 30);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 100, 720, 390);
@@ -686,25 +678,22 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel17MouseClicked
 
     private void comboSituacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSituacaoActionPerformed
-        // Seleciona bloquio
+        // Seleciona bloqueio
         if ("Inativo".equals(comboSituacao.getSelectedItem().toString())) {
             comboBloqueio.setSelectedItem("Bloqueado");
             comboBloqueio.setEnabled(false);
-            //Data Atual
-            Date dt = new Date();
-            jDateDesligamento.setDate(dt);
+            /*
+           if (null==jDateDesligamento.getDate()){
+               //Data Atual
+               Date dt = new Date();
+               jDateDesligamento.setDate(dt);
+           } 
+            */
         } else {
             comboBloqueio.setSelectedItem("Desbloqueado");
             jDateDesligamento.setDate(null);
         }
     }//GEN-LAST:event_comboSituacaoActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // Chama Tela Ranking
-        TelaRanking tr = new TelaRanking();
-        tr.setVisible(true);
-
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jtableGuiasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableGuiasMouseEntered
         // TODO add your handling code here:
@@ -726,11 +715,11 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jToggleHistoricoActionPerformed
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void btnSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_btnSalvarMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if ("Adicionar".equals(txtOperacao.getText())) {
             // Adiciona um novo funcionário
             Funcionario f = new Funcionario();
@@ -764,9 +753,10 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
             String status = comboSituacao.getSelectedItem().toString();
             if (status.equals("Ativo")) {
-
+            //Ativo
                 f.setStatus("0");
             } else {
+            //Inativo
                 f.setStatus("1");
             }
             String bloqueio = comboBloqueio.getSelectedItem().toString();
@@ -921,11 +911,11 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         }
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void jButton1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyReleased
+    private void btnSalvarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1KeyReleased
+    }//GEN-LAST:event_btnSalvarKeyReleased
 
     private void txtNumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyReleased
         // Aceita apenas número
@@ -1012,28 +1002,26 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         txtCidade.setText(u.tamanhoMaximo(txtCidade.getText(), 40));
     }//GEN-LAST:event_txtCidadeKeyReleased
 
-    private void jDateDesligamentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jDateDesligamentoFocusGained
-
-    }//GEN-LAST:event_jDateDesligamentoFocusGained
-
-    private void jDateDesligamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateDesligamentoMouseClicked
-
-    }//GEN-LAST:event_jDateDesligamentoMouseClicked
-
-    private void jDateDesligamentoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateDesligamentoPropertyChange
-        // Seleciona Inativo no combo situação
-        Date dtAtual = new Date();
-        if (null != jDateDesligamento.getDate()) {
+    private void jDateDesligamentoInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jDateDesligamentoInputMethodTextChanged
+        // TODO add your handling code here:
+        if (null!=jDateDesligamento.getDate()){
+            
+        }else {
             comboSituacao.setSelectedItem("Inativo");
-            Date dt = jDateDesligamento.getDate();
-            if (dt.after(dtAtual)){
-                JOptionPane.showMessageDialog(null, "Informe uma Data de Desligamento menor ou igual que a data atual!");
-                jDateDesligamento.setDate(null);
-            }
         }
+    }//GEN-LAST:event_jDateDesligamentoInputMethodTextChanged
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // 
+        jDateAdmissao.setEnabled(true);
+        jDateDesligamento.setDate(null);
+        jDateAdmissao.setDate(null);
+        btnSalvar.setEnabled(true);
+        jDateDesligamento.setEnabled(true);       
+        comboSituacao.setSelectedItem("Ativo");
+        comboSituacao.setEnabled(true);
         
-        
-    }//GEN-LAST:event_jDateDesligamentoPropertyChange
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public void limpaForm() {
         // Limpa formulário
@@ -1102,11 +1090,11 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> comboBloqueio;
     private javax.swing.JComboBox<String> comboCargo;
     private javax.swing.JComboBox<String> comboSituacao;
     private javax.swing.JComboBox<String> comboUf;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private com.toedter.calendar.JDateChooser jDateAdmissao;
     private com.toedter.calendar.JDateChooser jDateDesligamento;
@@ -1174,10 +1162,14 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void carregaFoto() {
+        if ("".equals(txtCaminho.getText())) {
 
-        ImageIcon imageIcon = new ImageIcon(txtCaminho.getText());
-        Icon icon = new ImageIcon(imageIcon.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_SMOOTH));
-        lblFoto.setIcon(icon);
+        } else {
+
+            ImageIcon imageIcon = new ImageIcon(txtCaminho.getText());
+            Icon icon = new ImageIcon(imageIcon.getImage().getScaledInstance(136, 146, Image.SCALE_SMOOTH));
+            lblFoto.setIcon(icon);
+        }
     }
 
     private void bloqueiaCampos() {
@@ -1252,6 +1244,14 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                 } else if (null == jDateAdmissao.getDate()) {
                     JOptionPane.showMessageDialog(null, "Informe a Data de Admissão para continuar!");
                     resp = false;
+                } else if (null != jDateDesligamento.getDate()) {
+                    Date dtAtual = new Date();
+                    Date dtDeslig = jDateDesligamento.getDate();
+                    if (dtDeslig.after(dtAtual)) {
+                        JOptionPane.showMessageDialog(null, "A Data de Desligamento não pode ser maior que a data atual!");
+                        resp = false;
+                    }
+
                 } else if ("Selecione...".equals(comboCargo.getSelectedItem().toString())) {
                     JOptionPane.showMessageDialog(null, "Informe um Cargo para continuar!");
                     resp = false;
@@ -1265,7 +1265,15 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             } else if (null == jDateAdmissao.getDate()) {
                 JOptionPane.showMessageDialog(null, "Informe a Data de Admissão para continuar!");
                 resp = false;
-            } else if ("Selecione...".equals(comboCargo.getSelectedItem().toString())) {
+            } else if (null != jDateDesligamento.getDate()) {
+                    Date dtAtual = new Date();
+                    Date dtDeslig = jDateDesligamento.getDate();
+                    if (dtDeslig.after(dtAtual)) {
+                        JOptionPane.showMessageDialog(null, "A Data de Desligamento não pode ser maior que a data atual!");
+                        resp = false;
+                    }
+            }
+            else if ("Selecione...".equals(comboCargo.getSelectedItem().toString())) {
                 JOptionPane.showMessageDialog(null, "Informe um Cargo para continuar!");
                 resp = false;
             }

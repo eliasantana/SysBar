@@ -15,8 +15,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
      * Creates new form TelaPaametro
      */
     public TelaConfiguracao() {
-        initComponents();
-       
+        initComponents();      
         
     }
    public void recebeOperador (String operador, String cargo){
@@ -63,6 +62,9 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnDadosEmpresa = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
+        btnRAnking = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblCargo = new javax.swing.JLabel();
         lblitulo = new javax.swing.JLabel();
@@ -263,6 +265,26 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnDadosEmpresa.add(jLabel29);
         jLabel29.setBounds(0, 10, 160, 70);
 
+        btnRAnking.setBackground(new java.awt.Color(204, 204, 204));
+        btnRAnking.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRAnkingMouseClicked(evt);
+            }
+        });
+        btnRAnking.setLayout(null);
+
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btngrafico2-48.png"))); // NOI18N
+        btnRAnking.add(jLabel24);
+        jLabel24.setBounds(0, 10, 150, 70);
+
+        jLabel25.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(52, 73, 94));
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel25.setText("Ranking de Vendas");
+        btnRAnking.add(jLabel25);
+        jLabel25.setBounds(0, 70, 150, 40);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -276,6 +298,8 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                 .addComponent(btnCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCaixa1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRAnking, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(707, 707, 707))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
@@ -305,7 +329,8 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                     .addComponent(btnPrecos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLog, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCaixa1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCaixa1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRAnking, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -437,6 +462,12 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         grupos.setVisible(true);
     }//GEN-LAST:event_btnGrupoMouseClicked
 
+    private void btnRAnkingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRAnkingMouseClicked
+        // Chama a tela de Raking de Venda
+        TelaRanking ranking = new TelaRanking();
+        ranking.setVisible(true);
+    }//GEN-LAST:event_btnRAnkingMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -485,6 +516,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     private javax.swing.JPanel btnGrupo2;
     private javax.swing.JPanel btnLog;
     private javax.swing.JPanel btnPrecos;
+    private javax.swing.JPanel btnRAnking;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -499,6 +531,8 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel8;
