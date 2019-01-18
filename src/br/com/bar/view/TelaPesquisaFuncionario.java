@@ -24,6 +24,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
     public TelaPesquisaFuncionario() {
         initComponents();
         bloqueiaBotoes();
+        
         //Matem a tela de pesquisa a frente da janela anterior.
 
     }
@@ -36,7 +37,8 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
     public void atualizaTabela(String nome) {
         // Realiza Pesquisa
         txtFuncionario.setText(nome);
-        tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario(txtFuncionario.getText())));
+        tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario(nome)));
+        System.out.println(nome);
     }
 
     /**
@@ -64,6 +66,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         lblExcluir = new javax.swing.JLabel();
         lblAdicionar = new javax.swing.JLabel();
         lblAlterar = new javax.swing.JLabel();
+        lblConsultar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -161,7 +164,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "CÓDIGO", "NOME", "CPF", "RG", "CELULAR"
+                "CÓD. INTERNO", "NOME", "CPF", "RG", "CELULAR"
             }
         ));
         tblFuncionario.setRowHeight(21);
@@ -183,7 +186,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblExcluir);
-        lblExcluir.setBounds(410, 450, 120, 50);
+        lblExcluir.setBounds(460, 450, 100, 50);
 
         lblAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
         lblAdicionar.setText("Adicionar");
@@ -193,7 +196,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblAdicionar);
-        lblAdicionar.setBounds(160, 450, 120, 50);
+        lblAdicionar.setBounds(210, 450, 100, 50);
 
         lblAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapis.png"))); // NOI18N
         lblAlterar.setText("Alterar");
@@ -203,7 +206,17 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblAlterar);
-        lblAlterar.setBounds(290, 450, 120, 50);
+        lblAlterar.setBounds(340, 450, 100, 50);
+
+        lblConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/pasta32x32 (2).png"))); // NOI18N
+        lblConsultar.setText("Consultar");
+        lblConsultar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblConsultarMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblConsultar);
+        lblConsultar.setBounds(90, 450, 100, 50);
 
         setSize(new java.awt.Dimension(636, 496));
         setLocationRelativeTo(null);
@@ -229,8 +242,15 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_lblAdicionarMouseClicked
 
     private void tblFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFuncionarioMouseClicked
-        // Desbloqueia botões
-        desbloqueiaBotoes();
+        // Desbloqueia botões da tela de pesquisa e habilita os botões caso a lista esteja preechida.
+        try {
+            tblFuncionario.getModel().getValueAt(0,0).toString();
+            desbloqueiaBotoes();
+            lblConsultar.setEnabled(true);
+            
+        } catch (Exception e) {
+            
+        }
     }//GEN-LAST:event_tblFuncionarioMouseClicked
 
     private void lblAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlterarMouseClicked
@@ -288,6 +308,31 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtFuncionarioKeyPressed
 
+    private void lblConsultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultarMouseClicked
+        /*
+        * Chama a tela de cadastro com todos os campos desbloqueados
+         */
+        if (lblConsultar.isEnabled()){
+            
+            try {
+
+                int linha = tblFuncionario.getSelectedRow();
+                Funcionario f = new Funcionario();
+                f.setId(String.valueOf(tblFuncionario.getModel().getValueAt(linha, 0).toString()));
+                Funcionario fLocalizado = cf.localizaFuncionario(f.getId());
+
+                TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
+                tcf.recebeFuncionario(fLocalizado);
+                tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Detalhe");
+                tcf.setVisible(true);
+                this.dispose();
+
+            } catch (Exception e) {
+
+            }
+        }
+    }//GEN-LAST:event_lblConsultarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -335,6 +380,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAdicionar;
     private javax.swing.JLabel lblAlterar;
+    private javax.swing.JLabel lblConsultar;
     private javax.swing.JLabel lblExcluir;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblPerfil;
@@ -347,6 +393,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
 
         lblAlterar.setEnabled(false);
         lblExcluir.setEnabled(false);
+        lblConsultar.setEnabled(false);
     }
 
     private void desbloqueiaBotoes() {

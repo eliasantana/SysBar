@@ -77,7 +77,7 @@ public class ControlerFuncionario extends Funcionario {
 
     public ResultSet carregaFuncionario(String texto) {
 
-        String slq = "SELECT id AS 'CÓDIGO', nome AS 'NOME', cpf AS 'CPF', rg AS 'RG',telefone_recado AS 'CELULAR'\n"
+        String slq = "SELECT id AS 'CÓD. INTERNO', nome AS 'NOME', cpf AS 'CPF', rg AS 'RG',telefone_recado AS 'CELULAR'\n"
                 + "FROM dbbar.tbcadfuncionario\n"
                 + "WHERE nome like ?;";
 
