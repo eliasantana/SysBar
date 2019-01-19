@@ -115,9 +115,10 @@ public class ControlerPedido {
 
     public ResultSet detalhePorPedido(String numeroMesa, String numeroPedido) {
 
-        String sql = "SELECT dbbar.tbproduto.nome AS 'PRODUTO',\n"
-                + "      dbbar.detalhe_mesa.tbproduto_id AS 'COD.',\n"
-                + "      dbbar.detalhe_mesa.qtd AS 'QTD',\n"
+        String sql = "SELECT "                
+                + "      dbbar.detalhe_mesa.tbproduto_id AS 'CÓDIGO.',\n"
+                + "dbbar.tbproduto.nome AS 'PRODUTO',\n"
+                + "      dbbar.detalhe_mesa.qtd AS 'QUANTIDADE',\n"
                 + "      format(dbbar.detalhe_mesa.`valorUnit`,2,'de_DE') AS 'VALOR R$',\n"
                 + "      format(dbbar.detalhe_mesa.`Total`,2,'de_DE') AS 'TOTAL R$'\n"
                 + "      \n"

@@ -25,7 +25,8 @@ public class ControlerCaixa {
     Connection conexao = ConexaoBd.conector();
     PreparedStatement pst = null;
     ResultSet rs = null;
-
+    
+    // Lista Mesas Ocupadas
     public void listaMesaOcupada(JComboBox combo) {
 
         String sql = "SELECT numero_mesa FROM cadmesa WHERE status='1'";
@@ -34,12 +35,12 @@ public class ControlerCaixa {
             rs = pst.executeQuery();
 
             combo.removeAllItems();
-
+            combo.addItem("Selecione...");
             while (rs.next()) {
                 combo.addItem(rs.getString("numero_mesa"));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro listaMesaOcupada" + e);
+            System.out.println("br.com.br.controler.ControlerCaixa.listaMesaOcupada()"+e);
         }
     }
 
@@ -263,16 +264,14 @@ public class ControlerCaixa {
         return rs;
     }
     
-    public void statusCaixa(JLabel label, boolean status){
+    public void statusCaixa(JLabel label, boolean status,JLabel msg){
         
         if (status){
-            label.setIcon(new ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCancel.png")));
-            label.setText("Caixa Fechado");
-            
+            label.setIcon(new ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCancel.png")));           
+            msg.setText("Caixa Fechado");
         }else {
-            label.setIcon(new ImageIcon(getClass().getResource("/br/com/bar/imagens/btnOk.png")));
-            label.setText("Caixa Aberto");
-            
+            label.setIcon(new ImageIcon(getClass().getResource("/br/com/bar/imagens/btnOk.png")));            
+            msg.setText("Caixa Aberto");
         }
         
     }

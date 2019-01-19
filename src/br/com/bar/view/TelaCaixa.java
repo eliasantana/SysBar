@@ -72,7 +72,6 @@ public class TelaCaixa extends javax.swing.JFrame {
         txtIdPedido.setVisible(false);
         /* Desabilita textFild de pagamento*/
         panelPagDinheiro.setVisible(false);
-        
 
         lblPago.setVisible(false);
         lblTroco.setVisible(false);
@@ -84,7 +83,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         // Carrega o combobox com os meses menores que o atual
         carregaComboPeriodo(comboMes, mes);
         comboMes.setSelectedIndex(Integer.parseInt(mes) - 1);
-        
+        lblData.setText(utils.formataDataBr(data));
     }
 
     /**
@@ -99,7 +98,6 @@ public class TelaCaixa extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         painelEsquerdo = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         lblLLogo = new javax.swing.JLabel();
         panelMovimentacao = new javax.swing.JPanel();
         labelEntradas = new javax.swing.JLabel();
@@ -118,12 +116,13 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblCargo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnFechar = new javax.swing.JLabel();
-        lblStatus = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         percent = new javax.swing.JLabel();
         tgeral = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         lblReceber = new javax.swing.JLabel();
         lblReceberPAgamento = new javax.swing.JLabel();
@@ -133,6 +132,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         lblTotal = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         panelPagDinheiro = new javax.swing.JPanel();
         lblPago = new javax.swing.JLabel();
         txtValorPago = new javax.swing.JTextField();
@@ -142,6 +142,10 @@ public class TelaCaixa extends javax.swing.JFrame {
         checkDinheiro = new javax.swing.JCheckBox();
         checkCartao = new javax.swing.JCheckBox();
         checkTxServico = new javax.swing.JCheckBox();
+        jLabel21 = new javax.swing.JLabel();
+        jSpinFieldPessoas = new javax.swing.JSpinner();
+        btnImprimir = new javax.swing.JLabel();
+        lblData = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         comboMesa = new javax.swing.JComboBox<>();
@@ -153,27 +157,25 @@ public class TelaCaixa extends javax.swing.JFrame {
         btnListar = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
         lblGarcom = new javax.swing.JLabel();
-        btnImprimir = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jSpinFieldPessoas = new javax.swing.JSpinner();
+        lblStatus = new javax.swing.JLabel();
+        lblMsgStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(null);
 
         painelEsquerdo.setBackground(new java.awt.Color(38, 53, 61));
+        painelEsquerdo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Pagamentos");
-
-        jLabel14.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Movimentação");
+        jLabel9.setText("MasterFood");
+        painelEsquerdo.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 208, 289, -1));
 
         lblLLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        painelEsquerdo.add(lblLLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 22, 252, 180));
 
         panelMovimentacao.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -207,46 +209,58 @@ public class TelaCaixa extends javax.swing.JFrame {
         panelMovimentacao.setLayout(panelMovimentacaoLayout);
         panelMovimentacaoLayout.setHorizontalGroup(
             panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMovimentacaoLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+            .addGroup(panelMovimentacaoLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(labelSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(labelEntradas, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(labelSaldo))
-                .addGap(19, 19, 19)
-                .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblSaidas, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                    .addComponent(lblEntradas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMovimentacaoLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(labelEntradas)
+                        .addGap(19, 19, 19)
+                        .addComponent(lblEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelMovimentacaoLayout.createSequentialGroup()
+                        .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelSaldo))
+                        .addGap(19, 19, 19)
+                        .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblSaidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         panelMovimentacaoLayout.setVerticalGroup(
             panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMovimentacaoLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMovimentacaoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelEntradas)
                     .addComponent(lblEntradas))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelSaidas, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblSaidas, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelSaldo)
                     .addComponent(lblSaldo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
+
+        painelEsquerdo.add(panelMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 356, -1, -1));
 
         checkExibir.setBackground(new java.awt.Color(38, 53, 61));
         checkExibir.setForeground(new java.awt.Color(255, 255, 255));
-        checkExibir.setText("Exibir");
+        checkExibir.setText("Exibir Movimentação");
         checkExibir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 checkExibirMouseClicked(evt);
             }
         });
+        checkExibir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkExibirActionPerformed(evt);
+            }
+        });
+        painelEsquerdo.add(checkExibir, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 326, 191, -1));
 
         panelGrafico.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -255,7 +269,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         btnGrafico.setForeground(new java.awt.Color(255, 255, 255));
         btnGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnGráfico.png"))); // NOI18N
-        btnGrafico.setText("Gerar Gáfico do Período");
+        btnGrafico.setText("Gerar Gráfico do Período");
         btnGrafico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGraficoMouseClicked(evt);
@@ -272,65 +286,24 @@ public class TelaCaixa extends javax.swing.JFrame {
                     .addComponent(btnGrafico)
                     .addComponent(comboMes, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         panelGraficoLayout.setVerticalGroup(
             panelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGraficoLayout.createSequentialGroup()
-                .addGap(0, 29, Short.MAX_VALUE)
+            .addGroup(panelGraficoLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(comboMes, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGrafico))
+                .addComponent(btnGrafico)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout painelEsquerdoLayout = new javax.swing.GroupLayout(painelEsquerdo);
-        painelEsquerdo.setLayout(painelEsquerdoLayout);
-        painelEsquerdoLayout.setHorizontalGroup(
-            painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(lblLLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(32, Short.MAX_VALUE))
-            .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                        .addComponent(panelMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(checkExibir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
-                    .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                        .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        painelEsquerdoLayout.setVerticalGroup(
-            painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(lblLLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addGap(30, 30, 30)
-                .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(checkExibir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
-        );
+        painelEsquerdo.add(panelGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 480, -1, -1));
 
         getContentPane().add(painelEsquerdo);
-        painelEsquerdo.setBounds(0, 0, 380, 650);
+        painelEsquerdo.setBounds(0, 0, 300, 700);
 
         painelDireito.setLayout(null);
 
@@ -338,13 +311,13 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("jLabel2");
         painelDireito.add(lblOperador);
-        lblOperador.setBounds(30, 30, 90, 40);
+        lblOperador.setBounds(30, 10, 90, 40);
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("jLabel2");
         painelDireito.add(lblCargo);
-        lblCargo.setBounds(120, 30, 90, 40);
+        lblCargo.setBounds(120, 10, 90, 40);
 
         jPanel2.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -362,9 +335,9 @@ public class TelaCaixa extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,12 +347,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         );
 
         painelDireito.add(jPanel2);
-        jPanel2.setBounds(380, 0, 50, 40);
-
-        lblStatus.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        lblStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        painelDireito.add(lblStatus);
-        lblStatus.setBounds(220, 30, 140, 40);
+        jPanel2.setBounds(330, 0, 50, 40);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Sub-total")));
 
@@ -389,29 +357,43 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel11.setText("Tx. Serviço");
+        jLabel11.setText("Valor do Serviço");
 
-        percent.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 36)); // NOI18N
+        percent.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 24)); // NOI18N
         percent.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        percent.setText("0,00");
 
-        tgeral.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 36)); // NOI18N
+        tgeral.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 24)); // NOI18N
         tgeral.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        tgeral.setText("0,00");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setText("R$");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel7.setText("R$");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tgeral, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addGap(3, 3, 3)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                    .addComponent(tgeral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(percent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(percent, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 39, Short.MAX_VALUE)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(35, 35, 35))
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,13 +404,17 @@ public class TelaCaixa extends javax.swing.JFrame {
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(percent, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tgeral, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(percent, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tgeral, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelDireito.add(jPanel3);
-        jPanel3.setBounds(30, 90, 350, 120);
+        jPanel3.setBounds(10, 90, 350, 120);
 
         lblReceber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblReceber.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/caixa.png"))); // NOI18N
@@ -460,7 +446,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         });
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Logout");
+        jLabel3.setText("Sair");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -471,8 +457,8 @@ public class TelaCaixa extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(lblReceber, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(btnFecharCaixa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnFecharCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -489,50 +475,54 @@ public class TelaCaixa extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(lblReceber))
-                    .addComponent(btnFecharCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblReceber, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnFecharCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel24)
                     .addComponent(lblReceberPAgamento)
                     .addComponent(jLabel3))
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         painelDireito.add(jPanel6);
-        jPanel6.setBounds(30, 520, 370, 120);
+        jPanel6.setBounds(10, 570, 350, 110);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Total Geral"));
 
-        lblTotal.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
+        lblTotal.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         lblTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotal.setText("0,00");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel8.setText("R$");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel8)
+                .addGap(10, 10, 10)
+                .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 8, Short.MAX_VALUE))
+            .addComponent(jLabel8)
+            .addComponent(lblTotal)
         );
 
         painelDireito.add(jPanel7);
-        jPanel7.setBounds(30, 220, 350, 80);
+        jPanel7.setBounds(10, 220, 350, 80);
 
         panelPagDinheiro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblPago.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
-        lblPago.setText("Pago");
+        lblPago.setText("Valor Pago R$");
 
         txtValorPago.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtValorPago.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -572,17 +562,17 @@ public class TelaCaixa extends javax.swing.JFrame {
         });
 
         lblTroco.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
-        lblTroco.setText("Troco");
+        lblTroco.setText("Troco R$");
 
         javax.swing.GroupLayout panelPagDinheiroLayout = new javax.swing.GroupLayout(panelPagDinheiro);
         panelPagDinheiro.setLayout(panelPagDinheiroLayout);
         panelPagDinheiroLayout.setHorizontalGroup(
             panelPagDinheiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPagDinheiroLayout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addGroup(panelPagDinheiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtValorPago)
-                    .addComponent(lblPago, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48)
+                .addGroup(panelPagDinheiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPago, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtValorPago, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelPagDinheiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -603,7 +593,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         );
 
         painelDireito.add(panelPagDinheiro);
-        panelPagDinheiro.setBounds(30, 390, 350, 100);
+        panelPagDinheiro.setBounds(10, 390, 350, 100);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Forma de Pagamento")));
 
@@ -668,15 +658,39 @@ public class TelaCaixa extends javax.swing.JFrame {
         );
 
         painelDireito.add(jPanel4);
-        jPanel4.setBounds(30, 310, 350, 65);
+        jPanel4.setBounds(10, 310, 350, 65);
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel21.setText("N. Pessoas");
+        painelDireito.add(jLabel21);
+        jLabel21.setBounds(20, 530, 65, 30);
+
+        jSpinFieldPessoas.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        painelDireito.add(jSpinFieldPessoas);
+        jSpinFieldPessoas.setBounds(90, 530, 51, 32);
+
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Impressora32x32.png"))); // NOI18N
+        btnImprimir.setText("Imprimir Parcial");
+        btnImprimir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnImprimirMouseClicked(evt);
+            }
+        });
+        painelDireito.add(btnImprimir);
+        btnImprimir.setBounds(230, 520, 125, 55);
+
+        lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario24x24.png"))); // NOI18N
+        lblData.setText("jLabel5");
+        painelDireito.add(lblData);
+        lblData.setBounds(230, 10, 90, 40);
 
         getContentPane().add(painelDireito);
-        painelDireito.setBounds(830, 0, 430, 660);
+        painelDireito.setBounds(940, 0, 370, 690);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        jLabel6.setText("Mesas");
+        jLabel6.setText("Mesa:");
 
         comboMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -690,20 +704,41 @@ public class TelaCaixa extends javax.swing.JFrame {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null}
             },
             new String [] {
-                "PRODUTO", "COD.", "QTD.", "VALOR R$", "TOTAL R$"
+                "CÓDIGO", "PRODUTO", "QUANTIDADE", "VALOR R$", "TOTAL R$"
             }
         ));
         tblDetalhePedido.setRowHeight(22);
+        tblDetalhePedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDetalhePedidoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblDetalhePedido);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Caixa");
 
-        btnListar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        btnListar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lopa32x32.png"))); // NOI18N
         btnListar.setText("Listar");
         btnListar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -721,14 +756,6 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         lblGarcom.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
 
-        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Impressora32x32.png"))); // NOI18N
-        btnImprimir.setText("Imprimir Parcial");
-        btnImprimir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnImprimirMouseClicked(evt);
-            }
-        });
-
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario (2).png"))); // NOI18N
         jLabel4.setText("Contas a Pagar");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -737,10 +764,10 @@ public class TelaCaixa extends javax.swing.JFrame {
             }
         });
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel21.setText("N. Pessoas");
+        lblStatus.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jSpinFieldPessoas.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        lblMsgStatus.setText("jLabel10");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -749,35 +776,34 @@ public class TelaCaixa extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel4))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(77, 77, 77)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtIdMEsa, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
-                            .addComponent(txtIdPedido)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(lblGarcom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(comboMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel21)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSpinFieldPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(comboMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtIdMEsa, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtIdPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblMsgStatus))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 56, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -785,40 +811,36 @@ public class TelaCaixa extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel6)
-                        .addGap(5, 5, 5)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(txtIdMEsa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIdPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(25, 25, 25)
+                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdMEsa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMsgStatus))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel22)
                     .addComponent(lblGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel21)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSpinFieldPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtIdMEsa, txtIdPedido});
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(380, 0, 460, 650);
+        jPanel1.setBounds(300, 0, 640, 700);
 
-        setSize(new java.awt.Dimension(1254, 654));
+        setSize(new java.awt.Dimension(1309, 693));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -834,7 +856,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void checkTxServicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkTxServicoMouseClicked
         // Retira taxa de serviço
-        
+
         txtValorPago.setText("0,00");
         txtTroco.setText("0,00");
         calculaTaxa();
@@ -893,7 +915,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         // Calcula valor
         int nPesoas = Integer.parseInt(jSpinFieldPessoas.getValue().toString());
-       
+
         Double totalGeral = Double.parseDouble(lblTotal.getText().replaceAll(",", "."));
         Double totalPessoas = totalGeral / nPesoas;
         System.out.println(nPesoas);
@@ -920,7 +942,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         // Solicita confirmação do usuário
         int op = JOptionPane.showConfirmDialog(null, "Fechar este pedido?", "Atenção", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
 
-        if (op == JOptionPane.YES_OPTION) {  // Se confirmado feha o pedido
+        if (op == JOptionPane.YES_OPTION) {  // Se confirmado fecha o pedido
 
             if (checkCartao.isSelected() || checkDinheiro.isSelected()) {
                 // PEga a data Atual
@@ -965,16 +987,27 @@ public class TelaCaixa extends javax.swing.JFrame {
                 try {
                     JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "cupom.jasper", dados, conexao);
                     JasperViewer.viewReport(print, false);
-                    lblTotal.setText("0.00");
+                    lblTotal.setText("0,00");
+                    tgeral.setText("0,00");
+                    percent.setText("0,00");
+
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaCaixa.btnImprimirMouseClicked()");
+                    lblTotal.setText("0,00");
+                    tgeral.setText("0,00");
+                    percent.setText("0,00");
                 }
                 // Fim da impressão de cupom
                 cp.limpaTabela(tblDetalhePedido);
                 limpaForm();
+                lblTotal.setText("0,00");
+                tgeral.setText("0,00");
+                percent.setText("0,00");
+               
+
                 lblEntradas.setText(String.format("%9.2f", caixa.totalizaEntradas()));
                 atualizaCaixa();
-
+               
                 try {
 
                     caixa.listaMesaOcupada(comboMesa);
@@ -1026,12 +1059,11 @@ public class TelaCaixa extends javax.swing.JFrame {
 
             while (rs.next()) {
                 total = Double.parseDouble(rs.getString("total R$").replaceAll(",", "."));
-                
+
                 totalGeral = totalGeral + total;
             }
-            
+
             // Formata e exibe o total geral do pedido
-            
             tgeral.setText(String.format("%9.2f", totalGeral));
 
         } catch (NumberFormatException | SQLException e) {
@@ -1055,7 +1087,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         DadosEmpresa dadosEmpresa = de.selecionaDados();
 
         int nPesoas = Integer.parseInt(jSpinFieldPessoas.getValue().toString());
-        
+
         Double totalGeral = Double.parseDouble(lblTotal.getText().replaceAll(",", "."));
         Double totalPessoas = totalGeral / nPesoas;
         System.out.println(nPesoas);
@@ -1118,7 +1150,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         cx.setStatus(1);
         cx.setIdFuncionario(Integer.parseInt(func.localizaIdLogin(lblOperador.getText())));
 
-        int op = JOptionPane.showConfirmDialog(null, lblOperador.getText().toUpperCase() + " Tem certeza que deseja fechar seu caixa?", "Atenção", JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE);
+        int op = JOptionPane.showConfirmDialog(null, lblOperador.getText().toUpperCase() + " Tem certeza que deseja fechar seu caixa?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
         if (op == JOptionPane.YES_OPTION) {
 
@@ -1142,14 +1174,14 @@ public class TelaCaixa extends javax.swing.JFrame {
                     param.put("id_perador", cx.getIdFuncionario());
 
                     // Troca imagem de status
-                    caixa.statusCaixa(lblStatus, caixa.temMovimentacao(cx.getIdFuncionario()));
+                    caixa.statusCaixa(lblStatus, caixa.temMovimentacao(cx.getIdFuncionario()), lblMsgStatus);
                     DadosEmpresa dadosEmpresa = de.selecionaDados();
                     // Oculta paineis movimentação e painel gráfico
                     panelGrafico.setVisible(false);
                     panelMovimentacao.setVisible(false);
                     try {
                         ReportUtil rpu = new ReportUtil();
-                        if (dadosEmpresa.getImprimir_na_tela() == 0) {                          
+                        if (dadosEmpresa.getImprimir_na_tela() == 0) {
 
                             DadosEmpresa dados_empresa = de.selecionaDados();// Retorna dadados da empresa
                             rpu.imprimiRelatorioTela("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param));
@@ -1227,9 +1259,9 @@ public class TelaCaixa extends javax.swing.JFrame {
         //Abilita textFild para recebimento em dinheiro
         if (checkDinheiro.isSelected()) {
             habilitaTextFildPagamento();
-        }else {
+        } else {
             desabilitaTextFildPagamento();
-            
+
         }
     }//GEN-LAST:event_checkDinheiroMouseClicked
 
@@ -1241,11 +1273,18 @@ public class TelaCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_checkCartaoMouseClicked
 
     private void checkExibirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkExibirMouseClicked
-        if ("Caixa Aberto".equals(lblStatus.getText())) {
+        if ("Caixa Aberto".equals(lblMsgStatus.getText())) {
             if (checkExibir.isSelected()) {
+                if ("Gerente".equals(lblCargo.getText())){
+                     panelGrafico.setVisible(true);
+                     panelMovimentacao.setVisible(true);
+                     atualizaCaixa();
+                }else {
+                    
                 atualizaCaixa();
                 panelMovimentacao.setVisible(true);
-                panelGrafico.setVisible(true);
+                panelGrafico.setVisible(false);
+                }
 
             } else {
                 panelMovimentacao.setVisible(false);
@@ -1253,7 +1292,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Não é possível exibir Movimentação \n Caixa Fechado!");
+            JOptionPane.showMessageDialog(null, "Não é possível exibir a movimentação com o Caixa Fechado!");
 
         }
 
@@ -1262,13 +1301,21 @@ public class TelaCaixa extends javax.swing.JFrame {
     private void checkDinheiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDinheiroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_checkDinheiroActionPerformed
+
+    private void checkExibirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkExibirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkExibirActionPerformed
+
+    private void tblDetalhePedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetalhePedidoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblDetalhePedidoMouseClicked
     public void recebeOperador(String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
         l.setUsuario(operador);
         String id = func.localizaIdLogin(operador);
-        caixa.statusCaixa(lblStatus, caixa.temMovimentacao(Integer.parseInt(id)));
+        caixa.statusCaixa(lblStatus, caixa.temMovimentacao(Integer.parseInt(id)), lblMsgStatus);
         if ("Caixa Fechado".equals(lblStatus.getText())) {
             lblReceber.setVisible(false);
             lblReceberPAgamento.setVisible(false);
@@ -1357,7 +1404,6 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
@@ -1365,7 +1411,10 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -1379,9 +1428,11 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel labelSaidas;
     private javax.swing.JLabel labelSaldo;
     private javax.swing.JLabel lblCargo;
+    private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblEntradas;
     private javax.swing.JLabel lblGarcom;
     private javax.swing.JLabel lblLLogo;
+    private javax.swing.JLabel lblMsgStatus;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblPago;
     private javax.swing.JLabel lblReceber;
@@ -1437,7 +1488,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         txtTroco.setVisible(true);
         lblPago.setVisible(true);
         lblTroco.setVisible(true);
-        
+
     }
 
     private void desabilitaTextFildPagamento() {
@@ -1446,8 +1497,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         txtTroco.setVisible(false);
         lblPago.setVisible(false);
         lblTroco.setVisible(false);
-       
-      
+
     }
 
     // Atualiza movimentação do Caixa

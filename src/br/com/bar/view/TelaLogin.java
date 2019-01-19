@@ -215,6 +215,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         txtLogin.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         txtLogin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtLogin.setText("admin");
         txtLogin.setBorder(null);
         txtLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtLogin.setMargin(null);
@@ -233,6 +234,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         txtSenha.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         txtSenha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtSenha.setText("admin");
         txtSenha.setBorder(null);
         txtSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
