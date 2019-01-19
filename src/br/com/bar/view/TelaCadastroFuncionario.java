@@ -30,7 +30,8 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     Util u = new Util();
     // Inicia Instância de log
     Log l = new Log();
-    String nome=null;
+    String nome = null;
+
     public TelaCadastroFuncionario() {
         initComponents();
         txtCaminho.setVisible(false);
@@ -89,14 +90,14 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         }
         if ("Alterar".equals(txtOperacao.getText()) && "".equals(txtCnh.getText())) {
             txtCnh.setEnabled(true);
-
+            jDateValiadeCNH.setEnabled(false);
         }
 
         carregaFoto();
     }
 
     public void recebeFuncionario(Funcionario f) {
-        nome=f.getNome();
+        nome = f.getNome();
         txtId.setText(f.getId());
         txtNome.setText(f.getNome());
         txtEndereço.setText(f.getEndereco());
@@ -668,14 +669,14 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked
-        if ("Alterar".equals(txtOperacao.getText())||"Detalhe".equals(txtOperacao.getText())||"Adicionar".equals(txtOperacao.getText())){
+        if ("Alterar".equals(txtOperacao.getText()) || "Detalhe".equals(txtOperacao.getText()) || "Adicionar".equals(txtOperacao.getText())) {
             this.dispose();
             TelaPesquisaFuncionario tpf = new TelaPesquisaFuncionario();
             tpf.recebeOperador(lblOperador.getText(), lblCargo.getText());
             tpf.atualizaTabela("");
             tpf.setVisible(true);
-            
-        }else{             
+
+        } else {
             this.dispose();
             TelaPesquisaFuncionario tpf = new TelaPesquisaFuncionario();
             tpf.recebeOperador(lblOperador.getText(), lblCargo.getText());
@@ -801,10 +802,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             f.setCnh(txtCnh.getText());
             f.setRg(txtRg.getText());
 
-            if (valida()) {
-                int op = JOptionPane.showConfirmDialog(null, "Confirma a inclusão do funcionário?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-
-                if (op == JOptionPane.YES_OPTION) {
+            int op = JOptionPane.showConfirmDialog(null, "Confirma a inclusão do funcionário?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            if (op == JOptionPane.YES_OPTION) {
+                if (valida()) {
 
                     if (funcionario.temFuncionario(f.getNome())) {
                         JOptionPane.showMessageDialog(null, "Este funcionário já existe!");
@@ -885,10 +885,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                     // Se o funcionário possuir mesa, exibe mensagem e solicita transferida para outro 
                     JOptionPane.showMessageDialog(null, "Transfira as mesas do funcionário antes de continuar!");
                 } else {
-                    if (valida()) {
-
-                        int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração dos Dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-                        if (op == JOptionPane.YES_OPTION) {
+                    int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração dos Dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    if (op == JOptionPane.YES_OPTION) {
+                        if (valida()) {
 
                             // Altera dados do funcionário
                             if (cf.alterar(f, txtId.getText())) {
@@ -909,9 +908,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                             } else {
                                 JOptionPane.showMessageDialog(null, "Erro ao tentar alterar os dados - contate o SUPORTE!");
                             }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Alteração Candelada com sucesso!");
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Alteração cancelada com sucesso!");
                     }
                     /*
                     else {
@@ -942,9 +941,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                         } else {
                             JOptionPane.showMessageDialog(null, "Erro ao tentar alterar os dados - contate o SUPORTE!");
                         }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Alteração Candelada com sucesso!");
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Alteração candelada com sucesso!");
                 }
             }
 
@@ -1102,6 +1101,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jDateDesligamento.setDate(null);
         jDateNascimento.setDate(null);
         jDateValiadeCNH.setDate(null);
+        txtHistorico.setText(null);
     }
 
     private void bloqueiaTudo() {

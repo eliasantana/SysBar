@@ -38,6 +38,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         // Realiza Pesquisa
         txtFuncionario.setText(nome);
         tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario(nome)));
+        
         System.out.println(nome);
     }
 
@@ -139,14 +140,15 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         getContentPane().add(txtFuncionario);
         txtFuncionario.setBounds(10, 150, 349, 30);
 
-        lblPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/localizar32x32.png"))); // NOI18N
+        lblPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lopa32x32.png"))); // NOI18N
+        lblPesquisa.setText("Pesquisar");
         lblPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblPesquisaMouseClicked(evt);
             }
         });
         getContentPane().add(lblPesquisa);
-        lblPesquisa.setBounds(370, 150, 32, 32);
+        lblPesquisa.setBounds(370, 150, 120, 32);
 
         tblFuncionario.setFont(new java.awt.Font("Yu Gothic Light", 0, 12)); // NOI18N
         tblFuncionario.setModel(new javax.swing.table.DefaultTableModel(
@@ -176,7 +178,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblFuncionario);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 190, 601, 259);
+        jScrollPane1.setBounds(10, 190, 620, 259);
 
         lblExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
         lblExcluir.setText("Excluir");
@@ -186,7 +188,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblExcluir);
-        lblExcluir.setBounds(460, 450, 100, 50);
+        lblExcluir.setBounds(450, 450, 100, 50);
 
         lblAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
         lblAdicionar.setText("Adicionar");
@@ -196,7 +198,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblAdicionar);
-        lblAdicionar.setBounds(210, 450, 100, 50);
+        lblAdicionar.setBounds(100, 450, 100, 50);
 
         lblAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapis.png"))); // NOI18N
         lblAlterar.setText("Alterar");
@@ -216,7 +218,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblConsultar);
-        lblConsultar.setBounds(90, 450, 100, 50);
+        lblConsultar.setBounds(220, 450, 100, 50);
 
         setSize(new java.awt.Dimension(636, 496));
         setLocationRelativeTo(null);
@@ -238,6 +240,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
         tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Adicionar");
         tcf.setVisible(true);
+        tcf.setAlwaysOnTop(true);
 
     }//GEN-LAST:event_lblAdicionarMouseClicked
 
@@ -265,6 +268,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
                 tcf.recebeFuncionario(fLocalizado);
                 tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Alterar");
                 tcf.setVisible(true);
+                tcf.setAlwaysOnTop(true);
                 this.dispose();
             }
         } catch (NullPointerException e) {
@@ -325,6 +329,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
                 tcf.recebeFuncionario(fLocalizado);
                 tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Detalhe");
                 tcf.setVisible(true);
+                tcf.setAlwaysOnTop(true);
                 this.dispose();
 
             } catch (Exception e) {

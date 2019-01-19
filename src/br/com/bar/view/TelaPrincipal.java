@@ -779,6 +779,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaPesquisaFuncionario pesqFunc = new TelaPesquisaFuncionario();
         pesqFunc.recebeOperador(lblOperador.getText(), lblCargo.getText());
         pesqFunc.setVisible(true);
+        pesqFunc.setAlwaysOnTop(true);
         
         // Inicio do registro de log
         log.setFuncionalidade("Cadastro de Funcionário");
