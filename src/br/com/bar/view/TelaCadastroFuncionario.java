@@ -65,6 +65,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             comboBloqueio.setEnabled(false);
             jDateAdmissao.setEnabled(false);
             jDateNascimento.setEnabled(false);
+            jDateDesligamento.setEnabled(false);
             if (null != jDateDesligamento.getDate()) {
 
                 comboSituacao.setEnabled(false);
@@ -712,13 +713,8 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         if ("Inativo".equals(comboSituacao.getSelectedItem().toString())) {
             comboBloqueio.setSelectedItem("Bloqueado");
             comboBloqueio.setEnabled(false);
-            /*
-           if (null==jDateDesligamento.getDate()){
-               //Data Atual
-               Date dt = new Date();
-               jDateDesligamento.setDate(dt);
-           } 
-             */
+            jDateDesligamento.setEnabled(true);
+           
         } else {
             comboBloqueio.setSelectedItem("Desbloqueado");
             jDateDesligamento.setDate(null);
@@ -802,9 +798,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             f.setCnh(txtCnh.getText());
             f.setRg(txtRg.getText());
 
+                if (valida()) {
             int op = JOptionPane.showConfirmDialog(null, "Confirma a inclusão do funcionário?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             if (op == JOptionPane.YES_OPTION) {
-                if (valida()) {
 
                     if (funcionario.temFuncionario(f.getNome())) {
                         JOptionPane.showMessageDialog(null, "Este funcionário já existe!");
@@ -885,9 +881,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                     // Se o funcionário possuir mesa, exibe mensagem e solicita transferida para outro 
                     JOptionPane.showMessageDialog(null, "Transfira as mesas do funcionário antes de continuar!");
                 } else {
-                    int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração dos Dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-                    if (op == JOptionPane.YES_OPTION) {
-                        if (valida()) {
+                    if (valida()) {
+                        int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração dos Dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                        if (op == JOptionPane.YES_OPTION) {
 
                             // Altera dados do funcionário
                             if (cf.alterar(f, txtId.getText())) {
@@ -908,9 +904,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                             } else {
                                 JOptionPane.showMessageDialog(null, "Erro ao tentar alterar os dados - contate o SUPORTE!");
                             }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Alteração cancelada com sucesso!");
                         }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Alteração cancelada com sucesso!");
                     }
                     /*
                     else {
@@ -919,13 +915,10 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                      */
                 }
             } else {
-                int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração dos Dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-                if (op == JOptionPane.YES_OPTION) {
-
-                    if (valida()) {
-
+                if (valida()) {
+                    int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração dos Dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    if (op == JOptionPane.YES_OPTION) {
                         if (cf.alterar(f, txtId.getText())) {
-
                             JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
                             this.dispose();
                             TelaPesquisaFuncionario tpf = new TelaPesquisaFuncionario();
@@ -941,9 +934,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                         } else {
                             JOptionPane.showMessageDialog(null, "Erro ao tentar alterar os dados - contate o SUPORTE!");
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Alteração candelada com sucesso!");
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Alteração candelada com sucesso!");
                 }
             }
 
@@ -1054,11 +1047,13 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         // 
         jDateAdmissao.setEnabled(true);
         jDateDesligamento.setDate(null);
+        jDateDesligamento.setEnabled(false);
         jDateAdmissao.setDate(null);
         btnSalvar.setEnabled(true);
-        jDateDesligamento.setEnabled(true);
+        
         comboSituacao.setSelectedItem("Ativo");
         comboSituacao.setEnabled(true);
+        
 
     }//GEN-LAST:event_btnRecontrataActionPerformed
 
@@ -1313,7 +1308,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Informe um CPF para continuar!");
             resp = false;
             /*
-           - Caso CNH não seja preenchido segue com a verificação dos demais componentes do formulário
+           - Caso CNH  seja preenchido segue com a verificação dos demais componentes do formulário
            - Se CNH seja preenchido, questiona o preenchimento da validade da CNH e segue com a validação
              dos demais componentes.
              */
@@ -1332,38 +1327,80 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                 } else if (null == jDateAdmissao.getDate()) {
                     JOptionPane.showMessageDialog(null, "Informe a Data de Admissão para continuar!");
                     resp = false;
-                } else if (null != jDateDesligamento.getDate()) {
+                
+                
+                
+                
+                } else if (null != jDateDesligamento.getDate()) {//Data de desligamento preenchida válida
                     Date dtAtual = new Date();
                     Date dtDeslig = jDateDesligamento.getDate();
                     if (dtDeslig.after(dtAtual)) {
                         JOptionPane.showMessageDialog(null, "A Data de Desligamento não pode ser maior que a data atual!");
+                        resp = false;   
+                    }else if ("Ativo".equals(comboSituacao.getSelectedItem().toString())) {
+                        JOptionPane.showMessageDialog(null, "Altere a Situação do funcionário para Inativo!");
                         resp = false;
                     }
-
-                } else if ("Inativo".equals(comboSituacao.getSelectedItem().toString()) && null == jDateDesligamento.getDate()) {
+                //Data de Desligamento inválida. 
+                // Obs: Quando a data de Desligamento não preechida e campo situação ativo segue processamento.
+                } else if (null == jDateDesligamento.getDate()&&("Inativo".equals(comboSituacao.getSelectedItem().toString()))){
+                        JOptionPane.showMessageDialog(null, "Informe uma data de Desligamento válida!");
+                        resp=false;
+                }
+                /*não faz nada excluir*/
+                else if (null == jDateDesligamento.getDate()&&("Ativo".equals(comboSituacao.getSelectedItem().toString()))){
+                     
+                    
+                }
+                else if ("Inativo".equals(comboSituacao.getSelectedItem().toString()) && null == jDateDesligamento.getDate()) {
                     JOptionPane.showMessageDialog(null, "Informe a Data de Desligamento para continuar!");
                     resp = false;
+                
+                
+                
                 } else if ("Selecione...".equals(comboCargo.getSelectedItem().toString())) {
                     JOptionPane.showMessageDialog(null, "Informe um Cargo para continuar!");
                     resp = false;
                 }
             }
-        } else { // Comtinua validação se CNH e Validade estiverem preechidos corretamente.
+        } else { // Comtinua validação se CNH e Validade estiverem preechidos corretamente ou vazio.
 
             if ("(  )     -    ".equals(txtTelRecado.getText()) || "(00)00000-0000".equals(txtTelRecado.getText())) {
                 JOptionPane.showMessageDialog(null, "Informe um número de Celular para continuar!");
+                resp = false;                
+            }else if (null == jDateNascimento.getDate()) {
+                JOptionPane.showMessageDialog(null, "Informe a Data de Nascimento para continuar!");
                 resp = false;
-            } else if (null == jDateAdmissao.getDate()) {
+               
+            }
+            else if (null == jDateAdmissao.getDate()) {
                 JOptionPane.showMessageDialog(null, "Informe a Data de Admissão para continuar!");
                 resp = false;
-            } else if (null != jDateDesligamento.getDate()) {
+               
+            } 
+             else if (null != jDateDesligamento.getDate()) { // Data de Desligamento Válida.
                 Date dtAtual = new Date();
                 Date dtDeslig = jDateDesligamento.getDate();
                 if (dtDeslig.after(dtAtual)) {
                     JOptionPane.showMessageDialog(null, "A Data de Desligamento não pode ser maior que a data atual!");
                     resp = false;
                 }
-            } else if ("Inativo".equals(comboSituacao.getSelectedItem().toString()) && null == jDateDesligamento.getDate()) {
+                else if ("Ativo".equals(comboSituacao.getSelectedItem().toString())) {
+                        JOptionPane.showMessageDialog(null, "Altere a Situação do funcionário para Inativo!");
+                        resp = false;
+                    }
+                //Data de Desligamento inválida. 
+                // Obs: Quando a data de Desligamento não preechida e campo situação ativo segue processamento.
+                } 
+                    else if (null == jDateDesligamento.getDate()&&("Inativo".equals(comboSituacao.getSelectedItem().toString()))){
+                        JOptionPane.showMessageDialog(null, "Informe uma data de Desligamento válida!");
+                        resp=false;   
+                        //Não faz nada
+            } else if (null == jDateDesligamento.getDate()&&("Ativo".equals(comboSituacao.getSelectedItem().toString()))){
+                        
+                                     
+            }
+                else if ("Inativo".equals(comboSituacao.getSelectedItem().toString()) && null == jDateDesligamento.getDate()) {
                 JOptionPane.showMessageDialog(null, "Informe a Data de Desligamento para continuar!");
                 resp = false;
             } else if ("Selecione...".equals(comboCargo.getSelectedItem().toString())) {

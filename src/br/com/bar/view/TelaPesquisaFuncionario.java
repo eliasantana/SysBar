@@ -240,7 +240,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
         tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Adicionar");
         tcf.setVisible(true);
-        tcf.setAlwaysOnTop(true);
+        
 
     }//GEN-LAST:event_lblAdicionarMouseClicked
 
@@ -268,7 +268,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
                 tcf.recebeFuncionario(fLocalizado);
                 tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Alterar");
                 tcf.setVisible(true);
-                tcf.setAlwaysOnTop(true);
+               
                 this.dispose();
             }
         } catch (NullPointerException e) {
@@ -329,7 +329,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
                 tcf.recebeFuncionario(fLocalizado);
                 tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Detalhe");
                 tcf.setVisible(true);
-                tcf.setAlwaysOnTop(true);
+               
                 this.dispose();
 
             } catch (Exception e) {
