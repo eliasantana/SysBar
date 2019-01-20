@@ -91,7 +91,32 @@ public class ControlerCaixa {
         }
         return totalSaidas;
     }
+    // Totaliza saídas por operador na data Informada
+    public double totalizaSaida(String operador, String data) {
 
+        String sql = "SELECT sum(valor_pagto) as 'saidas'FROM dbbar.tbcontas_a_pagar where data_pagto=? AND operador=?";
+        double totalSaidas = 0;
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, data);
+            pst.setString(2, operador);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                if (rs.getString("saidas") == null) {
+                    totalSaidas = 0.0;
+                } else {
+
+                    totalSaidas = Double.parseDouble(rs.getString("saidas"));
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro totalizaSaída()" + e);
+
+        }
+        return totalSaidas;
+    }
+    // Totaliza entradas na data atual para 
     public double totalizaEntradas() {
         String sql = "SELECT sum(total) as 'total' FROM dbbar.cadpedido where data = curdate()";
         //String sql = "SELECT sum(total) as 'total' FROM dbbar.detalhe_mesa where data=curdate()";
@@ -115,6 +140,7 @@ public class ControlerCaixa {
         }
         return total;
     }
+   
 
     /*
         Totaliza entradas por operador
@@ -126,6 +152,34 @@ public class ControlerCaixa {
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, operador);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                if (rs.getString("total") == null) {
+                    total = 0.0;
+                } else {
+
+                    total = Double.parseDouble(rs.getString("total"));
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro totalizaEntradas()" + e);
+
+        }
+        return total;
+    }
+
+    /*
+        Totaliza entradas por operador
+     */
+    public double totalizaEntradas(String operador, String data) {
+        String sql = "SELECT sum(total) as 'total' FROM dbbar.cadpedido where data = ? AND operador=?";
+        
+        double total = 0;
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, data);
+            pst.setString(2, operador);
             rs = pst.executeQuery();
 
             while (rs.next()) {
@@ -175,6 +229,28 @@ public class ControlerCaixa {
         try {
             pst = conexao.prepareStatement(sql);
             pst.setInt(1, idOperador);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                resp = true;
+            }
+        } catch (SQLException e) {
+
+            System.out.println("br.com.br.controler.ControlerCaixa.temMovimentacao()" + e);
+        }
+
+        return resp;
+    }
+    
+    public boolean temMovimentacao(int idOperador, String data) {
+        boolean resp = false;
+
+        String sql = "SELECT * FROM tbmovimentacao WHERE data=? AND tbcadfuncionario_id = ?";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, data);
+            pst.setInt(2, idOperador);
             rs = pst.executeQuery();
 
             while (rs.next()) {

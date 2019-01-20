@@ -6,9 +6,26 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.Log;
+import br.com.bar.dao.ReportUtil;
+import br.com.bar.model.DadosEmpresa;
+import br.com.bar.model.Funcionario;
+import br.com.bar.model.MovimentacaoCaixa;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCaixa;
+import br.com.br.controler.ControlerDadosEmpresa;
+import br.com.br.controler.ControlerFuncionario;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JDayChooser;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 
 /**
  *
@@ -20,20 +37,29 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
      * Creates new form TelaGerenciamentoDeCaixa
      */
     ControlerCaixa cc = new ControlerCaixa();
+    ControlerFuncionario cf = new ControlerFuncionario();
+    ControlerCaixa caixa = new ControlerCaixa();
+    MovimentacaoCaixa cx = new MovimentacaoCaixa();
+    ControlerDadosEmpresa de = new ControlerDadosEmpresa();
+    ReportUtil rpu = new ReportUtil();
+
     Log l = new Log();
-    
+    Util u = new Util();
+
     public TelaGerenciamentoDeCaixa() {
         initComponents();
         txtIdCaixa.setVisible(false);
         tblGerenciamentoCaixa.setModel(DbUtils.resultSetToTableModel(cc.listaCaixa()));
-        
+        cf.carregaComboFuncionario2(combofuncionario, "Caixa", "Selecione...");
+        btnLiberaCxAnterior.setEnabled(false);
+        panelDiaAnterior.setVisible(false);
     }
-    
-    public void recebeOperador(String operador, String cargo){
-        
+
+    public void recebeOperador(String operador, String cargo) {
+
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
-        
+
     }
 
     /**
@@ -56,7 +82,12 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblGerenciamentoCaixa = new javax.swing.JTable();
-        LiberarCaixa = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        btnLiberarCaixa = new javax.swing.JButton();
+        checkFechaAnterior = new javax.swing.JCheckBox();
+        panelDiaAnterior = new javax.swing.JPanel();
+        combofuncionario = new javax.swing.JComboBox<>();
+        btnLiberaCxAnterior = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -138,40 +169,107 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblGerenciamentoCaixa);
 
-        LiberarCaixa.setText("Liberar Caixa");
-        LiberarCaixa.addActionListener(new java.awt.event.ActionListener() {
+        btnLiberarCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/liberaCaixa2.png"))); // NOI18N
+        btnLiberarCaixa.setText("Liberar Caixa do Dia");
+        btnLiberarCaixa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LiberarCaixaActionPerformed(evt);
+                btnLiberarCaixaActionPerformed(evt);
             }
         });
+
+        checkFechaAnterior.setText("Fechar Caixa Anterior");
+        checkFechaAnterior.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                checkFechaAnteriorMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnLiberarCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(checkFechaAnterior)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLiberarCaixa)
+                    .addComponent(checkFechaAnterior))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        combofuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combofuncionarioActionPerformed(evt);
+            }
+        });
+
+        btnLiberaCxAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/liberaCaixa.png"))); // NOI18N
+        btnLiberaCxAnterior.setText("Fechar");
+        btnLiberaCxAnterior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnLiberaCxAnterior.setBorderPainted(false);
+        btnLiberaCxAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLiberaCxAnteriorActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelDiaAnteriorLayout = new javax.swing.GroupLayout(panelDiaAnterior);
+        panelDiaAnterior.setLayout(panelDiaAnteriorLayout);
+        panelDiaAnteriorLayout.setHorizontalGroup(
+            panelDiaAnteriorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDiaAnteriorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(combofuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLiberaCxAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(97, 97, 97))
+        );
+        panelDiaAnteriorLayout.setVerticalGroup(
+            panelDiaAnteriorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDiaAnteriorLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelDiaAnteriorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(combofuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLiberaCxAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(LiberarCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 271, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelDiaAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(LiberarCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelDiaAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        setSize(new java.awt.Dimension(399, 464));
+        setSize(new java.awt.Dimension(399, 480));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -180,32 +278,121 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
 
-    private void LiberarCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LiberarCaixaActionPerformed
-        if (txtIdCaixa.getText().isEmpty()){
+    private void btnLiberarCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarCaixaActionPerformed
+        if (txtIdCaixa.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Selecione um caixa para continuar");
-        }else {
-            
+        } else {
+
             if (cc.liberaCaixa(txtIdCaixa.getText())) {
                 JOptionPane.showMessageDialog(null, "Caixa liberado!");
                 tblGerenciamentoCaixa.setModel(DbUtils.resultSetToTableModel(cc.listaCaixa()));
                 //Inicio do Registro de Log
-                
-                  l.setFuncionalidade("Caixa");
-                  l.setDescricao(lblOperador.getText() + " liberou o caixa");
-                  l.setUsuario(lblOperador.getText());
-                  l.gravaLog(l);
-                  
+
+                l.setFuncionalidade("Caixa");
+                l.setDescricao(lblOperador.getText() + " liberou o caixa");
+                l.setUsuario(lblOperador.getText());
+                l.gravaLog(l);
+
                 //Fim do Registro de Log
             }
         }
-        
-    }//GEN-LAST:event_LiberarCaixaActionPerformed
+
+    }//GEN-LAST:event_btnLiberarCaixaActionPerformed
 
     private void tblGerenciamentoCaixaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGerenciamentoCaixaMouseClicked
-        
+
         int linha = tblGerenciamentoCaixa.getSelectedRow();
         txtIdCaixa.setText(tblGerenciamentoCaixa.getValueAt(linha, 0).toString());
     }//GEN-LAST:event_tblGerenciamentoCaixaMouseClicked
+
+    private void btnLiberaCxAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberaCxAnteriorActionPerformed
+
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DAY_OF_WEEK, -1);
+        String dataAnterior = u.formataDataBanco(c.getTime());
+        Double saida = caixa.totalizaSaida(combofuncionario.getSelectedItem().toString(), dataAnterior);
+        Double entrada = caixa.totalizaEntradas(combofuncionario.getSelectedItem().toString(), dataAnterior);
+        Double saldo = entrada - saida;
+        int idFunc = Integer.parseInt(cf.localizaIdLogin(combofuncionario.getSelectedItem().toString()));
+
+        if (temMovAnterior()) {
+
+            cx.setData(dataAnterior);
+            cx.setEntrada(entrada);
+            cx.setSaida(saida);
+            cx.setSaldo(entrada - saida);
+            cx.setStatus(1);// 1 - Fechado - 0 - Aberto
+            cx.setIdFuncionario(idFunc);
+            if (caixa.temMovimentacao(idFunc, dataAnterior)) {
+                JOptionPane.showMessageDialog(null, "Fechamento retroativo já realizado para este funcionário!");
+            } else {
+
+                int op = JOptionPane.showConfirmDialog(null, "Deseja realizar o fechamento retroativo para o usuário " + combofuncionario.getSelectedItem().toString(), "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+
+                if (op == JOptionPane.YES_OPTION) {
+                    if (caixa.gravaMovimentacao(cx)) {
+                        JOptionPane.showMessageDialog(null, "Caixa Anterior fechado com sucesso!");
+                        // Inicio do Registro de Log
+                        l.setFuncionalidade("Caixa");
+                        l.setUsuario(lblOperador.getText());
+                        l.setDescricao(" realizou um Fehamento Retroativo de Caixa");
+                        l.gravaLog(l);
+                        // Fim do Registro de Log
+
+                        // Imprime relatório de caixa 
+                        HashMap param = new HashMap();
+                        param.put("data", dataAnterior);
+                        param.put("id_perador", cx.getIdFuncionario());
+                        DadosEmpresa dadosEmpresa = de.selecionaDados();
+
+                        try {
+
+                            if (dadosEmpresa.getImprimir_na_tela() == 0) {
+
+                                DadosEmpresa dados_empresa = de.selecionaDados();// Retorna dadados da empresa
+                                rpu.imprimiRelatorioTela("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param));
+
+                            } else {
+                                rpu.impressaoDireta("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param));
+
+                            }
+
+                        } catch (JRException e) {
+                            System.out.println("br.com.bar.view.TelaCaixa.btnFecharCaixaMouseClicked()" + e);
+                        }
+                    }
+
+                }
+            }
+        }
+
+
+    }//GEN-LAST:event_btnLiberaCxAnteriorActionPerformed
+
+    private void combofuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combofuncionarioActionPerformed
+        temMovAnterior();
+        /*
+        if (!"Selecione...".equals(combofuncionario.getSelectedItem().toString())){
+            
+        }else {
+            btnLiberaCxAnterior.setEnabled(false);
+        }*/
+    }//GEN-LAST:event_combofuncionarioActionPerformed
+
+    private void checkFechaAnteriorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkFechaAnteriorMouseClicked
+        // Habilita panel de Liberação de Caixa anterior
+        if (checkFechaAnterior.isSelected()) {
+            panelDiaAnterior.setVisible(true);
+            tblGerenciamentoCaixa.setEnabled(false);
+            //btnLiberarCaixa.setEnabled(false);
+        } else {
+            panelDiaAnterior.setVisible(false);
+            btnLiberarCaixa.setEnabled(false);
+            tblGerenciamentoCaixa.setEnabled(false);
+        }
+
+
+    }//GEN-LAST:event_checkFechaAnteriorMouseClicked
 
     /**
      * @param args the command line arguments
@@ -243,17 +430,45 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton LiberarCaixa;
+    private javax.swing.JButton btnLiberaCxAnterior;
+    private javax.swing.JButton btnLiberarCaixa;
+    private javax.swing.JCheckBox checkFechaAnterior;
+    private javax.swing.JComboBox<String> combofuncionario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblOperador;
+    private javax.swing.JPanel panelDiaAnterior;
     private javax.swing.JTable tblGerenciamentoCaixa;
     private javax.swing.JTextField txtIdCaixa;
     // End of variables declaration//GEN-END:variables
+
+    private Boolean temMovAnterior() {
+        boolean resp = false;
+        try {
+
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.DAY_OF_WEEK, -1);
+            String dataAnterior = u.formataDataBanco(c.getTime());
+            Double saida = caixa.totalizaSaida(combofuncionario.getSelectedItem().toString(), dataAnterior);
+            Double entrada = caixa.totalizaEntradas(combofuncionario.getSelectedItem().toString(), dataAnterior);
+            Double saldo = entrada - saida;
+            if (0 != saida || 0 != entrada) {
+                btnLiberaCxAnterior.setEnabled(true);
+            } else {
+                btnLiberaCxAnterior.setEnabled(false);
+            }
+            resp = true;
+
+        } catch (Exception e) {
+            System.out.println("br.com.bar.view.TelaGerenciamentoDeCaixa.temMovAnterior()" + e);
+        }
+        return resp;
+    }
 }

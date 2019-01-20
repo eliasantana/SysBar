@@ -267,6 +267,48 @@ public class ControlerFuncionario extends Funcionario {
         }
 
     }
+    // Lista funcionários adicionando o conteúdo do último parâmetro no indice0 do objeto ComboBox
+    public void carregaComboFuncionario2(JComboBox combo, String filtro, String indice0) {
+
+        // Carrega combo com o nome do funciário a partir do critério indicado em filtro
+        String sql = "SELECT * FROM tbcadfuncionario where cargo=? OR cargo='Gerente' AND status=0 AND bloqueado=0";
+        String sqlTodos = "SELECT * FROM tbcadfuncionario WHERE status=0 AND bloqueado=0";
+
+        if ("todos".equals(filtro)) {
+
+            try {
+                pst = conexao.prepareStatement(sql);
+
+                rs = pst.executeQuery(sqlTodos);
+
+                combo.removeAllItems();
+                combo.addItem(indice0);
+                
+                while (rs.next()) {
+                    combo.addItem(rs.getString("nome"));
+                }
+
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Erro carregaComboFuncionário" + e);
+            }
+        } else {
+
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, filtro);
+                rs = pst.executeQuery();
+                combo.removeAllItems();
+                 combo.addItem(indice0);
+                while (rs.next()) {
+                    combo.addItem(rs.getString("nome"));
+                }
+
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Erro carregaComboFuncionário" + e);
+            }
+        }
+
+    }
 
     public void carregaComboFuncionario(JComboBox combo, String filtro, String remove) {
 

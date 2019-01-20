@@ -778,7 +778,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel4))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -883,7 +883,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             txtTroco.requestFocus();
             double totalGeral = Double.parseDouble(lblTotal.getText().replace(",", "."));
             double totalPago = Double.parseDouble(txtValorPago.getText().replace(",", "."));
-
+            txtValorPago.setText(String.format("%9.2f", totalPago));
             if (totalPago >= totalGeral) {
                 txtTroco.setText(String.format("%9.2f", totalPago - totalGeral));
 
@@ -1079,6 +1079,10 @@ public class TelaCaixa extends javax.swing.JFrame {
         l.setDescricao(l.getUsuario() + " listou o detalhe do pedido ->" + txtIdPedido.getText() + "  Gaçom " + lblGarcom.getText() + " Mesa-> " + comboMesa.getSelectedItem().toString());
         l.gravaLog(l);
         //
+        
+        txtValorPago.setText("0,00");
+        txtTroco.setText("0,00");
+                
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void btnImprimirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMouseClicked
