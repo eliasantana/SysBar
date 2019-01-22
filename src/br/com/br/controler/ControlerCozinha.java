@@ -96,11 +96,11 @@ public class ControlerCozinha {
         
         // Listas os pratos enviados a cozinha pelo garçom
         String sql = "SELECT\n"
-                + "produto as 'PRODUTO', \n"
+                + "npedido as 'N.PEDIDO',\n"
+                + "produto as 'PRATO', \n"
                 + "qtd as 'QTD', \n"
                 + "mesa as 'N. MESA', \n"
-                + "status as 'STATUS',\n"
-                + "npedido as 'N.PEDIDO'\n"
+                + "status as 'STATUS'\n"                
                 + "FROM \n"
                 + "dbbar.tbcozinha where funcionario=? and data=curdate()\n"
                 + "ORDER BY id asc;";

@@ -615,13 +615,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (cz.pratoPendente() > 0) {
             JOptionPane.showMessageDialog(null, "Existem pratos com liberação pendente!");
         }
-        int op = JOptionPane.showConfirmDialog(null, "Confirma a saída?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        int op = JOptionPane.showConfirmDialog(null, "Deseja realmente fechar esta tela?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
         if (op == JOptionPane.YES_OPTION) {
 
             System.exit(0);
         } else {
-            JOptionPane.showMessageDialog(null, "Operação Cancelada!");
+            JOptionPane.showMessageDialog(null, "Operação 'Fechar Tela' cancelada com sucesso!");
         }
     }//GEN-LAST:event_lblFEcharMouseClicked
 

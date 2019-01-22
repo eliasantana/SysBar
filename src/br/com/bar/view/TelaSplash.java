@@ -23,7 +23,7 @@ public class TelaSplash extends javax.swing.JFrame {
         Backup b = new Backup();
 
         // Inicializa tela splash
-        lblMensagem.setText("Realizando backup do sistema aguarde um momento...");
+        lblMensagem.setText("Realizando backup do sistema, aguarde um momento...");
        
         new Thread() {
             public void run() {
@@ -35,13 +35,13 @@ public class TelaSplash extends javax.swing.JFrame {
                         barraDeProgresso.setValue(i);
                         //Exibe Mensagems de acordo do o nível de carregamento da barra de progresso
                         if (i < 30) {
-                            lblMensagem.setText("Carregando módulos do Sistema...");
+                            lblMensagem.setText("Carregando módulos do sistema...");
                         } else if (i > 30 && i < 60) {
-                            lblMensagem.setText("Módulos Carregados!....");
+                            lblMensagem.setText("Módulos carregados com sucesso!");
                         } else if (i >= 60 && i < 90) {
                             lblMensagem.setText("Checando licença de uso...");
                         } else {
-                            lblMensagem.setText("Carregando o Sistema...");
+                            lblMensagem.setText("Carregando o sistema...");
                         }
                     } catch (InterruptedException e) {
                         System.out.println(".run()" + e);

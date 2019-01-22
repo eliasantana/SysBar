@@ -9,6 +9,8 @@ import br.com.bar.dao.AutenticaUsuario;
 import br.com.br.controler.ControlerFuncionario;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import javax.swing.JFrame;
 
 /**
  *
@@ -18,8 +20,8 @@ public class TelaAutorizacao extends javax.swing.JFrame {
 
     ControlerFuncionario cf = new ControlerFuncionario();
     TelaCaixa cx = new TelaCaixa();
-    
-    double totalGeral=0;
+    ArrayList<String> listaDeSValores;
+
     public TelaAutorizacao() {
         initComponents();
         desabilitaDesconto();
@@ -182,11 +184,23 @@ public class TelaAutorizacao extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void recebeValor(ArrayList<String> listaDadosDoPedido) {
+        // Recebe os valores do pedido
+        
+        listaDeSValores = listaDadosDoPedido;
+        System.out.println("Valor: " + listaDeSValores.get(0)); // Valor sem tx de Serviço
+        System.out.println("Serviço: " + listaDeSValores.get(1)); // Tx. de Serviço
+        System.out.println("Total Geral: " + listaDeSValores.get(2)); // Total Geral
+        System.out.println("Mesa: " + listaDeSValores.get(3)); // Número da Mesa
+        System.out.println("Id do Pedido: " + listaDeSValores.get(4));
+       
+    }
     private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked
         // Fecha a Tela
         dispose();
+        
+        
     }//GEN-LAST:event_lblFecharMouseClicked
-
     private void comboFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFuncionarioActionPerformed
         // Ativa o campo senha se usuário for diferente de Selecione
         if (!"Selecione...".equals(comboFuncionario.getSelectedItem().toString())) {
@@ -216,10 +230,7 @@ public class TelaAutorizacao extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_txtSenhaKeyPressed
-    public void recebeValor(Double valor) {
-          totalGeral = valor;
-            
-    }
+
     private void txtSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSenhaMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSenhaMouseClicked
@@ -237,16 +248,25 @@ public class TelaAutorizacao extends javax.swing.JFrame {
     private void btnAutorizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutorizarActionPerformed
         // Aplica Desconto
         double desconto = Double.parseDouble(txtValorDesconto.getText().replaceAll(",", "."));
-        if (desconto<=totalGeral && desconto>0){
-            totalGeral = totalGeral-desconto;
-            System.out.println("Valor Recebido: "+totalGeral);
-            System.out.println(totalGeral);
-            
-            cx.totalGeralComDesconto(totalGeral);
-            cx.setVisible(true);
-        }else {
-            lblMensagem.setForeground(Color.red);
-            lblMensagem.setText("Informe um valor válido para o desconto!");
+        try {
+            // Converte o valor total para Double
+            double totalGeral = Double.parseDouble(listaDeSValores.get(2).replace(",", "."));
+            if (desconto <= totalGeral && desconto > 0) {
+                totalGeral = totalGeral - desconto;
+                listaDeSValores.set(2, String.format("%9.2f", totalGeral));
+                listaDeSValores.add(String.format("%9.2f", desconto));// Adiciona o desconto
+               
+
+                cx.recebeDadosComDesconto(listaDeSValores);
+
+                cx.setVisible(true);
+                this.dispose();
+            } else {
+                lblMensagem.setForeground(Color.red);
+                lblMensagem.setText("Informe um valor válido para o desconto!");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("br.com.bar.view.TelaAutorizacao.btnAutorizarActionPerformed()" + e);
         }
     }//GEN-LAST:event_btnAutorizarActionPerformed
 
@@ -256,8 +276,8 @@ public class TelaAutorizacao extends javax.swing.JFrame {
 
     private void txtMotivoDescontoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMotivoDescontoKeyPressed
         // Habilita botão após digitação
-        String texto= txtMotivoDesconto.getText();
-        if (!"".equals(texto)){
+        String texto = txtMotivoDesconto.getText();
+        if (!"".equals(texto)) {
             btnAutorizar.setEnabled(true);
         }
     }//GEN-LAST:event_txtMotivoDescontoKeyPressed

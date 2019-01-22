@@ -23,12 +23,12 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         
     }
 
-    public void recebeOperador(String operador) {
-         
+    public void recebeOperador(String operador) {     
          
         lblGarcom.setText("Garçom: "+operador);
         ControlerCozinha status = new ControlerCozinha();
         tblStatus.setModel(DbUtils.resultSetToTableModel(status.statusCozinha(operador)));
+        
     }
 
     /**
@@ -45,6 +45,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnFechar1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblStatus = new javax.swing.JTable();
         lblGarcom = new javax.swing.JLabel();
@@ -65,7 +66,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(243, 156, 18));
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        jLabel1.setText("Status Pedido");
+        jLabel1.setText("Status Cozinha");
 
         jPanel2.setBackground(new java.awt.Color(38, 53, 91));
 
@@ -92,54 +93,60 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
             .addComponent(btnFechar1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
         );
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCozinha.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
+                .addContainerGap(115, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addGap(114, 114, 114)
+                .addGap(75, 75, 75)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(22, 22, 22))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 63, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 406, 100);
+        jPanel1.setBounds(0, 0, 520, 100);
 
         tblStatus.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         tblStatus.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "PRODUTO", "QUANTIDADE", "MESA", "STATUS"
+                "N. PEDIDO", "PRATO", "QUANTIDADE", "N. MESA", "STATUS"
             }
         ));
         tblStatus.setRowHeight(22);
         jScrollPane1.setViewportView(tblStatus);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(0, 190, 400, 160);
+        jScrollPane1.setBounds(10, 160, 500, 160);
 
-        lblGarcom.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
+        lblGarcom.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         lblGarcom.setText("jLabel2");
         getContentPane().add(lblGarcom);
-        lblGarcom.setBounds(10, 120, 380, 40);
+        lblGarcom.setBounds(10, 120, 230, 40);
 
-        setSize(new java.awt.Dimension(406, 362));
+        setSize(new java.awt.Dimension(522, 333));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -192,6 +199,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
     private javax.swing.JLabel btnFechar;
     private javax.swing.JLabel btnFechar1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -57,7 +57,6 @@ public class TelaCaixa extends javax.swing.JFrame {
     ControlerParametro cparam = new ControlerParametro();
     Connection conexao = ConexaoBd.conector();
     ControlerDadosEmpresa de = new ControlerDadosEmpresa();
-    
 
     Util utils = new Util();
 
@@ -86,9 +85,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         txtDesconto.setText("0,00");
         txtValorPago.setText("0,00");
         txtTroco.setText("0,00");
-        
-        
-        
+
     }
 
     /**
@@ -170,6 +167,11 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         painelEsquerdo.setBackground(new java.awt.Color(38, 53, 61));
@@ -445,7 +447,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         jLabel24.setText("Fechar Caixa");
 
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/power.png"))); // NOI18N
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/power2.png"))); // NOI18N
         jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel17MouseClicked(evt);
@@ -481,17 +483,18 @@ public class TelaCaixa extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnFecharCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblReceber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblReceber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel24)
                     .addComponent(lblReceberPAgamento)
                     .addComponent(jLabel3))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
 
         painelDireito.add(jPanel6);
@@ -885,119 +888,127 @@ public class TelaCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTrocoFocusGained
 
     private void lblReceberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReceberMouseClicked
-        // Fecha pedido
+        if (lblReceber.isEnabled()){
+            
+            // Fecha pedido
+            // Calcula valor
+            int nPesoas = Integer.parseInt(jSpinFieldPessoas.getValue().toString());
 
-        // Calcula valor
-        int nPesoas = Integer.parseInt(jSpinFieldPessoas.getValue().toString());
+            Double totalGeral = Double.parseDouble(lblTotal.getText().replaceAll(",", "."));
+            Double totalPessoas = totalGeral / nPesoas;
+            System.out.println(nPesoas);
 
-        Double totalGeral = Double.parseDouble(lblTotal.getText().replaceAll(",", "."));
-        Double totalPessoas = totalGeral / nPesoas;
-        System.out.println(nPesoas);
+            // Instancia um produto
+            Pedido p = new Pedido();
+            p.setTotal(lblTotal.getText().replaceAll(",", "."));
+            p.setComissao(percent.getText().replaceAll(",", "."));
+            p.setTotalPago(txtValorPago.getText().replaceAll(",", "."));
+            p.setStatus("1");
+            p.setOperador(lblOperador.getText());
+            p.setId(txtIdPedido.getText());
 
-        // Instancia um produto
-        Pedido p = new Pedido();
-        p.setTotal(lblTotal.getText().replaceAll(",", "."));
-        p.setComissao(percent.getText().replaceAll(",", "."));
-        p.setTotalPago(txtValorPago.getText().replaceAll(",", "."));
-        p.setStatus("1");
-        p.setOperador(lblOperador.getText());
-        p.setId(txtIdPedido.getText());
+            // Pega forma de pagamento selecionada
+            if (checkCartao.isSelected()) {
 
-        // Pega forma de pagamento selecionada
-        if (checkCartao.isSelected()) {
+                p.setFormaPagto("Cartão");
+            } else {
+                p.setFormaPagto("Dinheiro");
+            }
+            // Pega id da mesa.
 
-            p.setFormaPagto("Cartão");
-        } else {
-            p.setFormaPagto("Dinheiro");
-        }
-        // Pega id da mesa.
+            p.setCadMesaId(txtIdMEsa.getText());
+            // Solicita confirmação do usuário
+            int op = JOptionPane.showConfirmDialog(null, "Fechar este pedido?", "Atenção!", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
 
-        p.setCadMesaId(txtIdMEsa.getText());
-        // Solicita confirmação do usuário
-        int op = JOptionPane.showConfirmDialog(null, "Fechar este pedido?", "Atenção", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
+            if (op == JOptionPane.YES_OPTION) {  // Se confirmado fecha o pedido
 
-        if (op == JOptionPane.YES_OPTION) {  // Se confirmado fecha o pedido
+                if (checkCartao.isSelected() || checkDinheiro.isSelected()) {
+                    // PEga a data Atual
+                    String dtAtual = utils.formataDataBr(data).replaceAll("/", "");
+                    // Pega a hora atual
+                    String horaAtual = utils.formataDataHora(data, "h");
+                    //Gera Autenticacao
+                    String autentica = cp.autentica(func.localizaId(lblGarcom.getText()), comboMesa.getSelectedItem().toString(), txtIdPedido.getText(), dtAtual + "." + horaAtual);
+                    p.setAutenticacao(autentica);
 
-            if (checkCartao.isSelected() || checkDinheiro.isSelected()) {
-                // PEga a data Atual
-                String dtAtual = utils.formataDataBr(data).replaceAll("/", "");
-                // Pega a hora atual
-                String horaAtual = utils.formataDataHora(data, "h");
-                //Gera Autenticacao
-                String autentica = cp.autentica(func.localizaId(lblGarcom.getText()), comboMesa.getSelectedItem().toString(), txtIdPedido.getText(), dtAtual + "." + horaAtual);
-                p.setAutenticacao(autentica);
+                    cp.fechaPedido(p);
+                    //******************** Registra desconto se o valor for > 0************************
 
-                cp.fechaPedido(p);
-                //******************** Registra desconto se o valor for > 0************************
-                
-                //Início do Registro de log
-                l.setFuncionalidade("Recebimento");
-                l.setDescricao(l.getUsuario() + " Recebeu R$ " + p.getTotalPago() + " Pedido: " + txtIdPedido.getText() + " Comissão:" + p.getComissao());
-                l.gravaLog(l);
+                    //Início do Registro de log
+                    l.setFuncionalidade("Recebimento");
+                    l.setDescricao(l.getUsuario() + " Recebeu R$ " + p.getTotalPago() + " Pedido: " + txtIdPedido.getText() + " Comissão:" + p.getComissao());
+                    l.gravaLog(l);
 
-                //
-                cm.trocaStatusMesa(comboMesa.getSelectedItem().toString(), "0");
-                JOptionPane.showMessageDialog(null, "Pedido fechado com sucesso!");
-                //tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePedido(comboMesa.getSelectedItem().toString())));
-                // Imprime cupom de pagamento
+                    //
+                    cm.trocaStatusMesa(comboMesa.getSelectedItem().toString(), "0");
+                    JOptionPane.showMessageDialog(null, "Pedido fechado com sucesso!");
+                    //tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePedido(comboMesa.getSelectedItem().toString())));
+                    // Imprime cupom de pagamento
 
-                HashMap dados = new HashMap();
-                Date dt = new Date();
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                    HashMap dados = new HashMap();
+                    Date dt = new Date();
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-                dados.put("data", df.format(dt));
-                dados.put("garcom", lblGarcom.getText());
-                dados.put("titulo", "COMPROVANTE DE PAGAMENTO");
-                dados.put("tx", Double.parseDouble(percent.getText().replaceAll(",", ".")));
-                dados.put("id_pedido", p.getId());
-                dados.put("npessoas", nPesoas);
-                dados.put("total_pessoas", totalPessoas);
-                DadosEmpresa dadosEmpresa = de.selecionaDados();
-                dados.put("mesa", comboMesa.getSelectedItem().toString());
-                dados.put("nome_empresa", dadosEmpresa.getNome_empresa());
-                dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro() + " - " + dadosEmpresa.getCep());
-                dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone() + " - " + dadosEmpresa.getEmail());
-                dados.put("cnpj", dadosEmpresa.getCnpj());
+                    dados.put("data", df.format(dt));
+                    dados.put("garcom", lblGarcom.getText());
+                    dados.put("titulo", "COMPROVANTE DE PAGAMENTO");
+                    dados.put("tx", Double.parseDouble(percent.getText().replaceAll(",", ".")));
+                    dados.put("id_pedido", p.getId());
+                    dados.put("npessoas", nPesoas);
+                    dados.put("total_pessoas", totalPessoas);
+                    DadosEmpresa dadosEmpresa = de.selecionaDados();
+                    dados.put("mesa", comboMesa.getSelectedItem().toString());
+                    dados.put("nome_empresa", dadosEmpresa.getNome_empresa());
+                    dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro() + " - " + dadosEmpresa.getCep());
+                    dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone() + " - " + dadosEmpresa.getEmail());
+                    dados.put("cnpj", dadosEmpresa.getCnpj());
 
-                try {
-                    JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "cupom.jasper", dados, conexao);
-                    JasperViewer.viewReport(print, false);
+                    try {
+                        JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "cupom.jasper", dados, conexao);
+                        JasperViewer.viewReport(print, false);
+                        lblTotal.setText("0,00");
+                        tgeral.setText("0,00");
+                        percent.setText("0,00");
+
+                    } catch (JRException e) {
+                        System.out.println("br.com.bar.view.TelaCaixa.btnImprimirMouseClicked()");
+                        lblTotal.setText("0,00");
+                        tgeral.setText("0,00");
+                        percent.setText("0,00");
+                    }
+                    // Fim da impressão de cupom
+                    cp.limpaTabela(tblDetalhePedido);
+                    limpaForm();
                     lblTotal.setText("0,00");
                     tgeral.setText("0,00");
                     percent.setText("0,00");
+                    txtValorPago.setText("0,00");
+                    txtDesconto.setText("0,00");
+                    lblReceber.setEnabled(false);
+                    txtTroco.setText("0,00");
+                    checkCartao.setSelected(false);
+                    checkDinheiro.setSelected(false);
 
-                } catch (JRException e) {
-                    System.out.println("br.com.bar.view.TelaCaixa.btnImprimirMouseClicked()");
-                    lblTotal.setText("0,00");
-                    tgeral.setText("0,00");
-                    percent.setText("0,00");
-                }
-                // Fim da impressão de cupom
-                cp.limpaTabela(tblDetalhePedido);
-                limpaForm();
-                lblTotal.setText("0,00");
-                tgeral.setText("0,00");
-                percent.setText("0,00");
+                    lblEntradas.setText(String.format("%9.2f", caixa.totalizaEntradas()));
+                    atualizaCaixa();
+                    bloqueiaControlePagamento();
 
-                lblEntradas.setText(String.format("%9.2f", caixa.totalizaEntradas()));
-                atualizaCaixa();
-                bloqueiaControlePagamento();
+                    try {
 
-                try {
+                        caixa.listaMesaOcupada(comboMesa);
 
-                    caixa.listaMesaOcupada(comboMesa);
+                    } catch (NullPointerException e) {
+                        JOptionPane.showMessageDialog(null, "Não há pedidos!");
+                    }
 
-                } catch (NullPointerException e) {
-                    JOptionPane.showMessageDialog(null, "Não há pedidos!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selecione uma forma de pagameto");
                 }
 
             } else {
-                JOptionPane.showMessageDialog(null, "Selecione uma forma de pagameto");
+                JOptionPane.showMessageDialog(null, "Operação 'Fechar Pedido' cancelada com sucesso!");
+
             }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Operação cancelada!");
-
         }
     }//GEN-LAST:event_lblReceberMouseClicked
 
@@ -1032,15 +1043,13 @@ public class TelaCaixa extends javax.swing.JFrame {
 
             try {
                 // Lista resultado da pesquisa e totaliza os produtos do pedido
-
                 ResultSet rs = cp.detalhePorPedido(comboMesa.getSelectedItem().toString(), txtIdPedido.getText());
-
+                
                 while (rs.next()) {
                     total = Double.parseDouble(rs.getString("VLR TOTAL R$").replaceAll(",", "."));
-
                     totalGeral = totalGeral + total;
                 }
-
+                
                 // Formata e exibe o total geral do pedido
                 tgeral.setText(String.format("%9.2f", totalGeral));
 
@@ -1060,6 +1069,8 @@ public class TelaCaixa extends javax.swing.JFrame {
 
             txtValorPago.setText("0,00");
             txtTroco.setText("0,00");
+            txtDesconto.setText("0,00");
+
         }
 
     }//GEN-LAST:event_btnListarActionPerformed
@@ -1133,7 +1144,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         cx.setStatus(1);
         cx.setIdFuncionario(Integer.parseInt(func.localizaIdLogin(lblOperador.getText())));
 
-        int op = JOptionPane.showConfirmDialog(null, lblOperador.getText().toUpperCase() + " Tem certeza que deseja fechar seu caixa?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+        int op = JOptionPane.showConfirmDialog(null, lblOperador.getText().toUpperCase() + " tem certeza que deseja fechar seu caixa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
         if (op == JOptionPane.YES_OPTION) {
 
@@ -1180,7 +1191,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Operação cancelada!");
+            JOptionPane.showMessageDialog(null, "Operação de 'Fechamento de Caixa' cancelada com sucesso!");
 
         }
 
@@ -1246,7 +1257,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             jSpinFieldPessoas.setEnabled(true);
             btnImprimir.setEnabled(true);
             checkConcedeDesconto.setEnabled(true);
-
+            lblReceber.setEnabled(true);
         }
     }//GEN-LAST:event_checkDinheiroMouseClicked
 
@@ -1258,6 +1269,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             jSpinFieldPessoas.setEnabled(true);
             btnImprimir.setEnabled(true);
             checkConcedeDesconto.setEnabled(true);
+            lblReceber.setEnabled(true);
         }
 
     }//GEN-LAST:event_checkCartaoMouseClicked
@@ -1302,11 +1314,38 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void checkConcedeDescontoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkConcedeDescontoMouseClicked
         // Chama a Tela de Autorização do Desconto
+        // Passa dados do pedido
+
+        ArrayList<String> dadosDoPedido = new ArrayList<>();
+
+        dadosDoPedido.add(tgeral.getText()); // Total da Conta (Sem Tx. de Serviço)
+        dadosDoPedido.add(percent.getText()); // Tx. de Serviço
+        dadosDoPedido.add(lblTotal.getText()); // Total + Taxa de Servico = Total Geral
+        dadosDoPedido.add(comboMesa.getSelectedItem().toString()); // Numero da Mesa
+        dadosDoPedido.add(txtIdPedido.getText()); // Número do Pedido
+
+        // Forma de Pagamento
+        String formaPagto = "";
+        if (checkCartao.isSelected()) {
+            formaPagto = checkCartao.getText();
+        } else {
+            formaPagto = checkDinheiro.getText();
+        }
+        dadosDoPedido.add(formaPagto);
+
         TelaAutorizacao ta = new TelaAutorizacao();
-        ta.recebeValor(Double.parseDouble(lblTotal.getText().replace(",", ".")));
+        ta.recebeValor(dadosDoPedido);
+        //this.dispose();
+        //this.setVisible(false);
         ta.setVisible(true);
-        
+
+
     }//GEN-LAST:event_checkConcedeDescontoMouseClicked
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Recebi o foco");
+    }//GEN-LAST:event_formFocusGained
     public void recebeOperador(String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
@@ -1350,9 +1389,25 @@ public class TelaCaixa extends javax.swing.JFrame {
         }
 
     }
-    
-    public void totalGeralComDesconto(Double totalGeralDesconto){
-        lblTotal.setText(String.format("%9.2f", totalGeralDesconto));
+
+    public void recebeDadosComDesconto(ArrayList<String> dados) {
+        // total - tx de servico - total geral - Desconto - Mesa
+
+        tgeral.setText(dados.get(0));
+        percent.setText(dados.get(1));
+        lblTotal.setText(dados.get(2));
+        txtIdPedido.setText(dados.get(4));
+        if ("Cartão".equals(dados.get(5))) {
+            checkCartao.setSelected(true);
+        } else {
+            checkDinheiro.setSelected(true);
+        }
+        txtDesconto.setText(dados.get(6));
+        comboMesa.setSelectedItem(dados.get(3));
+        tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(comboMesa.getSelectedItem().toString(), txtIdPedido.getText())));
+        checkCartao.setEnabled(true);
+        checkTxServico.setEnabled(true);
+        checkDinheiro.setEnabled(true);
     }
 
     /**
@@ -1530,12 +1585,15 @@ public class TelaCaixa extends javax.swing.JFrame {
         txtTroco.setEnabled(false);
         checkDinheiro.setEnabled(false);
         checkCartao.setEnabled(false);
+        checkDinheiro.setSelected(false);
+        checkCartao.setSelected(false);
         checkTxServico.setEnabled(false);
         jSpinFieldPessoas.setEnabled(false);
         btnImprimir.setEnabled(false);
         checkConcedeDesconto.setEnabled(false);
         lblValorDesc.setEnabled(false);
         txtDesconto.setEnabled(false);
+        lblReceber.setEnabled(false);
     }
 
 }

@@ -43,7 +43,7 @@ public class ControlerPedido {
             data = df.format(dataAtual.getTime());
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            System.out.println("br.com.br.controler.ControlerPedido.myDataAtual()"+e);
         }
         return data;
     }
@@ -64,7 +64,7 @@ public class ControlerPedido {
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro geraPedido" + e);
+            System.out.println("br.com.br.controler.ControlerPedido.geraPedido()"+e);
         }
         return false;
     }
@@ -85,7 +85,7 @@ public class ControlerPedido {
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro listaPedidos" + e);
+            System.out.println("br.com.br.controler.ControlerPedido.listaPedidos()"+e);
         }
         return rs;
     }
@@ -93,9 +93,9 @@ public class ControlerPedido {
     public ResultSet listaPedidos() {
 
         String sql = "SELECT \n"
-                + "m.numero_mesa AS 'MESA',\n"
+                + "m.numero_mesa AS 'N. MESA',\n"
                 + "date_format(p.data,'%d/%m/%Y') AS 'DATA', \n"
-                + "p.status as 'SITUAÇÃO', \n"
+                 +"p.status as 'STATUS', \n"
                 + "p.id_pedido as 'N. PEDIDO',\n"
                 + "g.nome as 'GARÇOM' \n"
                 + "FROM cadpedido p \n"
@@ -107,7 +107,7 @@ public class ControlerPedido {
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro listaPedidos" + e);
+            System.out.println("br.com.br.controler.ControlerPedido.listaPedidos()"+e);
         }
         return rs;
     }
@@ -135,7 +135,7 @@ public class ControlerPedido {
             rs = pst.executeQuery();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro detalhePedido " + ex);
+            System.out.println("br.com.br.controler.ControlerPedido.detalhePorPedido()"+ex);
 
         }
         return rs;
@@ -163,7 +163,7 @@ public class ControlerPedido {
             rs = pst.executeQuery();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro detalhePedido " + ex);
+            System.out.println("br.com.br.controler.ControlerPedido.detalhePorPedidoId()"+ex);
 
         }
         return rs;
@@ -193,7 +193,7 @@ public class ControlerPedido {
             rs = pst.executeQuery();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro detalhePedido " + ex);
+            System.out.println("br.com.br.controler.ControlerPedido.detalhePedido()"+ex);
 
         }
         return rs;
@@ -213,7 +213,7 @@ public class ControlerPedido {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro temPedido() " + e);
+            System.out.println("br.com.br.controler.ControlerPedido.temPedido()" +e);
         }
         return false;
     }
@@ -238,7 +238,7 @@ public class ControlerPedido {
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro fechaPedido" + e);
+            System.out.println("br.com.br.controler.ControlerPedido.fechaPedido()"+e);
         }
         return false;
     }
@@ -261,7 +261,7 @@ public class ControlerPedido {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro localizarIdPedido" + e);
+            System.out.println("br.com.br.controler.ControlerPedido.LocalizaIdPedido()"+e);
         }
 
         return idPedido;
@@ -282,8 +282,8 @@ public class ControlerPedido {
         try {
             pst = conexao.prepareStatement(sql);
 
-            pst.setString(1, produtoCozinha.get(0));
-            pst.setString(2, produtoCozinha.get(1));
+            pst.setString(1, produtoCozinha.get(1));
+            pst.setString(2, produtoCozinha.get(0));
             pst.setString(3, produtoCozinha.get(2));
             pst.setString(4, produtoCozinha.get(3));
             pst.setString(5, produtoCozinha.get(4));
@@ -293,11 +293,11 @@ public class ControlerPedido {
 
             pst.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Produto " + produtoCozinha.get(0) + " - " + produtoCozinha.get(1) + " enviado para a cozinha");
+            JOptionPane.showMessageDialog(null, "Solicitação de prato enviada com sucesso!");
 
         } catch (HeadlessException | SQLException e) {
 
-            JOptionPane.showMessageDialog(null, "Erro enviaProdutoCozinha()" + e);
+            System.out.println("br.com.br.controler.ControlerPedido.enviaProdutoCozinha()" +e);
         }
 
     }

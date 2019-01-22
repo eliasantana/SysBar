@@ -26,10 +26,10 @@ public class ControlerProduto {
     Connection conexao = ConexaoBd.conector();
     PreparedStatement pst = null;
     ResultSet rs = null;
+
     // Lista todos os produtos em estoque
     public ResultSet listaProduto() {
-   
-   
+
         String sql = "SELECT \n"
                 + "	p.id as 'CÓDIGO', \n"
                 + "	p.nome as 'PRODUTO',\n"
@@ -79,8 +79,8 @@ public class ControlerProduto {
     public ResultSet listaProdutoDisponivel() {
 
         String sql = "SELECT \n"
-                + "	p.id as 'ID', \n"
-                + "	p.nome as 'PRODUTO',\n"
+                + "	p.id as 'CÓDIGO', \n"
+                + "	p.nome as 'DESCRIÇÃO',\n"
                 + "	p.qtd as 'QTD. EM ESTOQUE', \n"
                 + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"
                 + "	g.nome as 'GRUPO'\n"
@@ -275,11 +275,33 @@ public class ControlerProduto {
             while (rs.next()) {
                 p.setNome(rs.getString("nome"));
                 p.setValor(rs.getString("valor"));
+
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro localizaProduto() " + e);
+            System.out.println("br.com.br.controler.ControlerProduto.localizaProduto()" + e);
         }
         return p;
+    }
+
+    public String localizaProduto(int id) {
+
+        String sql = "SELECT g.nome as 'grupo' FROM dbbar.tbproduto p\n"
+                + "INNER JOIN cad_grupo_produto g on g.id = p.cad_grupo_produto_id\n"
+                + "WHERE p.id=?";
+        String nomeGrupo = "";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setInt(1, id);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                nomeGrupo = rs.getString("grupo");
+                
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerProduto.localizaProduto()" + e);
+        }
+        return nomeGrupo;
     }
 
     // Adiciona um produto ao pedido
@@ -328,28 +350,27 @@ public class ControlerProduto {
     public boolean reajustaValorProduto(String id, double valorProduto, double fator) {
         DecimalFormat formatador = new DecimalFormat("0.00");
         String sqlUpdate = "UPDATE tbproduto SET valor=? WHERE id=?";
-        boolean resp=false;
+        boolean resp = false;
         //double novoValor = (valorProduto * fator) + valorProduto;
-        double novoValor = (valorProduto * fator/100) + valorProduto;       
+        double novoValor = (valorProduto * fator / 100) + valorProduto;
 
         try {
             pst = conexao.prepareStatement(sqlUpdate);
             pst.setString(1, formatador.format(novoValor).replaceAll(",", "."));
             pst.setString(2, id);
             pst.executeUpdate();
-            resp=true;
+            resp = true;
 
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerProduto.reajustaValorProduto()" + e);
         }
         return resp;
     }
+
     // Reajusta valor do produto pelo valor informado
     public void reajustaValorProduto(String id, double valorProduto) {
         DecimalFormat formatador = new DecimalFormat("0.00");
         String sqlUpdate = "UPDATE tbproduto SET valor=? WHERE id=?";
-       
-        
 
         try {
             pst = conexao.prepareStatement(sqlUpdate);
@@ -396,38 +417,38 @@ public class ControlerProduto {
     }
 
     public ResultSet pesquisarProduto(String nome) {
-        
+
         String sql = "SELECT p.id as 'CÓDIGO', p.nome as 'PRODUTO', p.qtd as 'QTD',  format(p.valor,2,'de_DE') as 'VALOR R$', g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id\n"
                 + "WHERE p.nome LIKE ? AND p.qtd > 0 ";
-        
+
         try {
-             pst=conexao.prepareStatement(sql);
-             pst.setString(1, nome+"%");
-             rs=pst.executeQuery();
-             
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, nome + "%");
+            rs = pst.executeQuery();
+
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerProduto.pesquisarProduto()" + e);
         }
         return rs;
-    
+
     }
-    
+
     // Verifica se o produto informado existe e retorna um Boolean
-    public boolean temProduto(Produto p){
-        boolean resp=false;
-        String sql="SELECT nome FROM tbproduto WHERE nome=?";
+    public boolean temProduto(Produto p) {
+        boolean resp = false;
+        String sql = "SELECT nome FROM tbproduto WHERE nome=?";
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, p.getNome());
             rs = pst.executeQuery();
-            
-            while (rs.next()){
-                resp=true;
+
+            while (rs.next()) {
+                resp = true;
             }
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerProduto.temProduto()"+e);
+            System.out.println("br.com.br.controler.ControlerProduto.temProduto()" + e);
         }
         return resp;
     }

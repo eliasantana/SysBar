@@ -61,9 +61,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
         txtIdMesa.setVisible(false);
         txtNumeroPedido.setVisible(false);
         txtNumeroMesa.setVisible(false);
-        
-       
-
+        txtDescricao.setEnabled(false);
+        txtValorUnit.setEnabled(false);
+        txtValorTotal.setEnabled(false);
+        lblLupa.setVisible(false);
+        lblEnviarCozinha.setEnabled(false);
     }
 
     public void recebeOperador(String operador, String perfil){
@@ -86,10 +88,40 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         txtIdGarcom = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblNumeroMesa = new javax.swing.JTable();
-        btnAbrirPedido = new javax.swing.JButton();
         txtIdMesa = new javax.swing.JTextField();
+        txtNumeroPedido = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        lbllogo = new javax.swing.JLabel();
+        lblData1 = new javax.swing.JLabel();
+        lblData2 = new javax.swing.JLabel();
+        txtNumeroMesa = new javax.swing.JTextField();
+        panelFechar = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblEnviarCozinha = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lblGerenciarPedido = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lblOperador = new javax.swing.JLabel();
+        lblData = new javax.swing.JLabel();
+        lblCargo = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        lblCodigo = new javax.swing.JLabel();
+        lblQtd = new javax.swing.JLabel();
+        txtQtd = new javax.swing.JTextField();
+        txtCodigoProduto = new javax.swing.JTextField();
+        txtDescricao = new javax.swing.JTextField();
+        txtValorUnit = new javax.swing.JTextField();
+        lblCodigo1 = new javax.swing.JLabel();
+        lblQtd1 = new javax.swing.JLabel();
+        lblQtd2 = new javax.swing.JLabel();
+        txtValorTotal = new javax.swing.JTextField();
+        lblPesquisa = new javax.swing.JLabel();
+        txtPesquisa = new javax.swing.JTextField();
         jTabbedPanePedido = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPedidosAbertos = new javax.swing.JTable();
@@ -97,39 +129,15 @@ public class TelaPedido2 extends javax.swing.JFrame {
         tblDetalhePedido = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
         tblListaProduto = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        lblCodigo = new javax.swing.JLabel();
-        lblQtd = new javax.swing.JLabel();
-        txtQtd = new javax.swing.JTextField();
-        txtCodigoProduto = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        lblProduto = new javax.swing.JLabel();
-        lblValor = new javax.swing.JLabel();
-        lblPesquisa = new javax.swing.JLabel();
-        txtPesquisa = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        lbltotal = new javax.swing.JLabel();
-        txtNumeroPedido = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
-        lbllogo = new javax.swing.JLabel();
-        lblData1 = new javax.swing.JLabel();
-        lblData = new javax.swing.JLabel();
-        lblOperador = new javax.swing.JLabel();
-        lblCargo = new javax.swing.JLabel();
-        lblData2 = new javax.swing.JLabel();
+        lblLupa = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         comboGarcom = new javax.swing.JComboBox<>();
         btnListar = new javax.swing.JButton();
-        txtNumeroMesa = new javax.swing.JTextField();
-        panelFechar = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        btnAbrirPedido = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblNumeroMesa = new javax.swing.JTable();
         lblMensagem = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -166,48 +174,316 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         txtIdGarcom.setText("idGarcom");
         getContentPane().add(txtIdGarcom);
-        txtIdGarcom.setBounds(1010, 60, 50, 30);
-
-        tblNumeroMesa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tblNumeroMesa.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
-            },
-            new String [] {
-                "Mesas Disponíveis"
-            }
-        ));
-        tblNumeroMesa.setRowHeight(25);
-        tblNumeroMesa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblNumeroMesaMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblNumeroMesa);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(200, 290, 230, 220);
-
-        btnAbrirPedido.setBackground(new java.awt.Color(204, 204, 204));
-        btnAbrirPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Pedido.png"))); // NOI18N
-        btnAbrirPedido.setText("Abrir Pedido");
-        btnAbrirPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAbrirPedidoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAbrirPedido);
-        btnAbrirPedido.setBounds(200, 530, 230, 50);
+        txtIdGarcom.setBounds(310, 10, 50, 30);
 
         txtIdMesa.setText("idMesa");
         getContentPane().add(txtIdMesa);
-        txtIdMesa.setBounds(1010, 140, 50, 30);
+        txtIdMesa.setBounds(370, 50, 50, 30);
+
+        txtNumeroPedido.setText("nPedido");
+        getContentPane().add(txtNumeroPedido);
+        txtNumeroPedido.setBounds(370, 10, 50, 30);
+
+        jPanel4.setBackground(new java.awt.Color(38, 53, 61));
+        jPanel4.setForeground(new java.awt.Color(52, 73, 94));
+
+        lbllogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbllogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
+
+        lblData1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
+        lblData1.setForeground(new java.awt.Color(255, 255, 255));
+        lblData1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblData1.setText("MasterFood");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 8, Short.MAX_VALUE)
+                        .addComponent(lbllogo, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 14, Short.MAX_VALUE))
+                    .addComponent(lblData1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(lbllogo, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblData1)
+                .addContainerGap(439, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel4);
+        jPanel4.setBounds(0, 0, 300, 700);
+
+        lblData2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
+        lblData2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblData2.setText("Lançamento de Pedidos");
+        getContentPane().add(lblData2);
+        lblData2.setBounds(400, 20, 840, 80);
+
+        txtNumeroMesa.setText("nMesa");
+        getContentPane().add(txtNumeroMesa);
+        txtNumeroMesa.setBounds(310, 50, 50, 30);
+
+        panelFechar.setBackground(new java.awt.Color(52, 73, 94));
+        panelFechar.setForeground(new java.awt.Color(52, 73, 94));
+        panelFechar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelFecharMouseClicked(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("X");
+
+        javax.swing.GroupLayout panelFecharLayout = new javax.swing.GroupLayout(panelFechar);
+        panelFechar.setLayout(panelFecharLayout);
+        panelFecharLayout.setHorizontalGroup(
+            panelFecharLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFecharLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panelFecharLayout.setVerticalGroup(
+            panelFecharLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFecharLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        getContentPane().add(panelFechar);
+        panelFechar.setBounds(1270, 0, 40, 40);
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCozinha.png"))); // NOI18N
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(1010, 610, 70, 48);
+
+        lblEnviarCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEnviarCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnEnviar.png"))); // NOI18N
+        lblEnviarCozinha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblEnviarCozinhaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblEnviarCozinha);
+        lblEnviarCozinha.setBounds(850, 620, 90, 40);
+
+        jLabel5.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Gerenciar Pedido");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(670, 660, 150, 23);
+
+        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Sair");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(1140, 660, 70, 20);
+
+        lblGerenciarPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblGerenciarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/relatorios48x48.png"))); // NOI18N
+        lblGerenciarPedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblGerenciarPedidoMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblGerenciarPedido);
+        lblGerenciarPedido.setBounds(710, 610, 80, 50);
+
+        jLabel8.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
+        jLabel8.setText("Enviar para Cozinha");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(840, 660, 150, 23);
+
+        lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblOperador.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
+        lblOperador.setText("usuário");
+        getContentPane().add(lblOperador);
+        lblOperador.setBounds(950, 10, 120, 30);
+
+        lblData.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
+        lblData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario24x24.png"))); // NOI18N
+        lblData.setText("data");
+        getContentPane().add(lblData);
+        lblData.setBounds(1160, 10, 110, 30);
+
+        lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblCargo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
+        lblCargo.setText("usuário");
+        getContentPane().add(lblCargo);
+        lblCargo.setBounds(1040, 10, 120, 32);
+
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/power.png"))); // NOI18N
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(1140, 620, 70, 40);
+
+        jLabel10.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jLabel10.setText("Status Cozinha");
+        getContentPane().add(jLabel10);
+        jLabel10.setBounds(1000, 660, 90, 20);
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel6.setLayout(null);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Produto")));
+
+        lblCodigo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
+        lblCodigo.setText("Código");
+
+        lblQtd.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
+        lblQtd.setText("Qtd");
+
+        txtQtd.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        txtQtd.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtQtd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtQtdMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtQtdMouseEntered(evt);
+            }
+        });
+        txtQtd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtQtdKeyPressed(evt);
+            }
+        });
+
+        txtCodigoProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        txtCodigoProduto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCodigoProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCodigoProdutoMouseClicked(evt);
+            }
+        });
+        txtCodigoProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCodigoProdutoKeyPressed(evt);
+            }
+        });
+
+        txtDescricao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+
+        txtValorUnit.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        txtValorUnit.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtValorUnit.setText("0,00");
+
+        lblCodigo1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
+        lblCodigo1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCodigo1.setText("Descrição");
+
+        lblQtd1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
+        lblQtd1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblQtd1.setText("V. Unit R$");
+
+        lblQtd2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
+        lblQtd2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblQtd2.setText("Total R$");
+
+        txtValorTotal.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
+        txtValorTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtValorTotal.setText("0,00");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblQtd)
+                    .addComponent(lblCodigo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblCodigo1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblQtd1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDescricao)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtValorUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblQtd2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCodigo1))
+                        .addGap(50, 50, 50))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblQtd)
+                                .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(11, 11, 11)
+                            .addComponent(lblCodigo))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(57, 57, 57)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblQtd1)
+                                .addComponent(txtValorUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblQtd2)
+                                .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
+        jPanel6.add(jPanel1);
+        jPanel1.setBounds(10, 10, 690, 130);
+
+        lblPesquisa.setText("Pesquisar Produto");
+        jPanel6.add(lblPesquisa);
+        lblPesquisa.setBounds(10, 140, 120, 14);
+
+        txtPesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPesquisaFocusGained(evt);
+            }
+        });
+        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisaKeyReleased(evt);
+            }
+        });
+        jPanel6.add(txtPesquisa);
+        txtPesquisa.setBounds(10, 160, 220, 30);
 
         jTabbedPanePedido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -217,13 +493,16 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         tblPedidosAbertos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "MESA", "SITUAÇÃO", "PEDIDO", "GARÇOM"
+                "MESA", "DATA", "STATUS", "PEDIDO", "GARÇOM"
             }
         ));
         tblPedidosAbertos.setRowHeight(25);
@@ -278,222 +557,17 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         jTabbedPanePedido.addTab("Lista de Produtos", jScrollPane6);
 
-        getContentPane().add(jTabbedPanePedido);
-        jTabbedPanePedido.setBounds(450, 290, 580, 190);
+        jPanel6.add(jTabbedPanePedido);
+        jTabbedPanePedido.setBounds(10, 200, 690, 280);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Produto")));
+        lblLupa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lopa32x32.png"))); // NOI18N
+        jPanel6.add(lblLupa);
+        lblLupa.setBounds(240, 160, 40, 30);
 
-        lblCodigo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
-        lblCodigo.setText("Código");
+        getContentPane().add(jPanel6);
+        jPanel6.setBounds(590, 110, 710, 490);
 
-        lblQtd.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
-        lblQtd.setText("Qtd");
-
-        txtQtd.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        txtQtd.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtQtd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtQtdMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                txtQtdMouseEntered(evt);
-            }
-        });
-        txtQtd.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtQtdKeyPressed(evt);
-            }
-        });
-
-        txtCodigoProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        txtCodigoProduto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCodigoProduto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtCodigoProdutoMouseClicked(evt);
-            }
-        });
-        txtCodigoProduto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtCodigoProdutoKeyPressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblQtd)
-                    .addComponent(lblCodigo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(78, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCodigo)
-                    .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblQtd)
-                    .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(440, 60, 290, 161);
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Produto")));
-
-        lblProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-
-        lblValor.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(lblProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(740, 60, 250, 70);
-
-        lblPesquisa.setText("Pesquisar Produto");
-        getContentPane().add(lblPesquisa);
-        lblPesquisa.setBounds(450, 230, 120, 14);
-
-        txtPesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtPesquisaFocusGained(evt);
-            }
-        });
-        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPesquisaKeyReleased(evt);
-            }
-        });
-        getContentPane().add(txtPesquisa);
-        txtPesquisa.setBounds(450, 250, 220, 30);
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Total")));
-
-        lbltotal.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        lbltotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbltotal.setText("0,00");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbltotal, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(lbltotal)
-                .addGap(0, 9, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel3);
-        jPanel3.setBounds(740, 140, 250, 80);
-
-        txtNumeroPedido.setText("nPedido");
-        getContentPane().add(txtNumeroPedido);
-        txtNumeroPedido.setBounds(1010, 100, 50, 30);
-
-        jPanel4.setBackground(new java.awt.Color(38, 53, 61));
-        jPanel4.setForeground(new java.awt.Color(52, 73, 94));
-
-        lbllogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbllogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
-
-        lblData1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        lblData1.setForeground(new java.awt.Color(255, 255, 255));
-        lblData1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblData1.setText("SysBar");
-
-        lblData.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
-        lblData.setForeground(new java.awt.Color(255, 255, 255));
-        lblData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendar24x24.png"))); // NOI18N
-        lblData.setText("data");
-
-        lblOperador.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
-        lblOperador.setForeground(new java.awt.Color(255, 255, 255));
-        lblOperador.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario_branco.png"))); // NOI18N
-        lblOperador.setText("usuário");
-
-        lblCargo.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
-        lblCargo.setForeground(new java.awt.Color(255, 255, 255));
-        lblCargo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil (2).png"))); // NOI18N
-        lblCargo.setText("usuário");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(lbllogo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblData1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(lbllogo, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblData1)
-                .addGap(18, 18, 18)
-                .addComponent(lblData)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblOperador)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblCargo)
-                .addContainerGap(221, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel4);
-        jPanel4.setBounds(0, 0, 190, 600);
-
-        lblData2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        lblData2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblData2.setText("SysBar - Lançamento de Pedido");
-        getContentPane().add(lblData2);
-        lblData2.setBounds(200, 10, 740, 48);
+        jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Garçom")));
 
@@ -526,100 +600,82 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(comboGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel5);
-        jPanel5.setBounds(200, 60, 230, 160);
-
-        txtNumeroMesa.setText("nMesa");
-        getContentPane().add(txtNumeroMesa);
-        txtNumeroMesa.setBounds(1010, 180, 50, 30);
-
-        panelFechar.setBackground(new java.awt.Color(52, 73, 94));
-        panelFechar.setForeground(new java.awt.Color(52, 73, 94));
-        panelFechar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelFecharMouseClicked(evt);
+        btnAbrirPedido.setBackground(new java.awt.Color(204, 204, 204));
+        btnAbrirPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Pedido.png"))); // NOI18N
+        btnAbrirPedido.setText("Abrir Pedido");
+        btnAbrirPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbrirPedidoActionPerformed(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("X");
+        tblNumeroMesa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblNumeroMesa.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Mesas Disponíveis"
+            }
+        ));
+        tblNumeroMesa.setRowHeight(25);
+        tblNumeroMesa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblNumeroMesaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblNumeroMesa);
 
-        javax.swing.GroupLayout panelFecharLayout = new javax.swing.GroupLayout(panelFechar);
-        panelFechar.setLayout(panelFecharLayout);
-        panelFecharLayout.setHorizontalGroup(
-            panelFecharLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnAbrirPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
-        panelFecharLayout.setVerticalGroup(
-            panelFecharLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAbrirPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
 
-        getContentPane().add(panelFechar);
-        panelFechar.setBounds(1030, 0, 40, 40);
+        getContentPane().add(jPanel7);
+        jPanel7.setBounds(310, 110, 270, 490);
 
         lblMensagem.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
         lblMensagem.setForeground(new java.awt.Color(153, 153, 153));
         lblMensagem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(lblMensagem);
-        lblMensagem.setBounds(450, 480, 580, 30);
+        lblMensagem.setBounds(320, 620, 390, 30);
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCozinha.png"))); // NOI18N
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(790, 510, 70, 48);
-
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnEnviar.png"))); // NOI18N
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(630, 520, 90, 40);
-
-        jLabel5.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Gerenciar Pedido");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(450, 560, 150, 23);
-
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        jLabel6.setText("Status Cozinha");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(780, 560, 90, 20);
-
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/relatorios48x48.png"))); // NOI18N
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel7MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(490, 510, 80, 50);
-
-        jLabel8.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
-        jLabel8.setText("Enviar para Cozinha");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(620, 560, 150, 23);
-
-        setSize(new java.awt.Dimension(1068, 595));
+        setSize(new java.awt.Dimension(1309, 693));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -649,14 +705,14 @@ public class TelaPedido2 extends javax.swing.JFrame {
             p.setIdFuncionario(txtIdGarcom.getText());
             //p.setId_pedido(txtNumeroPedido.getText());
 
-            int op = JOptionPane.showConfirmDialog(null, "Confirma a abertura do Pedido?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(null, "Confirma a abertura do Pedido?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {
 
                 if (cp.geraPedido(p)) {
                     int linha = tblNumeroMesa.getSelectedRow();
                     String numero_mesa = tblNumeroMesa.getModel().getValueAt(linha, 0).toString();
-                    JOptionPane.showMessageDialog(null, "Pedido Gerado!");
+                    JOptionPane.showMessageDialog(null, "Pedido gerado com sucesso!");
 
                     tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos()));
                     cm.trocaStatusMesa(numero_mesa, "1");
@@ -665,7 +721,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 }
 
             } else {
-                JOptionPane.showMessageDialog(null, "Abertura cancelada!");
+                JOptionPane.showMessageDialog(null, "Abertura do Pedido cancelada com sucesso!");
 
             }
         }
@@ -684,6 +740,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
         String numeroMesa = tblPedidosAbertos.getModel().getValueAt(linha, 0).toString();
         txtNumeroMesa.setText(numeroMesa);
         String numPedido = tblPedidosAbertos.getModel().getValueAt(linha, 3).toString();
+       
+       
+        
         tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(numeroMesa, numPedido)));
         txtNumeroPedido.setText(numPedido);
         txtIdGarcom.setText(cFunc.localizaId(tblPedidosAbertos.getModel().getValueAt(linha, 4).toString()));
@@ -704,9 +763,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
          if ("Lista de Produtos".equals(jTabbedPanePedido.getTitleAt(index))){
              lblPesquisa.setVisible(true);
              txtPesquisa.setVisible(true);
+             lblLupa.setEnabled(true);
+             txtValorTotal.setText("0,00");
          }else {
              lblPesquisa.setVisible(false);
              txtPesquisa.setVisible(false);
+             lblLupa.setVisible(false);
          }
     }//GEN-LAST:event_jTabbedPanePedidoMouseClicked
 
@@ -728,8 +790,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 try {
 
                     Produto pLocalizado = cproduto.localizaProduto(produto);
-                    lblProduto.setText(pLocalizado.getNome());
-                    lblValor.setText(String.format("%7.2f", Double.parseDouble(pLocalizado.getValor())));
+                    txtDescricao.setText(pLocalizado.getNome());
+                    txtValorUnit.setText(String.format("%7.2f", Double.parseDouble(pLocalizado.getValor())));
 
                     txtQtd.requestFocus();
                 } catch (NullPointerException e) {
@@ -750,13 +812,13 @@ public class TelaPedido2 extends javax.swing.JFrame {
             try {
                 // Caso a quantidade não seja informada pede ao usuário que digite novamente!
                 if (txtQtd.getText().isEmpty()) {
-                    lblMensagem.setText("Quantidade inválida!");
+                    lblMensagem.setText("Quantidade inválida!");                    
                     lblMensagem.setForeground(Color.red);
                     txtQtd.requestFocus();
 
                 } else {
-
-                    lbltotal.setText(String.format("%7.2f", calculaPedido()));
+                    Double calculoPedido = calculaPedido();
+                    txtValorTotal.setText(String.format("%9.2f",calculoPedido));                    
                     lblMensagem.setText(null);
 
                     // Verifica se o pedido foi selecionado
@@ -764,7 +826,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Por favor, selecione um pedido!");
                     } else {
                         // Confirma pedido
-                        int op = JOptionPane.showConfirmDialog(null, "Confirma a inclusão do produto?\n" + lblProduto.getText(), "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                        int op = JOptionPane.showConfirmDialog(null, "Confirma a inclusão do produto '" + txtDescricao.getText()+"'?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
                         if (op == JOptionPane.YES_OPTION) {
                             // Instancia um objeto Produto Pedido
@@ -772,8 +834,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
                             // Seta dados no objeto
                             pp.setTbproduto_id(txtCodigoProduto.getText());
                             pp.setQtd(txtQtd.getText());
-                            pp.setValorUnit(lblValor.getText().replaceAll(",", "."));
-                            pp.setTotal(lbltotal.getText().replaceAll(",", "."));
+                            pp.setValorUnit(txtValorUnit.getText().replaceAll(",", "."));
+                            pp.setTotal(txtValorTotal.getText().replaceAll(",", "."));
                             pp.setData(cp.myDataAtual());
                             pp.setCadmesa_id(txtIdMesa.getText());
                             pp.setCadpedido_id_pedido(txtNumeroPedido.getText());
@@ -803,21 +865,25 @@ public class TelaPedido2 extends javax.swing.JFrame {
                             } else {
                                 // Exibe mensagem de produto indisponpivel no momento
                                 lblMensagem.setForeground(Color.red);
-                                lblMensagem.setText(lblProduto.getText() + " com quantidade insuficiente " + "existem em estoque apenas " + qtdEstoque + " unidades");
+                                lblMensagem.setText(txtDescricao.getText() + " com quantidade insuficiente " + "existem em estoque apenas " + qtdEstoque + " unidades");
                                 txtCodigoProduto.requestFocus();
                                 txtCodigoProduto.setText(null);
                                 txtQtd.setText(null);
+                                
                             }
                             //Atualiza a tabela de detalhe do pedido    
                             tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(txtIdMesa.getText(), txtNumeroPedido.getText())));
                             // Atualiza os produtos disponível no Estoque
                             tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
                         }
+                        
 
                     }
                 }
             } catch (HeadlessException | NumberFormatException e) {
-                lblMensagem.setText("Quantidade inválida tente novamente!");
+                System.out.println(txtQtd);
+                System.out.println("br.com.bar.view.TelaPedido2.txtQtdKeyPressed()"+e);
+                lblMensagem.setText("Quantidade inválida, tente novamente!");
                 lblMensagem.setOpaque(false);
                 lblMensagem.setForeground(Color.red);
                 txtQtd.requestFocus();
@@ -830,9 +896,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Carega dados do produto
         int linha = tblListaProduto.getSelectedRow();
         txtCodigoProduto.setText(tblListaProduto.getModel().getValueAt(linha, 0).toString());
-        lblProduto.setText(tblListaProduto.getModel().getValueAt(linha, 1).toString());
-        lblValor.setText(tblListaProduto.getModel().getValueAt(linha, 3).toString());
+        txtDescricao.setText(tblListaProduto.getModel().getValueAt(linha, 1).toString());
+        txtValorUnit.setText(tblListaProduto.getModel().getValueAt(linha, 3).toString());
         txtQtd.requestFocus();
+        txtQtd.setText("1");
+        txtValorTotal.setText("0,00");
 
 
     }//GEN-LAST:event_tblListaProdutoMouseClicked
@@ -855,25 +923,21 @@ public class TelaPedido2 extends javax.swing.JFrame {
         ArrayList<String> pCozinha = new ArrayList<>();
 
         //codProduto, produto, qtd, funcionario, mesa, data, status
-        pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 1).toString()); // Código Produto
-        pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 0).toString()); // Produto
+        pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 1).toString()); // Produto
+        pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 0).toString()); // Código Produto
         pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 2).toString()); // Qtd         
         pCozinha.add(comboGarcom.getSelectedItem().toString()); // Nome do Funcionario
         pCozinha.add(txtNumeroMesa.getText()); // Numero da mesa
         pCozinha.add(cp.myDataAtual()); // Data Atual 
         pCozinha.add("Pendente"); // Status Pendente - Liberado
         pCozinha.add(txtNumeroPedido.getText());
-
-        if (evt.getButton() == 3) {
-
-            int op = JOptionPane.showConfirmDialog(null, "Enviar o prato\n " + pCozinha.get(1) + " Para a cozinha?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-
-            if (op == JOptionPane.YES_OPTION) {
-
-                cp.enviaProdutoCozinha(pCozinha);
-
-            }
+        
+        String grupo =cproduto.localizaProduto(Integer.parseInt(pCozinha.get(1)));
+        System.out.println(grupo);
+        if (grupo.toLowerCase().equals("cozinha")){
+            lblEnviarCozinha.setEnabled(true);
         }
+
     }//GEN-LAST:event_tblDetalhePedidoMouseClicked
 
     private void panelFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelFecharMouseClicked
@@ -892,42 +956,50 @@ public class TelaPedido2 extends javax.swing.JFrame {
         status.setVisible(true);
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+    private void lblEnviarCozinhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEnviarCozinhaMouseClicked
         // Envia prato para cozinha
         // Envia porduto para a cozinha
-        int linha = tblDetalhePedido.getSelectedRow();
+        if (lblEnviarCozinha.isEnabled()){
+            
+            int linha = tblDetalhePedido.getSelectedRow();
 
-        ArrayList<String> pCozinha = new ArrayList<>();
+            ArrayList<String> pCozinha = new ArrayList<>();
 
-        //codProduto, produto, qtd, funcionario, mesa, data, status
-        pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 1).toString()); // Código Produto
-        pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 0).toString()); // Produto
-        pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 2).toString()); // Qtd         
-        pCozinha.add(comboGarcom.getSelectedItem().toString()); // Nome do Funcionario
-        pCozinha.add(txtNumeroMesa.getText()); // Numero da mesa
-        pCozinha.add(cp.myDataAtual()); // Data Atual 
-        pCozinha.add("Pendente"); // Status Pendente - Liberado
-        pCozinha.add(txtNumeroPedido.getText());
+            //codProduto, produto, qtd, funcionario, mesa, data, status
+            pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 1).toString()); // Código Produto
+            pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 0).toString()); // Produto
+            pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 2).toString()); // Qtd         
+            pCozinha.add(comboGarcom.getSelectedItem().toString()); // Nome do Funcionario
+            pCozinha.add(txtNumeroMesa.getText()); // Numero da mesa
+            pCozinha.add(cp.myDataAtual()); // Data Atual 
+            pCozinha.add("Pendente"); // Status Pendente - Liberado
+            pCozinha.add(txtNumeroPedido.getText());
 
-            int op = JOptionPane.showConfirmDialog(null, "Enviar o prato\n" + pCozinha.get(1) + " para a cozinha? ", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(null, "Confirma o envio do prato para a cozinha? ", "Mensagem", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {
 
                 cp.enviaProdutoCozinha(pCozinha);
 
             }
+        }
         
-    }//GEN-LAST:event_jLabel4MouseClicked
+    }//GEN-LAST:event_lblEnviarCozinhaMouseClicked
 
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+    private void lblGerenciarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGerenciarPedidoMouseClicked
         
         TelaGerenciarPedido gp = new TelaGerenciarPedido();
         gp.recebeOperador(lblOperador.getText(), lblCargo.getText());
         gp.setVisible(true);
-    }//GEN-LAST:event_jLabel7MouseClicked
+    }//GEN-LAST:event_lblGerenciarPedidoMouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        // Sai da tela
+        dispose();
+    }//GEN-LAST:event_jLabel9MouseClicked
 
     private double calculaPedido() {
-        double valor = Double.parseDouble(lblValor.getText().replaceAll(",", "."));
+        double valor = Double.parseDouble(txtValorUnit.getText().replaceAll(",", "."));
         int qtd = Integer.parseInt(txtQtd.getText());
         double total = valor * qtd;
 
@@ -974,18 +1046,18 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JButton btnListar;
     private javax.swing.JComboBox<String> comboGarcom;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -997,37 +1069,43 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblCodigo;
+    private javax.swing.JLabel lblCodigo1;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblData1;
     private javax.swing.JLabel lblData2;
+    private javax.swing.JLabel lblEnviarCozinha;
+    private javax.swing.JLabel lblGerenciarPedido;
+    private javax.swing.JLabel lblLupa;
     private javax.swing.JLabel lblMensagem;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblPesquisa;
-    private javax.swing.JLabel lblProduto;
     private javax.swing.JLabel lblQtd;
-    private javax.swing.JLabel lblValor;
+    private javax.swing.JLabel lblQtd1;
+    private javax.swing.JLabel lblQtd2;
     private javax.swing.JLabel lbllogo;
-    private javax.swing.JLabel lbltotal;
     private javax.swing.JPanel panelFechar;
     private javax.swing.JTable tblDetalhePedido;
     private javax.swing.JTable tblListaProduto;
     private javax.swing.JTable tblNumeroMesa;
     private javax.swing.JTable tblPedidosAbertos;
     private javax.swing.JTextField txtCodigoProduto;
+    private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtIdGarcom;
     private javax.swing.JTextField txtIdMesa;
     private javax.swing.JTextField txtNumeroMesa;
     private javax.swing.JTextField txtNumeroPedido;
     private javax.swing.JTextField txtPesquisa;
     private javax.swing.JTextField txtQtd;
+    private javax.swing.JTextField txtValorTotal;
+    private javax.swing.JTextField txtValorUnit;
     // End of variables declaration//GEN-END:variables
 
     private void limpaform() {
         txtCodigoProduto.setText(null);
-        lblProduto.setText(null);
-        lblValor.setText(null);
+        txtDescricao.setText(null);
+        txtValorUnit.setText(null);
         txtQtd.setText(null);
-        lbltotal.setText(null);
+        txtValorTotal.setText(null);
 
     }
 

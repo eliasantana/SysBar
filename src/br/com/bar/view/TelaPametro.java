@@ -84,7 +84,7 @@ public class TelaPametro extends javax.swing.JFrame {
         getContentPane().add(jLabel3);
         jLabel3.setBounds(201, 204, 110, 14);
 
-        jLabel4.setText("Usuário do Banco");
+        jLabel4.setText("Usuário do Banco:");
         getContentPane().add(jLabel4);
         jLabel4.setBounds(41, 144, 130, 14);
         getContentPane().add(txtIpServidor);
@@ -96,7 +96,7 @@ public class TelaPametro extends javax.swing.JFrame {
         getContentPane().add(txtSenha);
         txtSenha.setBounds(201, 164, 120, 30);
 
-        jLabel5.setText("Senha");
+        jLabel5.setText("Senha:");
         getContentPane().add(jLabel5);
         jLabel5.setBounds(201, 144, 130, 14);
 
@@ -126,7 +126,7 @@ public class TelaPametro extends javax.swing.JFrame {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(50, 12, 247, 48);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnConfiguracao.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/bd.png"))); // NOI18N
         jPanel1.add(jLabel7);
         jLabel7.setBounds(12, 19, 32, 32);
 
