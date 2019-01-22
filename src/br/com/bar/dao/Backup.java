@@ -11,12 +11,14 @@ import br.com.br.controler.ControlerDadosEmpresa;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -84,6 +86,7 @@ public class Backup {
                         System.out.println("Bakup finalizado com sucesso!"); 
                         String destino = dados.getUrlbackup()+"\\"+f2.getName();
                         // Copiar o arquivo de backup para o local de bakup selecionado no cadastro.
+                        
                         copyBakup(f2.getAbsolutePath(), destino);
                     } else {
                         System.out.println("Falha ao renomear o arquivo de backup");
@@ -111,7 +114,7 @@ public class Backup {
             System.out.println("Backup copiado com sucesso!");
         } catch (IOException ex) {
             Logger.getLogger(TelaPametro.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("br.com.bar.view.TelaPametro.copyBakup()");
+            System.out.println("br.com.bar.view.TelaPametro.copyBakup()" +ex);           
         }
     }
 }
