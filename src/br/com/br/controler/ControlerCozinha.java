@@ -30,7 +30,7 @@ public class ControlerCozinha {
                 + "produto AS 'PRODUTO',"
                 + "qtd AS 'QTD',"
                 + "funcionario AS 'GARÇOM', "
-                + "mesa AS 'MESA', "
+                + "mesa AS 'N. MESA', "
                 + "status AS 'STATUS' "
                 + "FROM dbbar.tbcozinha WHERE status='Pendente'";
 

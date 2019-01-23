@@ -44,9 +44,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
         lblLogo.setIcon(u.carregaLogo());
         lblData.setText(df.format(data)); // Exibe data atual
+        lblCargo.setVisible(false);
         ArrayList<Double> estatiscas = new ArrayList<>();
         estatiscas = m.estatistica();
-
         lblLivres.setText(String.format("%9.1f", estatiscas.get(0)) + "%");
         lblOcupadas.setText(String.format("%9.1f", estatiscas.get(1)) + "%");
         lblNmesaLivre.setText(String.format("%9.0f", estatiscas.get(2)));
@@ -135,7 +135,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("MasterFood");
@@ -216,23 +216,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(peinelEsquerdoLayout.createSequentialGroup()
                 .addGroup(peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(peinelEsquerdoLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(peinelEsquerdoLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(peinelEsquerdoLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(lblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(peinelEsquerdoLayout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGroup(peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(peinelEsquerdoLayout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(peinelEsquerdoLayout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(peinelEsquerdoLayout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(lblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 12, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         peinelEsquerdoLayout.setVerticalGroup(
             peinelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(peinelEsquerdoLayout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
+                .addContainerGap(67, Short.MAX_VALUE)
                 .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
@@ -253,20 +254,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("jLabel5");
         jPanel1.add(lblOperador);
-        lblOperador.setBounds(210, 50, 116, 32);
+        lblOperador.setBounds(330, 10, 116, 32);
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("jLabel6");
         jPanel1.add(lblCargo);
-        lblCargo.setBounds(330, 50, 124, 32);
+        lblCargo.setBounds(10, 50, 124, 32);
 
         lblData.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         lblData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario24x24.png"))); // NOI18N
         lblData.setText("jLabel5");
         jPanel1.add(lblData);
-        lblData.setBounds(460, 50, 120, 30);
+        lblData.setBounds(450, 10, 120, 30);
 
         btnProduto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnProduto.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -380,20 +381,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnMesasLayout.setHorizontalGroup(
             btnMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnMesasLayout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                 .addContainerGap())
         );
         btnMesasLayout.setVerticalGroup(
             btnMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnMesasLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
         );
 
         jPanel1.add(btnMesas);
-        btnMesas.setBounds(10, 98, 195, 99);
+        btnMesas.setBounds(10, 210, 195, 99);
 
         btnFuncionarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnFuncionarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -415,7 +413,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnFuncionarios.setLayout(btnFuncionariosLayout);
         btnFuncionariosLayout.setHorizontalGroup(
             btnFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnFuncionariosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
         );
         btnFuncionariosLayout.setVerticalGroup(
             btnFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -459,7 +459,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         jPanel1.add(btnCaixa);
-        btnCaixa.setBounds(10, 208, 195, 99);
+        btnCaixa.setBounds(10, 98, 195, 99);
 
         btnFuncionarios1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnFuncionarios1.setPreferredSize(new java.awt.Dimension(167, 98));
@@ -475,26 +475,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/refeicao.png"))); // NOI18N
         jLabel11.setText("Cozinha");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnFuncionarios1Layout = new javax.swing.GroupLayout(btnFuncionarios1);
         btnFuncionarios1.setLayout(btnFuncionarios1Layout);
         btnFuncionarios1Layout.setHorizontalGroup(
             btnFuncionarios1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnFuncionarios1Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 21, Short.MAX_VALUE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         btnFuncionarios1Layout.setVerticalGroup(
             btnFuncionarios1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnFuncionarios1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
         );
 
         jPanel1.add(btnFuncionarios1);
-        btnFuncionarios1.setBounds(209, 98, 195, 99);
+        btnFuncionarios1.setBounds(210, 98, 195, 99);
 
         btnRelatorios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnRelatorios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -575,8 +576,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnLancarPedidoLayout.setHorizontalGroup(
             btnLancarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnLancarPedidoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         btnLancarPedidoLayout.setVerticalGroup(
@@ -605,7 +606,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(360, 0, 610, 530);
 
-        setSize(new java.awt.Dimension(972, 530));
+        setSize(new java.awt.Dimension(969, 530));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -620,8 +621,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (op == JOptionPane.YES_OPTION) {
 
             System.exit(0);
-        } else {
-            JOptionPane.showMessageDialog(null, "Operação 'Fechar Tela' cancelada com sucesso!");
         }
     }//GEN-LAST:event_lblFEcharMouseClicked
 
@@ -680,7 +679,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMesasMouseClicked
 
     private void btnFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFuncionariosMouseClicked
-       
+
 
     }//GEN-LAST:event_btnFuncionariosMouseClicked
 
@@ -689,13 +688,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCaixaMouseClicked
 
     private void btnFuncionarios1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFuncionarios1MouseClicked
-        // Vai para tela Cozinha
-        TelaConzinha cozinha = new TelaConzinha();
-        cozinha.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        log.setFuncionalidade("Cozinha");
-        log.setDescricao(log.getUsuario() + "acessou a funcionalidade " + log.getFuncionalidade());
-        log.gravaLog(log);
-        cozinha.setVisible(true);
+
     }//GEN-LAST:event_btnFuncionarios1MouseClicked
 
     private void btnFuncionarios1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFuncionarios1MouseEntered
@@ -780,7 +773,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pesqFunc.recebeOperador(lblOperador.getText(), lblCargo.getText());
         pesqFunc.setVisible(true);
         pesqFunc.setAlwaysOnTop(true);
-        
+
         // Inicio do registro de log
         log.setFuncionalidade("Cadastro de Funcionário");
         log.setUsuario(lblOperador.getText());
@@ -788,6 +781,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         log.gravaLog(log);
         // Fim do regisro de log
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        // Vai para tela Cozinha
+        TelaConzinha cozinha = new TelaConzinha();
+        cozinha.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        log.setFuncionalidade("Cozinha");
+        log.setDescricao(log.getUsuario() + "acessou a funcionalidade " + log.getFuncionalidade());
+        log.gravaLog(log);
+        cozinha.setVisible(true);
+    }//GEN-LAST:event_jLabel11MouseClicked
 
     /**
      * @param args the command line arguments

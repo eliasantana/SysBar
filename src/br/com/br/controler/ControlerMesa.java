@@ -44,7 +44,7 @@ public class ControlerMesa {
                 rs = pst.executeQuery();
 
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Erro listaMesa " + e);
+                System.out.println("br.com.br.controler.ControlerMesa.listaMesa()"+e);
 
             }
 
@@ -65,7 +65,7 @@ public class ControlerMesa {
                 rs = pst.executeQuery();
 
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Erro listaMesa (Todas as mesas )" + e);
+                System.out.println("br.com.br.controler.ControlerMesa.listaMesa()"+e);
 
             }
 
@@ -90,6 +90,7 @@ public class ControlerMesa {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Este número de mesa já está sendo utilizado, informe outro!");
             System.out.println("br.com.br.controler.ControlerMesa.adicionaMesa()" +e);
+           
         }
                 
         return resp;
@@ -110,7 +111,7 @@ public class ControlerMesa {
             resp = true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Esta mesa não pode ser excluída!");
+            System.out.println("br.com.br.controler.ControlerMesa.excluiMesa()"+e);
         }
         return resp;
 
@@ -129,7 +130,7 @@ public class ControlerMesa {
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro trocaGarcom() " + e);
+            System.out.println("br.com.br.controler.ControlerMesa.trocaGarcom()"+e);
         }
 
         return false;
@@ -151,7 +152,7 @@ public class ControlerMesa {
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro alteraMesa () " + e);
+            System.out.println("br.com.br.controler.ControlerMesa.alteraMesa()"+e);
         }
         return false;
     }
@@ -171,7 +172,7 @@ public class ControlerMesa {
                 combo.addItem(rs.getString("numero_mesa"));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro listaMesaLivre" + e);
+            System.out.println("br.com.br.controler.ControlerMesa.listaMesaLivre()"+e);
         }
     }
     // Lista as mesas livres do garçom selecionado
@@ -185,7 +186,7 @@ public class ControlerMesa {
 
             
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro listaMesaLivre" + e);
+            System.out.println("br.com.br.controler.ControlerMesa.listaMesaLivre()"+e);
         }
         return rs;
     }
@@ -204,12 +205,13 @@ public class ControlerMesa {
             }
 
         } catch (SQLException e) {
-
+            System.out.println("br.com.br.controler.ControlerMesa.localizaIdMesa()"+e);
         }
         return id;
     }
 
     // altera o status da mesa para ocupado
+    // Status 0 - livre 1-Ocupado
     public boolean trocaStatusMesa(String numeroMesa, String status) {
         String sql = "UPDATE cadmesa SET status=? WHERE numero_mesa =?";
 
@@ -222,7 +224,7 @@ public class ControlerMesa {
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro trocaStatusMesa" + e);
+            System.out.println("br.com.br.controler.ControlerMesa.trocaStatusMesa()"+e);
         }
         return false;
     }
@@ -243,7 +245,7 @@ public class ControlerMesa {
             }
 
         } catch (NumberFormatException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro estatisticas()" + e);
+            System.out.println("br.com.br.controler.ControlerMesa.estatistica()"+e);
         }
 
         // Mesas ocupadas 
@@ -259,7 +261,7 @@ public class ControlerMesa {
             }
 
         } catch (NumberFormatException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "erro mesasOcupadas" + e);
+            System.out.println("br.com.br.controler.ControlerMesa.estatistica()"+e);
         }
 
         mesaslivres = total - totalOcupadas;
@@ -292,7 +294,7 @@ public class ControlerMesa {
             }
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerMesa.listaMesasOcupadas()");
+            System.out.println("br.com.br.controler.ControlerMesa.listaMesasOcupadas()"+e);
         }
 
     }
@@ -318,7 +320,7 @@ public class ControlerMesa {
             }
 
              } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerMesa.localizaNumeroMesa()");
+            System.out.println("br.com.br.controler.ControlerMesa.localizaNumeroMesa()"+e);
         }
 
         return numeroMEsa;

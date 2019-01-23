@@ -89,7 +89,7 @@ public class ControlerPedido {
         }
         return rs;
     }
-
+/*
     public ResultSet listaPedidos() {
 
         String sql = "SELECT \n"
@@ -97,6 +97,28 @@ public class ControlerPedido {
                 + "date_format(p.data,'%d/%m/%Y') AS 'DATA', \n"
                  +"p.status as 'STATUS', \n"
                 + "p.id_pedido as 'N. PEDIDO',\n"
+                + "g.nome as 'GARÇOM' \n"
+                + "FROM cadpedido p \n"
+                + "INNER JOIN cadmesa m on m.id=p.cadmesa_id \n"
+                + "INNER JOIN tbcadfuncionario g on g.id = p.tbcadfuncionario_id\n"
+                + "WHERE p.status=0;";
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.listaPedidos()"+e);
+        }
+        return rs;
+    }*/
+
+    public ResultSet listaPedidos() {
+
+        String sql = "SELECT \n"
+                + "m.numero_mesa AS 'N. MESA',\n"
+                + "p.id_pedido as 'N. PEDIDO',\n"
+                + "date_format(p.data,'%d/%m/%Y') AS 'DATA', \n"
+                 +"p.status as 'STATUS', \n"
                 + "g.nome as 'GARÇOM' \n"
                 + "FROM cadpedido p \n"
                 + "INNER JOIN cadmesa m on m.id=p.cadmesa_id \n"
@@ -309,7 +331,7 @@ public class ControlerPedido {
         try {
             pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery();
-
+            combo.removeAllItems();
             while (rs.next()) {
                 combo.addItem(rs.getString("id_pedido"));
             }
@@ -341,6 +363,22 @@ public class ControlerPedido {
         autenticacao = idFunc + "." + nMesa + "." + nPedido + "." + data;
 
         return autenticacao;
+    }
+    // Cancela o pedido informado no parâmetro
+    public boolean cancelaPedido(int numeroPedido){
+        
+        String sql="DELETE FROM cadpedido WHERE id_pedido=?";
+        boolean resp=false;
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setInt(1, numeroPedido);
+            pst.executeUpdate();
+            resp=true;
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.cancelaPedido()"+e);
+        }
+        
+        return  resp;
     }
 
 }

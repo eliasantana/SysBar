@@ -47,7 +47,7 @@ public class ControlerProduto {
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ErroListarProduto" + e);
+            System.out.println("br.com.br.controler.ControlerProduto.listaProduto()" + e);
         }
         return rs;
     }
@@ -71,7 +71,7 @@ public class ControlerProduto {
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ErroListarProdutoPorFornecedor" + e);
+            System.out.println("br.com.br.controler.ControlerProduto.listaProduto()" + e);
         }
         return rs;
     }
@@ -94,7 +94,7 @@ public class ControlerProduto {
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ErroListarProdutoPorFornecedor" + e);
+            System.out.println("br.com.br.controler.ControlerProduto.listaProdutoDisponivel()" + e);
         }
         return rs;
     }
@@ -134,7 +134,7 @@ public class ControlerProduto {
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ErroListarProduto" + e);
+            System.out.println("br.com.br.controler.ControlerProduto.listaEquantidade()" + e);
         }
         return rs;
     }
@@ -187,7 +187,7 @@ public class ControlerProduto {
                 id = rs.getString("id");
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ErroLocalizaId" + e);
+            System.out.println("br.com.br.controler.ControlerProduto.localizaIdGrupo()" + e);
         }
 
         return id;
@@ -296,7 +296,7 @@ public class ControlerProduto {
 
             while (rs.next()) {
                 nomeGrupo = rs.getString("grupo");
-                
+
             }
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerProduto.localizaProduto()" + e);
@@ -322,11 +322,11 @@ public class ControlerProduto {
 
             pst.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Item adicionado!");
+            JOptionPane.showMessageDialog(null, "Produto adicionado com sucesso!");
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro adicionaProdutoPedido()" + e);
+            System.out.println("br.com.br.controler.ControlerProduto.adicionaProdutoAoPedido()" + e);
         }
 
         return false;
