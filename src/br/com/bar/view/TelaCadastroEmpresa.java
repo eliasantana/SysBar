@@ -41,7 +41,10 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
 
         d = dados.selecionaDados();
         // Oculta o botão adicionar se o dados da empresa for diferente de vazio
-        if (d.getNome_empresa().isEmpty()){
+        //if (d.getNome_empresa().isEmpty()){
+          //  lblAdicionar.setVisible(true);
+       // }
+        if (d.getNome_empresa()==null){
             lblAdicionar.setVisible(true);
         }
         txtNomeEmpresa.setText(d.getNome_empresa());

@@ -76,10 +76,14 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(38, 53, 61));
+        jPanel1.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("SysBar - Gerenciador de Licença");
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("MasterFood - Gerenciador de Licença");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(0, 24, 460, 62);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -103,38 +107,20 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
-        );
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(441, 0, 29, 33);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 470, 111);
+        jPanel1.setBounds(0, 0, 470, 110);
 
-        lblMensagem.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblMensagem.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblMensagem.setText("Sua licença expira em:  ");
         getContentPane().add(lblMensagem);
-        lblMensagem.setBounds(25, 144, 400, 20);
+        lblMensagem.setBounds(30, 150, 400, 25);
 
-        jLabel4.setText("Para renovar sua licença entre em contato com o suporte ");
+        jLabel4.setText("Para renovar sua licença entre em contato com a área comercial.");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(25, 182, 437, 26);
+        jLabel4.setBounds(30, 180, 390, 20);
 
         btnSolicitaLicenca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/email.png"))); // NOI18N
         btnSolicitaLicenca.setText("Solicitar nova licença agora");
@@ -149,7 +135,7 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSolicitaLicenca);
-        btnSolicitaLicenca.setBounds(20, 210, 400, 41);
+        btnSolicitaLicenca.setBounds(30, 210, 420, 41);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel8.setText("R. Amambaí, 246 - Candeias, Jaboatão dos Guararapes - PE, 54430-160");
@@ -157,7 +143,7 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
         jLabel8.setBounds(30, 310, 420, 15);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel9.setText("(81)9997-496602 |  (81) 99678-1659");
+        jLabel9.setText("Telefones: (81) 99749-6602 | (81) 99678-1659");
         getContentPane().add(jLabel9);
         jLabel9.setBounds(30, 370, 348, 15);
 
@@ -172,7 +158,7 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
         jLabel10.setBounds(30, 330, 348, 15);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel11.setText("email: rese7.contato@gmai.com / rese7.suporte@gmail.com");
+        jLabel11.setText("email: contato.rese7@gmai.com");
         getContentPane().add(jLabel11);
         jLabel11.setBounds(30, 350, 348, 15);
 
@@ -204,7 +190,7 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
         getContentPane().add(lblDias);
         lblDias.setBounds(30, 120, 34, 14);
 
-        setSize(new java.awt.Dimension(468, 430));
+        setSize(new java.awt.Dimension(470, 430));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -234,23 +220,13 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
         DadosEmpresa dados = ce.selecionaDados();
         
         
-        String assunto = "SysBar - Solicitação de Renovação " + dados.getNome_empresa();
+        String assunto = "MasterFood - Solicitação de Renovação de Licença: " + dados.getNome_empresa();
         String mensagem = "Solicitante: "
-                + dados.getNome_empresa() 
-                
-                + "\nEndereço: " + dados.getEndereco()
-                +","+dados.getNumero()
-                + " \nBairro:" + dados.getBairro()
-                + "CEP: "+dados.getCep() 
-                + "  Cidade: "+dados.getCidade() 
-                + "  Uf: "+dados.getUf() 
-                + "\nTelefone: "+dados.getTelefone()
-                + "\nCNPJ: " + dados.getCnpj()
-                + "\nLicença Atual: " + dados.getLicenca()+ "\nObs: "+ lblMensagem.getText()
-                ;  
+                + dados.getNome_empresa() + "\nCNPJ: " + dados.getCnpj()+ "\nLicença Atual: " + dados.getLicenca()+"\nTelefone: "+dados.getTelefone() 
+                +"\nEndereço: " + dados.getEndereco()+","+dados.getNumero() + " \nBairro:" + dados.getBairro() + "CEP: "+dados.getCep() + "  Cidade: "+dados.getCidade() + "  UF: "+dados.getUf()   + "\nObs: "+ lblMensagem.getText();  
        
-        if (email.enviaEmail("rese7.suporte@gmail.com", assunto, mensagem)){
-            btnSolicitaLicenca.setText("Solicitação Enviada!");
+        if (email.enviaEmail("contato.rese7@gmail.com", assunto, mensagem)){
+            btnSolicitaLicenca.setText("Solicitação enviada com sucesso!");
         }
         
     }//GEN-LAST:event_btnSolicitaLicencaActionPerformed

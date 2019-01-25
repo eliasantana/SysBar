@@ -5,8 +5,10 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.model.DadosEmpresa;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerAtivacao;
+import br.com.br.controler.ControlerDadosEmpresa;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 
@@ -18,6 +20,8 @@ import javax.swing.JOptionPane;
 public class TelaAtivacao extends javax.swing.JFrame {
 
     ControlerAtivacao ca = new ControlerAtivacao();
+    ControlerDadosEmpresa dados = new ControlerDadosEmpresa();
+    
     Util u = new Util();
     
     public TelaAtivacao() {
@@ -90,9 +94,9 @@ public class TelaAtivacao extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/cadeado.png"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("SysBar");
+        jLabel2.setText("MasterFood");
 
         lblMensagem.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
 
@@ -196,12 +200,22 @@ public class TelaAtivacao extends javax.swing.JFrame {
         String licenca = txtNovaLicenca.getText();
        
         Calendar c = Calendar.getInstance();
+        DadosEmpresa de = dados.selecionaDados();
         
-        if (ca.renovaLicenca(u.formataDataBanco(c.getTime()),licenca)){
-           JOptionPane.showMessageDialog(null, "Sua licença foi renovada!\nObrigado!");
-           System.exit(0);
+        if (null==de.getLicenca()){
+            // Se o cadastro estiver vazio adiciona apenas a licença ao cadastro de empresa.
+            if (ca.adicionaLicenca(txtNovaLicenca.getText())){
+                JOptionPane.showMessageDialog(null, "Sua licença foi adicionada com sucesso! Obrigado!");
+                System.exit(0);
+            }
         }else {
-            lblMensagem.setText("Falha na ativação\nContate o suporte: rese7@suporte@gmail.com");
+            // Realiza Renovação
+            if (ca.renovaLicenca(u.formataDataBanco(c.getTime()), licenca)) {
+                JOptionPane.showMessageDialog(null, "Sua licença foi renovada com sucesso! Obrigado!");
+                System.exit(0);
+            } else {
+                lblMensagem.setText("Falha na ativação! Contate o suporte: suporte.rese7@gmail.com");
+            }
         }
         
     }//GEN-LAST:event_jLabel3MouseClicked

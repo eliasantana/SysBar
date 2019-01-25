@@ -6,7 +6,10 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.Backup;
+import java.io.IOException;
 import static java.lang.Thread.sleep;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,7 +30,11 @@ public class TelaSplash extends javax.swing.JFrame {
        
         new Thread() {
             public void run() {
-                b.realizaBackup();                
+                try {                
+                    b.realizaBackup();
+                } catch (IOException ex) {
+                    Logger.getLogger(TelaSplash.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
                 for (int i = 0; i < 101; i++) {
                     try {
@@ -104,7 +111,7 @@ public class TelaSplash extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel9.setText("rese7.contato@gmail.com");
+        jLabel9.setText("contato.rese7@gmail.com");
         jPanel1.add(jLabel9);
         jLabel9.setBounds(200, 90, 230, 20);
 

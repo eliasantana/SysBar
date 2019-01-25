@@ -86,7 +86,6 @@ public class Util {
      * @param data - Recebe a data informada;
      * @return dataBanco - Retorna uma String no formato MySql (yyyy-MM-dd);
      */
-
     public String formataDataBanco(Date data) {
 
         String dataBanco = null;
@@ -110,7 +109,6 @@ public class Util {
      * @param data - Recebe a data informada;
      * @return mes - Retorna um objeto tipo Date;
      */
-
     public String formataDataBr(Date data) {
 
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/YYYY");
@@ -177,14 +175,29 @@ public class Util {
 
     public long retornaTotalDeDias(String data) {
         // Converte  para o tipo date a String informada
-        java.sql.Date date = java.sql.Date.valueOf(data);
+        try {
+            // Inicialização do sistema com banco vazio
+            java.sql.Date date = java.sql.Date.valueOf(data);
+        } catch (Exception e) {
+            
+            System.out.println("br.com.bar.util.Util.retornaTotalDeDias()");
+        }
+        
         SimpleDateFormat df = new SimpleDateFormat();
         // Pega a Data Atual
         LocalDate localDate = LocalDate.now();
         //Converte para LocalDate
-        LocalDate dtFinal = LocalDate.parse(data);
+         long dias =0;
+        // Caso o cadastro esteja vazio gera java.lang.NullPointerException
+        try {
+            
+            LocalDate dtFinal = LocalDate.parse(data);
 
-        long dias = ChronoUnit.DAYS.between(localDate, dtFinal);
+            dias = ChronoUnit.DAYS.between(localDate, dtFinal);
+        } catch (Exception e) {
+            System.out.println("br.com.bar.util.Util.retornaTotalDeDias()");
+        }
+        
 
         return dias;
     }

@@ -55,6 +55,24 @@ public class ControlerAtivacao {
         }
         return resp;
     }
+    // Adiciona uma licença trial caso não exista dados cadastrados na tabela cadastro_empresa.
+    public boolean adicionaLicenca(String chave) {
+
+        boolean resp = false;
+        String sql = "INSERT INTO tb_dados_empresa (chave) VALUES (?)";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, chave);
+           
+            pst.executeUpdate();
+            resp = true;
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerAtivacao.adicionaLicencaTrial()"+e);
+        }
+        return resp;
+    }
 
     // Valida a licenda de acordo com a chave armazenada no banco
     public boolean validaLicenca() {
@@ -63,21 +81,23 @@ public class ControlerAtivacao {
 
         long diasRestantes = u.retornaTotalDeDias(chave);
 
-        System.out.println("Válido Até: " + chave);
-        System.out.println("Dias Restantes " + diasRestantes);
+        System.out.println("Válida Até: " + chave);
+        System.out.println("Dias Restantes: " + diasRestantes);
         
 
         // Checa se a licença é válida
         if (diasRestantes < 0) {
             
             resp=false;
-            System.out.println("Licença Expirada");
+            System.out.println("Licença Expirada!");
         } else {
             resp=true;
-            System.out.println("Licença Válida");
+            System.out.println("Licença Válida!");
         }
 
         return resp;
     }
+    
+    
 
 }

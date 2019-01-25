@@ -50,8 +50,12 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         if (jCheckBoxTudo.isSelected()) {
             filtro = true;
         }
-
+        try {
+            
         tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
+        } catch (Exception e) {
+            System.out.println("br.com.bar.view.TelaCadastroDeMesas.<init>()"+e);
+        }
 
     }
 

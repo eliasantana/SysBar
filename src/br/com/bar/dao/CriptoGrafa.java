@@ -26,11 +26,15 @@ public class CriptoGrafa {
     }
     
     public String decripta(String mensagemEncriptada){
-        
-        byte[] msgDecriptada = Base64.decodeBase64(mensagemEncriptada.getBytes());
-        String msg = new String(msgDecriptada);
-        return  msg;
-       
+            String msg=null;
+        try {
+            byte[] msgDecriptada = Base64.decodeBase64(mensagemEncriptada.getBytes());
+            msg = new String(msgDecriptada);
+            
+        } catch (Exception e) {
+            System.out.println("O sistema inda não possui licença");
+        }
+       return msg;
     }
     
     

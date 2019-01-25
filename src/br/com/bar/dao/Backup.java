@@ -42,7 +42,7 @@ public class Backup {
 
     }
     
-   public void realizaBackup(){
+   public void realizaBackup() throws IOException{
        
         //Realiza Backup do Sistema
         // Instancia a classe backup
@@ -102,7 +102,7 @@ public class Backup {
         }
    }
    
-   public void copyBakup(String origem, String destino){
+   public void copyBakup(String origem, String destino) throws IOException{
          //System.out.println("Backup copiado de->" + origem + " para " + destino);
          Path pathOrigem = Paths.get(origem);
          Path pathDestino = Paths.get(destino);
@@ -112,9 +112,11 @@ public class Backup {
         try {
             Files.copy(pathOrigem, pathDestino);
             System.out.println("Backup copiado com sucesso!");
-        } catch (IOException ex) {
+        } catch (NoSuchFileException ex) {
+            
+            /*
             Logger.getLogger(TelaPametro.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("br.com.bar.view.TelaPametro.copyBakup()" +ex);           
+            System.out.println("br.com.bar.view.TelaPametro.copyBakup()" +ex);   */        
         }
     }
 }

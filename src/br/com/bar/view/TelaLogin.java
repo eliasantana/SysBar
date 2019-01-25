@@ -99,14 +99,14 @@ public class TelaLogin extends javax.swing.JFrame {
             lblCnpjEmpresa.setText(dadosEmpresa.getCnpj());
            
             TelaGerenciadorDeLicenca g = new TelaGerenciadorDeLicenca();
-            g.recebeDias(dias, " Sua licença expira em " + String.valueOf(dias) + " dias.");
+            g.recebeDias(dias, "Sua licença expira em " + String.valueOf(dias) + " dias!");
             g.setAlwaysOnTop(true);
             g.setVisible(true);
 
         } else {
             // Chama o gerenciador  de licença e saí do sistema
             TelaGerenciadorDeLicenca g = new TelaGerenciadorDeLicenca();
-            g.recebeDias(dias, " Sua licença Expirou!");
+            g.recebeDias(dias, "Sua licença expirou!!!");
             g.setAlwaysOnTop(true);
             g.setVisible(true);
         }

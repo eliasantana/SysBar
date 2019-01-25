@@ -15,26 +15,33 @@ import org.apache.commons.mail.SimpleEmail;
  */
 public class Email {
 
-    String cliente = "CURRASQUINHO DO PROFF";
+   //String cliente = "CURRASQUINHO DO PROFF";
 
     public Email() {
     }
    
 
-
+    // Envia um e-mail a partir de uma caixa postal Gmail
     public boolean enviaEmail(String e_mail,String assunto, String mensagem) {
         boolean resp = false;
         try {
             SimpleEmail email = new SimpleEmail();
             email.setDebug(true);
+            // Servidor SMTP
             email.setHostName("smtp.gmail.com");
-            email.setAuthentication("rese7.contato@gmail.com", "JE09@2018");
+            //Autentica E-mail
+            email.setAuthentication("contato.rese7@gmail.com", "JE09@2018");
             email.setSSL(true);
             // se.addTo("rese7.comercial@gmail.com");
+            //Destinatário
             email.addTo(e_mail);
-            email.setFrom("rese7.suporte@gmail.com");
+            //Remetente
+            email.setFrom("contato.rese7@gmail.com");
+            //Assunto da mensagem
             email.setSubject(assunto);
+            //Mensagem
             email.setMsg(mensagem);
+            //Envia E-mail
             email.send();
             resp=true;
 
