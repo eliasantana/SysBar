@@ -297,9 +297,9 @@ public class ControlerPedido {
     }
 
     // Envia um produto para a cozinha
-    public void enviaProdutoCozinha(ArrayList<String> produtoCozinha) {
-
-        String sql = "INSERT INTO tbcozinha (codProduto, produto, qtd, funcionario, mesa, data, status, npedido) VALUES (?,?,?,?,?,?,?,?)";
+    public boolean enviaProdutoCozinha(ArrayList<String> produtoCozinha) {
+        boolean resp=false;
+        String sql = "INSERT INTO tbcozinha (codProduto, produto, qtd, funcionario, mesa, data, status, npedido,hora_solicitacao) VALUES (?,?,?,?,?,?,?,?,?)";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -312,16 +312,18 @@ public class ControlerPedido {
             pst.setString(6, produtoCozinha.get(5));
             pst.setString(7, produtoCozinha.get(6));
             pst.setString(8, produtoCozinha.get(7));
+            pst.setString(9, produtoCozinha.get(8));
 
             pst.executeUpdate();
-
+            resp=true;
             JOptionPane.showMessageDialog(null, "Solicitação de prato enviada com sucesso!");
+            
 
         } catch (HeadlessException | SQLException e) {
 
             System.out.println("br.com.br.controler.ControlerPedido.enviaProdutoCozinha()" +e);
         }
-
+        return resp;
     }
 
     // Lista o número de todos os pedidos abertos na data atual

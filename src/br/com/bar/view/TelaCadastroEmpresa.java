@@ -53,7 +53,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         txtBairro.setText(d.getBairro());
         txtCep.setText(d.getCep());
         txtCidade.setText(d.getCidade());
-        txtUF.setText(d.getUf());
         txtTelefone.setText(d.getTelefone());
         txtCelular.setText(d.getCelular());
         txtEmail.setText(d.getEmail());
@@ -62,7 +61,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         lblCaminho.setText(txtUrlBackup.getText());
         txturlLogo.setText(d.getLogo());
         txtIdEmpresa.setText(String.valueOf(d.getId()));      
-        
+        comboUf.setSelectedItem(d.getUf());
         lblLogo.setIcon(u.carregaLogo());
         //Desabilita itens
         btnSelecionarArquivo.setVisible(true);
@@ -113,7 +112,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         txtCidade = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        txtCep = new javax.swing.JFormattedTextField();
         txtBairro = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -123,12 +121,10 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         txtCnpj = new javax.swing.JFormattedTextField();
-        txtNumero = new javax.swing.JFormattedTextField();
         lblExcluir = new javax.swing.JLabel();
         lblAdicionar = new javax.swing.JLabel();
         lblEditar = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        txtUF = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jpanelImpressao = new javax.swing.JPanel();
         radioDireto = new javax.swing.JRadioButton();
@@ -138,6 +134,9 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         txtComplemento = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         btnSelecionarArquivo = new javax.swing.JButton();
+        comboUf = new javax.swing.JComboBox<>();
+        txtCep = new javax.swing.JFormattedTextField();
+        txtNumero = new javax.swing.JFormattedTextField();
 
         jLabel1.setText("jLabel1");
 
@@ -265,6 +264,12 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jLabel3.setText("Cadastro Empresa");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(440, 20, 310, 50);
+
+        txtNomeEmpresa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomeEmpresaKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtNomeEmpresa);
         txtNomeEmpresa.setBounds(360, 160, 330, 30);
 
@@ -284,6 +289,12 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jLabel7.setText("Bairro");
         getContentPane().add(jLabel7);
         jLabel7.setBounds(360, 260, 140, 16);
+
+        txtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCidadeKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtCidade);
         txtCidade.setBounds(610, 280, 210, 30);
 
@@ -296,8 +307,12 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jLabel9.setText("Cidade");
         getContentPane().add(jLabel9);
         jLabel9.setBounds(610, 260, 60, 16);
-        getContentPane().add(txtCep);
-        txtCep.setBounds(510, 280, 90, 30);
+
+        txtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBairroKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtBairro);
         txtBairro.setBounds(360, 280, 140, 30);
 
@@ -350,10 +365,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         getContentPane().add(txtCnpj);
         txtCnpj.setBounds(700, 160, 190, 30);
 
-        txtNumero.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        getContentPane().add(txtNumero);
-        txtNumero.setBounds(620, 220, 46, 30);
-
         lblExcluir.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
         lblExcluir.setText("Excluir");
@@ -386,10 +397,19 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         });
         getContentPane().add(lblEditar);
         lblEditar.setBounds(710, 480, 80, 50);
+
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEmailKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtEmail);
         txtEmail.setBounds(640, 340, 250, 30);
-        getContentPane().add(txtUF);
-        txtUF.setBounds(830, 280, 60, 30);
 
         jLabel14.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         jLabel14.setText("Telefone");
@@ -442,6 +462,12 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         lblCaminho.setText("Caminho");
         getContentPane().add(lblCaminho);
         lblCaminho.setBounds(360, 490, 340, 40);
+
+        txtComplemento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtComplementoKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtComplemento);
         txtComplemento.setBounds(680, 220, 210, 30);
 
@@ -459,7 +485,28 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         getContentPane().add(btnSelecionarArquivo);
         btnSelecionarArquivo.setBounds(450, 460, 100, 30);
 
-        setSize(new java.awt.Dimension(906, 585));
+        comboUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE" }));
+        comboUf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboUfActionPerformed(evt);
+            }
+        });
+        getContentPane().add(comboUf);
+        comboUf.setBounds(830, 280, 60, 30);
+
+        try {
+            txtCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(txtCep);
+        txtCep.setBounds(510, 280, 90, 30);
+
+        txtNumero.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
+        getContentPane().add(txtNumero);
+        txtNumero.setBounds(620, 220, 46, 30);
+
+        setSize(new java.awt.Dimension(902, 585));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -488,7 +535,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         d.setCnpj(txtCnpj.getText());
         d.setUrlbackup(txtUrlBackup.getText());
         d.setLogo(txturlLogo.getText());
-        d.setUf(txtUF.getText());
+        d.setUf(comboUf.getSelectedItem().toString());
         String btnSelecionado=buttonGroup1.getSelection().toString();
         
         if ("Imprimir Direto".equals(btnSelecionado)){
@@ -573,6 +620,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         d.setNome_empresa(txtNomeEmpresa.getText());
         d.setEndereco(txtEndereco.getText());
         d.setBairro(txtBairro.getText());
+        
         try {
 
             d.setNumero(Integer.parseInt(txtNumero.getText()));
@@ -586,7 +634,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         d.setEmail(txtEmail.getText());
         d.setCnpj(txtCnpj.getText());
         d.setUrlbackup(txtUrlBackup.getText());
-        d.setUf(txtUF.getText());
+        d.setUf(comboUf.getSelectedItem().toString());
         d.setLogo(txturlLogo.getText());
         
         System.out.println("nome Empresa" +d.getNome_empresa());
@@ -618,6 +666,40 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private void radioVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioVisualizarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_radioVisualizarActionPerformed
+
+    private void comboUfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboUfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboUfActionPerformed
+
+    private void txtNomeEmpresaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeEmpresaKeyReleased
+        // Limita Tamanho do Campo ENDEREÇO
+        u.tamanhoMaximo(txtEndereco.getText(), 45);
+    }//GEN-LAST:event_txtNomeEmpresaKeyReleased
+
+    private void txtComplementoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtComplementoKeyReleased
+        // Limita Tamanho do Campo COMPLEMENTO
+        u.tamanhoMaximo(txtComplemento.getText(), 30);
+    }//GEN-LAST:event_txtComplementoKeyReleased
+
+    private void txtBairroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBairroKeyReleased
+        // Limita Tamanho do Campo BAIRRO
+        u.tamanhoMaximo(txtBairro.getText(), 35);
+    }//GEN-LAST:event_txtBairroKeyReleased
+
+    private void txtCidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyReleased
+        // Limita Tamanho do Campo CIDADE
+        u.tamanhoMaximo(txtCidade.getText(), 45);
+    }//GEN-LAST:event_txtCidadeKeyReleased
+
+    private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
+        // Limita Tamanho do Campo
+        u.tamanhoMaximo(txtEmail.getText(), 245);
+       
+    }//GEN-LAST:event_txtEmailKeyReleased
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+      
+    }//GEN-LAST:event_txtEmailFocusLost
 
     /**
      * @param args the command line arguments
@@ -657,6 +739,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSelecionarArquivo;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> comboUf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -700,7 +783,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JTextField txtNomeEmpresa;
     private javax.swing.JFormattedTextField txtNumero;
     private javax.swing.JFormattedTextField txtTelefone;
-    private javax.swing.JTextField txtUF;
     private javax.swing.JFormattedTextField txtUrlBackup;
     private javax.swing.JTextField txturlLogo;
     // End of variables declaration//GEN-END:variables

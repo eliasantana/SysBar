@@ -10,13 +10,15 @@ import br.com.br.controler.ControlerFuncionario;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 /**
  *
  * @author Elias Santana
+ * javax.swing.JFrame 
  */
-public class TelaAutorizacao extends javax.swing.JFrame {
+public class TelaAutorizacao extends JDialog {
 
     ControlerFuncionario cf = new ControlerFuncionario();
     TelaCaixa cx = new TelaCaixa();

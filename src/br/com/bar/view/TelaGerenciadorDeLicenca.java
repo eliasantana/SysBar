@@ -223,10 +223,12 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
         String assunto = "MasterFood - Solicitação de Renovação de Licença: " + dados.getNome_empresa();
         String mensagem = "Solicitante: "
                 + dados.getNome_empresa() + "\nCNPJ: " + dados.getCnpj()+ "\nLicença Atual: " + dados.getLicenca()+"\nTelefone: "+dados.getTelefone() 
-                +"\nEndereço: " + dados.getEndereco()+","+dados.getNumero() + " \nBairro:" + dados.getBairro() + "CEP: "+dados.getCep() + "  Cidade: "+dados.getCidade() + "  UF: "+dados.getUf()   + "\nObs: "+ lblMensagem.getText();  
+                +"\nEndereço: " + dados.getEndereco()+","+dados.getNumero() + " \nBairro:" + dados.getBairro() + "CEP: "+dados.getCep() 
+                + "  Cidade: "+dados.getCidade() + "  UF: "+dados.getUf()   + "\nStatus: "+ lblMensagem.getText();  
        
         if (email.enviaEmail("contato.rese7@gmail.com", assunto, mensagem)){
             btnSolicitaLicenca.setText("Solicitação enviada com sucesso!");
+            btnSolicitaLicenca.setForeground(Color.GREEN);
         }
         
     }//GEN-LAST:event_btnSolicitaLicencaActionPerformed

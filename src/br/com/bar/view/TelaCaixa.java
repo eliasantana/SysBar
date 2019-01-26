@@ -385,19 +385,19 @@ public class TelaCaixa extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel7)
                 .addGap(3, 3, 3)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
-                    .addComponent(tgeral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tgeral, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(percent, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(percent, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -571,6 +571,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         txtValorPago.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtValorPago.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtValorPago.setText("0,00");
         txtValorPago.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtValorPagoMouseClicked(evt);
@@ -595,6 +596,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         txtTroco.setEditable(false);
         txtTroco.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtTroco.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtTroco.setText("0,00");
         txtTroco.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtTrocoFocusGained(evt);
@@ -623,6 +625,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         txtDesconto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtDesconto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtDesconto.setText("0,00");
         jPanel4.add(txtDesconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 130, 40));
 
         lblValorDesc.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
@@ -858,7 +861,9 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void txtValorPagoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtValorPagoMouseClicked
         // Limpa valor pago ao clicar
-        txtValorPago.setText(null);
+        if (txtValorPago.isEnabled()) {
+            txtValorPago.setText(null);
+        }
     }//GEN-LAST:event_txtValorPagoMouseClicked
 
     private void txtValorPagoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorPagoKeyPressed
@@ -895,8 +900,8 @@ public class TelaCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTrocoFocusGained
 
     private void lblReceberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReceberMouseClicked
-        if (lblReceber.isEnabled()){
-            
+        if (lblReceber.isEnabled()) {
+
             // Fecha pedido
             // Calcula valor
             int nPesoas = Integer.parseInt(jSpinFieldPessoas.getValue().toString());
@@ -1051,12 +1056,12 @@ public class TelaCaixa extends javax.swing.JFrame {
             try {
                 // Lista resultado da pesquisa e totaliza os produtos do pedido
                 ResultSet rs = cp.detalhePorPedido(comboMesa.getSelectedItem().toString(), txtIdPedido.getText());
-                
+
                 while (rs.next()) {
                     total = Double.parseDouble(rs.getString("VLR TOTAL R$").replaceAll(",", "."));
                     totalGeral = totalGeral + total;
                 }
-                
+
                 // Formata e exibe o total geral do pedido
                 tgeral.setText(String.format("%9.2f", totalGeral));
 
@@ -1083,50 +1088,53 @@ public class TelaCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void btnImprimirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMouseClicked
-        //Imprime cupom
-        // Calcula valor
-        DadosEmpresa dadosEmpresa = de.selecionaDados();
+        if (btnImprimir.isEnabled()){
+            
+//Imprime cupom
+            // Calcula valor
+            DadosEmpresa dadosEmpresa = de.selecionaDados();
 
-        int nPesoas = Integer.parseInt(jSpinFieldPessoas.getValue().toString());
+            int nPesoas = Integer.parseInt(jSpinFieldPessoas.getValue().toString());
 
-        Double totalGeral = Double.parseDouble(lblTotal.getText().replaceAll(",", "."));
-        Double totalPessoas = totalGeral / nPesoas;
-        System.out.println(nPesoas);
-        //Início do Registro de log
-        l.setFuncionalidade("Imprimir");
-        l.setDescricao(l.getUsuario() + "Imprimiu a parcial do pedido N." + txtIdPedido.getText() + " Comissão: " + percent.getText());
-        l.gravaLog(l);
+            Double totalGeral = Double.parseDouble(lblTotal.getText().replaceAll(",", "."));
+            Double totalPessoas = totalGeral / nPesoas;
+            System.out.println(nPesoas);
+            //Início do Registro de log
+            l.setFuncionalidade("Imprimir");
+            l.setDescricao(l.getUsuario() + "Imprimiu a parcial do pedido N." + txtIdPedido.getText() + " Comissão: " + percent.getText());
+            l.gravaLog(l);
 
-        //
-        HashMap dados = new HashMap();
-        Date dt = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            //
+            HashMap dados = new HashMap();
+            Date dt = new Date();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-        dados.put("data", df.format(dt));
-        dados.put("id_pedido", txtIdPedido.getText());
-        dados.put("garcom", lblGarcom.getText());
-        dados.put("titulo", "PARCIAL DE CONSUMO");
-        dados.put("tx", Double.parseDouble(percent.getText().replaceAll(",", ".")));
-        dados.put("npessoas", nPesoas);
-        dados.put("total_pessoas", totalPessoas);
-        dados.put("mesa", comboMesa.getSelectedItem().toString());
-        dados.put("nome_empresa", dadosEmpresa.getNome_empresa());
-        dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro() + " - " + dadosEmpresa.getCep());
-        dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone() + " - " + dadosEmpresa.getEmail());
-        dados.put("cnpj", dadosEmpresa.getCnpj());
+            dados.put("data", df.format(dt));
+            dados.put("id_pedido", txtIdPedido.getText());
+            dados.put("garcom", lblGarcom.getText());
+            dados.put("titulo", "PARCIAL DE CONSUMO");
+            dados.put("tx", Double.parseDouble(percent.getText().replaceAll(",", ".")));
+            dados.put("npessoas", nPesoas);
+            dados.put("total_pessoas", totalPessoas);
+            dados.put("mesa", comboMesa.getSelectedItem().toString());
+            dados.put("nome_empresa", dadosEmpresa.getNome_empresa());
+            dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro() + " - " + dadosEmpresa.getCep());
+            dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone() + " - " + dadosEmpresa.getEmail());
+            dados.put("cnpj", dadosEmpresa.getCnpj());
 
-        System.out.println(dadosEmpresa.getImprimir_na_tela());
-        try {
-            if (dadosEmpresa.getImprimir_na_tela() == 0) {
-                JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "cupom.jasper", dados, conexao);
-                JasperViewer.viewReport(print, false);
+            System.out.println(dadosEmpresa.getImprimir_na_tela());
+            try {
+                if (dadosEmpresa.getImprimir_na_tela() == 0) {
+                    JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "cupom.jasper", dados, conexao);
+                    JasperViewer.viewReport(print, false);
 
-            } else {
-                JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "cupom.jasper", dados, conexao);
-                JasperPrintManager.printPage(print, 0, false);
+                } else {
+                    JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "cupom.jasper", dados, conexao);
+                    JasperPrintManager.printPage(print, 0, false);
+                }
+            } catch (JRException e) {
+                System.out.println("br.com.bar.view.TelaCaixa.btnImprimirMouseClicked()" + e);
             }
-        } catch (JRException e) {
-            System.out.println("br.com.bar.view.TelaCaixa.btnImprimirMouseClicked()" + e);
         }
 
 
@@ -1342,6 +1350,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         TelaAutorizacao ta = new TelaAutorizacao();
         ta.recebeValor(dadosDoPedido);
+        ta.setModal(true);
         //this.dispose();
         //this.setVisible(false);
         ta.setVisible(true);

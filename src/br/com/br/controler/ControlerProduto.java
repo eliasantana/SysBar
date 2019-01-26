@@ -282,7 +282,7 @@ public class ControlerProduto {
         }
         return p;
     }
-
+    // Retorna o grupo do produto informado no parâmetro
     public String localizaProduto(int id) {
 
         String sql = "SELECT g.nome as 'grupo' FROM dbbar.tbproduto p\n"

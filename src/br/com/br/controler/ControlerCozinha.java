@@ -6,13 +6,15 @@
 package br.com.br.controler;
 
 import br.com.bar.dao.ConexaoBd;
+import br.com.bar.util.Util;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
-
 
 /**
  *
@@ -23,23 +25,40 @@ public class ControlerCozinha {
     Connection conexao = ConexaoBd.conector();
     PreparedStatement pst = null;
     ResultSet rs = null;
+    Util u = new Util();
 
+    // Lista pratos enviados para cozinha
+    // Adicionado na versão
     public ResultSet listaProdutosCozinha() {
-
-        String sql = "SELECT id AS 'SEQUÊNCIA', "
-                + "produto AS 'PRODUTO',"
-                + "qtd AS 'QTD',"
-                + "funcionario AS 'GARÇOM', "
-                + "mesa AS 'N. MESA', "
-                + "status AS 'STATUS' "
-                + "FROM dbbar.tbcozinha WHERE status='Pendente'";
-
+        /* ******* ATENCAO ********
+        ANALISAR SE O TIME ZONE PERMANCERA COM -03H00 RELACIONADAS A HORA ATUAL 
+        SENDO NECESSARIO ALTERAR A INSTRUCAO ABAIXO:
+        >> TIME_FORMAT(TIME(DATE_ADD(curtime(), INTERVAL +3 HOUR)),'%T')
+        */
+        String sql = "SELECT \n"
+                + "	 id AS 'SEQ',\n"
+                + "	 produto AS 'PRATO',\n"
+                + "	 qtd AS 'QTD',\n"
+                + "	 funcionario AS 'GARÇOM',\n"
+                + "	 mesa AS 'N. MESA',\n"
+                + "     CASE \n"
+                + "       WHEN cozinheiro IS NULL THEN 'Não informado'\n"
+                + "	   ELSE cozinheiro\n"
+                + "	 END AS 'COZINHEIRO',\n"
+                + "     TIME_FORMAT(hora_solicitacao,'%T') AS 'SOLICITADO',\n"
+                + "     TIMEDIFF(TIME_FORMAT(TIME(DATE_ADD(curtime(), INTERVAL +3 HOUR)),'%T'), "
+                + "     TIME_FORMAT(hora_solicitacao,'%T')) AS 'T. ESPERA',\n"
+                + "     status AS 'STATUS'\n"
+                + "\n"
+                + "  FROM dbbar.tbcozinha \n"
+                + " WHERE status IN ('Pendente', 'Em preparação');";
+        
         try {
             pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro listaProdutoCozinha()" + e);
+            System.out.println("br.com.br.controler.ControlerCozinha.listaProdutosCozinha()"+e);
         }
 
         return rs;
@@ -91,20 +110,19 @@ public class ControlerCozinha {
     }
 
     // Retorna a lista dos produtos enviados para a cozinha pelo operador garçom
-    
     public ResultSet statusCozinha(String operador) {
-        
+
         // Listas os pratos enviados a cozinha pelo garçom
         String sql = "SELECT\n"
                 + "npedido as 'N.PEDIDO',\n"
                 + "produto as 'PRATO', \n"
                 + "qtd as 'QTD', \n"
                 + "mesa as 'N. MESA', \n"
-                + "status as 'STATUS'\n"                
+                + "status as 'STATUS'\n"
                 + "FROM \n"
                 + "dbbar.tbcozinha where funcionario=? and data=curdate()\n"
                 + "ORDER BY id asc;";
-        
+
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, operador);
@@ -136,23 +154,51 @@ public class ControlerCozinha {
 
         return qtd;
     }
+
     // Remove produto da tabela cozinha 
     // Recurso utilizado quando o produto for descartado
-    public boolean removePrato(String idProduto){
-        boolean resp=false;
-        
-        String sql="DELETE FROM tbcozinha where id=?";
-        
+    public boolean removePrato(String idProduto) {
+        boolean resp = false;
+
+        String sql = "DELETE FROM tbcozinha where id=?";
+
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, idProduto);
             pst.executeUpdate();
-            resp=true;
-            
+            resp = true;
+
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerCozinha.removePrato()" + e);
         }
-        
+
         return resp;
     }
+
+    /*
+     * Registra a hora em que foi iniciada a preparação do prato pelo cozinheiro
+     */
+    public void registraPreparo(String idTbCozinha, String nomeCozinheiro) {
+
+        Date dtAtual = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        String horaPreparo = (sdf.format(dtAtual));
+
+        String sql = "UPDATE tbcozinha SET hora_preparacao=?, cozinheiro=?, status='Em preparação' WHERE id=?";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, horaPreparo);
+            pst.setString(2, nomeCozinheiro);
+            pst.setString(3, idTbCozinha);
+
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Preparo iniciado com sucesso!");
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCozinha.registraPreparo()" + e);
+
+        }
+    }
+    
+   
 }

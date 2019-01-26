@@ -15,6 +15,7 @@ import java.io.File;
 import java.util.Date;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -23,7 +24,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author elias
  */
-public class TelaCadastroFuncionario extends javax.swing.JFrame {
+/*
+    - public class TelaCadastroFuncionario extends javax.swing.JFrame
+    - Teste de Alteração de herança da janela de jFrame para JDialog
+*/
+public class TelaCadastroFuncionario extends JDialog {
 
     ControlerParametro parametro = new ControlerParametro();
     ControlerFuncionario funcionario = new ControlerFuncionario();
@@ -38,6 +43,8 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         txtId.setVisible(false);
         txtOperacao.setVisible(false);
         jtableGuias.setVisible(false);
+        //Torna a janela Modal
+        this.setModal(true);
     }
 
     public void recebeOperador(String operador, String cargo, String operacao) {

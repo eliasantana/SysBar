@@ -6,14 +6,19 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.Log;
-import br.com.bar.model.DadosEmpresa;
+import br.com.bar.dao.ReportUtil;
+import br.com.bar.model.Funcionario;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCozinha;
 import br.com.br.controler.ControlerDadosEmpresa;
+import br.com.br.controler.ControlerFuncionario;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.TimerTask;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -25,6 +30,7 @@ public class TelaConzinha extends javax.swing.JFrame {
      * Creates new form TelaConzinha
      */
     ControlerCozinha cc = new ControlerCozinha();
+    ControlerFuncionario cf = new ControlerFuncionario();
     Util u = new Util();
 
     ControlerDadosEmpresa ce = new ControlerDadosEmpresa();
@@ -36,7 +42,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblData.setText(u.formataDataBr(dt));
         txtidProdutoCozinha.setVisible(false);
 
-        bloqueiaBotoes(false);
+        desabilitaTodosBtns();
 
         // Atualiza a lista de pedidos da cozinha após período de tempo informado
         long minutos = 60000; //milisegundos = 1 minuto
@@ -46,6 +52,8 @@ public class TelaConzinha extends javax.swing.JFrame {
             public void run() {
 
                 tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
+                lblPreparar.setEnabled(false);
+                lblLiberaRefeicao.setEnabled(false);
             }
         };
 
@@ -89,6 +97,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         lblSair = new javax.swing.JLabel();
         lblLiberaRefeicao = new javax.swing.JLabel();
+        lblPreparar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -111,11 +120,11 @@ public class TelaConzinha extends javax.swing.JFrame {
         painelEsquerdoLayout.setHorizontalGroup(
             painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
             .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                .addGap(86, 86, 86)
+                .addGap(80, 80, 80)
                 .addComponent(txtidProdutoCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelEsquerdoLayout.setVerticalGroup(
             painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,9 +133,9 @@ public class TelaConzinha extends javax.swing.JFrame {
                 .addComponent(lblLogo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(182, 182, 182)
+                .addGap(18, 18, 18)
                 .addComponent(txtidProdutoCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(259, Short.MAX_VALUE))
+                .addContainerGap(423, Short.MAX_VALUE))
         );
 
         getContentPane().add(painelEsquerdo);
@@ -134,23 +143,23 @@ public class TelaConzinha extends javax.swing.JFrame {
 
         paineldireito.setLayout(null);
 
-        tblCozinha.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        tblCozinha.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         tblCozinha.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "SEQ", "PRATO", "QTD", "GARÇOM", "N. MESA", "COZINHEIRO", "SOLICITADO", "T. ESPERA", "STATUS"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -162,7 +171,7 @@ public class TelaConzinha extends javax.swing.JFrame {
             }
         });
         tblCozinha.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tblCozinha.setRowHeight(30);
+        tblCozinha.setRowHeight(25);
         tblCozinha.setSelectionBackground(new java.awt.Color(255, 255, 102));
         tblCozinha.setSelectionForeground(new java.awt.Color(51, 51, 51));
         tblCozinha.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -228,7 +237,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         jPanel1.setBounds(970, 0, 40, 40);
 
         lblREmovePrato.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        lblREmovePrato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fechar.png"))); // NOI18N
+        lblREmovePrato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fechar48x48.png"))); // NOI18N
         lblREmovePrato.setText("Remover Prato");
         lblREmovePrato.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -236,7 +245,7 @@ public class TelaConzinha extends javax.swing.JFrame {
             }
         });
         paineldireito.add(lblREmovePrato);
-        lblREmovePrato.setBounds(450, 610, 160, 70);
+        lblREmovePrato.setBounds(480, 610, 160, 70);
 
         lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario24x24.png"))); // NOI18N
         lblData.setText("jLabel10");
@@ -259,7 +268,7 @@ public class TelaConzinha extends javax.swing.JFrame {
             }
         });
         paineldireito.add(lblSair);
-        lblSair.setBounds(600, 610, 141, 70);
+        lblSair.setBounds(620, 610, 141, 70);
 
         lblLiberaRefeicao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblLiberaRefeicao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCozinha.png"))); // NOI18N
@@ -270,7 +279,18 @@ public class TelaConzinha extends javax.swing.JFrame {
             }
         });
         paineldireito.add(lblLiberaRefeicao);
-        lblLiberaRefeicao.setBounds(270, 610, 129, 70);
+        lblLiberaRefeicao.setBounds(320, 610, 160, 70);
+
+        lblPreparar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblPreparar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/preparar32x32.png"))); // NOI18N
+        lblPreparar.setText("Iniciar Preparo");
+        lblPreparar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPrepararMouseClicked(evt);
+            }
+        });
+        paineldireito.add(lblPreparar);
+        lblPreparar.setBounds(160, 610, 140, 70);
 
         getContentPane().add(paineldireito);
         paineldireito.setBounds(300, 0, 1010, 690);
@@ -304,11 +324,25 @@ public class TelaConzinha extends javax.swing.JFrame {
 
     private void tblCozinhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCozinhaMouseClicked
         int linha = tblCozinha.getSelectedRow();
-        if ("Gerente".equals(lblCargo.getText())) {
-            bloqueiaBotoes(true);
-        }else {
-            lblLiberaRefeicao.setEnabled(true);
+        // Captura o Status do prato
+        String status = tblCozinha.getModel().getValueAt(linha, 8).toString();
+        switch (status) {
+
+            case "Em preparação":
+                lblLiberaRefeicao.setEnabled(true);
+                lblPreparar.setEnabled(false);
+                break;
+            case "Pendente":
+                lblPreparar.setEnabled(true);
+                break;
         }
+        if ("Gerente".equals(lblCargo.getText())) {
+            lblREmovePrato.setEnabled(true);
+
+        } else {
+            lblREmovePrato.setEnabled(false);
+        }
+
         // Captura o Id do prato
         txtidProdutoCozinha.setText(tblCozinha.getModel().getValueAt(linha, 0).toString());
 
@@ -318,9 +352,9 @@ public class TelaConzinha extends javax.swing.JFrame {
     private void lblLiberaRefeicaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLiberaRefeicaoMouseClicked
         // Libera produto refeição  da cozinha
         if (lblLiberaRefeicao.isEnabled()) {
-            int op = JOptionPane.showConfirmDialog(null, "Deseja realmente liberar o prato selecionado?","Atenção!",JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE);
-            if (op==JOptionPane.YES_OPTION){
-                
+            int op = JOptionPane.showConfirmDialog(null, "Deseja realmente liberar o prato selecionado?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            if (op == JOptionPane.YES_OPTION) {
+
                 if (cc.liberaProduto(txtidProdutoCozinha.getText())) {
                     JOptionPane.showMessageDialog(null, "Prato librado com sucesso!");
                     Log l = new Log();
@@ -370,13 +404,55 @@ public class TelaConzinha extends javax.swing.JFrame {
 
                 }
 
-            } else {
-                // Desabilita o botão remove prato para o usuários com cargo diferente de gerente.
-                lblREmovePrato.setEnabled(false);
             }
         }
 
     }//GEN-LAST:event_lblREmovePratoMouseClicked
+
+    private void lblPrepararMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrepararMouseClicked
+        if (lblPreparar.isEnabled()) {
+
+            // Registra Preparação do Prato
+            Funcionario f = new Funcionario();
+            String idProdutoCozinha = null;
+            String codUsuario = null;
+            // Localiza o usuário pelo codigo informado
+            codUsuario = JOptionPane.showInputDialog(null,"Informe o código do Cozinheiro:");
+            f = cf.localizaFuncionario(codUsuario);
+            
+            while (codUsuario.equals("")||!"Cozinheiro".equals(f.getCargo())|| f.getNome() == null) {         
+                codUsuario = JOptionPane.showInputDialog("Por favor, informe um código Válido!");
+                System.out.println("id do prato cozinha "+idProdutoCozinha);
+            }
+                int linha = tblCozinha.getSelectedRow();
+                idProdutoCozinha = tblCozinha.getModel().getValueAt(linha, 0).toString();
+
+            if ("Cozinheiro".equals(f.getCargo())) {
+                // Registra a solicitação do preparo 
+                cc.registraPreparo(idProdutoCozinha, f.getNome());
+                // Atualiza Tabela
+                 tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
+                // Possibilita a impressao de 'Solicitacao de Prato' atraves do perfil 'Gerente' (APENAS)
+                // Verifica se o usuário logado é o Gerente
+                if ("Gerente".equals(lblCargo.getText())) {
+                    int op = JOptionPane.showConfirmDialog(null, "Contingência! Deseja imprimir essa Solicitação?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+
+                    if (op == JOptionPane.YES_OPTION) {
+                        ReportUtil rpu = new ReportUtil();
+                        HashMap parametro = new HashMap();
+                        parametro.put("id", idProdutoCozinha);
+                        try {
+                            rpu.imprimiRelatorioTela("contigencia.jasper", parametro);
+                        } catch (JRException e) {
+                            System.out.println("br.com.bar.view.TelaConzinha.lblPrepararMouseClicked()"+e);
+                            JOptionPane.showMessageDialog(null, "Erro ao tentar imprimir Solicitação - contate o SUPORTE!");
+                        }
+                    }
+                }
+            }
+        }
+
+    }//GEN-LAST:event_lblPrepararMouseClicked
 
     /**
      * @param args the command line arguments
@@ -425,6 +501,7 @@ public class TelaConzinha extends javax.swing.JFrame {
     private javax.swing.JLabel lblLiberaRefeicao;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblOperador;
+    private javax.swing.JLabel lblPreparar;
     private javax.swing.JLabel lblREmovePrato;
     private javax.swing.JLabel lblSair;
     private javax.swing.JPanel painelEsquerdo;
@@ -433,14 +510,11 @@ public class TelaConzinha extends javax.swing.JFrame {
     private javax.swing.JTextField txtidProdutoCozinha;
     // End of variables declaration//GEN-END:variables
 
-    private void bloqueiaBotoes(boolean b) {
-        if ("Gerente".equals(lblCargo.getText())) {
-            lblLiberaRefeicao.setEnabled(b);
-            lblREmovePrato.setEnabled(b);
-        } else {
-            lblLiberaRefeicao.setEnabled(b);
-            lblREmovePrato.setEnabled(b);
-        }
+    private void desabilitaTodosBtns() {
+        lblLiberaRefeicao.setEnabled(false);
+        lblREmovePrato.setEnabled(false);
+        lblPreparar.setEnabled(false);
 
     }
+
 }

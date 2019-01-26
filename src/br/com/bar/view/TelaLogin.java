@@ -74,7 +74,7 @@ public class TelaLogin extends javax.swing.JFrame {
         // Descriptogafa a chave informada no cadastro empresa
         String chave = criptoGrafa.decripta(dados.getLicenca());
         long dias = u.retornaTotalDeDias(chave);
-        
+
         if (dias > 10) {
             if (conexao != null) {
                 // Retorna os dados da empresa
@@ -86,18 +86,18 @@ public class TelaLogin extends javax.swing.JFrame {
                 // Caso a conexão retorne null chama da tela de parâmetro
                 TelaPametro param = new TelaPametro();
                 // Fica a janela ja frente da sdemais
-                param.setAlwaysOnTop(true); 
+                param.setAlwaysOnTop(true);
                 // Exibe Tela de Parâmetro 
                 param.setVisible(true);
             }
 
         } else if (dias > 0 && dias <= 10) {
-             // Chma o gerenciador de licença e permite o login
+            // Chma o gerenciador de licença e permite o login
             DadosEmpresa dadosEmpresa = d.selecionaDados();
             lblLicenca.setText("Copyright Todos os Direitos reservados para");
             lbllicenca2.setText(dadosEmpresa.getNome_empresa());
             lblCnpjEmpresa.setText(dadosEmpresa.getCnpj());
-           
+
             TelaGerenciadorDeLicenca g = new TelaGerenciadorDeLicenca();
             g.recebeDias(dias, "Sua licença expira em " + String.valueOf(dias) + " dias!");
             g.setAlwaysOnTop(true);
@@ -187,7 +187,7 @@ public class TelaLogin extends javax.swing.JFrame {
         lblCnpjEmpresa.setBounds(20, 270, 260, 14);
 
         lblVersao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersao1.setText("Versão 1.9.3");
+        lblVersao1.setText("Versão 1.9.5");
         jPanel1.add(lblVersao1);
         lblVersao1.setBounds(60, 290, 170, 20);
 
@@ -382,10 +382,11 @@ public class TelaLogin extends javax.swing.JFrame {
                         estoque.setVisible(true);
                         this.dispose();
                         break;
-                    case "Garçom": // Vai para tela Estoque
-                        TelaPedido pedido = new TelaPedido();
-                        pedido.recebeOperador(autentica.enviaOperador(), autentica.enviarCargo());
-                        pedido.setVisible(true);
+                    case "Garçom": // Vai para tela de garçom
+                        // Chama a tela Pedido 2
+                        TelaPedido2 pedido2 = new TelaPedido2();
+                        pedido2.recebeOperador(autentica.enviaOperador(), autentica.enviarCargo());
+                        pedido2.setVisible(true);
                         this.dispose();
                         break;
                     case "Caixa": // Vai para tela Estoque

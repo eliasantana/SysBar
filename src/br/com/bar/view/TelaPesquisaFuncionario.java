@@ -9,6 +9,7 @@ import br.com.bar.dao.Log;
 import br.com.bar.model.Funcionario;
 import br.com.br.controler.ControlerFuncionario;
 import java.awt.event.KeyEvent;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
@@ -16,7 +17,7 @@ import net.proteanit.sql.DbUtils;
  *
  * @author Elias Santana
  */
-public class TelaPesquisaFuncionario extends javax.swing.JFrame {
+public class TelaPesquisaFuncionario extends JDialog {
 
     ControlerFuncionario cf = new ControlerFuncionario();
     Log l = new Log();
@@ -24,7 +25,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
     public TelaPesquisaFuncionario() {
         initComponents();
         bloqueiaBotoes();
-        
+        this.setModal(true);
         //Matem a tela de pesquisa a frente da janela anterior.
 
     }
@@ -239,6 +240,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         // Chama o cadastro de Funcionários
         TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
         tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Adicionar");
+       
         tcf.setVisible(true);
         
 

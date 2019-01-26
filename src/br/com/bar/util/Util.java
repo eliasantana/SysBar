@@ -16,6 +16,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -151,11 +153,11 @@ public class Util {
         // Verifica opção de formatação e aplica o patern
         switch (opcao) {
 
-            case "d":
+            case "d": // Formada data no formato do bando de dados Mysql
                 SimpleDateFormat df = new SimpleDateFormat(paternMySql);
                 d = df.format(data);
                 break;
-            case "h":
+            case "h":// Formada hora no formato do bando de dados Mysql
                 SimpleDateFormat dfh = new SimpleDateFormat(paternHora);
                 d = dfh.format(data);
                 break;
@@ -312,5 +314,18 @@ public class Util {
     public static String imprimeCPF(String CPF) {
         return (CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "."
                 + CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
+    }
+    
+    public boolean validaEmail(String email){
+         boolean isEmailIdValid = false;
+        if (email != null && email.length() > 0) {
+            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(email);
+            if (matcher.matches()) {
+                isEmailIdValid = true;
+            }
+        }
+        return isEmailIdValid;
     }
 }
