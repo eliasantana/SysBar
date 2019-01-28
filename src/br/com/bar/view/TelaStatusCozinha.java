@@ -5,6 +5,7 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.model.TableModelStatusCozinha;
 import br.com.br.controler.ControlerCozinha;
 import net.proteanit.sql.DbUtils;
 
@@ -13,10 +14,8 @@ import net.proteanit.sql.DbUtils;
  * @author elias
  */
 public class TelaStatusCozinha extends javax.swing.JFrame {
-
-    /**
-     * Creates new form TelaStatusCozinha
-     */
+    TableModelStatusCozinha modelStatusCozinha = new TableModelStatusCozinha();
+    
     public TelaStatusCozinha() {
         initComponents();
          //Lista pratos enviados pelo garçom que estão com status pendente
@@ -28,7 +27,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         lblGarcom.setText("Garçom: "+operador);
         ControlerCozinha status = new ControlerCozinha();
         tblStatus.setModel(DbUtils.resultSetToTableModel(status.statusCozinha(operador)));
-        
+         modelStatusCozinha.redimensionaColunas(tblStatus);
     }
 
     /**
@@ -144,10 +143,9 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         lblGarcom.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         lblGarcom.setText("jLabel2");
         getContentPane().add(lblGarcom);
-        lblGarcom.setBounds(10, 120, 230, 40);
+        lblGarcom.setBounds(10, 120, 430, 40);
 
-        setSize(new java.awt.Dimension(522, 333));
-        setLocationRelativeTo(null);
+        setBounds(0, 0, 518, 333);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFecharMouseClicked

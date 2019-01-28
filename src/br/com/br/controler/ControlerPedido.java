@@ -43,7 +43,7 @@ public class ControlerPedido {
             data = df.format(dataAtual.getTime());
 
         } catch (Exception e) {
-            System.out.println("br.com.br.controler.ControlerPedido.myDataAtual()"+e);
+            System.out.println("br.com.br.controler.ControlerPedido.myDataAtual()" + e);
         }
         return data;
     }
@@ -64,7 +64,7 @@ public class ControlerPedido {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerPedido.geraPedido()"+e);
+            System.out.println("br.com.br.controler.ControlerPedido.geraPedido()" + e);
         }
         return false;
     }
@@ -85,11 +85,12 @@ public class ControlerPedido {
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerPedido.listaPedidos()"+e);
+            System.out.println("br.com.br.controler.ControlerPedido.listaPedidos()" + e);
         }
         return rs;
     }
-/*
+
+    /*
     public ResultSet listaPedidos() {
 
         String sql = "SELECT \n"
@@ -114,22 +115,24 @@ public class ControlerPedido {
 
     public ResultSet listaPedidos() {
 
-        String sql = "SELECT \n"
-                + "m.numero_mesa AS 'N. MESA',\n"
-                + "p.id_pedido as 'N. PEDIDO',\n"
-                + "date_format(p.data,'%d/%m/%Y') AS 'DATA', \n"
-                 +"p.status as 'STATUS', \n"
-                + "g.nome as 'GARÇOM' \n"
+        String sql = "SELECT\n"
+                + "	m.numero_mesa AS 'N. MESA',\n"
+                + "	p.id_pedido as 'N. PEDIDO',\n"
+                + "	date_format(p.data,'%d/%m/%Y') AS 'DATA',\n"
+                + "	CASE WHEN p.status=0 THEN 'Aberto'\n"
+                + "	ELSE p.status \n"
+                + "	END as 'STATUS', \n"
+                + "	g.nome as 'GARÇOM' \n"
                 + "FROM cadpedido p \n"
-                + "INNER JOIN cadmesa m on m.id=p.cadmesa_id \n"
-                + "INNER JOIN tbcadfuncionario g on g.id = p.tbcadfuncionario_id\n"
-                + "WHERE p.status=0;";
+                + "	INNER JOIN cadmesa m on m.id=p.cadmesa_id \n"
+                + "	INNER JOIN tbcadfuncionario g on g.id = p.tbcadfuncionario_id\n"
+                + "WHERE p.status=0;	";
         try {
             pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerPedido.listaPedidos()"+e);
+            System.out.println("br.com.br.controler.ControlerPedido.listaPedidos()" + e);
         }
         return rs;
     }
@@ -137,7 +140,7 @@ public class ControlerPedido {
 
     public ResultSet detalhePorPedido(String numeroMesa, String numeroPedido) {
 
-        String sql = "SELECT "                
+        String sql = "SELECT "
                 + "      dbbar.detalhe_mesa.tbproduto_id AS 'CÓDIGO',\n"
                 + "dbbar.tbproduto.nome AS 'PRODUTO',\n"
                 + "      dbbar.detalhe_mesa.qtd AS 'QUANTIDADE',\n"
@@ -157,7 +160,7 @@ public class ControlerPedido {
             rs = pst.executeQuery();
 
         } catch (SQLException ex) {
-            System.out.println("br.com.br.controler.ControlerPedido.detalhePorPedido()"+ex);
+            System.out.println("br.com.br.controler.ControlerPedido.detalhePorPedido()" + ex);
 
         }
         return rs;
@@ -185,7 +188,7 @@ public class ControlerPedido {
             rs = pst.executeQuery();
 
         } catch (SQLException ex) {
-            System.out.println("br.com.br.controler.ControlerPedido.detalhePorPedidoId()"+ex);
+            System.out.println("br.com.br.controler.ControlerPedido.detalhePorPedidoId()" + ex);
 
         }
         return rs;
@@ -215,7 +218,7 @@ public class ControlerPedido {
             rs = pst.executeQuery();
 
         } catch (SQLException ex) {
-            System.out.println("br.com.br.controler.ControlerPedido.detalhePedido()"+ex);
+            System.out.println("br.com.br.controler.ControlerPedido.detalhePedido()" + ex);
 
         }
         return rs;
@@ -235,7 +238,7 @@ public class ControlerPedido {
             }
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerPedido.temPedido()" +e);
+            System.out.println("br.com.br.controler.ControlerPedido.temPedido()" + e);
         }
         return false;
     }
@@ -260,7 +263,7 @@ public class ControlerPedido {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerPedido.fechaPedido()"+e);
+            System.out.println("br.com.br.controler.ControlerPedido.fechaPedido()" + e);
         }
         return false;
     }
@@ -283,7 +286,7 @@ public class ControlerPedido {
             }
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerPedido.LocalizaIdPedido()"+e);
+            System.out.println("br.com.br.controler.ControlerPedido.LocalizaIdPedido()" + e);
         }
 
         return idPedido;
@@ -298,7 +301,7 @@ public class ControlerPedido {
 
     // Envia um produto para a cozinha
     public boolean enviaProdutoCozinha(ArrayList<String> produtoCozinha) {
-        boolean resp=false;
+        boolean resp = false;
         String sql = "INSERT INTO tbcozinha (codProduto, produto, qtd, funcionario, mesa, data, status, npedido,hora_solicitacao) VALUES (?,?,?,?,?,?,?,?,?)";
 
         try {
@@ -315,13 +318,12 @@ public class ControlerPedido {
             pst.setString(9, produtoCozinha.get(8));
 
             pst.executeUpdate();
-            resp=true;
+            resp = true;
             JOptionPane.showMessageDialog(null, "Solicitação de prato enviada com sucesso!");
-            
 
         } catch (HeadlessException | SQLException e) {
 
-            System.out.println("br.com.br.controler.ControlerPedido.enviaProdutoCozinha()" +e);
+            System.out.println("br.com.br.controler.ControlerPedido.enviaProdutoCozinha()" + e);
         }
         return resp;
     }
@@ -366,21 +368,22 @@ public class ControlerPedido {
 
         return autenticacao;
     }
+
     // Cancela o pedido informado no parâmetro
-    public boolean cancelaPedido(int numeroPedido){
-        
-        String sql="DELETE FROM cadpedido WHERE id_pedido=?";
-        boolean resp=false;
+    public boolean cancelaPedido(int numeroPedido) {
+
+        String sql = "DELETE FROM cadpedido WHERE id_pedido=?";
+        boolean resp = false;
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setInt(1, numeroPedido);
             pst.executeUpdate();
-            resp=true;
+            resp = true;
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerPedido.cancelaPedido()"+e);
+            System.out.println("br.com.br.controler.ControlerPedido.cancelaPedido()" + e);
         }
-        
-        return  resp;
+
+        return resp;
     }
 
 }

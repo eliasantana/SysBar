@@ -6,6 +6,7 @@
 package br.com.br.controler;
 
 import br.com.bar.dao.ConexaoBd;
+import br.com.bar.model.TableModelCozinha;
 import br.com.bar.util.Util;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -26,9 +28,44 @@ public class ControlerCozinha {
     PreparedStatement pst = null;
     ResultSet rs = null;
     Util u = new Util();
-
+    TableModelCozinha modelTelaCozinha = new TableModelCozinha();
     // Lista pratos enviados para cozinha
     // Adicionado na versão
+    /*
+    public ResultSet listaProdutosCozinha() {
+        /* ******* ATENCAO ********
+        ANALISAR SE O TIME ZONE PERMANCERA COM -03H00 RELACIONADAS A HORA ATUAL 
+        SENDO NECESSARIO ALTERAR A INSTRUCAO ABAIXO:
+        >> TIME_FORMAT(TIME(DATE_ADD(curtime(), INTERVAL +3 HOUR)),'%T')
+        
+        String sql = "SELECT \n"
+                + "	 id AS 'SEQ',\n"
+                + "	 produto AS 'PRATO',\n"
+                + "	 qtd AS 'QTD',\n"
+                + "	 funcionario AS 'GARÇOM',\n"
+                + "	 mesa AS 'N. MESA',\n"
+                + "     CASE \n"
+                + "       WHEN cozinheiro IS NULL THEN 'Não informado'\n"
+                + "	   ELSE cozinheiro\n"
+                + "	 END AS 'COZINHEIRO',\n"
+                + "     TIME_FORMAT(hora_solicitacao,'%T') AS 'SOLICITADO',\n"
+                + "     TIMEDIFF(TIME_FORMAT(TIME(DATE_ADD(curtime(), INTERVAL +3 HOUR)),'%T'), "
+                + "     TIME_FORMAT(hora_solicitacao,'%T')) AS 'T. ESPERA',\n"
+                + "     status AS 'STATUS'\n"
+                + "\n"
+                + "  FROM dbbar.tbcozinha \n"
+                + " WHERE status IN ('Pendente', 'Em preparação');";
+        
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCozinha.listaProdutosCozinha()"+e);
+        }
+
+        return rs;
+    }*/
     public ResultSet listaProdutosCozinha() {
         /* ******* ATENCAO ********
         ANALISAR SE O TIME ZONE PERMANCERA COM -03H00 RELACIONADAS A HORA ATUAL 
@@ -56,13 +93,14 @@ public class ControlerCozinha {
         try {
             pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery();
-
+            
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerCozinha.listaProdutosCozinha()"+e);
         }
 
         return rs;
     }
+    
 
     public ArrayList estatisticas(ResultSet rs) {
         int pendente = 0;
@@ -91,14 +129,16 @@ public class ControlerCozinha {
         return resultado;
     }
 
-    public boolean liberaProduto(String id) {
+    public boolean liberaProduto(String id, String tempoPreparacao) {
 
-        String sql = "UPDATE tbcozinha SET status='Liberado' WHERE id=?";
+        String sql = "UPDATE tbcozinha SET status='Liberado', tempo_preparacao=? WHERE id=?";
 
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, id);
+            pst.setString(1, tempoPreparacao);
+            pst.setString(2, id);
             pst.executeUpdate();
+            
             return true;
 
         } catch (SQLException e) {
@@ -199,6 +239,36 @@ public class ControlerCozinha {
 
         }
     }
-    
-   
+    /*Excluir caso não seja possível identificar  o prato na cozinha
+    // Verifica se o produto a ser enviado para a cozinha já existe na tabela
+    public boolean temTrodutoNaCozinha(String idProduto, String nPedido){
+       boolean resp=false;
+       String sql="SELECT codProduto,produto,npedido,status FROM tbcozinha WHERE  codproduto=? and npedido=?  "
+               + "and status in('Pendente','Em preparação');";
+        ArrayList<String> listaCozinha = new ArrayList<>();
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, idProduto);
+            pst.setString(2, nPedido);
+            rs=pst.executeQuery();
+            String msg = null;
+            String  msgExibicao = null;   
+            
+            while (rs.next()){
+                msg = rs.getString("codProduto")+ " " +rs.getString("Produto")+" "+rs.getString("Produto")+"\n";
+                msgExibicao = msgExibicao+msg;
+                System.out.println("Msg"+msgExibicao);
+                resp=true;
+            }
+            if ("".equals(msgExibicao)){
+                
+            JOptionPane.showMessageDialog(null, msgExibicao);
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerProduto.temTrodutoNaCozinha()"+e);
+        }
+        
+        return resp;
+    }
+   */
 }

@@ -81,7 +81,7 @@ public class ControlerProduto {
         String sql = "SELECT \n"
                 + "	p.id as 'CÓDIGO', \n"
                 + "	p.nome as 'DESCRIÇÃO',\n"
-                + "	p.qtd as 'QTD. EM ESTOQUE', \n"
+                + "	p.qtd as 'ESTOQUE', \n"
                 + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"
                 + "	g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
@@ -283,7 +283,7 @@ public class ControlerProduto {
         return p;
     }
     // Retorna o grupo do produto informado no parâmetro
-    public String localizaProduto(int id) {
+    public String localizaGrupoProduto(int id) {
 
         String sql = "SELECT g.nome as 'grupo' FROM dbbar.tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g on g.id = p.cad_grupo_produto_id\n"
@@ -452,4 +452,5 @@ public class ControlerProduto {
         }
         return resp;
     }
+    
 }
