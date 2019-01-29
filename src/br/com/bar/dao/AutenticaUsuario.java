@@ -41,8 +41,8 @@ public class AutenticaUsuario {
             rs = pst.executeQuery();
             // Localiza dados do usuário 
             while (rs.next()) {
-                usuarioLogin = rs.getString("login");
-                usuarioSenha = rs.getString("senha");
+                usuarioLogin = rs.getString("login").toLowerCase();
+                usuarioSenha = rs.getString("senha").toLowerCase();
                 usuarioCargo = rs.getString("cargo");
                 usuarioStatus = rs.getString("status");
                 usuarioBloqueio = rs.getString("bloqueado");

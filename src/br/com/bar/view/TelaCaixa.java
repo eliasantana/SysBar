@@ -936,14 +936,14 @@ public class TelaCaixa extends javax.swing.JFrame {
             if (op == JOptionPane.YES_OPTION) {  // Se confirmado fecha o pedido
 
                 if (checkCartao.isSelected() || checkDinheiro.isSelected()) {
-                    // PEga a data Atual
+                    // Pega a data Atual
                     String dtAtual = utils.formataDataBr(data).replaceAll("/", "");
                     // Pega a hora atual
                     String horaAtual = utils.formataDataHora(data, "h");
                     //Gera Autenticacao
                     String autentica = cp.autentica(func.localizaId(lblGarcom.getText()), comboMesa.getSelectedItem().toString(), txtIdPedido.getText(), dtAtual + "." + horaAtual);
                     p.setAutenticacao(autentica);
-
+                    // Fecha o pedido após o recebimento
                     cp.fechaPedido(p);
                     //******************** Registra desconto se o valor for > 0************************
 
@@ -952,7 +952,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                     l.setDescricao(l.getUsuario() + " Recebeu R$ " + p.getTotalPago() + " Pedido: " + txtIdPedido.getText() + " Comissão:" + p.getComissao());
                     l.gravaLog(l);
 
-                    //
+                    // Libera a mesa após o pagamento
                     cm.trocaStatusMesa(comboMesa.getSelectedItem().toString(), "0");
                     JOptionPane.showMessageDialog(null, "Pedido fechado com sucesso!");
                     //tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePedido(comboMesa.getSelectedItem().toString())));
@@ -966,7 +966,8 @@ public class TelaCaixa extends javax.swing.JFrame {
                     dados.put("garcom", lblGarcom.getText());
                     dados.put("titulo", "COMPROVANTE DE PAGAMENTO");
                     dados.put("tx", Double.parseDouble(percent.getText().replaceAll(",", ".")));
-                    dados.put("id_pedido", p.getId());
+                    dados.put("id_pedido", p.getId());   
+                    System.out.println(p.getId());
                     dados.put("npessoas", nPesoas);
                     dados.put("total_pessoas", totalPessoas);
                     DadosEmpresa dadosEmpresa = de.selecionaDados();

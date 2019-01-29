@@ -65,7 +65,7 @@ public class Backup {
                     // Captura a data e a hora        
                     System.out.println("Preparando o arquivo!...");
                     String formatoData = "ddMMyyy";
-                    String formatoHora = "hhmmss";
+                    String formatoHora = "HHmmss";
                     Date data = new Date();
                     SimpleDateFormat df = new SimpleDateFormat(formatoData);
                     SimpleDateFormat hf = new SimpleDateFormat(formatoHora);

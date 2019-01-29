@@ -8,6 +8,7 @@ package br.com.bar.view;
 import br.com.bar.dao.Log;
 import br.com.bar.model.Funcionario;
 import br.com.bar.model.Mesa;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerMesa;
 import java.awt.HeadlessException;
@@ -29,7 +30,8 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     Mesa m = new Mesa();
     ControlerMesa cm = new ControlerMesa();
     ControlerFuncionario f = new ControlerFuncionario();
-
+    Util u = new Util();
+    
     Log log = new Log();
 
     boolean filtro = false; // Filtro de listagem de mesa false -> Apenas mesas do garçom selecionado  true -> Todas as mesas
@@ -53,6 +55,8 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         try {
             
         tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
+        int colunas[] = {1,2,3};
+        u.redimensionaColunas(tblMesas,colunas);
         } catch (Exception e) {
             System.out.println("br.com.bar.view.TelaCadastroDeMesas.<init>()"+e);
         }

@@ -860,86 +860,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Verifica se a tecla pressionada é a tecla enter
            
         if (evt.getKeyCode() == KeyEvent.VK_ENTER ) { 
-            adicionaItemNoPedido();/*
-            try {
-                // Caso a quantidade não seja informada pede ao usuário que digite novamente!
-                if (txtQtd.getText().isEmpty()) {
-                    lblMensagem.setText("Quantidade inválida!");
-                    lblMensagem.setForeground(Color.red);
-                    txtQtd.requestFocus();
-
-                } else {
-                    Double calculoPedido = calculaPedido();
-                    txtValorTotal.setText(String.format("%9.2f", calculoPedido));
-                    lblMensagem.setText(null);
-
-                    // Verifica se o pedido foi selecionado
-                    if (txtNumeroPedido.getText().isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "Por favor, selecione um pedido!");
-                    } else {
-                        // Confirma pedido
-                        int op = JOptionPane.showConfirmDialog(null, "Confirma a inclusão do produto '" + txtDescricao.getText() + "'?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-
-                        if (op == JOptionPane.YES_OPTION) {
-                            // Instancia um objeto Produto Pedido
-                            ProdutoPedido pp = new ProdutoPedido();
-                            // Seta dados no objeto
-                            pp.setTbproduto_id(txtCodigoProduto.getText());
-                            pp.setQtd(txtQtd.getText());
-                            pp.setValorUnit(txtValorUnit.getText().replaceAll(",", "."));
-                            pp.setTotal(txtValorTotal.getText().replaceAll(",", "."));
-                            pp.setData(cp.myDataAtual());
-                            pp.setCadmesa_id(txtIdMesa.getText());
-                            pp.setCadpedido_id_pedido(txtNumeroPedido.getText());
-                            pp.setTbcadfuncionario_id(txtIdGarcom.getText());
-
-                            ControlerEstoque ec = new ControlerEstoque();
-                            int qtdEstoque = ec.temNoEstoque(pp.getTbproduto_id());
-
-                            System.out.println("Qtd: " + qtdEstoque);
-
-                            if (Integer.parseInt(pp.getQtd()) <= qtdEstoque) {
-                                // Adiciona o produto ao pedido                 
-                                cproduto.adicionaProdutoAoPedido(pp);
-
-                                // Retira o produto do estoque                 
-                                ec.retiraEstoque(pp, pp.getQtd());
-
-                                // Registra movimentação 
-                                if (est.registraMovimentacao(pp.getTbproduto_id(), pp.getQtd(), est.localizaIdOperacao("Venda"), null)) {
-                                    System.out.println("Movimentação registrada!");
-                                }
-                                // Limpa label de mensagem de produto indisponível 
-                                lblMensagem.setText(null);
-                                limpaform();
-                                bloqueiaCampos();
-
-                            } else {
-                                // Exibe mensagem de produto indisponpivel no momento
-                                lblMensagem.setForeground(Color.red);
-                                lblMensagem.setText(txtDescricao.getText() + " com quantidade insuficiente " + "existem em estoque apenas " + qtdEstoque + " unidades");
-                                txtCodigoProduto.requestFocus();
-                                txtCodigoProduto.setText(null);
-                                txtQtd.setText(null);
-
-                            }
-                            //Atualiza a tabela de detalhe do pedido    
-                            tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(txtIdMesa.getText(), txtNumeroPedido.getText())));
-                            // Atualiza os produtos disponível no Estoque
-                            tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
-                        }
-
-                    }
-                }
-            } catch (HeadlessException | NumberFormatException e) {
-                System.out.println(txtQtd);
-                System.out.println("br.com.bar.view.TelaPedido2.txtQtdKeyPressed()" + e);
-                lblMensagem.setText("Quantidade inválida, tente novamente!");
-                lblMensagem.setOpaque(false);
-                lblMensagem.setForeground(Color.red);
-                txtQtd.requestFocus();
-            }
-*/
+            adicionaItemNoPedido();
+         
         }
     }//GEN-LAST:event_txtQtdKeyPressed
 
@@ -1219,6 +1141,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                             tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(txtIdMesa.getText(), txtNumeroPedido.getText())));
                             // Atualiza os produtos disponível no Estoque
                             tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
+                            modelProduroEstoque.redimensionaColunas(tblListaProduto);
                         }
 
                     }

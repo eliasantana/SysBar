@@ -330,4 +330,18 @@ public class Util {
         return isEmailIdValid;
     }
     
+    public void redimensionaColunas(JTable tabela,int[]colunas) {
+        /*
+        tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(70);
+        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(230);
+        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(42);
+        tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(60);
+        tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(90);
+        adicionaCoresTabela(tabela);*/
+        
+        System.out.println(colunas.length);
+        
+
+    }
 }

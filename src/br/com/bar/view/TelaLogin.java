@@ -187,7 +187,7 @@ public class TelaLogin extends javax.swing.JFrame {
         lblCnpjEmpresa.setBounds(20, 270, 260, 14);
 
         lblVersao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersao1.setText("Versão 1.9.5");
+        lblVersao1.setText("Versão 1.9.6");
         jPanel1.add(lblVersao1);
         lblVersao1.setBounds(60, 290, 170, 20);
 
@@ -341,7 +341,7 @@ public class TelaLogin extends javax.swing.JFrame {
         ControlerFuncionario cf = new ControlerFuncionario();
         AutenticaUsuario autentica = new AutenticaUsuario();
 
-        if (autentica.autentica(txtLogin.getText().toLowerCase(), txtSenha.getText())) {
+        if (autentica.autentica(txtLogin.getText().toLowerCase(), txtSenha.getText().toLowerCase())) {
 
             String cargo = autentica.enviarCargo();
             String bloqueio = autentica.getBloqueio();

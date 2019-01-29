@@ -242,9 +242,10 @@ public class ControlerPedido {
         }
         return false;
     }
-
+    // Fecha o pedido armazenando informações do pagamento, da mesa e do pedido,
+    // atualizando a data do pedido para a data atual do recebimento
     public boolean fechaPedido(Pedido p) {
-        String sql = "UPDATE cadpedido SET status=?, total=?, comissao=?, formaPagto=?,operador=?, autenticacao=? WHERE cadmesa_id=? AND id_pedido=?";
+        String sql = "UPDATE cadpedido SET status=?, total=?, comissao=?, formaPagto=?,operador=?, autenticacao=?, data=curdate() WHERE cadmesa_id=? AND id_pedido=?";
 
         try {
             pst = conexao.prepareStatement(sql);
