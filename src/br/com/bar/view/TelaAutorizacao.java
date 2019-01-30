@@ -260,7 +260,8 @@ public class TelaAutorizacao extends JDialog {
                
 
                 cx.recebeDadosComDesconto(listaDeSValores);
-
+                //cx.setAlwaysOnTop(rootPaneCheckingEnabled);
+                cx.setModal(true);
                 cx.setVisible(true);
                 this.dispose();
             } else {

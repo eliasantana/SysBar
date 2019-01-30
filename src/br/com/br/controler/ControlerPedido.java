@@ -68,7 +68,7 @@ public class ControlerPedido {
         }
         return false;
     }
-
+/*
     public ResultSet listaPedidos(String idFuncionario) {
 
         String sql = "SELECT \n"
@@ -89,30 +89,7 @@ public class ControlerPedido {
         }
         return rs;
     }
-
-    /*
-    public ResultSet listaPedidos() {
-
-        String sql = "SELECT \n"
-                + "m.numero_mesa AS 'N. MESA',\n"
-                + "date_format(p.data,'%d/%m/%Y') AS 'DATA', \n"
-                 +"p.status as 'STATUS', \n"
-                + "p.id_pedido as 'N. PEDIDO',\n"
-                + "g.nome as 'GARÇOM' \n"
-                + "FROM cadpedido p \n"
-                + "INNER JOIN cadmesa m on m.id=p.cadmesa_id \n"
-                + "INNER JOIN tbcadfuncionario g on g.id = p.tbcadfuncionario_id\n"
-                + "WHERE p.status=0;";
-        try {
-            pst = conexao.prepareStatement(sql);
-            rs = pst.executeQuery();
-
-        } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerPedido.listaPedidos()"+e);
-        }
-        return rs;
-    }*/
-
+ */
     public ResultSet listaPedidos() {
 
         String sql = "SELECT\n"
@@ -129,6 +106,30 @@ public class ControlerPedido {
                 + "WHERE p.status=0;	";
         try {
             pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.listaPedidos()" + e);
+        }
+        return rs;
+    }
+    public ResultSet listaPedidos(String idFuncionario) {
+
+        String sql = "SELECT\n"
+                + "	m.numero_mesa AS 'N. MESA',\n"
+                + "	p.id_pedido as 'N. PEDIDO',\n"
+                + "	date_format(p.data,'%d/%m/%Y') AS 'DATA',\n"
+                + "	CASE WHEN p.status=0 THEN 'Aberto'\n"
+                + "	ELSE p.status \n"
+                + "	END as 'STATUS', \n"
+                + "	g.nome as 'GARÇOM' \n"
+                + "FROM cadpedido p \n"
+                + "	INNER JOIN cadmesa m on m.id=p.cadmesa_id \n"
+                + "	INNER JOIN tbcadfuncionario g on g.id = p.tbcadfuncionario_id\n"
+                + "WHERE p.status=0 AND p.tbcadfuncionario_id=?;	";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, idFuncionario);
             rs = pst.executeQuery();
 
         } catch (SQLException e) {

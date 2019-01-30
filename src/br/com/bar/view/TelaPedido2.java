@@ -60,8 +60,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
         initComponents();
         lbllogo.setIcon(u.carregaLogo());
         cFunc.carregaComboFuncionario(comboGarcom, "Garçom");
-        tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos()));
-        modelPedidos.redimensionaColunas(tblPedidosAbertos);
+        //tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos()));
+       //modelPedidos.redimensionaColunas(tblPedidosAbertos);
         
         Calendar c = Calendar.getInstance();
         lblData.setText(u.formataDataBr(c.getTime()));
@@ -244,6 +244,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
@@ -610,7 +611,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         btnListar.setBackground(new java.awt.Color(204, 204, 204));
         btnListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/mesa32x32.png"))); // NOI18N
-        btnListar.setText("Listar Mesas");
+        btnListar.setText("Listar Mesas / Pedido");
         btnListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListarActionPerformed(evt);
@@ -713,7 +714,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboGarcomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboGarcomActionPerformed
-
+       
+            
 
     }//GEN-LAST:event_comboGarcomActionPerformed
 
@@ -721,8 +723,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Lista todas as mesas livres do funcionário selecionado
         String nomeFunc = comboGarcom.getSelectedItem().toString();
         String idFunc = cFunc.localizaId(nomeFunc);
+        txtIdGarcom.setText(cFunc.localizaId(comboGarcom.getSelectedItem().toString()));
         tblNumeroMesa.setModel(DbUtils.resultSetToTableModel(cm.listaMesaLivre(idFunc)));
-        tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos()));
+        tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos(txtIdGarcom.getText())));
         modelPedidos.redimensionaColunas(tblPedidosAbertos);
         btnAbrirPedido.setEnabled(false);
     }//GEN-LAST:event_btnListarActionPerformed

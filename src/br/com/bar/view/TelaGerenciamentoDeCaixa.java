@@ -205,6 +205,11 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        combofuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                combofuncionarioMouseClicked(evt);
+            }
+        });
         combofuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combofuncionarioActionPerformed(evt);
@@ -306,16 +311,22 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_tblGerenciamentoCaixaMouseClicked
 
     private void btnLiberaCxAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberaCxAnteriorActionPerformed
-
+        // Pega a data atual
         Calendar c = Calendar.getInstance();
+        // Volta um dia na data
         c.add(Calendar.DAY_OF_WEEK, -1);
+        // Formata a data
         String dataAnterior = u.formataDataBanco(c.getTime());
+        // Realiza o cáldo das saídas na data anterior
         Double saida = caixa.totalizaSaida(combofuncionario.getSelectedItem().toString(), dataAnterior);
+        // Realiza o cálculo das entradas na data enterior
         Double entrada = caixa.totalizaEntradas(combofuncionario.getSelectedItem().toString(), dataAnterior);
+        // Calcula do saldo
         Double saldo = entrada - saida;
+        //Localiza o 'ID' do usuário logado no caixa
         int idFunc = Integer.parseInt(cf.localizaIdLogin(combofuncionario.getSelectedItem().toString()));
-
-        if (temMovAnterior()) {
+        // Verifica se existe movimentação enterior para este usuário
+        if (caixa.temMovAnterior(combofuncionario, btnLiberaCxAnterior)) {
 
             cx.setData(dataAnterior);
             cx.setEntrada(entrada);
@@ -370,7 +381,7 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLiberaCxAnteriorActionPerformed
 
     private void combofuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combofuncionarioActionPerformed
-        temMovAnterior();
+        caixa.temMovAnterior(combofuncionario, btnLiberaCxAnterior);
         /*
         if (!"Selecione...".equals(combofuncionario.getSelectedItem().toString())){
             
@@ -393,6 +404,10 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_checkFechaAnteriorMouseClicked
+
+    private void combofuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_combofuncionarioMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combofuncionarioMouseClicked
 
     /**
      * @param args the command line arguments
@@ -448,7 +463,8 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
     private javax.swing.JTable tblGerenciamentoCaixa;
     private javax.swing.JTextField txtIdCaixa;
     // End of variables declaration//GEN-END:variables
-
+    /*EXcluir este método após todos os testes
+    Métodos copiado para a classe  ControlerCaixa
     private Boolean temMovAnterior() {
         boolean resp = false;
         try {
@@ -471,4 +487,6 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
         }
         return resp;
     }
+*/
+    
 }

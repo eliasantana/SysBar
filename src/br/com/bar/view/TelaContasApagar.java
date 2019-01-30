@@ -67,7 +67,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
         lblDataDePAgamento.setVisible(false);
         lblDataDePAgamento.setText("Data de Pagamento");
         txtValorPago.setVisible(false);
-        txtValor.setEnabled(false);        
+        txtValor.setEnabled(true);        
         lblValorPago.setVisible(false);
         btnBaixar.setEnabled(false);
         lblFuncionario.setVisible(false);

@@ -7,11 +7,14 @@ package br.com.br.controler;
 
 import br.com.bar.dao.ConexaoBd;
 import br.com.bar.model.MovimentacaoCaixa;
+import br.com.bar.util.Util;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,7 +28,7 @@ public class ControlerCaixa {
     Connection conexao = ConexaoBd.conector();
     PreparedStatement pst = null;
     ResultSet rs = null;
-    
+    Util u = new Util();
     // Lista Mesas Ocupadas
     public void listaMesaOcupada(JComboBox combo) {
 
@@ -351,5 +354,26 @@ public class ControlerCaixa {
         }
         
     }
+ public Boolean temMovAnterior(JComboBox comboFunc, JButton btn) {
+        boolean resp = false;
+        try {
 
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.DAY_OF_WEEK, -1);
+            String dataAnterior = u.formataDataBanco(c.getTime());
+            Double saida = totalizaSaida(comboFunc.getSelectedItem().toString(), dataAnterior);
+            Double entrada = totalizaEntradas(comboFunc.getSelectedItem().toString(), dataAnterior);
+            Double saldo = entrada - saida;
+            if (0 != saida || 0 != entrada) {
+                btn.setEnabled(true);
+            } else {
+                btn.setEnabled(false);
+            }
+            resp = true;
+
+        } catch (Exception e) {
+            System.out.println("br.com.bar.view.TelaGerenciamentoDeCaixa.temMovAnterior()" + e);
+        }
+        return resp;
+    }
 }
