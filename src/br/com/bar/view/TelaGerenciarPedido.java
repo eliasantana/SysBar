@@ -6,6 +6,7 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.Log;
+import br.com.bar.model.TableModelGerenciarPedido;
 import br.com.br.controler.ControlerEstoque;
 import br.com.br.controler.ControlerMesa;
 import br.com.br.controler.ControlerPedido;
@@ -29,7 +30,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     ControlerMesa cm = new ControlerMesa();
     ControlerPedido cp = new ControlerPedido();
     ControlerEstoque ce = new ControlerEstoque();
-
+    TableModelGerenciarPedido modelGerPedido = new TableModelGerenciarPedido();
     Log l = new Log();
 
     public TelaGerenciarPedido() {
@@ -42,6 +43,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         lblOperador.setVisible(false);
         LblCargo.setVisible(false);
         btnCancelarPedido.setEnabled(false);
+        modelGerPedido.redimensionaColunas(tblDetalhe);
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -75,12 +77,13 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         btnListar = new javax.swing.JButton();
         lblNumeroMesa = new javax.swing.JLabel();
         lblNumeroMesa1 = new javax.swing.JLabel();
-        lblNumeroMesa2 = new javax.swing.JLabel();
+        lblItensDoPedido = new javax.swing.JLabel();
         txtIdProduto = new javax.swing.JTextField();
         lblRemoverItemDoPedido = new javax.swing.JLabel();
         txtQtd = new javax.swing.JTextField();
         txtIDItem = new javax.swing.JTextField();
         btnCancelarPedido = new javax.swing.JButton();
+        lblNumeroMesa3 = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -109,13 +112,13 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("Operador");
         jPanel1.add(lblOperador);
-        lblOperador.setBounds(460, 50, 90, 32);
+        lblOperador.setBounds(540, 50, 90, 32);
 
         LblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         LblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         LblCargo.setText("Cargo");
         jPanel1.add(LblCargo);
-        LblCargo.setBounds(560, 50, 100, 30);
+        LblCargo.setBounds(640, 50, 100, 30);
 
         jPanel2.setBackground(new java.awt.Color(44, 62, 80));
 
@@ -145,9 +148,14 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(640, 0, 40, 30);
+        jPanel2.setBounds(740, 0, 40, 30);
 
         jcomboPedido.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        jcomboPedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jcomboPedidoMouseClicked(evt);
+            }
+        });
         jcomboPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcomboPedidoActionPerformed(evt);
@@ -160,7 +168,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CÓDIGO", "PRODUTO", "QUANTIDADE", "VLR UNITÁRIO R$", "VLR TOTAL R$"
+                "CÓD", "PRODUTO", "QTD", "VLR UNITÁRIO R$", "VLR TOTAL R$", "CÓD. INTERNO"
             }
         ));
         tblDetalhe.setRowHeight(22);
@@ -183,10 +191,10 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         lblNumeroMesa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         lblNumeroMesa1.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        lblNumeroMesa1.setText("N. Pedido:");
+        lblNumeroMesa1.setText("Pedido:");
 
-        lblNumeroMesa2.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        lblNumeroMesa2.setText("N. Mesa:");
+        lblItensDoPedido.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        lblItensDoPedido.setText("Quantidade de Itens:");
 
         lblRemoverItemDoPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
         lblRemoverItemDoPedido.setText("Remover item do pedido");
@@ -204,39 +212,47 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
             }
         });
 
+        lblNumeroMesa3.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        lblNumeroMesa3.setText("Mesa:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(261, 261, 261)
-                .addComponent(lblRemoverItemDoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(196, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblNumeroMesa1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jcomboPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblItensDoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblNumeroMesa1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jcomboPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblNumeroMesa3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtIdProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIDItem, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancelarPedido))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblNumeroMesa2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblNumeroMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtIDItem, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                                .addComponent(btnCancelarPedido))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblNumeroMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblRemoverItemDoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(239, 239, 239))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,17 +271,19 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                     .addComponent(btnCancelarPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNumeroMesa2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblItensDoPedido)
+                        .addComponent(lblNumeroMesa3))
                     .addComponent(lblNumeroMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(lblRemoverItemDoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnListar, jcomboPedido});
 
-        setSize(new java.awt.Dimension(678, 446));
+        setSize(new java.awt.Dimension(778, 446));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -276,21 +294,42 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         // Lista produtos do pedido
+        int itens = 0;
+        String numeroPedido = jcomboPedido.getSelectedItem().toString();
+        lblNumeroMesa.setText(cm.localizaNumeroMesa(numeroPedido));
         try {
-            tblDetalhe.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString())));
-        } catch (Exception e) {
+            ResultSet rs = cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString());
+            // Conta os itens do pedido.
+            while (rs.next()) {
+                itens = itens + 1;
+
+            }
+           
+            if (itens > 0) {
+                // Se possui itens no pedido não permite o cancelamento do pedido
+                btnCancelarPedido.setEnabled(false);
+                tblDetalhe.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString())));
+                modelGerPedido.redimensionaColunas(tblDetalhe);
+                lblItensDoPedido.setText("Quantidade de Itens: "+itens);
+            } else {
+
+                btnCancelarPedido.setEnabled(true);
+                tblDetalhe.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString())));
+                modelGerPedido.redimensionaColunas(tblDetalhe);
+                lblItensDoPedido.setText("Quantidade de Itens: "+itens);
+            }
+
+           
+        } catch (SQLException e) {
+            System.out.println("br.com.bar.view.TelaGerenciarPedido.btnListarActionPerformed()" + e);
         }
+
 
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void jcomboPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboPedidoActionPerformed
-        try {
-            String numeroPedido = jcomboPedido.getSelectedItem().toString();
-            lblNumeroMesa.setText(cm.localizaNumeroMesa(numeroPedido));
-        } catch (NullPointerException e) {
-            lblNumeroMesa.setText(null);
-            btnCancelarPedido.setEnabled(false);
-        }
+
+        btnCancelarPedido.setEnabled(false);
     }//GEN-LAST:event_jcomboPedidoActionPerformed
 
     private void tblDetalheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetalheMouseClicked
@@ -326,10 +365,11 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                         // Registra Movimentação
                         ce.registraMovimentacao(txtIdProduto.getText(), txtQtd.getText(), ce.localizaIdOperacao("Devolução"), "O cliente desistiu do produto");
                         tblDetalhe.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString())));
+                        modelGerPedido.redimensionaColunas(tblDetalhe);
                         ResultSet rs = cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString());
                         try {
                             if (rs.next()) {
-
+                                btnCancelarPedido.setEnabled(false);
                             } else {
                                 btnCancelarPedido.setEnabled(true);
                             }
@@ -366,9 +406,14 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                 l.setUsuario(lblOperador.getText());
                 l.setFuncionalidade("Cancelamento Pedido");
                 l.setDescricao(l.getUsuario() + " cancelou o pedido ->" + nPedido);
+                btnCancelarPedido.setEnabled(false);
             }
         }
     }//GEN-LAST:event_btnCancelarPedidoActionPerformed
+
+    private void jcomboPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcomboPedidoMouseClicked
+        btnCancelarPedido.setEnabled(false);
+    }//GEN-LAST:event_jcomboPedidoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -418,9 +463,10 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jcomboPedido;
+    private javax.swing.JLabel lblItensDoPedido;
     private javax.swing.JLabel lblNumeroMesa;
     private javax.swing.JLabel lblNumeroMesa1;
-    private javax.swing.JLabel lblNumeroMesa2;
+    private javax.swing.JLabel lblNumeroMesa3;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblRemoverItemDoPedido;
     private javax.swing.JTable tblDetalhe;

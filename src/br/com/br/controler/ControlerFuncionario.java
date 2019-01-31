@@ -243,12 +243,13 @@ public class ControlerFuncionario extends Funcionario {
                 rs = pst.executeQuery(sqlTodos);
 
                 combo.removeAllItems();
+                
                 while (rs.next()) {
                     combo.addItem(rs.getString("nome"));
                 }
 
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Erro carregaComboFuncionário" + e);
+                System.out.println("br.com.br.controler.ControlerFuncionario.carregaComboFuncionario()"+e);
             }
         } else {
 
@@ -257,12 +258,13 @@ public class ControlerFuncionario extends Funcionario {
                 pst.setString(1, filtro);
                 rs = pst.executeQuery();
                 combo.removeAllItems();
+                combo.addItem("Selecione...");
                 while (rs.next()) {
                     combo.addItem(rs.getString("nome"));
                 }
 
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Erro carregaComboFuncionário" + e);
+                System.out.println("br.com.br.controler.ControlerFuncionario.carregaComboFuncionario()"+e);
             }
         }
 

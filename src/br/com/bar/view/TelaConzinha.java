@@ -43,7 +43,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblCargo.setVisible(false);
         Date dt = new Date();
         lblData.setText(u.formataDataBr(dt));
-        txtidProdutoCozinha.setVisible(true);
+        txtidProdutoCozinha.setVisible(false);
        
         desabilitaTodosBtns();
 
@@ -438,6 +438,7 @@ public class TelaConzinha extends javax.swing.JFrame {
             while (codUsuario.equals("")||!"Cozinheiro".equals(f.getCargo())|| f.getNome() == null) {         
                 codUsuario = JOptionPane.showInputDialog("Por favor, informe um código Válido!");
                 System.out.println("id do prato cozinha "+idProdutoCozinha);
+                f = cf.localizaFuncionario(codUsuario);
             }
                 int linha = tblCozinha.getSelectedRow();
                 idProdutoCozinha = tblCozinha.getModel().getValueAt(linha, 0).toString();

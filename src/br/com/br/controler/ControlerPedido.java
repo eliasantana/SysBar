@@ -153,7 +153,7 @@ public class ControlerPedido {
                 + "      dbbar.detalhe_mesa.cadmesa_id = dbbar.cadmesa.id \n"
                 + " INNER JOIN dbbar.tbproduto ON \n"
                 + "    dbbar.detalhe_mesa.tbproduto_id = dbbar.tbproduto.id \n"
-                + " WHERE numero_mesa =?   and cadpedido_id_pedido=?";
+                + " WHERE numero_mesa =?   and cadpedido_id_pedido=? order by dbbar.detalhe_mesa.id desc;";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, numeroMesa);
@@ -171,17 +171,17 @@ public class ControlerPedido {
     public ResultSet detalhePorPedidoId(String numeroMesa, String numeroPedido) {
 
         String sql = "SELECT "
-                + "	dbbar.detalhe_mesa.tbproduto_id AS 'CÓDIGO',\n"
+                + "	dbbar.detalhe_mesa.tbproduto_id AS 'CÓD',\n"
                 + "dbbar.tbproduto.nome AS 'PRODUTO',\n"
                 + "	dbbar.detalhe_mesa.qtd AS 'QTD',\n"
-                + "	format(dbbar.detalhe_mesa.`valorUnit`,2,'de_DE') AS 'VALOR R$',\n"
-                + "	format(dbbar.detalhe_mesa.`Total`,2,'de_DE') AS 'TOTAL R$',\n"
-                + "	dbbar.detalhe_mesa.id AS 'CÓDIGO INTERNO'\n"
+                + "	format(dbbar.detalhe_mesa.`valorUnit`,2,'de_DE') AS 'VLR UNITÁRIO R$',\n"
+                + "	format(dbbar.detalhe_mesa.`Total`,2,'de_DE') AS 'VLR TOTAL R$',\n"
+                + "	dbbar.detalhe_mesa.id AS 'CÓD. INTERNO'\n"
                 + "FROM dbbar.detalhe_mesa INNER JOIN dbbar.cadmesa ON \n"
                 + "	dbbar.detalhe_mesa.cadmesa_id = dbbar.cadmesa.id \n"
                 + "INNER JOIN dbbar.tbproduto ON \n"
                 + "	dbbar.detalhe_mesa.tbproduto_id = dbbar.tbproduto.id\n"
-                + "WHERE numero_mesa =?   and cadpedido_id_pedido=?;";
+                + "WHERE numero_mesa =?   and cadpedido_id_pedido=? order by dbbar.detalhe_mesa.id desc";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, numeroMesa);
@@ -190,7 +190,7 @@ public class ControlerPedido {
 
         } catch (SQLException ex) {
             System.out.println("br.com.br.controler.ControlerPedido.detalhePorPedidoId()" + ex);
-
+            
         }
         return rs;
 
@@ -383,6 +383,7 @@ public class ControlerPedido {
             resp = true;
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerPedido.cancelaPedido()" + e);
+            JOptionPane.showMessageDialog(null, "Obrigatório remover todos os itens antes de cancelar o pedido!");
         }
 
         return resp;
