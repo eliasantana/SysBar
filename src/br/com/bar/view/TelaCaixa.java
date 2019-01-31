@@ -115,6 +115,7 @@ public class TelaCaixa extends JDialog{
         jLabel2 = new javax.swing.JLabel();
         comboMes = new javax.swing.JComboBox<>();
         btnGrafico = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         painelDireito = new javax.swing.JPanel();
         lblOperador = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -313,6 +314,14 @@ public class TelaCaixa extends JDialog{
 
         painelEsquerdo.add(panelGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 480, -1, -1));
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        painelEsquerdo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, -1, -1));
+
         getContentPane().add(painelEsquerdo);
         painelEsquerdo.setBounds(0, 0, 300, 700);
 
@@ -397,8 +406,7 @@ public class TelaCaixa extends JDialog{
                         .addGap(44, 44, 44)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(percent, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(percent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -1156,6 +1164,7 @@ public class TelaCaixa extends JDialog{
         MovimentacaoCaixa cx = new MovimentacaoCaixa();
 
         cx.setData(df.format(dataAtual));
+        // Totaliza entradas e saida do 
         cx.setEntrada(caixa.totalizaEntradas(lblOperador.getText()));
         cx.setSaida(caixa.totalizaSaida(lblOperador.getText()));
         cx.setSaldo(caixa.totalizaEntradas(lblOperador.getText()) - caixa.totalizaSaida(lblOperador.getText()));
@@ -1184,13 +1193,14 @@ public class TelaCaixa extends JDialog{
                     Date dt = new Date();
                     param.put("data", df.format(dt));
                     param.put("id_perador", cx.getIdFuncionario());
-
+                    param.put("titulo", "=-=-=-= Caixa Diário =-=-=-=");
                     // Troca imagem de status
                     caixa.statusCaixa(lblStatus, caixa.temMovimentacao(cx.getIdFuncionario()), lblMsgStatus);
                     DadosEmpresa dadosEmpresa = de.selecionaDados();
                     // Oculta paineis movimentação e painel gráfico
                     panelGrafico.setVisible(false);
                     panelMovimentacao.setVisible(false);
+                    
                     try {
                         ReportUtil rpu = new ReportUtil();
                         if (dadosEmpresa.getImprimir_na_tela() == 0) {
@@ -1206,6 +1216,15 @@ public class TelaCaixa extends JDialog{
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaCaixa.btnFecharCaixaMouseClicked()" + e);
                     }
+                    //*************************** TESTE FECHAMENTO ANTERIOR ***************************************
+                    // Verifica se existe movimentação na data anterior caso existea executa o fechamento retroativo
+                    if (caixa.temMovAnterior(lblOperador.getText())){
+                        // Fecha caixa anterio do operador informado
+                        caixa.fechaCaixaAnterior(String.valueOf(lblOperador.getText()), String.valueOf(cx.getIdFuncionario()));
+                        
+                    }
+                    
+                    
                 }
             }
         } else {
@@ -1352,10 +1371,10 @@ public class TelaCaixa extends JDialog{
         dadosDoPedido.add(formaPagto);
 
         TelaAutorizacao ta = new TelaAutorizacao();
-        ta.recebeValor(dadosDoPedido);
+        ta.recebeValor(this,dadosDoPedido);
         ta.setModal(true);
         ta.setVisible(true);
-        //this.setVisible(true);
+        
 
 
     }//GEN-LAST:event_checkConcedeDescontoMouseClicked
@@ -1364,6 +1383,12 @@ public class TelaCaixa extends JDialog{
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "Recebi o foco");
     }//GEN-LAST:event_formFocusGained
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        System.out.println(caixa.temMovAnterior(lblOperador.getText()));
+                
+    }//GEN-LAST:event_jButton1ActionPerformed
     public void recebeOperador(String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
@@ -1409,7 +1434,8 @@ public class TelaCaixa extends JDialog{
     }
 
     public void recebeDadosComDesconto(ArrayList<String> dados) {
-        // total - tx de servico - total geral - Desconto - Mesa
+    
+// total - tx de servico - total geral - Desconto - Mesa
 
         tgeral.setText(dados.get(0));
         percent.setText(dados.get(1));
@@ -1426,6 +1452,8 @@ public class TelaCaixa extends JDialog{
         checkCartao.setEnabled(true);
         checkTxServico.setEnabled(true);
         checkDinheiro.setEnabled(true);
+
+
     }
 
     /**
@@ -1477,6 +1505,7 @@ public class TelaCaixa extends JDialog{
     private javax.swing.JCheckBox checkTxServico;
     private javax.swing.JComboBox<String> comboMes;
     private javax.swing.JComboBox<String> comboMesa;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;

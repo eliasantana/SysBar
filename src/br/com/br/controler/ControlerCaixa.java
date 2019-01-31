@@ -6,6 +6,9 @@
 package br.com.br.controler;
 
 import br.com.bar.dao.ConexaoBd;
+import br.com.bar.dao.Log;
+import br.com.bar.dao.ReportUtil;
+import br.com.bar.model.DadosEmpresa;
 import br.com.bar.model.MovimentacaoCaixa;
 import br.com.bar.util.Util;
 import java.sql.Connection;
@@ -13,11 +16,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -29,6 +34,9 @@ public class ControlerCaixa {
     PreparedStatement pst = null;
     ResultSet rs = null;
     Util u = new Util();
+    Log l = new Log();
+    
+    ControlerFuncionario cf = new ControlerFuncionario();
     // Lista Mesas Ocupadas
     public void listaMesaOcupada(JComboBox combo) {
 
@@ -43,7 +51,7 @@ public class ControlerCaixa {
                 combo.addItem(rs.getString("numero_mesa"));
             }
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerCaixa.listaMesaOcupada()"+e);
+            System.out.println("br.com.br.controler.ControlerCaixa.listaMesaOcupada()" + e);
         }
     }
 
@@ -94,6 +102,7 @@ public class ControlerCaixa {
         }
         return totalSaidas;
     }
+
     // Totaliza saídas por operador na data Informada
     public double totalizaSaida(String operador, String data) {
 
@@ -119,6 +128,7 @@ public class ControlerCaixa {
         }
         return totalSaidas;
     }
+
     // Totaliza entradas na data atual para 
     public double totalizaEntradas() {
         String sql = "SELECT sum(total) as 'total' FROM dbbar.cadpedido where data = curdate()";
@@ -143,14 +153,14 @@ public class ControlerCaixa {
         }
         return total;
     }
-   
+
 
     /*
         Totaliza entradas por operador
      */
     public double totalizaEntradas(String operador) {
         String sql = "SELECT sum(total) as 'total' FROM dbbar.cadpedido where data = curdate() AND operador=?";
-        
+
         double total = 0;
         try {
             pst = conexao.prepareStatement(sql);
@@ -177,7 +187,7 @@ public class ControlerCaixa {
      */
     public double totalizaEntradas(String operador, String data) {
         String sql = "SELECT sum(total) as 'total' FROM dbbar.cadpedido where data = ? AND operador=?";
-        
+
         double total = 0;
         try {
             pst = conexao.prepareStatement(sql);
@@ -244,7 +254,7 @@ public class ControlerCaixa {
 
         return resp;
     }
-    
+
     public boolean temMovimentacao(int idOperador, String data) {
         boolean resp = false;
 
@@ -342,19 +352,20 @@ public class ControlerCaixa {
 
         return rs;
     }
-    
-    public void statusCaixa(JLabel label, boolean status,JLabel msg){
-        
-        if (status){
-            label.setIcon(new ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCancel.png")));           
+
+    public void statusCaixa(JLabel label, boolean status, JLabel msg) {
+
+        if (status) {
+            label.setIcon(new ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCancel.png")));
             msg.setText("Caixa Fechado");
-        }else {
-            label.setIcon(new ImageIcon(getClass().getResource("/br/com/bar/imagens/btnOk.png")));            
+        } else {
+            label.setIcon(new ImageIcon(getClass().getResource("/br/com/bar/imagens/btnOk.png")));
             msg.setText("Caixa Aberto");
         }
-        
+
     }
- public Boolean temMovAnterior(JComboBox comboFunc, JButton btn) {
+
+    public Boolean temMovAnterior(JComboBox comboFunc, JButton btn) {
         boolean resp = false;
         try {
 
@@ -375,5 +386,102 @@ public class ControlerCaixa {
             System.out.println("br.com.bar.view.TelaGerenciamentoDeCaixa.temMovAnterior()" + e);
         }
         return resp;
+    }
+
+    public Boolean temMovAnterior(String operador) {
+        boolean resp = false;
+        try {
+
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.DAY_OF_WEEK, -1);
+            String dataAnterior = u.formataDataBanco(c.getTime());
+            Double saida = totalizaSaida(operador, dataAnterior);
+            Double entrada = totalizaEntradas(operador, dataAnterior);
+            Double saldo = entrada - saida;
+            System.out.println("Entradas:"+entrada);
+            System.out.println("SAída:"+saida);
+            System.out.println("SAldo:"+saldo);
+            
+            if (0 != saida || 0 != entrada) {
+
+                resp = true;
+            }
+
+        } catch (Exception e) {
+            System.out.println("br.com.bar.view.TelaGerenciamentoDeCaixa.temMovAnterior()" + e);
+        }
+        return resp;
+    }
+    // Fecha caixa Anterior para o operador informado
+
+    public void fechaCaixaAnterior(String operador, String id) {
+        // Pega a data atual
+        Calendar c = Calendar.getInstance();
+        // Volta um dia na data
+        c.add(Calendar.DAY_OF_WEEK, -1);
+        // Formata a data
+        String dataAnterior = u.formataDataBanco(c.getTime());
+        // Realiza o cáldo das saídas na data anterior
+        Double saida = totalizaSaida(operador,dataAnterior);
+        // Realiza o cálculo das entradas na data enterior
+        Double entrada = totalizaEntradas(operador,dataAnterior);
+        // Calcula do saldo
+        Double saldo = entrada - saida;
+        //Localiza o 'ID' do usuário logado no caixa
+        int idFunc = Integer.parseInt(id);
+        // Verifica se existe movimentação enterior para este usuário
+        if (temMovAnterior(operador)){
+
+            MovimentacaoCaixa cx = new MovimentacaoCaixa();
+            cx.setData(dataAnterior);
+            cx.setEntrada(entrada);
+            cx.setSaida(saida);
+            cx.setSaldo(entrada - saida);
+            cx.setSaldo(saldo);
+
+            cx.setStatus(1);// 1 - Fechado - 0 - Aberto
+            cx.setIdFuncionario(idFunc);
+            if (temMovimentacao(idFunc, dataAnterior)) {
+               
+            } else {
+
+
+                    if (gravaMovimentacao(cx)) {
+                        JOptionPane.showMessageDialog(null, "Caixa Anterior fechado com sucesso!");
+                        // Inicio do Registro de Log
+                        l.setFuncionalidade("Caixa");
+                        l.setUsuario(operador);
+                        l.setDescricao(" Realizou um Fehamento Retroativo de Caixa");
+                        l.gravaLog(l);
+                        // Fim do Registro de Log
+
+                        // Imprime relatório de caixa 
+                        HashMap param = new HashMap();
+                        param.put("data", dataAnterior);
+                        param.put("id_perador", cx.getIdFuncionario());
+                        param.put("titulo", "=-=-=-= Retroativo =-=-=-=");
+                        ControlerDadosEmpresa de = new ControlerDadosEmpresa();
+                        DadosEmpresa dadosEmpresa = de.selecionaDados();
+                        ReportUtil rpu = new ReportUtil();
+                        try {
+
+                            if (dadosEmpresa.getImprimir_na_tela() == 0) {
+
+                               // Já existe acima DadosEmpresa dados_empresa = de.selecionaDados();// Retorna dadados da empresa
+                                rpu.imprimiRelatorioTela("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param));
+
+                            } else {
+                                rpu.impressaoDireta("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param));
+
+                            }
+
+                        } catch (JRException e) {
+                            System.out.println("br.com.bar.view.TelaCaixa.btnFecharCaixaMouseClicked()" + e);
+                        }
+                    }
+               
+            }
+        }
+
     }
 }

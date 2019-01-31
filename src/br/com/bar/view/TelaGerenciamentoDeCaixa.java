@@ -332,6 +332,8 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
             cx.setEntrada(entrada);
             cx.setSaida(saida);
             cx.setSaldo(entrada - saida);
+            cx.setSaldo(saldo);
+            
             cx.setStatus(1);// 1 - Fechado - 0 - Aberto
             cx.setIdFuncionario(idFunc);
             if (caixa.temMovimentacao(idFunc, dataAnterior)) {
@@ -346,7 +348,7 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
                         // Inicio do Registro de Log
                         l.setFuncionalidade("Caixa");
                         l.setUsuario(lblOperador.getText());
-                        l.setDescricao(" realizou um Fehamento Retroativo de Caixa");
+                        l.setDescricao(" Realizou um Fehamento Retroativo de Caixa");
                         l.gravaLog(l);
                         // Fim do Registro de Log
 

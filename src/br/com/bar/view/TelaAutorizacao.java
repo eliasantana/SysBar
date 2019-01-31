@@ -21,7 +21,7 @@ import javax.swing.JFrame;
 public class TelaAutorizacao extends JDialog {
 
     ControlerFuncionario cf = new ControlerFuncionario();
-    TelaCaixa cx = new TelaCaixa();
+    TelaCaixa cx;
     ArrayList<String> listaDeSValores;
 
     public TelaAutorizacao() {
@@ -186,16 +186,16 @@ public class TelaAutorizacao extends JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void recebeValor(ArrayList<String> listaDadosDoPedido) {
+    public void recebeValor(TelaCaixa telaCaixa,ArrayList<String> listaDadosDoPedido) {
         // Recebe os valores do pedido
-        
+        this.cx = telaCaixa;
         listaDeSValores = listaDadosDoPedido;
         System.out.println("Valor: " + listaDeSValores.get(0)); // Valor sem tx de Serviço
         System.out.println("Serviço: " + listaDeSValores.get(1)); // Tx. de Serviço
         System.out.println("Total Geral: " + listaDeSValores.get(2)); // Total Geral
         System.out.println("Mesa: " + listaDeSValores.get(3)); // Número da Mesa
         System.out.println("Id do Pedido: " + listaDeSValores.get(4));
-       
+        
     }
     private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked
         // Fecha a Tela
@@ -260,9 +260,7 @@ public class TelaAutorizacao extends JDialog {
                
 
                 cx.recebeDadosComDesconto(listaDeSValores);
-                //cx.setAlwaysOnTop(rootPaneCheckingEnabled);
-                cx.setModal(true);
-                cx.setVisible(true);
+                
                 this.dispose();
             } else {
                 lblMensagem.setForeground(Color.red);

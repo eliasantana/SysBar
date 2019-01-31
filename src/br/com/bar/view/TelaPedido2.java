@@ -906,8 +906,10 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(txtNumeroMesa.getText(), txtNumeroPedido.getText())));
                 modelDetPedido.redimensionaColunas(tblDetalhePedido);
                 txtCodigoProduto.requestFocus();
-                txtValorTotal.setText("0,00");
-                //txtValorUnit.setText("0,00");
+                if ("Lista de Produtos".equals(jTabbedPanePedido.getTitleAt(2))){
+                    txtCodigoProduto.setEnabled(false);
+                }
+                
             }
 
         }
@@ -1030,6 +1032,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Aceita apenas número
         txtQtd.setText(txtQtd.getText().replaceAll("[^0-9]", ""));
         txtQtd.setText(u.tamanhoMaximo(txtQtd.getText(), 3));
+       
     }//GEN-LAST:event_txtQtdKeyReleased
 
     private double calculaPedido() {
@@ -1138,9 +1141,10 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private void limpaform() {
         txtCodigoProduto.setText(null);
         txtDescricao.setText(null);
-        txtValorUnit.setText(null);
+        //txtValorUnit.setText(null);
+        txtValorUnit.setText("0,00");
         txtQtd.setText(null);
-        txtValorTotal.setText(null);
+        txtValorTotal.setText("0,00");
 
     }
 
@@ -1207,7 +1211,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                             bloqueiaCampos();
                             txtCodigoProduto.setEnabled(true);
                             txtQtd.setEnabled(true);
-
+                            limpaform();
                         } else {
                             // Exibe mensagem de produto indisponpivel no momento
                             lblMensagem.setForeground(Color.red);
