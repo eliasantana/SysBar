@@ -304,7 +304,7 @@ public class ControlerPedido {
     // Envia um produto para a cozinha
     public boolean enviaProdutoCozinha(ArrayList<String> produtoCozinha) {
         boolean resp = false;
-        String sql = "INSERT INTO tbcozinha (codProduto, produto, qtd, funcionario, mesa, data, status, npedido,hora_solicitacao) VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO tbcozinha (codProduto, produto, qtd, funcionario, mesa, status, npedido,hora_solicitacao) VALUES (?,?,?,?,?,?,?,?)";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -313,11 +313,10 @@ public class ControlerPedido {
             pst.setString(2, produtoCozinha.get(0));
             pst.setString(3, produtoCozinha.get(2));
             pst.setString(4, produtoCozinha.get(3));
-            pst.setString(5, produtoCozinha.get(4));
+            pst.setString(5, produtoCozinha.get(4));            
             pst.setString(6, produtoCozinha.get(5));
             pst.setString(7, produtoCozinha.get(6));
             pst.setString(8, produtoCozinha.get(7));
-            pst.setString(9, produtoCozinha.get(8));
 
             pst.executeUpdate();
             resp = true;
@@ -330,9 +329,9 @@ public class ControlerPedido {
         return resp;
     }
 
-    // Lista o número de todos os pedidos abertos na data atual
+    // Lista o número de todos os pedidos abertos 
     public void carregaComboPedido(JComboBox combo) {
-        String sql = "SELECT id_pedido FROM dbbar.cadpedido where data=curdate() and status=0;";
+        String sql = "SELECT id_pedido FROM dbbar.cadpedido where  status=0;";
 
         try {
             pst = conexao.prepareStatement(sql);

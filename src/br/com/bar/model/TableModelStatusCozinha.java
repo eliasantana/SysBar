@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  * @author Elias Santana
  */
 public class TableModelStatusCozinha extends AbstractTableModel {
-    // N.PEDIDO, PRATO, QUANTIDADE, N.MESA, STATUS
+    // N.PEDIDO,  N.MESA, PRATO, QUANTIDADE,STATUS
 
     @Override
     public int getRowCount() {
@@ -34,12 +34,12 @@ public class TableModelStatusCozinha extends AbstractTableModel {
     }
 
     public void redimensionaColunas(JTable tabela) {
-
+        // N.PEDIDO,  N.MESA, PRATO, QUANTIDADE,STATUS
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(70);
-        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(230);
-        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(42);
-        tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(60);
+        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(60);
+        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(230);
+        tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(55);
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(90);
         adicionaCoresTabela(tabela);
 
@@ -67,7 +67,7 @@ public class TableModelStatusCozinha extends AbstractTableModel {
                     boolean sel = isSelected;
                     if (sel == true) {
                         setBackground(getBackground());
-                        setForeground(getForeground());
+                        setForeground(getForeground());                        
                     } else {//Se Status não for "Pendente" 
                         setBackground(Color.WHITE);//Preenche a linha de branco
                         setForeground(new Color(51, 51, 51));//E a fonte de preto

@@ -19,14 +19,22 @@ import net.proteanit.sql.DbUtils;
 
 /**
  * 
- * @author elias
+ * @author Elias Santana
+ * 
  */
 public class ControlerFuncionario extends Funcionario {
 
     Connection conexao = ConexaoBd.conector();
     PreparedStatement pst = null;
     ResultSet rs = null;
-
+    /** 
+     * 
+     *  Adiciona um funcionário e retorna um boolean
+     *  @param f  'Funcionario'
+     *  @return boolean
+     *  
+     */
+    
     public boolean adicionaFuncionario(Funcionario f) {
         boolean resp = false;
         String sql = "INSERT INTO tbcadfuncionario "

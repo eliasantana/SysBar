@@ -25,6 +25,7 @@ import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -719,11 +720,13 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
     private void comboGarcomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboGarcomActionPerformed
 
-        if ("Selecione...".equals(comboGarcom.getSelectedItem().toString())){
+        if ("Selecione...".equals(comboGarcom.getSelectedItem().toString())) {
             btnListar.setEnabled(false);
-        }else {
-             btnListar.setEnabled(true);
+        } else {
+            btnListar.setEnabled(true);
         }
+        limpaform();
+        bloqueiaCampos();
     }//GEN-LAST:event_comboGarcomActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
@@ -737,6 +740,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         btnAbrirPedido.setEnabled(false);
         // Vai para a primeira guia
         jTabbedPanePedido.setSelectedIndex(0);
+        bloqueiaCampos();
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void btnAbrirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirPedidoActionPerformed
@@ -812,7 +816,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             txtIdGarcom.setText(cFunc.localizaId(tblPedidosAbertos.getModel().getValueAt(linha, 4).toString()));
             txtIdMesa.setText(cm.localizaIdMesa(numeroMesa));
             txtCodigoProduto.setEnabled(true);
-            txtQtd.setEnabled(true);
+            txtQtd.setEnabled(false);
             txtCodigoProduto.requestFocus();
             comboGarcom.setSelectedItem(tblPedidosAbertos.getModel().getValueAt(linha, 4).toString());
             jTabbedPanePedido.setSelectedIndex(1);
@@ -823,41 +827,37 @@ public class TelaPedido2 extends javax.swing.JFrame {
     }//GEN-LAST:event_tblPedidosAbertosMouseClicked
 
     private void jTabbedPanePedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPanePedidoMouseClicked
-        // Exibe caixa de pesquisa e lista todos os produtos disponível no estoque
+        if (!"nPedido".equals(txtNumeroPedido.getText())){
+            
+            // Exibe caixa de pesquisa e lista todos os produtos disponível no estoque
+            int index = jTabbedPanePedido.getSelectedIndex();
+            if ("Pedidos Abertos".equals(jTabbedPanePedido.getTitleAt(index))) {
+                bloqueiaCampos();
+                lblPesquisa.setVisible(false);
+                txtPesquisa.setVisible(false);
+            } else if ("Detalhe Pedido".equals(jTabbedPanePedido.getTitleAt(index))) {
+                txtQtd.setEnabled(false);
+                txtCodigoProduto.setEnabled(true);
+                lblPesquisa.setVisible(false);
+                txtPesquisa.setVisible(false);
 
-        int index = jTabbedPanePedido.getSelectedIndex();
-        if ("Pedidos Abertos".equals(jTabbedPanePedido.getTitleAt(index))) {
+                tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(txtNumeroMesa.getText(), txtNumeroPedido.getText())));
+                modelDetPedido.redimensionaColunas(tblDetalhePedido);
+            } else {
+                lblPesquisa.setVisible(true);
+                txtPesquisa.setVisible(true);
+                lblLupa.setEnabled(true);
+                txtValorTotal.setText("0,00");
+                txtCodigoProduto.setEnabled(false);
+                txtQtd.setEnabled(false);
+
+                tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
+                modelProduroEstoque.redimensionaColunas(tblListaProduto);
+            }
+        }else {
             bloqueiaCampos();
-            lblPesquisa.setVisible(false);
-            txtPesquisa.setVisible(false);
-        } else if ("Detalhe Pedido".equals(jTabbedPanePedido.getTitleAt(index))) {
-            txtQtd.setEnabled(true);
-            txtCodigoProduto.setEnabled(true);
-            lblPesquisa.setVisible(false);
-            txtPesquisa.setVisible(false);
-
-            tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(txtNumeroMesa.getText(), txtNumeroPedido.getText())));
-            modelDetPedido.redimensionaColunas(tblDetalhePedido);
-        } else {
-            lblPesquisa.setVisible(true);
-            txtPesquisa.setVisible(true);
-            lblLupa.setEnabled(true);
-            txtValorTotal.setText("0,00");
-            txtCodigoProduto.setEnabled(false);
-            txtQtd.setEnabled(true);
-
-            tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
-            modelProduroEstoque.redimensionaColunas(tblListaProduto);
         }
-        /*
-        "Lista de Produtos".equals(jTabbedPanePedido.getTitleAt(index)
-        else {
-            lblPesquisa.setVisible(false);
-            txtPesquisa.setVisible(false);
-            lblLupa.setVisible(false);
-            txtQtd.setEnabled(false);
-           
-        }*/
+       
     }//GEN-LAST:event_jTabbedPanePedidoMouseClicked
 
     private void txtCodigoProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCodigoProdutoMouseClicked
@@ -880,8 +880,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
                     Produto pLocalizado = cproduto.localizaProduto(produto);
                     txtDescricao.setText(pLocalizado.getNome());
                     txtValorUnit.setText(String.format("%7.2f", Double.parseDouble(pLocalizado.getValor())));
-
+                    txtQtd.setEnabled(true);
                     txtQtd.requestFocus();
+
                 } catch (NullPointerException e) {
                     JOptionPane.showMessageDialog(null, "Produto não localizado!");
                 }
@@ -906,10 +907,10 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(txtNumeroMesa.getText(), txtNumeroPedido.getText())));
                 modelDetPedido.redimensionaColunas(tblDetalhePedido);
                 txtCodigoProduto.requestFocus();
-                if ("Lista de Produtos".equals(jTabbedPanePedido.getTitleAt(2))){
-                    txtCodigoProduto.setEnabled(false);
+                if ("Lista de Produtos".equals(jTabbedPanePedido.getTitleAt(2))) {
+                    txtCodigoProduto.setEnabled(true);
                 }
-                
+
             }
 
         }
@@ -925,6 +926,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         txtQtd.setText(null);
         txtQtd.setEnabled(true);
         txtValorTotal.setText("0,00");
+        txtQtd.setEnabled(true);
 
 
     }//GEN-LAST:event_tblListaProdutoMouseClicked
@@ -968,7 +970,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Para demais usuário a janela será fechada e chanará a Tela de Login
         if ("Gerente".equals(lblCargo.getText())) {
             this.dispose();
-        }else {
+        } else {
             this.dispose();
             TelaLogin login = new TelaLogin();
             login.setVisible(true);
@@ -983,7 +985,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Chama Tela Cozinha
         if (lblStatusCozinha.isEnabled()) {
             TelaStatusCozinha status = new TelaStatusCozinha();
-            status.recebeOperador(comboGarcom.getSelectedItem().toString());
+            status.recebeOperador(comboGarcom.getSelectedItem().toString(),txtNumeroPedido.getText());
             status.setVisible(true);
 
         }
@@ -1009,7 +1011,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Sai da tela
         if ("Gerente".equals(lblCargo.getText())) {
             this.dispose();
-        }else {
+        } else {
             this.dispose();
             TelaLogin login = new TelaLogin();
             login.setVisible(true);
@@ -1032,7 +1034,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Aceita apenas número
         txtQtd.setText(txtQtd.getText().replaceAll("[^0-9]", ""));
         txtQtd.setText(u.tamanhoMaximo(txtQtd.getText(), 3));
-       
+
     }//GEN-LAST:event_txtQtdKeyReleased
 
     private double calculaPedido() {
@@ -1210,7 +1212,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
                             bloqueiaCampos();
                             txtCodigoProduto.setEnabled(true);
-                            txtQtd.setEnabled(true);
+                            txtQtd.setEnabled(false);
                             limpaform();
                         } else {
                             // Exibe mensagem de produto indisponpivel no momento
@@ -1227,7 +1229,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                         // Atualiza os produtos disponível no Estoque
                         tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
                         modelProduroEstoque.redimensionaColunas(tblListaProduto);
-                       // limpaform();
+                        // limpaform();
                     }
 
                 }
@@ -1258,12 +1260,15 @@ public class TelaPedido2 extends javax.swing.JFrame {
             pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 2).toString()); // Qtd         
             pCozinha.add(comboGarcom.getSelectedItem().toString()); // Nome do Funcionario
             pCozinha.add(txtNumeroMesa.getText()); // Numero da mesa
-            pCozinha.add(cp.myDataAtual()); // Data Atual 
+            //pCozinha.add(cp.myDataAtual()); // Data Atual 
             pCozinha.add("Pendente"); // Status Pendente - Liberado
             pCozinha.add(txtNumeroPedido.getText());
             Date dtAtual = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            pCozinha.add(sdf.format(dtAtual)); // Data Atual            
+            Timestamp tms = new Timestamp(dtAtual.getTime());
+            
+            //SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            //pCozinha.add(sdf.format(dtAtual)); // Data Atual            
+            pCozinha.add(String.valueOf(tms)); // Data Atual            
 
             int op = JOptionPane.showConfirmDialog(null, "Confirma o envio do prato para a cozinha? ", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 

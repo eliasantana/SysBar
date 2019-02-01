@@ -785,7 +785,7 @@ public class TelaPedido extends javax.swing.JFrame {
     private void btnEstadoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoPedidoActionPerformed
         // Chama a tela Status do pedido
         TelaStatusCozinha status = new TelaStatusCozinha();
-        status.recebeOperador(lblOperador.getText());
+        //status.recebeOperador(lblOperador.getText());
         status.setVisible(true);
     }//GEN-LAST:event_btnEstadoPedidoActionPerformed
 

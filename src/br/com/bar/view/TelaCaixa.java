@@ -115,7 +115,6 @@ public class TelaCaixa extends JDialog{
         jLabel2 = new javax.swing.JLabel();
         comboMes = new javax.swing.JComboBox<>();
         btnGrafico = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         painelDireito = new javax.swing.JPanel();
         lblOperador = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -313,14 +312,6 @@ public class TelaCaixa extends JDialog{
         );
 
         painelEsquerdo.add(panelGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 480, -1, -1));
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        painelEsquerdo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, -1, -1));
 
         getContentPane().add(painelEsquerdo);
         painelEsquerdo.setBounds(0, 0, 300, 700);
@@ -1352,28 +1343,31 @@ public class TelaCaixa extends JDialog{
     private void checkConcedeDescontoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkConcedeDescontoMouseClicked
         // Chama a Tela de Autorização do Desconto
         // Passa dados do pedido
+        if (checkConcedeDesconto.isEnabled()){
+            
+            lblValorDesc.setEnabled(true);
+            ArrayList<String> dadosDoPedido = new ArrayList<>();
 
-        ArrayList<String> dadosDoPedido = new ArrayList<>();
+            dadosDoPedido.add(tgeral.getText()); // Total da Conta (Sem Tx. de Serviço)
+            dadosDoPedido.add(percent.getText()); // Tx. de Serviço
+            dadosDoPedido.add(lblTotal.getText()); // Total + Taxa de Servico = Total Geral
+            dadosDoPedido.add(comboMesa.getSelectedItem().toString()); // Numero da Mesa
+            dadosDoPedido.add(txtIdPedido.getText()); // Número do Pedido
 
-        dadosDoPedido.add(tgeral.getText()); // Total da Conta (Sem Tx. de Serviço)
-        dadosDoPedido.add(percent.getText()); // Tx. de Serviço
-        dadosDoPedido.add(lblTotal.getText()); // Total + Taxa de Servico = Total Geral
-        dadosDoPedido.add(comboMesa.getSelectedItem().toString()); // Numero da Mesa
-        dadosDoPedido.add(txtIdPedido.getText()); // Número do Pedido
+            // Forma de Pagamento
+            String formaPagto = "";
+            if (checkCartao.isSelected()) {
+                formaPagto = checkCartao.getText();
+            } else {
+                formaPagto = checkDinheiro.getText();
+            }
+            dadosDoPedido.add(formaPagto);
 
-        // Forma de Pagamento
-        String formaPagto = "";
-        if (checkCartao.isSelected()) {
-            formaPagto = checkCartao.getText();
-        } else {
-            formaPagto = checkDinheiro.getText();
+            TelaAutorizacao ta = new TelaAutorizacao();
+            ta.recebeValor(this, dadosDoPedido);
+            ta.setModal(true);
+            ta.setVisible(true);
         }
-        dadosDoPedido.add(formaPagto);
-
-        TelaAutorizacao ta = new TelaAutorizacao();
-        ta.recebeValor(this,dadosDoPedido);
-        ta.setModal(true);
-        ta.setVisible(true);
         
 
 
@@ -1383,12 +1377,6 @@ public class TelaCaixa extends JDialog{
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "Recebi o foco");
     }//GEN-LAST:event_formFocusGained
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        System.out.println(caixa.temMovAnterior(lblOperador.getText()));
-                
-    }//GEN-LAST:event_jButton1ActionPerformed
     public void recebeOperador(String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
@@ -1452,7 +1440,7 @@ public class TelaCaixa extends JDialog{
         checkCartao.setEnabled(true);
         checkTxServico.setEnabled(true);
         checkDinheiro.setEnabled(true);
-
+        txtValorPago.setText(dados.get(2));
 
     }
 
@@ -1505,7 +1493,6 @@ public class TelaCaixa extends JDialog{
     private javax.swing.JCheckBox checkTxServico;
     private javax.swing.JComboBox<String> comboMes;
     private javax.swing.JComboBox<String> comboMesa;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;

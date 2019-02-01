@@ -19,8 +19,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class TableModelCozinha extends AbstractTableModel {
 
     private final ArrayList<ModelPedidoCozinha> listaPratosCozinha = new ArrayList<>();
-    String colunas[] = {"SEQ", "PRATO QTD", "GARÇOM", "N.MESA", "COZINHEIRO", "SOLICITAÇÃO", "T.ESPERA", "STATUS"};
-    
+   
+    String colunas[] = {"SEQ", "PRATO", "QTD", "GARÇOM", "MESA", "COZINHEIRO", "HORÁRIO", "ESPERA", "STATUS"};
     public void adicionaPratoCozinha (ModelPedidoCozinha pc){
         listaPratosCozinha.add(pc);
     }
@@ -83,6 +83,7 @@ public class TableModelCozinha extends AbstractTableModel {
     }
 
       public void adicionaCoresTabela(JTable tabela) {
+        
         tabela.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value,
@@ -95,18 +96,19 @@ public class TableModelCozinha extends AbstractTableModel {
                     setBackground(Color.YELLOW);//Preenche a linha de vermelho
                     setForeground(Color.BLACK);//E a fonte de branco
                 } else if (ref != null && ref.equals("Em preparação")) {//Se Status for igual a "Em Preparação"
-                    setBackground(Color.GREEN);//Preenche a linha de verde
+                        setBackground(Color.GREEN);//Preenche a linha de verde
                         setForeground(Color.black);//E a fonte de branco
                 }else {
                     boolean sel = isSelected;
                     if (sel == true) {
                         setBackground(getBackground());
-                        setForeground(getForeground());
-                    } else {//Se Status não for "Pendente" 
+                        setForeground(getForeground());                    
+                } else {//Se Status não for "Pendente" 
                         setBackground(Color.WHITE);//Preenche a linha de branco
                         setForeground(new Color(51, 51, 51));//E a fonte de preto
                     }
-                }
+                }  
+                
                 return this;
             }
         });

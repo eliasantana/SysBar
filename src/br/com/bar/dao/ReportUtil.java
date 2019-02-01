@@ -54,10 +54,7 @@ public class ReportUtil {
             JasperViewer.viewReport(jasperPrint, false);
 
         } catch (NullPointerException e) {
-                System.out.println("br.com.bar.dao.ReportUtil.imprimiRelatorioTela() " +relatorio+" " +e);
-                JOptionPane.showMessageDialog(null, "Você não possuí movimentação!");
-                
-            
+                System.out.println("br.com.bar.dao.ReportUtil.imprimiRelatorioTela() " +relatorio+" " +e);           
         }      
 
     }
