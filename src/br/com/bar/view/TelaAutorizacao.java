@@ -6,6 +6,11 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.AutenticaUsuario;
+import br.com.bar.dao.Log;
+import br.com.bar.model.DescontoPedido;
+import br.com.bar.model.Funcionario;
+import br.com.bar.model.Pedido;
+import br.com.br.controler.ControlerCaixa;
 import br.com.br.controler.ControlerFuncionario;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -21,6 +26,7 @@ import javax.swing.JFrame;
 public class TelaAutorizacao extends JDialog {
 
     ControlerFuncionario cf = new ControlerFuncionario();
+    ControlerCaixa cc = new ControlerCaixa();
     TelaCaixa cx;
     ArrayList<String> listaDeSValores;
 
@@ -226,6 +232,7 @@ public class TelaAutorizacao extends JDialog {
                 habilitaDesconto();
                 txtValorDesconto.requestFocus();
                 lblMensagem.setText(null);
+               
             } else {
                 lblMensagem.setForeground(Color.RED);
                 lblMensagem.setText("Senha inválida!");
@@ -257,8 +264,14 @@ public class TelaAutorizacao extends JDialog {
                 totalGeral = totalGeral - desconto;
                 listaDeSValores.set(2, String.format("%9.2f", totalGeral));
                 listaDeSValores.add(String.format("%9.2f", desconto));// Adiciona o desconto
-               
-
+                listaDeSValores.add(cf.localizaIdLogin(comboFuncionario.getSelectedItem().toString()));//ID de quem autorizou o desconto
+                listaDeSValores.add (txtMotivoDesconto.getText());//Motivo
+                // Registra log da operação
+                Log l = new Log();
+                l.setFuncionalidade("Desconto");
+                l.setUsuario(comboFuncionario.getSelectedItem().toString());
+                l.setDescricao(l.getUsuario() + " condedeu desconto ao pedido "+listaDeSValores.get(4) + " Mesa:"+listaDeSValores.get(3));
+                l.gravaLog(l);
                 cx.recebeDadosComDesconto(listaDeSValores);
                 
                 this.dispose();

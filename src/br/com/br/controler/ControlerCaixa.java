@@ -9,6 +9,7 @@ import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.Log;
 import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.DadosEmpresa;
+import br.com.bar.model.DescontoPedido;
 import br.com.bar.model.MovimentacaoCaixa;
 import br.com.bar.util.Util;
 import java.sql.Connection;
@@ -483,5 +484,24 @@ public class ControlerCaixa {
             }
         }
 
+    }
+    
+    // Registra desconto concedido ao pedido pelo gerente
+    public void registraDesconto(DescontoPedido dp){
+        
+        String sql="INSERT INTO tbdesconto_pedido (valor_desconto, motivo, tbcadfuncionario_id, cadpedido_id_pedido) VALUES (?,?,?,?)";
+        
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setDouble(1, dp.getValorDesconto());
+            pst.setString(2, dp.getMotivo());
+            pst.setInt(3, Integer.parseInt(dp.getIdFuncionario().getId()));
+            pst.setInt(4, Integer.parseInt(dp.getIdPedido().getId()));
+            
+            pst.executeUpdate();
+            
+        } catch (NumberFormatException | SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCaixa.registraDesconto()"+e);
+        }
     }
 }

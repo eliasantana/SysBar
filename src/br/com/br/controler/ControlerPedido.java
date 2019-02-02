@@ -68,7 +68,8 @@ public class ControlerPedido {
         }
         return false;
     }
-/*
+
+    /*
     public ResultSet listaPedidos(String idFuncionario) {
 
         String sql = "SELECT \n"
@@ -89,7 +90,7 @@ public class ControlerPedido {
         }
         return rs;
     }
- */
+     */
     public ResultSet listaPedidos() {
 
         String sql = "SELECT\n"
@@ -113,6 +114,7 @@ public class ControlerPedido {
         }
         return rs;
     }
+
     public ResultSet listaPedidos(String idFuncionario) {
 
         String sql = "SELECT\n"
@@ -140,7 +142,11 @@ public class ControlerPedido {
     // Lista todos os produtos do pedido informado
 
     public ResultSet detalhePorPedido(String numeroMesa, String numeroPedido) {
-
+        // Lista todos os produtos do pedido para a mesa informada ordenados por id
+        // Em ordem Decrescente
+        // Nesta Query os produtos são listados de forma unidatária sem agrupamento
+        // De suas quantidades.
+        /*
         String sql = "SELECT "
                 + "      dbbar.detalhe_mesa.tbproduto_id AS 'CÓDIGO',\n"
                 + "dbbar.tbproduto.nome AS 'PRODUTO',\n"
@@ -153,7 +159,26 @@ public class ControlerPedido {
                 + "      dbbar.detalhe_mesa.cadmesa_id = dbbar.cadmesa.id \n"
                 + " INNER JOIN dbbar.tbproduto ON \n"
                 + "    dbbar.detalhe_mesa.tbproduto_id = dbbar.tbproduto.id \n"
-                + " WHERE numero_mesa =?   and cadpedido_id_pedido=? order by dbbar.detalhe_mesa.id desc;";
+                + " WHERE numero_mesa =?   and cadpedido_id_pedido=? order by dbbar.detalhe_mesa.id desc;";*/
+        
+        // Lista todos os produtos do pedido para a mesa informada ordenados por id
+        // Em ordem Decrescente
+        // Nesta Query os produtos são listados de forma agrupada com suas quantidades e totais
+        // somados
+        String sql = "SELECT\n"
+                + "	dbbar.detalhe_mesa.tbproduto_id AS 'CÓDIGO',\n"
+                + "	dbbar.tbproduto.nome AS 'PRODUTO',\n"
+                + "	sum(dbbar.detalhe_mesa.qtd) AS 'QUANTIDADE',\n"
+                + "	format(sum(dbbar.detalhe_mesa.`valorUnit`),2,'de_DE') AS 'VLR UNITÁRIO R$',\n"
+                + "	format(sum(dbbar.detalhe_mesa.`Total`),2,'de_DE') AS 'VLR TOTAL R$'\n"
+                + "\n"
+                + "FROM dbbar.detalhe_mesa\n"
+                + "	INNER JOIN dbbar.cadmesa ON \n"
+                + "	dbbar.detalhe_mesa.cadmesa_id = dbbar.cadmesa.id \n"
+                + "	INNER JOIN dbbar.tbproduto ON \n"
+                + "	dbbar.detalhe_mesa.tbproduto_id = dbbar.tbproduto.id \n"
+                + "WHERE numero_mesa =?   and cadpedido_id_pedido=? group by tbproduto_id\n"
+                + "order by dbbar.detalhe_mesa.id desc;";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, numeroMesa);
@@ -190,7 +215,7 @@ public class ControlerPedido {
 
         } catch (SQLException ex) {
             System.out.println("br.com.br.controler.ControlerPedido.detalhePorPedidoId()" + ex);
-            
+
         }
         return rs;
 
@@ -243,6 +268,7 @@ public class ControlerPedido {
         }
         return false;
     }
+
     // Fecha o pedido armazenando informações do pagamento, da mesa e do pedido,
     // atualizando a data do pedido para a data atual do recebimento
     public boolean fechaPedido(Pedido p) {
@@ -313,7 +339,7 @@ public class ControlerPedido {
             pst.setString(2, produtoCozinha.get(0));
             pst.setString(3, produtoCozinha.get(2));
             pst.setString(4, produtoCozinha.get(3));
-            pst.setString(5, produtoCozinha.get(4));            
+            pst.setString(5, produtoCozinha.get(4));
             pst.setString(6, produtoCozinha.get(5));
             pst.setString(7, produtoCozinha.get(6));
             pst.setString(8, produtoCozinha.get(7));
