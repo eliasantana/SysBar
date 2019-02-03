@@ -44,7 +44,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblCargo.setVisible(false);
         Date dt = new Date();
         lblData.setText(u.formataDataBr(dt));
-        txtidProdutoCozinha.setVisible(true);
+        txtidProdutoCozinha.setVisible(false);
 
         desabilitaTodosBtns();
 

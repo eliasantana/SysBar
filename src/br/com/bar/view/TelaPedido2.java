@@ -316,14 +316,14 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblStatusCozinha.setBounds(1010, 610, 70, 48);
 
         lblEnviarCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEnviarCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/enviar48x48.png"))); // NOI18N
+        lblEnviarCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/enviar32x32.png"))); // NOI18N
         lblEnviarCozinha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblEnviarCozinhaMouseClicked(evt);
             }
         });
         getContentPane().add(lblEnviarCozinha);
-        lblEnviarCozinha.setBounds(850, 612, 90, 48);
+        lblEnviarCozinha.setBounds(850, 612, 90, 50);
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -338,7 +338,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jLabel6.setBounds(1140, 660, 70, 20);
 
         lblGerenciarPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblGerenciarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/relatorios48x48.png"))); // NOI18N
+        lblGerenciarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/relatorios32x32.png"))); // NOI18N
         lblGerenciarPedido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblGerenciarPedidoMouseClicked(evt);
@@ -367,7 +367,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(1140, 620, 70, 40);
+        jLabel9.setBounds(1140, 610, 70, 50);
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel10.setText("Status Cozinha");
@@ -761,7 +761,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             p.setIdFuncionario(txtIdGarcom.getText());
             //p.setId_pedido(txtNumeroPedido.getText());
 
-            int op = JOptionPane.showConfirmDialog(null, "Confirma a abertura do Pedido?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(null, "Confirma a abertura de pedido para a mesa " + txtNumeroMesa.getText()+"?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {
 
@@ -778,8 +778,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 }
 
             } else {
-                JOptionPane.showMessageDialog(null, "Abertura do Pedido cancelada com sucesso!");
-
+                
+                txtNumeroMesa.setText(null);
             }
         }
     }//GEN-LAST:event_btnAbrirPedidoActionPerformed
@@ -789,7 +789,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
             // Seleciona uma mesa na tabela
             int linha = tblNumeroMesa.getSelectedRow();
-
+            txtNumeroMesa.setText(tblNumeroMesa.getModel().getValueAt(linha, 0).toString());
             txtIdMesa.setText(cm.localizaIdMesa(tblNumeroMesa.getModel().getValueAt(linha, 0).toString()));
             txtIdGarcom.setText(cFunc.localizaId(comboGarcom.getSelectedItem().toString()));
             btnAbrirPedido.setEnabled(true);
@@ -1284,7 +1284,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             //pCozinha.add(sdf.format(dtAtual)); // Data Atual            
             pCozinha.add(String.valueOf(tms)); // Data Atual            
 
-            int op = JOptionPane.showConfirmDialog(null, "Confirma o envio do prato para a cozinha? ", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(null, "Confirma o envio da solicitação para a cozinha? ", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {
 
