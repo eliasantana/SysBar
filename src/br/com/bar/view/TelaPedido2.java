@@ -539,7 +539,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "N. MESA", "N. PEDIDO", "DATA", "STATUS", "GARÇOM"
+                "MESA", "PEDIDO", "DATA", "STATUS", "GARÇOM"
             }
         ));
         tblPedidosAbertos.setRowHeight(25);

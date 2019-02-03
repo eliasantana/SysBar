@@ -40,7 +40,7 @@ public class TableModelStatusCozinha extends AbstractTableModel {
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(60);
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(230);
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(55);
-        tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(90);
+        tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(95);
         adicionaCoresTabela(tabela);
 
     }

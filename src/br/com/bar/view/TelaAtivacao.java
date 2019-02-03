@@ -10,6 +10,7 @@ import br.com.bar.util.Util;
 import br.com.br.controler.ControlerAtivacao;
 import br.com.br.controler.ControlerDadosEmpresa;
 import java.util.Calendar;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 
@@ -17,7 +18,7 @@ import javax.swing.JOptionPane;
  *
  * @author Elias Santana
  */
-public class TelaAtivacao extends javax.swing.JFrame {
+public class TelaAtivacao extends JDialog {
 
     ControlerAtivacao ca = new ControlerAtivacao();
     ControlerDadosEmpresa dados = new ControlerDadosEmpresa();
@@ -26,6 +27,7 @@ public class TelaAtivacao extends javax.swing.JFrame {
     
     public TelaAtivacao() {
         initComponents();
+        this.setModal(true);
     }
 
     /**

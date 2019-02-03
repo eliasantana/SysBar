@@ -106,7 +106,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -123,7 +123,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 550, 100);
+        jPanel1.setBounds(0, 0, 540, 100);
 
         tblStatus.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         tblStatus.setModel(new javax.swing.table.DefaultTableModel(
@@ -141,14 +141,14 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblStatus);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 160, 530, 160);
+        jScrollPane1.setBounds(10, 160, 520, 310);
 
         lblGarcom.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         lblGarcom.setText("jLabel2");
         getContentPane().add(lblGarcom);
         lblGarcom.setBounds(10, 120, 430, 40);
 
-        setBounds(0, 0, 553, 333);
+        setBounds(0, 0, 543, 480);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFecharMouseClicked

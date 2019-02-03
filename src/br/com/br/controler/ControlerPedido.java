@@ -118,8 +118,8 @@ public class ControlerPedido {
     public ResultSet listaPedidos(String idFuncionario) {
 
         String sql = "SELECT\n"
-                + "	m.numero_mesa AS 'N. MESA',\n"
-                + "	p.id_pedido as 'N. PEDIDO',\n"
+                + "	m.numero_mesa AS 'MESA',\n"
+                + "	p.id_pedido as 'PEDIDO',\n"
                 + "	date_format(p.data,'%d/%m/%Y') AS 'DATA',\n"
                 + "	CASE WHEN p.status=0 THEN 'Aberto'\n"
                 + "	ELSE p.status \n"
@@ -169,7 +169,8 @@ public class ControlerPedido {
                 + "	dbbar.detalhe_mesa.tbproduto_id AS 'CÓDIGO',\n"
                 + "	dbbar.tbproduto.nome AS 'PRODUTO',\n"
                 + "	sum(dbbar.detalhe_mesa.qtd) AS 'QUANTIDADE',\n"
-                + "	format(sum(dbbar.detalhe_mesa.`valorUnit`),2,'de_DE') AS 'VLR UNITÁRIO R$',\n"
+               // + "	format(sum(dbbar.detalhe_mesa.`valorUnit`),2,'de_DE') AS 'VLR UNITÁRIO R$',\n"
+                + "	format(dbbar.detalhe_mesa.`valorUnit`,2,'de_DE') AS 'VLR UNITÁRIO R$',\n"
                 + "	format(sum(dbbar.detalhe_mesa.`Total`),2,'de_DE') AS 'VLR TOTAL R$'\n"
                 + "\n"
                 + "FROM dbbar.detalhe_mesa\n"

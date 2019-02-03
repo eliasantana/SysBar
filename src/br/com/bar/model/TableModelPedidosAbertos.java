@@ -57,7 +57,7 @@ public class TableModelPedidosAbertos extends AbstractTableModel{
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(80);    //N. PEDIDO
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(120);   //DATA
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(130);   //STATUS
-        tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(288);    //GARÇOM
+        tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(270);    //GARÇOM
        
        
     }

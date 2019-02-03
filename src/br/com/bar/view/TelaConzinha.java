@@ -44,7 +44,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblCargo.setVisible(false);
         Date dt = new Date();
         lblData.setText(u.formataDataBr(dt));
-        txtidProdutoCozinha.setVisible(false);
+        txtidProdutoCozinha.setVisible(true);
 
         desabilitaTodosBtns();
 
@@ -92,17 +92,16 @@ public class TelaConzinha extends javax.swing.JFrame {
         txtidProdutoCozinha = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         lblLogo = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        lblOperador = new javax.swing.JLabel();
+        lblData = new javax.swing.JLabel();
         paineldireito = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCozinha = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        lblOperador = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblREmovePrato = new javax.swing.JLabel();
-        lblData = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         lblSair = new javax.swing.JLabel();
         lblLiberaRefeicao = new javax.swing.JLabel();
@@ -124,12 +123,15 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/refeicao128x128.png"))); // NOI18N
         lblLogo.setToolTipText("");
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblOperador.setForeground(new java.awt.Color(255, 255, 255));
+        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario_branco.png"))); // NOI18N
+        lblOperador.setText("jLabel9");
+
+        lblData.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblData.setForeground(new java.awt.Color(255, 255, 255));
+        lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Calendar32x32.png"))); // NOI18N
+        lblData.setText("jLabel10");
 
         javax.swing.GroupLayout painelEsquerdoLayout = new javax.swing.GroupLayout(painelEsquerdo);
         painelEsquerdo.setLayout(painelEsquerdoLayout);
@@ -138,10 +140,15 @@ public class TelaConzinha extends javax.swing.JFrame {
             .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
             .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                .addGap(80, 80, 80)
                 .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(txtidProdutoCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelEsquerdoLayout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(txtidProdutoCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelEsquerdoLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelEsquerdoLayout.setVerticalGroup(
@@ -153,9 +160,11 @@ public class TelaConzinha extends javax.swing.JFrame {
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtidProdutoCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
-                .addComponent(jButton1)
-                .addContainerGap(333, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 357, Short.MAX_VALUE)
+                .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36))
         );
 
         getContentPane().add(painelEsquerdo);
@@ -208,18 +217,13 @@ public class TelaConzinha extends javax.swing.JFrame {
         }
 
         paineldireito.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 119, 1010, 490);
+        jScrollPane1.setBounds(0, 119, 1020, 490);
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Solicitações de Pratos:");
         paineldireito.add(jLabel2);
         jLabel2.setBounds(10, 90, 270, 30);
-
-        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
-        lblOperador.setText("jLabel9");
-        paineldireito.add(lblOperador);
-        lblOperador.setBounds(780, 10, 90, 30);
 
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("jLabel10");
@@ -264,13 +268,13 @@ public class TelaConzinha extends javax.swing.JFrame {
                 lblREmovePratoMouseClicked(evt);
             }
         });
+        lblREmovePrato.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                lblREmovePratoKeyPressed(evt);
+            }
+        });
         paineldireito.add(lblREmovePrato);
         lblREmovePrato.setBounds(480, 610, 160, 70);
-
-        lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario24x24.png"))); // NOI18N
-        lblData.setText("jLabel10");
-        paineldireito.add(lblData);
-        lblData.setBounds(870, 10, 90, 30);
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -357,6 +361,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                 break;
             case "Pendente":
                 lblPreparar.setEnabled(true);
+                lblLiberaRefeicao.setEnabled(false);
                 break;
         }
         if ("Gerente".equals(lblCargo.getText())) {
@@ -392,8 +397,10 @@ public class TelaConzinha extends javax.swing.JFrame {
                     tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
                     modelCozinha.redimensionaColunas(tblCozinha);
                     modelCozinha.adicionaCoresTabela(tblCozinha);
+                    lblLiberaRefeicao.setEnabled(false);
+                    txtidProdutoCozinha.setText(null);
                     // Solicita confirmação de impressão
-
+                    
                     int confirma = JOptionPane.showConfirmDialog(null, "Imprimir Comprovante de Liberação?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                     if (confirma == JOptionPane.YES_OPTION) {
                         cc.imprimeComprovanteCozinha(txtidProdutoCozinha.getText());
@@ -406,29 +413,34 @@ public class TelaConzinha extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLiberaRefeicaoMouseClicked
 
     private void lblSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSairMouseClicked
-        if (cc.pratoPendente() > 0) {
-            JOptionPane.showMessageDialog(null, "Realize a liberação dos pratos pendentes antes de sair!");
-        } else {
-
-            // Faz logout
-            Log l = new Log();
-
-            l.setDescricao(lblOperador.getText() + "Fez logout no sistema");
-            l.setFuncionalidade("Logout");
-            l.setUsuario(lblOperador.getText());
-            l.gravaLog(l);
-
+        if ("Gerente".equals(lblCargo.getText())) {
             dispose();
-            TelaLogin login = new TelaLogin();
-            login.setVisible(true);
+        } else {
+            if (cc.pratoPendente() > 0) {
+                JOptionPane.showMessageDialog(null, "Realize a liberação dos pratos pendentes antes de sair!");
+            } else {
+
+                // Faz logout
+                Log l = new Log();
+
+                l.setDescricao(lblOperador.getText() + "Fez logout no sistema");
+                l.setFuncionalidade("Logout");
+                l.setUsuario(lblOperador.getText());
+                l.gravaLog(l);
+
+                dispose();
+                TelaLogin login = new TelaLogin();
+                login.setVisible(true);
+            }
         }
     }//GEN-LAST:event_lblSairMouseClicked
 
     private void lblREmovePratoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblREmovePratoMouseClicked
         if (lblREmovePrato.isEnabled()) {
 
-            // Remove prato Cozinha
-            if ("Gerente".equals(lblCargo.getText())) {
+            // Remove prato Cozinha se o usuário logado tiver o perfil de Gerente e 
+            
+            if ("Gerente".equals(lblCargo.getText())&&"".equals(txtidProdutoCozinha.getText())) {
 
                 int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente remover este prato?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (resp == JOptionPane.YES_OPTION) {
@@ -482,7 +494,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                         HashMap parametro = new HashMap();
                         parametro.put("id", idProdutoCozinha);
                         try {
-                            rpu.imprimiRelatorioTela("contigencia.jasper", parametro);
+                            rpu.imprimiRelatorioTela("contigencia_3.jasper", parametro);
                         } catch (JRException e) {
                             System.out.println("br.com.bar.view.TelaConzinha.lblPrepararMouseClicked()" + e);
                             JOptionPane.showMessageDialog(null, "Erro ao tentar imprimir Solicitação - contate o SUPORTE!");
@@ -494,12 +506,9 @@ public class TelaConzinha extends javax.swing.JFrame {
 
     }//GEN-LAST:event_lblPrepararMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int confirma = JOptionPane.showConfirmDialog(null, "Imprimir Comprovante de Liberação?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-        if (confirma == JOptionPane.YES_OPTION) {
-            cc.imprimeComprovanteCozinha(txtidProdutoCozinha.getText());
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void lblREmovePratoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblREmovePratoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblREmovePratoKeyPressed
 
     /**
      * @param args the command line arguments
@@ -537,7 +546,6 @@ public class TelaConzinha extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
