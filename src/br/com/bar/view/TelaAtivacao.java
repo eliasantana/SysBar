@@ -5,14 +5,15 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.dao.CriptoGrafa;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerAtivacao;
 import br.com.br.controler.ControlerDadosEmpresa;
+import java.awt.Color;
 import java.util.Calendar;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-
 
 /**
  *
@@ -22,9 +23,10 @@ public class TelaAtivacao extends JDialog {
 
     ControlerAtivacao ca = new ControlerAtivacao();
     ControlerDadosEmpresa dados = new ControlerDadosEmpresa();
-    
+    CriptoGrafa cripto = new CriptoGrafa();
+
     Util u = new Util();
-    
+
     public TelaAtivacao() {
         initComponents();
         this.setModal(true);
@@ -49,7 +51,7 @@ public class TelaAtivacao extends JDialog {
         lblMensagem = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        btnRenovar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -60,7 +62,7 @@ public class TelaAtivacao extends JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 71, Short.MAX_VALUE)
+            .addGap(0, 73, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,11 +109,14 @@ public class TelaAtivacao extends JDialog {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/aplicar.png"))); // NOI18N
-        jLabel3.setText("Renovar");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnRenovar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/aplicar.png"))); // NOI18N
+        btnRenovar.setText("Renovar");
+        btnRenovar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                btnRenovarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRenovarMouseEntered(evt);
             }
         });
 
@@ -119,11 +124,11 @@ public class TelaAtivacao extends JDialog {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+            .addComponent(btnRenovar, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3)
+            .addComponent(btnRenovar)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -137,12 +142,14 @@ public class TelaAtivacao extends JDialog {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(txtNovaLicenca, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 30, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(txtNovaLicenca, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblMensagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(36, 36, 36))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -167,8 +174,7 @@ public class TelaAtivacao extends JDialog {
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNovaLicenca, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -177,50 +183,68 @@ public class TelaAtivacao extends JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(459, 160));
+        setSize(new java.awt.Dimension(468, 160));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked
         // Fecha a janela de Ativação
         System.exit(0);
-        
+
     }//GEN-LAST:event_lblFecharMouseClicked
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void btnRenovarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRenovarMouseClicked
         // Renova licença de uso
         String licenca = txtNovaLicenca.getText();
-       
-        Calendar c = Calendar.getInstance();
-        DadosEmpresa de = dados.selecionaDados();
-        
-        if (null==de.getLicenca()){
-            // Se o cadastro estiver vazio adiciona apenas a licença ao cadastro de empresa.
-            if (ca.adicionaLicenca(txtNovaLicenca.getText())){
-                JOptionPane.showMessageDialog(null, "Sua licença foi adicionada com sucesso! Obrigado!");
-                System.exit(0);
-            }
-        }else {
-            // Realiza Renovação
-            if (ca.renovaLicenca(u.formataDataBanco(c.getTime()), licenca)) {
-                JOptionPane.showMessageDialog(null, "Sua licença foi renovada com sucesso! Obrigado!");
-                System.exit(0);
-            } else {
-                lblMensagem.setText("Falha na ativação! Contate o suporte: suporte.rese7@gmail.com");
-            }
+        //Criptografa a licença informada
+        String licencaCripto = cripto.decripta(licenca);
+        //Retorna o número de dias da licença
+        long result = u.retornaTotalDeDias(licencaCripto);
+        System.out.println(result);
+        if (result > 0) {
+            
+             Calendar c = Calendar.getInstance();
+                DadosEmpresa de = dados.selecionaDados();
+
+                if (null == de.getLicenca()) {
+                    // Se o cadastro estiver vazio adiciona apenas a licença ao cadastro de empresa.
+                    if (ca.adicionaLicenca(txtNovaLicenca.getText())) {
+                        JOptionPane.showMessageDialog(null, "Sua licença foi adicionada com sucesso! Obrigado!");
+                        System.exit(0);
+                    }
+                } else {
+                    // Realiza Renovação
+                    if (ca.renovaLicenca(u.formataDataBanco(c.getTime()), licenca)) {
+                        JOptionPane.showMessageDialog(null, "Sua licença foi renovada com sucesso! Obrigado!");
+                        System.exit(0);
+                    } else {
+                        lblMensagem.setText("Falha na ativação! Contate o suporte: suporte.rese7@gmail.com");
+                    }
+                }
+           
+        } else {
+            lblMensagem.setText("*A chave informada não é válida!");
+            lblMensagem.setForeground(Color.RED);
         }
-        
-    }//GEN-LAST:event_jLabel3MouseClicked
+
+    }//GEN-LAST:event_btnRenovarMouseClicked
+
+    private void btnRenovarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRenovarMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRenovarMouseEntered
 
     /**
      * @param args the command line arguments
@@ -259,9 +283,9 @@ public class TelaAtivacao extends JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnRenovar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

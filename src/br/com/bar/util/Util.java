@@ -183,7 +183,8 @@ public class Util {
             java.sql.Date date = java.sql.Date.valueOf(data);
         } catch (Exception e) {
             
-            System.out.println("br.com.bar.util.Util.retornaTotalDeDias()");
+            System.out.println("br.com.bar.util.Util.retornaTotalDeDias()"+e);
+           
         }
         
         SimpleDateFormat df = new SimpleDateFormat();

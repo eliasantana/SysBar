@@ -117,7 +117,6 @@ public class TelaCaixa extends JDialog {
         jLabel2 = new javax.swing.JLabel();
         comboMes = new javax.swing.JComboBox<>();
         btnGrafico = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         painelDireito = new javax.swing.JPanel();
         lblOperador = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -315,14 +314,6 @@ public class TelaCaixa extends JDialog {
         );
 
         painelEsquerdo.add(panelGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 480, -1, -1));
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        painelEsquerdo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, -1, -1));
 
         getContentPane().add(painelEsquerdo);
         painelEsquerdo.setBounds(0, 0, 300, 700);
@@ -1400,12 +1391,6 @@ public class TelaCaixa extends JDialog {
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "Recebi o foco");
     }//GEN-LAST:event_formFocusGained
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        for (int i=0; i<listAutoDesconto.size();i++){
-            System.out.println(i+ "-"+listAutoDesconto.get(i));
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
     public void recebeOperador(String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
@@ -1521,7 +1506,6 @@ public class TelaCaixa extends JDialog {
     private javax.swing.JCheckBox checkTxServico;
     private javax.swing.JComboBox<String> comboMes;
     private javax.swing.JComboBox<String> comboMesa;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;

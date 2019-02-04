@@ -171,7 +171,7 @@
                     <Column editable="false" title="GAR&#xc7;OM" type="java.lang.String"/>
                     <Column editable="true" title="MESA" type="java.lang.Object"/>
                     <Column editable="true" title="COZINHEIRO" type="java.lang.Object"/>
-                    <Column editable="true" title="HOR&#xc1;RIO" type="java.lang.Object"/>
+                    <Column editable="true" title="HORA" type="java.lang.Object"/>
                     <Column editable="true" title="ESPERA" type="java.lang.Object"/>
                     <Column editable="true" title="STATUS" type="java.lang.Object"/>
                   </Table>
@@ -309,7 +309,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="480" y="610" width="160" height="70"/>
+              <AbsoluteConstraints x="540" y="610" width="160" height="70"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -343,7 +343,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="620" y="610" width="141" height="70"/>
+              <AbsoluteConstraints x="680" y="610" width="141" height="70"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -362,7 +362,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="320" y="610" width="160" height="70"/>
+              <AbsoluteConstraints x="380" y="610" width="160" height="70"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -381,7 +381,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="160" y="610" width="140" height="70"/>
+              <AbsoluteConstraints x="220" y="610" width="140" height="70"/>
             </Constraint>
           </Constraints>
         </Component>

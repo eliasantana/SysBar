@@ -38,7 +38,8 @@ public class TelaConzinha extends javax.swing.JFrame {
     Util u = new Util();
 
     ControlerDadosEmpresa ce = new ControlerDadosEmpresa();
-
+    //Guarda o id do prato liberado
+    String id_pratoLiberado=null;
     public TelaConzinha() {
         initComponents();
         lblCargo.setVisible(false);
@@ -181,7 +182,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "SEQ", "PRATO", "QTD", "GARÇOM", "MESA", "COZINHEIRO", "HORÁRIO", "ESPERA", "STATUS"
+                "SEQ", "PRATO", "QTD", "GARÇOM", "MESA", "COZINHEIRO", "HORA", "ESPERA", "STATUS"
             }
         ) {
             Class[] types = new Class [] {
@@ -274,7 +275,7 @@ public class TelaConzinha extends javax.swing.JFrame {
             }
         });
         paineldireito.add(lblREmovePrato);
-        lblREmovePrato.setBounds(480, 610, 160, 70);
+        lblREmovePrato.setBounds(540, 610, 160, 70);
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -292,7 +293,7 @@ public class TelaConzinha extends javax.swing.JFrame {
             }
         });
         paineldireito.add(lblSair);
-        lblSair.setBounds(620, 610, 141, 70);
+        lblSair.setBounds(680, 610, 141, 70);
 
         lblLiberaRefeicao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblLiberaRefeicao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCozinha.png"))); // NOI18N
@@ -303,7 +304,7 @@ public class TelaConzinha extends javax.swing.JFrame {
             }
         });
         paineldireito.add(lblLiberaRefeicao);
-        lblLiberaRefeicao.setBounds(320, 610, 160, 70);
+        lblLiberaRefeicao.setBounds(380, 610, 160, 70);
 
         lblPreparar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblPreparar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/preparar32x32.png"))); // NOI18N
@@ -314,7 +315,7 @@ public class TelaConzinha extends javax.swing.JFrame {
             }
         });
         paineldireito.add(lblPreparar);
-        lblPreparar.setBounds(160, 610, 140, 70);
+        lblPreparar.setBounds(220, 610, 140, 70);
 
         getContentPane().add(paineldireito);
         paineldireito.setBounds(280, 0, 1030, 690);
@@ -398,12 +399,14 @@ public class TelaConzinha extends javax.swing.JFrame {
                     modelCozinha.redimensionaColunas(tblCozinha);
                     modelCozinha.adicionaCoresTabela(tblCozinha);
                     lblLiberaRefeicao.setEnabled(false);
+                    lblREmovePrato.setEnabled(false);
+                    id_pratoLiberado = txtidProdutoCozinha.getText();
                     txtidProdutoCozinha.setText(null);
                     // Solicita confirmação de impressão
                     
                     int confirma = JOptionPane.showConfirmDialog(null, "Imprimir Comprovante de Liberação?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                     if (confirma == JOptionPane.YES_OPTION) {
-                        cc.imprimeComprovanteCozinha(txtidProdutoCozinha.getText());
+                        cc.imprimeComprovanteCozinha(id_pratoLiberado);
                     }
 
                 }
@@ -440,7 +443,7 @@ public class TelaConzinha extends javax.swing.JFrame {
 
             // Remove prato Cozinha se o usuário logado tiver o perfil de Gerente e 
             
-            if ("Gerente".equals(lblCargo.getText())&&"".equals(txtidProdutoCozinha.getText())) {
+            if ("Gerente".equals(lblCargo.getText())&&!"".equals(txtidProdutoCozinha.getText())) {
 
                 int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente remover este prato?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (resp == JOptionPane.YES_OPTION) {
@@ -480,6 +483,9 @@ public class TelaConzinha extends javax.swing.JFrame {
             if ("Cozinheiro".equals(f.getCargo())) {
                 // Registra a solicitação do preparo 
                 cc.registraPreparo(idProdutoCozinha, f.getNome());
+                //Habilita botões remover e preparar
+                lblPreparar.setEnabled(false);
+                lblREmovePrato.setEnabled(false);
                 // Atualiza Tabela
                 tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
                 modelCozinha.redimensionaColunas(tblCozinha);

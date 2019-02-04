@@ -761,7 +761,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             p.setIdFuncionario(txtIdGarcom.getText());
             //p.setId_pedido(txtNumeroPedido.getText());
 
-            int op = JOptionPane.showConfirmDialog(null, "Confirma a abertura de pedido para a mesa " + txtNumeroMesa.getText()+"?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(null, "Confirma a abertura de pedido para a mesa " + txtNumeroMesa.getText() + "?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {
 
@@ -778,7 +778,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 }
 
             } else {
-                
+
                 txtNumeroMesa.setText(null);
             }
         }
@@ -808,7 +808,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         try {
 
-           
             String numeroMesa = tblPedidosAbertos.getModel().getValueAt(linha, 0).toString();
             txtNumeroMesa.setText(numeroMesa);
             String numPedido = tblPedidosAbertos.getModel().getValueAt(linha, 1).toString();
@@ -821,19 +820,19 @@ public class TelaPedido2 extends javax.swing.JFrame {
             txtIdMesa.setText(cm.localizaIdMesa(numeroMesa));
             txtQtd.setEnabled(false);
             txtCodigoProduto.requestFocus();
-           
+
             comboGarcom.setSelectedItem(tblPedidosAbertos.getModel().getValueAt(linha, 4).toString());
             jTabbedPanePedido.setSelectedIndex(1);
             txtCodigoProduto.setEnabled(true);
-            
+
         } catch (NullPointerException e) {
             System.out.println("br.com.bar.view.TelaPedido2.tblPedidosAbertosMouseClicked()" + e);
         }
     }//GEN-LAST:event_tblPedidosAbertosMouseClicked
 
     private void jTabbedPanePedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPanePedidoMouseClicked
-        if (!"nPedido".equals(txtNumeroPedido.getText())){
-            
+        if (!"nPedido".equals(txtNumeroPedido.getText())) {
+
             // Exibe caixa de pesquisa e lista todos os produtos disponível no estoque
             int index = jTabbedPanePedido.getSelectedIndex();
             if ("Pedidos Abertos".equals(jTabbedPanePedido.getTitleAt(index))) {
@@ -841,13 +840,19 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 lblPesquisa.setVisible(false);
                 txtPesquisa.setVisible(false);
                 limpaform();
-                
+                // Desabilita botões Enviar para a Cozinha e Status Cozinha após clique 
+                // em outra aba.
+                lblEnviarCozinha.setEnabled(false);
+                lblStatusCozinha.setEnabled(false);
             } else if ("Detalhe Pedido".equals(jTabbedPanePedido.getTitleAt(index))) {
                 txtQtd.setEnabled(false);
                 txtCodigoProduto.setEnabled(true);
                 lblPesquisa.setVisible(false);
                 txtPesquisa.setVisible(false);
-
+                 // Desabilita botões Enviar para a Cozinha e Status Cozinha após clique 
+                // em outra aba.
+                lblEnviarCozinha.setEnabled(false);
+                lblStatusCozinha.setEnabled(false);
                 tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(txtNumeroMesa.getText(), txtNumeroPedido.getText())));
                 modelDetPedido.redimensionaColunas(tblDetalhePedido);
                 limpaform();
@@ -858,14 +863,18 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 txtValorTotal.setText("0,00");
                 txtCodigoProduto.setEnabled(false);
                 txtQtd.setEnabled(false);
-
+                // Desabilita botões Enviar para a Cozinha e Status Cozinha após clique 
+                // em outra aba.
+                lblEnviarCozinha.setEnabled(false);
+                lblStatusCozinha.setEnabled(false);
+                
                 tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
                 modelProduroEstoque.redimensionaColunas(tblListaProduto);
             }
-        }else {
+        } else {
             bloqueiaCampos();
         }
-       
+
     }//GEN-LAST:event_jTabbedPanePedidoMouseClicked
 
     private void txtCodigoProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCodigoProdutoMouseClicked
@@ -926,17 +935,16 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
     private void tblListaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaProdutoMouseClicked
         // Carega dados do produtoao clicar na tabela Lista de Produtos
-            
-            int linha = tblListaProduto.getSelectedRow();
-            txtCodigoProduto.setText(tblListaProduto.getModel().getValueAt(linha, 0).toString());
-            txtDescricao.setText(tblListaProduto.getModel().getValueAt(linha, 1).toString());
-            txtValorUnit.setText(tblListaProduto.getModel().getValueAt(linha, 3).toString());
-            txtQtd.requestFocus();
-            txtQtd.setText(null);
-            txtQtd.setEnabled(true);
-            txtValorTotal.setText("0,00");
-            txtQtd.setEnabled(true);
-        
+
+        int linha = tblListaProduto.getSelectedRow();
+        txtCodigoProduto.setText(tblListaProduto.getModel().getValueAt(linha, 0).toString());
+        txtDescricao.setText(tblListaProduto.getModel().getValueAt(linha, 1).toString());
+        txtValorUnit.setText(tblListaProduto.getModel().getValueAt(linha, 3).toString());
+        txtQtd.requestFocus();
+        txtQtd.setText(null);
+        txtQtd.setEnabled(true);
+        txtValorTotal.setText("0,00");
+        txtQtd.setEnabled(true);
 
 
     }//GEN-LAST:event_tblListaProdutoMouseClicked
@@ -995,7 +1003,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Chama Tela Cozinha
         if (lblStatusCozinha.isEnabled()) {
             TelaStatusCozinha status = new TelaStatusCozinha();
-            status.recebeOperador(comboGarcom.getSelectedItem().toString(),txtNumeroPedido.getText());
+            status.recebeOperador(comboGarcom.getSelectedItem().toString(), txtNumeroPedido.getText());
             status.setVisible(true);
 
         }
@@ -1048,7 +1056,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     }//GEN-LAST:event_txtQtdKeyReleased
 
     private void tblListaProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tblListaProdutoFocusLost
-       
+
     }//GEN-LAST:event_tblListaProdutoFocusLost
 
     private double calculaPedido() {
@@ -1279,7 +1287,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             pCozinha.add(txtNumeroPedido.getText());
             Date dtAtual = new Date();
             Timestamp tms = new Timestamp(dtAtual.getTime());
-            
+
             //SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
             //pCozinha.add(sdf.format(dtAtual)); // Data Atual            
             pCozinha.add(String.valueOf(tms)); // Data Atual            

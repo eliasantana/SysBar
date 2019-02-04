@@ -145,5 +145,39 @@ public class ControlerLog {
 
        
     }
+    
+    public boolean expurgo(){
+        // Retorna o menor ID da lista de data anterior a 3 meses
+        String sql="select MIN(id) as 'id' from tb_log where data < (SELECT DATE_FORMAT(adddate(now(), INTERVAL -3 MONTH ),'%Y-%m-%d')); ";
+        String menorId=null;
+        boolean resp=false;
+        try {
+            
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while (rs.next()){
+                menorId=rs.getString("id");
+                
+            }
+            
+            
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerLog.expurgo()"+e);
+            
+        }
+        // Exclui todos os registros a partir do menor ID identificado
+       
+        String sqlDelete="DELETE FROM tb_log WHERE ID >="+menorId;
+        try {
+            pst=conexao.prepareStatement(sqlDelete);
+            pst.executeUpdate();
+            resp=true;
+            
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerLog.expurgo() - sqlDelete" + e);
+        }
+        
+        return resp;
+    }
 
 }

@@ -48,7 +48,7 @@ public class ControlerCozinha {
                 + "CASE WHEN cozinheiro IS NULL THEN 'Não informado'\n"
                 + "ELSE cozinheiro \n"
                 + "END AS 'COZINHEIRO', \n"
-                + " TIME_FORMAT(TIME(hora_solicitacao),'%H:%i') AS 'HORÁRIO', \n"
+                + " TIME_FORMAT(TIME(hora_solicitacao),'%H:%i') AS 'HORA', \n"
                 + " TIME_FORMAT(TIMEDIFF(CURRENT_TIMESTAMP(),hora_solicitacao),'%H:%i') AS 'ESPERA', \n"
                 + " status AS 'STATUS'    \n"
                 + " FROM dbbar.tbcozinha \n"

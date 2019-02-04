@@ -6,6 +6,7 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.Backup;
+import br.com.br.controler.ControlerLog;
 import java.io.IOException;
 import static java.lang.Thread.sleep;
 import java.util.logging.Level;
@@ -16,14 +17,14 @@ import java.util.logging.Logger;
  * @author Elias Santana
  */
 public class TelaSplash extends javax.swing.JFrame {
-
-    /**
-     * Creates new form TelaSplash
-     */
+     ControlerLog cl = new ControlerLog();
+   
     public TelaSplash() {
         initComponents();
         this.setAlwaysOnTop(true);
         Backup b = new Backup();
+        System.out.println("Expurgo: "+cl.expurgo());
+        
 
         // Inicializa tela splash
         lblMensagem.setText("Realizando backup do sistema, aguarde um momento...");
@@ -105,7 +106,7 @@ public class TelaSplash extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel11.setText("(81) 99749-6602 | (81) 99678-1659");
+        jLabel11.setText("(81) 99749-6602 | (81) 99897-8092");
         jPanel1.add(jLabel11);
         jLabel11.setBounds(200, 110, 240, 20);
 

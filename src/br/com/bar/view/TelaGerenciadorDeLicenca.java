@@ -226,7 +226,7 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
                 +"\nEndereço: " + dados.getEndereco()+","+dados.getNumero() + " \nBairro:" + dados.getBairro() + "CEP: "+dados.getCep() 
                 + "  Cidade: "+dados.getCidade() + "  UF: "+dados.getUf()   + "\nStatus: "+ lblMensagem.getText();  
        
-        if (email.enviaEmail("contato.rese7@gmail.com", assunto, mensagem)){
+        if (email.enviaEmail("rese7.contato@gmail.com", assunto, mensagem)){
             btnSolicitaLicenca.setText("Solicitação enviada com sucesso!");
             btnSolicitaLicenca.setForeground(Color.GREEN);
         }

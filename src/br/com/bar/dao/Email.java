@@ -30,13 +30,13 @@ public class Email {
             // Servidor SMTP
             email.setHostName("smtp.gmail.com");
             //Autentica E-mail
-            email.setAuthentication("contato.rese7@gmail.com", "JE09@2018");
+            email.setAuthentication("rese7.contato@gmail.com", "JE09@2018");
             email.setSSL(true);
             // se.addTo("rese7.comercial@gmail.com");
             //Destinatário
             email.addTo(e_mail);
             //Remetente
-            email.setFrom("contato.rese7@gmail.com");
+            email.setFrom("rese7.contato@gmail.com");
             //Assunto da mensagem
             email.setSubject(assunto);
             //Mensagem

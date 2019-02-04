@@ -70,13 +70,13 @@ public class TableModelCozinha extends AbstractTableModel {
      public void redimensionaColunas(JTable tabela) {
 
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(40); // SEQ
+        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(65); // SEQ
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(230);//PRATO
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(40); //QTD
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(200); //GARÇOM
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(45); //N.MESA
         tabela.getColumn(tabela.getColumnName(5)).setPreferredWidth(210); //COZINHEIRO
-        tabela.getColumn(tabela.getColumnName(6)).setPreferredWidth(70); //SOLICITAÇÃO
+        tabela.getColumn(tabela.getColumnName(6)).setPreferredWidth(45); //SOLICITAÇÃO
         tabela.getColumn(tabela.getColumnName(7)).setPreferredWidth(60); //T.ESPERA
         tabela.getColumn(tabela.getColumnName(8)).setPreferredWidth(115); //ESTATUS
 
