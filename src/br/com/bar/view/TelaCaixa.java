@@ -350,9 +350,9 @@ public class TelaCaixa extends JDialog {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 10, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(btnFechar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -994,7 +994,8 @@ public class TelaCaixa extends JDialog {
                     dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro() + " - " + dadosEmpresa.getCep());
                     dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone() + " - " + dadosEmpresa.getEmail());
                     dados.put("cnpj", dadosEmpresa.getCnpj());
-
+                    dados.put("desc", Double.parseDouble(txtDesconto.getText().replaceAll(",", ".")));
+                    
                     try {
                         JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "cupom.jasper", dados, conexao);
                         JasperViewer.viewReport(print, false);
@@ -1110,7 +1111,7 @@ public class TelaCaixa extends JDialog {
     private void btnImprimirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMouseClicked
         if (btnImprimir.isEnabled()) {
 
-//Imprime cupom
+            //Imprime cupom
             // Calcula valor
             DadosEmpresa dadosEmpresa = de.selecionaDados();
 
@@ -1141,7 +1142,7 @@ public class TelaCaixa extends JDialog {
             dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro() + " - " + dadosEmpresa.getCep());
             dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone() + " - " + dadosEmpresa.getEmail());
             dados.put("cnpj", dadosEmpresa.getCnpj());
-
+            dados.put("desc", Double.parseDouble(txtDesconto.getText().replaceAll(",", ".")));
             System.out.println(dadosEmpresa.getImprimir_na_tela());
             try {
                 if (dadosEmpresa.getImprimir_na_tela() == 0) {
@@ -1391,7 +1392,7 @@ public class TelaCaixa extends JDialog {
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Recebi o foco");
+        
     }//GEN-LAST:event_formFocusGained
     public void recebeOperador(String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());

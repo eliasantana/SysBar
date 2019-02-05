@@ -294,7 +294,7 @@ public class TelaAutorizacao extends JDialog {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             AutenticaUsuario autentica = new AutenticaUsuario();
             String funcionario = comboFuncionario.getSelectedItem().toString().toLowerCase();
-            String senha = txtSenha.getText();
+            String senha = txtSenha.getText().toLowerCase();
 
             if (autentica.autentica(funcionario, senha)) {
                 habilitaDesconto();
