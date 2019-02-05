@@ -69,9 +69,10 @@ public class TelaPametro extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lblFechar = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("SysBar - Parâmetro");
+        setTitle("MasterFood - Parâmetro");
         setBackground(new java.awt.Color(44, 62, 80));
         setUndecorated(true);
         getContentPane().setLayout(null);
@@ -157,7 +158,7 @@ public class TelaPametro extends javax.swing.JFrame {
         jPanel2.setBounds(330, 0, 40, 40);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 370, 80);
+        jPanel1.setBounds(0, 0, 370, 70);
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnBackup.png"))); // NOI18N
@@ -169,6 +170,22 @@ public class TelaPametro extends javax.swing.JFrame {
         });
         getContentPane().add(jLabel8);
         jLabel8.setBounds(50, 320, 260, 40);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 366, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 368, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanel3);
+        jPanel3.setBounds(0, 5, 368, 370);
 
         setSize(new java.awt.Dimension(369, 377));
         setLocationRelativeTo(null);
@@ -308,6 +325,7 @@ public class TelaPametro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblFechar;
     private javax.swing.JTextField txtIpServidor;
     private javax.swing.JTextField txtNomeBanco;

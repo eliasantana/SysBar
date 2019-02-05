@@ -13,6 +13,7 @@ import br.com.bar.model.DescontoPedido;
 import br.com.bar.model.Funcionario;
 import br.com.bar.model.MovimentacaoCaixa;
 import br.com.bar.model.Pedido;
+import br.com.bar.model.TableModelCaixa;
 import br.com.br.controler.ControlerCaixa;
 import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerMesa;
@@ -60,7 +61,8 @@ public class TelaCaixa extends JDialog {
     ControlerParametro cparam = new ControlerParametro();
     Connection conexao = ConexaoBd.conector();
     ControlerDadosEmpresa de = new ControlerDadosEmpresa();
-
+    TableModelCaixa modelCaixa = new TableModelCaixa();
+    
     Util utils = new Util();
 
     Log l = new Log();
@@ -89,7 +91,7 @@ public class TelaCaixa extends JDialog {
         txtValorPago.setText("0,00");
         txtTroco.setText("0,00");
         lblCargo.setVisible(false);
-       
+        modelCaixa.redimensionaColunas(tblDetalhePedido);
     }
 
     /**
@@ -117,8 +119,9 @@ public class TelaCaixa extends JDialog {
         jLabel2 = new javax.swing.JLabel();
         comboMes = new javax.swing.JComboBox<>();
         btnGrafico = new javax.swing.JLabel();
-        painelDireito = new javax.swing.JPanel();
         lblOperador = new javax.swing.JLabel();
+        lblData = new javax.swing.JLabel();
+        painelDireito = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnFechar = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -152,7 +155,6 @@ public class TelaCaixa extends JDialog {
         jLabel21 = new javax.swing.JLabel();
         jSpinFieldPessoas = new javax.swing.JSpinner();
         btnImprimir = new javax.swing.JLabel();
-        lblData = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         comboMesa = new javax.swing.JComboBox<>();
@@ -315,16 +317,22 @@ public class TelaCaixa extends JDialog {
 
         painelEsquerdo.add(panelGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 480, -1, -1));
 
+        lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblOperador.setForeground(new java.awt.Color(255, 255, 255));
+        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario_branco.png"))); // NOI18N
+        lblOperador.setText("jLabel2");
+        painelEsquerdo.add(lblOperador, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 630, 90, 40));
+
+        lblData.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblData.setForeground(new java.awt.Color(255, 255, 255));
+        lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendar24x24.png"))); // NOI18N
+        lblData.setText("jLabel5");
+        painelEsquerdo.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 630, 90, 40));
+
         getContentPane().add(painelEsquerdo);
         painelEsquerdo.setBounds(0, 0, 300, 700);
 
         painelDireito.setLayout(null);
-
-        lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
-        lblOperador.setText("jLabel2");
-        painelDireito.add(lblOperador);
-        lblOperador.setBounds(140, 10, 90, 40);
 
         jPanel2.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -421,10 +429,10 @@ public class TelaCaixa extends JDialog {
         );
 
         painelDireito.add(jPanel3);
-        jPanel3.setBounds(10, 90, 350, 120);
+        jPanel3.setBounds(10, 40, 350, 120);
 
         lblReceber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblReceber.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/caixa.png"))); // NOI18N
+        lblReceber.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/money48x48.png"))); // NOI18N
         lblReceber.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblReceberMouseClicked(evt);
@@ -445,7 +453,7 @@ public class TelaCaixa extends JDialog {
         jLabel24.setText("Fechar Caixa");
 
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/power2.png"))); // NOI18N
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/power.png"))); // NOI18N
         jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel17MouseClicked(evt);
@@ -486,7 +494,7 @@ public class TelaCaixa extends JDialog {
                         .addContainerGap()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblReceber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel24)
@@ -524,7 +532,7 @@ public class TelaCaixa extends JDialog {
         );
 
         painelDireito.add(jPanel7);
-        jPanel7.setBounds(10, 220, 350, 80);
+        jPanel7.setBounds(10, 170, 350, 80);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Forma de Pagamento")));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -636,16 +644,16 @@ public class TelaCaixa extends JDialog {
         jPanel4.add(lblValorDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 50, 141, 30));
 
         painelDireito.add(jPanel4);
-        jPanel4.setBounds(10, 310, 350, 220);
+        jPanel4.setBounds(10, 260, 350, 220);
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel21.setText("N. Pessoas");
         painelDireito.add(jLabel21);
-        jLabel21.setBounds(20, 540, 65, 30);
+        jLabel21.setBounds(20, 500, 65, 30);
 
         jSpinFieldPessoas.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
         painelDireito.add(jSpinFieldPessoas);
-        jSpinFieldPessoas.setBounds(90, 540, 51, 32);
+        jSpinFieldPessoas.setBounds(90, 500, 51, 32);
 
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Impressora32x32.png"))); // NOI18N
         btnImprimir.setText("Imprimir Parcial");
@@ -655,12 +663,7 @@ public class TelaCaixa extends JDialog {
             }
         });
         painelDireito.add(btnImprimir);
-        btnImprimir.setBounds(230, 530, 125, 55);
-
-        lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario24x24.png"))); // NOI18N
-        lblData.setText("jLabel5");
-        painelDireito.add(lblData);
-        lblData.setBounds(230, 10, 90, 40);
+        btnImprimir.setBounds(230, 490, 125, 55);
 
         getContentPane().add(painelDireito);
         painelDireito.setBounds(940, 0, 370, 690);
@@ -695,12 +698,10 @@ public class TelaCaixa extends JDialog {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
                 {null, null, null, null, null}
             },
             new String [] {
-                "CÓDIGO", "PRODUTO", "QUANTIDADE", "VLR UNITÁRIO R$", "VLR TOTAL R$"
+                "CÓDIGO", "PRODUTO", "QTD", "VLR UNITÁRIO R$", "VLR TOTAL R$"
             }
         ));
         tblDetalhePedido.setRowHeight(22);
@@ -765,17 +766,9 @@ public class TelaCaixa extends JDialog {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel4))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(46, 46, 46)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -790,7 +783,16 @@ public class TelaCaixa extends JDialog {
                         .addComponent(lblMsgStatus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))))
+                        .addGap(19, 19, 19))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(108, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -799,11 +801,9 @@ public class TelaCaixa extends JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(12, 12, 12))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
-                .addComponent(jLabel6)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel6))
+                    .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -933,7 +933,7 @@ public class TelaCaixa extends JDialog {
 
             p.setCadMesaId(txtIdMEsa.getText());
             // Solicita confirmação do usuário
-            int op = JOptionPane.showConfirmDialog(null, "Fechar este pedido?", "Atenção!", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(null, "Deseja realmente fechar este Pedido?", "Atenção!", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {  // Se confirmado fecha o pedido
 
@@ -958,6 +958,8 @@ public class TelaCaixa extends JDialog {
                     cm.trocaStatusMesa(comboMesa.getSelectedItem().toString(), "0");
                     JOptionPane.showMessageDialog(null, "Pedido fechado com sucesso!");
                     // ===============================================================//
+                    lblGarcom.setText(null);
+                     jSpinFieldPessoas.setValue(1);
                     // Registra desconto se o valor for > que 0
                    if (!"0,00".equals(txtDesconto.getText())){
                                          
@@ -1066,7 +1068,7 @@ public class TelaCaixa extends JDialog {
             txtIdPedido.setText(cp.LocalizaIdPedido(comboMesa.getSelectedItem().toString()));
             // Exibe detalhe do pedido por mesa de acordo com o id do pedido
             tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(comboMesa.getSelectedItem().toString(), txtIdPedido.getText())));
-
+            modelCaixa.redimensionaColunas(tblDetalhePedido);
             // Inicializa das variáveis TOTAL E totalGeral
             double total = 0;
             double totalGeral = 0;
@@ -1450,6 +1452,7 @@ public class TelaCaixa extends JDialog {
         txtDesconto.setText(dados.get(6));
         comboMesa.setSelectedItem(dados.get(3));
         tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(comboMesa.getSelectedItem().toString(), txtIdPedido.getText())));
+        modelCaixa.redimensionaColunas(tblDetalhePedido);
         checkCartao.setEnabled(true);
         checkTxServico.setEnabled(true);
         checkDinheiro.setEnabled(true);
@@ -1568,13 +1571,14 @@ public class TelaCaixa extends JDialog {
         //double totalConta = Double.parseDouble(lblTotal.getText().replaceAll(",", "."));
         double totalConta = Double.parseDouble(tgeral.getText().replaceAll(",", "."));
         double totalTxServico = totalConta * txServico;
+        double desconto = Double.parseDouble(txtDesconto.getText().replaceAll(",", "."));
         double totalPago = 0;
         double troco = 0;
 
         if (checkTxServico.isSelected()) {
 
             // txtTotalGeral.setText(String.format("%9.2f", totalConta + totalTxServico));
-            lblTotal.setText(String.format("%9.2f", totalConta + totalTxServico));
+            lblTotal.setText(String.format("%9.2f", (totalConta + totalTxServico)-desconto));
             //txtTaxaServico.setText(String.format("%9.2f", totalTxServico));
             percent.setText(String.format("%9.2f", totalTxServico));
 

@@ -923,7 +923,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 adicionaItemNoPedido();
                 tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(txtNumeroMesa.getText(), txtNumeroPedido.getText())));
                 modelDetPedido.redimensionaColunas(tblDetalhePedido);
-                txtCodigoProduto.requestFocus();
+                txtQtd.requestFocus();
                 if ("Lista de Produtos".equals(jTabbedPanePedido.getTitleAt(2))) {
                     txtCodigoProduto.setEnabled(true);
                 }
@@ -1240,7 +1240,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                             // Exibe mensagem de produto indisponpivel no momento
                             lblMensagem.setForeground(Color.red);
                             lblMensagem.setText("*Quantidade insuficiente! " + "Existe apenas " + qtdEstoque + " unidade(s) em estoque.");
-                            txtCodigoProduto.requestFocus();
+                            txtQtd.requestFocus();
                             //txtCodigoProduto.setText(null);
                             txtQtd.setText(null);
 
