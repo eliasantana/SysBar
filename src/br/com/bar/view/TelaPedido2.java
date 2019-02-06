@@ -87,9 +87,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblOperador.setText(operador);
         lblCargo.setText(perfil);
         lblCargo.setVisible(false);
-        if ("Gerente".equals(perfil)) {
-            lblGerenciarPedido.setEnabled(true);
-        }
+       
     }
 
     /**
@@ -774,6 +772,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                     modelPedidos.redimensionaColunas(tblPedidosAbertos);
                     cm.trocaStatusMesa(numero_mesa, "1");
                     tblNumeroMesa.setModel(DbUtils.resultSetToTableModel(cm.listaMesaLivre(txtIdGarcom.getText())));
+                   
 
                 }
 
@@ -824,7 +823,10 @@ public class TelaPedido2 extends javax.swing.JFrame {
             comboGarcom.setSelectedItem(tblPedidosAbertos.getModel().getValueAt(linha, 4).toString());
             jTabbedPanePedido.setSelectedIndex(1);
             txtCodigoProduto.setEnabled(true);
-
+            // Bloqueia gerenciar pedido caso o ususário logado não seja gerente.
+            if ("Gerente".equals(lblCargo.getText())){
+                lblGerenciarPedido.setEnabled(true);
+            } 
         } catch (NullPointerException e) {
             System.out.println("br.com.bar.view.TelaPedido2.tblPedidosAbertosMouseClicked()" + e);
         }
@@ -924,6 +926,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(txtNumeroMesa.getText(), txtNumeroPedido.getText())));
                 modelDetPedido.redimensionaColunas(tblDetalhePedido);
                 txtQtd.requestFocus();
+                txtPesquisa.setText(null);
                 if ("Lista de Produtos".equals(jTabbedPanePedido.getTitleAt(2))) {
                     txtCodigoProduto.setEnabled(true);
                 }
@@ -1002,8 +1005,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private void lblStatusCozinhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStatusCozinhaMouseClicked
         // Chama Tela Cozinha
         if (lblStatusCozinha.isEnabled()) {
+            
             TelaStatusCozinha status = new TelaStatusCozinha();
-            status.recebeOperador(comboGarcom.getSelectedItem().toString(), txtNumeroPedido.getText());
+            status.recebeOperador(comboGarcom.getSelectedItem().toString(), txtNumeroPedido.getText(), txtNumeroMesa.getText());
             status.setVisible(true);
 
         }

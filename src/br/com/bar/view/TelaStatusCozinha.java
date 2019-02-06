@@ -22,14 +22,15 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         
     }
 
-    public void recebeOperador(String operador, String nPedido) {     
+    public void recebeOperador(String operador, String nPedido, String nmesa) {     
          
         lblGarcom.setText("Garçom: "+operador);
+        lblMesa.setText("Mesa: "+nmesa);
+        lblNPedido.setText("Pedido: "+nPedido);
         ControlerCozinha status = new ControlerCozinha();
-        tblStatus.setModel(DbUtils.resultSetToTableModel(status.statusCozinha(operador, nPedido)));
+        tblStatus.setModel(DbUtils.resultSetToTableModel(status.statusCozinha(nPedido)));
         modelStatusCozinha.redimensionaColunas(tblStatus);
-        System.out.println("Operador :"+operador);
-        System.out.println("nPedido: "+nPedido);
+        
         
     }
 
@@ -51,6 +52,8 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblStatus = new javax.swing.JTable();
         lblGarcom = new javax.swing.JLabel();
+        lblMesa = new javax.swing.JLabel();
+        lblNPedido = new javax.swing.JLabel();
 
         btnFechar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -138,6 +141,11 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
             }
         ));
         tblStatus.setRowHeight(22);
+        tblStatus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblStatusMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblStatus);
 
         getContentPane().add(jScrollPane1);
@@ -146,7 +154,17 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         lblGarcom.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         lblGarcom.setText("jLabel2");
         getContentPane().add(lblGarcom);
-        lblGarcom.setBounds(10, 120, 430, 40);
+        lblGarcom.setBounds(10, 100, 300, 30);
+
+        lblMesa.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        lblMesa.setText("jLabel3");
+        getContentPane().add(lblMesa);
+        lblMesa.setBounds(10, 130, 130, 30);
+
+        lblNPedido.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        lblNPedido.setText("jLabel3");
+        getContentPane().add(lblNPedido);
+        lblNPedido.setBounds(150, 130, 150, 30);
 
         setBounds(0, 0, 543, 480);
     }// </editor-fold>//GEN-END:initComponents
@@ -160,6 +178,10 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         // Fecha tela
         dispose();
     }//GEN-LAST:event_btnFechar1MouseClicked
+
+    private void tblStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblStatusMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblStatusMouseClicked
 
     /**
      * @param args the command line arguments
@@ -205,6 +227,8 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblGarcom;
+    private javax.swing.JLabel lblMesa;
+    private javax.swing.JLabel lblNPedido;
     private javax.swing.JTable tblStatus;
     // End of variables declaration//GEN-END:variables
 }

@@ -62,12 +62,15 @@ public class TelaCaixa extends JDialog {
     Connection conexao = ConexaoBd.conector();
     ControlerDadosEmpresa de = new ControlerDadosEmpresa();
     TableModelCaixa modelCaixa = new TableModelCaixa();
-    
+    ReportUtil rpu = new ReportUtil();
+            
+
     Util utils = new Util();
 
     Log l = new Log();
     Date data = new Date();
-     ArrayList<String> listAutoDesconto;
+    ArrayList<String> listAutoDesconto;
+
     public TelaCaixa() {
         initComponents();
         //lblLLogo.setIcon(utils.carregaLogo());
@@ -87,6 +90,7 @@ public class TelaCaixa extends JDialog {
         lblData.setText(utils.formataDataBr(data));
         bloqueiaControlePagamento();
         lblMsgStatus.setVisible(false);
+
         txtDesconto.setText("0,00");
         txtValorPago.setText("0,00");
         txtTroco.setText("0,00");
@@ -170,6 +174,7 @@ public class TelaCaixa extends JDialog {
         lblStatus = new javax.swing.JLabel();
         lblMsgStatus = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
+        lblNPedido = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -321,13 +326,13 @@ public class TelaCaixa extends JDialog {
         lblOperador.setForeground(new java.awt.Color(255, 255, 255));
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario_branco.png"))); // NOI18N
         lblOperador.setText("jLabel2");
-        painelEsquerdo.add(lblOperador, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 630, 90, 40));
+        painelEsquerdo.add(lblOperador, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 630, 100, 40));
 
         lblData.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblData.setForeground(new java.awt.Color(255, 255, 255));
         lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendar24x24.png"))); // NOI18N
         lblData.setText("jLabel5");
-        painelEsquerdo.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 630, 90, 40));
+        painelEsquerdo.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 630, 120, 40));
 
         getContentPane().add(painelEsquerdo);
         painelEsquerdo.setBounds(0, 0, 300, 700);
@@ -752,6 +757,8 @@ public class TelaCaixa extends JDialog {
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("jLabel2");
 
+        lblNPedido.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -772,27 +779,32 @@ public class TelaCaixa extends JDialog {
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(comboMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtIdMEsa, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIdPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblMsgStatus)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                        .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(46, 46, 46)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(108, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblNPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(comboMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtIdMEsa, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtIdPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblMsgStatus)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                                .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(19, 19, 19))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -801,9 +813,11 @@ public class TelaCaixa extends JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel6))
-                    .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -815,8 +829,9 @@ public class TelaCaixa extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel22)
-                    .addComponent(lblGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblGarcom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -947,7 +962,6 @@ public class TelaCaixa extends JDialog {
                     p.setAutenticacao(autentica);
                     // Fecha o pedido após o recebimento
                     cp.fechaPedido(p);
-                   
 
                     //Início do Registro de log
                     l.setFuncionalidade("Recebimento");
@@ -959,23 +973,21 @@ public class TelaCaixa extends JDialog {
                     JOptionPane.showMessageDialog(null, "Pedido fechado com sucesso!");
                     // ===============================================================//
                     lblGarcom.setText(null);
-                     jSpinFieldPessoas.setValue(1);
+                    jSpinFieldPessoas.setValue(1);
                     // Registra desconto se o valor for > que 0
-                   if (!"0,00".equals(txtDesconto.getText())){
-                                         
-                       Funcionario f = new Funcionario();
-                       f.setId(listAutoDesconto.get(7));
-                       Double desconto = Double.parseDouble(txtDesconto.getText().replaceAll(",", "."));
-                       // Instacia o objeto desconto e adiciona como parâmetro o motivo, o do idPedido e 
-                       // o id do Funcionário eque concedeu o desconto
-                       DescontoPedido descPedido = new DescontoPedido(desconto, listAutoDesconto.get(8), f, p);
-                       //Registra desconto informado
-                       caixa.registraDesconto(descPedido);
-                   }
-                    
-                    
-                    // Imprime cupom de pagamento
+                    if (!"0,00".equals(txtDesconto.getText())) {
 
+                        Funcionario f = new Funcionario();
+                        f.setId(listAutoDesconto.get(7));
+                        Double desconto = Double.parseDouble(txtDesconto.getText().replaceAll(",", "."));
+                        // Instacia o objeto desconto e adiciona como parâmetro o motivo, o do idPedido e 
+                        // o id do Funcionário eque concedeu o desconto
+                        DescontoPedido descPedido = new DescontoPedido(desconto, listAutoDesconto.get(8), f, p);
+                        //Registra desconto informado
+                        caixa.registraDesconto(descPedido);
+                    }
+
+                    // Imprime cupom de pagamento
                     HashMap dados = new HashMap();
                     Date dt = new Date();
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -995,10 +1007,15 @@ public class TelaCaixa extends JDialog {
                     dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone() + " - " + dadosEmpresa.getEmail());
                     dados.put("cnpj", dadosEmpresa.getCnpj());
                     dados.put("desc", Double.parseDouble(txtDesconto.getText().replaceAll(",", ".")));
-                    
+
                     try {
-                        JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "cupom.jasper", dados, conexao);
-                        JasperViewer.viewReport(print, false);
+                        // Verifica o método de impressão 0 -> Impressção em tela 1 - Impressão direta
+                        if (dadosEmpresa.getImprimir_na_tela()==0){
+                            rpu.imprimiRelatorioTela("cupom2.jasper", dados);
+                        }else {
+                            rpu.impressaoDireta("cupom2.jasper", dados);
+                        }
+                        
                         lblTotal.setText("0,00");
                         tgeral.setText("0,00");
                         percent.setText("0,00");
@@ -1021,7 +1038,7 @@ public class TelaCaixa extends JDialog {
                     txtTroco.setText("0,00");
                     checkCartao.setSelected(false);
                     checkDinheiro.setSelected(false);
-
+                    lblNPedido.setText(null);
                     lblEntradas.setText(String.format("%9.2f", caixa.totalizaEntradas()));
                     atualizaCaixa();
                     bloqueiaControlePagamento();
@@ -1048,7 +1065,6 @@ public class TelaCaixa extends JDialog {
     private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
         //Sai da tela Caixa
         if ("Gerente".equals(lblCargo.getText())) {
-
             dispose();
         } else {
             dispose();
@@ -1067,6 +1083,7 @@ public class TelaCaixa extends JDialog {
             txtIdMEsa.setText(cm.localizaIdMesa(comboMesa.getSelectedItem().toString()));
             //Localiza o id do  Pedido
             txtIdPedido.setText(cp.LocalizaIdPedido(comboMesa.getSelectedItem().toString()));
+            lblNPedido.setText("Pedido: " + txtIdPedido.getText());
             // Exibe detalhe do pedido por mesa de acordo com o id do pedido
             tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(comboMesa.getSelectedItem().toString(), txtIdPedido.getText())));
             modelCaixa.redimensionaColunas(tblDetalhePedido);
@@ -1103,6 +1120,7 @@ public class TelaCaixa extends JDialog {
             txtValorPago.setText("0,00");
             txtTroco.setText("0,00");
             txtDesconto.setText("0,00");
+            lblReceber.setEnabled(true);
 
         }
 
@@ -1146,11 +1164,13 @@ public class TelaCaixa extends JDialog {
             System.out.println(dadosEmpresa.getImprimir_na_tela());
             try {
                 if (dadosEmpresa.getImprimir_na_tela() == 0) {
-                    JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "cupom.jasper", dados, conexao);
+                    
+                    JasperPrint print = JasperFillManager.fillReport("C:/SysBar/Rel/cupom2.jasper", dados, conexao);
                     JasperViewer.viewReport(print, false);
+                    
 
                 } else {
-                    JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "cupom.jasper", dados, conexao);
+                    JasperPrint print = JasperFillManager.fillReport(ControlerParametro.getRELATORIOS() + "cupom2.jasper", dados, conexao);
                     JasperPrintManager.printPage(print, 0, false);
                 }
             } catch (JRException e) {
@@ -1166,81 +1186,90 @@ public class TelaCaixa extends JDialog {
     }//GEN-LAST:event_btnListarMouseClicked
 
     private void btnFecharCaixaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFecharCaixaMouseClicked
-        // Realiza o fechamento do caixa
+        // Realiza o fechamento do caixa se o botão estiver habilitado
+        if (btnFecharCaixa.isEnabled()) {
 
-        Date dataAtual = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Date dataAtual = new Date();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-        MovimentacaoCaixa cx = new MovimentacaoCaixa();
+            MovimentacaoCaixa cx = new MovimentacaoCaixa();
 
-        cx.setData(df.format(dataAtual));
-        // Totaliza entradas e saida do 
-        cx.setEntrada(caixa.totalizaEntradas(lblOperador.getText()));
-        cx.setSaida(caixa.totalizaSaida(lblOperador.getText()));
-        cx.setSaldo(caixa.totalizaEntradas(lblOperador.getText()) - caixa.totalizaSaida(lblOperador.getText()));
-        cx.setStatus(1);
-        cx.setIdFuncionario(Integer.parseInt(func.localizaIdLogin(lblOperador.getText())));
-
-        int op = JOptionPane.showConfirmDialog(null, lblOperador.getText().toUpperCase() + " tem certeza que deseja fechar seu caixa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-
-        if (op == JOptionPane.YES_OPTION) {
-
-            if (caixa.temMovimentacao(cx.getIdFuncionario())) { // Verifica se existe movimentação no dia para este operador.
-                JOptionPane.showMessageDialog(null, "Caixa fechado, contate o administrador!");
-
+            cx.setData(df.format(dataAtual));
+            // Totaliza entradas e saida do 
+            cx.setEntrada(caixa.totalizaEntradas(lblOperador.getText()));
+            cx.setSaida(caixa.totalizaSaida(lblOperador.getText()));
+            cx.setSaldo(caixa.totalizaEntradas(lblOperador.getText()) - caixa.totalizaSaida(lblOperador.getText()));
+            cx.setStatus(1);
+            cx.setIdFuncionario(Integer.parseInt(func.localizaIdLogin(lblOperador.getText())));
+            // Conta os elementos de um combobox
+            int op;
+            if (comboMesa.getItemCount() > 1) {
+                op = JOptionPane.showConfirmDialog(null, lblOperador.getText().toUpperCase() + " existem Mesas abertas! Tem certeza que deseja fechar o caixa mesmo assim?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             } else {
-                if (caixa.gravaMovimentacao(cx)) {
-                    JOptionPane.showMessageDialog(null, "Caixa fechado com sucesso!");
-                    // Inicio do Registro de Log
-                    l.setDescricao("Caixa");
-                    l.setFuncionalidade("Fehamento de Caixa");
-                    l.setUsuario(lblOperador.getText());
-                    l.gravaLog(l);
-                    // Fim do Registro de Log
+                op = JOptionPane.showConfirmDialog(null, lblOperador.getText().toUpperCase() + " tem certeza que deseja fechar seu caixa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            }
 
-                    // Imprime relatório de caixa 
-                    HashMap param = new HashMap();
-                    Date dt = new Date();
-                    param.put("data", df.format(dt));
-                    param.put("id_perador", cx.getIdFuncionario());
-                    param.put("titulo", "=-=-=-= Caixa Diário =-=-=-=");
-                    // Troca imagem de status
-                    caixa.statusCaixa(lblStatus, caixa.temMovimentacao(cx.getIdFuncionario()), lblMsgStatus);
-                    DadosEmpresa dadosEmpresa = de.selecionaDados();
-                    // Oculta paineis movimentação e painel gráfico
-                    panelGrafico.setVisible(false);
-                    panelMovimentacao.setVisible(false);
+            if (op == JOptionPane.YES_OPTION) {
 
-                    try {
-                        ReportUtil rpu = new ReportUtil();
-                        if (dadosEmpresa.getImprimir_na_tela() == 0) {
+                if (caixa.temMovimentacao(cx.getIdFuncionario())) { // Verifica se existe movimentação no dia para este operador.
+                    JOptionPane.showMessageDialog(null, "Caixa fechado, contate o administrador!");
 
-                            DadosEmpresa dados_empresa = de.selecionaDados();// Retorna dadados da empresa
-                            rpu.imprimiRelatorioTela("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param));
+                } else {
+                    if (caixa.gravaMovimentacao(cx)) {
+                        JOptionPane.showMessageDialog(null, "Caixa fechado com sucesso!");
+                        // Desabilita botões Lista e Fechar caixa após o fechamento
+                        btnListar.setEnabled(false);
+                        btnFecharCaixa.setEnabled(false);
+                        // Inicio do Registro de Log
+                        l.setDescricao("Caixa");
+                        l.setFuncionalidade("Fehamento de Caixa");
+                        l.setUsuario(lblOperador.getText());
+                        l.gravaLog(l);
+                        // Fim do Registro de Log
 
-                        } else {
-                            JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param), conexao);
-                            JasperPrintManager.printPage(print, 0, false);
+                        // Imprime relatório de caixa 
+                        HashMap param = new HashMap();
+                        Date dt = new Date();
+                        param.put("data", df.format(dt));
+                        param.put("id_perador", cx.getIdFuncionario());
+                        param.put("titulo", "=-=-=-= Caixa Diário =-=-=-=");
+                        // Troca imagem de status
+                        caixa.statusCaixa(lblStatus, caixa.temMovimentacao(cx.getIdFuncionario()), lblMsgStatus);
+                        DadosEmpresa dadosEmpresa = de.selecionaDados();
+                        // Oculta paineis movimentação e painel gráfico
+                        panelGrafico.setVisible(false);
+                        panelMovimentacao.setVisible(false);
+
+                        try {
+                            ReportUtil rpu = new ReportUtil();
+                            if (dadosEmpresa.getImprimir_na_tela() == 0) {
+
+                                DadosEmpresa dados_empresa = de.selecionaDados();// Retorna dadados da empresa
+                                rpu.imprimiRelatorioTela("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param));
+
+                            } else {
+                                JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param), conexao);
+                                JasperPrintManager.printPage(print, 0, false);
+                            }
+
+                        } catch (JRException e) {
+                            System.out.println("br.com.bar.view.TelaCaixa.btnFecharCaixaMouseClicked()" + e);
+                        }
+                        //*************************** TESTE FECHAMENTO ANTERIOR ***************************************
+                        // Verifica se existe movimentação na data anterior caso existea executa o fechamento retroativo
+                        if (caixa.temMovAnterior(lblOperador.getText())) {
+                            // Fecha caixa anterio do operador informado
+                            caixa.fechaCaixaAnterior(String.valueOf(lblOperador.getText()), String.valueOf(cx.getIdFuncionario()));
+
                         }
 
-                    } catch (JRException e) {
-                        System.out.println("br.com.bar.view.TelaCaixa.btnFecharCaixaMouseClicked()" + e);
                     }
-                    //*************************** TESTE FECHAMENTO ANTERIOR ***************************************
-                    // Verifica se existe movimentação na data anterior caso existea executa o fechamento retroativo
-                    if (caixa.temMovAnterior(lblOperador.getText())) {
-                        // Fecha caixa anterio do operador informado
-                        caixa.fechaCaixaAnterior(String.valueOf(lblOperador.getText()), String.valueOf(cx.getIdFuncionario()));
-
-                    }
-
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Operação de 'Fechamento de Caixa' cancelada com sucesso!");
+
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Operação de 'Fechamento de Caixa' cancelada com sucesso!");
-
         }
-
     }//GEN-LAST:event_btnFecharCaixaMouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
@@ -1392,7 +1421,7 @@ public class TelaCaixa extends JDialog {
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_formFocusGained
     public void recebeOperador(String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
@@ -1401,9 +1430,11 @@ public class TelaCaixa extends JDialog {
         l.setUsuario(operador);
         String id = func.localizaIdLogin(operador);
         caixa.statusCaixa(lblStatus, caixa.temMovimentacao(Integer.parseInt(id)), lblMsgStatus);
-        if ("Caixa Fechado".equals(lblStatus.getText())) {
-            lblReceber.setVisible(false);
-            lblReceberPAgamento.setVisible(false);
+        if ("Caixa Fechado".equals(lblMsgStatus.getText())) {
+            lblReceber.setEnabled(false);
+            lblReceberPAgamento.setEnabled(false);
+            btnFecharCaixa.setEnabled(false);
+            btnListar.setEnabled(false);
         }
     }
 
@@ -1439,7 +1470,7 @@ public class TelaCaixa extends JDialog {
     }
 
     public void recebeDadosComDesconto(ArrayList<String> dados) {
-        listAutoDesconto =  dados;
+        listAutoDesconto = dados;
 // total - tx de servico - total geral - Desconto - Mesa
         tgeral.setText(dados.get(0));
         percent.setText(dados.get(1));
@@ -1542,6 +1573,7 @@ public class TelaCaixa extends JDialog {
     private javax.swing.JLabel lblGarcom;
     private javax.swing.JLabel lblLLogo;
     private javax.swing.JLabel lblMsgStatus;
+    private javax.swing.JLabel lblNPedido;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblPago;
     private javax.swing.JLabel lblReceber;
@@ -1579,7 +1611,7 @@ public class TelaCaixa extends JDialog {
         if (checkTxServico.isSelected()) {
 
             // txtTotalGeral.setText(String.format("%9.2f", totalConta + totalTxServico));
-            lblTotal.setText(String.format("%9.2f", (totalConta + totalTxServico)-desconto));
+            lblTotal.setText(String.format("%9.2f", (totalConta + totalTxServico) - desconto));
             //txtTaxaServico.setText(String.format("%9.2f", totalTxServico));
             percent.setText(String.format("%9.2f", totalTxServico));
 

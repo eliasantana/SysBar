@@ -114,16 +114,16 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
         jPanel1.setBounds(0, 0, 470, 110);
 
         lblMensagem.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        lblMensagem.setText("Sua licença expira em:  ");
+        lblMensagem.setText("Sua Licença expira em:  ");
         getContentPane().add(lblMensagem);
         lblMensagem.setBounds(30, 150, 400, 25);
 
-        jLabel4.setText("Para renovar sua licença entre em contato com a área comercial.");
+        jLabel4.setText("Para renovar sua licença entre em contato com a área Comercial.");
         getContentPane().add(jLabel4);
         jLabel4.setBounds(30, 180, 390, 20);
 
         btnSolicitaLicenca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/email.png"))); // NOI18N
-        btnSolicitaLicenca.setText("Solicitar nova licença agora");
+        btnSolicitaLicenca.setText("Solicitar nova Licença agora");
         btnSolicitaLicenca.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSolicitaLicencaMouseClicked(evt);

@@ -99,7 +99,7 @@ public class TelaLogin extends javax.swing.JFrame {
             lblCnpjEmpresa.setText(dadosEmpresa.getCnpj());
 
             TelaGerenciadorDeLicenca g = new TelaGerenciadorDeLicenca();
-            g.recebeDias(dias, "Sua licença expira em " + String.valueOf(dias) + " dias!");
+            g.recebeDias(dias, "Sua Licença expira em " + String.valueOf(dias) + " dia(s)!");
             g.setAlwaysOnTop(true);
             g.setVisible(true);
 
@@ -452,7 +452,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
         // Fecha Janela
-        dispose();
+        System.exit(0);
     }//GEN-LAST:event_jPanel3MouseClicked
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked

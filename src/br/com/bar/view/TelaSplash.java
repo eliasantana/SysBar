@@ -22,20 +22,22 @@ public class TelaSplash extends javax.swing.JFrame {
     public TelaSplash() {
         initComponents();
         this.setAlwaysOnTop(true);
-        Backup b = new Backup();
+        //Backup b = new Backup();
         System.out.println("Expurgo: "+cl.expurgo());
         
 
         // Inicializa tela splash
-        lblMensagem.setText("Realizando backup do sistema, aguarde um momento...");
+        //lblMensagem.setText("Realizando backup do sistema, aguarde um momento...");
        
         new Thread() {
             public void run() {
+                // BAckup removido na atualização
+                /*
                 try {                
                     b.realizaBackup();
                 } catch (IOException ex) {
                     Logger.getLogger(TelaSplash.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                    }*/
                 
                 for (int i = 0; i < 101; i++) {
                     try {
@@ -62,6 +64,8 @@ public class TelaSplash extends javax.swing.JFrame {
                 login.setVisible(true);
             }
         }.start();
+       
+       
     }
 
     /**

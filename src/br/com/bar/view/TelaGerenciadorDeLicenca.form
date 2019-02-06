@@ -111,7 +111,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Yu Gothic UI Light" size="18" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Sua licen&#xe7;a expira em:  "/>
+        <Property name="text" type="java.lang.String" value="Sua Licen&#xe7;a expira em:  "/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -121,7 +121,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Para renovar sua licen&#xe7;a entre em contato com a &#xe1;rea comercial."/>
+        <Property name="text" type="java.lang.String" value="Para renovar sua licen&#xe7;a entre em contato com a &#xe1;rea Comercial."/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -134,7 +134,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/br/com/bar/imagens/email.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Solicitar nova licen&#xe7;a agora"/>
+        <Property name="text" type="java.lang.String" value="Solicitar nova Licen&#xe7;a agora"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSolicitaLicencaMouseClicked"/>

@@ -301,7 +301,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
             ResultSet rs = cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString());
             // Conta os itens do pedido.
             while (rs.next()) {
-                itens = itens + 1;
+                itens = itens + rs.getInt("qtd");
 
             }
            
@@ -372,6 +372,8 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                                 btnCancelarPedido.setEnabled(false);
                             } else {
                                 btnCancelarPedido.setEnabled(true);
+                                lblItensDoPedido.setText("Quantidade de Itens: "+0);
+                                
                             }
                         } catch (SQLException ex) {
                             Logger.getLogger(TelaGerenciarPedido.class.getName()).log(Level.SEVERE, null, ex);
@@ -407,6 +409,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                 l.setFuncionalidade("Cancelamento Pedido");
                 l.setDescricao(l.getUsuario() + " cancelou o pedido ->" + nPedido);
                 btnCancelarPedido.setEnabled(false);
+                lblNumeroMesa.setText(null);
             }
         }
     }//GEN-LAST:event_btnCancelarPedidoActionPerformed

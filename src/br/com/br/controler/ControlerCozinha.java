@@ -92,6 +92,8 @@ public class ControlerCozinha {
         return resultado;
     }
 
+   
+    
     public boolean liberaProduto(String id, String tempoPreparacao) {
 
         String sql = "UPDATE tbcozinha SET status='Liberado', tempo_preparacao=? WHERE id=?";
@@ -111,7 +113,8 @@ public class ControlerCozinha {
 
         return false;
     }
-
+   
+     // Excluir após teste status cozinha 
     // Retorna a lista dos produtos enviados para a cozinha pelo operador garçom
     public ResultSet statusCozinha(String operador, String npedido) {
 
@@ -123,7 +126,6 @@ public class ControlerCozinha {
                 + "qtd as 'QTD', \n"
                 + "status as 'STATUS'\n"
                 + "FROM \n"
-                // + "dbbar.tbcozinha where funcionario=? and data=curdate()\n"
                 + "dbbar.tbcozinha WHERE funcionario=? AND npedido=?\n"
                 + "ORDER BY id asc;";
 
@@ -135,6 +137,39 @@ public class ControlerCozinha {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "erroStatusCozinha" + e);
+        }
+
+        return rs;
+    }
+    // Retorna a lista dos produtos enviados para a cozinha pelo operador garçom
+    public ResultSet statusCozinha(String npedido) {
+         
+        // Listas os pratos enviados a cozinha pelo garçom
+         String sql = "SELECT "
+                + " produto    as PRATO\n"
+                + "     , qtd  as QTD\n"
+                + "     , CASE    \n"
+                + "	      WHEN cozinheiro IS NULL THEN 'Não informado'    \n"
+                + "		  ELSE cozinheiro \n"
+                + "	   END   as COZINHEIRO\n"
+                + "     , status as STATUS\n"
+                + "  FROM dbbar.tbcozinha\n"
+                + " WHERE npedido =?\n"
+                + "   AND status IN ('Pendente', 'Em preparação', 'Liberado')\n"
+                + " Order by \n"
+                + "      (CASE status\n"
+                + "          WHEN 'Pendente'      THEN '1'\n"
+                + "          WHEN 'Em preparação' THEN '2'\n"
+                + "          WHEN 'Liberado'      THEN '3'\n"
+                + "	   END)";
+
+        try {
+            pst = conexao.prepareStatement(sql);           
+            pst.setString(1, npedido);
+            rs = pst.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCozinha.statusCozinha()");
         }
 
         return rs;

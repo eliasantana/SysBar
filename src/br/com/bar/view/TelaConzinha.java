@@ -13,7 +13,10 @@ import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCozinha;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerFuncionario;
+import com.mysql.cj.protocol.Resultset;
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.TimerTask;
@@ -449,9 +452,26 @@ public class TelaConzinha extends javax.swing.JFrame {
                 if (resp == JOptionPane.YES_OPTION) {
                     if (cc.removePrato(txtidProdutoCozinha.getText())) {
                         JOptionPane.showMessageDialog(null, "Prato removido com sucesso!");
-                        tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
-                        modelCozinha.redimensionaColunas(tblCozinha);
-                        modelCozinha.adicionaCoresTabela(tblCozinha);
+                        ResultSet result = cc.listaProdutosCozinha();
+                        try {
+                            
+                            if (result.next()) {
+                                tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
+                                modelCozinha.redimensionaColunas(tblCozinha);
+                                modelCozinha.adicionaCoresTabela(tblCozinha);
+
+                            } else {
+                                lblREmovePrato.setEnabled(false);
+                                lblLiberaRefeicao.setEnabled(false);
+                                lblPreparar.setEnabled(false);
+                                tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
+                                modelCozinha.redimensionaColunas(tblCozinha);
+                                modelCozinha.adicionaCoresTabela(tblCozinha);
+                            }
+                        } catch (SQLException e) {
+                            System.out.println("br.com.bar.view.TelaConzinha.lblREmovePratoMouseClicked()"+e);
+                        }
+                        
                     }
 
                 }

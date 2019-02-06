@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  * @author Elias Santana
  */
 public class TableModelStatusCozinha extends AbstractTableModel {
-    // N.PEDIDO,  N.MESA, PRATO, QUANTIDADE,STATUS
+    // PARATO,  QTD, COZINHEIRO, STATUS
 
     @Override
     public int getRowCount() {
@@ -34,13 +34,13 @@ public class TableModelStatusCozinha extends AbstractTableModel {
     }
 
     public void redimensionaColunas(JTable tabela) {
-        // N.PEDIDO,  N.MESA, PRATO, QUANTIDADE,STATUS
+          // PARATO,  QTD, COZINHEIRO, STATUS
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(70);
+        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(230);
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(60);
-        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(230);
-        tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(55);
-        tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(95);
+        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(120);
+        tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(110);
+       
         adicionaCoresTabela(tabela);
 
     }
@@ -52,7 +52,7 @@ public class TableModelStatusCozinha extends AbstractTableModel {
                     boolean isSelected, boolean hasFocus, int row, int column) {
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 //A coluna do status é 8
-                Object ref = table.getValueAt(row, 4);//Coluna Status
+                Object ref = table.getValueAt(row, 3);//Coluna Status
                 //Coloca cor em todas as linhas,COLUNA(5) que tem o valor "Pendente"
                 if (ref != null && ref.equals("Em preparação")) {//Se Status for igual a "Pendente"
                     setBackground(Color.YELLOW);//Preenche a linha de vermelho
