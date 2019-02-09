@@ -92,23 +92,26 @@ public class TableModelCozinha extends AbstractTableModel {
                 //A coluna do status é 8
                 Object ref = table.getValueAt(row, 8);//Coluna Status
                 //Coloca cor em todas as linhas,COLUNA(8) que tem o valor "Pendente"
-                if (ref != null && ref.equals("Pendente")) {//Se Status for igual a "Pendente"
+                
+                 if (ref != null && ref.equals("Em preparação")) {//Se Status for igual a "Pendente"
                     setBackground(Color.YELLOW);//Preenche a linha de vermelho
                     setForeground(Color.BLACK);//E a fonte de branco
-                } else if (ref != null && ref.equals("Em preparação")) {//Se Status for igual a "Em Preparação"
-                        setBackground(Color.GREEN);//Preenche a linha de verde
-                        setForeground(Color.black);//E a fonte de branco
-                }else {
+                } else if (ref != null && ref.equals("Liberado")) {//Se Status for igual a "Liberado"
+                    setBackground(Color.GREEN);//Preenche a linha de verde
+                    setForeground(Color.black);//E a fonte de branco
+                } else if (ref != null && ref.equals("Pendente")) {//Se Status for igual a "Liberado"
+                    setBackground(Color.red);//Preenche a linha de verde
+                    setForeground(Color.WHITE);//E a fonte de branco
+                } else {
                     boolean sel = isSelected;
                     if (sel == true) {
                         setBackground(getBackground());
-                        setForeground(getForeground());                    
-                } else {//Se Status não for "Pendente" 
+                        setForeground(getForeground());                        
+                    } else {//Se Status não for "Pendente" 
                         setBackground(Color.WHITE);//Preenche a linha de branco
                         setForeground(new Color(51, 51, 51));//E a fonte de preto
                     }
-                }  
-                
+                }
                 return this;
             }
         });

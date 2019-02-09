@@ -98,7 +98,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         lblLogo = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
         lblAviso = new javax.swing.JLabel();
@@ -174,12 +173,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
         jPanel2.add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 215, 180));
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("MasterFood");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 331, -1));
-
         lblOperador.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         lblOperador.setForeground(new java.awt.Color(255, 255, 255));
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario_branco.png"))); // NOI18N
@@ -193,7 +186,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblData.setText("jLabel5");
         jPanel2.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 460, 120, 30));
 
-        peinelEsquerdo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 15, -1, 500));
+        peinelEsquerdo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 340, 510));
 
         lblAviso.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         peinelEsquerdo.add(lblAviso, new org.netbeans.lib.awtextra.AbsoluteConstraints(347, 25, 298, 38));
@@ -785,7 +778,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

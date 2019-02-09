@@ -415,5 +415,20 @@ public class ControlerPedido {
 
         return resp;
     }
-
+    // Atualiza a quantidade do item no pedido
+    public void atualizaQtdItem(String idItemPedido, int qtd, Double total){
+        
+        String sql="UPDATE detalhe_mesa SET qtd=?, total=? WHERE id=?";
+        
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setInt(1, qtd);
+            pst.setDouble(2, total);
+            pst.setString(3, idItemPedido);
+            pst.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.atualizaQtdItem()"+e);
+        }
+    }
 }

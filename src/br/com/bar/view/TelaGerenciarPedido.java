@@ -32,6 +32,11 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     ControlerEstoque ce = new ControlerEstoque();
     TableModelGerenciarPedido modelGerPedido = new TableModelGerenciarPedido();
     Log l = new Log();
+    double vUnit;
+   
+    
+    // Armazena Retorno da tela de Remoção de Intens
+    int qtdAtualizada;
 
     public TelaGerenciarPedido() {
         initComponents();
@@ -71,6 +76,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         LblCargo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jcomboPedido = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDetalhe = new javax.swing.JTable();
@@ -92,33 +98,28 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(243, 156, 18));
         jPanel1.setForeground(new java.awt.Color(243, 156, 18));
-        jPanel1.setLayout(null);
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         jLabel2.setText("Gerenciamento");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(110, 20, 260, 30);
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 260, 30));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/pedidos.png"))); // NOI18N
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(60, 10, 64, 64);
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 64, 64));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
         jLabel5.setText("de Pedidos");
-        jPanel1.add(jLabel5);
-        jLabel5.setBounds(290, 50, 160, 32);
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 160, -1));
 
         lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("Operador");
-        jPanel1.add(lblOperador);
-        lblOperador.setBounds(540, 50, 90, 32);
+        jPanel1.add(lblOperador, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 90, -1));
 
         LblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         LblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         LblCargo.setText("Cargo");
-        jPanel1.add(LblCargo);
-        LblCargo.setBounds(640, 50, 100, 30);
+        jPanel1.add(LblCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 50, 100, 30));
 
         jPanel2.setBackground(new java.awt.Color(44, 62, 80));
 
@@ -147,8 +148,10 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                 .addComponent(jLabel4))
         );
 
-        jPanel1.add(jPanel2);
-        jPanel2.setBounds(740, 0, 40, 30);
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 0, -1, -1));
+
+        jPanel3.setLayout(null);
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 0, 0));
 
         jcomboPedido.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jcomboPedido.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -233,7 +236,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblItensDoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblNumeroMesa3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtIdProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
@@ -243,7 +246,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                                 .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtIDItem, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnCancelarPedido))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblNumeroMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,45 +300,89 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         int itens = 0;
         String numeroPedido = jcomboPedido.getSelectedItem().toString();
         lblNumeroMesa.setText(cm.localizaNumeroMesa(numeroPedido));
+        /*
         try {
             ResultSet rs = cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString());
             // Conta os itens do pedido.
+            
             while (rs.next()) {
                 itens = itens + rs.getInt("qtd");
 
             }
-           
+            itens = contaItens(rs);
             if (itens > 0) {
                 // Se possui itens no pedido não permite o cancelamento do pedido
                 btnCancelarPedido.setEnabled(false);
                 tblDetalhe.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString())));
                 modelGerPedido.redimensionaColunas(tblDetalhe);
-                lblItensDoPedido.setText("Quantidade de Itens: "+itens);
+                lblItensDoPedido.setText("Quantidade de Itens: " + itens);
             } else {
 
                 btnCancelarPedido.setEnabled(true);
                 tblDetalhe.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString())));
                 modelGerPedido.redimensionaColunas(tblDetalhe);
-                lblItensDoPedido.setText("Quantidade de Itens: "+itens);
+                lblItensDoPedido.setText("Quantidade de Itens: " + itens);
             }
 
-           
         } catch (SQLException e) {
             System.out.println("br.com.bar.view.TelaGerenciarPedido.btnListarActionPerformed()" + e);
+        }*/
+
+        ResultSet rs = cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString());
+
+        itens = contaItens(rs);
+        if (itens > 0) {
+            // Se possui itens no pedido não permite o cancelamento do pedido
+            btnCancelarPedido.setEnabled(false);
+
+        } else {
+
+            btnCancelarPedido.setEnabled(true);
         }
-
-
+        tblDetalhe.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString())));
+        modelGerPedido.redimensionaColunas(tblDetalhe);
+        lblItensDoPedido.setText("Quantidade de Itens: " + itens);
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void jcomboPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboPedidoActionPerformed
 
         btnCancelarPedido.setEnabled(false);
     }//GEN-LAST:event_jcomboPedidoActionPerformed
+    public void recebeNovaQtd(int novaQtd) {
+        this.qtdAtualizada = novaQtd;//1
+        int qtdPedido = Integer.parseInt(txtQtd.getText());//3
+        System.out.println("Qtd recebida: "+qtdAtualizada);
+        
+        if (qtdAtualizada == 0) {
+            // Remove Item
+            cp.excluiItemPedido(txtIDItem.getText());
+            //Devolve quantidade removida
+            ce.entradaDeProduto(txtIdProduto.getText(), txtQtd.getText());
+            //Registra a movimentação
+            ce.registraMovimentacao(txtIdProduto.getText(), String.valueOf(txtQtd.getText()), ce.localizaIdOperacao("Devolução"), "O cliente desistiu do produto");
 
+        } else {
+            Double total = vUnit*novaQtd;
+            // Atualiza Quantidade
+            cp.atualizaQtdItem(txtIDItem.getText(), novaQtd,total);
+            int devolve = qtdPedido - novaQtd;
+            ce.entradaDeProduto(txtIdProduto.getText(), String.valueOf(devolve));
+            //Registra a movimentação
+            ce.registraMovimentacao(txtIdProduto.getText(), String.valueOf(devolve), ce.localizaIdOperacao("Devolução"), "O cliente desistiu do produto");
+        }
+        //Atualiza a Tabela
+        ResultSet rs = cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString());
+        tblDetalhe.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString())));
+        modelGerPedido.redimensionaColunas(tblDetalhe);
+        lblItensDoPedido.setText("Quantidade de Itens: "+String.valueOf(contaItens(rs)));
+    }
     private void tblDetalheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetalheMouseClicked
         // Captura número da linha selecionada 
-
+        
         int linha = tblDetalhe.getSelectedRow();
+        Double total = Double.parseDouble(tblDetalhe.getModel().getValueAt(linha,4).toString().replaceAll(",", "."));
+        vUnit = Double.parseDouble(tblDetalhe.getModel().getValueAt(linha,3).toString().replaceAll(",","."));
+        
         txtIdProduto.setText(tblDetalhe.getModel().getValueAt(linha, 0).toString());
         txtQtd.setText(tblDetalhe.getModel().getValueAt(linha, 2).toString());
         txtIDItem.setText(tblDetalhe.getModel().getValueAt(linha, 5).toString());
@@ -348,41 +395,50 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
             // Remove item do pedido e devolte ao estoque
             int op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este item do pedido?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             if (op == JOptionPane.YES_OPTION) {
+                // Armazena quantidade do item selecionado
+                int qtdItem = Integer.parseInt(txtQtd.getText());
+                if (qtdItem > 1) {
+                    TelaAtualizaItem atualizaItem = new TelaAtualizaItem();
+                    atualizaItem.recebeQtdItem(this, txtQtd.getText());
+                    atualizaItem.setModal(true);
+                    atualizaItem.setVisible(true);
 
-                if (cp.excluiItemPedido(txtIDItem.getText())) {
-                    JOptionPane.showMessageDialog(null, "Item removido do pedido com sucesso!");
-                    lblRemoverItemDoPedido.setEnabled(false);
-                    // Devolve produdto ao estoque
-                    if (ce.entradaDeProduto(txtIdProduto.getText(), txtQtd.getText())) {
-                        JOptionPane.showMessageDialog(null, "Produto devolvido ao estoque com sucesso!");
-                        // Inicio do Registro de Log
-                        l.setFuncionalidade("Devolução");
-                        l.setUsuario(lblOperador.getText());
-                        l.setDescricao(l.getUsuario() + " removeu o item " + txtIDItem.getText() + " do pedido ->" + jcomboPedido.getSelectedItem().toString());
-                        l.gravaLog(l);
-                        // Fim do Registro de Log
+                } else {
+                    // Se o pedido tiver quantidade igual a 1
+                    if (cp.excluiItemPedido(txtIDItem.getText())) {
+                        JOptionPane.showMessageDialog(null, "Item removido do pedido com sucesso!");
+                        lblRemoverItemDoPedido.setEnabled(false);
+                        // Devolve produdto ao estoque
+                        if (ce.entradaDeProduto(txtIdProduto.getText(), txtQtd.getText())) {
+                            JOptionPane.showMessageDialog(null, "Produto devolvido ao estoque com sucesso!");
+                            // Inicio do Registro de Log
+                            l.setFuncionalidade("Devolução");
+                            l.setUsuario(lblOperador.getText());
+                            l.setDescricao(l.getUsuario() + " removeu o item " + txtIDItem.getText() + " do pedido ->" + jcomboPedido.getSelectedItem().toString());
+                            l.gravaLog(l);
+                            // Fim do Registro de Log
 
-                        // Registra Movimentação
-                        ce.registraMovimentacao(txtIdProduto.getText(), txtQtd.getText(), ce.localizaIdOperacao("Devolução"), "O cliente desistiu do produto");
-                        tblDetalhe.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString())));
-                        modelGerPedido.redimensionaColunas(tblDetalhe);
-                        ResultSet rs = cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString());
-                        try {
-                            if (rs.next()) {
+                            // Registra Movimentação
+                            ce.registraMovimentacao(txtIdProduto.getText(), txtQtd.getText(), ce.localizaIdOperacao("Devolução"), "O cliente desistiu do produto");
+                            tblDetalhe.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString())));
+                            modelGerPedido.redimensionaColunas(tblDetalhe);
+                            ResultSet rs = cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString());
+
+                            int itens = contaItens(rs);
+                            if (itens > 0) {
                                 btnCancelarPedido.setEnabled(false);
                             } else {
                                 btnCancelarPedido.setEnabled(true);
-                                lblItensDoPedido.setText("Quantidade de Itens: "+0);
-                                
                             }
-                        } catch (SQLException ex) {
-                            Logger.getLogger(TelaGerenciarPedido.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Não foi possível devolver o produto ao estoque!");
+                            lblItensDoPedido.setText("Quantidade de Itens: " + itens);
 
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Não foi possível devolver o produto ao estoque!");
+
+                        }
                     }
                 }
+
             } else {
                 JOptionPane.showMessageDialog(null, "Remoção cancelada com sucesso!");
 
@@ -413,7 +469,22 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnCancelarPedidoActionPerformed
+    // Conta o número de itens do ResultSetInformado retornando um inteiro com
+    // a quantidade retornada pelo ResultSet
 
+    private int contaItens(ResultSet rs) {
+        int itens = 0;
+        try {
+
+            while (rs.next()) {
+                itens = itens + rs.getInt("qtd");
+
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.bar.view.TelaGerenciarPedido.contaItens()" + e);
+        }
+        return itens;
+    }
     private void jcomboPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcomboPedidoMouseClicked
         btnCancelarPedido.setEnabled(false);
     }//GEN-LAST:event_jcomboPedidoMouseClicked
@@ -464,6 +535,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jcomboPedido;
     private javax.swing.JLabel lblItensDoPedido;

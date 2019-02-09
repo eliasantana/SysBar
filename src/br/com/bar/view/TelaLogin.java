@@ -138,12 +138,10 @@ public class TelaLogin extends javax.swing.JFrame {
         txtSenha = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblMsg = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(52, 73, 94));
@@ -230,7 +228,7 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(txtLogin);
-        txtLogin.setBounds(50, 180, 250, 40);
+        txtLogin.setBounds(40, 120, 250, 40);
 
         txtSenha.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         txtSenha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -247,14 +245,14 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(txtSenha);
-        txtSenha.setBounds(50, 260, 250, 40);
+        txtSenha.setBounds(40, 200, 250, 40);
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/login_1.png"))); // NOI18N
         jLabel4.setText("Senha");
         jPanel2.add(jLabel4);
-        jLabel4.setBounds(50, 230, 110, 30);
+        jLabel4.setBounds(40, 170, 110, 30);
 
         btnLogin.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnLogin.setText("Entrar");
@@ -279,13 +277,7 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btnLogin);
-        btnLogin.setBounds(50, 320, 250, 40);
-
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Food");
-        jPanel2.add(jLabel1);
-        jLabel1.setBounds(170, 90, 90, 40);
+        btnLogin.setBounds(40, 310, 250, 40);
 
         jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -305,18 +297,12 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario_branco.png"))); // NOI18N
         jLabel6.setText("Login");
         jPanel2.add(jLabel6);
-        jLabel6.setBounds(50, 150, 250, 30);
+        jLabel6.setBounds(40, 90, 250, 30);
 
         lblMsg.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblMsg.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.add(lblMsg);
         lblMsg.setBounds(50, 370, 250, 30);
-
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Master");
-        jPanel2.add(jLabel2);
-        jLabel2.setBounds(60, 40, 190, 70);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(290, 0, 320, 430);
@@ -500,10 +486,8 @@ public class TelaLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

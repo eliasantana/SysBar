@@ -17,8 +17,11 @@ import com.mysql.cj.protocol.Resultset;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -70,7 +73,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         };
 
         timer.scheduleAtFixedRate(atualizaCozinha, 0, minutos);
-
+        relogio();
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -80,7 +83,22 @@ public class TelaConzinha extends javax.swing.JFrame {
 
         lblLogo.setIcon(u.carregaLogo());
         //bloqueiaBotoes(true);
-
+       
+    }
+    
+    private void relogio(){
+        long segundos = 1000;
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+               
+                Calendar c = Calendar.getInstance();
+                SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+                lblRelogio.setText(df.format(c.getTime()));
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, segundos);
     }
 
     /**
@@ -94,10 +112,10 @@ public class TelaConzinha extends javax.swing.JFrame {
 
         painelEsquerdo = new javax.swing.JPanel();
         txtidProdutoCozinha = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         lblLogo = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
+        lblRelogio = new javax.swing.JLabel();
         paineldireito = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCozinha = new javax.swing.JTable();
@@ -117,12 +135,6 @@ public class TelaConzinha extends javax.swing.JFrame {
 
         painelEsquerdo.setBackground(new java.awt.Color(38, 53, 61));
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("MasterFood");
-        jLabel5.setToolTipText("");
-
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/refeicao128x128.png"))); // NOI18N
         lblLogo.setToolTipText("");
@@ -137,34 +149,44 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Calendar32x32.png"))); // NOI18N
         lblData.setText("jLabel10");
 
+        lblRelogio.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lblRelogio.setForeground(new java.awt.Color(255, 255, 255));
+        lblRelogio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRelogio.setText("00:00:00");
+
         javax.swing.GroupLayout painelEsquerdoLayout = new javax.swing.GroupLayout(painelEsquerdo);
         painelEsquerdo.setLayout(painelEsquerdoLayout);
         painelEsquerdoLayout.setHorizontalGroup(
             painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
             .addGroup(painelEsquerdoLayout.createSequentialGroup()
                 .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(txtidProdutoCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelEsquerdoLayout.createSequentialGroup()
+                                .addGap(80, 80, 80)
+                                .addComponent(txtidProdutoCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painelEsquerdoLayout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 12, Short.MAX_VALUE))
                     .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(lblRelogio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         painelEsquerdoLayout.setVerticalGroup(
             painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelEsquerdoLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(lblLogo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(74, 74, 74)
                 .addComponent(txtidProdutoCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 357, Short.MAX_VALUE)
+                .addGap(87, 87, 87)
+                .addComponent(lblRelogio, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
                 .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -575,7 +597,6 @@ public class TelaConzinha extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCargo;
@@ -585,6 +606,7 @@ public class TelaConzinha extends javax.swing.JFrame {
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblPreparar;
     private javax.swing.JLabel lblREmovePrato;
+    private javax.swing.JLabel lblRelogio;
     private javax.swing.JLabel lblSair;
     private javax.swing.JPanel painelEsquerdo;
     private javax.swing.JPanel paineldireito;

@@ -32,8 +32,8 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
      */
     public TelaCadastroEmpresa() {
         initComponents();
-         lblAdicionar.setVisible(false);
-         txtIdEmpresa.setVisible(false);
+        lblAdicionar.setVisible(false);
+        txtIdEmpresa.setVisible(false);
         // Instancia o objeto e executa o método retornando um objetodo tipo
         // Dados empresa
         radioVisualizar.setSelected(true);
@@ -42,9 +42,9 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         d = dados.selecionaDados();
         // Oculta o botão adicionar se o dados da empresa for diferente de vazio
         //if (d.getNome_empresa().isEmpty()){
-          //  lblAdicionar.setVisible(true);
-       // }
-        if (d.getNome_empresa()==null){
+        //  lblAdicionar.setVisible(true);
+        // }
+        if (d.getNome_empresa() == null) {
             lblAdicionar.setVisible(true);
         }
         txtNomeEmpresa.setText(d.getNome_empresa());
@@ -60,7 +60,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         txtUrlBackup.setText(d.getUrlbackup());
         lblCaminho.setText(txtUrlBackup.getText());
         txturlLogo.setText(d.getLogo());
-        txtIdEmpresa.setText(String.valueOf(d.getId()));      
+        txtIdEmpresa.setText(String.valueOf(d.getId()));
         comboUf.setSelectedItem(d.getUf());
         lblLogo.setIcon(u.carregaLogo());
         //Desabilita itens
@@ -71,12 +71,10 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     }
 
     // Recebe dados para identificação do operador
-    
     public void recebeOperador(String operador, String perfil) {
 
         lblOperador.setText(operador);
         lblPerfil.setText(perfil);
-        
 
     }
 
@@ -536,12 +534,12 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         d.setUrlbackup(txtUrlBackup.getText());
         d.setLogo(txturlLogo.getText());
         d.setUf(comboUf.getSelectedItem().toString());
-        String btnSelecionado=buttonGroup1.getSelection().toString();
-        
-        if ("Imprimir Direto".equals(btnSelecionado)){
+        String btnSelecionado = buttonGroup1.getSelection().toString();
+
+        if ("Imprimir Direto".equals(btnSelecionado)) {
             // 1 - Imprime na Tela 0 - Imprime Direto
             d.setImprimir_na_tela(0); // Na tela
-        }else {
+        } else {
             d.setImprimir_na_tela(1); // Direto para impressora
         }
 
@@ -577,17 +575,17 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private void lblExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExcluirMouseClicked
         // Exclui empresa
         DadosEmpresa objEmpresa = dados.selecionaDados();
-        int op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir \n os dados da empresa?","Atenção!",JOptionPane.YES_NO_OPTION);
-        if (op==JOptionPane.YES_OPTION){
-            
+        int op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir \n os dados da empresa?", "Atenção!", JOptionPane.YES_NO_OPTION);
+        if (op == JOptionPane.YES_OPTION) {
+
             if (dados.excluiEmpresa(objEmpresa)) {
                 JOptionPane.showMessageDialog(null, "Dados excluídos com sucesso!");
             } else {
                 JOptionPane.showMessageDialog(null, " Não foi possível excluir os dados desta empresa!");
             }
-        }else {
-                JOptionPane.showMessageDialog(null, " Exclusão cancelada com sucesso!");
-            
+        } else {
+            JOptionPane.showMessageDialog(null, " Exclusão cancelada com sucesso!");
+
         }
     }//GEN-LAST:event_lblExcluirMouseClicked
 
@@ -605,22 +603,29 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         chooser.showOpenDialog(this);
 
         File file = chooser.getSelectedFile();
-        String caminho = file.getAbsolutePath();
-        txturlLogo.setText(caminho);
-        ImageIcon imageIcon = new ImageIcon(caminho);
-        Icon i = new ImageIcon(imageIcon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH));
+        // Captura Exceção duranete  a seleção do arquivo de logo no cadastro da
+        // Empresa
+        try {
 
-        lblLogo.setIcon(i);
+            String caminho = file.getAbsolutePath();
+            txturlLogo.setText(caminho);
+            ImageIcon imageIcon = new ImageIcon(caminho);
+            Icon i = new ImageIcon(imageIcon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH));
+            lblLogo.setIcon(i);
+        } catch (NullPointerException e) {
+            System.out.println("br.com.bar.view.TelaCadastroEmpresa.jLabel2MouseClicked()");
+        }
+
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void lblEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMouseClicked
-        
-         // Instancia objeto dados
+
+        // Instancia objeto dados
         d.setId(Integer.parseInt(txtIdEmpresa.getText()));
         d.setNome_empresa(txtNomeEmpresa.getText());
         d.setEndereco(txtEndereco.getText());
         d.setBairro(txtBairro.getText());
-        
+
         try {
 
             d.setNumero(Integer.parseInt(txtNumero.getText()));
@@ -636,31 +641,31 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         d.setUrlbackup(txtUrlBackup.getText());
         d.setUf(comboUf.getSelectedItem().toString());
         d.setLogo(txturlLogo.getText());
-        
-        System.out.println("nome Empresa" +d.getNome_empresa());
-        if ((radioDireto.isSelected())){
+
+        System.out.println("nome Empresa" + d.getNome_empresa());
+        if ((radioDireto.isSelected())) {
             // 1 - Imprime na Tela 0 - Imprime Direto
             d.setImprimir_na_tela(1); // Direto para impressora
-        }else {
+        } else {
             d.setImprimir_na_tela(0); // Na tela
         }
-        
+
         if ("".equals(txtNomeEmpresa.getText()) || txtNomeEmpresa.getText() == null) {
             JOptionPane.showMessageDialog(null, "Dados inválidos, preencha todos os campos para continuar!");
         } else {
-            int op = JOptionPane.showConfirmDialog(null,"Confirma a alteração?","Atenção",JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE );
-            if (op == JOptionPane.YES_OPTION){
-                
+            int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            if (op == JOptionPane.YES_OPTION) {
+
                 if (dados.alteraDados(d)) {
                     JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
                 } else {
                     JOptionPane.showMessageDialog(null, "Não foi possível alterar os dados!");
                 }
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(null, "Alteração cancelada com sucesso!");
             }
         }
-        
+
     }//GEN-LAST:event_lblEditarMouseClicked
 
     private void radioVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioVisualizarActionPerformed
@@ -694,11 +699,11 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
         // Limita Tamanho do Campo
         u.tamanhoMaximo(txtEmail.getText(), 245);
-       
+
     }//GEN-LAST:event_txtEmailKeyReleased
 
     private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
-      
+
     }//GEN-LAST:event_txtEmailFocusLost
 
     /**

@@ -87,7 +87,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblOperador.setText(operador);
         lblCargo.setText(perfil);
         lblCargo.setVisible(false);
-       
+
     }
 
     /**
@@ -109,7 +109,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
         txtNumeroPedido = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         lbllogo = new javax.swing.JLabel();
-        lblData1 = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblData2 = new javax.swing.JLabel();
@@ -208,11 +207,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lbllogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbllogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
 
-        lblData1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        lblData1.setForeground(new java.awt.Color(255, 255, 255));
-        lblData1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblData1.setText("MasterFood");
-
         lblData.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblData.setForeground(new java.awt.Color(255, 255, 255));
         lblData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -230,14 +224,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 8, Short.MAX_VALUE)
-                        .addComponent(lbllogo, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 14, Short.MAX_VALUE))
-                    .addComponent(lblData1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(lbllogo, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,9 +239,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(lbllogo, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblData1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 382, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 436, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -772,7 +759,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
                     modelPedidos.redimensionaColunas(tblPedidosAbertos);
                     cm.trocaStatusMesa(numero_mesa, "1");
                     tblNumeroMesa.setModel(DbUtils.resultSetToTableModel(cm.listaMesaLivre(txtIdGarcom.getText())));
-                   
 
                 }
 
@@ -824,9 +810,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
             jTabbedPanePedido.setSelectedIndex(1);
             txtCodigoProduto.setEnabled(true);
             // Bloqueia gerenciar pedido caso o ususário logado não seja gerente.
-            if ("Gerente".equals(lblCargo.getText())){
+            if ("Gerente".equals(lblCargo.getText())) {
                 lblGerenciarPedido.setEnabled(true);
-            } 
+            }
         } catch (NullPointerException e) {
             System.out.println("br.com.bar.view.TelaPedido2.tblPedidosAbertosMouseClicked()" + e);
         }
@@ -851,7 +837,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 txtCodigoProduto.setEnabled(true);
                 lblPesquisa.setVisible(false);
                 txtPesquisa.setVisible(false);
-                 // Desabilita botões Enviar para a Cozinha e Status Cozinha após clique 
+                // Desabilita botões Enviar para a Cozinha e Status Cozinha após clique 
                 // em outra aba.
                 lblEnviarCozinha.setEnabled(false);
                 lblStatusCozinha.setEnabled(false);
@@ -869,7 +855,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 // em outra aba.
                 lblEnviarCozinha.setEnabled(false);
                 lblStatusCozinha.setEnabled(false);
-                
+
                 tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
                 modelProduroEstoque.redimensionaColunas(tblListaProduto);
             }
@@ -927,6 +913,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 modelDetPedido.redimensionaColunas(tblDetalhePedido);
                 txtQtd.requestFocus();
                 txtPesquisa.setText(null);
+
                 if ("Lista de Produtos".equals(jTabbedPanePedido.getTitleAt(2))) {
                     txtCodigoProduto.setEnabled(true);
                 }
@@ -969,10 +956,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Envia produto para a cozinha
         int linha = tblDetalhePedido.getSelectedRow();
         String idProduto = tblDetalhePedido.getModel().getValueAt(linha, 0).toString();
-        System.out.println(idProduto);
 
         String grupo = cproduto.localizaGrupoProduto(Integer.parseInt(idProduto));
-        System.out.println("Grupo:" + grupo);
 
         if (grupo.toLowerCase().equals("cozinha")) {
             lblEnviarCozinha.setEnabled(true);
@@ -1005,7 +990,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private void lblStatusCozinhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStatusCozinhaMouseClicked
         // Chama Tela Cozinha
         if (lblStatusCozinha.isEnabled()) {
-            
+
             TelaStatusCozinha status = new TelaStatusCozinha();
             status.recebeOperador(comboGarcom.getSelectedItem().toString(), txtNumeroPedido.getText(), txtNumeroMesa.getText());
             status.setVisible(true);
@@ -1136,7 +1121,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCodigo1;
     private javax.swing.JLabel lblData;
-    private javax.swing.JLabel lblData1;
     private javax.swing.JLabel lblData2;
     private javax.swing.JLabel lblEnviarCozinha;
     private javax.swing.JLabel lblGerenciarPedido;
@@ -1233,6 +1217,31 @@ public class TelaPedido2 extends javax.swing.JFrame {
                             if (est.registraMovimentacao(pp.getTbproduto_id(), pp.getQtd(), est.localizaIdOperacao("Venda"), null)) {
                                 System.out.println("Movimentação registrada!");
                             }
+
+                            // ------ Verifica Grupo de Produto e Envia para acozinha ---/
+                            String grupo = cproduto.localizaGrupoProduto(Integer.parseInt(txtCodigoProduto.getText()));
+                           
+                            
+                            if (grupo.equals("Cozinha")) {
+                                
+                                ArrayList<String> pCozinha = new ArrayList<>();
+
+                                //codProduto, produto, qtd, funcionario, mesa, data, status
+                                pCozinha.add(txtDescricao.getText()); // Produto
+                                pCozinha.add(txtCodigoProduto.getText()); // // Código Produto
+                                pCozinha.add(txtQtd.getText()); // Qtd         
+                                pCozinha.add(comboGarcom.getSelectedItem().toString()); // Nome do Funcionario
+                                pCozinha.add(txtNumeroMesa.getText()); // Numero da mesa
+                                pCozinha.add("Pendente"); // Status Pendente - Liberado
+                                pCozinha.add(txtNumeroPedido.getText());
+                                Date dtAtual = new Date();
+                                Timestamp tms = new Timestamp(dtAtual.getTime()); 
+                                pCozinha.add(String.valueOf(tms)); // Data Atual   
+                                // Envia prato para a cozinha
+                                enviaParaCozinha(pCozinha);
+
+                            }
+
                             // Limpa label de mensagem de produto indisponível 
                             lblMensagem.setText(null);
 
@@ -1304,5 +1313,23 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
             }
         }
+    }
+
+    // Recebe um ArrayList de String com os dados do prato a ser enviado para cozinha
+    // na inclusão do produto no pedido.
+    
+    private  void enviaParaCozinha(ArrayList<String> prato) {
+        boolean resp = false;
+        ControlerCozinha cc = new ControlerCozinha(); // Instancia o controler cozinha
+           
+            int op = JOptionPane.showConfirmDialog(null, "Confirma o envio da solicitação para a cozinha? ", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+
+            if (op == JOptionPane.YES_OPTION) {
+
+                cp.enviaProdutoCozinha(prato);
+                resp=true;
+            }
+       
+     
     }
 }

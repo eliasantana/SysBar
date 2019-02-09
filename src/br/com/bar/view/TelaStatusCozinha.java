@@ -49,11 +49,12 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btnFechar1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblStatus = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
         lblGarcom = new javax.swing.JLabel();
         lblMesa = new javax.swing.JLabel();
         lblNPedido = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblStatus = new javax.swing.JTable();
 
         btnFechar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -109,7 +110,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -126,7 +127,25 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 540, 100);
+        jPanel1.setBounds(0, 0, 620, 100);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.setLayout(null);
+
+        lblGarcom.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        lblGarcom.setText("jLabel2");
+        jPanel3.add(lblGarcom);
+        lblGarcom.setBounds(10, 10, 300, 30);
+
+        lblMesa.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        lblMesa.setText("jLabel3");
+        jPanel3.add(lblMesa);
+        lblMesa.setBounds(10, 40, 130, 30);
+
+        lblNPedido.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        lblNPedido.setText("jLabel3");
+        jPanel3.add(lblNPedido);
+        lblNPedido.setBounds(150, 40, 150, 30);
 
         tblStatus.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         tblStatus.setModel(new javax.swing.table.DefaultTableModel(
@@ -148,25 +167,13 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblStatus);
 
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 160, 520, 310);
+        jPanel3.add(jScrollPane1);
+        jScrollPane1.setBounds(5, 70, 608, 310);
 
-        lblGarcom.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        lblGarcom.setText("jLabel2");
-        getContentPane().add(lblGarcom);
-        lblGarcom.setBounds(10, 100, 300, 30);
+        getContentPane().add(jPanel3);
+        jPanel3.setBounds(0, 100, 618, 388);
 
-        lblMesa.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        lblMesa.setText("jLabel3");
-        getContentPane().add(lblMesa);
-        lblMesa.setBounds(10, 130, 130, 30);
-
-        lblNPedido.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        lblNPedido.setText("jLabel3");
-        getContentPane().add(lblNPedido);
-        lblNPedido.setBounds(150, 130, 150, 30);
-
-        setBounds(0, 0, 543, 480);
+        setBounds(0, 0, 618, 487);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFecharMouseClicked
@@ -225,6 +232,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblGarcom;
     private javax.swing.JLabel lblMesa;

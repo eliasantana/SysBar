@@ -7,10 +7,12 @@ package br.com.bar.view;
 
 import br.com.bar.dao.Backup;
 import br.com.br.controler.ControlerLog;
+import java.awt.Color;
 import java.io.IOException;
 import static java.lang.Thread.sleep;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.UIManager;
 
 /**
  *
@@ -24,7 +26,7 @@ public class TelaSplash extends javax.swing.JFrame {
         this.setAlwaysOnTop(true);
         //Backup b = new Backup();
         System.out.println("Expurgo: "+cl.expurgo());
-        
+      
 
         // Inicializa tela splash
         //lblMensagem.setText("Realizando backup do sistema, aguarde um momento...");
@@ -43,6 +45,7 @@ public class TelaSplash extends javax.swing.JFrame {
                     try {
                         sleep(80); // Ajusta a velocidade de atualização da barra de progresso
                         barraDeProgresso.setValue(i);
+                        
                         //Exibe Mensagems de acordo do o nível de carregamento da barra de progresso
                         if (i < 30) {
                             lblMensagem.setText("Carregando módulos do sistema...");
@@ -93,11 +96,12 @@ public class TelaSplash extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo_1.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logoRese7_192x192.png"))); // NOI18N
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(0, 20, 200, 175);
+        jLabel1.setBounds(0, 20, 190, 190);
 
         barraDeProgresso.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 10)); // NOI18N
+        barraDeProgresso.setForeground(new java.awt.Color(0, 0, 0));
         barraDeProgresso.setStringPainted(true);
         jPanel1.add(barraDeProgresso);
         barraDeProgresso.setBounds(200, 160, 320, 20);
@@ -122,7 +126,7 @@ public class TelaSplash extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel10.setText("RESE7 - Soluções em TI");
+        jLabel10.setText("rese7 - Soluções em TI");
         jPanel1.add(jLabel10);
         jLabel10.setBounds(200, 70, 280, 22);
 

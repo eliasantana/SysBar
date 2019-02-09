@@ -36,9 +36,9 @@ public class TableModelStatusCozinha extends AbstractTableModel {
     public void redimensionaColunas(JTable tabela) {
           // PARATO,  QTD, COZINHEIRO, STATUS
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(230);
+        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(242);
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(60);
-        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(120);
+        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(180);
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(110);
        
         adicionaCoresTabela(tabela);
@@ -53,7 +53,7 @@ public class TableModelStatusCozinha extends AbstractTableModel {
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 //A coluna do status é 8
                 Object ref = table.getValueAt(row, 3);//Coluna Status
-                //Coloca cor em todas as linhas,COLUNA(5) que tem o valor "Pendente"
+                //Coloca cor em todas as linhas,COLUNA(3) que tem o valor "Pendente"
                 if (ref != null && ref.equals("Em preparação")) {//Se Status for igual a "Pendente"
                     setBackground(Color.YELLOW);//Preenche a linha de vermelho
                     setForeground(Color.BLACK);//E a fonte de branco

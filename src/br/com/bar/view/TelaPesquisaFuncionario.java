@@ -27,7 +27,8 @@ public class TelaPesquisaFuncionario extends JDialog {
         bloqueiaBotoes();
         this.setModal(true);
         //Matem a tela de pesquisa a frente da janela anterior.
-
+        lblOperador.setEnabled(false);
+        lblPerfil.setEnabled(false);
     }
 
     public void recebeOperador(String operador, String perfil) {
@@ -167,7 +168,7 @@ public class TelaPesquisaFuncionario extends JDialog {
                 {null, null, null, null, null}
             },
             new String [] {
-                "CÓD. INTERNO", "NOME", "CPF", "RG", "CELULAR"
+                "CÓDIGO", "NOME", "CPF", "RG", "CELULAR"
             }
         ));
         tblFuncionario.setRowHeight(21);

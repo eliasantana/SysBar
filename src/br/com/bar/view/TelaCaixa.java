@@ -109,7 +109,6 @@ public class TelaCaixa extends JDialog {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         painelEsquerdo = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
         lblLLogo = new javax.swing.JLabel();
         panelMovimentacao = new javax.swing.JPanel();
         labelEntradas = new javax.swing.JLabel();
@@ -187,12 +186,6 @@ public class TelaCaixa extends JDialog {
 
         painelEsquerdo.setBackground(new java.awt.Color(38, 53, 61));
         painelEsquerdo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("MasterFood");
-        painelEsquerdo.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 208, 289, -1));
 
         lblLLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         painelEsquerdo.add(lblLLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 22, 252, 180));
@@ -1555,7 +1548,6 @@ public class TelaCaixa extends JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

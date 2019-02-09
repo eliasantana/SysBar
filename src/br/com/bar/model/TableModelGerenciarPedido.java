@@ -65,7 +65,7 @@ public class TableModelGerenciarPedido extends AbstractTableModel {
          //"CÓD", "PRODUTO", "QTD", "VLR UNITÁRIO R$", "VLR TOTAL R$", "CÓD. INTERNO"
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(50); 
-        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(315);
+        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(320);
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(50); 
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(115); 
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(110); 
