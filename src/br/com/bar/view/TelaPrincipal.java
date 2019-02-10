@@ -140,20 +140,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
-        jPanel2.add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 215, 180));
+        jPanel2.add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 215, 180));
 
         lblOperador.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         lblOperador.setForeground(new java.awt.Color(255, 255, 255));
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario_branco.png"))); // NOI18N
         lblOperador.setText("jLabel5");
-        jPanel2.add(lblOperador, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, 116, 30));
+        jPanel2.add(lblOperador, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 116, 30));
 
         lblData.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         lblData.setForeground(new java.awt.Color(255, 255, 255));
         lblData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendar24x24.png"))); // NOI18N
         lblData.setText("jLabel5");
-        jPanel2.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 460, 120, 30));
+        jPanel2.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 460, 120, 30));
 
         lblAviso.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jPanel2.add(lblAviso, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 298, 38));
@@ -192,21 +192,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblNmesaLivre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNmesaOcupada, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(lblNmesaLivre, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19)
-                        .addComponent(lblLivres, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(lblNmesaOcupada, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19)
-                        .addComponent(lblOcupadas, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel3)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblOcupadas, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLivres, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 16, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,12 +220,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 280, -1));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 260, -1));
 
-        peinelEsquerdo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 340, 510));
+        peinelEsquerdo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 280, 510));
 
         getContentPane().add(peinelEsquerdo);
-        peinelEsquerdo.setBounds(0, 0, 360, 530);
+        peinelEsquerdo.setBounds(0, 0, 300, 530);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(null);
@@ -321,7 +318,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             btnConasApagarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnConasApagarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                 .addContainerGap())
         );
         btnConasApagarLayout.setVerticalGroup(
@@ -351,8 +348,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnMesasLayout.setHorizontalGroup(
             btnMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnMesasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         btnMesasLayout.setVerticalGroup(
@@ -384,8 +381,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnFuncionariosLayout.setHorizontalGroup(
             btnFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnFuncionariosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
+                .addGap(0, 20, Short.MAX_VALUE)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         btnFuncionariosLayout.setVerticalGroup(
             btnFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -574,9 +571,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel10.setBounds(430, 450, 110, 69);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(360, 0, 660, 530);
+        jPanel1.setBounds(300, 0, 660, 530);
 
-        setSize(new java.awt.Dimension(1016, 530));
+        setSize(new java.awt.Dimension(955, 530));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

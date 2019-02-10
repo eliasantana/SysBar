@@ -92,8 +92,6 @@ public class ControlerCozinha {
         return resultado;
     }
 
-   
-    
     public boolean liberaProduto(String id, String tempoPreparacao) {
 
         String sql = "UPDATE tbcozinha SET status='Liberado', tempo_preparacao=? WHERE id=?";
@@ -113,8 +111,8 @@ public class ControlerCozinha {
 
         return false;
     }
-   
-     // Excluir após teste status cozinha 
+
+    // Excluir após teste status cozinha 
     // Retorna a lista dos produtos enviados para a cozinha pelo operador garçom
     public ResultSet statusCozinha(String operador, String npedido) {
 
@@ -141,11 +139,12 @@ public class ControlerCozinha {
 
         return rs;
     }
+
     // Retorna a lista dos produtos enviados para a cozinha pelo operador garçom
     public ResultSet statusCozinha(String npedido) {
-         
+
         // Listas os pratos enviados a cozinha pelo garçom
-         String sql = "SELECT "
+        String sql = "SELECT "
                 + " produto    as PRATO\n"
                 + "     , qtd  as QTD\n"
                 + "     , CASE    \n"
@@ -164,7 +163,7 @@ public class ControlerCozinha {
                 + "	   END)";
 
         try {
-            pst = conexao.prepareStatement(sql);           
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, npedido);
             rs = pst.executeQuery();
 
@@ -215,7 +214,7 @@ public class ControlerCozinha {
         return resp;
     }
 
-    /*
+     /*
      * Registra a hora em que foi iniciada a preparação do prato pelo cozinheiro
      */
     public void registraPreparo(String idTbCozinha, String nomeCozinheiro) {

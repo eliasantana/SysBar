@@ -353,7 +353,7 @@ public class ControlerPedido {
             System.out.println("br.com.br.controler.ControlerPedido.carregaComboPedido()");
         }
     }
-
+    // Remove um item do pedido.
     public boolean excluiItemPedido(String idItemPEdido) {
 
         boolean resp = false;
