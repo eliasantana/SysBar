@@ -86,7 +86,7 @@ public class ControlerProduto {
                 + "	g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id "
-                + "WHERE p.qtd > 0";
+                + "WHERE p.qtd > 0 ORDER BY g.nome";
 
         try {
             pst = conexao.prepareStatement(sql);

@@ -169,6 +169,7 @@ public class TelaAutorizacao extends JDialog {
         jLabel3.setText("Motivo do Desconto:");
 
         txtMotivoDesconto.setColumns(20);
+        txtMotivoDesconto.setLineWrap(true);
         txtMotivoDesconto.setRows(5);
         txtMotivoDesconto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -359,8 +360,13 @@ public class TelaAutorizacao extends JDialog {
     private void txtMotivoDescontoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMotivoDescontoKeyPressed
         // Habilita botão após digitação
         String texto = txtMotivoDesconto.getText();
-        if (!"".equals(texto)) {
+        int tamanho =texto.length();       
+      
+        if (tamanho>20) {
             btnAutorizar.setEnabled(true);
+        }else {
+            btnAutorizar.setEnabled(false);
+            
         }
     }//GEN-LAST:event_txtMotivoDescontoKeyPressed
 

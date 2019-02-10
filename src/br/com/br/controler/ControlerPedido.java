@@ -159,28 +159,9 @@ public class ControlerPedido {
                 + "      dbbar.detalhe_mesa.cadmesa_id = dbbar.cadmesa.id \n"
                 + " INNER JOIN dbbar.tbproduto ON \n"
                 + "    dbbar.detalhe_mesa.tbproduto_id = dbbar.tbproduto.id \n"
-                + " WHERE numero_mesa =?   and cadpedido_id_pedido=? order by dbbar.detalhe_mesa.id desc;";
-        
-        // Lista todos os produtos do pedido para a mesa informada ordenados por id
-        // Em ordem Decrescente
-        // Nesta Query os produtos são listados de forma agrupada com suas quantidades e totais
-        // somados
-        /*
-        String sql = "SELECT\n"
-                + "	dbbar.detalhe_mesa.tbproduto_id AS 'CÓDIGO',\n"
-                + "	dbbar.tbproduto.nome AS 'PRODUTO',\n"
-                + "	sum(dbbar.detalhe_mesa.qtd) AS 'QUANTIDADE',\n"
-               // + "	format(sum(dbbar.detalhe_mesa.`valorUnit`),2,'de_DE') AS 'VLR UNITÁRIO R$',\n"
-                + "	format(dbbar.detalhe_mesa.`valorUnit`,2,'de_DE') AS 'VLR UNITÁRIO R$',\n"
-                + "	format(sum(dbbar.detalhe_mesa.`Total`),2,'de_DE') AS 'VLR TOTAL R$'\n"
-                + "\n"
-                + "FROM dbbar.detalhe_mesa\n"
-                + "	INNER JOIN dbbar.cadmesa ON \n"
-                + "	dbbar.detalhe_mesa.cadmesa_id = dbbar.cadmesa.id \n"
-                + "	INNER JOIN dbbar.tbproduto ON \n"
-                + "	dbbar.detalhe_mesa.tbproduto_id = dbbar.tbproduto.id \n"
-                + "WHERE numero_mesa =?   and cadpedido_id_pedido=? group by tbproduto_id\n"
-                + "order by dbbar.detalhe_mesa.id desc;";*/
+                + " WHERE numero_mesa =?   and cadpedido_id_pedido=? ORDER BY dbbar.detalhe_mesa.id desc";
+              
+      
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, numeroMesa);
@@ -348,7 +329,7 @@ public class ControlerPedido {
 
             pst.executeUpdate();
             resp = true;
-            JOptionPane.showMessageDialog(null, "Solicitação de prato enviada com sucesso!");
+           
 
         } catch (HeadlessException | SQLException e) {
 

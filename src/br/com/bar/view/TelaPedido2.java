@@ -25,6 +25,7 @@ import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -76,18 +77,27 @@ public class TelaPedido2 extends javax.swing.JFrame {
         txtValorUnit.setEnabled(false);
         txtValorTotal.setEnabled(false);
         lblLupa.setVisible(false);
-        lblEnviarCozinha.setEnabled(false);
         lblStatusCozinha.setEnabled(false);
         btnAbrirPedido.setEnabled(false);
-        lblCargo.setVisible(false);
-        lblGerenciarPedido.setEnabled(false);
+        lblCargo.setVisible(true);
+      
+        
     }
 
     public void recebeOperador(String operador, String perfil) {
         lblOperador.setText(operador);
         lblCargo.setText(perfil);
         lblCargo.setVisible(false);
+        modelPedidos.redimensionaColunas(tblPedidosAbertos);
+        if ("Gerente".equals(lblCargo.getText())) {
 
+            lblGerenciarPedido.setVisible(true);
+            textoLblPedido.setVisible(true);
+        }else {
+            
+          lblGerenciarPedido.setVisible(false);
+            textoLblPedido.setVisible(false);
+        }
     }
 
     /**
@@ -116,11 +126,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
         panelFechar = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lblStatusCozinha = new javax.swing.JLabel();
-        lblEnviarCozinha = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        textoLblPedido = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblGerenciarPedido = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -151,7 +159,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         comboGarcom = new javax.swing.JComboBox<>();
         btnListar = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        panelAbrirPedido = new javax.swing.JPanel();
         btnAbrirPedido = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblNumeroMesa = new javax.swing.JTable();
@@ -298,23 +306,13 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblStatusCozinha);
-        lblStatusCozinha.setBounds(1010, 610, 70, 48);
+        lblStatusCozinha.setBounds(810, 610, 70, 48);
 
-        lblEnviarCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEnviarCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/enviar32x32.png"))); // NOI18N
-        lblEnviarCozinha.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblEnviarCozinhaMouseClicked(evt);
-            }
-        });
-        getContentPane().add(lblEnviarCozinha);
-        lblEnviarCozinha.setBounds(850, 612, 90, 50);
-
-        jLabel5.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Gerenciar Pedido");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(670, 660, 150, 23);
+        textoLblPedido.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
+        textoLblPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoLblPedido.setText("Gerenciar Pedido");
+        getContentPane().add(textoLblPedido);
+        textoLblPedido.setBounds(650, 660, 150, 23);
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -330,12 +328,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblGerenciarPedido);
-        lblGerenciarPedido.setBounds(710, 610, 80, 50);
-
-        jLabel8.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
-        jLabel8.setText("Enviar para Cozinha");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(840, 660, 150, 23);
+        lblGerenciarPedido.setBounds(690, 610, 80, 50);
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblCargo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -357,7 +350,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel10.setText("Status Cozinha");
         getContentPane().add(jLabel10);
-        jLabel10.setBounds(1000, 660, 90, 20);
+        jLabel10.setBounds(800, 660, 90, 20);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel6.setLayout(null);
@@ -639,8 +632,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("")));
-        jPanel2.setLayout(null);
+        panelAbrirPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("")));
+        panelAbrirPedido.setLayout(null);
 
         btnAbrirPedido.setBackground(new java.awt.Color(204, 204, 204));
         btnAbrirPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Pedido.png"))); // NOI18N
@@ -650,7 +643,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 btnAbrirPedidoActionPerformed(evt);
             }
         });
-        jPanel2.add(btnAbrirPedido);
+        panelAbrirPedido.add(btnAbrirPedido);
         btnAbrirPedido.setBounds(20, 260, 187, 50);
 
         tblNumeroMesa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -677,7 +670,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblNumeroMesa);
 
-        jPanel2.add(jScrollPane1);
+        panelAbrirPedido.add(jScrollPane1);
         jScrollPane1.setBounds(20, 13, 190, 240);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -688,7 +681,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelAbrirPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -697,7 +690,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelAbrirPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -712,8 +705,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         if ("Selecione...".equals(comboGarcom.getSelectedItem().toString())) {
             btnListar.setEnabled(false);
+            btnAbrirPedido.setEnabled(false);
+
         } else {
             btnListar.setEnabled(true);
+
         }
         limpaform();
         bloqueiaCampos();
@@ -830,7 +826,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 limpaform();
                 // Desabilita botões Enviar para a Cozinha e Status Cozinha após clique 
                 // em outra aba.
-                lblEnviarCozinha.setEnabled(false);
+
                 lblStatusCozinha.setEnabled(false);
             } else if ("Detalhe Pedido".equals(jTabbedPanePedido.getTitleAt(index))) {
                 txtQtd.setEnabled(false);
@@ -839,7 +835,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 txtPesquisa.setVisible(false);
                 // Desabilita botões Enviar para a Cozinha e Status Cozinha após clique 
                 // em outra aba.
-                lblEnviarCozinha.setEnabled(false);
+
                 lblStatusCozinha.setEnabled(false);
                 tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(txtNumeroMesa.getText(), txtNumeroPedido.getText())));
                 modelDetPedido.redimensionaColunas(tblDetalhePedido);
@@ -853,7 +849,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 txtQtd.setEnabled(false);
                 // Desabilita botões Enviar para a Cozinha e Status Cozinha após clique 
                 // em outra aba.
-                lblEnviarCozinha.setEnabled(false);
+
                 lblStatusCozinha.setEnabled(false);
 
                 tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
@@ -960,11 +956,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
         String grupo = cproduto.localizaGrupoProduto(Integer.parseInt(idProduto));
 
         if (grupo.toLowerCase().equals("cozinha")) {
-            lblEnviarCozinha.setEnabled(true);
+
             lblStatusCozinha.setEnabled(true);
 
         } else {
-            lblEnviarCozinha.setEnabled(false);
+
             lblStatusCozinha.setEnabled(false);
         }
 
@@ -997,13 +993,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_lblStatusCozinhaMouseClicked
-
-    private void lblEnviarCozinhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEnviarCozinhaMouseClicked
-        // Envia prato para cozinha
-        enviaParaCozinha();
-
-
-    }//GEN-LAST:event_lblEnviarCozinhaMouseClicked
 
     private void lblGerenciarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGerenciarPedidoMouseClicked
         if (lblGerenciarPedido.isEnabled()) {
@@ -1098,12 +1087,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -1122,7 +1108,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JLabel lblCodigo1;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblData2;
-    private javax.swing.JLabel lblEnviarCozinha;
     private javax.swing.JLabel lblGerenciarPedido;
     private javax.swing.JLabel lblLupa;
     private javax.swing.JLabel lblMensagem;
@@ -1133,11 +1118,13 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JLabel lblQtd2;
     private javax.swing.JLabel lblStatusCozinha;
     private javax.swing.JLabel lbllogo;
+    private javax.swing.JPanel panelAbrirPedido;
     private javax.swing.JPanel panelFechar;
     private javax.swing.JTable tblDetalhePedido;
     private javax.swing.JTable tblListaProduto;
     private javax.swing.JTable tblNumeroMesa;
     private javax.swing.JTable tblPedidosAbertos;
+    private javax.swing.JLabel textoLblPedido;
     private javax.swing.JTextField txtCodigoProduto;
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtIdGarcom;
@@ -1220,10 +1207,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
                             // ------ Verifica Grupo de Produto e Envia para acozinha ---/
                             String grupo = cproduto.localizaGrupoProduto(Integer.parseInt(txtCodigoProduto.getText()));
-                           
-                            
+
                             if (grupo.equals("Cozinha")) {
-                                
+
                                 ArrayList<String> pCozinha = new ArrayList<>();
 
                                 //codProduto, produto, qtd, funcionario, mesa, data, status
@@ -1235,7 +1221,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                                 pCozinha.add("Pendente"); // Status Pendente - Liberado
                                 pCozinha.add(txtNumeroPedido.getText());
                                 Date dtAtual = new Date();
-                                Timestamp tms = new Timestamp(dtAtual.getTime()); 
+                                Timestamp tms = new Timestamp(dtAtual.getTime());
                                 pCozinha.add(String.valueOf(tms)); // Data Atual   
                                 // Envia prato para a cozinha
                                 enviaParaCozinha(pCozinha);
@@ -1279,6 +1265,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         }
     }
 
+    /*
     private void enviaParaCozinha() {
         // Envia porduto para a cozinha
 
@@ -1314,22 +1301,17 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         }
     }
-
+     */
     // Recebe um ArrayList de String com os dados do prato a ser enviado para cozinha
     // na inclusão do produto no pedido.
-    
-    private  void enviaParaCozinha(ArrayList<String> prato) {
-        boolean resp = false;
+    private void enviaParaCozinha(ArrayList<String> prato) {
+
         ControlerCozinha cc = new ControlerCozinha(); // Instancia o controler cozinha
-           
-            int op = JOptionPane.showConfirmDialog(null, "Confirma o envio da solicitação para a cozinha? ", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+        if (cp.enviaProdutoCozinha(prato)) {
+            JOptionPane.showMessageDialog(null, "Solicitação de prato enviada para a cozinha!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro ao tentar enviar solicitação de prato para a cozinha - Contate o SUPORTE!");
+        }
 
-            if (op == JOptionPane.YES_OPTION) {
-
-                cp.enviaProdutoCozinha(prato);
-                resp=true;
-            }
-       
-     
     }
 }

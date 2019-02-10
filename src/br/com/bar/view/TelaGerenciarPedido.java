@@ -366,7 +366,9 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
             // Atualiza Quantidade
             cp.atualizaQtdItem(txtIDItem.getText(), novaQtd,total);
             int devolve = qtdPedido - novaQtd;
-            ce.entradaDeProduto(txtIdProduto.getText(), String.valueOf(devolve));
+            if (ce.entradaDeProduto(txtIdProduto.getText(), String.valueOf(devolve))){
+                JOptionPane.showMessageDialog(null, "Produto(s) devolvido(s) ao estoque com sucesso!");
+            }
             //Registra a movimentação
             ce.registraMovimentacao(txtIdProduto.getText(), String.valueOf(devolve), ce.localizaIdOperacao("Devolução"), "O cliente desistiu do produto");
         }

@@ -281,7 +281,7 @@ public class ControlerCaixa {
 
     public ResultSet listaCaixa() {
 
-        String sql = "SELECT m.id AS 'ID', m.data AS 'DATA', format(m.saldo,2,'de_DE') AS 'SALDO', f.nome AS 'OPERADOR' FROM dbbar.tbmovimentacao m\n"
+        String sql = "SELECT m.id AS 'CÓD. INTERNO', date_format(m.data,'%d/%m/%Y') AS 'DATA', format(m.saldo,2,'de_DE') AS 'SALDO R$', f.nome AS 'OPERADOR' FROM dbbar.tbmovimentacao m\n"
                 + "INNER JOIN tbcadfuncionario f on f.id = m.tbcadfuncionario_id\n"
                 + "WHERE data=curdate();";
 
@@ -463,6 +463,7 @@ public class ControlerCaixa {
                         param.put("titulo", "=-=-=-= Retroativo =-=-=-=");
                         ControlerDadosEmpresa de = new ControlerDadosEmpresa();
                         DadosEmpresa dadosEmpresa = de.selecionaDados();
+                        param.put("empresa", dadosEmpresa.getNome_empresa());
                         ReportUtil rpu = new ReportUtil();
                         try {
 

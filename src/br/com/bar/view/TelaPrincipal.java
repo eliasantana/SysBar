@@ -91,16 +91,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         peinelEsquerdo = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        lblNmesaLivre = new javax.swing.JLabel();
-        lblNmesaOcupada = new javax.swing.JLabel();
-        lblLivres = new javax.swing.JLabel();
-        lblOcupadas = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         lblLogo = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
         lblAviso = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        lblNmesaLivre = new javax.swing.JLabel();
+        lblLivres = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        lblNmesaOcupada = new javax.swing.JLabel();
+        lblOcupadas = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblCargo = new javax.swing.JLabel();
         btnProduto = new javax.swing.JPanel();
@@ -137,38 +138,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblNmesaLivre.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        lblNmesaLivre.setForeground(new java.awt.Color(255, 255, 255));
-        lblNmesaLivre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblNmesaLivre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/mesa.png"))); // NOI18N
-        lblNmesaLivre.setText("jLabel16");
-        jPanel2.add(lblNmesaLivre, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 350, 90, 30));
-
-        lblNmesaOcupada.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        lblNmesaOcupada.setForeground(new java.awt.Color(255, 255, 255));
-        lblNmesaOcupada.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblNmesaOcupada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/mesavermelha (2).png"))); // NOI18N
-        lblNmesaOcupada.setText("jLabel17");
-        jPanel2.add(lblNmesaOcupada, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 380, 90, 30));
-
-        lblLivres.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        lblLivres.setForeground(new java.awt.Color(255, 255, 255));
-        lblLivres.setText("Livres");
-        jPanel2.add(lblLivres, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 350, 76, 30));
-
-        lblOcupadas.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        lblOcupadas.setForeground(new java.awt.Color(255, 255, 255));
-        lblOcupadas.setText("Ocupadas");
-        jPanel2.add(lblOcupadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, 76, 30));
-
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Livres");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, 50, 30));
-
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Ocupadas");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 380, -1, 30));
-
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
         jPanel2.add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 215, 180));
@@ -186,10 +155,77 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblData.setText("jLabel5");
         jPanel2.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 460, 120, 30));
 
-        peinelEsquerdo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 340, 510));
-
         lblAviso.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        peinelEsquerdo.add(lblAviso, new org.netbeans.lib.awtextra.AbsoluteConstraints(347, 25, 298, 38));
+        jPanel2.add(lblAviso, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 298, 38));
+
+        jPanel4.setBackground(new java.awt.Color(52, 73, 94));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Taxa de Ocupação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255)))))); // NOI18N
+
+        lblNmesaLivre.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblNmesaLivre.setForeground(new java.awt.Color(255, 255, 255));
+        lblNmesaLivre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblNmesaLivre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/mesa.png"))); // NOI18N
+        lblNmesaLivre.setText("jLabel16");
+
+        lblLivres.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        lblLivres.setForeground(new java.awt.Color(255, 255, 255));
+        lblLivres.setText("Livres");
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Livres");
+
+        lblNmesaOcupada.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblNmesaOcupada.setForeground(new java.awt.Color(255, 255, 255));
+        lblNmesaOcupada.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblNmesaOcupada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/mesavermelha (2).png"))); // NOI18N
+        lblNmesaOcupada.setText("jLabel17");
+
+        lblOcupadas.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        lblOcupadas.setForeground(new java.awt.Color(255, 255, 255));
+        lblOcupadas.setText("Ocupadas");
+
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Ocupadas");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(lblNmesaLivre, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(lblLivres, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(lblNmesaOcupada, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(lblOcupadas, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel3)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNmesaLivre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLivres, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNmesaOcupada, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblOcupadas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 280, -1));
+
+        peinelEsquerdo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 340, 510));
 
         getContentPane().add(peinelEsquerdo);
         peinelEsquerdo.setBounds(0, 0, 360, 530);
@@ -787,6 +823,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lblAviso;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblData;

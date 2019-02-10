@@ -10,6 +10,7 @@ import br.com.bar.dao.Log;
 import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.Contas;
 import br.com.bar.model.DadosEmpresa;
+import br.com.bar.model.TableModelContasApagar;
 import br.com.br.controler.ControlerContasApagar;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerFuncionario;
@@ -51,6 +52,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
     SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     Connection conexao = ConexaoBd.conector();
     ControlerDadosEmpresa de = new ControlerDadosEmpresa();
+    TableModelContasApagar modelcontas = new TableModelContasApagar();
 
     // Instacia um registro de log
     Log l = new Log();
@@ -67,7 +69,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
         lblDataDePAgamento.setVisible(false);
         lblDataDePAgamento.setText("Data de Pagamento");
         txtValorPago.setVisible(false);
-        txtValor.setEnabled(true);        
+        txtValor.setEnabled(true);
         lblValorPago.setVisible(false);
         btnBaixar.setEnabled(false);
         lblFuncionario.setVisible(false);
@@ -77,6 +79,8 @@ public class TelaContasApagar extends javax.swing.JFrame {
         combofunc.setVisible(false);
         jSpinQtd.setVisible(false);
         btnGraficoDeDespesas.setVisible(false);
+        lblOperador.setVisible(false);
+        lblCargo.setVisible(false);
 
         try {
             //Adiciona data ao objeto jdateChooser 
@@ -93,6 +97,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
         txtIdFuncionario.setText(cf.localizaIdLogin(operador));
         l.setUsuario(operador);
 
+        modelcontas.redimensionaColunas(tblContas);
     }
 
     /**
@@ -125,9 +130,9 @@ public class TelaContasApagar extends javax.swing.JFrame {
         combofunc = new javax.swing.JComboBox<>();
         lblValorPago = new javax.swing.JLabel();
         lblFuncionario = new javax.swing.JLabel();
-        painelDireito = new javax.swing.JPanel();
         lblOperador = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
+        painelDireito = new javax.swing.JPanel();
         txtIdFuncionario = new javax.swing.JTextField();
         Menu = new javax.swing.JPanel();
         btnBaixar = new javax.swing.JLabel();
@@ -285,22 +290,25 @@ public class TelaContasApagar extends javax.swing.JFrame {
         painelEsquerdo.add(lblFuncionario);
         lblFuncionario.setBounds(20, 410, 120, 30);
 
+        lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
+        lblOperador.setForeground(new java.awt.Color(255, 255, 255));
+        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario_branco.png"))); // NOI18N
+        painelEsquerdo.add(lblOperador);
+        lblOperador.setBounds(70, 480, 130, 30);
+
+        lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
+        lblCargo.setForeground(new java.awt.Color(255, 255, 255));
+        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil (2).png"))); // NOI18N
+        lblCargo.setText("Cargo");
+        painelEsquerdo.add(lblCargo);
+        lblCargo.setBounds(170, 480, 100, 30);
+
         getContentPane().add(painelEsquerdo);
         painelEsquerdo.setBounds(0, 0, 370, 520);
 
         painelDireito.setBackground(new java.awt.Color(204, 204, 204));
+        painelDireito.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         painelDireito.setLayout(null);
-
-        lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
-        painelDireito.add(lblOperador);
-        lblOperador.setBounds(560, 30, 130, 30);
-
-        lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
-        lblCargo.setText("Cargo");
-        painelDireito.add(lblCargo);
-        lblCargo.setBounds(660, 30, 100, 30);
         painelDireito.add(txtIdFuncionario);
         txtIdFuncionario.setBounds(240, 30, 40, 30);
 
@@ -329,11 +337,11 @@ public class TelaContasApagar extends javax.swing.JFrame {
         MenuLayout.setHorizontalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MenuLayout.createSequentialGroup()
-                .addGap(340, 340, 340)
+                .addGap(227, 227, 227)
                 .addComponent(btnBaixar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
                 .addComponent(btnGraficoDeDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addContainerGap(351, Short.MAX_VALUE))
         );
         MenuLayout.setVerticalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,7 +353,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
         );
 
         painelDireito.add(Menu);
-        Menu.setBounds(20, 450, 790, 60);
+        Menu.setBounds(20, 450, 860, 60);
 
         tblContas.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         tblContas.setModel(new javax.swing.table.DefaultTableModel(
@@ -375,7 +383,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblContas);
 
         painelDireito.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 140, 790, 310);
+        jScrollPane1.setBounds(20, 140, 860, 310);
         painelDireito.add(txtIdGrupo);
         txtIdGrupo.setBounds(290, 30, 40, 30);
 
@@ -407,7 +415,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
         );
 
         painelDireito.add(jPanel1);
-        jPanel1.setBounds(770, 0, 50, 40);
+        jPanel1.setBounds(840, 0, 50, 40);
 
         btnSalvar1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -573,9 +581,9 @@ public class TelaContasApagar extends javax.swing.JFrame {
         jPanel2.setBounds(20, 70, 230, 55);
 
         getContentPane().add(painelDireito);
-        painelDireito.setBounds(360, 0, 820, 520);
+        painelDireito.setBounds(360, 0, 890, 515);
 
-        setSize(new java.awt.Dimension(1184, 516));
+        setSize(new java.awt.Dimension(1252, 516));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -664,7 +672,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
         } else {
             combofunc.setVisible(false);
             lblFuncionario.setVisible(false);
-           
+
         }
         // Seta data no jdateschooser
         try {
@@ -692,7 +700,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
 
         txtValor.setText(tblContas.getModel().getValueAt(linha, 2).toString());
         txtValorPago.setText(tblContas.getModel().getValueAt(linha, 2).toString());
-        
+
         try {
 
             if (evt.getButton() == MouseEvent.BUTTON3) {
@@ -709,8 +717,8 @@ public class TelaContasApagar extends javax.swing.JFrame {
     }//GEN-LAST:event_tblContasMouseClicked
 
     private void btnBaixarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBaixarMouseClicked
-        if (btnBaixar.isEnabled()){
-            
+        if (btnBaixar.isEnabled()) {
+
             try {
 
                 // Baixa Conta
@@ -753,6 +761,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
                                     limpaForm();
                                     lblFuncionario.setVisible(false);
                                     tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
+                                    modelcontas.redimensionaColunas(tblContas);
                                     // Fim do registro de log
 
                                     int confirma = JOptionPane.showConfirmDialog(null, "Deseja imprimir o comprovante?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
@@ -906,6 +915,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
                                 desaBilitaBotoes();
 
                                 tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
+                                modelcontas.redimensionaColunas(tblContas);
                             }
                         }
                     }
@@ -936,6 +946,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
 
                         JOptionPane.showMessageDialog(null, "Conta alterada!");
                         tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
+                        modelcontas.redimensionaColunas(tblContas);
                         limpaForm();
                         //Regisra operação no log
                         l.setFuncionalidade("Alterar");
@@ -966,7 +977,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
             txtValor.setEnabled(true);
             lblValorPago.setVisible(false);
             btnBaixar.setEnabled(false);
-            comboFiltro.setSelectedIndex(0);
+
         }
     }//GEN-LAST:event_lblLimparMouseClicked
 
@@ -1002,6 +1013,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
                         cc.excluiConta(c);
                     }
                     tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));  // Filtro Aberto | Tudo
+                    modelcontas.redimensionaColunas(tblContas);
                     limpaForm();
                     desaBilitaBotoes();
                 }
@@ -1038,6 +1050,12 @@ public class TelaContasApagar extends javax.swing.JFrame {
                 lblAdicionar.setEnabled(true);
                 limpaForm();
                 break;
+        }
+        try {
+
+            modelcontas.redimensionaColunas(tblContas);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("br.com.bar.view.TelaContasApagar.comboFiltroActionPerformed()");
         }
 
     }//GEN-LAST:event_comboFiltroActionPerformed

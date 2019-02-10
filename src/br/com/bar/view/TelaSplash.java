@@ -43,7 +43,7 @@ public class TelaSplash extends javax.swing.JFrame {
                 
                 for (int i = 0; i < 101; i++) {
                     try {
-                        sleep(80); // Ajusta a velocidade de atualização da barra de progresso
+                        sleep(50); // 80 Ajusta a velocidade de atualização da barra de progresso
                         barraDeProgresso.setValue(i);
                         
                         //Exibe Mensagems de acordo do o nível de carregamento da barra de progresso
