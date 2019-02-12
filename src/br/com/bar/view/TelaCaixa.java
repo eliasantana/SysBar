@@ -96,7 +96,8 @@ public class TelaCaixa extends JDialog {
         txtTroco.setText("0,00");
         lblCargo.setVisible(false);
         modelCaixa.redimensionaColunas(tblDetalhePedido);
-       
+        this.setModal(true);
+        checkReimpressao.setEnabled(false);
     }
 
     /**
@@ -159,6 +160,7 @@ public class TelaCaixa extends JDialog {
         jLabel21 = new javax.swing.JLabel();
         jSpinFieldPessoas = new javax.swing.JSpinner();
         btnImprimir = new javax.swing.JLabel();
+        checkReimpressao = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         comboMesa = new javax.swing.JComboBox<>();
@@ -663,7 +665,16 @@ public class TelaCaixa extends JDialog {
             }
         });
         painelDireito.add(btnImprimir);
-        btnImprimir.setBounds(230, 490, 125, 55);
+        btnImprimir.setBounds(220, 490, 125, 55);
+
+        checkReimpressao.setText("Reimprimir");
+        checkReimpressao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkReimpressaoActionPerformed(evt);
+            }
+        });
+        painelDireito.add(checkReimpressao);
+        checkReimpressao.setBounds(230, 550, 120, 23);
 
         getContentPane().add(painelDireito);
         painelDireito.setBounds(940, 0, 370, 690);
@@ -776,8 +787,7 @@ public class TelaCaixa extends JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(labelPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -981,18 +991,26 @@ public class TelaCaixa extends JDialog {
                     cm.trocaStatusMesa(comboMesa.getSelectedItem().toString(), "0");
                     JOptionPane.showMessageDialog(null, "Pedido fechado com sucesso!");
                     // ===============================================================//
-                    lblGarcom.setText(null);
+                   
                     jSpinFieldPessoas.setValue(1);
                     // Registra desconto se o valor for > que 0
+                     Funcionario f = new Funcionario();
+                     Double desconto;
                     if (!"0,00".equals(txtDesconto.getText())) {
 
-                        Funcionario f = new Funcionario();
+                       
                         f.setId(listAutoDesconto.get(7));
-                        Double desconto = Double.parseDouble(txtDesconto.getText().replaceAll(",", "."));
+                        desconto = Double.parseDouble(txtDesconto.getText().replaceAll(",", "."));
                         // Instacia o objeto desconto e adiciona como parâmetro o motivo, o do idPedido e 
                         // o id do Funcionário eque concedeu o desconto
                         DescontoPedido descPedido = new DescontoPedido(desconto, listAutoDesconto.get(8), f, p);
                         //Registra desconto informado
+                        caixa.registraDesconto(descPedido);
+                    }else {
+                        
+                        f.setId(func.localizaId(lblOperador.getText()));
+                        desconto = 0.0;
+                        DescontoPedido descPedido = new DescontoPedido(desconto, "",f, p);
                         caixa.registraDesconto(descPedido);
                     }
 
@@ -1001,14 +1019,14 @@ public class TelaCaixa extends JDialog {
                     Date dt = new Date();
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-                    dados.put("data", df.format(dt));
+                    dados.put("data", df.format(dt)); 
                     dados.put("garcom", lblGarcom.getText());
                     dados.put("titulo", "COMPROVANTE DE PAGAMENTO");
                     dados.put("tx", Double.parseDouble(percent.getText().replaceAll(",", ".")));
                     dados.put("id_pedido", p.getId());
                     System.out.println(p.getId());
-                    dados.put("npessoas", nPesoas);
-                    dados.put("total_pessoas", totalPessoas);
+                    dados.put("npessoas", nPesoas); // Não tenho
+                    dados.put("total_pessoas", totalPessoas); // Não tenho
                     DadosEmpresa dadosEmpresa = de.selecionaDados();
                     dados.put("mesa", comboMesa.getSelectedItem().toString());
                     dados.put("nome_empresa", dadosEmpresa.getNome_empresa());
@@ -1036,6 +1054,7 @@ public class TelaCaixa extends JDialog {
                         percent.setText("0,00");
                     }
                     // Fim da impressão de cupom
+                    checkReimpressao.setEnabled(true);
                     cp.limpaTabela(tblDetalhePedido);
                     limpaForm();
                     lblTotal.setText("0,00");
@@ -1049,6 +1068,7 @@ public class TelaCaixa extends JDialog {
                     checkDinheiro.setSelected(false);
                     lblNPedido.setText(null);
                     lblEntradas.setText(String.format("%9.2f", caixa.totalizaEntradas()));
+                    lblGarcom.setText(null);
                     atualizaCaixa();
                     bloqueiaControlePagamento();
                     // Desabilita ComboBox caso não exista mesa a serem listadas.
@@ -1177,13 +1197,13 @@ public class TelaCaixa extends JDialog {
             try {
                 if (dadosEmpresa.getImprimir_na_tela() == 0) {
                     
-                    JasperPrint print = JasperFillManager.fillReport("C:/SysBar/Rel/cupom2.jasper", dados, conexao);
-                    JasperViewer.viewReport(print, false);
-                    
+                    rpu.imprimiRelatorioTela("cupom2.jasper", dados);
 
                 } else {
+                    /*
                     JasperPrint print = JasperFillManager.fillReport(ControlerParametro.getRELATORIOS() + "cupom2.jasper", dados, conexao);
-                    JasperPrintManager.printPage(print, 0, false);
+                    JasperPrintManager.printPage(print, 0, false);*/
+                    rpu.impressaoDireta("cupom2.jasper", dados);
                 }
             } catch (JRException e) {
                 System.out.println("br.com.bar.view.TelaCaixa.btnImprimirMouseClicked()" + e);
@@ -1424,7 +1444,7 @@ public class TelaCaixa extends JDialog {
             dadosDoPedido.add(formaPagto);
 
             TelaAutorizacao ta = new TelaAutorizacao();
-            ta.recebeValor(this, dadosDoPedido);
+            ta.recebeValor(this, dadosDoPedido);           
             ta.setModal(true);
             ta.setVisible(true);
         }
@@ -1436,6 +1456,17 @@ public class TelaCaixa extends JDialog {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_formFocusGained
+
+    private void checkReimpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkReimpressaoActionPerformed
+        // Reimpressão de cupom
+        if (checkReimpressao.isEnabled()){
+            if (checkReimpressao.isSelected()){
+                TelaReImpressao rImpressao = new TelaReImpressao();
+                rImpressao.setModal(true);
+                rImpressao.setVisible(true);               
+            }
+        }
+    }//GEN-LAST:event_checkReimpressaoActionPerformed
     public void recebeOperador(String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
@@ -1556,6 +1587,7 @@ public class TelaCaixa extends JDialog {
     private javax.swing.JCheckBox checkConcedeDesconto;
     private javax.swing.JCheckBox checkDinheiro;
     private javax.swing.JCheckBox checkExibir;
+    private javax.swing.JCheckBox checkReimpressao;
     private javax.swing.JCheckBox checkTxServico;
     private javax.swing.JComboBox<String> comboMes;
     private javax.swing.JComboBox<String> comboMesa;

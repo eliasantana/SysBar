@@ -10,6 +10,7 @@ import br.com.bar.dao.Log;
 import br.com.bar.model.DescontoPedido;
 import br.com.bar.model.Funcionario;
 import br.com.bar.model.Pedido;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCaixa;
 import br.com.br.controler.ControlerFuncionario;
 import java.awt.Color;
@@ -20,13 +21,13 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author Elias Santana
- * javax.swing.JFrame 
+ * @author Elias Santana javax.swing.JFrame
  */
 public class TelaAutorizacao extends JDialog {
 
     ControlerFuncionario cf = new ControlerFuncionario();
     ControlerCaixa cc = new ControlerCaixa();
+    Util u = new Util();
     TelaCaixa cx;
     ArrayList<String> listaDeSValores;
 
@@ -63,6 +64,7 @@ public class TelaAutorizacao extends JDialog {
         txtMotivoDesconto = new javax.swing.JTextArea();
         lblMensagem = new javax.swing.JLabel();
         btnAutorizar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -71,6 +73,8 @@ public class TelaAutorizacao extends JDialog {
         jPanel1.setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(245, 0, 0));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(null);
 
         lblFechar.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
@@ -246,6 +250,10 @@ public class TelaAutorizacao extends JDialog {
         jPanel1.add(jPanel4);
         jPanel4.setBounds(0, 135, 310, 240);
 
+        jSeparator1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.add(jSeparator1);
+        jSeparator1.setBounds(0, 42, 310, 10);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -254,14 +262,14 @@ public class TelaAutorizacao extends JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(310, 379));
+        setSize(new java.awt.Dimension(310, 377));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void recebeValor(TelaCaixa telaCaixa,ArrayList<String> listaDadosDoPedido) {
+    public void recebeValor(TelaCaixa telaCaixa, ArrayList<String> listaDadosDoPedido) {
         // Recebe os valores do pedido
         this.cx = telaCaixa;
         listaDeSValores = listaDadosDoPedido;
@@ -270,13 +278,13 @@ public class TelaAutorizacao extends JDialog {
         System.out.println("Total Geral: " + listaDeSValores.get(2)); // Total Geral
         System.out.println("Mesa: " + listaDeSValores.get(3)); // Número da Mesa
         System.out.println("Id do Pedido: " + listaDeSValores.get(4));
-        
+
     }
     private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked
         // Fecha a Tela
         dispose();
-        
-        
+
+
     }//GEN-LAST:event_lblFecharMouseClicked
     private void comboFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFuncionarioActionPerformed
         // Ativa o campo senha se usuário for diferente de Selecione
@@ -301,7 +309,7 @@ public class TelaAutorizacao extends JDialog {
                 habilitaDesconto();
                 txtValorDesconto.requestFocus();
                 lblMensagem.setText(null);
-               
+
             } else {
                 lblMensagem.setForeground(Color.RED);
                 lblMensagem.setText("Senha inválida!");
@@ -320,6 +328,7 @@ public class TelaAutorizacao extends JDialog {
             double valor = (Double.parseDouble(txtValorDesconto.getText().replace(",", ".")));
             txtValorDesconto.setText(String.format("%9.2f", valor));
             txtMotivoDesconto.requestFocus();
+            lblMensagem.setText("Tamanho: Min: 20 carac. Max: 255 carac.");
         }
     }//GEN-LAST:event_txtValorDescontoKeyPressed
 
@@ -334,15 +343,15 @@ public class TelaAutorizacao extends JDialog {
                 listaDeSValores.set(2, String.format("%9.2f", totalGeral));
                 listaDeSValores.add(String.format("%9.2f", desconto));// Adiciona o desconto
                 listaDeSValores.add(cf.localizaIdLogin(comboFuncionario.getSelectedItem().toString()));//ID de quem autorizou o desconto
-                listaDeSValores.add (txtMotivoDesconto.getText());//Motivo
+                listaDeSValores.add(txtMotivoDesconto.getText());//Motivo
                 // Registra log da operação
                 Log l = new Log();
                 l.setFuncionalidade("Desconto");
                 l.setUsuario(comboFuncionario.getSelectedItem().toString());
-                l.setDescricao(l.getUsuario() + " condedeu desconto ao pedido "+listaDeSValores.get(4) + " Mesa:"+listaDeSValores.get(3));
+                l.setDescricao(l.getUsuario() + " condedeu desconto ao pedido " + listaDeSValores.get(4) + " Mesa:" + listaDeSValores.get(3));
                 l.gravaLog(l);
                 cx.recebeDadosComDesconto(listaDeSValores);
-                
+
                 this.dispose();
             } else {
                 lblMensagem.setForeground(Color.red);
@@ -359,14 +368,26 @@ public class TelaAutorizacao extends JDialog {
 
     private void txtMotivoDescontoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMotivoDescontoKeyPressed
         // Habilita botão após digitação
+
         String texto = txtMotivoDesconto.getText();
-        int tamanho =texto.length();       
-      
-        if (tamanho>20) {
+        texto = u.tamanhoMaximo(texto, 255);
+        txtMotivoDesconto.setText(texto);
+        int tamanho = texto.length();
+        int restam = 255-tamanho;
+        if (tamanho > 20) {
             btnAutorizar.setEnabled(true);
-        }else {
+            lblMensagem.setText(null);
+
+        } else {
             btnAutorizar.setEnabled(false);
+
+        }
+        lblMensagem.setText("Caracteres: "+String.valueOf(tamanho) + "         Restam: "+restam);
+        if (tamanho<20 || tamanho>240){
+            lblMensagem.setForeground(Color.red);
             
+        }else {
+             lblMensagem.setForeground(Color.blue);
         }
     }//GEN-LAST:event_txtMotivoDescontoKeyPressed
 
@@ -421,6 +442,7 @@ public class TelaAutorizacao extends JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblFechar;
     private javax.swing.JLabel lblMensagem;
     private javax.swing.JLabel lblTítulo;

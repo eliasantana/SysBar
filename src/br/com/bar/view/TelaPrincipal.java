@@ -234,7 +234,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("jLabel6");
         jPanel1.add(lblCargo);
-        lblCargo.setBounds(10, 50, 124, 32);
+        lblCargo.setBounds(30, 50, 124, 32);
 
         btnProduto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnProduto.addMouseListener(new java.awt.event.MouseAdapter() {

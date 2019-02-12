@@ -232,7 +232,7 @@ public class ControlerCozinha {
             pst.setString(3, idTbCozinha);
 
             pst.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Preparo iniciado com sucesso!");
+            //JOptionPane.showMessageDialog(null, "Preparo iniciado com sucesso!");
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerCozinha.registraPreparo()" + e);
 

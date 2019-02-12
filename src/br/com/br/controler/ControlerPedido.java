@@ -17,6 +17,8 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -139,6 +141,33 @@ public class ControlerPedido {
         }
         return rs;
     }
+    // Lista todos os Pedidos do dia com statuss aberto ordenados de forma decrescente.
+
+    public ResultSet listaPedidosReimpressao(String numeroMesa) {
+
+        String sql = "SELECT\n"
+                + "	m.numero_mesa as 'MESA',\n"
+                + "	p.id_pedido AS 'PEDIDO',\n"
+                + "	format(p.comissao,2,'de_DE') as 'TX. SERVIÇO R$',	\n"
+                + "	format(dp.valor_desconto,2,'de_DE') as 'DESCONTO R$',\n"
+                + "    format(p.total,2,'de_DE') as 'TOTAL R$',   \n"
+                + "    f.nome as 'GARÇOM'\n"
+                + "FROM cadpedido p\n"
+                + "	INNER JOIN cadmesa m on m.id = p.cadmesa_id\n"
+                + "    INNER JOIN tbdesconto_pedido dp on dp.cadpedido_id_pedido = p.id_pedido\n"
+                + "    INNER JOIN tbcadfuncionario f on f.id = p.tbcadfuncionario_id\n"
+                + "	WHERE p.data = curdate() AND p.status=1 AND m.numero_mesa = ? ORDER BY p.id_pedido desc;";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, numeroMesa);
+            rs = pst.executeQuery();
+        } catch (SQLException ex) {
+            System.out.println("br.com.br.controler.ControlerPedido.listaPedidosReimpressao()" + ex);
+        }
+        return rs;
+
+    }
     // Lista todos os produtos do pedido informado
 
     public ResultSet detalhePorPedido(String numeroMesa, String numeroPedido) {
@@ -146,7 +175,7 @@ public class ControlerPedido {
         // Em ordem Decrescente
         // Nesta Query os produtos são listados de forma unidatária sem agrupamento
         // De suas quantidades.
-        
+
         String sql = "SELECT "
                 + "      dbbar.detalhe_mesa.tbproduto_id AS 'CÓDIGO',\n"
                 + "dbbar.tbproduto.nome AS 'PRODUTO',\n"
@@ -160,8 +189,7 @@ public class ControlerPedido {
                 + " INNER JOIN dbbar.tbproduto ON \n"
                 + "    dbbar.detalhe_mesa.tbproduto_id = dbbar.tbproduto.id \n"
                 + " WHERE numero_mesa =?   and cadpedido_id_pedido=? ORDER BY dbbar.detalhe_mesa.id desc";
-              
-      
+
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, numeroMesa);
@@ -329,7 +357,6 @@ public class ControlerPedido {
 
             pst.executeUpdate();
             resp = true;
-           
 
         } catch (HeadlessException | SQLException e) {
 
@@ -353,6 +380,7 @@ public class ControlerPedido {
             System.out.println("br.com.br.controler.ControlerPedido.carregaComboPedido()");
         }
     }
+
     // Remove um item do pedido.
     public boolean excluiItemPedido(String idItemPEdido) {
 
@@ -396,20 +424,21 @@ public class ControlerPedido {
 
         return resp;
     }
+
     // Atualiza a quantidade do item no pedido
-    public void atualizaQtdItem(String idItemPedido, int qtd, Double total){
-        
-        String sql="UPDATE detalhe_mesa SET qtd=?, total=? WHERE id=?";
-        
+    public void atualizaQtdItem(String idItemPedido, int qtd, Double total) {
+
+        String sql = "UPDATE detalhe_mesa SET qtd=?, total=? WHERE id=?";
+
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setInt(1, qtd);
             pst.setDouble(2, total);
             pst.setString(3, idItemPedido);
             pst.executeUpdate();
-            
+
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerPedido.atualizaQtdItem()"+e);
+            System.out.println("br.com.br.controler.ControlerPedido.atualizaQtdItem()" + e);
         }
     }
 }

@@ -9,6 +9,7 @@ package br.com.bar.dao;
 import br.com.bar.model.DadosEmpresa;
 import java.sql.Connection;
 import java.util.HashMap;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -48,60 +49,87 @@ public class ReportUtil {
     // Este método abre na tela um relatório passado como parâmetro
     public void imprimiRelatorioTela(String relatorio, HashMap map) throws JRException {
         // Instancia o objeto 
-
+        /*
+            Este métodos imprime um cumpom em tela, aqui foi necessário realizar as seguintes modificações
+            - Criar um novo Frame e adicionar a visualização do cupom neste frame JDialog
+              tornando-o modal para que apareça sempre emfrente a janela naqual o método foi chamado.
+        */
+            
         try {
+            // Instancia um JDialog
+            JDialog viewer = new JDialog(new javax.swing.JFrame(), "Comprovante", true);
+            viewer.setSize(800, 600);
+            viewer.setLocationRelativeTo(null);
+            
             JasperPrint jasperPrint = JasperFillManager.fillReport(url + relatorio, map, conexao);
-            JasperViewer.viewReport(jasperPrint, false);
-
+            //JasperViewer.viewReport(jasperPrint, false);
+            JasperViewer viewerJasper = new JasperViewer(jasperPrint);
+            // Adiciona a janela de exibição do relatório dentro do novo JDialog
+            viewer.getContentPane().add(viewerJasper.getContentPane());
+            // Seta nova janela como modal.
+            viewer.setModal(true);
+            // Exibe o relatório em tela.
+            viewer.setVisible(true);
         } catch (NullPointerException e) {
-                System.out.println("br.com.bar.dao.ReportUtil.imprimiRelatorioTela() " +relatorio+" " +e);           
-        }      
+            System.out.println("br.com.bar.dao.ReportUtil.imprimiRelatorioTela() " + relatorio + " " + e);
+        }
 
     }
+
     // Este método abre na tela um relatório passado como parâmetro
     public void imprimiRelatorioTela(String relatorio) throws JRException {
         // Instancia o objeto 
-
+        
+            
         try {
+         // Instancia um JDialog
+            JDialog viewer = new JDialog(new javax.swing.JFrame(), "Comprovante", true);
+            viewer.setSize(800, 600);
+            viewer.setLocationRelativeTo(null);
+            
             JasperPrint jasperPrint = JasperFillManager.fillReport(url + relatorio, null, conexao);
-            JasperViewer.viewReport(jasperPrint, false);
+            JasperViewer viewerJasper = new JasperViewer(jasperPrint);
+             // Adiciona a janela de exibição do relatório dentro do novo JDialog
+            viewer.getContentPane().add(viewerJasper.getContentPane());  // Seta nova janela como modal.
+            viewer.setModal(true);    // Exibe o relatório em tela.
+            viewer.setVisible(true);  //JasperViewer.viewReport(jasperPrint, false);
 
         } catch (NullPointerException e) {
-                System.out.println("br.com.bar.dao.ReportUtil.imprimiRelatorioTela() " +relatorio+" " +e);
-                JOptionPane.showMessageDialog(null, "Você não possuí movimentação!");
-                
-            
-        }      
+            System.out.println("br.com.bar.dao.ReportUtil.imprimiRelatorioTela() " + relatorio + " " + e);
+            JOptionPane.showMessageDialog(null, "Você não possuí movimentação!");
+
+        }
 
     }
-    
+
     //Imprime Relatório direto na impressora
-    public void impressaoDireta(String relatorio, HashMap map){
+    public void impressaoDireta(String relatorio, HashMap map) {
         try {
-            JasperPrint printLocal = JasperFillManager.fillReport(url+relatorio,map,conexao);
+            JasperPrint printLocal = JasperFillManager.fillReport(url + relatorio, map, conexao);
             JasperPrintManager.printPage(printLocal, 0, false);
-            
+
         } catch (JRException e) {
-            System.out.println("br.com.bar.dao.ReportUtil.impressaoDireta()"+e);
+            System.out.println("br.com.bar.dao.ReportUtil.impressaoDireta()" + e);
         }
     }
-    
+
     public HashMap rodape(DadosEmpresa d) {
         HashMap map = new HashMap();
         map.put("end1", d.getNome_empresa() + " - " + " Endereço: " + d.getEndereco() + "," + d.getNumero() + " - " + "Bairro: " + d.getBairro() + " - " + " Cidade: " + d.getCidade());
-        map.put("end2", "CEP: "+d.getCep() + " - " + "UF :"  +d.getUf() + " Telefone: " + d.getTelefone() + " email-" + d.getEmail());
+        map.put("end2", "CEP: " + d.getCep() + " - " + "UF :" + d.getUf() + " Telefone: " + d.getTelefone() + " email-" + d.getEmail());
         map.put("cnpj", "C.N.P.J " + d.getCnpj());
         map.put("logo", d.getLogo());
-        
+
         return map;
     }
+
     public HashMap rodape(DadosEmpresa d, HashMap map) {
-        
+
         map.put("end1", d.getNome_empresa() + " - " + " Endereço: " + d.getEndereco() + "," + d.getNumero() + " - " + "Bairro: " + d.getBairro() + " - " + " Cidade: " + d.getCidade());
-        map.put("end2", "CEP: "+d.getCep() + " - " + "UF :"  +d.getUf() + " Telefone: " + d.getTelefone() + " email-" + d.getEmail());
+        map.put("end2", "CEP: " + d.getCep() + " - " + "UF :" + d.getUf() + " Telefone: " + d.getTelefone() + " email-" + d.getEmail());
         map.put("cnpj", "C.N.P.J " + d.getCnpj());
         map.put("logo", d.getLogo());
-        
+
         return map;
     }
 }

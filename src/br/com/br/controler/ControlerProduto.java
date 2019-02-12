@@ -322,7 +322,7 @@ public class ControlerProduto {
 
             pst.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Produto adicionado com sucesso!");
+            //JOptionPane.showMessageDialog(null, "Produto adicionado com sucesso!");
             return true;
 
         } catch (SQLException e) {

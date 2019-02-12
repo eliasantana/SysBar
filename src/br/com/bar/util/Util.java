@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.jfree.chart.*;
@@ -344,5 +345,12 @@ public class Util {
         System.out.println(colunas.length);
         
 
+    }
+     // Carrega ícone na janela
+     public void setIcon(JFrame frame) {
+         //String nomeImagem="rese7_64x64.png";
+         String nomeImagem="refeicao128x128.png";
+        
+        frame.setIconImage(new javax.swing.ImageIcon(getClass().getResource("../imagens/"+nomeImagem)).getImage());
     }
 }
