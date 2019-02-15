@@ -136,7 +136,7 @@ public class TelaPametro extends javax.swing.JFrame {
         lblFechar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblFechar.setForeground(new java.awt.Color(255, 255, 255));
         lblFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFechar.setText("X");
+        lblFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
         lblFechar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblFecharMouseClicked(evt);

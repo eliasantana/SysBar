@@ -80,7 +80,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblStatusCozinha.setEnabled(false);
         btnAbrirPedido.setEnabled(false);
         lblCargo.setVisible(true);
-        
+      
     }
     
     public void recebeOperador(String operador, String perfil) {
@@ -278,7 +278,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("X");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
 
         javax.swing.GroupLayout panelFecharLayout = new javax.swing.GroupLayout(panelFechar);
         panelFechar.setLayout(panelFecharLayout);

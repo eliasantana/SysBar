@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JRException;
@@ -31,7 +32,7 @@ import net.sf.jasperreports.engine.JasperPrintManager;
  *
  * @author elias
  */
-public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
+public class TelaGerenciamentoDeCaixa extends JDialog {
 
     /**
      * Creates new form TelaGerenciamentoDeCaixa
@@ -49,10 +50,7 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
     public TelaGerenciamentoDeCaixa() {
         initComponents();
         txtIdCaixa.setVisible(false);
-        tblGerenciamentoCaixa.setModel(DbUtils.resultSetToTableModel(cc.listaCaixa()));
-        cf.carregaComboFuncionario2(combofuncionario, "Caixa", "Selecione...");
-        btnLiberaCxAnterior.setEnabled(false);
-      
+        tblGerenciamentoCaixa.setModel(DbUtils.resultSetToTableModel(cc.listaCaixa()));    
         lblCargo.setVisible(false);
         lblOperador.setVisible(false);
     }
@@ -86,10 +84,6 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
         tblGerenciamentoCaixa = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         btnLiberarCaixa = new javax.swing.JButton();
-        checkFechaAnterior = new javax.swing.JCheckBox();
-        panelDiaAnterior = new javax.swing.JPanel();
-        combofuncionario = new javax.swing.JComboBox<>();
-        btnLiberaCxAnterior = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -126,7 +120,7 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("X");
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel5MouseClicked(evt);
@@ -137,19 +131,17 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 1, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(430, 0, 30, 30);
+        jPanel2.setBounds(423, 0, 40, 40);
 
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/caixa.png"))); // NOI18N
@@ -181,71 +173,21 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
             }
         });
 
-        checkFechaAnterior.setText("Fechar Caixa Anterior");
-        checkFechaAnterior.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                checkFechaAnteriorMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnLiberarCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(checkFechaAnterior)
-                .addGap(17, 17, 17))
+                .addComponent(btnLiberarCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                .addGap(154, 154, 154))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLiberarCaixa)
-                    .addComponent(checkFechaAnterior))
+                .addComponent(btnLiberarCaixa)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        combofuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                combofuncionarioMouseClicked(evt);
-            }
-        });
-        combofuncionario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                combofuncionarioActionPerformed(evt);
-            }
-        });
-
-        btnLiberaCxAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/liberaCaixa.png"))); // NOI18N
-        btnLiberaCxAnterior.setText("Fechar");
-        btnLiberaCxAnterior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnLiberaCxAnterior.setBorderPainted(false);
-        btnLiberaCxAnterior.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLiberaCxAnteriorActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelDiaAnteriorLayout = new javax.swing.GroupLayout(panelDiaAnterior);
-        panelDiaAnterior.setLayout(panelDiaAnteriorLayout);
-        panelDiaAnteriorLayout.setHorizontalGroup(
-            panelDiaAnteriorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDiaAnteriorLayout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(combofuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLiberaCxAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
-        );
-        panelDiaAnteriorLayout.setVerticalGroup(
-            panelDiaAnteriorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDiaAnteriorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(btnLiberaCxAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(combofuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -258,11 +200,7 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(panelDiaAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 67, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -273,12 +211,10 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelDiaAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(463, 422));
+        setSize(new java.awt.Dimension(463, 371));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -313,107 +249,6 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
         int linha = tblGerenciamentoCaixa.getSelectedRow();
         txtIdCaixa.setText(tblGerenciamentoCaixa.getValueAt(linha, 0).toString());
     }//GEN-LAST:event_tblGerenciamentoCaixaMouseClicked
-
-    private void btnLiberaCxAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberaCxAnteriorActionPerformed
-        // Pega a data atual
-        Calendar c = Calendar.getInstance();
-        // Volta um dia na data
-        c.add(Calendar.DAY_OF_WEEK, -1);
-        // Formata a data
-        String dataAnterior = u.formataDataBanco(c.getTime());
-        // Realiza o cáldo das saídas na data anterior
-        Double saida = caixa.totalizaSaida(combofuncionario.getSelectedItem().toString(), dataAnterior);
-        // Realiza o cálculo das entradas na data enterior
-        Double entrada = caixa.totalizaEntradas(combofuncionario.getSelectedItem().toString(), dataAnterior);
-        // Calcula do saldo
-        Double saldo = entrada - saida;
-        //Localiza o 'ID' do usuário logado no caixa
-        int idFunc = Integer.parseInt(cf.localizaIdLogin(combofuncionario.getSelectedItem().toString()));
-        // Verifica se existe movimentação enterior para este usuário
-        if (caixa.temMovAnterior(combofuncionario, btnLiberaCxAnterior)) {
-
-            cx.setData(dataAnterior);
-            cx.setEntrada(entrada);
-            cx.setSaida(saida);
-            cx.setSaldo(entrada - saida);
-            cx.setSaldo(saldo);
-            
-            cx.setStatus(1);// 1 - Fechado - 0 - Aberto
-            cx.setIdFuncionario(idFunc);
-            if (caixa.temMovimentacao(idFunc, dataAnterior)) {
-                JOptionPane.showMessageDialog(null, "Fechamento retroativo já realizado para este funcionário!");
-            } else {
-
-                int op = JOptionPane.showConfirmDialog(null, "Deseja realizar o fechamento retroativo para o usuário " + combofuncionario.getSelectedItem().toString(), "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-
-                if (op == JOptionPane.YES_OPTION) {
-                    if (caixa.gravaMovimentacao(cx)) {
-                        JOptionPane.showMessageDialog(null, "Caixa Anterior fechado com sucesso!");
-                        // Inicio do Registro de Log
-                        l.setFuncionalidade("Caixa");
-                        l.setUsuario(lblOperador.getText());
-                        l.setDescricao(" Realizou um Fehamento Retroativo de Caixa");
-                        l.gravaLog(l);
-                        // Fim do Registro de Log
-
-                        // Imprime relatório de caixa 
-                        HashMap param = new HashMap();
-                        param.put("data", dataAnterior);
-                        param.put("id_perador", cx.getIdFuncionario());
-                        DadosEmpresa dadosEmpresa = de.selecionaDados();
-
-                        try {
-
-                            if (dadosEmpresa.getImprimir_na_tela() == 0) {
-
-                                DadosEmpresa dados_empresa = de.selecionaDados();// Retorna dadados da empresa
-                                rpu.imprimiRelatorioTela("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param));
-
-                            } else {
-                                rpu.impressaoDireta("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param));
-
-                            }
-
-                        } catch (JRException e) {
-                            System.out.println("br.com.bar.view.TelaCaixa.btnFecharCaixaMouseClicked()" + e);
-                        }
-                    }
-
-                }
-            }
-        }
-
-
-    }//GEN-LAST:event_btnLiberaCxAnteriorActionPerformed
-
-    private void combofuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combofuncionarioActionPerformed
-        caixa.temMovAnterior(combofuncionario, btnLiberaCxAnterior);
-        /*
-        if (!"Selecione...".equals(combofuncionario.getSelectedItem().toString())){
-            
-        }else {
-            btnLiberaCxAnterior.setEnabled(false);
-        }*/
-    }//GEN-LAST:event_combofuncionarioActionPerformed
-
-    private void checkFechaAnteriorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkFechaAnteriorMouseClicked
-        // Habilita panel de Liberação de Caixa anterior
-        if (checkFechaAnterior.isSelected()) {
-            panelDiaAnterior.setVisible(true);
-            tblGerenciamentoCaixa.setEnabled(false);
-            //btnLiberarCaixa.setEnabled(false);
-        } else {
-            panelDiaAnterior.setVisible(false);
-            btnLiberarCaixa.setEnabled(false);
-            tblGerenciamentoCaixa.setEnabled(false);
-        }
-
-
-    }//GEN-LAST:event_checkFechaAnteriorMouseClicked
-
-    private void combofuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_combofuncionarioMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_combofuncionarioMouseClicked
 
     /**
      * @param args the command line arguments
@@ -451,10 +286,7 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLiberaCxAnterior;
     private javax.swing.JButton btnLiberarCaixa;
-    private javax.swing.JCheckBox checkFechaAnterior;
-    private javax.swing.JComboBox<String> combofuncionario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel5;
@@ -465,7 +297,6 @@ public class TelaGerenciamentoDeCaixa extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblOperador;
-    private javax.swing.JPanel panelDiaAnterior;
     private javax.swing.JTable tblGerenciamentoCaixa;
     private javax.swing.JTextField txtIdCaixa;
     // End of variables declaration//GEN-END:variables

@@ -60,6 +60,10 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("br.com.bar.view.TelaCadastroDeMesas.<init>()"+e);
         }
+        
+        lblOperador.setVisible(false);
+        lblCargo.setVisible(false);
+        //u.setIcon(this);
 
     }
 
@@ -414,7 +418,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("X");
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
         jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel15MouseClicked(evt);

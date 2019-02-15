@@ -5,18 +5,21 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.util.Util;
+
 /**
  *
  * @author elias
  */
 public class TelaConfiguracao extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaPaametro
-     */
+    Util u = new Util();
+    
     public TelaConfiguracao() {
         initComponents();      
         
+        lblCargo.setVisible(false);
+        lblOperador.setVisible(false);
     }
    public void recebeOperador (String operador, String cargo){
        
@@ -360,7 +363,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         lblFechar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblFechar.setForeground(new java.awt.Color(255, 255, 255));
         lblFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFechar.setText("X");
+        lblFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
         lblFechar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblFecharMouseClicked(evt);
@@ -373,7 +376,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,7 +386,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(780, 0, 50, 40);
+        jPanel3.setBounds(790, 0, 40, 40);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(50, 0, 830, 430);

@@ -5,6 +5,7 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerGrupo;
 import br.com.br.controler.ControlerProduto;
 import javax.swing.JOptionPane;
@@ -21,6 +22,8 @@ public class TelaReajuste extends javax.swing.JFrame {
      */
     ControlerProduto cp = new ControlerProduto();
     ControlerGrupo cg = new ControlerGrupo();
+    Util u = new Util();
+    
     
     public TelaReajuste() {
         initComponents();
@@ -31,6 +34,7 @@ public class TelaReajuste extends javax.swing.JFrame {
         lblPesquisarProduto.setVisible(false);
         txtNomeProduto.setVisible(false);
         btnAplicar.setEnabled(false);
+       
         
     }
     
@@ -124,7 +128,7 @@ public class TelaReajuste extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("x");
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel4MouseClicked(evt);
@@ -139,9 +143,7 @@ public class TelaReajuste extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel4))
+            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel2);

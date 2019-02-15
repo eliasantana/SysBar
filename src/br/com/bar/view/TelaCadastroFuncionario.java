@@ -45,6 +45,9 @@ public class TelaCadastroFuncionario extends JDialog {
         jtableGuias.setVisible(false);
         //Torna a janela Modal
         this.setModal(true);
+        lblCargo.setVisible(false);
+        lblData.setVisible(false);
+        lblOperador.setVisible(false);
     }
 
     public void recebeOperador(String operador, String cargo, String operacao) {
@@ -574,10 +577,10 @@ public class TelaCadastroFuncionario extends JDialog {
         lblTelefone2.setBounds(150, 260, 90, 20);
 
         jDateDesligamento.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 jDateDesligamentoInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jPanel1.add(jDateDesligamento);
@@ -618,7 +621,7 @@ public class TelaCadastroFuncionario extends JDialog {
         lblFechar.setFont(new java.awt.Font("Yu Gothic", 1, 24)); // NOI18N
         lblFechar.setForeground(new java.awt.Color(255, 255, 255));
         lblFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFechar.setText("x");
+        lblFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
         lblFechar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblFechar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -638,7 +641,7 @@ public class TelaCadastroFuncionario extends JDialog {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblFechar))
+                .addComponent(lblFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel4.add(jPanel5);

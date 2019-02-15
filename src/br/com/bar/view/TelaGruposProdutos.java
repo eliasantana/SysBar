@@ -7,6 +7,7 @@ package br.com.bar.view;
 
 import br.com.bar.dao.Log;
 import br.com.bar.model.Grupo;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerGrupo;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
@@ -19,7 +20,7 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
 
     ControlerGrupo cg = new ControlerGrupo();
     Log l = new Log();
-    
+    Util u = new Util();
 
     /**
      * Creates new form TelaPaametro
@@ -32,6 +33,7 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
         lblOperador.setVisible(false);
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
+       
 
     }
     
@@ -133,19 +135,19 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(lblFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(400, 0, 30, 30);
+        jPanel3.setBounds(390, 0, 40, 40);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 430, 120);

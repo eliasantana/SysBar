@@ -5,6 +5,7 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.dao.Backup;
 import br.com.bar.dao.Log;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerContasApagar;
@@ -71,6 +72,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         };
         timer.scheduleAtFixedRate(atualizaEstatistica, 0, timeMilis);
 
+      
+       
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -629,6 +632,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         TelaContasApagar contas = new TelaContasApagar();
         contas.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        contas.setModal(true);
         contas.setVisible(true);
 
 

@@ -6,6 +6,7 @@
 package br.com.bar.view;
 
 import br.com.bar.model.Grupo;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerGrupo;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
@@ -17,6 +18,8 @@ import net.proteanit.sql.DbUtils;
 public class TelaGruposFinanceiro extends javax.swing.JFrame {
 
     ControlerGrupo cg = new ControlerGrupo();
+    Util u = new Util();
+    
 
     /**
      * Creates new form TelaPaametro
@@ -28,7 +31,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         txtNome.setVisible(false);
         lblAlterar.setEnabled(false);
         lblExcluir.setEnabled(false);
-
+       
     }
 
     /**
@@ -108,7 +111,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         lblFechar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblFechar.setForeground(new java.awt.Color(255, 255, 255));
         lblFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFechar.setText("X");
+        lblFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
         lblFechar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblFecharMouseClicked(evt);
@@ -303,17 +306,13 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNomeGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtNomeGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(txtIdGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(txtIdGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(panelTabela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(6, 6, 6)

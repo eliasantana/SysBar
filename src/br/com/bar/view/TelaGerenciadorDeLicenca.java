@@ -53,10 +53,6 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel5 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         lblMensagem = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnSolicitaLicenca = new javax.swing.JButton();
@@ -68,6 +64,10 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
         panelInstalarChave = new javax.swing.JPanel();
         lblChave = new javax.swing.JLabel();
         lblDias = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
         jLabel5.setText("Para renovar sua licença entre em contato com o suporte da RESE7 soluções em TI");
 
@@ -75,52 +75,14 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(null);
 
-        jPanel1.setBackground(new java.awt.Color(38, 53, 61));
-        jPanel1.setLayout(null);
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("MasterFood - Gerenciador de Licença");
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(0, 24, 460, 62);
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("X");
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel6MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel2);
-        jPanel2.setBounds(441, 0, 29, 33);
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 470, 110);
-
         lblMensagem.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblMensagem.setText("Sua Licença expira em:  ");
         getContentPane().add(lblMensagem);
-        lblMensagem.setBounds(30, 150, 400, 25);
+        lblMensagem.setBounds(120, 150, 400, 25);
 
         jLabel4.setText("Para renovar sua licença entre em contato com a área Comercial.");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(30, 180, 390, 20);
+        jLabel4.setBounds(120, 180, 390, 20);
 
         btnSolicitaLicenca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/email.png"))); // NOI18N
         btnSolicitaLicenca.setText("Solicitar nova Licença agora");
@@ -135,32 +97,32 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSolicitaLicenca);
-        btnSolicitaLicenca.setBounds(30, 210, 420, 41);
+        btnSolicitaLicenca.setBounds(120, 210, 420, 41);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel8.setText("R. Amambaí, 246 - Candeias, Jaboatão dos Guararapes - PE, 54430-160");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(30, 310, 420, 15);
+        jLabel8.setBounds(120, 310, 420, 15);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel9.setText("Telefones: (81) 99749-6602 | (81) 99678-1659");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(30, 370, 348, 15);
+        jLabel9.setBounds(120, 370, 348, 15);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setText("RESE7 Soluções em TI");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(30, 270, 348, 30);
+        jLabel7.setBounds(120, 270, 348, 30);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel10.setText("CNPJ  26.650.398/0001-03");
         getContentPane().add(jLabel10);
-        jLabel10.setBounds(30, 330, 348, 15);
+        jLabel10.setBounds(120, 330, 348, 15);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel11.setText("email: contato.rese7@gmai.com");
         getContentPane().add(jLabel11);
-        jLabel11.setBounds(30, 350, 348, 15);
+        jLabel11.setBounds(120, 350, 348, 15);
 
         panelInstalarChave.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -184,13 +146,62 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
         );
 
         getContentPane().add(panelInstalarChave);
-        panelInstalarChave.setBounds(310, 380, 140, 40);
+        panelInstalarChave.setBounds(450, 380, 140, 40);
 
         lblDias.setText("jLabel2");
         getContentPane().add(lblDias);
-        lblDias.setBounds(30, 120, 34, 14);
+        lblDias.setBounds(120, 120, 34, 14);
 
-        setSize(new java.awt.Dimension(470, 430));
+        jPanel2.setBackground(new java.awt.Color(38, 53, 61));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(570, 0, 40, 40);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/masterfood6_144x136.png"))); // NOI18N
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(240, 0, 200, 140);
+
+        jPanel1.setBackground(new java.awt.Color(38, 53, 61));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 430, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 100, 430);
+
+        setSize(new java.awt.Dimension(609, 429));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -275,9 +286,9 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSolicitaLicenca;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

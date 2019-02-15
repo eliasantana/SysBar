@@ -68,6 +68,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         lblTextocaminhoBanco.setVisible(true);
         txturlLogo.setVisible(false);
         lblCaminho.setVisible(true);
+        //u.setIcon(this);
     }
 
     // Recebe dados para identificação do operador
@@ -227,7 +228,8 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         lblFechar.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
         lblFechar.setForeground(new java.awt.Color(255, 255, 255));
         lblFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFechar.setText("X");
+        lblFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
+        lblFechar.setPreferredSize(new java.awt.Dimension(40, 40));
         lblFechar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblFecharMouseClicked(evt);
@@ -242,11 +244,11 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblFechar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+            .addComponent(lblFechar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(857, 0, 46, 43);
+        jPanel2.setBounds(857, 0, 46, 40);
 
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("operador");
@@ -504,7 +506,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         getContentPane().add(txtNumero);
         txtNumero.setBounds(620, 220, 46, 30);
 
-        setSize(new java.awt.Dimension(902, 585));
+        setSize(new java.awt.Dimension(903, 585));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

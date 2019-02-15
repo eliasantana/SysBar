@@ -56,7 +56,7 @@ public class ControlerContasApagar {
                 + "	format(ca.valor,2,'de_DE') as 'VALOR R$',  \n"
                 + "	date_format(ca.data_vencito,'%d/%m/%Y') AS 'VENCIMENTO', \n"
                 + "	date_format(ca.data_pagto,'%d/%m/%Y') AS 'PAGAMENTO', \n"
-                + "	format(ca.valor_pagto,2,'de_DE') AS 'PAGO R$', \n"
+                + "	format(ca.valor_pagto,2,'de_DE') AS 'VLR PAGO R$', \n"
                 + "	f.nome AS 'OPERADOR', \n"
                 + "	gp.grupo AS 'GRUPO'\n"
                 + "FROM tbcontas_a_pagar ca\n"
@@ -146,6 +146,11 @@ public class ControlerContasApagar {
     }
 
     // Registra Pagamento da Conta
+    /**
+     *  Realiza o pagamento da conta atualizado a tabela conta a pagar.
+     *  @param c Objeto do tipo Conta
+     *  @return Retorna um Boolean como resultado da alteração.
+     */
     public boolean baixarConta(Contas c) {
 
         String sql = "UPDATE tbcontas_a_pagar SET data_pagto=?, valor_pagto=?, operador=? WHERE id=?";
@@ -162,7 +167,7 @@ public class ControlerContasApagar {
 
         } catch (SQLException e) {
 
-            JOptionPane.showMessageDialog(null, "Erro baixarConta" + e);
+            System.out.println("br.com.br.controler.ControlerContasApagar.baixarConta()"+e);
         }
         return true;
     }
@@ -201,7 +206,7 @@ public class ControlerContasApagar {
 
     // Exibe menu ao clicar com o botão direito do mouse.
     // Extorna uma conta paga
-    public JPopupMenu menu(Contas c, JLabel operador) {
+    public JPopupMenu menu(Contas c, JLabel operador, JComboBox combo) {
 
         JPopupMenu menudireito = new JPopupMenu();
 
@@ -225,7 +230,7 @@ public class ControlerContasApagar {
                         log.gravaLog(log);
                         // Fim do registro de log
                         JOptionPane.showMessageDialog(null, "Extorno realizado com sucesso!");
-                        
+                        combo.setSelectedItem("Abertas");
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Extorno cancelado");

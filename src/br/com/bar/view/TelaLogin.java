@@ -57,7 +57,7 @@ public class TelaLogin extends javax.swing.JFrame {
         conexao = ConexaoBd.conector();
         // Carrega o ícone setado no Cadastro Empresa
         lblLogo.setIcon(u.carregaLogo());
-
+        
         /*
         if (conexao!=null){
                DadosEmpresa dadosEmpresa = d.selecionaDados();
@@ -112,7 +112,8 @@ public class TelaLogin extends javax.swing.JFrame {
         }
 
     }
-
+    
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -185,9 +186,9 @@ public class TelaLogin extends javax.swing.JFrame {
         lblCnpjEmpresa.setBounds(20, 270, 260, 14);
 
         lblVersao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersao1.setText("Teste Integrado 04-02-2019");
+        lblVersao1.setText(" VERSÃO 1.9.6 - TST Integrado 14-02-2019");
         jPanel1.add(lblVersao1);
-        lblVersao1.setBounds(60, 290, 170, 20);
+        lblVersao1.setBounds(20, 290, 240, 20);
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("suporte.rese7@gmail.com");
@@ -286,11 +287,11 @@ public class TelaLogin extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
-        jLabel5.setText("X");
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharBlack24x24.png"))); // NOI18N
         jPanel3.add(jLabel5);
 
         jPanel2.add(jPanel3);
-        jPanel3.setBounds(290, 0, 30, 30);
+        jPanel3.setBounds(280, 0, 40, 40);
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));

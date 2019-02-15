@@ -19,10 +19,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class TableModelContasApagar extends AbstractTableModel {
 
     private final ArrayList<ModelContasApagar> contas = new ArrayList<>();
-    String colunas[] = {"CÓDIGO", "DESCRIÇÃO", "VALOR", "VENCIMENTO", "PAGAMENTO","PAGO","OPERADOR","GRUPO"};
+    String colunas[] = {"CÓDIGO", "DESCRIÇÃO", "VALOR R$", "VENCIMENTO", "PAGAMENTO","VLR PAGO R$","OPERADOR","GRUPO"};
     
-  
-    
+     
     @Override
     public int getRowCount() {
         return contas.size();
@@ -68,12 +67,12 @@ public class TableModelContasApagar extends AbstractTableModel {
          //"CÓDIGO", "DESCRIÇÃO", "VALOR", "VENCIMENTO", "PAGAMENTO","PAGO","OPERADOR","GRUPO"
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(60); 
-        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(242);
+        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(230);
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(80); 
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(90); 
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(90); 
-        tabela.getColumn(tabela.getColumnName(5)).setPreferredWidth(80); 
-        tabela.getColumn(tabela.getColumnName(6)).setPreferredWidth(90); 
+        tabela.getColumn(tabela.getColumnName(5)).setPreferredWidth(90); 
+        tabela.getColumn(tabela.getColumnName(6)).setPreferredWidth(102); 
         tabela.getColumn(tabela.getColumnName(7)).setPreferredWidth(120); 
         
 

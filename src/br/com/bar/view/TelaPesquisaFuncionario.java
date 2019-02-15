@@ -7,6 +7,7 @@ package br.com.bar.view;
 
 import br.com.bar.dao.Log;
 import br.com.bar.model.Funcionario;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerFuncionario;
 import java.awt.event.KeyEvent;
 import javax.swing.JDialog;
@@ -21,14 +22,16 @@ public class TelaPesquisaFuncionario extends JDialog {
 
     ControlerFuncionario cf = new ControlerFuncionario();
     Log l = new Log();
-
+    Util u = new Util();
+    
     public TelaPesquisaFuncionario() {
         initComponents();
         bloqueiaBotoes();
         this.setModal(true);
         //Matem a tela de pesquisa a frente da janela anterior.
-        lblOperador.setEnabled(false);
-        lblPerfil.setEnabled(false);
+        lblOperador.setVisible(false);
+        lblPerfil.setVisible(false);
+        
     }
 
     public void recebeOperador(String operador, String perfil) {
@@ -84,7 +87,7 @@ public class TelaPesquisaFuncionario extends JDialog {
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("x");
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel4MouseClicked(evt);
@@ -222,7 +225,7 @@ public class TelaPesquisaFuncionario extends JDialog {
         getContentPane().add(lblConsultar);
         lblConsultar.setBounds(220, 450, 100, 50);
 
-        setSize(new java.awt.Dimension(636, 496));
+        setSize(new java.awt.Dimension(638, 496));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

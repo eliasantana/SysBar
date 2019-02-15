@@ -53,7 +53,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         }
         Calendar c = Calendar.getInstance();
         lblData.setText(u.formataDataBr(c.getTime()));
-
+      
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -483,7 +483,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("x");
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
         jLabel14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

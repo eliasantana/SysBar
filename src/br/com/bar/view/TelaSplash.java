@@ -6,6 +6,7 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.Backup;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerLog;
 import java.awt.Color;
 import java.io.IOException;
@@ -20,13 +21,13 @@ import javax.swing.UIManager;
  */
 public class TelaSplash extends javax.swing.JFrame {
      ControlerLog cl = new ControlerLog();
+     Util u = new Util();
    
     public TelaSplash() {
         initComponents();
         this.setAlwaysOnTop(true);
-        //Backup b = new Backup();
-        System.out.println("Expurgo: "+cl.expurgo());
-      
+       
+        System.out.println("Expurgo: "+cl.expurgo());      
 
         // Inicializa tela splash
         //lblMensagem.setText("Realizando backup do sistema, aguarde um momento...");

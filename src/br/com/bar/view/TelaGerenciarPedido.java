@@ -7,6 +7,7 @@ package br.com.bar.view;
 
 import br.com.bar.dao.Log;
 import br.com.bar.model.TableModelGerenciarPedido;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCozinha;
 import br.com.br.controler.ControlerEstoque;
 import br.com.br.controler.ControlerMesa;
@@ -32,6 +33,8 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     ControlerPedido cp = new ControlerPedido();
     ControlerEstoque ce = new ControlerEstoque();
     ControlerCozinha cc = new ControlerCozinha();
+    Util u = new Util();
+    
     
     TableModelGerenciarPedido modelGerPedido = new TableModelGerenciarPedido();
     Log l = new Log();
@@ -44,20 +47,23 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     public TelaGerenciarPedido() {
         initComponents();
         cp.carregaComboPedido(jcomboPedido);
-        txtIdProduto.setVisible(true);
+        txtIdProduto.setVisible(false);
         txtQtd.setVisible(false);
-        txtIDItem.setVisible(true);
+        txtIDItem.setVisible(false);
         lblRemoverItemDoPedido.setEnabled(false);
         lblOperador.setVisible(false);
-        LblCargo.setVisible(false);
+        lblCargo.setVisible(false);
         btnCancelarPedido.setEnabled(false);
         modelGerPedido.redimensionaColunas(tblDetalhe);
+        lblCargo.setVisible(false);
+        lblOperador.setVisible(rootPaneCheckingEnabled);
+        
     }
 
     public void recebeOperador(String operador, String cargo) {
 
         lblOperador.setText(operador);
-        LblCargo.setText(cargo);
+        lblCargo.setText(cargo);
 
     }
 
@@ -76,7 +82,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
-        LblCargo = new javax.swing.JLabel();
+        lblCargo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -119,17 +125,17 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         lblOperador.setText("Operador");
         jPanel1.add(lblOperador, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 90, -1));
 
-        LblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        LblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
-        LblCargo.setText("Cargo");
-        jPanel1.add(LblCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 50, 100, 30));
+        lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
+        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
+        lblCargo.setText("Cargo");
+        jPanel1.add(lblCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 50, 100, 30));
 
         jPanel2.setBackground(new java.awt.Color(44, 62, 80));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("X");
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel4MouseClicked(evt);
@@ -146,12 +152,10 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel4))
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 0, -1, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 0, 40, 40));
 
         jPanel3.setLayout(null);
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 0, 0));
@@ -540,7 +544,6 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LblCargo;
     private javax.swing.JButton btnCancelarPedido;
     private javax.swing.JButton btnListar;
     private javax.swing.JLabel jLabel1;
@@ -553,6 +556,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jcomboPedido;
+    private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblItensDoPedido;
     private javax.swing.JLabel lblNumeroMesa;
     private javax.swing.JLabel lblNumeroMesa1;

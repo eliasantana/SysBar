@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -120,7 +121,7 @@ public class Util {
 
         return mes;
     }
-
+     
     /**
      * Recebe um objeto DefaultCategoryDataSet e uma string com o título do
      * gráfico
@@ -206,7 +207,14 @@ public class Util {
 
         return dias;
     }
-
+    
+    
+    /**
+     * Este método converte um objeto String(yyyy-MM-dd) em um Date.
+     * Adicionado: Na versão 1.9.6
+     * @param stringData   Data a ser convertida.
+     * @return dataConvertida  Retorna um Date.      
+     */
     public Date converteData(String stringData) {
 
         java.sql.Date dataConvertida = java.sql.Date.valueOf(stringData);
@@ -348,9 +356,16 @@ public class Util {
     }
      // Carrega ícone na janela
      public void setIcon(JFrame frame) {
-         //String nomeImagem="rese7_64x64.png";
-         String nomeImagem="refeicao128x128.png";
+        
+         String nomeImagem="masterfood64x64.png";
         
         frame.setIconImage(new javax.swing.ImageIcon(getClass().getResource("../imagens/"+nomeImagem)).getImage());
+    }
+     
+     public void setIcon(JDialog dialog) {
+        
+         String nomeImagem="masterfood64x64.png";
+        
+        dialog.setIconImage(new javax.swing.ImageIcon(getClass().getResource("../imagens/"+nomeImagem)).getImage());
     }
 }

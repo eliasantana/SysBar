@@ -7,6 +7,7 @@ package br.com.bar.view;
 
 import br.com.bar.dao.Log;
 import br.com.bar.model.Produto;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerEstoque;
 import br.com.br.controler.ControlerProduto;
 import java.text.SimpleDateFormat;
@@ -26,7 +27,8 @@ public class TelaMovimentacao extends javax.swing.JFrame {
     ControlerProduto controlProduto = new ControlerProduto();
     ControlerEstoque est = new ControlerEstoque();
     Log l = new Log();
-
+    Util u = new Util();
+    
     public TelaMovimentacao() {
         initComponents();
        
@@ -36,6 +38,10 @@ public class TelaMovimentacao extends javax.swing.JFrame {
         lblData.setText(df.format(dataAtual));
         txtIdProduto.setVisible(false);
         txtIdOperacao.setVisible(false);
+        lblOperador.setVisible(false);
+        lblCargo.setVisible(false);
+        lblData.setVisible(false);
+      
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -324,7 +330,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
         btnFechar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnFechar.setForeground(new java.awt.Color(255, 255, 255));
         btnFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnFechar.setText("X");
+        btnFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
         btnFechar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnFecharMouseClicked(evt);
@@ -343,7 +349,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         painelTopo.add(jPanel4);

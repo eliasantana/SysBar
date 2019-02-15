@@ -11,6 +11,7 @@ import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.Contas;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.model.TableModelContasApagar;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerContasApagar;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerFuncionario;
@@ -25,8 +26,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JRException;
@@ -40,7 +45,7 @@ import org.jfree.data.general.DefaultPieDataset;
  *
  * @author elias
  */
-public class TelaContasApagar extends javax.swing.JFrame {
+public class TelaContasApagar extends JDialog {
 
     /**
      * Creates new form TelaContasApagar
@@ -53,7 +58,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
     Connection conexao = ConexaoBd.conector();
     ControlerDadosEmpresa de = new ControlerDadosEmpresa();
     TableModelContasApagar modelcontas = new TableModelContasApagar();
-
+    Util u = new Util();
     // Instacia um registro de log
     Log l = new Log();
 
@@ -81,13 +86,17 @@ public class TelaContasApagar extends javax.swing.JFrame {
         btnGraficoDeDespesas.setVisible(false);
         lblOperador.setVisible(false);
         lblCargo.setVisible(false);
+        desabilitaCampos();
+        modelcontas.redimensionaColunas(tblContas);
 
         try {
             //Adiciona data ao objeto jdateChooser 
-            jdateChooserVencimento.setDate(d);
+
+            jdateChooserPagamento.setDate(d);
         } catch (Exception e) {
             System.out.println("br.com.bar.view.TelaContasApagar.<init>()" + e);
         }
+
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -112,12 +121,10 @@ public class TelaContasApagar extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         painelEsquerdo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         txtDescricao = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtValorPago = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         comboGrupoDespesas = new javax.swing.JComboBox<>();
         lblDataDePAgamento = new javax.swing.JLabel();
@@ -125,53 +132,41 @@ public class TelaContasApagar extends javax.swing.JFrame {
         jdateChooserPagamento = new com.toedter.calendar.JDateChooser();
         txtIdConta = new javax.swing.JTextField();
         jCheckMultiplo = new javax.swing.JCheckBox();
-        jSpinQtd = new com.toedter.components.JSpinField();
         jLabel9 = new javax.swing.JLabel();
         combofunc = new javax.swing.JComboBox<>();
         lblValorPago = new javax.swing.JLabel();
         lblFuncionario = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
-        painelDireito = new javax.swing.JPanel();
         txtIdFuncionario = new javax.swing.JTextField();
-        Menu = new javax.swing.JPanel();
-        btnBaixar = new javax.swing.JLabel();
-        btnGraficoDeDespesas = new javax.swing.JLabel();
+        txtIdGrupo = new javax.swing.JTextField();
+        lblAdicionar = new javax.swing.JLabel();
+        lblLimpar = new javax.swing.JLabel();
+        jSpinQtd = new javax.swing.JSpinner();
+        txtValorPago = new javax.swing.JFormattedTextField();
+        painelDireito = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblContas = new javax.swing.JTable();
-        txtIdGrupo = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         tbnFechar = new javax.swing.JLabel();
-        btnSalvar1 = new javax.swing.JPanel();
-        lblLimpar = new javax.swing.JLabel();
-        btnSalvar = new javax.swing.JPanel();
-        lblAdicionar = new javax.swing.JLabel();
-        btnExcluir = new javax.swing.JPanel();
+        btnBaixar = new javax.swing.JLabel();
+        btnGraficoDeDespesas = new javax.swing.JLabel();
         lblExcluir = new javax.swing.JLabel();
-        btnAlterar = new javax.swing.JPanel();
-        lblalterar = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         comboFiltro = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(null);
 
         painelEsquerdo.setBackground(new java.awt.Color(38, 53, 61));
+        painelEsquerdo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         painelEsquerdo.setLayout(null);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/CalendarioCinzaClaro.png"))); // NOI18N
         painelEsquerdo.add(jLabel1);
         jLabel1.setBounds(120, 10, 128, 100);
-
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Contas a Pagar");
-        painelEsquerdo.add(jLabel2);
-        jLabel2.setBounds(7, 100, 350, 64);
 
         txtDescricao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         txtDescricao.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -185,43 +180,39 @@ public class TelaContasApagar extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(txtDescricao);
-        txtDescricao.setBounds(20, 200, 320, 40);
+        txtDescricao.setBounds(20, 150, 320, 40);
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Valor R$");
         painelEsquerdo.add(jLabel5);
-        jLabel5.setBounds(190, 330, 70, 30);
+        jLabel5.setBounds(190, 280, 70, 30);
 
         txtValor.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        txtValor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtValorFocusLost(evt);
+            }
+        });
         txtValor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtValorKeyReleased(evt);
             }
         });
         painelEsquerdo.add(txtValor);
-        txtValor.setBounds(190, 360, 150, 40);
+        txtValor.setBounds(190, 310, 150, 40);
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Data de Vencimento");
         painelEsquerdo.add(jLabel8);
-        jLabel8.setBounds(20, 250, 170, 30);
-
-        txtValorPago.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        txtValorPago.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtValorPagoKeyReleased(evt);
-            }
-        });
-        painelEsquerdo.add(txtValorPago);
-        txtValorPago.setBounds(190, 440, 150, 40);
+        jLabel8.setBounds(20, 200, 170, 30);
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Grupo de Despesas");
         painelEsquerdo.add(jLabel7);
-        jLabel7.setBounds(20, 330, 150, 30);
+        jLabel7.setBounds(20, 280, 150, 30);
 
         comboGrupoDespesas.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         comboGrupoDespesas.addItemListener(new java.awt.event.ItemListener() {
@@ -235,19 +226,29 @@ public class TelaContasApagar extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(comboGrupoDespesas);
-        comboGrupoDespesas.setBounds(20, 360, 160, 40);
+        comboGrupoDespesas.setBounds(20, 310, 160, 40);
 
         lblDataDePAgamento.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblDataDePAgamento.setForeground(new java.awt.Color(255, 255, 255));
         lblDataDePAgamento.setText("Data de Pagamento");
         painelEsquerdo.add(lblDataDePAgamento);
-        lblDataDePAgamento.setBounds(190, 250, 170, 30);
+        lblDataDePAgamento.setBounds(190, 200, 170, 30);
+
+        jdateChooserVencimento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         painelEsquerdo.add(jdateChooserVencimento);
-        jdateChooserVencimento.setBounds(20, 280, 160, 40);
+        jdateChooserVencimento.setBounds(20, 230, 160, 40);
+
+        jdateChooserPagamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         painelEsquerdo.add(jdateChooserPagamento);
-        jdateChooserPagamento.setBounds(190, 280, 150, 40);
+        jdateChooserPagamento.setBounds(190, 230, 150, 40);
+
+        txtIdConta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdContaActionPerformed(evt);
+            }
+        });
         painelEsquerdo.add(txtIdConta);
-        txtIdConta.setBounds(280, 20, 50, 30);
+        txtIdConta.setBounds(240, 30, 50, 30);
 
         jCheckMultiplo.setBackground(new java.awt.Color(38, 53, 61));
         jCheckMultiplo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
@@ -264,96 +265,90 @@ public class TelaContasApagar extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(jCheckMultiplo);
-        jCheckMultiplo.setBounds(120, 170, 160, 25);
-        painelEsquerdo.add(jSpinQtd);
-        jSpinQtd.setBounds(190, 280, 150, 40);
+        jCheckMultiplo.setBounds(120, 120, 160, 25);
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Descrição");
         painelEsquerdo.add(jLabel9);
-        jLabel9.setBounds(20, 170, 110, 20);
+        jLabel9.setBounds(20, 120, 110, 20);
 
         combofunc.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         painelEsquerdo.add(combofunc);
-        combofunc.setBounds(20, 440, 160, 40);
+        combofunc.setBounds(20, 390, 160, 40);
 
         lblValorPago.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblValorPago.setForeground(new java.awt.Color(255, 255, 255));
         lblValorPago.setText("Valor Pago R$");
         painelEsquerdo.add(lblValorPago);
-        lblValorPago.setBounds(190, 410, 150, 30);
+        lblValorPago.setBounds(190, 360, 150, 30);
 
         lblFuncionario.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblFuncionario.setForeground(new java.awt.Color(255, 255, 255));
         lblFuncionario.setText("Garçom");
         painelEsquerdo.add(lblFuncionario);
-        lblFuncionario.setBounds(20, 410, 120, 30);
+        lblFuncionario.setBounds(20, 360, 120, 30);
 
         lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         lblOperador.setForeground(new java.awt.Color(255, 255, 255));
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario_branco.png"))); // NOI18N
         painelEsquerdo.add(lblOperador);
-        lblOperador.setBounds(70, 480, 130, 30);
+        lblOperador.setBounds(20, 70, 100, 30);
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         lblCargo.setForeground(new java.awt.Color(255, 255, 255));
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil (2).png"))); // NOI18N
         lblCargo.setText("Cargo");
         painelEsquerdo.add(lblCargo);
-        lblCargo.setBounds(170, 480, 100, 30);
+        lblCargo.setBounds(250, 70, 100, 30);
+        painelEsquerdo.add(txtIdFuncionario);
+        txtIdFuncionario.setBounds(30, 30, 40, 30);
+        painelEsquerdo.add(txtIdGrupo);
+        txtIdGrupo.setBounds(80, 30, 40, 30);
+
+        lblAdicionar.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        lblAdicionar.setForeground(new java.awt.Color(255, 255, 255));
+        lblAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionar.png"))); // NOI18N
+        lblAdicionar.setText("Adicionar");
+        lblAdicionar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAdicionarMouseClicked(evt);
+            }
+        });
+        painelEsquerdo.add(lblAdicionar);
+        lblAdicionar.setBounds(70, 470, 110, 40);
+
+        lblLimpar.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        lblLimpar.setForeground(new java.awt.Color(255, 255, 255));
+        lblLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/limpar348x48.png"))); // NOI18N
+        lblLimpar.setText("Limpar");
+        lblLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLimparMouseClicked(evt);
+            }
+        });
+        painelEsquerdo.add(lblLimpar);
+        lblLimpar.setBounds(190, 470, 110, 40);
+
+        jSpinQtd.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        painelEsquerdo.add(jSpinQtd);
+        jSpinQtd.setBounds(190, 230, 150, 40);
+
+        txtValorPago.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtValorPago.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtValorPagoFocusLost(evt);
+            }
+        });
+        painelEsquerdo.add(txtValorPago);
+        txtValorPago.setBounds(190, 390, 150, 40);
 
         getContentPane().add(painelEsquerdo);
-        painelEsquerdo.setBounds(0, 0, 370, 520);
+        painelEsquerdo.setBounds(0, 0, 370, 550);
 
         painelDireito.setBackground(new java.awt.Color(204, 204, 204));
         painelDireito.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         painelDireito.setLayout(null);
-        painelDireito.add(txtIdFuncionario);
-        txtIdFuncionario.setBounds(240, 30, 40, 30);
-
-        btnBaixar.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        btnBaixar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnbaixar-48.png"))); // NOI18N
-        btnBaixar.setText("Pagar");
-        btnBaixar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnBaixarMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnBaixarMouseEntered(evt);
-            }
-        });
-
-        btnGraficoDeDespesas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btngrafico2-48.png"))); // NOI18N
-        btnGraficoDeDespesas.setText("Gráfico");
-        btnGraficoDeDespesas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGraficoDeDespesasMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
-        Menu.setLayout(MenuLayout);
-        MenuLayout.setHorizontalGroup(
-            MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MenuLayout.createSequentialGroup()
-                .addGap(227, 227, 227)
-                .addComponent(btnBaixar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(btnGraficoDeDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(351, Short.MAX_VALUE))
-        );
-        MenuLayout.setVerticalGroup(
-            MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBaixar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGraficoDeDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-
-        painelDireito.add(Menu);
-        Menu.setBounds(20, 450, 860, 60);
 
         tblContas.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         tblContas.setModel(new javax.swing.table.DefaultTableModel(
@@ -371,7 +366,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "CÓDIGO", "DESCRIÇÃO", "VALOR R$", "VENCIMENTO", "PAGAMENTO", "PAGO R$", "OPERADOR", "GRUPO"
+                "CÓDIGO", "DESCRIÇÃO", "VALOR R$", "VENCIMENTO", "PAGAMENTO", "VLR PAGO R$", "OPERADOR", "GRUPO"
             }
         ));
         tblContas.setRowHeight(25);
@@ -383,16 +378,14 @@ public class TelaContasApagar extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblContas);
 
         painelDireito.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 140, 860, 310);
-        painelDireito.add(txtIdGrupo);
-        txtIdGrupo.setBounds(290, 30, 40, 30);
+        jScrollPane1.setBounds(20, 130, 880, 350);
 
         jPanel1.setBackground(new java.awt.Color(38, 53, 61));
 
         tbnFechar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         tbnFechar.setForeground(new java.awt.Color(255, 255, 255));
         tbnFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tbnFechar.setText("x");
+        tbnFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
         tbnFechar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbnFecharMouseClicked(evt);
@@ -403,9 +396,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(tbnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(tbnFechar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -415,75 +406,31 @@ public class TelaContasApagar extends javax.swing.JFrame {
         );
 
         painelDireito.add(jPanel1);
-        jPanel1.setBounds(840, 0, 50, 40);
+        jPanel1.setBounds(860, 0, 40, 40);
 
-        btnSalvar1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnBaixar.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        btnBaixar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnbaixar-48.png"))); // NOI18N
+        btnBaixar.setText("Pagar");
+        btnBaixar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSalvar1MouseClicked(evt);
+                btnBaixarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnBaixarMouseEntered(evt);
             }
         });
+        painelDireito.add(btnBaixar);
+        btnBaixar.setBounds(420, 490, 118, 58);
 
-        lblLimpar.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        lblLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fechar.png"))); // NOI18N
-        lblLimpar.setText("Limpar");
-        lblLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnGraficoDeDespesas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btngrafico2-48.png"))); // NOI18N
+        btnGraficoDeDespesas.setText("Gráfico");
+        btnGraficoDeDespesas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblLimparMouseClicked(evt);
+                btnGraficoDeDespesasMouseClicked(evt);
             }
         });
-
-        javax.swing.GroupLayout btnSalvar1Layout = new javax.swing.GroupLayout(btnSalvar1);
-        btnSalvar1.setLayout(btnSalvar1Layout);
-        btnSalvar1Layout.setHorizontalGroup(
-            btnSalvar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnSalvar1Layout.createSequentialGroup()
-                .addComponent(lblLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        btnSalvar1Layout.setVerticalGroup(
-            btnSalvar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-        );
-
-        painelDireito.add(btnSalvar1);
-        btnSalvar1.setBounds(260, 70, 97, 54);
-
-        btnSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSalvarMouseClicked(evt);
-            }
-        });
-
-        lblAdicionar.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        lblAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
-        lblAdicionar.setText("Adicionar");
-        lblAdicionar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblAdicionarMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnSalvarLayout = new javax.swing.GroupLayout(btnSalvar);
-        btnSalvar.setLayout(btnSalvarLayout);
-        btnSalvarLayout.setHorizontalGroup(
-            btnSalvarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnSalvarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-        );
-        btnSalvarLayout.setVerticalGroup(
-            btnSalvarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblAdicionar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-        );
-
-        painelDireito.add(btnSalvar);
-        btnSalvar.setBounds(370, 70, 110, 54);
-
-        btnExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnExcluirMouseClicked(evt);
-            }
-        });
+        painelDireito.add(btnGraficoDeDespesas);
+        btnGraficoDeDespesas.setBounds(590, 490, 116, 60);
 
         lblExcluir.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         lblExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
@@ -493,61 +440,12 @@ public class TelaContasApagar extends javax.swing.JFrame {
                 lblExcluirMouseClicked(evt);
             }
         });
-
-        javax.swing.GroupLayout btnExcluirLayout = new javax.swing.GroupLayout(btnExcluir);
-        btnExcluir.setLayout(btnExcluirLayout);
-        btnExcluirLayout.setHorizontalGroup(
-            btnExcluirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnExcluirLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        btnExcluirLayout.setVerticalGroup(
-            btnExcluirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnExcluirLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        painelDireito.add(btnExcluir);
-        btnExcluir.setBounds(490, 70, 100, 54);
-
-        btnAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAlterarMouseClicked(evt);
-            }
-        });
-
-        lblalterar.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        lblalterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapis.png"))); // NOI18N
-        lblalterar.setText("Alterar");
-        lblalterar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblalterarMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnAlterarLayout = new javax.swing.GroupLayout(btnAlterar);
-        btnAlterar.setLayout(btnAlterarLayout);
-        btnAlterarLayout.setHorizontalGroup(
-            btnAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnAlterarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblalterar, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        btnAlterarLayout.setVerticalGroup(
-            btnAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblalterar, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-        );
-
-        painelDireito.add(btnAlterar);
-        btnAlterar.setBounds(600, 70, 100, 54);
-
-        jPanel2.setPreferredSize(new java.awt.Dimension(78, 32));
+        painelDireito.add(lblExcluir);
+        lblExcluir.setBounds(780, 80, 90, 40);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/filtro32x32.png"))); // NOI18N
+        painelDireito.add(jLabel4);
+        jLabel4.setBounds(20, 90, 32, 30);
 
         comboFiltro.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         comboFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Todas", "Pagas", "Abertas" }));
@@ -556,46 +454,22 @@ public class TelaContasApagar extends javax.swing.JFrame {
                 comboFiltroActionPerformed(evt);
             }
         });
+        painelDireito.add(comboFiltro);
+        comboFiltro.setBounds(60, 90, 178, 30);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(comboFiltro, 0, 178, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        painelDireito.add(jPanel2);
-        jPanel2.setBounds(20, 70, 230, 55);
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Contas a Pagar");
+        painelDireito.add(jLabel2);
+        jLabel2.setBounds(270, 10, 350, 64);
 
         getContentPane().add(painelDireito);
-        painelDireito.setBounds(360, 0, 890, 515);
+        painelDireito.setBounds(360, 0, 900, 550);
 
-        setSize(new java.awt.Dimension(1252, 516));
+        setSize(new java.awt.Dimension(1260, 552));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseClicked
-
-
-    }//GEN-LAST:event_btnSalvarMouseClicked
-
-    private void btnSalvar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvar1MouseClicked
-
-
-    }//GEN-LAST:event_btnSalvar1MouseClicked
 
     private void tbnFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbnFecharMouseClicked
         // Fecha tela principal
@@ -603,18 +477,9 @@ public class TelaContasApagar extends javax.swing.JFrame {
     }//GEN-LAST:event_tbnFecharMouseClicked
 
     private void txtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyReleased
-        // Substitui virgula por ponto ao digitar
-        String valorAntigo = txtValor.getText();
-        String valorNovo = valorAntigo.replaceAll(",", ".");
-        txtValor.setText(valorNovo);
-    }//GEN-LAST:event_txtValorKeyReleased
 
-    private void txtValorPagoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorPagoKeyReleased
-        // Substitui virgula por ponto ao digitar
-        String valorAntigo = txtValorPago.getText();
-        String valorNovo = valorAntigo.replaceAll(",", ".");
-        txtValorPago.setText(valorNovo);
-    }//GEN-LAST:event_txtValorPagoKeyReleased
+
+    }//GEN-LAST:event_txtValorKeyReleased
 
     private void txtDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyPressed
         // Foca combo Grupo de Despesas ao pressionar enter
@@ -638,80 +503,98 @@ public class TelaContasApagar extends javax.swing.JFrame {
 
     private void tblContasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblContasMouseClicked
         // Habilita Botões
-        habilitaBotoes();
-        txtValor.setEnabled(false);
-        // Data Atual
-        Date dataAtual = new Date();
+        if ("Selecione...".equals(comboFiltro.getSelectedItem().toString())) {
 
-        // Seleciona dados da tabela
-        Contas c = new Contas();
-        c.setId(txtIdConta.getText());
-        c.setDataPagto(null);
-        c.setValoPagto(null);
-        c.setDescricao(txtDescricao.getText());
-
-        int linha = tblContas.getSelectedRow();
-        txtIdConta.setText(tblContas.getModel().getValueAt(linha, 0).toString());
-        txtDescricao.setText(tblContas.getModel().getValueAt(linha, 1).toString());
-        String dataPagamento;
-        String dataVencimento = tblContas.getModel().getValueAt(linha, 3).toString();
-        // Habilita botão Baixar caso a conta ainda não tenha sido paga
-        try {
-            tblContas.getModel().getValueAt(linha, 4).toString();
-        } catch (Exception e) {
-            btnBaixar.setEnabled(true);
-        }
-        System.out.println(c.getDataPagto());
-        String tipo = tblContas.getModel().getValueAt(linha, 7).toString();
-        comboGrupoDespesas.setSelectedItem(tipo);
-
-        if ("Comissão".equals(tipo)) {
-            combofunc.setVisible(true);
-            lblFuncionario.setVisible(true);
-            cf.carregaComboFuncionario(combofunc, "Garçom");
         } else {
-            combofunc.setVisible(false);
-            lblFuncionario.setVisible(false);
 
-        }
-        // Seta data no jdateschooser
-        try {
-            jdateChooserVencimento.setDate(new SimpleDateFormat("dd/MM/yyyy").parse(dataVencimento));
-        } catch (ParseException ex) {
+            habilitaBotoes();
+            txtValor.setEnabled(false);
+            // Data Atual
+            Date dataAtual = new Date();
 
-        }
+            // Seleciona dados da tabela
+            int linha = tblContas.getSelectedRow();
+            Contas c = new Contas();
+            c.setId(txtIdConta.getText());
+            c.setDataPagto(null);
+            c.setValor(null);
+            c.setDescricao(txtDescricao.getText());
+            try {
+                String vlrPagto = tblContas.getModel().getValueAt(linha, 5).toString().replaceAll(",", ".");
+                lblExcluir.setEnabled(false);
 
-        // Captura excessão quando se seleciona uma conta cadastrada na tabela.
-        try {
-            dataPagamento = tblContas.getModel().getValueAt(linha, 4).toString();
-            jdateChooserPagamento.setDate(new SimpleDateFormat("dd/MM/yyyy").parse(dataPagamento));
-        } catch (ParseException e) {
+            } catch (Exception e) {
+                c.setValor("0");
+            }
+            System.out.println("Valor PAgo: " + c.getValoPagto());
+            txtIdConta.setText(tblContas.getModel().getValueAt(linha, 0).toString());
 
-        } catch (NullPointerException n) {
-            // Caso o valor seja nulo exibe os campos para pagamento
-            lblDataDePAgamento.setVisible(true);
-            lblValorPago.setVisible(true);
-            jdateChooserPagamento.setVisible(true);
-            //lblFuncionario.setVisible(false);
-            txtValorPago.setVisible(true);
-            btnBaixar.setVisible(true);
-            txtValorPago.setText(tblContas.getModel().getValueAt(linha, 2).toString());
-        }
+            String dataPagamento;
+            String dataVencimento = tblContas.getModel().getValueAt(linha, 3).toString();
+            // Habilita botão Baixar caso a conta ainda não tenha sido paga
+            try {
+                tblContas.getModel().getValueAt(linha, 4).toString();
+                btnBaixar.setEnabled(false);
+            } catch (Exception e) {
+                btnBaixar.setEnabled(true);
+            }
 
-        txtValor.setText(tblContas.getModel().getValueAt(linha, 2).toString());
-        txtValorPago.setText(tblContas.getModel().getValueAt(linha, 2).toString());
+            String tipo = tblContas.getModel().getValueAt(linha, 7).toString();
+            comboGrupoDespesas.setSelectedItem(tipo);
 
-        try {
-
-            if (evt.getButton() == MouseEvent.BUTTON3) {
-                JPopupMenu menuPopup = cc.menu(c, lblOperador);
-                menuPopup.show(tblContas, evt.getX(), evt.getY());
-                limpaForm();
+            if ("Comissão".equals(tipo) || "0".equals(c.getValoPagto())) {
+                combofunc.setVisible(true);
+                lblFuncionario.setVisible(true);
+                cf.carregaComboFuncionario(combofunc, "Garçom");
+            } else {
+                combofunc.setVisible(false);
+                lblFuncionario.setVisible(false);
 
             }
-        } catch (Exception e) {
-            System.out.println("br.com.bar.view.TelaContasApagar.tblContasMouseClicked()" + e);
+            /*
+               Captura a exceção durante o clique para contas abertas onde a coluna valor pago está vazia.
+               
+             */
+            try {
+                String valorPAgo = tblContas.getModel().getValueAt(linha, 5).toString();
+                // Seta nulo para o campo valor pago e a conta selecionada já estiver paga.                
+                txtValorPago.setText(null);
+            } catch (Exception e) {
+                // Repete o valor no campo valor pago para contas em aberto
+                String valorPAgo = tblContas.getModel().getValueAt(linha, 2).toString();
+                txtValorPago.setText(valorPAgo);
+            }
 
+            try {
+                dataPagamento = tblContas.getModel().getValueAt(linha, 4).toString();
+                jdateChooserPagamento.setDate(new SimpleDateFormat("dd/MM/yyyy").parse(dataPagamento));
+            } catch (ParseException e) {
+
+            } catch (NullPointerException n) {
+                // Caso o valor seja nulo exibe os campos para pagamento
+                lblDataDePAgamento.setVisible(true);
+                lblValorPago.setVisible(true);
+                jdateChooserPagamento.setDate(new Date());
+                jdateChooserPagamento.setVisible(true);
+                //lblFuncionario.setVisible(false);
+                txtValorPago.setVisible(true);
+                btnBaixar.setVisible(true);
+
+            }
+
+            try {
+
+                if (evt.getButton() == MouseEvent.BUTTON3) {
+                    JPopupMenu menuPopup = cc.menu(c, lblOperador,comboFiltro);
+                    menuPopup.show(tblContas, evt.getX(), evt.getY());
+                    limpaForm();
+                    
+
+                }
+            } catch (Exception e) {
+                System.out.println("br.com.bar.view.TelaContasApagar.tblContasMouseClicked()" + e);
+
+            }
         }
 
     }//GEN-LAST:event_tblContasMouseClicked
@@ -719,113 +602,50 @@ public class TelaContasApagar extends javax.swing.JFrame {
     private void btnBaixarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBaixarMouseClicked
         if (btnBaixar.isEnabled()) {
 
+            Date dataAtual = new Date();
+            Date dtVencimento;
+            Contas c = new Contas();
+            c.setId(txtIdConta.getText());
+            c.setValoPagto(txtValorPago.getText().replaceAll(",", "."));
+            c.setDataPagto(u.formataDataBanco(new Date())); // Formata a data de pagamento para o formato yyyy-MM-dd(MySql)
+            int linha = tblContas.getSelectedRow();
+
+            // Se a coluna selecionada estiver vazia gera um NullPointException
             try {
 
-                // Baixa Conta
-                Contas c = new Contas();
+                String valorpago = tblContas.getModel().getValueAt(linha, 5).toString();
+                //System.out.println(valorpago);
 
-                c.setId(txtIdConta.getText());
-                c.setDataPagto(cc.myData(jdateChooserPagamento));
-                c.setValoPagto(txtValorPago.getText().replaceAll(",", ".").substring(0, 5));
-                c.setOperador(lblOperador.getText());
+            } catch (Exception e) {
+                // Pesga a data de Vencimento da conta em aberto
+                c.setDataVencto(tblContas.getModel().getValueAt(linha, 3).toString()); //dd/mm/yyyy
 
-                Date dtPagamento = jdateChooserPagamento.getDate();
-                Date dataAtual = new Date();
-                Date dtVencimento = jdateChooserVencimento.getDate();
-
-                if (dtPagamento.getTime() < dtVencimento.getTime()) {
-                    JOptionPane.showMessageDialog(null, "A data de pagamento não pode ser\ninferior a data de vencimento!");
+                if (c.getId() == null) {
+                    System.out.println("Selecione uma conta para continuar!");
                 } else {
+                    String data = u.formataDataBanco(c.getDataVencto());
+                    dtVencimento = u.converteData(data);
 
-                    if (c.getDataPagto().isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "Informe a data de pagamento para continuar!");
+                    if (dataAtual.getTime() < dtVencimento.getTime()) {
+                        System.out.println("A data Selecionada é menor que o vencimento");
                     } else {
-
-                        if (c.getId() == null) {
-                            JOptionPane.showMessageDialog(null, "Preencha todos os campos para continuar...");
-                        } else if (c.getDataPagto() == null) {
-                            JOptionPane.showMessageDialog(null, "Informe a data de Pagamento");
-                        } else {
-                            int op = JOptionPane.showConfirmDialog(null, "Confirma a baixa desta conta?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-
-                            if (op == JOptionPane.YES_OPTION) {
-                                if (cc.baixarConta(c)) {
-                                    // Registra operação no log
-                                    l.setFuncionalidade("Pagamento");
-                                    l.setDescricao(l.getUsuario() + " pagou a conta " + txtDescricao.getText() + "-> R$ " + txtValor.getText() + "Vencimento: "
-                                            + df.format(jdateChooserVencimento.getCalendar().getTime()) + ": Pagamento" + df.format(jdateChooserVencimento.getCalendar().getTime()));
-                                    l.gravaLog(l);
-                                    // fim do registro de log
-
-                                    JOptionPane.showMessageDialog(null, "Baixa realizada com sucesso!");
-                                    limpaForm();
-                                    lblFuncionario.setVisible(false);
-                                    tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
-                                    modelcontas.redimensionaColunas(tblContas);
-                                    // Fim do registro de log
-
-                                    int confirma = JOptionPane.showConfirmDialog(null, "Deseja imprimir o comprovante?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-
-                                    if (confirma == JOptionPane.YES_OPTION) {
-                                        HashMap parametros = new HashMap();
-                                        parametros.put("titulo", "=========== RECIBO DE PAGAMENTO =========== ");
-
-                                        // Caso o valor a ser pago seja uma comissão o parâmetro a ser setado será o nome do funcionário que consta no combo
-                                        //funcionario caso ele estejá visível
-                                        if (combofunc.isVisible()) {
-
-                                            parametros.put("funcionario", combofunc.getSelectedItem().toString());
-                                        } else {
-                                            parametros.put("funcionario", lblOperador.getText());
-                                        }
-
-                                        parametros.put("id", Integer.parseInt(txtIdConta.getText()));
-
-                                        try {
-
-                                            DadosEmpresa dados = de.selecionaDados();
-                                            parametros.put("empresa", dados.getNome_empresa());
-                                            rpu.imprimiRelatorioTela("reciboDePagamento.jasper", rpu.rodape(dados, parametros));
-                                            combofunc.setVisible(false);
-
-                                        } catch (JRException ex) {
-                                            System.out.println("br.com.bar.view.TelaContasApagar.btnBaixarMouseClicked()");
-                                        }
-
-                                    }
-
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Operação Cancelada!");
-                                    combofunc.setVisible(false);
-
-                                }
-
-                            }
-                        }
+                        // Realiza o pagamento.
+                        cc.baixarConta(c);
+                        comboFiltro.setSelectedItem("Pagas");
+                        btnBaixar.setEnabled(false);
+                        lblExcluir.setEnabled(false);
                     }
-
                 }
-            } catch (HeadlessException | NumberFormatException | NullPointerException e) {
-                System.out.println("br.com.bar.view.TelaContasApagar.btnBaixarMouseClicked()" + e);
-                JOptionPane.showMessageDialog(null, "Selecione uma data!");
             }
+
         }
+
 
     }//GEN-LAST:event_btnBaixarMouseClicked
 
     private void btnBaixarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBaixarMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBaixarMouseEntered
-
-    private void btnExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseClicked
-
-
-    }//GEN-LAST:event_btnExcluirMouseClicked
-
-    private void btnAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseClicked
-
-
-    }//GEN-LAST:event_btnAlterarMouseClicked
 
     private void btnGraficoDeDespesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGraficoDeDespesasMouseClicked
         // Gera gráfico de pizza das Despesas 
@@ -872,96 +692,72 @@ public class TelaContasApagar extends javax.swing.JFrame {
     private void lblAdicionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdicionarMouseClicked
         //Cadastra Conta
         if (lblAdicionar.isEnabled()) {
-
-            Contas c = new Contas();
-
-            c.setDescricao(txtDescricao.getText());
-            c.setDataVencto(cc.myData(jdateChooserVencimento));
-            c.setValor(txtValor.getText().replaceAll(",", "."));
-            c.setGrupoId(txtIdGrupo.getText());
-            c.setFuncionarioId(txtIdFuncionario.getText());
-            if ("".equals(c.getDescricao()) || "".equals(c.getValor())) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos para continuar!");
+            try {
+                Date dataAtual = new Date();
+                jdateChooserVencimento.setDate(dataAtual);
+            } catch (Exception e) {
+            }
+            if ("Adicionar".equals(lblAdicionar.getText())) {
+                lblAdicionar.setText("Salvar");
+                habilitaCampos();
+                txtDescricao.requestFocus();
             } else {
-                if ("Selecione...".equals(comboGrupoDespesas.getSelectedItem().toString())) {
-                    JOptionPane.showMessageDialog(null, "Selecione um grupo!");
+                lblAdicionar.setText("Adicionar");
+
+                Contas c = new Contas();
+
+                c.setDescricao(txtDescricao.getText());
+                c.setDataVencto(cc.myData(jdateChooserVencimento));
+                c.setValor(txtValor.getText().replaceAll(",", "."));
+                c.setGrupoId(txtIdGrupo.getText());
+                c.setFuncionarioId(txtIdFuncionario.getText());
+                if ("".equals(c.getDescricao()) || "".equals(c.getValor())) {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos para continuar!");
                 } else {
-
-                    // Verifica se a conta Existe
-                    if (cc.existeConta(txtIdConta.getText())) {
-
-                        JOptionPane.showMessageDialog(null, "Conta já cadastrada!");
-
+                    if ("Selecione...".equals(comboGrupoDespesas.getSelectedItem().toString())) {
+                        JOptionPane.showMessageDialog(null, "Selecione um grupo!");
                     } else {
 
-                        if (jCheckMultiplo.isSelected()) {
+                        // Verifica se a conta Existe
+                        if (cc.existeConta(txtIdConta.getText())) {
 
-                            if (cc.lancamentoMultiplo(jSpinQtd.getValue(), jdateChooserVencimento, c)) {
-                                JOptionPane.showMessageDialog(null, "Lançamento múltiplo realiado com sucesso!");
-                                tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
-                                limpaForm();
-                            }
+                            JOptionPane.showMessageDialog(null, "Conta já cadastrada!");
+
                         } else {
-                            // Caso o checkList não esteja selecionado executa a parcela de forma padrão
 
-                            if (cc.adicionaConta(c)) {
-                                //Registra operação no log
-                                l.setFuncionalidade("Salvar");
-                                l.setDescricao(l.getUsuario() + " adicionou uma nova conta ->" + txtDescricao.getText());
-                                l.gravaLog(l);
-                                // fim do registro de log
-                                limpaForm();
-                                JOptionPane.showMessageDialog(null, "Cadastro Relizado com sucesso!");
-                                desaBilitaBotoes();
+                            if (jCheckMultiplo.isSelected()) {
 
-                                tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
-                                modelcontas.redimensionaColunas(tblContas);
+                                if (cc.lancamentoMultiplo(Integer.parseInt(jSpinQtd.getValue().toString()), jdateChooserVencimento, c)) {
+                                    JOptionPane.showMessageDialog(null, "Lançamento múltiplo realiado com sucesso!");
+                                    tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
+                                    modelcontas.redimensionaColunas(tblContas);
+                                    limpaForm();
+                                }
+                            } else {
+                                // Caso o checkList não esteja selecionado executa a parcela de forma padrão
+
+                                if (cc.adicionaConta(c)) {
+                                    //Registra operação no log
+                                    l.setFuncionalidade("Salvar");
+                                    l.setDescricao(l.getUsuario() + " adicionou uma nova conta ->" + txtDescricao.getText());
+                                    l.gravaLog(l);
+                                    // fim do registro de log
+                                    limpaForm();
+                                    JOptionPane.showMessageDialog(null, "Cadastro Relizado com sucesso!");
+                                    desaBilitaBotoes();
+
+                                    tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
+                                    modelcontas.redimensionaColunas(tblContas);
+                                }
                             }
                         }
                     }
                 }
+                desabilitaCampos();
             }
         }
     }//GEN-LAST:event_lblAdicionarMouseClicked
 
-
-    private void lblalterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblalterarMouseClicked
-        // Altera apenas contas em aberto
-        if (lblalterar.isEnabled()) {
-
-            Contas c = new Contas();
-            c.setDescricao(txtDescricao.getText());
-            c.setDataVencto(cc.myData(jdateChooserVencimento));
-            c.setGrupoId(txtIdGrupo.getText());
-            c.setValor(txtValor.getText());
-            c.setId(txtIdConta.getText());
-            c.setDataPagto(cc.myData(jdateChooserPagamento));
-
-            if ("".equals(c.getDataPagto())) {
-                if ("".equals(txtIdConta.getText())) {
-                    JOptionPane.showMessageDialog(null, "Selecione uma conta para continuar!");
-                } else {
-
-                    if (cc.alteraConta(c)) {
-
-                        JOptionPane.showMessageDialog(null, "Conta alterada!");
-                        tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
-                        modelcontas.redimensionaColunas(tblContas);
-                        limpaForm();
-                        //Regisra operação no log
-                        l.setFuncionalidade("Alterar");
-                        l.setDescricao(l.getUsuario() + " alterou a conta ->" + c.getDescricao() + " Data de Vencimento: " + c.getDataVencto());
-                        l.gravaLog(l);
-                        desaBilitaBotoes();
-                    }
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Contas pagas não podem ser alteradas!");
-
-            }
-        }
-    }//GEN-LAST:event_lblalterarMouseClicked
 
     private void lblLimparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLimparMouseClicked
         // Desabilita o botão limpar.
@@ -977,6 +773,8 @@ public class TelaContasApagar extends javax.swing.JFrame {
             txtValor.setEnabled(true);
             lblValorPago.setVisible(false);
             btnBaixar.setEnabled(false);
+            jSpinQtd.setVisible(false);
+            desabilitaCampos();
 
         }
     }//GEN-LAST:event_lblLimparMouseClicked
@@ -985,25 +783,27 @@ public class TelaContasApagar extends javax.swing.JFrame {
         if (lblExcluir.isEnabled()) {
 
             //Exclui conta
+            int linha = tblContas.getSelectedRow();
+
             Contas c = new Contas();
             c.setId(txtIdConta.getText());
-            c.setDataPagto(cc.myData(jdateChooserPagamento));
-            c.setDescricao(txtDescricao.getText());
+            try {
+                // Se data de pagamento estiver vazia setará Null no objeto conta
+                c.setDataPagto(tblContas.getModel().getValueAt(linha, 4).toString());
+                System.out.println("data de pagamento:" + c.getDataPagto());
+            } catch (Exception e) {
+                c.setDataPagto(null);
+            }
+            c.setDescricao(tblContas.getValueAt(linha, 1).toString());
+            c.setDataVencto(tblContas.getValueAt(linha, 3).toString());
+            c.setValor(tblContas.getValueAt(linha, 2).toString());
+            if (c.getDataPagto() == null) {
 
-            if (c.getDataPagto().isEmpty()) {
-
-                if (c.getId().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Selecione uma conta para continuar!");
-                } else {
+                if (!txtIdConta.getText().isEmpty()) {
                     // Registra operação no log
                     l.setFuncionalidade("Excluir");
-                    try {
-
-                        l.setDescricao(l.getUsuario() + " excluiu a conta ->" + txtDescricao.getText() + " Vencimento: " + df.format(jdateChooserVencimento.getCalendar().getTime()) + " Valor R$ " + txtValor.getText());
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Selecione uma conta para continuar!");
-
-                    }
+                    l.setDescricao("Excluiu a conta ->" + txtDescricao.getText() + " Vencimento: " + c.getDataVencto() + c.getValor());
+                   
                     l.gravaLog(l);
                     // Fim registro de log
                     if (c.getDescricao() == null || "".equals(c.getDescricao())) {
@@ -1016,9 +816,11 @@ public class TelaContasApagar extends javax.swing.JFrame {
                     modelcontas.redimensionaColunas(tblContas);
                     limpaForm();
                     desaBilitaBotoes();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selecione uma conta para continuar!");
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Contas Pagas não podem ser excluída!");
+                JOptionPane.showMessageDialog(null, "Contas pagas não podem ser excluídas!");
                 limpaForm();
 
             }
@@ -1033,26 +835,50 @@ public class TelaContasApagar extends javax.swing.JFrame {
 
         switch (op) {
             case "Abertas":
+                ResultSet rs = cc.listaContasApagar(op);
+                 {
+                    try {
+                        if (rs.next()) {
+
+                            btnBaixar.setEnabled(true);
+                        } else {
+                            btnBaixar.setEnabled(false);
+                        }
+                    } catch (SQLException ex) {
+                        System.out.println("br.com.bar.view.TelaContasApagar.comboFiltroActionPerformed()");
+                    }
+                }
                 tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar(op)));
-                btnBaixar.setEnabled(true);
+
                 break;
             case "Pagas":
                 tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar(op)));
+                btnBaixar.setEnabled(false);
                 break;
             case "Todas":
                 tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar(op)));
+                btnBaixar.setEnabled(false);
                 break;
             case "Selecione...":
-                DefaultTableModel tbm = new DefaultTableModel();
+                //DefaultTableModel tbm = new DefaultTableModel();
+                TableModelContasApagar tbm = new TableModelContasApagar();
                 tblContas.setModel(tbm);
                 desaBilitaBotoes();
                 lblLimpar.setEnabled(true);
                 lblAdicionar.setEnabled(true);
                 limpaForm();
+                btnBaixar.setEnabled(false);
+                txtValorPago.setVisible(false);
+                lblValorPago.setVisible(false);
+                jdateChooserPagamento.setVisible(false);
+                lblDataDePAgamento.setVisible(false);
+                lblFuncionario.setVisible(false);
+                combofunc.setVisible(false);
                 break;
-        }
-        try {
 
+        }
+
+        try {
             modelcontas.redimensionaColunas(tblContas);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("br.com.bar.view.TelaContasApagar.comboFiltroActionPerformed()");
@@ -1068,6 +894,30 @@ public class TelaContasApagar extends javax.swing.JFrame {
         // Desabilita TextFild Valor
         txtValor.setEditable(true);
     }//GEN-LAST:event_txtDescricaoFocusGained
+
+    private void txtIdContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdContaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdContaActionPerformed
+
+    private void txtValorPagoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorPagoFocusLost
+        try {
+            String valor = txtValor.getText().replaceAll(",", ".");
+            Double novoValor = Double.parseDouble(valor);
+            txtValorPago.setText(String.format("%9.2f", novoValor));
+        } catch (NumberFormatException e) {
+        }
+
+    }//GEN-LAST:event_txtValorPagoFocusLost
+
+    private void txtValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorFocusLost
+        try {
+            String valor = txtValor.getText().replaceAll(",", ".");
+            Double novoValor = Double.parseDouble(valor);
+            txtValor.setText(String.format("%9.2f", novoValor));
+        } catch (NumberFormatException e) {
+        }
+
+    }//GEN-LAST:event_txtValorFocusLost
 
     /**
      * @param args the command line arguments
@@ -1105,13 +955,8 @@ public class TelaContasApagar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Menu;
-    private javax.swing.JPanel btnAlterar;
     private javax.swing.JLabel btnBaixar;
-    private javax.swing.JPanel btnExcluir;
     private javax.swing.JLabel btnGraficoDeDespesas;
-    private javax.swing.JPanel btnSalvar;
-    private javax.swing.JPanel btnSalvar1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> comboFiltro;
     private javax.swing.JComboBox<String> comboGrupoDespesas;
@@ -1125,9 +970,8 @@ public class TelaContasApagar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private com.toedter.components.JSpinField jSpinQtd;
+    private javax.swing.JSpinner jSpinQtd;
     private com.toedter.calendar.JDateChooser jdateChooserPagamento;
     private com.toedter.calendar.JDateChooser jdateChooserVencimento;
     private javax.swing.JLabel lblAdicionar;
@@ -1138,7 +982,6 @@ public class TelaContasApagar extends javax.swing.JFrame {
     private javax.swing.JLabel lblLimpar;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblValorPago;
-    private javax.swing.JLabel lblalterar;
     private javax.swing.JPanel painelDireito;
     private javax.swing.JPanel painelEsquerdo;
     private javax.swing.JTable tblContas;
@@ -1148,7 +991,7 @@ public class TelaContasApagar extends javax.swing.JFrame {
     private javax.swing.JTextField txtIdFuncionario;
     private javax.swing.JTextField txtIdGrupo;
     private javax.swing.JTextField txtValor;
-    private javax.swing.JTextField txtValorPago;
+    private javax.swing.JFormattedTextField txtValorPago;
     // End of variables declaration//GEN-END:variables
 
     private void limpaForm() {
@@ -1164,14 +1007,34 @@ public class TelaContasApagar extends javax.swing.JFrame {
     private void habilitaBotoes() {
         lblLimpar.setEnabled(true);
         lblAdicionar.setEnabled(true);
-        lblalterar.setEnabled(true);
         lblExcluir.setEnabled(true);
+        jCheckMultiplo.setEnabled(true);
     }
 
     private void desaBilitaBotoes() {
         lblLimpar.setEnabled(false);
         lblAdicionar.setEnabled(false);
-        lblalterar.setEnabled(false);
         lblExcluir.setEnabled(false);
+        jCheckMultiplo.setEnabled(false);
+    }
+
+    // Desabilita os campos necessários para o cadastro de contas
+    private void desabilitaCampos() {
+        txtDescricao.setEnabled(false);
+        jdateChooserVencimento.setEnabled(false);
+        comboGrupoDespesas.setEnabled(false);
+        txtValor.setEnabled(false);
+        jCheckMultiplo.setEnabled(false);
+        jCheckMultiplo.setSelected(false);
+
+    }
+
+    // Habilita os campos necessários para o cadastro de contas
+    private void habilitaCampos() {
+        txtDescricao.setEnabled(true);
+        jdateChooserVencimento.setEnabled(true);
+        comboGrupoDespesas.setEnabled(true);
+        txtValor.setEnabled(true);
+        jCheckMultiplo.setEnabled(true);
     }
 }
