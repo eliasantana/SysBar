@@ -41,14 +41,15 @@ public class ControlerContasApagar {
     public ResultSet listaContasApagar(String opcao) {
 
         String filtro = "";
+        String ordenar="";
 
         if ("Pagas".equals(opcao)) {
             filtro = "ca.data_pagto IS NOT NULL";
-        } else if ("Abertas".equals(opcao)) {
-            filtro = "ca.data_pagto IS NULL";
+            ordenar = "ca.data_pagto DESC";
         } else {
-            filtro = "ca.id > 0";
-        }
+            filtro = "ca.data_pagto IS NULL";
+            ordenar = "ca.data_vencito";
+        } 
 
         String sql = "SELECT \n"
                 + "	ca.id as 'CÓDIGO', \n"
@@ -62,8 +63,9 @@ public class ControlerContasApagar {
                 + "FROM tbcontas_a_pagar ca\n"
                 + "INNER JOIN tbcadfuncionario f on f.id=ca.tbcadfuncionario_id\n"
                 + "INNER JOIN tbgrupo gp on gp.id=ca.tbGrupo_id "
-                + "WHERE " + filtro + " ORDER BY ca.data_vencito ASC";
-
+               // + "WHERE " + filtro + " ORDER BY ca.data_vencito DESC";
+                + "WHERE " + filtro + " ORDER BY " +ordenar;
+                
         try {
             pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery();

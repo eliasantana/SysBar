@@ -394,7 +394,8 @@ public class TelaConzinha extends javax.swing.JFrame {
             } else {
                 l.setDescricao(l.getUsuario() + " Saiu da tela cozinha");
                 l.gravaLog(l);
-                System.exit(0);
+                TelaLogin login = new TelaLogin();
+                login.setVisible(true);
             }
         }
 

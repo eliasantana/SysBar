@@ -345,7 +345,7 @@ public class TelaCaixa extends JDialog {
         btnFechar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnFechar.setForeground(new java.awt.Color(255, 255, 255));
         btnFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnFechar.setText("X");
+        btnFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
         btnFechar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnFecharMouseClicked(evt);
@@ -797,11 +797,11 @@ public class TelaCaixa extends JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(85, 85, 85)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(126, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -871,18 +871,22 @@ public class TelaCaixa extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFecharMouseClicked
-        // Fecha Janela
+        //Sai da tela Caixa
         if ("Gerente".equals(lblCargo.getText())) {
-            this.dispose();
-        }else {
+            dispose();
+        } else {
+            dispose();
+            TelaLogin login = new TelaLogin();
+            login.setVisible(true);
             fazBackup();
-            System.exit(0);
         }
     }//GEN-LAST:event_btnFecharMouseClicked
 
     private void comboMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMesaActionPerformed
-
-
+         btnListar.setEnabled(false);
+        if (!"Selecione...".equals(comboMesa.getSelectedItem())){
+            btnListar.setEnabled(true);
+        }
     }//GEN-LAST:event_comboMesaActionPerformed
 
     private void checkTxServicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkTxServicoMouseClicked
@@ -1088,17 +1092,14 @@ public class TelaCaixa extends JDialog {
                         caixa.listaMesaOcupada(comboMesa);
 
                     } catch (NullPointerException e) {
-                        JOptionPane.showMessageDialog(null, "Não há pedidos!");
+                        
                     }
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Selecione uma forma de pagameto");
+                    JOptionPane.showMessageDialog(null, "Selecione uma forma de pagameto!");
                 }
 
-            } else {
-                JOptionPane.showMessageDialog(null, "Operação 'Fechar Pedido' cancelada com sucesso!");
-
-            }
+            } 
         }
     }//GEN-LAST:event_lblReceberMouseClicked
 
@@ -1162,7 +1163,14 @@ public class TelaCaixa extends JDialog {
             txtValorPago.setText("0,00");
             txtTroco.setText("0,00");
             txtDesconto.setText("0,00");
-            lblReceber.setEnabled(true);
+            //lblReceber.setEnabled(true);
+            
+            if (Double.parseDouble(lblTotal.getText().replaceAll(",","."))==0){
+                btnImprimir.setEnabled(false);
+                lblReceber.setEnabled(false);
+            }else {
+                //lblReceber.setEnabled(true);
+            }
 
         }
 
@@ -1319,6 +1327,7 @@ public class TelaCaixa extends JDialog {
         // Chama a tela de Cadastro de Contas a pagar
         TelaContasApagar contaApagar = new TelaContasApagar();
         contaApagar.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        contaApagar.setModal(true);
         contaApagar.setVisible(true);
 
 
@@ -1483,16 +1492,20 @@ public class TelaCaixa extends JDialog {
         lblCargo.setText(cargo);
         l.setUsuario(operador);
         String id = func.localizaIdLogin(operador);
+         btnListar.setEnabled(false);
         caixa.statusCaixa(lblStatus, caixa.temMovimentacao(Integer.parseInt(id)), lblMsgStatus);
+        
         if ("Caixa Fechado".equals(lblMsgStatus.getText())) {
             lblReceber.setEnabled(false);
             lblReceberPAgamento.setEnabled(false);
             btnFecharCaixa.setEnabled(false);
             btnListar.setEnabled(false);
             lblContasAPagar.setEnabled(false);
+            
         } else {
             if (comboMesa.getItemCount() == 1) {
                 btnListar.setEnabled(false);
+                comboMesa.setEnabled(false);
             }
         }
 
