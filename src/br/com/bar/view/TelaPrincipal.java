@@ -54,10 +54,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblNmesaOcupada.setText(String.format("%9.0f", estatiscas.get(3)));
 
         if (cc.contasVencidas()) {
-            JOptionPane.showMessageDialog(null, "Atenção!\nVocê possui contas vencidas ou com vencimento para hoje.");
+            // Esta msg foi desabilitada porque na tela principal a mensagem já é exibida.
+            //JOptionPane.showMessageDialog(null, "Você possui contas vencidas ou com vencimento para hoje!","Atenção!",JOptionPane.ERROR_MESSAGE);
             jLabel7.setForeground(Color.red);
-            lblAviso.setText("Atenção! Você possui contas a pagar!");
-            lblAviso.setForeground(Color.YELLOW);
+            lblAviso.setText("*Você possui contas vencidas ou com vencimento para hoje!");
+            lblAviso.setForeground(Color.red);
         }
 
         // Determina tempo de execução
@@ -97,7 +98,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblLogo = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
-        lblAviso = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblNmesaLivre = new javax.swing.JLabel();
         lblLivres = new javax.swing.JLabel();
@@ -128,6 +128,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnLancarPedido = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        lblAviso = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -157,9 +158,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendar24x24.png"))); // NOI18N
         lblData.setText("jLabel5");
         jPanel2.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 460, 120, 30));
-
-        lblAviso.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jPanel2.add(lblAviso, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 298, 38));
 
         jPanel4.setBackground(new java.awt.Color(52, 73, 94));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Taxa de Ocupação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255)))))); // NOI18N
@@ -572,6 +570,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jPanel1.add(jLabel10);
         jLabel10.setBounds(430, 450, 110, 69);
+
+        lblAviso.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
+        jPanel1.add(lblAviso);
+        lblAviso.setBounds(30, 430, 450, 38);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(300, 0, 660, 530);

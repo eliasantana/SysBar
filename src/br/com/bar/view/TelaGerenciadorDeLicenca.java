@@ -12,6 +12,7 @@ import br.com.bar.util.Util;
 import br.com.br.controler.ControlerAtivacao;
 import br.com.br.controler.ControlerDadosEmpresa;
 import java.awt.Color;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 
@@ -19,7 +20,7 @@ import javax.swing.JOptionPane;
  *
  * @author Elias Santana
  */
-public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
+public class TelaGerenciadorDeLicenca extends JDialog {
 
     ControlerDadosEmpresa empresa = new ControlerDadosEmpresa();
     CriptoGrafa cripto = new CriptoGrafa();
@@ -31,7 +32,7 @@ public class TelaGerenciadorDeLicenca extends javax.swing.JFrame {
     public TelaGerenciadorDeLicenca() {
         initComponents();
         lblDias.setVisible(false);
-        this.setAlwaysOnTop(true);   
+        this.setModal(true);   
        
         
     }

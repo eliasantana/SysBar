@@ -33,7 +33,7 @@ public class ControlerMesa {
 
             String sql = "SELECT dbbar.cadmesa.id as 'CÓDIGO INTERNO',\n"
                     + "	   dbbar.tbcadfuncionario.nome as 'GARÇOM' ,\n"
-                    + "        dbbar.cadmesa.numero_mesa AS 'NÚMERO DA MESA'\n"
+                    + "        dbbar.cadmesa.numero_mesa AS 'MESA'\n"
                     //+ "        dbbar.cadmesa.status AS 'STATUS'\n"
                     + "   FROM dbbar.cadmesa\n"
                     + "   INNER JOIN dbbar.tbcadfuncionario ON \n"
@@ -52,7 +52,7 @@ public class ControlerMesa {
 
             String sql = "SELECT dbbar.cadmesa.id as 'CÓDIGO INTERNO',\n"
                     + "	   dbbar.tbcadfuncionario.nome as 'GARÇOM',\n"
-                    + "        dbbar.cadmesa.numero_mesa AS 'NÚMERO DA MESA'\n"
+                    + "        dbbar.cadmesa.numero_mesa AS 'MESA'\n"
                     //+ "        dbbar.cadmesa.status AS 'STATUS'\n"
                     + "   FROM dbbar.cadmesa\n"
                     + "   INNER JOIN dbbar.tbcadfuncionario ON \n"
@@ -112,6 +112,7 @@ public class ControlerMesa {
 
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerMesa.excluiMesa()"+e);
+            JOptionPane.showMessageDialog(null, "A mesa selecionada está relacionada com vários pedidos e não pode ser excluída!","Atenção",JOptionPane.ERROR_MESSAGE);
         }
         return resp;
 

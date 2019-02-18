@@ -8,6 +8,7 @@ package br.com.bar.view;
 import br.com.bar.dao.Log;
 import br.com.bar.model.Funcionario;
 import br.com.bar.model.Mesa;
+import br.com.bar.model.TableModelMesas;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerMesa;
@@ -31,7 +32,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     ControlerMesa cm = new ControlerMesa();
     ControlerFuncionario f = new ControlerFuncionario();
     Util u = new Util();
-    
+    TableModelMesas modelMesas = new TableModelMesas();
     Log log = new Log();
 
     boolean filtro = false; // Filtro de listagem de mesa false -> Apenas mesas do garçom selecionado  true -> Todas as mesas
@@ -52,6 +53,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         if (jCheckBoxTudo.isSelected()) {
             filtro = true;
         }
+        /*
         try {
             
         tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
@@ -59,11 +61,12 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         u.redimensionaColunas(tblMesas,colunas);
         } catch (Exception e) {
             System.out.println("br.com.bar.view.TelaCadastroDeMesas.<init>()"+e);
-        }
-        
+        }*/
+         modelMesas.redimensionaColunas(tblMesas);
         lblOperador.setVisible(false);
         lblCargo.setVisible(false);
-        //u.setIcon(this);
+        
+      
 
     }
 
@@ -72,7 +75,9 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         lblOperador.setText(cargo);
         lblCargo.setText(operador);
         log.setUsuario(operador);
-
+        estadoInicial();
+       
+        
     }
 
     /**
@@ -155,7 +160,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         jLabel13.setBackground(new java.awt.Color(52, 73, 94));
         jLabel13.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("N. Mesa");
+        jLabel13.setText("Mesa");
 
         txtNumeroMesa.setFont(new java.awt.Font("Yu Gothic Light", 1, 18)); // NOI18N
         txtNumeroMesa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -388,7 +393,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblMesas);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(380, 100, 550, 350);
+        jScrollPane1.setBounds(380, 100, 430, 350);
 
         jCheckBoxTudo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jCheckBoxTudo.setText("Listar todas as mesas");
@@ -404,13 +409,13 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("Operador");
         getContentPane().add(lblOperador);
-        lblOperador.setBounds(700, 30, 110, 40);
+        lblOperador.setBounds(380, 20, 110, 40);
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("Cargo");
         getContentPane().add(lblCargo);
-        lblCargo.setBounds(820, 30, 90, 40);
+        lblCargo.setBounds(500, 20, 90, 40);
 
         jPanel2.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -435,13 +440,15 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(910, 0, 40, 40);
+        jPanel2.setBounds(780, 0, 40, 40);
 
-        setSize(new java.awt.Dimension(947, 524));
+        setSize(new java.awt.Dimension(819, 524));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -451,7 +458,13 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
 
     private void comboGarcomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboGarcomActionPerformed
         tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
+        modelMesas.redimensionaColunas(tblMesas);
         txtNumeroMesa.setText(null);
+        if (!"Selecione...".equals(comboGarcom.getSelectedItem().toString())){
+              desbloqueiaCampos();
+        }else {
+            estadoInicial();
+        }
 
 
     }//GEN-LAST:event_comboGarcomActionPerformed
@@ -466,11 +479,22 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdGarcomActionPerformed
 
     private void tblMesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMesasMouseClicked
+        
         if (jCheckBoxTroca.isSelected()) {
             txtIdNovoGarcom.setText(f.localizaId(comboNovoGarcom.getSelectedItem().toString()));
             btnTrocaGarcom.setEnabled(true);
+            
         }
-        selecionaIdMesa();
+        int linha = tblMesas.getSelectedRow();
+        txtIdMesa.setText(tblMesas.getModel().getValueAt(linha, 0).toString());
+        String nMesa = tblMesas.getModel().getValueAt(linha, 2).toString();       
+        txtNumeroMesa.setText(nMesa);
+     
+        String nomeFuncionario = tblMesas.getModel().getValueAt(linha, 1).toString(); // Seleciona nome do funcionário
+        comboGarcom.setSelectedItem(nomeFuncionario);
+        txtIdGarcom.setText(f.localizaId(nomeFuncionario));
+        btnLixeira.setEnabled(true);
+        //selecionaIdMesa();
     }//GEN-LAST:event_tblMesasMouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
@@ -497,10 +521,9 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Mesa salva com sucesso!");
 
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Operação cancelada");
-            }
+            } 
             tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
+            modelMesas.redimensionaColunas(tblMesas);
             txtNumeroMesa.setText(null);
         }
 
@@ -514,9 +537,11 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
             jCheckBoxTudo.setText("Retornar");
 
             tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
+            modelMesas.redimensionaColunas(tblMesas);
         } else {
             jCheckBoxTudo.setText("Listar todas as mesas");
             tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), false)));
+            modelMesas.redimensionaColunas(tblMesas);
         }
 
 
@@ -565,7 +590,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
             antigo.setId(txtIdGarcom.getText());
             antigo.setNome(comboGarcom.getSelectedItem().toString());
 
-            int op = JOptionPane.showConfirmDialog(null, "Confirma a troca de todas as mesas do garçom\n" + antigo.getNome() + " para o garçom " + novo.getNome(), "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(null, "Confirma a troca de todas as mesas do garçom " + antigo.getNome() + " para o garçom " + novo.getNome() + "?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {
 
@@ -576,10 +601,8 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                     if (cm.trocaGarcom(antigo, novo)) {
                         JOptionPane.showMessageDialog(null, "Troca realizada com sucesso!");
                         tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Troca cancelada!");
-
-                    }
+                        modelMesas.redimensionaColunas(tblMesas);
+                    } 
                 }
             }
         }
@@ -620,9 +643,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Mesa adicionada com sucesso!");
                     }
 
-                } else {
-                    JOptionPane.showMessageDialog(null, "Inclusão cancelada com sucesso!");
-                }
+                } 
             }
         } catch (HeadlessException | NumberFormatException e) {
             System.out.println("br.com.bar.view.TelaCadastroDeMesas.jLabel16MouseClicked()" + e);
@@ -631,6 +652,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         }
 
         tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
+        modelMesas.redimensionaColunas(tblMesas);
         txtNumeroMesa.setText(null);
     }//GEN-LAST:event_jLabel16MouseClicked
 
@@ -655,14 +677,13 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                         
                         JOptionPane.showMessageDialog(null, "Mesa excluída com sucesso!");
                         tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
+                        modelMesas.redimensionaColunas(tblMesas);
                         limpaForm();
+                        btnLixeira.setEnabled(false);
                     }
                 }
 
-            } else {
-                JOptionPane.showMessageDialog(null, "Exclusão cancelada com sucesso!");
-
-            }
+            } 
         }
     }//GEN-LAST:event_btnLixeiraMouseClicked
 
@@ -692,11 +713,10 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                     if (cm.alteraMesa(mesa)) {
                         JOptionPane.showMessageDialog(null, "Alteração de garçom para a mesa informada realizada com sucesso!");
                         tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
+                        modelMesas.redimensionaColunas(tblMesas);
                         btnTrocaGarcom.setEnabled(false);
                     }
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Alteração cancelada com sucesso!");
             }
         }
 
@@ -729,10 +749,22 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         int linha = tblMesas.getSelectedRow();
         txtIdMesa.setText(tblMesas.getModel().getValueAt(linha, 0).toString());
         txtNumeroMesa.setText(tblMesas.getModel().getValueAt(linha, 2).toString());
+        JOptionPane.showMessageDialog(null, tblMesas.getModel().getValueAt(linha, 2).toString());
         String nomeFuncionario = tblMesas.getModel().getValueAt(linha, 1).toString(); // Seleciona nome do funcionário
-
+        comboGarcom.setSelectedItem(nomeFuncionario);
         txtIdGarcom.setText(f.localizaId(nomeFuncionario));
         btnLixeira.setEnabled(true);
+    }
+    
+    private void estadoInicial(){
+        checkTrocaGeral.setEnabled(false);
+        jCheckBoxTroca.setEnabled(false);
+        txtNumeroMesa.setEnabled(false);
+    }
+    private void desbloqueiaCampos(){
+        checkTrocaGeral.setEnabled(true);
+        jCheckBoxTroca.setEnabled(true);
+        txtNumeroMesa.setEnabled(true);
     }
 
     /**

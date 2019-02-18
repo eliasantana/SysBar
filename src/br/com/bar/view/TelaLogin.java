@@ -85,7 +85,7 @@ public class TelaLogin extends javax.swing.JFrame {
             } else {
                 // Caso a conexão retorne null chama da tela de parâmetro
                 TelaPametro param = new TelaPametro();
-                // Fica a janela ja frente da sdemais
+                // Fixa a janela ja frente da sdemais
                 param.setAlwaysOnTop(true);
                 // Exibe Tela de Parâmetro 
                 param.setVisible(true);

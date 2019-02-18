@@ -10,6 +10,7 @@ import br.com.bar.dao.Log;
 import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.Contas;
 import br.com.bar.model.TableModelContasApagar;
+import br.com.bar.util.FormataValor;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerContasApagar;
 import br.com.br.controler.ControlerDadosEmpresa;
@@ -171,6 +172,9 @@ public class TelaContasApagar extends JDialog {
             }
         });
         txtValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtValorKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtValorKeyReleased(evt);
             }
@@ -310,6 +314,11 @@ public class TelaContasApagar extends JDialog {
         txtValorPago.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtValorPagoFocusLost(evt);
+            }
+        });
+        txtValorPago.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtValorPagoKeyPressed(evt);
             }
         });
         painelEsquerdo.add(txtValorPago);
@@ -850,28 +859,34 @@ public class TelaContasApagar extends JDialog {
     }//GEN-LAST:event_txtIdContaActionPerformed
 
     private void txtValorPagoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorPagoFocusLost
-        try {
-            String valor = txtValor.getText().replaceAll(",", ".");
-            Double novoValor = Double.parseDouble(valor);
-            txtValorPago.setText(String.format("%9.2f", novoValor));
-        } catch (NumberFormatException e) {
-        }
-
+        FormataValor fv = new FormataValor();
+        txtValorPago.setText(fv.Formata(txtValorPago.getText()));
     }//GEN-LAST:event_txtValorPagoFocusLost
 
     private void txtValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorFocusLost
-        try {
-            String valor = txtValor.getText().replaceAll(",", ".");
-            Double novoValor = Double.parseDouble(valor);
-            txtValor.setText(String.format("%9.2f", novoValor));
-        } catch (NumberFormatException e) {
-        }
-
+        FormataValor fv = new FormataValor();
+        txtValor.setText(fv.Formata(txtValor.getText()));
     }//GEN-LAST:event_txtValorFocusLost
 
     private void lblLimparKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblLimparKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_lblLimparKeyReleased
+
+    private void txtValorPagoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorPagoKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            
+            FormataValor fv = new FormataValor();
+            txtValorPago.setText(fv.Formata(txtValorPago.getText()));
+        }
+    }//GEN-LAST:event_txtValorPagoKeyPressed
+
+    private void txtValorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            FormataValor fv = new FormataValor();
+            txtValor.setText(fv.Formata(txtValor.getText()));
+        }
+
+    }//GEN-LAST:event_txtValorKeyPressed
 
     /**
      * @param args the command line arguments
