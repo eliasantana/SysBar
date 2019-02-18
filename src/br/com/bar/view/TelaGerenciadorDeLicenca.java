@@ -106,7 +106,7 @@ public class TelaGerenciadorDeLicenca extends JDialog {
         jLabel8.setBounds(120, 310, 420, 15);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel9.setText("Telefones: (81) 99749-6602 | (81) 99678-1659");
+        jLabel9.setText("Telefones: (81) 98966-1904 | (81) 99897-8092");
         getContentPane().add(jLabel9);
         jLabel9.setBounds(120, 370, 348, 15);
 

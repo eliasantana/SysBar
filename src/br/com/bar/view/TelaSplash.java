@@ -115,7 +115,7 @@ public class TelaSplash extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel11.setText("(81) 99749-6602 | (81) 99897-8092");
+        jLabel11.setText("(81) 98966-1904 | (81) 99897-8092");
         jPanel1.add(jLabel11);
         jLabel11.setBounds(200, 110, 240, 20);
 

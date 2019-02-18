@@ -164,7 +164,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("(81) 99749-6602 | (81) 99897-8092");
+        jLabel8.setText("(81) 98966-1904 | (81) 99897-8092");
         jPanel1.add(jLabel8);
         jLabel8.setBounds(30, 390, 240, 20);
 
@@ -186,7 +186,7 @@ public class TelaLogin extends javax.swing.JFrame {
         lblCnpjEmpresa.setBounds(20, 270, 260, 14);
 
         lblVersao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersao1.setText(" VERSÃO 1.9.6 - TST Integrado 15-02-2019");
+        lblVersao1.setText(" VERSÃO 1.9.6 - TST Integrado 18-02-2019");
         jPanel1.add(lblVersao1);
         lblVersao1.setBounds(20, 290, 240, 20);
 
