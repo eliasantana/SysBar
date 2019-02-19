@@ -8,6 +8,7 @@ package br.com.bar.view;
 import br.com.bar.dao.CriptoGrafa;
 import br.com.bar.dao.Email;
 import br.com.bar.model.DadosEmpresa;
+import br.com.bar.util.ConexaoInternet;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerAtivacao;
 import br.com.br.controler.ControlerDadosEmpresa;
@@ -41,6 +42,16 @@ public class TelaGerenciadorDeLicenca extends JDialog {
         lblDias.setText(String.valueOf(dias));
         lblMensagem.setText(mensagem);
         lblMensagem.setForeground(Color.RED);
+        
+        ConexaoInternet ci = new ConexaoInternet();
+        if (ci.temConexao()){
+            
+        }else {
+            btnSolicitaLicenca.setEnabled(false);
+            lblAviso.setText("Ops! Você está sem Internet! Para renovar sua licença, ligue para o nós!");
+            lblAviso.setForeground(Color.RED);
+            lblTelefones.setForeground(Color.red);
+        }
     }
    
 
@@ -55,10 +66,10 @@ public class TelaGerenciadorDeLicenca extends JDialog {
 
         jLabel5 = new javax.swing.JLabel();
         lblMensagem = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblAviso = new javax.swing.JLabel();
         btnSolicitaLicenca = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lblTelefones = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -81,9 +92,9 @@ public class TelaGerenciadorDeLicenca extends JDialog {
         getContentPane().add(lblMensagem);
         lblMensagem.setBounds(120, 150, 400, 25);
 
-        jLabel4.setText("Para renovar sua licença entre em contato com a área Comercial.");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(120, 180, 390, 20);
+        lblAviso.setText("Para renovar sua licença entre em contato com a área Comercial.");
+        getContentPane().add(lblAviso);
+        lblAviso.setBounds(120, 180, 470, 20);
 
         btnSolicitaLicenca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/email.png"))); // NOI18N
         btnSolicitaLicenca.setText("Solicitar nova Licença agora");
@@ -105,10 +116,10 @@ public class TelaGerenciadorDeLicenca extends JDialog {
         getContentPane().add(jLabel8);
         jLabel8.setBounds(120, 310, 420, 15);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel9.setText("Telefones: (81) 98966-1904 | (81) 99897-8092");
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(120, 370, 348, 15);
+        lblTelefones.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lblTelefones.setText("Telefones: (81) 98966-1904 | (81) 99897-8092");
+        getContentPane().add(lblTelefones);
+        lblTelefones.setBounds(120, 370, 348, 15);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setText("RESE7 Soluções em TI");
@@ -238,8 +249,8 @@ public class TelaGerenciadorDeLicenca extends JDialog {
                 + dados.getNome_empresa() + "\nCNPJ: " + dados.getCnpj()+ "\nLicença Atual: " + dados.getLicenca()
                 +"\nEndereço: " + dados.getEndereco()+","+dados.getNumero() + " \nBairro:" + dados.getBairro() + " CEP: "+dados.getCep() 
                 + "  Cidade: "+dados.getCidade() + " UF: "+dados.getUf()  +"\nTelefone: "+dados.getTelefone()  + "\n\nStatus: "+lblMensagem.getText();  
-       
-        if (email.enviaEmail("contato.rese7@gmail.com", assunto, mensagem)){
+      
+        if (email.enviaEmail("contato@rese7.com.br", assunto, mensagem)){
             btnSolicitaLicenca.setText("Solicitação enviada com sucesso!");
             btnSolicitaLicenca.setForeground(Color.blue);
         }
@@ -290,17 +301,17 @@ public class TelaGerenciadorDeLicenca extends JDialog {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblAviso;
     private javax.swing.JLabel lblChave;
     private javax.swing.JLabel lblDias;
     private javax.swing.JLabel lblMensagem;
+    private javax.swing.JLabel lblTelefones;
     private javax.swing.JPanel panelInstalarChave;
     // End of variables declaration//GEN-END:variables
 }

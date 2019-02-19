@@ -15,6 +15,7 @@ import br.com.bar.model.Funcionario;
 import br.com.bar.model.MovimentacaoCaixa;
 import br.com.bar.model.Pedido;
 import br.com.bar.model.TableModelCaixa;
+import br.com.bar.util.FormataValor;
 import br.com.br.controler.ControlerCaixa;
 import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerMesa;
@@ -39,6 +40,8 @@ import br.com.bar.util.Util;
 import br.com.br.controler.ControlerDadosEmpresa;
 import java.awt.Color;
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -1138,16 +1141,31 @@ public class TelaCaixa extends JDialog {
                 ResultSet rs = cp.detalhePorPedido(comboMesa.getSelectedItem().toString(), txtIdPedido.getText());
 
                 // ========================  tratar estouro na formatação de valores ========================///
+                /*
                 while (rs.next()) {
                     total = Double.parseDouble(rs.getString("VLR TOTAL R$").replaceAll(",", "."));
                     totalGeral = totalGeral + total;
+                }*/
+                
+                
+                while (rs.next()) {
+                    
+                    NumberFormat nf = NumberFormat.getNumberInstance();
+                    try {
+                        total =  nf.parse(rs.getString("VLR TOTAL R$")).doubleValue();
+                        totalGeral = totalGeral + total;
+                        
+                    } catch (ParseException ex) {
+                        Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-
+                
                 // Formata e exibe o total geral do pedido
                 tgeral.setText(String.format("%9.2f", totalGeral));
+                
 
             } catch (NumberFormatException | SQLException e) {
-                JOptionPane.showMessageDialog(null, "Erro ao calcular o total da compra " + e);
+                System.out.println("br.com.bar.view.TelaCaixa.btnListarActionPerformed()"+e);
             }
             // Calcula a taxa de serviço somando ao total do pedido
             calculaTaxa();

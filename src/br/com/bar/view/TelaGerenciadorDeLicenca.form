@@ -47,13 +47,13 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
+    <Component class="javax.swing.JLabel" name="lblAviso">
       <Properties>
         <Property name="text" type="java.lang.String" value="Para renovar sua licen&#xe7;a entre em contato com a &#xe1;rea Comercial."/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="120" y="180" width="390" height="20"/>
+          <AbsoluteConstraints x="120" y="180" width="470" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -87,7 +87,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel9">
+    <Component class="javax.swing.JLabel" name="lblTelefones">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="10" style="0"/>
