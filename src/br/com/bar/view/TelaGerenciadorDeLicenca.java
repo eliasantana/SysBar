@@ -109,7 +109,7 @@ public class TelaGerenciadorDeLicenca extends JDialog {
             }
         });
         getContentPane().add(btnSolicitaLicenca);
-        btnSolicitaLicenca.setBounds(120, 210, 420, 41);
+        btnSolicitaLicenca.setBounds(120, 210, 470, 41);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel8.setText("R. Amambaí, 246 - Candeias, Jaboatão dos Guararapes - PE, 54430-160");
@@ -122,7 +122,7 @@ public class TelaGerenciadorDeLicenca extends JDialog {
         lblTelefones.setBounds(120, 370, 348, 15);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel7.setText("RESE7 Soluções em TI");
+        jLabel7.setText("Rese7 Soluções em TI");
         getContentPane().add(jLabel7);
         jLabel7.setBounds(120, 270, 348, 30);
 
@@ -132,7 +132,7 @@ public class TelaGerenciadorDeLicenca extends JDialog {
         jLabel10.setBounds(120, 330, 348, 15);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel11.setText("email: contato.rese7@gmai.com");
+        jLabel11.setText("email: contato@rese7.com.br");
         getContentPane().add(jLabel11);
         jLabel11.setBounds(120, 350, 348, 15);
 
@@ -195,7 +195,7 @@ public class TelaGerenciadorDeLicenca extends JDialog {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/masterfood6_144x136.png"))); // NOI18N
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(240, 0, 200, 140);
+        jLabel3.setBounds(270, 0, 170, 140);
 
         jPanel1.setBackground(new java.awt.Color(38, 53, 61));
 

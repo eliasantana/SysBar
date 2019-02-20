@@ -7,6 +7,7 @@ package br.com.bar.view;
 
 import br.com.bar.dao.Log;
 import br.com.bar.model.Funcionario;
+import br.com.bar.model.TableModelPesquisaFunc;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerFuncionario;
 import java.awt.event.KeyEvent;
@@ -23,6 +24,7 @@ public class TelaPesquisaFuncionario extends JDialog {
     ControlerFuncionario cf = new ControlerFuncionario();
     Log l = new Log();
     Util u = new Util();
+    TableModelPesquisaFunc modelPesqFunc = new TableModelPesquisaFunc();
     
     public TelaPesquisaFuncionario() {
         initComponents();
@@ -31,7 +33,7 @@ public class TelaPesquisaFuncionario extends JDialog {
         //Matem a tela de pesquisa a frente da janela anterior.
         lblOperador.setVisible(false);
         lblPerfil.setVisible(false);
-        
+        modelPesqFunc.redimensionaColunas(tblFuncionario);
     }
 
     public void recebeOperador(String operador, String perfil) {
@@ -43,7 +45,7 @@ public class TelaPesquisaFuncionario extends JDialog {
         // Realiza Pesquisa
         txtFuncionario.setText(nome);
         tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario(nome)));
-        
+        modelPesqFunc.redimensionaColunas(tblFuncionario);
         System.out.println(nome);
     }
 
@@ -109,7 +111,7 @@ public class TelaPesquisaFuncionario extends JDialog {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(598, 0, -1, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 48)); // NOI18N
         jLabel3.setText("Cadastro ");
@@ -131,7 +133,7 @@ public class TelaPesquisaFuncionario extends JDialog {
         jPanel1.add(lblPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, -1));
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 640, 120);
+        jPanel1.setBounds(0, 0, 840, 120);
 
         jLabel1.setText("Funcionário");
         getContentPane().add(jLabel1);
@@ -155,23 +157,23 @@ public class TelaPesquisaFuncionario extends JDialog {
         getContentPane().add(lblPesquisa);
         lblPesquisa.setBounds(370, 150, 120, 32);
 
-        tblFuncionario.setFont(new java.awt.Font("Yu Gothic Light", 0, 12)); // NOI18N
+        tblFuncionario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tblFuncionario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "CÓDIGO", "NOME", "CPF", "RG", "CELULAR"
+                "CÓDIGO", "NOME", "CPF", "RG", "CELULAR", "ADNISSÃO", "STATUS", "BLOQUEIO"
             }
         ));
         tblFuncionario.setRowHeight(21);
@@ -183,7 +185,7 @@ public class TelaPesquisaFuncionario extends JDialog {
         jScrollPane1.setViewportView(tblFuncionario);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 190, 620, 259);
+        jScrollPane1.setBounds(10, 190, 830, 259);
 
         lblExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
         lblExcluir.setText("Excluir");
@@ -193,7 +195,7 @@ public class TelaPesquisaFuncionario extends JDialog {
             }
         });
         getContentPane().add(lblExcluir);
-        lblExcluir.setBounds(450, 450, 100, 50);
+        lblExcluir.setBounds(530, 450, 100, 50);
 
         lblAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
         lblAdicionar.setText("Adicionar");
@@ -203,7 +205,7 @@ public class TelaPesquisaFuncionario extends JDialog {
             }
         });
         getContentPane().add(lblAdicionar);
-        lblAdicionar.setBounds(100, 450, 100, 50);
+        lblAdicionar.setBounds(180, 450, 100, 50);
 
         lblAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapis.png"))); // NOI18N
         lblAlterar.setText("Alterar");
@@ -213,7 +215,7 @@ public class TelaPesquisaFuncionario extends JDialog {
             }
         });
         getContentPane().add(lblAlterar);
-        lblAlterar.setBounds(340, 450, 100, 50);
+        lblAlterar.setBounds(420, 450, 100, 50);
 
         lblConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/pasta32x32 (2).png"))); // NOI18N
         lblConsultar.setText("Consultar");
@@ -223,9 +225,9 @@ public class TelaPesquisaFuncionario extends JDialog {
             }
         });
         getContentPane().add(lblConsultar);
-        lblConsultar.setBounds(220, 450, 100, 50);
+        lblConsultar.setBounds(300, 450, 100, 50);
 
-        setSize(new java.awt.Dimension(638, 496));
+        setSize(new java.awt.Dimension(841, 496));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -237,6 +239,7 @@ public class TelaPesquisaFuncionario extends JDialog {
     private void lblPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPesquisaMouseClicked
         // Realiza Pesquisa
         tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario(txtFuncionario.getText())));
+        modelPesqFunc.redimensionaColunas(tblFuncionario);
 
     }//GEN-LAST:event_lblPesquisaMouseClicked
 
@@ -299,6 +302,7 @@ public class TelaPesquisaFuncionario extends JDialog {
                 //Atualiza tela
                 if (cf.excluirFuncionario(tblFuncionario.getModel().getValueAt(linha, 0).toString())) {
                     tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario("")));
+                    modelPesqFunc.redimensionaColunas(tblFuncionario);
                     JOptionPane.showMessageDialog(null, "Exclusão realizada com sucesso!");
                     // Início do registro de log
 
@@ -315,6 +319,7 @@ public class TelaPesquisaFuncionario extends JDialog {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
             tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario(txtFuncionario.getText())));
+            modelPesqFunc.redimensionaColunas(tblFuncionario);
         }
     }//GEN-LAST:event_txtFuncionarioKeyPressed
 

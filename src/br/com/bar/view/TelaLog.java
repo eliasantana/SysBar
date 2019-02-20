@@ -43,6 +43,8 @@ public class TelaLog extends javax.swing.JFrame {
         jDateChooserInicio.setDate(dataAtual);
         jDateChooserFim.setDate(dataAtual);
         btnImprimir.setEnabled(false);
+        lblCargo.setVisible(false);
+        lblOperador.setVisible(false);
        
     }
 

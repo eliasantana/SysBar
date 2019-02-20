@@ -210,7 +210,11 @@ public class TelaReImpressao extends JDialog {
 
             String nMesa = tblPedidos.getModel().getValueAt(linha, 0).toString();
             String idPedido = tblPedidos.getModel().getValueAt(linha, 1).toString();
-            double total = Double.parseDouble(tblPedidos.getModel().getValueAt(linha, 4).toString().replaceAll(",", "."));
+            //double total = Double.parseDouble(tblPedidos.getModel().getValueAt(linha, 4).toString().replaceAll(",", "."));
+            String totalCompra = tblPedidos.getModel().getValueAt(linha, 4).toString().replace(".","");
+            totalCompra = totalCompra.replace(",", ".");
+            double total = Double.parseDouble(totalCompra);
+           
             double desc = Double.parseDouble(tblPedidos.getModel().getValueAt(linha, 3).toString().replaceAll(",", "."));
             double tx = (Double.parseDouble(tblPedidos.getModel().getValueAt(linha, 2).toString().replaceAll(",", ".")));
             

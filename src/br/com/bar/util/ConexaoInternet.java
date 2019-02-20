@@ -32,7 +32,7 @@ public class ConexaoInternet {
            try{
            
             java.net.URL url = new java.net.URL("http://www.google.com.br");
-          
+                      
             java.net.URLConnection conn = url.openConnection();
             java.net.HttpURLConnection httpConn = (java.net.HttpURLConnection) conn;
             httpConn.connect();

@@ -18,23 +18,25 @@ import javax.swing.JTextField;
 import net.proteanit.sql.DbUtils;
 
 /**
- * 
+ *
  * @author Elias Santana
- * 
+ *
  */
 public class ControlerFuncionario extends Funcionario {
 
     Connection conexao = ConexaoBd.conector();
     PreparedStatement pst = null;
     ResultSet rs = null;
-    /** 
-     * 
-     *  Adiciona um funcionário e retorna um boolean
-     *  @param f  'Funcionario'
-     *  @return boolean
-     *  
+
+    /**
+     *
+     * Adiciona um funcionário e retorna um boolean
+     *
+     * @param f 'Funcionario'
+     * @return boolean
+     *
      */
-    
+
     public boolean adicionaFuncionario(Funcionario f) {
         boolean resp = false;
         String sql = "INSERT INTO tbcadfuncionario "
@@ -85,12 +87,27 @@ public class ControlerFuncionario extends Funcionario {
 
     public ResultSet carregaFuncionario(String texto) {
 
-        String slq = "SELECT id AS 'CÓD. INTERNO', nome AS 'NOME', cpf AS 'CPF', rg AS 'RG',telefone_recado AS 'CELULAR'\n"
+        /*String slq = "SELECT id AS 'CÓDIGO', nome AS 'NOME', cpf AS 'CPF', rg AS 'RG',telefone_recado AS 'CELULAR'\n"
                 + "FROM dbbar.tbcadfuncionario\n"
-                + "WHERE nome like ?;";
+                + "WHERE nome like ?;";*/
+        
+        String sql = "SELECT id AS 'CÓDIGO', \n"
+                + "	nome AS 'NOME', \n"
+                + "	cpf AS 'CPF', rg AS 'RG',\n"
+                + "	telefone_recado AS 'CELULAR',\n"
+                + "	date_format(dt_admissao,'%d/%m/%Y') as 'ADMISSÃO', \n"
+                + "    CASE \n"
+                + "		WHEN  status =0 THEN 'Ativo'\n"
+                + "		WHEN status =1 THEN  'Inativo' \n"
+                + "	END AS 'STATUS', \n"
+                + "    CASE\n"
+                + "		WHEN bloqueado =0 THEN 'Desbloqueado'\n"
+                + "		WHEN bloqueado =1 THEN 'Bloqueado'\n"
+                + "    END AS 'BLOQUEIO'\n"
+                + "FROM dbbar.tbcadfuncionario WHERE nome like ?";
 
         try {
-            pst = conexao.prepareStatement(slq);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, texto + "%");
             rs = pst.executeQuery();
 
@@ -185,7 +202,7 @@ public class ControlerFuncionario extends Funcionario {
                 + "complemento=?,\n"
                 + "cnh_validade=?,\n"
                 + "dt_desligamento=?,\n"
-                + "dt_admissao=?,\n"              
+                + "dt_admissao=?,\n"
                 + "cnh=?\n"
                 + "WHERE id=?";
         try {
@@ -251,13 +268,13 @@ public class ControlerFuncionario extends Funcionario {
                 rs = pst.executeQuery(sqlTodos);
 
                 combo.removeAllItems();
-                
+
                 while (rs.next()) {
                     combo.addItem(rs.getString("nome"));
                 }
 
             } catch (SQLException e) {
-                System.out.println("br.com.br.controler.ControlerFuncionario.carregaComboFuncionario()"+e);
+                System.out.println("br.com.br.controler.ControlerFuncionario.carregaComboFuncionario()" + e);
             }
         } else {
 
@@ -272,11 +289,12 @@ public class ControlerFuncionario extends Funcionario {
                 }
 
             } catch (SQLException e) {
-                System.out.println("br.com.br.controler.ControlerFuncionario.carregaComboFuncionario()"+e);
+                System.out.println("br.com.br.controler.ControlerFuncionario.carregaComboFuncionario()" + e);
             }
         }
 
     }
+
     // Lista funcionários adicionando o conteúdo do último parâmetro no indice0 do objeto ComboBox
     public void carregaComboFuncionario2(JComboBox combo, String filtro, String indice0) {
 
@@ -293,7 +311,7 @@ public class ControlerFuncionario extends Funcionario {
 
                 combo.removeAllItems();
                 combo.addItem(indice0);
-                
+
                 while (rs.next()) {
                     combo.addItem(rs.getString("nome"));
                 }
@@ -308,7 +326,7 @@ public class ControlerFuncionario extends Funcionario {
                 pst.setString(1, filtro);
                 rs = pst.executeQuery();
                 combo.removeAllItems();
-                 combo.addItem(indice0);
+                combo.addItem(indice0);
                 while (rs.next()) {
                     combo.addItem(rs.getString("nome"));
                 }

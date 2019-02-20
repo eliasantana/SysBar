@@ -72,7 +72,7 @@ public class TelaCadastroFuncionario extends JDialog {
             lblSubTitulo.setText("Funcionário");
             comboBloqueio.setEnabled(true);
             comboSituacao.setEnabled(true);
-            comboBloqueio.setEnabled(false);
+            //comboBloqueio.setEnabled(false);
             jDateAdmissao.setEnabled(false);
             jDateNascimento.setEnabled(false);
             jDateDesligamento.setEnabled(false);

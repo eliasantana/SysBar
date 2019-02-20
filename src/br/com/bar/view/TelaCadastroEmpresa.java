@@ -69,6 +69,8 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         txturlLogo.setVisible(false);
         lblCaminho.setVisible(true);
         //u.setIcon(this);
+        lblOperador.setVisible(false);
+        lblPerfil.setVisible(false);
     }
 
     // Recebe dados para identificação do operador

@@ -1151,6 +1151,7 @@ public class TelaCaixa extends JDialog {
                 while (rs.next()) {
                     
                     NumberFormat nf = NumberFormat.getNumberInstance();
+                    
                     try {
                         total =  nf.parse(rs.getString("VLR TOTAL R$")).doubleValue();
                         totalGeral = totalGeral + total;

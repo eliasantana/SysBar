@@ -13,6 +13,7 @@ import br.com.bar.model.TableModelCozinha;
 import br.com.bar.model.TableModelDetalhePedido;
 import br.com.bar.model.TableModelPedidosAbertos;
 import br.com.bar.model.TableModelProdutoEstoque;
+import br.com.bar.util.FormataValor;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCozinha;
 import br.com.br.controler.ControlerEstoque;
@@ -898,6 +899,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
     // Calcula o total da venda 
     private void txtQtdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQtdKeyPressed
         // Verifica se a tecla pressionada é a tecla enter
+        
+        
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if ("nPedido".equals(txtNumeroPedido.getText())) {
@@ -1032,6 +1035,16 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Aceita apenas número
         txtQtd.setText(txtQtd.getText().replaceAll("[^0-9]", ""));
         txtQtd.setText(u.tamanhoMaximo(txtQtd.getText(), 3));
+        try {
+            
+            int qtd = Integer.parseInt(txtQtd.getText());
+            double total = qtd * Double.parseDouble(txtValorUnit.getText().replace(",", "."));
+            FormataValor fv = new FormataValor();
+            
+            txtValorTotal.setText( fv.Formata(String.valueOf(total)));
+        } catch (NumberFormatException e) {
+            txtValorTotal.setText("0,00");
+        }
 
     }//GEN-LAST:event_txtQtdKeyReleased
 

@@ -121,13 +121,13 @@ public class TelaSplash extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel9.setText("contato.rese7@gmail.com");
+        jLabel9.setText("contato@rese7.com.br");
         jPanel1.add(jLabel9);
         jLabel9.setBounds(200, 90, 230, 20);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel10.setText("rese7 - Soluções em TI");
+        jLabel10.setText("Rese7 - Soluções em TI");
         jPanel1.add(jLabel10);
         jLabel10.setBounds(200, 70, 280, 22);
 
@@ -139,7 +139,7 @@ public class TelaSplash extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 250));
 
-        setSize(new java.awt.Dimension(539, 252));
+        setSize(new java.awt.Dimension(526, 252));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

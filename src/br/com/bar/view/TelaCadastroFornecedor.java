@@ -33,6 +33,9 @@ public class TelaCadastroFornecedor extends JDialog {
         txtIdFor.setVisible(false);
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
+        lblCargo.setVisible(false);
+        lblData.setVisible(false);
+        lblOperador.setVisible(false);
         
     }
 

@@ -56,7 +56,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         btnCancelarPedido.setEnabled(false);
         modelGerPedido.redimensionaColunas(tblDetalhe);
         lblCargo.setVisible(false);
-        lblOperador.setVisible(rootPaneCheckingEnabled);
+        lblOperador.setVisible(false);
         
     }
 
