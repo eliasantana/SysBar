@@ -10,6 +10,7 @@ import br.com.bar.dao.Log;
 import br.com.bar.model.DescontoPedido;
 import br.com.bar.model.Funcionario;
 import br.com.bar.model.Pedido;
+import br.com.bar.util.FormataValor;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCaixa;
 import br.com.br.controler.ControlerFuncionario;
@@ -334,16 +335,30 @@ public class TelaAutorizacao extends JDialog {
 
     private void btnAutorizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutorizarActionPerformed
         // Aplica Desconto
-        double desconto = Double.parseDouble(txtValorDesconto.getText().replaceAll(",", "."));
+        FormataValor fv = new FormataValor();
+        String desc = txtValorDesconto.getText().replace(".", "");
+        desc = desc.replace(",", ".");
+        double desconto = Double.parseDouble(desc);
         try {
             // Converte o valor total para Double
-            double totalGeral = Double.parseDouble(listaDeSValores.get(2).replace(",", "."));
+            String tgeral = listaDeSValores.get(2).replace(".", "");
+            tgeral = tgeral.replace(",", ".");
+            double totalGeral = Double.parseDouble(tgeral);
             if (desconto <= totalGeral && desconto > 0) {
                 totalGeral = totalGeral - desconto;
+                /*
+                Excluir este  trecho após teste......................................
+               
                 listaDeSValores.set(2, String.format("%9.2f", totalGeral));
                 listaDeSValores.add(String.format("%9.2f", desconto));// Adiciona o desconto
                 listaDeSValores.add(cf.localizaIdLogin(comboFuncionario.getSelectedItem().toString()));//ID de quem autorizou o desconto
+                listaDeSValores.add(txtMotivoDesconto.getText());//Motivo */
+                
+                listaDeSValores.set(2, fv.Formata(String.valueOf(totalGeral)));
+                listaDeSValores.add(fv.Formata(String.valueOf(desconto)));// Adiciona o desconto
+                listaDeSValores.add(cf.localizaIdLogin(comboFuncionario.getSelectedItem().toString()));//ID de quem autorizou o desconto
                 listaDeSValores.add(txtMotivoDesconto.getText());//Motivo
+                
                 // Registra log da operação
                 Log l = new Log();
                 l.setFuncionalidade("Desconto");

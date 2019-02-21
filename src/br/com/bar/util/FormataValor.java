@@ -20,6 +20,7 @@ public class FormataValor {
             DecimalFormat df = new DecimalFormat();
             Locale.setDefault(new Locale("pt", "BR"));
             Double valorRecebido = Double.parseDouble(valor.replace(",", "."));
+           
         try {
             
             

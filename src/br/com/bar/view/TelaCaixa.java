@@ -967,16 +967,25 @@ public class TelaCaixa extends JDialog {
             // Fecha pedido
             // Calcula valor
             int nPesoas = Integer.parseInt(jSpinFieldPessoas.getValue().toString());
-
-            Double totalGeral = Double.parseDouble(lblTotal.getText().replaceAll(",", "."));
+            String tGeral = lblTotal.getText().replace(".", "");
+            tGeral = tGeral.replace(",", ".");
+            Double totalGeral = Double.parseDouble(tGeral);
             Double totalPessoas = totalGeral / nPesoas;
             System.out.println(nPesoas);
 
             // Instancia um produto
             Pedido p = new Pedido();
-            p.setTotal(lblTotal.getText().replaceAll(",", "."));
-            p.setComissao(percent.getText().replaceAll(",", "."));
-            p.setTotalPago(txtValorPago.getText().replaceAll(",", "."));
+            
+            //p.setTotal(lblTotal.getText().replaceAll(",", "."));
+            p.setTotal(tGeral);
+            String comissao = percent.getText().replace(".", "");
+            comissao = comissao.replace(",",".");
+            p.setComissao(comissao);
+            
+            String vlrPago = txtValorPago.getText().replace(".", "");
+            vlrPago = vlrPago.replace(",", ".");
+            p.setTotalPago(vlrPago);
+            
             p.setStatus("1");
             p.setOperador(lblOperador.getText());
             p.setId(txtIdPedido.getText());
@@ -1024,7 +1033,9 @@ public class TelaCaixa extends JDialog {
                     if (!"0,00".equals(txtDesconto.getText())) {
 
                         f.setId(listAutoDesconto.get(7));
-                        desconto = Double.parseDouble(txtDesconto.getText().replaceAll(",", "."));
+                        String strDesc = txtDesconto.getText().replace(".", "");
+                        strDesc = strDesc.replace(",", ".");
+                        desconto = Double.parseDouble(strDesc);
                         // Instacia o objeto desconto e adiciona como parâmetro o motivo, o do idPedido e 
                         // o id do Funcionário eque concedeu o desconto
                         DescontoPedido descPedido = new DescontoPedido(desconto, listAutoDesconto.get(8), f, p);
@@ -1046,7 +1057,9 @@ public class TelaCaixa extends JDialog {
                     dados.put("data", df.format(dt));
                     dados.put("garcom", lblGarcom.getText());
                     dados.put("titulo", "COMPROVANTE DE PAGAMENTO");
-                    dados.put("tx", Double.parseDouble(percent.getText().replaceAll(",", ".")));
+                    String strTx = percent.getText().replace(".", "");
+                    strTx = strTx.replace(",", ".");
+                    dados.put("tx", Double.parseDouble(strTx));
                     dados.put("id_pedido", p.getId());
                     System.out.println(p.getId());
                     dados.put("npessoas", nPesoas); // Não tenho
@@ -1058,6 +1071,7 @@ public class TelaCaixa extends JDialog {
                     dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone() + " - " + dadosEmpresa.getEmail());
                     dados.put("cnpj", dadosEmpresa.getCnpj());
                     dados.put("desc", Double.parseDouble(txtDesconto.getText().replaceAll(",", ".")));
+                  
 
                     try {
                         // Verifica o método de impressão 0 -> Impressção em tela 1 - Impressão direta
@@ -1129,6 +1143,8 @@ public class TelaCaixa extends JDialog {
     }//GEN-LAST:event_jLabel17MouseClicked
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+        try {
+            
         if (!"Selecione...".equals(comboMesa.getSelectedItem().toString())) {
             checkCartao.setEnabled(true);
             checkTxServico.setEnabled(true);
@@ -1171,7 +1187,9 @@ public class TelaCaixa extends JDialog {
                 }
                 
                 // Formata e exibe o total geral do pedido
+               
                 tgeral.setText(String.format("%9.2f", totalGeral));
+               
                 
 
             } catch (NumberFormatException | SQLException e) {
@@ -1184,7 +1202,7 @@ public class TelaCaixa extends JDialog {
 
             //Iníciodo registro de Log
             l.setFuncionalidade("Listar");
-            l.setDescricao(l.getUsuario() + " listou o detalhe do pedido ->" + txtIdPedido.getText() + "  Gaçom " + lblGarcom.getText() + " Mesa-> " + comboMesa.getSelectedItem().toString());
+            l.setDescricao(l.getUsuario() + " listou o detalhe do pedido ->" + txtIdPedido.getText() + "  Garçom " + lblGarcom.getText() + " Mesa-> " + comboMesa.getSelectedItem().toString());
             l.gravaLog(l);
             //
 
@@ -1192,19 +1210,25 @@ public class TelaCaixa extends JDialog {
             txtTroco.setText("0,00");
             txtDesconto.setText("0,00");
             //lblReceber.setEnabled(true);
-            
-            if (Double.parseDouble(lblTotal.getText().replaceAll(",","."))==0){
+            // Substituição multipla na sequencia para evitar NumberFormatException: Multiple Points
+            // Calsada pela formatação 0.000,00
+            String sTotal = lblTotal.getText().replace(".","");
+            sTotal = sTotal.replace(",", ".");
+            if (Double.parseDouble(sTotal)==0){
                 btnImprimir.setEnabled(false);
                 lblReceber.setEnabled(false);
             }else {
                 //lblReceber.setEnabled(true);
             }
-            /*
-            Formata valores após listagem
+            
+           // Formata valores após listagem
             FormataValor fv = new FormataValor();
             tgeral.setText(fv.Formata(tgeral.getText()));
             lblTotal.setText(fv.Formata(lblTotal.getText()));
-            */
+            
+        }
+        } catch (NumberFormatException e) {
+            
         }
 
     }//GEN-LAST:event_btnListarActionPerformed
@@ -1217,8 +1241,9 @@ public class TelaCaixa extends JDialog {
             DadosEmpresa dadosEmpresa = de.selecionaDados();
 
             int nPesoas = Integer.parseInt(jSpinFieldPessoas.getValue().toString());
-
-            Double totalGeral = Double.parseDouble(lblTotal.getText().replaceAll(",", "."));
+            String strTotal = lblTotal.getText().replace(".", "");
+            strTotal = strTotal.replace(",", ".");
+            Double totalGeral = Double.parseDouble(strTotal);
             Double totalPessoas = totalGeral / nPesoas;
             System.out.println(nPesoas);
             //Início do Registro de log
@@ -1235,7 +1260,9 @@ public class TelaCaixa extends JDialog {
             dados.put("id_pedido", txtIdPedido.getText());
             dados.put("garcom", lblGarcom.getText());
             dados.put("titulo", "PARCIAL DE CONSUMO");
-            dados.put("tx", Double.parseDouble(percent.getText().replaceAll(",", ".")));
+            String strTx = percent.getText().replace(".", "");
+            strTx = strTx.replace(",", ".");
+            dados.put("tx", Double.parseDouble(strTx));
             dados.put("npessoas", nPesoas);
             dados.put("total_pessoas", totalPessoas);
             dados.put("mesa", comboMesa.getSelectedItem().toString());
@@ -1243,7 +1270,9 @@ public class TelaCaixa extends JDialog {
             dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro() + " - " + dadosEmpresa.getCep());
             dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone() + " - " + dadosEmpresa.getEmail());
             dados.put("cnpj", dadosEmpresa.getCnpj());
-            dados.put("desc", Double.parseDouble(txtDesconto.getText().replaceAll(",", ".")));
+            String strDesc = txtDesconto.getText().replace(".", "");
+            strDesc = strDesc.replace(",", ".");
+            dados.put("desc", Double.parseDouble(strDesc));
             System.out.println(dadosEmpresa.getImprimir_na_tela());
             try {
                 if (dadosEmpresa.getImprimir_na_tela() == 0) {
@@ -1726,21 +1755,29 @@ public class TelaCaixa extends JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void calculaTaxa() {
-
+        FormataValor fv = new FormataValor();
+        
         double txServico = 0.10; // 10%
         //double totalConta = Double.parseDouble(lblTotal.getText().replaceAll(",", "."));
-        double totalConta = Double.parseDouble(tgeral.getText().replaceAll(",", "."));
+        String tConta = tgeral.getText().replace(".", "");
+        tConta = tConta.replace(",", ".");
+        double totalConta = Double.parseDouble(tConta);
         double totalTxServico = totalConta * txServico;
-        double desconto = Double.parseDouble(txtDesconto.getText().replaceAll(",", "."));
+        String desc = txtDesconto.getText().replace(".", "");
+        desc = desc.replace(",", ".");
+        double desconto = Double.parseDouble(desc);
         double totalPago = 0;
         double troco = 0;
 
         if (checkTxServico.isSelected()) {
 
-            // txtTotalGeral.setText(String.format("%9.2f", totalConta + totalTxServico));
-            lblTotal.setText(String.format("%9.2f", (totalConta + totalTxServico) - desconto));
+         
+            //lblTotal.setText(String.format("%9.2f", (totalConta + totalTxServico) - desconto));
+            double tTotal = (totalConta + totalTxServico) - desconto;
+            lblTotal.setText(fv.Formata(String.valueOf(tTotal)));
             //txtTaxaServico.setText(String.format("%9.2f", totalTxServico));
-            percent.setText(String.format("%9.2f", totalTxServico));
+            percent.setText(fv.Formata(String.valueOf(totalTxServico)));
+          
 
         } else {
             //txtTotalGeral.setText(String.format("%9.2f", totalConta));

@@ -11,6 +11,7 @@ import br.com.bar.model.TableModelReimpressao;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerPedido;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -186,20 +187,8 @@ public class TelaReImpressao extends JDialog {
 
     private void lblPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPesquisarMouseClicked
         // Lista todos os pedidos fechados na data atual.
-        if (lblPesquisar.isEnabled()) {
-            ResultSet rs = cp.listaPedidosReimpressao(txtNumeroMesa.getText());
-            tblPedidos.setModel(DbUtils.resultSetToTableModel(rs));
-            modelReimpressao.redimensionaColunas(tblPedidos);
-            try {
-                if (rs.isFirst()){
-                    
-                }else {
-                    lblImprimir.setEnabled(false);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(TelaReImpressao.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        listar();
+       
     }//GEN-LAST:event_lblPesquisarMouseClicked
 
     private void lblImprimirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImprimirMouseClicked
@@ -260,6 +249,9 @@ public class TelaReImpressao extends JDialog {
 
     private void txtNumeroMesaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroMesaKeyPressed
         lblPesquisar.setEnabled(true);
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            listar();
+        }
     }//GEN-LAST:event_txtNumeroMesaKeyPressed
 
     private void txtNumeroMesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroMesaKeyReleased
@@ -320,6 +312,23 @@ public class TelaReImpressao extends JDialog {
     private javax.swing.JTable tblPedidos;
     private javax.swing.JFormattedTextField txtNumeroMesa;
     // End of variables declaration//GEN-END:variables
+
+    private void listar() {
+        if (lblPesquisar.isEnabled()) {
+            ResultSet rs = cp.listaPedidosReimpressao(txtNumeroMesa.getText());
+            tblPedidos.setModel(DbUtils.resultSetToTableModel(rs));
+            modelReimpressao.redimensionaColunas(tblPedidos);
+            try {
+                if (rs.isFirst()){
+                    
+                }else {
+                    lblImprimir.setEnabled(false);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaReImpressao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
    
 }
