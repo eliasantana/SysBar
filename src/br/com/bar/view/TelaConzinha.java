@@ -70,6 +70,7 @@ public class TelaConzinha extends javax.swing.JFrame {
 
                 lblPreparar.setEnabled(false);
                 lblLiberaRefeicao.setEnabled(false);
+                lblMsg.setText(null);
             }
         };
 

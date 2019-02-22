@@ -36,6 +36,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 import org.apache.tools.ant.taskdefs.Sleep;
@@ -55,7 +56,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     TableModelPedidosAbertos modelPedidos = new TableModelPedidosAbertos();
     TableModelDetalhePedido modelDetPedido = new TableModelDetalhePedido();
     TableModelProdutoEstoque modelProduroEstoque = new TableModelProdutoEstoque();
-
+    JFrame tlGerenciarPedido;
     Util u = new Util();
 
     /**
@@ -101,6 +102,21 @@ public class TelaPedido2 extends javax.swing.JFrame {
             lblGerenciarPedido.setVisible(false);
             textoLblPedido.setVisible(false);
         }
+
+    }
+
+    public void atuDetalheDoPedido(String nMesa, String nPedido) {
+        
+        // Lista os produtos do pedido selecionado
+        tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(nMesa, nPedido)));
+        modelDetPedido.redimensionaColunas(tblDetalhePedido);
+    }
+    
+    public void atualizaPedidos(){
+        // Atualiza pedido após. Este método é executado após remoção do pedido 
+        // Na tela de Gerenciamento de Peidido
+        tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos(txtIdGarcom.getText())));
+        modelPedidos.redimensionaColunas(tblPedidosAbertos);
     }
 
     /**
@@ -899,8 +915,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
     // Calcula o total da venda 
     private void txtQtdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQtdKeyPressed
         // Verifica se a tecla pressionada é a tecla enter
-        
-        
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if ("nPedido".equals(txtNumeroPedido.getText())) {
@@ -1003,7 +1017,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         if (lblGerenciarPedido.isEnabled()) {
 
             TelaGerenciarPedido gp = new TelaGerenciarPedido();
-            gp.recebeOperador(lblOperador.getText(), lblCargo.getText());
+            gp.recebeOperador(this, lblOperador.getText(), lblCargo.getText());
             gp.setVisible(true);
         }
     }//GEN-LAST:event_lblGerenciarPedidoMouseClicked
@@ -1036,12 +1050,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
         txtQtd.setText(txtQtd.getText().replaceAll("[^0-9]", ""));
         txtQtd.setText(u.tamanhoMaximo(txtQtd.getText(), 3));
         try {
-            
+
             int qtd = Integer.parseInt(txtQtd.getText());
             double total = qtd * Double.parseDouble(txtValorUnit.getText().replace(",", "."));
             FormataValor fv = new FormataValor();
-            
-            txtValorTotal.setText( fv.Formata(String.valueOf(total)));
+
+            txtValorTotal.setText(fv.Formata(String.valueOf(total)));
         } catch (NumberFormatException e) {
             txtValorTotal.setText("0,00");
         }
@@ -1212,7 +1226,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                         // Adiciona o produto ao pedido
                         if (cproduto.adicionaProdutoAoPedido(pp)) {
                             lblMsgRetorno.setText("*Produto adicionado com sucesso!");
-                            
+
                         }
 
                         // Retira o produto do estoque                 
@@ -1252,8 +1266,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
                         bloqueiaCampos();
                         txtCodigoProduto.setEnabled(true);
                         txtQtd.setEnabled(false);
-                        
-                            //limpaform();
+
+                        //limpaform();
                     } else {
                         // Exibe mensagem de produto indisponpivel no momento
                         lblMensagem.setForeground(Color.red);
@@ -1269,7 +1283,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                     // Atualiza os produtos disponível no Estoque
                     tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
                     modelProduroEstoque.redimensionaColunas(tblListaProduto);
-                    
+
                 }
 
             }

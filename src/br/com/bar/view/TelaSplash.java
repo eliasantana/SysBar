@@ -26,8 +26,8 @@ public class TelaSplash extends javax.swing.JFrame {
     public TelaSplash() {
         initComponents();
         this.setAlwaysOnTop(true);
-       
-        System.out.println("Expurgo: "+cl.expurgo());      
+        // Expurgo desabilitado temporariamente
+       // System.out.println("Expurgo: "+cl.expurgo());      
 
         // Inicializa tela splash
         //lblMensagem.setText("Realizando backup do sistema, aguarde um momento...");

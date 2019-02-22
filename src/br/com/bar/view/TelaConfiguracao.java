@@ -414,7 +414,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     private void btnCaixa1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaixa1MouseClicked
         // Chama a tela de Gerenciametno de Pedido
         TelaGerenciarPedido gp = new TelaGerenciarPedido();
-        gp.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        //gp.recebeOperador(lblOperador.getText(), lblCargo.getText());
         gp.setVisible(true);
     }//GEN-LAST:event_btnCaixa1MouseClicked
 

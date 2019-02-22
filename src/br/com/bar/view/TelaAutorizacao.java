@@ -329,7 +329,7 @@ public class TelaAutorizacao extends JDialog {
             double valor = (Double.parseDouble(txtValorDesconto.getText().replace(",", ".")));
             txtValorDesconto.setText(String.format("%9.2f", valor));
             txtMotivoDesconto.requestFocus();
-            lblMensagem.setText("Tamanho: Min: 20 carac. Max: 255 carac.");
+            lblMensagem.setText("Tamanho (Caracteres): Min: 20 - Max: 255");
         }
     }//GEN-LAST:event_txtValorDescontoKeyPressed
 
@@ -388,6 +388,7 @@ public class TelaAutorizacao extends JDialog {
         texto = u.tamanhoMaximo(texto, 255);
         txtMotivoDesconto.setText(texto);
         int tamanho = texto.length();
+        
         int restam = 255-tamanho;
         if (tamanho > 20) {
             btnAutorizar.setEnabled(true);
@@ -397,7 +398,7 @@ public class TelaAutorizacao extends JDialog {
             btnAutorizar.setEnabled(false);
 
         }
-        lblMensagem.setText("Caracteres: "+String.valueOf(tamanho) + "         Restam: "+restam);
+        lblMensagem.setText("Caracteres: "+String.valueOf(tamanho) + "   Restam: "+restam);
         if (tamanho<20 || tamanho>240){
             lblMensagem.setForeground(Color.red);
             

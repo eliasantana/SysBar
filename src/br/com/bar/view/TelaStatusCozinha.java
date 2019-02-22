@@ -24,9 +24,9 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
 
     public void recebeOperador(String operador, String nPedido, String nmesa) {     
          
-        lblGarcom.setText("Garçom: "+operador);
-        lblMesa.setText("Mesa: "+nmesa);
-        lblNPedido.setText("Pedido: "+nPedido);
+        lblGarcom.setText(operador);
+        lblMesa.setText(nmesa);
+        lblNPedido.setText(nPedido);
         ControlerCozinha status = new ControlerCozinha();
         tblStatus.setModel(DbUtils.resultSetToTableModel(status.statusCozinha(nPedido)));
         modelStatusCozinha.redimensionaColunas(tblStatus);
@@ -55,6 +55,9 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         lblNPedido = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblStatus = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         btnFechar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -135,17 +138,17 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         lblGarcom.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         lblGarcom.setText("jLabel2");
         jPanel3.add(lblGarcom);
-        lblGarcom.setBounds(10, 10, 300, 30);
+        lblGarcom.setBounds(110, 10, 440, 30);
 
-        lblMesa.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        lblMesa.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblMesa.setText("jLabel3");
         jPanel3.add(lblMesa);
-        lblMesa.setBounds(10, 40, 130, 30);
+        lblMesa.setBounds(110, 40, 60, 25);
 
-        lblNPedido.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        lblNPedido.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblNPedido.setText("jLabel3");
         jPanel3.add(lblNPedido);
-        lblNPedido.setBounds(150, 40, 150, 30);
+        lblNPedido.setBounds(300, 40, 90, 25);
 
         tblStatus.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         tblStatus.setModel(new javax.swing.table.DefaultTableModel(
@@ -169,6 +172,21 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
 
         jPanel3.add(jScrollPane1);
         jScrollPane1.setBounds(5, 70, 608, 310);
+
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        jLabel3.setText("N. Pedido:");
+        jPanel3.add(jLabel3);
+        jLabel3.setBounds(200, 40, 90, 25);
+
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        jLabel4.setText("Mesa:");
+        jPanel3.add(jLabel4);
+        jLabel4.setBounds(10, 40, 60, 25);
+
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        jLabel5.setText("Garçom:");
+        jPanel3.add(jLabel5);
+        jLabel5.setBounds(10, 10, 90, 25);
 
         getContentPane().add(jPanel3);
         jPanel3.setBounds(0, 100, 618, 388);
@@ -230,6 +248,9 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
     private javax.swing.JLabel btnFechar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
