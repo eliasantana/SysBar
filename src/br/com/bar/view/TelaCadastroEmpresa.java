@@ -32,7 +32,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
      */
     public TelaCadastroEmpresa() {
         initComponents();
-        lblAdicionar.setVisible(false);
+       
         txtIdEmpresa.setVisible(false);
         // Instancia o objeto e executa o método retornando um objetodo tipo
         // Dados empresa
@@ -44,9 +44,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         //if (d.getNome_empresa().isEmpty()){
         //  lblAdicionar.setVisible(true);
         // }
-        if (d.getNome_empresa() == null) {
-            lblAdicionar.setVisible(true);
-        }
+       
         txtNomeEmpresa.setText(d.getNome_empresa());
         txtEndereco.setText(d.getEndereco());
         txtNumero.setText(String.valueOf(d.getNumero()));
@@ -94,7 +92,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txturlLogo = new javax.swing.JTextField();
@@ -123,7 +120,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         txtCnpj = new javax.swing.JFormattedTextField();
         lblExcluir = new javax.swing.JLabel();
-        lblAdicionar = new javax.swing.JLabel();
         lblEditar = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
@@ -151,10 +147,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 0, 36)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Dados Empresa");
-
         jLabel17.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -179,28 +171,26 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(txtIdEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUrlBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(jLabel4))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addComponent(jLabel2)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addGap(150, 150, 150)
+                .addComponent(txtIdEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtUrlBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(93, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                    .addComponent(txturlLogo))
-                .addGap(68, 68, 68))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                            .addComponent(txturlLogo))
+                        .addGap(68, 68, 68))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(86, 86, 86))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(146, 146, 146))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,11 +201,9 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
+                .addGap(145, 145, 145)
                 .addComponent(txturlLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtIdEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUrlBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -223,7 +211,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 344, 590);
+        jPanel1.setBounds(0, 0, 354, 590);
 
         jPanel2.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -246,7 +234,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblFechar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(lblFechar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel2);
@@ -265,7 +253,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 36)); // NOI18N
         jLabel3.setText("Cadastro Empresa");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(440, 20, 310, 50);
+        jLabel3.setBounds(480, 20, 310, 50);
 
         txtNomeEmpresa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -369,25 +357,14 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
 
         lblExcluir.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
-        lblExcluir.setText("Excluir");
+        lblExcluir.setText("Limpar");
         lblExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblExcluirMouseClicked(evt);
             }
         });
         getContentPane().add(lblExcluir);
-        lblExcluir.setBounds(800, 480, 90, 50);
-
-        lblAdicionar.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        lblAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
-        lblAdicionar.setText("Adicionar");
-        lblAdicionar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblAdicionarMouseClicked(evt);
-            }
-        });
-        getContentPane().add(lblAdicionar);
-        lblAdicionar.setBounds(590, 480, 100, 50);
+        lblExcluir.setBounds(800, 520, 90, 50);
 
         lblEditar.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvar32x32.png"))); // NOI18N
@@ -398,7 +375,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblEditar);
-        lblEditar.setBounds(710, 480, 80, 50);
+        lblEditar.setBounds(710, 520, 80, 50);
 
         txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -517,51 +494,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_lblFecharMouseClicked
 
-    private void lblAdicionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdicionarMouseClicked
-
-        // Instancia objeto dados
-        d.setNome_empresa(txtNomeEmpresa.getText());
-        d.setEndereco(txtEndereco.getText());
-        d.setBairro(txtBairro.getText());
-        try {
-
-            d.setNumero(Integer.parseInt(txtNumero.getText()));
-        } catch (NumberFormatException e) {
-            System.out.println("br.com.bar.view.TelaCadastroEmpresa.lblAlterarMouseClicked()" + e);
-        }
-        d.setCep(txtCep.getText());
-        d.setCidade(txtCidade.getText());
-        d.setTelefone(txtTelefone.getText());
-        d.setCelular(txtCelular.getText());
-        d.setEmail(txtEmail.getText());
-        d.setCnpj(txtCnpj.getText());
-        d.setUrlbackup(txtUrlBackup.getText());
-        d.setLogo(txturlLogo.getText());
-        d.setUf(comboUf.getSelectedItem().toString());
-        String btnSelecionado = buttonGroup1.getSelection().toString();
-
-        if ("Imprimir Direto".equals(btnSelecionado)) {
-            // 1 - Imprime na Tela 0 - Imprime Direto
-            d.setImprimir_na_tela(0); // Na tela
-        } else {
-            d.setImprimir_na_tela(1); // Direto para impressora
-        }
-
-        if ("".equals(txtNomeEmpresa.getText()) || txtNomeEmpresa.getText() == null) {
-            JOptionPane.showMessageDialog(null, "Dados inválidos, preencha todos os campos para continuar!");
-        } else {
-            if (dados.adicionaDados(d)) {
-                JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Impossível salvar dados");
-
-            }
-        }
-
-
-    }//GEN-LAST:event_lblAdicionarMouseClicked
-
     private void btnSelecionarArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarArquivoActionPerformed
         //Seleciona local do Arquivo
 
@@ -657,7 +589,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         if ("".equals(txtNomeEmpresa.getText()) || txtNomeEmpresa.getText() == null) {
             JOptionPane.showMessageDialog(null, "Dados inválidos, preencha todos os campos para continuar!");
         } else {
-            int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração dos dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             if (op == JOptionPane.YES_OPTION) {
 
                 if (dados.alteraDados(d)) {
@@ -760,7 +692,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -769,7 +700,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jpanelImpressao;
-    private javax.swing.JLabel lblAdicionar;
     private javax.swing.JLabel lblCaminho;
     private javax.swing.JLabel lblEditar;
     private javax.swing.JLabel lblExcluir;

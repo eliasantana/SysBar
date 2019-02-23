@@ -44,30 +44,12 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnGrupo1 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        btnGrupo2 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         btnFuncionario = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        btnPrecos = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        btnLog = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        btnCaixa = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        btnCaixa1 = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
         btnDadosEmpresa = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        btnRAnking = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblCargo = new javax.swing.JLabel();
         lblitulo = new javax.swing.JLabel();
@@ -128,26 +110,6 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnGrupo1.add(jLabel13);
         jLabel13.setBounds(0, 0, 160, 80);
 
-        btnGrupo2.setBackground(new java.awt.Color(204, 204, 204));
-        btnGrupo2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGrupo2MouseClicked(evt);
-            }
-        });
-        btnGrupo2.setLayout(null);
-
-        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(52, 73, 94));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Mesas");
-        btnGrupo2.add(jLabel11);
-        jLabel11.setBounds(0, 70, 160, 40);
-
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/mesas64x64.png"))); // NOI18N
-        btnGrupo2.add(jLabel14);
-        jLabel14.setBounds(0, 0, 160, 80);
-
         btnFuncionario.setBackground(new java.awt.Color(204, 204, 204));
         btnFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -167,86 +129,6 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         jLabel18.setText("Banco de Dados");
         btnFuncionario.add(jLabel18);
         jLabel18.setBounds(0, 70, 150, 40);
-
-        btnPrecos.setBackground(new java.awt.Color(204, 204, 204));
-        btnPrecos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPrecosMouseClicked(evt);
-            }
-        });
-        btnPrecos.setLayout(null);
-
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/money.png"))); // NOI18N
-        btnPrecos.add(jLabel15);
-        jLabel15.setBounds(0, 0, 150, 80);
-
-        jLabel19.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(52, 73, 94));
-        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("Preços");
-        btnPrecos.add(jLabel19);
-        jLabel19.setBounds(0, 70, 150, 40);
-
-        btnLog.setBackground(new java.awt.Color(204, 204, 204));
-        btnLog.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnLogMouseClicked(evt);
-            }
-        });
-        btnLog.setLayout(null);
-
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/log64x64.png"))); // NOI18N
-        btnLog.add(jLabel16);
-        jLabel16.setBounds(0, 0, 150, 80);
-
-        jLabel20.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(52, 73, 94));
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel20.setText("Auditoria");
-        btnLog.add(jLabel20);
-        jLabel20.setBounds(0, 70, 150, 40);
-
-        btnCaixa.setBackground(new java.awt.Color(204, 204, 204));
-        btnCaixa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCaixaMouseClicked(evt);
-            }
-        });
-        btnCaixa.setLayout(null);
-
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/caixa.png"))); // NOI18N
-        btnCaixa.add(jLabel17);
-        jLabel17.setBounds(0, 10, 150, 70);
-
-        jLabel21.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(52, 73, 94));
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("Gerenciar Caixa");
-        btnCaixa.add(jLabel21);
-        jLabel21.setBounds(0, 70, 150, 40);
-
-        btnCaixa1.setBackground(new java.awt.Color(204, 204, 204));
-        btnCaixa1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCaixa1MouseClicked(evt);
-            }
-        });
-        btnCaixa1.setLayout(null);
-
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/mesa64x64.png"))); // NOI18N
-        btnCaixa1.add(jLabel22);
-        jLabel22.setBounds(0, 10, 150, 70);
-
-        jLabel23.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(52, 73, 94));
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setText("Gerenciar Pedidos");
-        btnCaixa1.add(jLabel23);
-        jLabel23.setBounds(0, 70, 150, 40);
 
         btnDadosEmpresa.setBackground(new java.awt.Color(204, 204, 204));
         btnDadosEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -268,42 +150,10 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnDadosEmpresa.add(jLabel29);
         jLabel29.setBounds(0, 10, 160, 70);
 
-        btnRAnking.setBackground(new java.awt.Color(204, 204, 204));
-        btnRAnking.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnRAnkingMouseClicked(evt);
-            }
-        });
-        btnRAnking.setLayout(null);
-
-        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btngrafico2-48.png"))); // NOI18N
-        btnRAnking.add(jLabel24);
-        jLabel24.setBounds(0, 10, 150, 70);
-
-        jLabel25.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(52, 73, 94));
-        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setText("Ranking de Vendas");
-        btnRAnking.add(jLabel25);
-        jLabel25.setBounds(0, 70, 150, 40);
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnPrecos, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnLog, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCaixa1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRAnking, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(707, 707, 707))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -312,10 +162,8 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGrupo1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGrupo2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDadosEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,22 +171,14 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGrupo2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGrupo1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDadosEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPrecos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLog, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCaixa1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRAnking, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(20, 90, 880, 320);
+        jPanel2.setBounds(20, 90, 720, 190);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setLayout(null);
@@ -346,17 +186,20 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("jLabel3");
         jPanel1.add(lblCargo);
-        lblCargo.setBounds(670, 50, 110, 30);
+        lblCargo.setBounds(10, 60, 110, 30);
 
-        lblitulo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
+        lblitulo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         lblitulo.setText("Configurações do Sistema");
         jPanel1.add(lblitulo);
-        lblitulo.setBounds(80, 10, 550, 60);
+        lblitulo.setBounds(110, 0, 510, 60);
 
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("jLabel3");
         jPanel1.add(lblOperador);
-        lblOperador.setBounds(670, 20, 110, 30);
+        lblOperador.setBounds(90, 60, 110, 30);
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(50, 0, 660, 310);
 
         jPanel3.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -385,13 +228,10 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                 .addComponent(lblFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(jPanel3);
-        jPanel3.setBounds(790, 0, 40, 40);
+        getContentPane().add(jPanel3);
+        jPanel3.setBounds(720, 0, 40, 40);
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(50, 0, 830, 430);
-
-        setSize(new java.awt.Dimension(924, 428));
+        setSize(new java.awt.Dimension(760, 306));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -411,46 +251,11 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         empresa.setVisible(true);
     }//GEN-LAST:event_btnDadosEmpresaMouseClicked
 
-    private void btnCaixa1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaixa1MouseClicked
-        // Chama a tela de Gerenciametno de Pedido
-        TelaGerenciarPedido gp = new TelaGerenciarPedido();
-        //gp.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        gp.setVisible(true);
-    }//GEN-LAST:event_btnCaixa1MouseClicked
-
-    private void btnCaixaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaixaMouseClicked
-        // Abre a tela de gerenciamento de caixa
-        TelaGerenciamentoDeCaixa gx = new TelaGerenciamentoDeCaixa();
-        gx.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        gx.setVisible(true);
-    }//GEN-LAST:event_btnCaixaMouseClicked
-
-    private void btnLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogMouseClicked
-
-        // Abre tela de log
-        TelaLog tl = new TelaLog();
-        tl.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        tl.setVisible(true);
-
-    }//GEN-LAST:event_btnLogMouseClicked
-
-    private void btnPrecosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrecosMouseClicked
-        // Calcula reajuste de produtos
-        TelaReajuste reajuste = new TelaReajuste();
-        reajuste.setVisible(true);
-    }//GEN-LAST:event_btnPrecosMouseClicked
-
     private void btnFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFuncionarioMouseClicked
         TelaPametro paraPametro = new TelaPametro();
         paraPametro.setVisible(true);
 
     }//GEN-LAST:event_btnFuncionarioMouseClicked
-
-    private void btnGrupo2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGrupo2MouseClicked
-        // Chama tela cadastro demesas
-        TelaCadastroDeMesas m = new TelaCadastroDeMesas();
-        m.setVisible(true);
-    }//GEN-LAST:event_btnGrupo2MouseClicked
 
     private void btnGrupo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGrupo1MouseClicked
         //  Chama tela de configuração financeira
@@ -464,12 +269,6 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         grupos.recebeOperador(lblitulo.getText());
         grupos.setVisible(true);
     }//GEN-LAST:event_btnGrupoMouseClicked
-
-    private void btnRAnkingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRAnkingMouseClicked
-        // Chama a tela de Raking de Venda
-        TelaRanking ranking = new TelaRanking();
-        ranking.setVisible(true);
-    }//GEN-LAST:event_btnRAnkingMouseClicked
 
     /**
      * @param args the command line arguments
@@ -510,32 +309,14 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel btnCaixa;
-    private javax.swing.JPanel btnCaixa1;
     private javax.swing.JPanel btnDadosEmpresa;
     private javax.swing.JPanel btnFuncionario;
     private javax.swing.JPanel btnGrupo;
     private javax.swing.JPanel btnGrupo1;
-    private javax.swing.JPanel btnGrupo2;
-    private javax.swing.JPanel btnLog;
-    private javax.swing.JPanel btnPrecos;
-    private javax.swing.JPanel btnRAnking;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel8;

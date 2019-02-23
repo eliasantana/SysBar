@@ -230,9 +230,12 @@ public class TelaGerenciadorDeLicenca extends JDialog {
 
     private void lblChaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblChaveMouseClicked
         // Chama Tela de Ativação
-        dispose();
-        TelaAtivacao a = new TelaAtivacao();
-        a.setVisible(true);
+        //this.setVisible(false);
+        this.dispose();
+        TelaAtivacao ta = new TelaAtivacao();
+        ta.recebeJanela(this);
+        ta.setVisible(true);
+       
     }//GEN-LAST:event_lblChaveMouseClicked
 
     private void btnSolicitaLicencaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitaLicencaActionPerformed

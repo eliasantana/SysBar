@@ -222,17 +222,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/estoque.png"))); // NOI18N
-        jLabel5.setText("Estoque");
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/gerenciar64x64.png"))); // NOI18N
+        jLabel5.setText("Gerenciamento");
 
         javax.swing.GroupLayout btnProdutoLayout = new javax.swing.GroupLayout(btnProduto);
         btnProduto.setLayout(btnProdutoLayout);
         btnProdutoLayout.setHorizontalGroup(
             btnProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnProdutoLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnProdutoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                .addContainerGap())
         );
         btnProdutoLayout.setVerticalGroup(
             btnProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

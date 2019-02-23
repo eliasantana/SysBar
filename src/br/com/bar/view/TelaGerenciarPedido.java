@@ -58,14 +58,19 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         lblCargo.setVisible(false);
         lblOperador.setVisible(false);
 
+        if ("Selecione...".equals(jcomboPedido.getSelectedItem().toString())) {
+            btnListar.setEnabled(false);
+        }
+
     }
+
     //  Reebe dados da vindo da tela de Pedidos
     public void recebeOperador(JFrame janela, String operador, String cargo) {
 
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
         this.tlPedido = (TelaPedido2) janela;
-        
+
     }
 
     // Atualiza a tabela após remoção do item do pedido.
@@ -265,12 +270,20 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         listaItensDoPedido();
-        
+
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void jcomboPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboPedidoActionPerformed
 
         btnCancelarPedido.setEnabled(false);
+        btnListar.setEnabled(false);
+        
+        if (jcomboPedido.getItemCount() > 1) {
+            btnListar.setEnabled(true);
+           
+        }
+        
+
     }//GEN-LAST:event_jcomboPedidoActionPerformed
     public void recebeNovaQtd(int novaQtd) {
         this.qtdAtualizada = novaQtd;//1
@@ -284,7 +297,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
             ce.entradaDeProduto(txtIdProduto.getText(), txtQtd.getText());
             //Registra a movimentação
             ce.registraMovimentacao(txtIdProduto.getText(), String.valueOf(txtQtd.getText()), ce.localizaIdOperacao("Devolução"), "O cliente desistiu do produto");
-            
+
         } else {
             Double total = vUnit * novaQtd;
             // Atualiza Quantidade
@@ -330,14 +343,14 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                     atualizaItem.setModal(true);
                     atualizaItem.setVisible(true);
                     //Atualiza a tabela detalhe do pedido na tela Gerenciar pedido.
-                    tlPedido.atuDetalheDoPedido(lblNumeroMesa.getText(),jcomboPedido.getSelectedItem().toString());
+                    tlPedido.atuDetalheDoPedido(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString());
 
                 } else {
                     // Se o pedido tiver quantidade igual a 1
                     if (cp.excluiItemPedido(txtIDItem.getText())) {
-                        
+
                         // Atualiza a tabela a tela de Pedido
-                        tlPedido.atuDetalheDoPedido(lblNumeroMesa.getText(),jcomboPedido.getSelectedItem().toString());
+                        tlPedido.atuDetalheDoPedido(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString());
                         //Remove item do pedido
                         lblRemoverItemDoPedido.setEnabled(false);
                         // Devolve produdto ao estoque
@@ -365,11 +378,11 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                             }
                             lblQtdItens.setText(String.valueOf(itens));
 
-                        } 
+                        }
                     }
                 }
 
-            } 
+            }
         }
 
     }//GEN-LAST:event_lblRemoverItemDoPedidoMouseClicked
@@ -393,10 +406,18 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                 l.setDescricao(l.getUsuario() + " cancelou o pedido ->" + nPedido);
                 btnCancelarPedido.setEnabled(false);
                 lblNumeroMesa.setText(null);
-                
                 tlPedido.atualizaPedidos();
+
             }
         }
+        cp.carregaComboPedido(jcomboPedido);
+        jcomboPedido.setSelectedIndex(0);
+        if (jcomboPedido.getItemCount()<=1){
+            jcomboPedido.setEnabled(false);
+        }
+        btnListar.setEnabled(false);
+
+
     }//GEN-LAST:event_btnCancelarPedidoActionPerformed
     // Conta o número de itens do ResultSetInformado retornando um inteiro com
     // a quantidade retornada pelo ResultSet
