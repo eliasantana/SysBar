@@ -40,10 +40,10 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
 
     public TelaCadastroDeMesas() {
         initComponents();
-        txtIdGarcom.setVisible(true);
-        txtIdMesa.setVisible(true);
+        txtIdGarcom.setVisible(false);
+        txtIdMesa.setVisible(false);
         panelTroca.setVisible(false);
-        txtIdNovoGarcom.setVisible(true);
+        txtIdNovoGarcom.setVisible(false);
         btnLixeira.setEnabled(false);
         lblTrocaTodas.setEnabled(false);
         btnTrocaGarcom.setEnabled(false);
@@ -90,8 +90,6 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtIdGarcom = new javax.swing.JTextField();
-        txtIdMesa = new javax.swing.JTextField();
         comboGarcom = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -103,7 +101,6 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         lblTrocaTodas = new javax.swing.JLabel();
         jCheckBoxTroca = new javax.swing.JCheckBox();
         checkTrocaGeral = new javax.swing.JCheckBox();
-        txtIdNovoGarcom = new javax.swing.JTextField();
         menuBar = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         btnLixeira = new javax.swing.JLabel();
@@ -114,28 +111,29 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         lblCargo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
+        txtIdGarcom = new javax.swing.JTextField();
+        txtIdMesa = new javax.swing.JTextField();
+        txtIdNovoGarcom = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(38, 53, 61));
+        jPanel1.setLayout(null);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logoMesa.png"))); // NOI18N
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(20, 11, 323, 128);
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 153));
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Cadastro de Mesas");
-
-        txtIdGarcom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdGarcomActionPerformed(evt);
-            }
-        });
-
-        txtIdMesa.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(10, 145, 350, 46);
 
         comboGarcom.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         comboGarcom.addItemListener(new java.awt.event.ItemListener() {
@@ -148,16 +146,22 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 comboGarcomActionPerformed(evt);
             }
         });
+        jPanel1.add(comboGarcom);
+        comboGarcom.setBounds(17, 281, 238, 38);
 
         jLabel14.setBackground(new java.awt.Color(52, 73, 94));
         jLabel14.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Garçom Atual");
+        jPanel1.add(jLabel14);
+        jLabel14.setBounds(17, 251, 104, 25);
 
         jLabel13.setBackground(new java.awt.Color(52, 73, 94));
         jLabel13.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Mesa");
+        jPanel1.add(jLabel13);
+        jLabel13.setBounds(265, 251, 40, 25);
 
         txtNumeroMesa.setFont(new java.awt.Font("Yu Gothic Light", 1, 18)); // NOI18N
         txtNumeroMesa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -169,6 +173,8 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 txtNumeroMesaKeyReleased(evt);
             }
         });
+        jPanel1.add(txtNumeroMesa);
+        txtNumeroMesa.setBounds(265, 281, 95, 36);
 
         panelTroca.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -239,6 +245,9 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 .addGap(1, 1, 1))
         );
 
+        jPanel1.add(panelTroca);
+        panelTroca.setBounds(13, 370, 347, 135);
+
         jCheckBoxTroca.setBackground(new java.awt.Color(38, 53, 61));
         buttonGroup1.add(jCheckBoxTroca);
         jCheckBoxTroca.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
@@ -254,6 +263,8 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 jCheckBoxTrocaActionPerformed(evt);
             }
         });
+        jPanel1.add(jCheckBoxTroca);
+        jCheckBoxTroca.setBounds(13, 337, 97, 31);
 
         checkTrocaGeral.setBackground(new java.awt.Color(38, 53, 61));
         buttonGroup1.add(checkTrocaGeral);
@@ -265,74 +276,8 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 checkTrocaGeralMouseClicked(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(28, 28, 28))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtIdGarcom, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtIdMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtIdNovoGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(panelTroca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel14)
-                                    .addComponent(comboGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(txtNumeroMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jCheckBoxTroca)
-                                .addGap(47, 47, 47)
-                                .addComponent(checkTrocaGeral)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtIdGarcom, txtIdMesa});
-
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(5, 5, 5)
-                        .addComponent(comboGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addGap(5, 5, 5)
-                        .addComponent(txtNumeroMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBoxTroca)
-                    .addComponent(checkTrocaGeral))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelTroca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIdGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtIdMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtIdNovoGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
-        );
+        jPanel1.add(checkTrocaGeral);
+        checkTrocaGeral.setBounds(157, 337, 93, 29);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 370, 524);
@@ -449,6 +394,20 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(780, 0, 40, 40);
+
+        txtIdGarcom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdGarcomActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtIdGarcom);
+        txtIdGarcom.setBounds(640, 10, 70, 30);
+
+        txtIdMesa.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        getContentPane().add(txtIdMesa);
+        txtIdMesa.setBounds(640, 50, 70, 30);
+        getContentPane().add(txtIdNovoGarcom);
+        txtIdNovoGarcom.setBounds(730, 50, 70, 29);
 
         setSize(new java.awt.Dimension(819, 524));
         setLocationRelativeTo(null);

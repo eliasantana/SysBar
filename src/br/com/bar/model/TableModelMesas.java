@@ -20,7 +20,7 @@ public class TableModelMesas extends AbstractTableModel {
 
     private final ArrayList<Mesa> listaMesas = new ArrayList<>();
    
-    String colunas[] = {"CÓDIGO INTERNO", "GARÇOM", "MESA"};
+    String colunas[] = {"CÓD. INT.", "GARÇOM", "MESA"};
     public void adicionaPratoCozinha (Mesa m){
         listaMesas.add(m);
     }
@@ -58,9 +58,9 @@ public class TableModelMesas extends AbstractTableModel {
      public void redimensionaColunas(JTable tabela) {
 
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(130); // CÓDIGO
-        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(200);//FUNCIONÁRIO
-        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(80); //NÚMERO DA MESA
+        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(70); // CÓDIGO
+        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(290);//FUNCIONÁRIO
+        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(60); //NÚMERO DA MESA
     }
 
     

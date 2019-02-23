@@ -347,7 +347,7 @@ public class TelaContasApagar extends JDialog {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "CÓDIGO", "DESCRIÇÃO", "VALOR R$", "VENCIMENTO", "PAGAMENTO", "VLR PAGO R$", "OPERADOR", "GRUPO"
+                "CÓD. INT.", "DESCRIÇÃO", "VALOR R$", "VENCIMENTO", "PAGAMENTO", "VLR PAGO R$", "OPERADOR", "GRUPO"
             }
         ));
         tblContas.setRowHeight(25);
@@ -359,7 +359,7 @@ public class TelaContasApagar extends JDialog {
         jScrollPane1.setViewportView(tblContas);
 
         painelDireito.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 130, 880, 350);
+        jScrollPane1.setBounds(20, 130, 890, 350);
 
         jPanel1.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -377,7 +377,9 @@ public class TelaContasApagar extends JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tbnFechar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(tbnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,7 +389,7 @@ public class TelaContasApagar extends JDialog {
         );
 
         painelDireito.add(jPanel1);
-        jPanel1.setBounds(860, 0, 40, 40);
+        jPanel1.setBounds(876, 0, 40, 40);
 
         btnBaixar.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         btnBaixar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnbaixar-48.png"))); // NOI18N
@@ -446,9 +448,9 @@ public class TelaContasApagar extends JDialog {
         jLabel2.setBounds(270, 10, 350, 64);
 
         getContentPane().add(painelDireito);
-        painelDireito.setBounds(360, 0, 900, 550);
+        painelDireito.setBounds(360, 0, 920, 550);
 
-        setSize(new java.awt.Dimension(1260, 552));
+        setSize(new java.awt.Dimension(1274, 552));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -567,9 +569,9 @@ public class TelaContasApagar extends JDialog {
             Date dtVencito = u.converteData(u.formataDataBanco(dataVencimento));
             // 15-02                    02-02
             if (dataAtual.getTime() >= dtVencito.getTime()) {
-
-            } else {
                 txtValorPago.setEnabled(true);
+            } else {
+                txtValorPago.setEnabled(false);
             }
             try {
 
@@ -605,7 +607,7 @@ public class TelaContasApagar extends JDialog {
                 //System.out.println(valorpago);
 
             } catch (Exception e) {
-                // Pesga a data de Vencimento da conta em aberto
+                // Pega a data de Vencimento da conta em aberto
                 c.setDataVencto(tblContas.getModel().getValueAt(linha, 3).toString()); //dd/mm/yyyy
 
                 if (c.getId() == null) {
@@ -809,7 +811,7 @@ public class TelaContasApagar extends JDialog {
                     }
                 }
                 tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar(op)));
-
+                btnBaixar.setEnabled(false);
                 break;
             case "Pagas":
                 tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar(op)));

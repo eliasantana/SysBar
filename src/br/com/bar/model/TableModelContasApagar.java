@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class TableModelContasApagar extends AbstractTableModel {
 
     private final ArrayList<ModelContasApagar> contas = new ArrayList<>();
-    String colunas[] = {"CÓDIGO", "DESCRIÇÃO", "VALOR R$", "VENCIMENTO", "PAGAMENTO","VLR PAGO R$","OPERADOR","GRUPO"};
+    String colunas[] = {"CÓD. INT.", "DESCRIÇÃO", "VALOR R$", "VENCIMENTO", "PAGAMENTO","VLR PAGO R$","OPERADOR","GRUPO"};
     
      
     @Override
@@ -66,7 +66,7 @@ public class TableModelContasApagar extends AbstractTableModel {
      public void redimensionaColunas(JTable tabela) {
          //"CÓDIGO", "DESCRIÇÃO", "VALOR", "VENCIMENTO", "PAGAMENTO","PAGO","OPERADOR","GRUPO"
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(60); 
+        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(80); 
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(230);
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(80); 
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(90); 

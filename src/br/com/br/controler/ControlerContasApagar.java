@@ -52,7 +52,7 @@ public class ControlerContasApagar {
         } 
 
         String sql = "SELECT \n"
-                + "	ca.id as 'CÓDIGO', \n"
+                + "	ca.id as 'CÓD. INT.', \n"
                 + "	ca.descricao as 'DESCRIÇÃO', \n"
                 + "	format(ca.valor,2,'de_DE') as 'VALOR R$',  \n"
                 + "	date_format(ca.data_vencito,'%d/%m/%Y') AS 'VENCIMENTO', \n"

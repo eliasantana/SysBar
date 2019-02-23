@@ -84,7 +84,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblLupa.setVisible(false);
         lblStatusCozinha.setEnabled(false);
         btnAbrirPedido.setEnabled(false);
-        lblCargo.setVisible(true);
+        lblCargo.setVisible(false);
 
     }
 
@@ -777,6 +777,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 tblNumeroMesa.setModel(DbUtils.resultSetToTableModel(cm.listaMesaLivre(txtIdGarcom.getText())));
                 txtNumeroMesa.setText(null);
                 lblMsgRetorno.setText("*Pedido gerado com sucesso!");
+                btnAbrirPedido.setEnabled(false);
             }
 
         }
