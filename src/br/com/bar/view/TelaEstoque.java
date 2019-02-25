@@ -304,22 +304,27 @@ public class TelaEstoque extends javax.swing.JFrame {
 
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btngrafico2-48.png"))); // NOI18N
+        jLabel24.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel24MouseClicked(evt);
+            }
+        });
         btnRAnking.add(jLabel24);
         jLabel24.setBounds(10, 0, 180, 100);
 
         jLabel25.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(52, 73, 94));
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel25.setText("Vendas");
+        jLabel25.setText("Ranking de Vendas");
         btnRAnking.add(jLabel25);
-        jLabel25.setBounds(80, 50, 90, 30);
+        jLabel25.setBounds(60, 50, 117, 30);
 
         jLabel26.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(52, 73, 94));
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel26.setText("Gerenciar");
         btnRAnking.add(jLabel26);
-        jLabel26.setBounds(80, 30, 90, 30);
+        jLabel26.setBounds(60, 30, 90, 30);
 
         borda.add(btnRAnking);
         btnRAnking.setBounds(10, 230, 190, 100);
@@ -476,9 +481,9 @@ public class TelaEstoque extends javax.swing.JFrame {
     private void lblFornecedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFornecedoresMouseClicked
         // Chama tela de cadastro de fornecedorese
 
-        TelaCadastroFornecedor cadastro = new TelaCadastroFornecedor();
-        cadastro.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
-        cadastro.setVisible(true);
+        TelaFornecedores tlFornecedores = new TelaFornecedores();
+        tlFornecedores.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
+        tlFornecedores.setVisible(true);
 
         // Inicio do Registro de log
         Log l = new Log();
@@ -565,6 +570,12 @@ public class TelaEstoque extends javax.swing.JFrame {
         gx.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
         gx.setVisible(true);
     }//GEN-LAST:event_jLabel17MouseClicked
+
+    private void jLabel24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel24MouseClicked
+       // Chama da tela de Ranking de Vendas
+       TelaRanking ranking = new TelaRanking();
+       ranking.setVisible(true);
+    }//GEN-LAST:event_jLabel24MouseClicked
 
     /**
      * @param args the command line arguments

@@ -687,7 +687,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             
             Fornecedor f = new Fornecedor();
             f.setNome(comboFornecedor.getSelectedItem().toString());
-            f.setCodigo(Integer.parseInt(cf.localizaForecedor(f)));
+            f.setId(Integer.parseInt(cf.localizaForecedor(f)));
 
             Produto p = new Produto();
 
@@ -698,7 +698,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             p.setQtdMax(txtQtdMax.getText());
             p.setQtdMin(txtQtdMin.getText());
             p.setTbGrupoId(txtIdGrupo.getText());
-            p.setIdFornecedor(f.getCodigo());
+            p.setIdFornecedor(f.getId());
 
             int op = JOptionPane.showConfirmDialog(null, "Confirma alteração?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             if (op == JOptionPane.YES_OPTION) {
@@ -725,7 +725,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private void btnAdicionarFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdicionarFornecedorMouseClicked
         // Chama Tela Fornecedores
         TelaCadastroFornecedor cadfor = new TelaCadastroFornecedor();
-        cadfor.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        //cadfor.recebeOperador(lblOperador.getText(), lblCargo.getText());
         cadfor.setVisible(true);
     }//GEN-LAST:event_btnAdicionarFornecedorMouseClicked
 
@@ -783,7 +783,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
             Fornecedor f = new Fornecedor();
             f.setNome(comboFornecedor.getSelectedItem().toString());
-            f.setCodigo(Integer.parseInt(cf.localizaForecedor(f)));
+            f.setId(Integer.parseInt(cf.localizaForecedor(f)));
             // Lista os produtos do fornecedor selecionado na combobox
             tblProduto.setModel(DbUtils.resultSetToTableModel(cp.listaProduto(f)));
             btnFiltrar.setText("Remover Filtro");

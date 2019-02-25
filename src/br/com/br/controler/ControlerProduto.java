@@ -67,7 +67,7 @@ public class ControlerProduto {
 
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setInt(1, f.getCodigo());
+            pst.setInt(1, f.getId());
             rs = pst.executeQuery();
 
         } catch (SQLException e) {

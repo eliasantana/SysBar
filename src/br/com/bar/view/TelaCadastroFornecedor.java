@@ -9,6 +9,7 @@ import br.com.bar.dao.Log;
 import br.com.bar.model.Fornecedor;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerFornecedor;
+import java.awt.Color;
 import java.util.Calendar;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -23,36 +24,118 @@ public class TelaCadastroFornecedor extends JDialog {
     ControlerFornecedor cf = new ControlerFornecedor();
     Log log = new Log();
     Util u = new Util();
+    String operacao;
+    Fornecedor fRebido = new Fornecedor();
+    TelaFornecedores tlFor;
 
     /**
      * Creates new form TelaCadastroFornecedor
      */
     public TelaCadastroFornecedor() {
         initComponents();
-        tblFornecedores.setModel(DbUtils.resultSetToTableModel(cf.listaFornecedor()));
         txtIdFor.setVisible(false);
-        btnAlterar.setEnabled(false);
-        btnExcluir.setEnabled(false);
         lblCargo.setVisible(false);
-        lblData.setVisible(false);
         lblOperador.setVisible(false);
-        
+        btnSalvar.setEnabled(false);
+        bloqueiaCampos();
     }
 
-    public void recebeOperador(String operador, String cargo) {
+    public void recebeOperador(String operador, String cargo, String operacao, TelaFornecedores tl) {
 
         lblCargo.setText(cargo);
         lblOperador.setText(operador);
         Calendar c = Calendar.getInstance();
-        lblData.setText(u.formataDataBr(c.getTime()));
+        this.operacao = operacao;
+        this.tlFor = tl;
+        lblTitulo.setText(operacao);
+        if("Incluir".equals(lblTitulo.getText())){
+            lblTitulo.setText(operacao);
+            desbloqueiaCampos();
+            txtFornecedor.setEnabled(true);
+            txtCnpj.setEnabled(true);
+        }
+    }
+
+    public void recebeFornecedor(Fornecedor f) {
+        // Carrega da dos do Fornecedor informado no parâmetro do método.
+        txtFornecedor.setText(f.getNome());
+        txtCnpj.setText(f.getCnpj());
+        txtEndereco.setText(f.getEndereco());
+        txtNumero.setText(f.getNumero());
+        txtComplemento.setText(f.getComplemento());
+        txtBairro.setText(f.getBairro());
+        txtCep.setText(f.getCep());
+        txtCidade.setText(f.getCidade());
+        comboUf.setSelectedItem(f.getUf());
+        txtRepresentante.setText(f.getRepresentante());
+        txtTelefone.setText(f.getTelefone());
+        txtEmail.setText(f.getEmail());
+        txtSite.setText(f.getSite());
+        comboStatus.setSelectedItem(f.getStatus());
+        System.out.println("Status:" + f.getStatus());
+        txtAreaObs.setText(f.getObs());
+        this.fRebido = f;
+        switch (operacao) {
+            
+            case "Incluir":
+                lblTitulo.setText(operacao);
+                desbloqueiaCampos();
+                break;
+            case "Alterar":
+                lblTitulo.setText(operacao);
+                desbloqueiaCampos();
+                txtFornecedor.setEnabled(false);
+                txtCnpj.setEnabled(false);
+                break;
+            case "Consultar":
+                lblTitulo.setText(operacao);
+                bloqueiaCampos();
+                btnSalvar.setVisible(false);
+                break;
+
+            default:
+                bloqueiaCampos();
+        }
 
     }
 
     private void limparform() {
 
         txtFornecedor.setText(null);
+        txtCnpj.setText(null);
+        txtEndereco.setText(null);
+        txtNumero.setText(null);
+        txtComplemento.setText(null);
+        txtBairro.setText(null);
+        txtCep.setText(null);
+        txtCidade.setText(null);
+        comboUf.setSelectedIndex(0);
+        txtRepresentante.setText(null);
         txtTelefone.setText(null);
         txtEmail.setText(null);
+        txtSite.setText(null);
+        comboStatus.setSelectedIndex(0);
+        txtAreaObs.setText(null);
+
+    }
+
+    private void bloqueiaCampos() {
+
+        txtFornecedor.setEnabled(false);
+        txtCnpj.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtNumero.setEnabled(false);
+        txtComplemento.setEnabled(false);
+        txtBairro.setEnabled(false);
+        txtCep.setEnabled(false);
+        txtCidade.setEnabled(false);
+        comboUf.setEnabled(false);
+        txtRepresentante.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtEmail.setEnabled(false);
+        txtSite.setEnabled(false);
+        comboStatus.setEnabled(false);
+        txtAreaObs.setEnabled(false);
 
     }
 
@@ -65,6 +148,7 @@ public class TelaCadastroFornecedor extends JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jRadioButton1 = new javax.swing.JRadioButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -74,20 +158,43 @@ public class TelaCadastroFornecedor extends JDialog {
         txtIdFor = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        lblData = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtFornecedor = new javax.swing.JTextField();
         lblTelefone = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblFornecedores = new javax.swing.JTable();
         txtTelefone = new javax.swing.JFormattedTextField();
+        txtCep = new javax.swing.JFormattedTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtRepresentante = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtSite = new javax.swing.JTextField();
+        comboStatus = new javax.swing.JComboBox<>();
+        txtEndereco = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        txtComplemento = new javax.swing.JTextField();
+        txtBairro = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JLabel();
-        btnAlterar = new javax.swing.JLabel();
-        btnExcluir = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        txtNumero = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        txtCidade = new javax.swing.JTextField();
+        comboUf = new javax.swing.JComboBox<>();
+        jLabel18 = new javax.swing.JLabel();
+        txtCnpj = new javax.swing.JFormattedTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtAreaObs = new javax.swing.JTextArea();
+        jLabel19 = new javax.swing.JLabel();
+        lblMsg = new javax.swing.JLabel();
+
+        jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -97,7 +204,7 @@ public class TelaCadastroFornecedor extends JDialog {
         jPanel1.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
-        jLabel1.setText("de Fornecedores");
+        jLabel1.setText("Fornecedor");
         jPanel1.add(jLabel1);
         jLabel1.setBounds(180, 50, 270, 48);
 
@@ -109,7 +216,7 @@ public class TelaCadastroFornecedor extends JDialog {
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("Operador");
         jPanel1.add(lblOperador);
-        lblOperador.setBounds(160, 110, 120, 32);
+        lblOperador.setBounds(350, 80, 120, 32);
         jPanel1.add(jLabel12);
         jLabel12.setBounds(122, 156, 42, 0);
 
@@ -117,7 +224,7 @@ public class TelaCadastroFornecedor extends JDialog {
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("Cargo");
         jPanel1.add(lblCargo);
-        lblCargo.setBounds(270, 110, 110, 30);
+        lblCargo.setBounds(350, 40, 110, 30);
         jPanel1.add(txtIdFor);
         txtIdFor.setBounds(388, 156, 34, 20);
 
@@ -150,51 +257,31 @@ public class TelaCadastroFornecedor extends JDialog {
         );
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(450, 0, 40, 40);
+        jPanel3.setBounds(455, 0, 40, 40);
 
-        lblData.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario24x24.png"))); // NOI18N
-        lblData.setText("jLabel2");
-        jPanel1.add(lblData);
-        lblData.setBounds(380, 110, 100, 30);
-
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        jLabel2.setText("Cadastro");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(120, 10, 135, 48);
+        lblTitulo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
+        lblTitulo.setText("titulo");
+        jPanel1.add(lblTitulo);
+        lblTitulo.setBounds(120, 10, 180, 48);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(-2, 0, 490, 150);
+        jPanel1.setBounds(-2, 0, 500, 120);
 
-        jLabel4.setText("Fornecedor");
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setText("Endereço");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 110, 20));
 
         txtFornecedor.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-
-        lblTelefone.setText("Telefone");
-
-        txtEmail.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-
-        jLabel6.setText("E-mail");
-
-        tblFornecedores.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        tblFornecedores.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        tblFornecedores.setRowHeight(25);
-        tblFornecedores.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblFornecedoresMouseClicked(evt);
+        txtFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFornecedorKeyReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tblFornecedores);
+        jPanel2.add(txtFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 35, 320, 30));
+
+        lblTelefone.setText("Telefone");
+        jPanel2.add(lblTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, -1, 20));
 
         try {
             txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ####-####")));
@@ -202,116 +289,228 @@ public class TelaCadastroFornecedor extends JDialog {
             ex.printStackTrace();
         }
         txtTelefone.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jPanel2.add(txtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 160, 30));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTelefone)
-                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(txtEmail)))
-                    .addComponent(jLabel4)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblTelefone, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        try {
+            txtCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanel2.add(txtCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 80, 30));
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtEmail, txtTelefone});
+        jLabel5.setText("CNPJ");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 14, -1, 20));
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 140, 490, 310);
+        txtRepresentante.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtRepresentanteKeyReleased(evt);
+            }
+        });
+        jPanel2.add(txtRepresentante, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 300, 30));
+
+        jLabel8.setText("Razão Social");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 15, 80, -1));
+
+        jLabel6.setText("Site");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, -1, 20));
+
+        txtEmail.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEmailKeyReleased(evt);
+            }
+        });
+        jPanel2.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 230, 30));
+
+        jLabel9.setText("Observação");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 80, 20));
+
+        txtSite.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        txtSite.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtSiteMouseClicked(evt);
+            }
+        });
+        jPanel2.add(txtSite, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 230, 30));
+
+        comboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Ativo", "Inativo" }));
+        comboStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboStatusActionPerformed(evt);
+            }
+        });
+        jPanel2.add(comboStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 100, 28));
+
+        txtEndereco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEnderecoKeyReleased(evt);
+            }
+        });
+        jPanel2.add(txtEndereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 470, 30));
+
+        jLabel11.setText("Representante");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 110, 20));
+
+        jLabel13.setText("CEP");
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 80, 20));
+
+        jLabel14.setText("Complemento");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 110, 20));
+
+        txtComplemento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtComplementoKeyReleased(evt);
+            }
+        });
+        jPanel2.add(txtComplemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 170, 30));
+
+        txtBairro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                txtBairroMouseReleased(evt);
+            }
+        });
+        txtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBairroKeyReleased(evt);
+            }
+        });
+        jPanel2.add(txtBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 200, 30));
+
+        jLabel15.setText("Bairro");
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 110, 20));
 
         btnSalvar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
-        btnSalvar.setText("Adicionar");
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvar32x32.png"))); // NOI18N
+        btnSalvar.setText("Salvar");
         btnSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSalvarMouseClicked(evt);
             }
         });
-        getContentPane().add(btnSalvar);
-        btnSalvar.setBounds(90, 450, 110, 48);
+        jPanel2.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 450, 110, 48));
 
-        btnAlterar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapis.png"))); // NOI18N
-        btnAlterar.setText("Alterar");
-        btnAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAlterarMouseClicked(evt);
+        jLabel16.setText("Número");
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 80, 20));
+
+        txtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNumeroKeyReleased(evt);
             }
         });
-        getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(200, 450, 100, 50);
+        jPanel2.add(txtNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 80, 30));
 
-        btnExcluir.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
-        btnExcluir.setText("Excluir");
-        btnExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnExcluirMouseClicked(evt);
+        jLabel17.setText("UF");
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 170, 50, 20));
+
+        txtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCidadeKeyReleased(evt);
             }
         });
-        getContentPane().add(btnExcluir);
-        btnExcluir.setBounds(300, 450, 110, 50);
+        jPanel2.add(txtCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 290, 30));
 
-        setSize(new java.awt.Dimension(488, 514));
+        comboUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE" }));
+        comboUf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboUfActionPerformed(evt);
+            }
+        });
+        jPanel2.add(comboUf, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, 80, 30));
+
+        jLabel18.setText("Cidade");
+        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 80, 20));
+
+        try {
+            txtCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtCnpj.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCnpjMouseClicked(evt);
+            }
+        });
+        jPanel2.add(txtCnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 35, 140, 30));
+
+        jLabel10.setText("E-mail");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, 20));
+
+        txtAreaObs.setColumns(20);
+        txtAreaObs.setLineWrap(true);
+        txtAreaObs.setRows(5);
+        txtAreaObs.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtAreaObsKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(txtAreaObs);
+
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 340, 350, 100));
+
+        jLabel19.setText("Status");
+        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 40, 20));
+        jPanel2.add(lblMsg, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 440, 260, 20));
+
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(0, 120, 500, 550);
+
+        setSize(new java.awt.Dimension(492, 625));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseClicked
         // Cadastra fornecedor
+     if (btnSalvar.isEnabled()){
+         
+         fRebido.setNome(txtFornecedor.getText());
+         fRebido.setCnpj(txtCnpj.getText());
+         fRebido.setEndereco(txtEndereco.getText());
+         fRebido.setNumero(txtNumero.getText());
+         fRebido.setComplemento(txtComplemento.getText());
+         fRebido.setBairro(txtBairro.getText());
+         fRebido.setCep(txtCep.getText());
+         fRebido.setCidade(txtCidade.getText());
+         fRebido.setUf(comboUf.getSelectedItem().toString());
+         fRebido.setTelefone(txtTelefone.getText());
+         fRebido.setEmail(txtEmail.getText());
+         fRebido.setRepresentante(txtRepresentante.getText());
+         fRebido.setSite(txtSite.getText());
+         fRebido.setStatus(comboStatus.getSelectedItem().toString());
+         fRebido.setObs(txtAreaObs.getText());
 
-        Fornecedor f = new Fornecedor();
-        f.setNome(txtFornecedor.getText());
-        f.setEmail(txtEmail.getText());
-        f.setTelefone(txtTelefone.getText());
+         if ("Incluir".equals(operacao)) {
 
-        if (cf.temFornecedor(f)) {
-            JOptionPane.showMessageDialog(null, "O fornecedor " + f.getNome() + " já está cadastrado!");
-        } else {
+             if (cf.temFornecedor(fRebido)) {
+                 JOptionPane.showMessageDialog(null, "O fornecedor " + fRebido.getNome() + " já está cadastrado!");
+             } else if ("Selecione...".equals(comboStatus.getSelectedItem().toString())) {
+                 JOptionPane.showMessageDialog(null, "Selecione o status do Fornecedor!");
+             } else if ("".equals(txtFornecedor.getText())) {
+                 lblMsg.setText("Informe a razão social do fornecedor para continuar!");
 
-            cf.cadastraFornecedor(f);
-        }
-        // Inicio do Registro de Log
+             } else {
+                 cf.cadastraFornecedor(fRebido);
+                 lblMsg.setText("*Fornecedor cadastrado com sucesso!");
+                 lblMsg.setForeground(Color.blue);
+                 tlFor.atualizaTabela();
+                 dispose();
+                 // Inicio do Registro de Log     
 
-        // Limpa Formulário após inclusão
-        limparform();
+                 Log l = new Log();
+                 l.setUsuario(lblOperador.getText());
+                 l.setDescricao(l.getUsuario() + " Cadastrou um novo fornecedor " + fRebido.getNome());
+                 l.setFuncionalidade("Tela Fornecedores");
+                 l.gravaLog(l);
+             }
+         } else {
+             cf.alteraFornecedor(fRebido);
+             System.out.println("Id:" + fRebido.getId());
+             lblMsg.setText("*Alteração realizada com sucesso!");
+             tlFor.atualizaTabela();
+             dispose();
+         }
 
-        Log l = new Log();
-        l.setUsuario(lblOperador.getText());
-        l.setDescricao("Tela Fornecedores");
-        l.setFuncionalidade(l.getUsuario() + " Cadastrou um novo fornecedor " + f.getNome());
-        l.gravaLog(l);
-
-        // Atualiza Tabela
-        tblFornecedores.setModel(DbUtils.resultSetToTableModel(cf.listaFornecedor()));
+         limparform();
+     }
 
     }//GEN-LAST:event_btnSalvarMouseClicked
 
@@ -320,72 +519,72 @@ public class TelaCadastroFornecedor extends JDialog {
         dispose();
     }//GEN-LAST:event_jLabel7MouseClicked
 
-    private void btnExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseClicked
-        // Executa  método de exclusão de fornecedores 
-
-        if (btnExcluir.isEnabled()){
-        Fornecedor f = new Fornecedor();
-        f.setCodigo(Integer.parseInt(txtIdFor.getText()));
-        f.setNome(txtFornecedor.getText());
-            
-            int op = JOptionPane.showConfirmDialog(null, "Confirma a exclusão do fornecedor " + f.getNome() + "?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-            if (op == JOptionPane.YES_OPTION) {
-
-                cf.excluirFornecedor(f);
-                // Atualiza tabela forncedores
-                tblFornecedores.setModel(DbUtils.resultSetToTableModel(cf.listaFornecedor()));
-                // Início do Registro de log
-                log.setFuncionalidade("Exclusão");
-                log.setUsuario(lblOperador.getText());
-                log.setDescricao(log.getUsuario() + " Excluiu o fornecedor ->" + f.getNome());
-                log.gravaLog(log);
-                // Fim do registro de log
-            } else {
-                JOptionPane.showMessageDialog(null, "Exclusão cancelada com sucesso!");
-            }
+    private void comboUfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboUfActionPerformed
+        if (!"Selecione...".equals(comboUf.getSelectedItem().toString()) && !"Selecione...".equals(comboStatus.getSelectedItem().toString())) {
+            btnSalvar.setEnabled(true);
         }
+    }//GEN-LAST:event_comboUfActionPerformed
 
-    }//GEN-LAST:event_btnExcluirMouseClicked
+    private void comboStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboStatusActionPerformed
+        // Habilita botão Adicionar se os combos estiverem com a opção
+        // Diferente de selecionado. 
 
-    private void tblFornecedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFornecedoresMouseClicked
-        // Seleciona forncedor
-        int linha = tblFornecedores.getSelectedRow();
-        // captura o id do fornecedor ao clicar sobre ele
-        txtIdFor.setText(tblFornecedores.getModel().getValueAt(linha, 0).toString());
-        txtFornecedor.setText(tblFornecedores.getModel().getValueAt(linha, 1).toString());
-        txtTelefone.setText(tblFornecedores.getModel().getValueAt(linha, 2).toString());
-        txtEmail.setText(tblFornecedores.getModel().getValueAt(linha, 3).toString());
-        btnAlterar.setEnabled(true);
-        btnExcluir.setEnabled(true);
-
-    }//GEN-LAST:event_tblFornecedoresMouseClicked
-
-    private void btnAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseClicked
-        // Executa o método de alteração de produto
-
-        
-        if (btnAlterar.isEnabled()){            
-            Fornecedor f = new Fornecedor();
-            f.setCodigo(Integer.parseInt(txtIdFor.getText()));
-            f.setNome(txtFornecedor.getText());
-            f.setTelefone(txtTelefone.getText());
-            f.setEmail(txtEmail.getText());
-            int op = JOptionPane.showConfirmDialog(null, "Deseja realmente realizar a alteração?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-            if (op == JOptionPane.YES_OPTION) {
-
-                cf.alteraFornecedor(f);
-                tblFornecedores.setModel(DbUtils.resultSetToTableModel(cf.listaFornecedor()));
-                // Inicio do Resigtro de Log
-                log.setUsuario(lblOperador.getText());
-                log.setFuncionalidade("Alterar");
-                log.setDescricao(log.getUsuario() + " alterou o fornecedor -> " + f.getNome());
-                // Fim do registro de log
-            } else {
-                JOptionPane.showMessageDialog(null, "Operação cancelada!");
-            }
+        if (!"Selecione...".equals(comboUf.getSelectedItem().toString()) && !"Selecione...".equals(comboStatus.getSelectedItem().toString())) {
+            btnSalvar.setEnabled(true);
         }
-            
-    }//GEN-LAST:event_btnAlterarMouseClicked
+    }//GEN-LAST:event_comboStatusActionPerformed
+
+    private void txtFornecedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFornecedorKeyReleased
+        // Limita tamanho do campo
+        txtFornecedor.setText(u.tamanhoMaximo(txtFornecedor.getText(), 45));
+    }//GEN-LAST:event_txtFornecedorKeyReleased
+
+    private void txtCnpjMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCnpjMouseClicked
+        // Limita tamanho do campo
+        txtCnpj.setText(u.tamanhoMaximo(txtCnpj.getText(), 18));
+
+    }//GEN-LAST:event_txtCnpjMouseClicked
+
+    private void txtEnderecoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEnderecoKeyReleased
+        // Limita tamanho do campo ENDEREÇO
+        txtEndereco.setText(u.tamanhoMaximo(txtEndereco.getText(), 45));
+    }//GEN-LAST:event_txtEnderecoKeyReleased
+
+    private void txtNumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyReleased
+        txtNumero.setText(u.tamanhoMaximo(txtNumero.getText(), 4));
+    }//GEN-LAST:event_txtNumeroKeyReleased
+
+    private void txtComplementoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtComplementoKeyReleased
+        txtComplemento.setText(u.tamanhoMaximo(txtComplemento.getText(), 30));
+    }//GEN-LAST:event_txtComplementoKeyReleased
+
+    private void txtBairroMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBairroMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBairroMouseReleased
+
+    private void txtBairroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBairroKeyReleased
+        txtBairro.setText(u.tamanhoMaximo(txtBairro.getText(), 45));
+    }//GEN-LAST:event_txtBairroKeyReleased
+
+    private void txtCidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyReleased
+        txtCidade.setText(u.tamanhoMaximo(txtCidade.getText(), 45));
+    }//GEN-LAST:event_txtCidadeKeyReleased
+
+    private void txtRepresentanteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRepresentanteKeyReleased
+        txtRepresentante.setText(u.tamanhoMaximo(txtRepresentante.getText(), 45));
+    }//GEN-LAST:event_txtRepresentanteKeyReleased
+
+    private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
+        txtEmail.setText(u.tamanhoMaximo(txtEmail.getText(), 35));
+    }//GEN-LAST:event_txtEmailKeyReleased
+
+    private void txtSiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSiteMouseClicked
+        txtSite.setText(u.tamanhoMaximo(txtSite.getText(), 35));
+    }//GEN-LAST:event_txtSiteMouseClicked
+
+    private void txtAreaObsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAreaObsKeyReleased
+        txtAreaObs.setText(u.tamanhoMaximo(txtAreaObs.getText(), 255));
+    }//GEN-LAST:event_txtAreaObsKeyReleased
 
     /**
      * @param args the command line arguments
@@ -423,28 +622,67 @@ public class TelaCadastroFornecedor extends JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnAlterar;
-    private javax.swing.JLabel btnExcluir;
     private javax.swing.JLabel btnSalvar;
+    private javax.swing.JComboBox<String> comboStatus;
+    private javax.swing.JComboBox<String> comboUf;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCargo;
-    private javax.swing.JLabel lblData;
+    private javax.swing.JLabel lblMsg;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblTelefone;
-    private javax.swing.JTable tblFornecedores;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JTextArea txtAreaObs;
+    private javax.swing.JTextField txtBairro;
+    private javax.swing.JFormattedTextField txtCep;
+    private javax.swing.JTextField txtCidade;
+    private javax.swing.JFormattedTextField txtCnpj;
+    private javax.swing.JTextField txtComplemento;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtFornecedor;
     private javax.swing.JTextField txtIdFor;
+    private javax.swing.JTextField txtNumero;
+    private javax.swing.JTextField txtRepresentante;
+    private javax.swing.JTextField txtSite;
     private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
+
+    private void desbloqueiaCampos() {
+
+        txtEndereco.setEnabled(true);
+        txtNumero.setEnabled(true);
+        txtComplemento.setEnabled(true);
+        txtBairro.setEnabled(true);
+        txtCep.setEnabled(true);
+        txtCidade.setEnabled(true);
+        comboUf.setEnabled(true);
+        txtRepresentante.setEnabled(true);
+        txtTelefone.setEnabled(true);
+        txtEmail.setEnabled(true);
+        txtSite.setEnabled(true);
+        comboStatus.setEnabled(true);
+        txtAreaObs.setEnabled(true);
+    }
 }
