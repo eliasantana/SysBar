@@ -249,6 +249,11 @@ public class TelaCadastroFuncionario extends JDialog {
         jPanel1.add(lblNome);
         lblNome.setBounds(10, 8, 130, 20);
 
+        txtNome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNomeMouseClicked(evt);
+            }
+        });
         txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNomeKeyReleased(evt);
@@ -577,10 +582,10 @@ public class TelaCadastroFuncionario extends JDialog {
         lblTelefone2.setBounds(150, 260, 90, 20);
 
         jDateDesligamento.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 jDateDesligamentoInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jPanel1.add(jDateDesligamento);
@@ -1076,6 +1081,10 @@ public class TelaCadastroFuncionario extends JDialog {
             txtCpf.requestFocus();
         }
     }//GEN-LAST:event_txtCpfFocusLost
+
+    private void txtNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNomeMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeMouseClicked
 
     public void limpaForm() {
         // Limpa formulário

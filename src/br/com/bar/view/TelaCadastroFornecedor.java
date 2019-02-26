@@ -7,11 +7,15 @@ package br.com.bar.view;
 
 import br.com.bar.dao.Log;
 import br.com.bar.model.Fornecedor;
+import br.com.bar.util.ClienteViaCepWS;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerFornecedor;
+import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.util.Calendar;
+import java.util.Map;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
@@ -48,7 +52,7 @@ public class TelaCadastroFornecedor extends JDialog {
         this.operacao = operacao;
         this.tlFor = tl;
         lblTitulo.setText(operacao);
-        if("Incluir".equals(lblTitulo.getText())){
+        if ("Incluir".equals(lblTitulo.getText())) {
             lblTitulo.setText(operacao);
             desbloqueiaCampos();
             txtFornecedor.setEnabled(true);
@@ -76,7 +80,7 @@ public class TelaCadastroFornecedor extends JDialog {
         txtAreaObs.setText(f.getObs());
         this.fRebido = f;
         switch (operacao) {
-            
+
             case "Incluir":
                 lblTitulo.setText(operacao);
                 desbloqueiaCampos();
@@ -104,7 +108,7 @@ public class TelaCadastroFornecedor extends JDialog {
         txtFornecedor.setText(null);
         txtCnpj.setText(null);
         txtEndereco.setText(null);
-        txtNumero.setText(null);
+        txtCnpj.setText(null);
         txtComplemento.setText(null);
         txtBairro.setText(null);
         txtCep.setText(null);
@@ -124,11 +128,12 @@ public class TelaCadastroFornecedor extends JDialog {
         txtFornecedor.setEnabled(false);
         txtCnpj.setEnabled(false);
         txtEndereco.setEnabled(false);
-        txtNumero.setEnabled(false);
+        txtCnpj.setEnabled(false);
         txtComplemento.setEnabled(false);
         txtBairro.setEnabled(false);
         txtCep.setEnabled(false);
         txtCidade.setEnabled(false);
+        txtNumero.setEnabled(false);
         comboUf.setEnabled(false);
         txtRepresentante.setEnabled(false);
         txtTelefone.setEnabled(false);
@@ -160,38 +165,38 @@ public class TelaCadastroFornecedor extends JDialog {
         jLabel7 = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        lblEnd = new javax.swing.JLabel();
         txtFornecedor = new javax.swing.JTextField();
         lblTelefone = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JFormattedTextField();
         txtCep = new javax.swing.JFormattedTextField();
-        jLabel5 = new javax.swing.JLabel();
+        lblCnpj = new javax.swing.JLabel();
         txtRepresentante = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblRazaoSocial = new javax.swing.JLabel();
+        lblSite = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        lblObs = new javax.swing.JLabel();
         txtSite = new javax.swing.JTextField();
         comboStatus = new javax.swing.JComboBox<>();
         txtEndereco = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        lblRepresentante = new javax.swing.JLabel();
+        lblCep = new javax.swing.JLabel();
+        lblComp = new javax.swing.JLabel();
         txtComplemento = new javax.swing.JTextField();
         txtBairro = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
+        lblBairro = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        lblNumero = new javax.swing.JLabel();
         txtNumero = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
+        lblUf = new javax.swing.JLabel();
         txtCidade = new javax.swing.JTextField();
         comboUf = new javax.swing.JComboBox<>();
-        jLabel18 = new javax.swing.JLabel();
+        lblCidade = new javax.swing.JLabel();
         txtCnpj = new javax.swing.JFormattedTextField();
-        jLabel10 = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaObs = new javax.swing.JTextArea();
-        jLabel19 = new javax.swing.JLabel();
+        lblStatus = new javax.swing.JLabel();
         lblMsg = new javax.swing.JLabel();
 
         jRadioButton1.setText("jRadioButton1");
@@ -269,10 +274,9 @@ public class TelaCadastroFornecedor extends JDialog {
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setText("Endereço");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 110, 20));
+        lblEnd.setText("Endereço");
+        jPanel2.add(lblEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 110, 20));
 
-        txtFornecedor.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         txtFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtFornecedorKeyReleased(evt);
@@ -284,11 +288,15 @@ public class TelaCadastroFornecedor extends JDialog {
         jPanel2.add(lblTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, -1, 20));
 
         try {
-            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ####-####")));
+            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtTelefone.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        txtTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTelefoneKeyReleased(evt);
+            }
+        });
         jPanel2.add(txtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 160, 30));
 
         try {
@@ -296,10 +304,18 @@ public class TelaCadastroFornecedor extends JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCepKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCepKeyReleased(evt);
+            }
+        });
         jPanel2.add(txtCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 80, 30));
 
-        jLabel5.setText("CNPJ");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 14, -1, 20));
+        lblCnpj.setText("CNPJ");
+        jPanel2.add(lblCnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 14, -1, 20));
 
         txtRepresentante.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -308,13 +324,12 @@ public class TelaCadastroFornecedor extends JDialog {
         });
         jPanel2.add(txtRepresentante, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 300, 30));
 
-        jLabel8.setText("Razão Social");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 15, 80, -1));
+        lblRazaoSocial.setText("Razão Social");
+        jPanel2.add(lblRazaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 15, 80, -1));
 
-        jLabel6.setText("Site");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, -1, 20));
+        lblSite.setText("Site");
+        jPanel2.add(lblSite, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, -1, 20));
 
-        txtEmail.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtEmailKeyReleased(evt);
@@ -322,10 +337,9 @@ public class TelaCadastroFornecedor extends JDialog {
         });
         jPanel2.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 230, 30));
 
-        jLabel9.setText("Observação");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 80, 20));
+        lblObs.setText("Observação");
+        jPanel2.add(lblObs, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 80, 20));
 
-        txtSite.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         txtSite.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtSiteMouseClicked(evt);
@@ -339,7 +353,7 @@ public class TelaCadastroFornecedor extends JDialog {
                 comboStatusActionPerformed(evt);
             }
         });
-        jPanel2.add(comboStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 100, 28));
+        jPanel2.add(comboStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 350, 100, 28));
 
         txtEndereco.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -348,14 +362,14 @@ public class TelaCadastroFornecedor extends JDialog {
         });
         jPanel2.add(txtEndereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 470, 30));
 
-        jLabel11.setText("Representante");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 110, 20));
+        lblRepresentante.setText("Representante");
+        jPanel2.add(lblRepresentante, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 110, 20));
 
-        jLabel13.setText("CEP");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 80, 20));
+        lblCep.setText("CEP");
+        jPanel2.add(lblCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 80, 20));
 
-        jLabel14.setText("Complemento");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 110, 20));
+        lblComp.setText("Complemento");
+        jPanel2.add(lblComp, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 110, 20));
 
         txtComplemento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -376,8 +390,8 @@ public class TelaCadastroFornecedor extends JDialog {
         });
         jPanel2.add(txtBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 200, 30));
 
-        jLabel15.setText("Bairro");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 110, 20));
+        lblBairro.setText("Bairro");
+        jPanel2.add(lblBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 110, 20));
 
         btnSalvar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvar32x32.png"))); // NOI18N
@@ -387,10 +401,10 @@ public class TelaCadastroFornecedor extends JDialog {
                 btnSalvarMouseClicked(evt);
             }
         });
-        jPanel2.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 450, 110, 48));
+        jPanel2.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 460, 110, 40));
 
-        jLabel16.setText("Número");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 80, 20));
+        lblNumero.setText("Número");
+        jPanel2.add(lblNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 80, 20));
 
         txtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -399,8 +413,8 @@ public class TelaCadastroFornecedor extends JDialog {
         });
         jPanel2.add(txtNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 80, 30));
 
-        jLabel17.setText("UF");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 170, 50, 20));
+        lblUf.setText("UF");
+        jPanel2.add(lblUf, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 170, 50, 20));
 
         txtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -417,8 +431,8 @@ public class TelaCadastroFornecedor extends JDialog {
         });
         jPanel2.add(comboUf, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, 80, 30));
 
-        jLabel18.setText("Cidade");
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 80, 20));
+        lblCidade.setText("Cidade");
+        jPanel2.add(lblCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 80, 20));
 
         try {
             txtCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
@@ -430,12 +444,21 @@ public class TelaCadastroFornecedor extends JDialog {
                 txtCnpjMouseClicked(evt);
             }
         });
+        txtCnpj.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCnpjKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCnpjKeyReleased(evt);
+            }
+        });
         jPanel2.add(txtCnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 35, 140, 30));
 
-        jLabel10.setText("E-mail");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, 20));
+        lblEmail.setText("E-mail");
+        jPanel2.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, 20));
 
         txtAreaObs.setColumns(20);
+        txtAreaObs.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         txtAreaObs.setLineWrap(true);
         txtAreaObs.setRows(5);
         txtAreaObs.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -445,72 +468,73 @@ public class TelaCadastroFornecedor extends JDialog {
         });
         jScrollPane1.setViewportView(txtAreaObs);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 340, 350, 100));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 350, 100));
 
-        jLabel19.setText("Status");
-        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 40, 20));
-        jPanel2.add(lblMsg, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 440, 260, 20));
+        lblStatus.setText("Status");
+        jPanel2.add(lblStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 330, 40, 20));
+
+        lblMsg.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel2.add(lblMsg, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 350, 20));
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 120, 500, 550);
+        jPanel2.setBounds(0, 120, 490, 500);
 
-        setSize(new java.awt.Dimension(492, 625));
+        setSize(new java.awt.Dimension(492, 622));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseClicked
         // Cadastra fornecedor
-     if (btnSalvar.isEnabled()){
-         
-         fRebido.setNome(txtFornecedor.getText());
-         fRebido.setCnpj(txtCnpj.getText());
-         fRebido.setEndereco(txtEndereco.getText());
-         fRebido.setNumero(txtNumero.getText());
-         fRebido.setComplemento(txtComplemento.getText());
-         fRebido.setBairro(txtBairro.getText());
-         fRebido.setCep(txtCep.getText());
-         fRebido.setCidade(txtCidade.getText());
-         fRebido.setUf(comboUf.getSelectedItem().toString());
-         fRebido.setTelefone(txtTelefone.getText());
-         fRebido.setEmail(txtEmail.getText());
-         fRebido.setRepresentante(txtRepresentante.getText());
-         fRebido.setSite(txtSite.getText());
-         fRebido.setStatus(comboStatus.getSelectedItem().toString());
-         fRebido.setObs(txtAreaObs.getText());
 
-         if ("Incluir".equals(operacao)) {
+        if (btnSalvar.isEnabled()) {
 
-             if (cf.temFornecedor(fRebido)) {
-                 JOptionPane.showMessageDialog(null, "O fornecedor " + fRebido.getNome() + " já está cadastrado!");
-             } else if ("Selecione...".equals(comboStatus.getSelectedItem().toString())) {
-                 JOptionPane.showMessageDialog(null, "Selecione o status do Fornecedor!");
-             } else if ("".equals(txtFornecedor.getText())) {
-                 lblMsg.setText("Informe a razão social do fornecedor para continuar!");
+            fRebido.setNome(txtFornecedor.getText());
+            fRebido.setCnpj(txtCnpj.getText());
+            fRebido.setEndereco(txtEndereco.getText());
+            fRebido.setNumero(txtNumero.getText());
+            fRebido.setComplemento(txtComplemento.getText());
+            fRebido.setBairro(txtBairro.getText());
+            fRebido.setCep(txtCep.getText());
+            fRebido.setCidade(txtCidade.getText());
+            fRebido.setUf(comboUf.getSelectedItem().toString());
+            fRebido.setTelefone(txtTelefone.getText());
+            fRebido.setEmail(txtEmail.getText());
+            fRebido.setRepresentante(txtRepresentante.getText());
+            fRebido.setSite(txtSite.getText());
+            fRebido.setStatus(comboStatus.getSelectedItem().toString());
+            fRebido.setObs(txtAreaObs.getText());
+            if (valida(fRebido)){
+                
+                if ("Incluir".equals(operacao)) {
 
-             } else {
-                 cf.cadastraFornecedor(fRebido);
-                 lblMsg.setText("*Fornecedor cadastrado com sucesso!");
-                 lblMsg.setForeground(Color.blue);
-                 tlFor.atualizaTabela();
-                 dispose();
-                 // Inicio do Registro de Log     
+                    if (cf.temFornecedor(fRebido)) {
+                        JOptionPane.showMessageDialog(null, "O fornecedor " + fRebido.getNome() + " já está cadastrado!");
+                    } else {
+                        cf.cadastraFornecedor(fRebido);
+                        lblMsg.setText("*Fornecedor cadastrado com sucesso!");
+                        lblMsg.setForeground(Color.blue);
+                        tlFor.atualizaTabela();
+                        dispose();
+                        // Inicio do Registro de Log     
 
-                 Log l = new Log();
-                 l.setUsuario(lblOperador.getText());
-                 l.setDescricao(l.getUsuario() + " Cadastrou um novo fornecedor " + fRebido.getNome());
-                 l.setFuncionalidade("Tela Fornecedores");
-                 l.gravaLog(l);
-             }
-         } else {
-             cf.alteraFornecedor(fRebido);
-             System.out.println("Id:" + fRebido.getId());
-             lblMsg.setText("*Alteração realizada com sucesso!");
-             tlFor.atualizaTabela();
-             dispose();
-         }
+                        Log l = new Log();
+                        l.setUsuario(lblOperador.getText());
+                        l.setDescricao(l.getUsuario() + " Cadastrou um novo fornecedor " + fRebido.getNome());
+                        l.setFuncionalidade("Tela Fornecedores");
+                        l.gravaLog(l);
+                    }
+                } else {
+                    cf.alteraFornecedor(fRebido);
+                    System.out.println("Id:" + fRebido.getId());
+                    lblMsg.setText("*Alteração realizada com sucesso!");
+                    tlFor.atualizaTabela();
+                    dispose();
+                }
 
-         limparform();
-     }
+                limparform();
+            }
+            
+        }
 
     }//GEN-LAST:event_btnSalvarMouseClicked
 
@@ -522,6 +546,9 @@ public class TelaCadastroFornecedor extends JDialog {
     private void comboUfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboUfActionPerformed
         if (!"Selecione...".equals(comboUf.getSelectedItem().toString()) && !"Selecione...".equals(comboStatus.getSelectedItem().toString())) {
             btnSalvar.setEnabled(true);
+        } else if (!"Selecione...".equals(comboUf.getSelectedItem().toString())) {
+            lblUf.setForeground(Color.black);
+            lblMsg.setText(null);
         }
     }//GEN-LAST:event_comboUfActionPerformed
 
@@ -531,28 +558,32 @@ public class TelaCadastroFornecedor extends JDialog {
 
         if (!"Selecione...".equals(comboUf.getSelectedItem().toString()) && !"Selecione...".equals(comboStatus.getSelectedItem().toString())) {
             btnSalvar.setEnabled(true);
+            lblStatus.setForeground(Color.black);
+            lblMsg.setText(null);
+        } else if (!"Selecione...".equals(comboStatus.getSelectedItem().toString())) {
+            lblStatus.setForeground(Color.black);
+            lblMsg.setText(null);
         }
     }//GEN-LAST:event_comboStatusActionPerformed
 
     private void txtFornecedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFornecedorKeyReleased
-        // Limita tamanho do campo
+        // Limita tamanho do campo FORNECEDOR
         txtFornecedor.setText(u.tamanhoMaximo(txtFornecedor.getText(), 45));
+        lblRazaoSocial.setForeground(Color.BLACK);
+        lblMsg.setText(null);
     }//GEN-LAST:event_txtFornecedorKeyReleased
 
     private void txtCnpjMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCnpjMouseClicked
-        // Limita tamanho do campo
-        txtCnpj.setText(u.tamanhoMaximo(txtCnpj.getText(), 18));
+
 
     }//GEN-LAST:event_txtCnpjMouseClicked
 
     private void txtEnderecoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEnderecoKeyReleased
         // Limita tamanho do campo ENDEREÇO
         txtEndereco.setText(u.tamanhoMaximo(txtEndereco.getText(), 45));
+        lblEnd.setForeground(Color.BLACK);
+        lblMsg.setText(null);
     }//GEN-LAST:event_txtEnderecoKeyReleased
-
-    private void txtNumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyReleased
-        txtNumero.setText(u.tamanhoMaximo(txtNumero.getText(), 4));
-    }//GEN-LAST:event_txtNumeroKeyReleased
 
     private void txtComplementoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtComplementoKeyReleased
         txtComplemento.setText(u.tamanhoMaximo(txtComplemento.getText(), 30));
@@ -563,19 +594,28 @@ public class TelaCadastroFornecedor extends JDialog {
     }//GEN-LAST:event_txtBairroMouseReleased
 
     private void txtBairroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBairroKeyReleased
+        // Limita o tamanho do campo BAIRRO
         txtBairro.setText(u.tamanhoMaximo(txtBairro.getText(), 45));
+        lblBairro.setForeground(Color.BLACK);
+        lblMsg.setText(null);
+
     }//GEN-LAST:event_txtBairroKeyReleased
 
     private void txtCidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyReleased
         txtCidade.setText(u.tamanhoMaximo(txtCidade.getText(), 45));
+        lblCidade.setForeground(Color.black);
     }//GEN-LAST:event_txtCidadeKeyReleased
 
     private void txtRepresentanteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRepresentanteKeyReleased
         txtRepresentante.setText(u.tamanhoMaximo(txtRepresentante.getText(), 45));
+        lblRepresentante.setForeground(Color.BLACK);
+        lblMsg.setText(null);
     }//GEN-LAST:event_txtRepresentanteKeyReleased
 
     private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
         txtEmail.setText(u.tamanhoMaximo(txtEmail.getText(), 35));
+        lblEmail.setForeground(Color.black);
+        lblMsg.setText(null);
     }//GEN-LAST:event_txtEmailKeyReleased
 
     private void txtSiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSiteMouseClicked
@@ -585,6 +625,54 @@ public class TelaCadastroFornecedor extends JDialog {
     private void txtAreaObsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAreaObsKeyReleased
         txtAreaObs.setText(u.tamanhoMaximo(txtAreaObs.getText(), 255));
     }//GEN-LAST:event_txtAreaObsKeyReleased
+
+    private void txtCnpjKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCnpjKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCnpjKeyPressed
+
+    private void txtCnpjKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCnpjKeyReleased
+        // Limita tamanho do campo CNPJ
+        txtCnpj.setText(u.tamanhoMaximo(txtCnpj.getText(), 18));
+        lblCnpj.setForeground(Color.BLACK);
+        lblMsg.setText(null);
+    }//GEN-LAST:event_txtCnpjKeyReleased
+
+    private void txtNumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyReleased
+        txtNumero.setText(u.tamanhoMaximo(txtNumero.getText(), 4));
+        String numero = txtNumero.getText().replaceAll("[^0-9]", "");
+        txtNumero.setText(numero);
+        lblNumero.setForeground(Color.black);
+        lblMsg.setText(null);
+    }//GEN-LAST:event_txtNumeroKeyReleased
+
+    private void txtCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyReleased
+        lblCep.setForeground(Color.BLACK);
+        lblMsg.setText(null);
+    }//GEN-LAST:event_txtCepKeyReleased
+
+    private void txtTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyReleased
+        lblTelefone.setForeground(Color.BLACK);
+        lblMsg.setText(null);
+    }//GEN-LAST:event_txtTelefoneKeyReleased
+
+    private void txtCepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyPressed
+       
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            String cep = txtCep.getText().replace("-", "");
+            String json = ClienteViaCepWS.buscarCep(cep);
+            Map mapa = ClienteViaCepWS.formataCepWs(json);
+            try {         
+                txtEndereco.setText(mapa.get("logradouro").toString());
+                txtBairro.setText(mapa.get("bairro").toString());
+                txtCidade.setText(mapa.get("localidade").toString());
+                txtComplemento.setText(mapa.get("complemento").toString());
+                comboUf.setSelectedItem(mapa.get("uf"));
+                
+            } catch (NullPointerException e) {
+                
+            }
+        }
+    }//GEN-LAST:event_txtCepKeyPressed
 
     /**
      * @param args the command line arguments
@@ -626,33 +714,33 @@ public class TelaCadastroFornecedor extends JDialog {
     private javax.swing.JComboBox<String> comboStatus;
     private javax.swing.JComboBox<String> comboUf;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCargo;
+    private javax.swing.JLabel lblCep;
+    private javax.swing.JLabel lblCidade;
+    private javax.swing.JLabel lblCnpj;
+    private javax.swing.JLabel lblComp;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblEnd;
     private javax.swing.JLabel lblMsg;
+    private javax.swing.JLabel lblNumero;
+    private javax.swing.JLabel lblObs;
     private javax.swing.JLabel lblOperador;
+    private javax.swing.JLabel lblRazaoSocial;
+    private javax.swing.JLabel lblRepresentante;
+    private javax.swing.JLabel lblSite;
+    private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblUf;
     private javax.swing.JTextArea txtAreaObs;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JFormattedTextField txtCep;
@@ -672,7 +760,7 @@ public class TelaCadastroFornecedor extends JDialog {
     private void desbloqueiaCampos() {
 
         txtEndereco.setEnabled(true);
-        txtNumero.setEnabled(true);
+        txtCnpj.setEnabled(true);
         txtComplemento.setEnabled(true);
         txtBairro.setEnabled(true);
         txtCep.setEnabled(true);
@@ -684,5 +772,113 @@ public class TelaCadastroFornecedor extends JDialog {
         txtSite.setEnabled(true);
         comboStatus.setEnabled(true);
         txtAreaObs.setEnabled(true);
+        txtNumero.setEnabled(true);
+
+    }
+
+    private boolean valida(Fornecedor f) {
+        boolean resp = true;    //00.000.000/000-00
+        String cnpj = f.getCnpj();
+
+        System.out.println(cnpj);
+
+        if ("".equals(f.getNome())) {
+            lblMsg.setText("*Informe a RAZÃO SOCIAL para continuar!");
+            mudaCor(lblRazaoSocial);
+            txtFornecedor.requestFocus();
+            resp = false;
+        } else if ("  .   .   /    -  ".equals(f.getCnpj())) {// 00.000.000/0001-00
+            lblMsg.setText("*Informe um CNPJ para continuar!");
+            mudaCor(lblCnpj);
+            txtCnpj.requestFocus();
+            resp = false;
+        } else {
+
+            String cnpjSemPonto = cnpj.replace(".", "");
+            cnpj = cnpjSemPonto.replace("/", "");
+            cnpjSemPonto = cnpj.replace("-", "");
+
+            if (u.isCNPJ(cnpjSemPonto)) {
+                // Entra aqui e o CNPJ for válido
+                if ("".equals(f.getEndereco())) {
+                    lblMsg.setText("*Informe o ENDEREÇO para continuar!");
+                    mudaCor(lblEnd);
+                    txtEndereco.requestFocus();
+                    resp = false;
+                } else if ("".equals(f.getNumero())) {
+                    lblMsg.setText("*Informe o NÚMERO para continuar!");
+                    mudaCor(lblNumero);
+                    txtNumero.requestFocus();
+                    resp = false;
+                } else if ("".equals(f.getBairro())) {
+                    lblMsg.setText("*Informe o BAIRRO para continuar!");
+                    mudaCor(lblBairro);
+                    txtBairro.requestFocus();
+                    resp = false;
+                } else if (f.getCep().equals("     -   ")
+                        || f.getCep().equals("00000-000") || f.getCep().equals("11111-111")
+                        || f.getCep().equals("22222-222") || f.getCep().equals("33333-333")
+                        || f.getCep().equals("44444-444") || f.getCep().equals("55555-555")
+                        || f.getCep().equals("66666-666") || f.getCep().equals("77777-777")
+                        || f.getCep().equals("88888-888") || f.getCep().equals("99999-999")
+                        || (f.getCep().length() != 9)) {
+                    lblMsg.setText("*Informe um CEP válido para continuar!");
+                    mudaCor(lblCep);
+                    txtCep.requestFocus();
+                    resp = false;
+                } else if ("".equals(f.getCidade())) {
+                    lblMsg.setText("*Informe um CIDADE para continuar!");
+                    mudaCor(lblCidade);
+                    txtCidade.requestFocus();
+                    resp = false;
+                } else if ("Selecione...".equals(comboUf.getSelectedItem().toString())) {
+                    lblMsg.setText("*Informe uma UF para continuar!");
+                    mudaCor(lblUf);
+                    comboUf.requestFocus();
+                    resp = false;
+                } else if ("".equals(f.getRepresentante())) {
+                    lblMsg.setText("*Informe uma REPRESENTANTE para continuar!");
+                    mudaCor(lblRepresentante);
+                    txtRepresentante.requestFocus();
+                    resp = false;
+                } else if (f.getTelefone().equals("(  )    -    ")
+                        || f.getTelefone().equals("(00)0000-0000") || f.getTelefone().equals("(11)1111-1111")
+                        || f.getTelefone().equals("(22)2222-2222") || f.getTelefone().equals("(33)3333-3333")
+                        || f.getTelefone().equals("(44)4444-4444") || f.getTelefone().equals("(55)5555-5555")
+                        || f.getTelefone().equals("(66)6666-6666") || f.getTelefone().equals("(77)7777-7777")
+                        || f.getTelefone().equals("(88)8888-8888") || f.getTelefone().equals("(99)9999-9999")
+                        || f.getTelefone().length() != 13) {
+                    System.out.println(f.getTelefone().length());
+                    lblMsg.setText("*Informe um TELEFONE para continuar!");
+                    mudaCor(lblTelefone);
+                    txtTelefone.requestFocus();
+                    resp = false;
+                } else if ("".equals(f.getEmail())) {
+                    lblMsg.setText("*Informe um E-MAIL para continuar!");
+                    mudaCor(lblEmail);
+                    txtEmail.requestFocus();
+                    resp = false;
+                } else if ("Selecione...".equals(comboStatus.getSelectedItem().toString())) {
+                    lblMsg.setText("*Informe um STATUS para continuar!");
+                    mudaCor(lblStatus);
+                    comboStatus.requestFocus();
+                    resp = false;
+                }
+            } else {
+                lblMsg.setText("*Informe um CNPJ válido para continuar!");
+                mudaCor(lblCnpj);
+                txtCnpj.requestFocus();
+                resp = false;
+            }
+
+        }
+
+        return resp;
+
+    }
+
+    // Muda a cor do label do campo que não passar na validação.
+    private void mudaCor(JLabel label) {
+        label.setForeground(Color.red);
     }
 }
