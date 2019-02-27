@@ -549,6 +549,8 @@ public class TelaCadastroFornecedor extends JDialog {
         } else if (!"Selecione...".equals(comboUf.getSelectedItem().toString())) {
             lblUf.setForeground(Color.black);
             lblMsg.setText(null);
+        }else {
+            btnSalvar.setEnabled(false);
         }
     }//GEN-LAST:event_comboUfActionPerformed
 
@@ -563,7 +565,11 @@ public class TelaCadastroFornecedor extends JDialog {
         } else if (!"Selecione...".equals(comboStatus.getSelectedItem().toString())) {
             lblStatus.setForeground(Color.black);
             lblMsg.setText(null);
+            
+        }else {
+            btnSalvar.setEnabled(false);
         }
+       
     }//GEN-LAST:event_comboStatusActionPerformed
 
     private void txtFornecedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFornecedorKeyReleased

@@ -617,21 +617,21 @@ public class TelaContasApagar extends JDialog {
                     dtVencimento = u.converteData(data);
 
                     // Realiza o pagamento.
-                    int op = JOptionPane.showConfirmDialog(null, "Confirma o pagamento desta conta?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    int op = JOptionPane.showConfirmDialog(null, "Confirma o pagamento desta conta?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                     if (op == JOptionPane.YES_OPTION) {
 
                         if (cc.baixarConta(c)) {
-                            JOptionPane.showMessageDialog(null, "Conta paga com sucesso!");
+                            JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso!");
                             comboFiltro.setSelectedItem("Pagas");
                             btnBaixar.setEnabled(false);
                             lblExcluir.setEnabled(false);
+                            limpaForm();
                         }
                     }
                 }
             }
 
         }
-
 
     }//GEN-LAST:event_btnBaixarMouseClicked
 

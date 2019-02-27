@@ -173,7 +173,7 @@ public class TelaPesquisaFuncionario extends JDialog {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "CÓDIGO", "NOME", "CPF", "RG", "CELULAR", "ADNISSÃO", "STATUS", "BLOQUEIO"
+                "CÓDIGO", "NOME", "CPF", "RG", "CELULAR", "ADMISSÃO", "STATUS", "BLOQUEIO"
             }
         ));
         tblFuncionario.setRowHeight(21);
@@ -227,7 +227,7 @@ public class TelaPesquisaFuncionario extends JDialog {
         getContentPane().add(lblConsultar);
         lblConsultar.setBounds(300, 450, 100, 50);
 
-        setSize(new java.awt.Dimension(841, 496));
+        setSize(new java.awt.Dimension(839, 496));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

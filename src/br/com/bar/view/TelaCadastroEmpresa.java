@@ -510,6 +510,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
 
     private void lblExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExcluirMouseClicked
         // Exclui empresa
+        /*
         DadosEmpresa objEmpresa = dados.selecionaDados();
         int op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir \n os dados da empresa?", "Atenção!", JOptionPane.YES_NO_OPTION);
         if (op == JOptionPane.YES_OPTION) {
@@ -523,6 +524,8 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, " Exclusão cancelada com sucesso!");
 
         }
+        */
+        limpaforme();
     }//GEN-LAST:event_lblExcluirMouseClicked
 
     private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
@@ -597,9 +600,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "Não foi possível alterar os dados!");
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Alteração cancelada com sucesso!");
-            }
+            } 
         }
 
     }//GEN-LAST:event_lblEditarMouseClicked
@@ -725,4 +726,23 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtUrlBackup;
     private javax.swing.JTextField txturlLogo;
     // End of variables declaration//GEN-END:variables
+
+    private void limpaforme() {
+       txtNomeEmpresa.setText(null);
+       txtCnpj.setText(null);
+       txtEndereco.setText(null);
+       txtNumero.setText(null);
+       txtComplemento.setText(null);
+       txtBairro.setText(null);
+       txtCep.setText(null);
+       txtCidade.setText(null);
+       comboUf.setSelectedItem("Selecione...");
+       txtTelefone.setText(null);
+       txtCelular.setText(null);
+       txtEmail.setText(null);
+       radioVisualizar.setSelected(true);
+       lblCaminho.setText(null);
+       lblLogo.setIcon(null);
+      
+    }
 }
