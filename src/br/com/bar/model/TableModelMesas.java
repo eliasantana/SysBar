@@ -59,8 +59,13 @@ public class TableModelMesas extends AbstractTableModel {
 
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(70); // CÓDIGO
-        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(290);//FUNCIONÁRIO
-        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(60); //NÚMERO DA MESA
+        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(60);//NÚMERO DA MESA
+        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(360); //FUNCIONÁRIO 
+        
+        // Oculta a primeira colunas
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(0);
+        tabela.getColumnModel().getColumn(0).setMinWidth(0);
+        tabela.getColumnModel().getColumn(0).setMaxWidth(0);
     }
 
     

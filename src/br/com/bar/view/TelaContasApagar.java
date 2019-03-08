@@ -21,6 +21,7 @@ import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -520,7 +521,7 @@ public class TelaContasApagar extends JDialog {
             } catch (Exception e) {
                 c.setValor("0");
             }
-            System.out.println("Valor PAgo: " + c.getValoPagto());
+            //System.out.println("Valor PAgo: " + c.getValoPagto());
             txtIdConta.setText(tblContas.getModel().getValueAt(linha, 0).toString());
 
             String dataPagamento;
@@ -597,7 +598,9 @@ public class TelaContasApagar extends JDialog {
             Contas c = new Contas();
             c.setId(txtIdConta.getText());
             c.setValoPagto(txtValorPago.getText().replaceAll(",", "."));
-            c.setDataPagto(u.formataDataBanco(new Date())); // Formata a data de pagamento para o formato yyyy-MM-dd(MySql)
+            //c.setDataPagto(u.formataDataBanco(new Date())); // Formata a data de pagamento para o formato yyyy-MM-dd(MySql)
+            Timestamp t = new Timestamp(new Date().getTime());
+            c.setDataPagto(String.valueOf(t)); // Formata a data de pagamento para o formato yyyy-MM-dd(MySql)
             int linha = tblContas.getSelectedRow();
 
             // Se a coluna selecionada estiver vazia gera um NullPointException

@@ -164,7 +164,6 @@ public class TelaCaixa extends JDialog {
         checkConcedeDesconto = new javax.swing.JCheckBox();
         txtDesconto = new javax.swing.JTextField();
         lblValorDesc = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
         jSpinFieldPessoas = new javax.swing.JSpinner();
         btnImprimir = new javax.swing.JLabel();
@@ -652,14 +651,6 @@ public class TelaCaixa extends JDialog {
         lblValorDesc.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
         lblValorDesc.setText("Valor Desconto R$");
         jPanel4.add(lblValorDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 50, 141, 30));
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
 
         painelDireito.add(jPanel4);
         jPanel4.setBounds(10, 260, 350, 220);
@@ -1378,10 +1369,7 @@ public class TelaCaixa extends JDialog {
 
                     }
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Operação de 'Fechamento de Caixa' cancelada com sucesso!");
-
-            }
+            } 
         }
     }//GEN-LAST:event_btnFecharCaixaMouseClicked
 
@@ -1548,12 +1536,6 @@ public class TelaCaixa extends JDialog {
             }
         }
     }//GEN-LAST:event_checkReimpressaoActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         System.out.println(lblTotal.getText());
-         FormataValor fv = new FormataValor();
-         System.out.println(fv.Formata(lblTotal.getText()));
-    }//GEN-LAST:event_jButton1ActionPerformed
     public void recebeOperador(String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
@@ -1696,7 +1678,6 @@ public class TelaCaixa extends JDialog {
     private javax.swing.JCheckBox checkTxServico;
     private javax.swing.JComboBox<String> comboMes;
     private javax.swing.JComboBox<String> comboMesa;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;

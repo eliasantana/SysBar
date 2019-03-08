@@ -37,7 +37,7 @@ public class TelaEstoque extends javax.swing.JFrame {
 
         lblCargo.setVisible(false);
         lblNomeOperador.setVisible(false);
-
+        this.setAlwaysOnTop(true);
     }
 
     public void recebeOperador(String nomeOperador, String cargo) {
@@ -470,10 +470,11 @@ public class TelaEstoque extends javax.swing.JFrame {
 
     private void lblGerenciarEstoqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGerenciarEstoqueMouseClicked
         // Chama a tela de Gereciamento de Estoque
-        if ("Gerente".equals(lblCargo.getText())) {
+        /*if ("Gerente".equals(lblCargo.getText())) {
             dispose();
-        }
+        }*/
         TelaMovimentacao m = new TelaMovimentacao();
+        m.setAlwaysOnTop(true);
         m.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
         m.setVisible(true);
     }//GEN-LAST:event_lblGerenciarEstoqueMouseClicked
@@ -483,6 +484,7 @@ public class TelaEstoque extends javax.swing.JFrame {
 
         TelaFornecedores tlFornecedores = new TelaFornecedores();
         tlFornecedores.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
+        tlFornecedores.setAlwaysOnTop(true);
         tlFornecedores.setVisible(true);
 
         // Inicio do Registro de log
@@ -514,6 +516,7 @@ public class TelaEstoque extends javax.swing.JFrame {
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
         // Calcula reajuste de produtos
         TelaReajuste reajuste = new TelaReajuste();
+        reajuste.setAlwaysOnTop(true);
         reajuste.setVisible(true);
     }//GEN-LAST:event_jLabel15MouseClicked
 
@@ -536,6 +539,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         graficoBarras.getCategoryPlot().getRenderer().setSeriesPaint(0, Color.ORANGE);
         categoryPlot.setRangeGridlinePaint(Color.black);
         ChartFrame frame = new ChartFrame("Gráfico - Produto Mais Vendidos", graficoBarras);
+        frame.setAlwaysOnTop(true);
         frame.setSize(800, 650);
         frame.setVisible(true);
     }//GEN-LAST:event_jLabel12MouseClicked
@@ -553,6 +557,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         // Abre tela de log
         TelaLog tl = new TelaLog();
         tl.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
+        tl.setAlwaysOnTop(true);
         tl.setVisible(true);
     }//GEN-LAST:event_btnLogMouseClicked
 
@@ -568,12 +573,14 @@ public class TelaEstoque extends javax.swing.JFrame {
          // Abre a tela de gerenciamento de caixa
         TelaGerenciamentoDeCaixa gx = new TelaGerenciamentoDeCaixa();
         gx.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
+        gx.setAlwaysOnTop(true);
         gx.setVisible(true);
     }//GEN-LAST:event_jLabel17MouseClicked
 
     private void jLabel24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel24MouseClicked
        // Chama da tela de Ranking de Vendas
        TelaRanking ranking = new TelaRanking();
+       ranking.setAlwaysOnTop(true);
        ranking.setVisible(true);
     }//GEN-LAST:event_jLabel24MouseClicked
 

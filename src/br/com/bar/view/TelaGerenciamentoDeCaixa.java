@@ -7,32 +7,21 @@ package br.com.bar.view;
 
 import br.com.bar.dao.Log;
 import br.com.bar.dao.ReportUtil;
-import br.com.bar.model.DadosEmpresa;
-import br.com.bar.model.Funcionario;
 import br.com.bar.model.MovimentacaoCaixa;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCaixa;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerFuncionario;
-import com.toedter.calendar.JDateChooser;
-import com.toedter.calendar.JDayChooser;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
 
 /**
  *
  * @author elias
  */
-public class TelaGerenciamentoDeCaixa extends JDialog {
+public class TelaGerenciamentoDeCaixa extends JFrame {
 
     /**
      * Creates new form TelaGerenciamentoDeCaixa
@@ -73,8 +62,6 @@ public class TelaGerenciamentoDeCaixa extends JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        lblOperador = new javax.swing.JLabel();
-        lblCargo = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtIdCaixa = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -84,6 +71,8 @@ public class TelaGerenciamentoDeCaixa extends JDialog {
         tblGerenciamentoCaixa = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         btnLiberarCaixa = new javax.swing.JButton();
+        lblOperador = new javax.swing.JLabel();
+        lblCargo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -96,24 +85,12 @@ public class TelaGerenciamentoDeCaixa extends JDialog {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(110, 10, 230, 48);
 
-        lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
-        lblOperador.setText("Operador");
-        jPanel1.add(lblOperador);
-        lblOperador.setBounds(270, 100, 100, 30);
-
-        lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
-        lblCargo.setText("cargo");
-        jPanel1.add(lblCargo);
-        lblCargo.setBounds(370, 100, 81, 30);
-
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
         jLabel6.setText("de Caixa");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(120, 60, 86, 32);
+        jLabel6.setBounds(290, 60, 86, 32);
         jPanel1.add(txtIdCaixa);
-        txtIdCaixa.setBounds(12, 110, 51, 20);
+        txtIdCaixa.setBounds(400, 50, 51, 20);
 
         jPanel2.setBackground(new java.awt.Color(44, 62, 80));
 
@@ -165,30 +142,26 @@ public class TelaGerenciamentoDeCaixa extends JDialog {
         });
         jScrollPane1.setViewportView(tblGerenciamentoCaixa);
 
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         btnLiberarCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/liberaCaixa2.png"))); // NOI18N
-        btnLiberarCaixa.setText("Liberar Caixa do Dia");
+        btnLiberarCaixa.setText("Liberar Caixa");
         btnLiberarCaixa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLiberarCaixaActionPerformed(evt);
             }
         });
+        jPanel3.add(btnLiberarCaixa, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 11, 193, -1));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnLiberarCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
-                .addGap(154, 154, 154))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnLiberarCaixa)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
+        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
+        lblOperador.setText("Operador");
+        jPanel3.add(lblOperador, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 15, 100, 30));
+
+        lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
+        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
+        lblCargo.setText("cargo");
+        jPanel3.add(lblCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(339, 15, 81, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -196,25 +169,25 @@ public class TelaGerenciamentoDeCaixa extends JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        setSize(new java.awt.Dimension(463, 371));
+        setSize(new java.awt.Dimension(463, 331));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

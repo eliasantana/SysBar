@@ -12,6 +12,7 @@ import br.com.br.controler.ControlerEstoque;
 import br.com.br.controler.ControlerProduto;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
@@ -19,7 +20,7 @@ import net.proteanit.sql.DbUtils;
  *
  * @author elias
  */
-public class TelaMovimentacao extends javax.swing.JFrame {
+public class TelaMovimentacao extends JDialog {
 
     /**
      * Creates new form TelaMovimentacao
@@ -31,7 +32,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
     
     public TelaMovimentacao() {
         initComponents();
-       
+        this.setModal(true);
         est.carregaComboOperacao(comboOperacao);
         Date dataAtual = new Date();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -41,20 +42,21 @@ public class TelaMovimentacao extends javax.swing.JFrame {
         lblOperador.setVisible(false);
         lblCargo.setVisible(false);
         lblData.setVisible(false);
-      
+        
     }
-
+    
     public void recebeOperador(String operador, String cargo) {
-
+        
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
-
+        
+        
     }
-
+    
     private void limpaTela() {
         txtQuantidade.setText(null);
         txtPesquisar.setText(null);
-
+        
     }
 
     /**
@@ -478,13 +480,13 @@ public class TelaMovimentacao extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void radioExistenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioExistenteMouseClicked
-
+        
         if (radioExistente.isSelected()) {
             panelQtd.setVisible(true);
             panelProdutos.setVisible(true);
             tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
         }
-
+        
 
     }//GEN-LAST:event_radioExistenteMouseClicked
 
@@ -510,15 +512,15 @@ public class TelaMovimentacao extends javax.swing.JFrame {
         // Seleciona dados da tabela
 
         int linha = tblProduto.getSelectedRow();
-        if(radioExistente.isSelected()){
+        if (radioExistente.isSelected()) {
             
             try {
                 txtIdProduto.setText(tblProduto.getModel().getValueAt(linha, 0).toString());
-
+                
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("br.com.bar.view.TelaMovimentacao.tblProdutoMouseClicked()" + e);
             }
-
+            
             txtIdProduto.setText(tblProduto.getModel().getValueAt(linha, 0).toString());
             txtQuantidade.requestFocus();
             txtIdOperacao.setText(est.localizaIdOperacao(comboOperacao.getSelectedItem().toString()));
@@ -527,7 +529,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
 
     private void radioPesquisaNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioPesquisaNomeMouseClicked
         lblPesquisa.setText("Pesquisar por nome:");
-
+        
 
     }//GEN-LAST:event_radioPesquisaNomeMouseClicked
 
@@ -536,13 +538,13 @@ public class TelaMovimentacao extends javax.swing.JFrame {
     }//GEN-LAST:event_radioPesquisaCodigoMouseClicked
 
     private void txtPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyPressed
-
+        
         if (radioPesquisaNome.isSelected()) {
-
+            
             tblProduto.setModel(DbUtils.resultSetToTableModel(est.pesquisarProduto("nome", txtPesquisar.getText())));
         } else {
             tblProduto.setModel(DbUtils.resultSetToTableModel(est.pesquisarProduto("id", txtPesquisar.getText())));
-
+            
         }
 
     }//GEN-LAST:event_txtPesquisarKeyPressed
@@ -555,26 +557,26 @@ public class TelaMovimentacao extends javax.swing.JFrame {
         
         String op = comboOperacao.getSelectedItem().toString();
         
-        switch(op){
+        switch (op) {
             case "Entrada":
                 lblDica.setText("Obs: Utilize quando receber um produto do fornecedor.");
-                txtAreaObservacao.setText(op+ " - " + lblOperador.getText());
-            break;
+                txtAreaObservacao.setText(op + " - " + lblOperador.getText());
+                break;
             case "Saída":
                 lblDica.setText("Obs: Utilize quando retirar um produto direto do estoque.");
-                txtAreaObservacao.setText(op+ " - " + lblOperador.getText());
-            break;
+                txtAreaObservacao.setText(op + " - " + lblOperador.getText());
+                break;
             case "Devolução":
                 lblDica.setText("Obs: Utilize quando devolver um produto ao fornecedor.");
-                txtAreaObservacao.setText(op+ " - " + lblOperador.getText());
-            break;
+                txtAreaObservacao.setText(op + " - " + lblOperador.getText());
+                break;
             case "Descarte":
                 lblDica.setText("Obs: Utilize quando não for possível o reaproveitamento.");
-                txtAreaObservacao.setText(op+ " - " + lblOperador.getText());
-            break;
-             
-        }
+                txtAreaObservacao.setText(op + " - " + lblOperador.getText());
+                break;
             
+        }
+        
     }//GEN-LAST:event_comboOperacaoActionPerformed
 
     private void comboOperacaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboOperacaoItemStateChanged
@@ -583,16 +585,16 @@ public class TelaMovimentacao extends javax.swing.JFrame {
 
     private void blbIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_blbIncluirMouseClicked
         txtIdOperacao.setText(est.localizaIdOperacao(comboOperacao.getSelectedItem().toString()));
-
+        
         String operacao = comboOperacao.getSelectedItem().toString();
-
+        
         Produto p = new Produto();
-
+        
         switch (operacao) {
             // Realiza a entrada de um produto já cadastrado
             case "Entrada":
-
-                if (est.registraMovimentacao(txtIdProduto.getText(), txtQuantidade.getText(), txtIdOperacao.getText(), txtAreaObservacao.getText() )) {
+                
+                if (est.registraMovimentacao(txtIdProduto.getText(), txtQuantidade.getText(), txtIdOperacao.getText(), txtAreaObservacao.getText())) {
                     // Adiciona quantidae no estoque
                     if (est.entradaDeProduto(txtIdProduto.getText(), txtQuantidade.getText())) {
                         JOptionPane.showMessageDialog(null, "Produto Adicionado com sucesso");
@@ -612,12 +614,12 @@ public class TelaMovimentacao extends javax.swing.JFrame {
                         txtIdProduto.setText(null);
                         txtIdOperacao.setText(null);
                     }
-
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "Valor Inválido");
                 }
                 break;
-
+            
             case "Saída": // retira um prpoduto do estoque
 
                 p.setId(txtIdProduto.getText());
@@ -627,9 +629,9 @@ public class TelaMovimentacao extends javax.swing.JFrame {
                 est.retiraEstoque(p, p.getQtd());
                 // Registra movimentação
                 if (est.registraMovimentacao(p.getId(), p.getQtd(), est.localizaIdOperacao("Saída"), txtAreaObservacao.getText())) {
-
+                    
                     JOptionPane.showMessageDialog(null, "Produto retirado do estoque com sucesso");
-
+                    
                     tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
                     txtQuantidade.setText(null);
                     txtAreaObservacao.setText(null);
@@ -647,19 +649,18 @@ public class TelaMovimentacao extends javax.swing.JFrame {
                     txtIdOperacao.setText(null);
                 }
                 break;
-
+            
             case "Devolução":// Devolve o produto ao fornecedor gerando uma saída no estoque
                 // Exibe painel
                 panelProdutos.setVisible(true);
                 
-
                 Produto produto = new Produto();
                 produto.setId(txtIdProduto.getText());
                 produto.setQtd(txtQuantidade.getText());
-                int op= JOptionPane.showConfirmDialog(null, "Devolver produto ao fornecedor?","Atenção!",JOptionPane.YES_NO_OPTION);
+                int op = JOptionPane.showConfirmDialog(null, "Devolver produto ao fornecedor?", "Atenção!", JOptionPane.YES_NO_OPTION);
                 // Solicita confirmação ao operador
-                if (op==JOptionPane.YES_OPTION) {
-                    
+                if (op == JOptionPane.YES_OPTION) {
+
                     //Retira do estoque o produto 
                     est.retiraEstoque(produto, produto.getQtd());
                     JOptionPane.showMessageDialog(null, "Devolução de produto realizada com sucesso!");
@@ -678,24 +679,24 @@ public class TelaMovimentacao extends javax.swing.JFrame {
                     txtQuantidade.setText(null);
                     txtIdProduto.setText(null);
                     txtIdOperacao.setText(null);
-
-                }else {
+                    
+                } else {
                     JOptionPane.showMessageDialog(null, "Operação cancelada!");                    
                 }
-
-                break;
                 
+                break;
+            
             case "Descarte":// Retira o produto o estoque
                 // Exibe painel
-                panelProdutos.setVisible(true);               
-
+                panelProdutos.setVisible(true);                
+                
                 Produto pDescarte = new Produto();
                 pDescarte.setId(txtIdProduto.getText());
                 pDescarte.setQtd(txtQuantidade.getText());
-                int confirma= JOptionPane.showConfirmDialog(null, "Descartar este produto?","Atenção!",JOptionPane.YES_NO_OPTION);
+                int confirma = JOptionPane.showConfirmDialog(null, "Descartar este produto?", "Atenção!", JOptionPane.YES_NO_OPTION);
                 // Solicita confirmação ao operador
-                if (confirma==JOptionPane.YES_OPTION) {
-                    
+                if (confirma == JOptionPane.YES_OPTION) {
+
                     //Retira do estoque o produto 
                     est.retiraEstoque(pDescarte, pDescarte.getQtd());
                     JOptionPane.showMessageDialog(null, "O produto foi descartado!");
@@ -714,14 +715,14 @@ public class TelaMovimentacao extends javax.swing.JFrame {
                     txtQuantidade.setText(null);
                     txtIdProduto.setText(null);
                     txtIdOperacao.setText(null);
-
-                }else {
+                    
+                } else {
                     JOptionPane.showMessageDialog(null, "Operação cancelada!");                    
                 }
-
+                
                 break;
         }
-
+        
 
     }//GEN-LAST:event_blbIncluirMouseClicked
 
@@ -730,7 +731,7 @@ public class TelaMovimentacao extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisarKeyReleased
 
     private void txtQuantidadeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQuantidadeFocusGained
-                         
+        
     }//GEN-LAST:event_txtQuantidadeFocusGained
 
     /**

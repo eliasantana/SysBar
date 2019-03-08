@@ -368,6 +368,7 @@ public class ControlerFuncionario extends Funcionario {
                 pst.setString(2, remove);
                 rs = pst.executeQuery();
                 combo.removeAllItems();
+                combo.addItem("Selecione...");
                 while (rs.next()) {
                     combo.addItem(rs.getString("nome"));
                 }

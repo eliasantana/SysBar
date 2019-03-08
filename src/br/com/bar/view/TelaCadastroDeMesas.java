@@ -34,47 +34,39 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     Util u = new Util();
     TableModelMesas modelMesas = new TableModelMesas();
     Log log = new Log();
-
+    
     boolean filtro = false; // Filtro de listagem de mesa false -> Apenas mesas do garçom selecionado  true -> Todas as mesas
     int estado = 0;
-
+    
     public TelaCadastroDeMesas() {
         initComponents();
         txtIdGarcom.setVisible(false);
         txtIdMesa.setVisible(false);
-        panelTroca.setVisible(false);
         txtIdNovoGarcom.setVisible(false);
+        panelTroca.setVisible(false);
         btnLixeira.setEnabled(false);
         lblTrocaTodas.setEnabled(false);
         btnTrocaGarcom.setEnabled(false);
-
+        
         f.carregaComboFuncionario(comboGarcom, "Garçom");
-
+        
         if (jCheckBoxTudo.isSelected()) {
             filtro = true;
         }
-        /*
-        try {
-            
-        tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
-        int colunas[] = {1,2,3};
-        u.redimensionaColunas(tblMesas,colunas);
-        } catch (Exception e) {
-            System.out.println("br.com.bar.view.TelaCadastroDeMesas.<init>()"+e);
-        }*/
+        
         modelMesas.redimensionaColunas(tblMesas);
         lblOperador.setVisible(false);
         lblCargo.setVisible(false);
-
+        estadoInicial();
     }
-
+    
     public void recebeOperador(String operador, String cargo) {
-
+        
         lblOperador.setText(cargo);
         lblCargo.setText(operador);
         log.setUsuario(operador);
         estadoInicial();
-
+        
     }
 
     /**
@@ -99,16 +91,16 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         lblNovoGarcom = new javax.swing.JLabel();
         btnTrocaGarcom = new javax.swing.JLabel();
         lblTrocaTodas = new javax.swing.JLabel();
-        jCheckBoxTroca = new javax.swing.JCheckBox();
-        checkTrocaGeral = new javax.swing.JCheckBox();
+        lblCargo = new javax.swing.JLabel();
+        lblOperador = new javax.swing.JLabel();
+        radioTrocaMesa = new javax.swing.JRadioButton();
+        radioTrocaGeral = new javax.swing.JRadioButton();
         menuBar = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         btnLixeira = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMesas = new javax.swing.JTable();
         jCheckBoxTudo = new javax.swing.JCheckBox();
-        lblOperador = new javax.swing.JLabel();
-        lblCargo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         txtIdGarcom = new javax.swing.JTextField();
@@ -246,38 +238,41 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         );
 
         jPanel1.add(panelTroca);
-        panelTroca.setBounds(13, 370, 347, 135);
+        panelTroca.setBounds(13, 370, 344, 135);
 
-        jCheckBoxTroca.setBackground(new java.awt.Color(38, 53, 61));
-        buttonGroup1.add(jCheckBoxTroca);
-        jCheckBoxTroca.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
-        jCheckBoxTroca.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBoxTroca.setText("Troca Mesa");
-        jCheckBoxTroca.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jCheckBoxTrocaMouseClicked(evt);
-            }
-        });
-        jCheckBoxTroca.addActionListener(new java.awt.event.ActionListener() {
+        lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
+        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
+        lblCargo.setText("Cargo");
+        jPanel1.add(lblCargo);
+        lblCargo.setBounds(10, 10, 90, 40);
+
+        lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
+        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
+        lblOperador.setText("Operador");
+        jPanel1.add(lblOperador);
+        lblOperador.setBounds(250, 10, 110, 40);
+
+        buttonGroup1.add(radioTrocaMesa);
+        radioTrocaMesa.setForeground(new java.awt.Color(255, 255, 255));
+        radioTrocaMesa.setText("Troca Mesa");
+        radioTrocaMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxTrocaActionPerformed(evt);
+                radioTrocaMesaActionPerformed(evt);
             }
         });
-        jPanel1.add(jCheckBoxTroca);
-        jCheckBoxTroca.setBounds(13, 337, 97, 31);
+        jPanel1.add(radioTrocaMesa);
+        radioTrocaMesa.setBounds(20, 340, 130, 23);
 
-        checkTrocaGeral.setBackground(new java.awt.Color(38, 53, 61));
-        buttonGroup1.add(checkTrocaGeral);
-        checkTrocaGeral.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        checkTrocaGeral.setForeground(new java.awt.Color(255, 255, 255));
-        checkTrocaGeral.setText("Troca Geral");
-        checkTrocaGeral.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                checkTrocaGeralMouseClicked(evt);
+        buttonGroup1.add(radioTrocaGeral);
+        radioTrocaGeral.setForeground(new java.awt.Color(255, 255, 255));
+        radioTrocaGeral.setText("Troca Geral");
+        radioTrocaGeral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioTrocaGeralActionPerformed(evt);
             }
         });
-        jPanel1.add(checkTrocaGeral);
-        checkTrocaGeral.setBounds(157, 337, 93, 29);
+        jPanel1.add(radioTrocaGeral);
+        radioTrocaGeral.setBounds(160, 340, 140, 23);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 370, 524);
@@ -326,7 +321,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
 
             },
             new String [] {
-
+                "CÓDIGO", "MESA", "GARÇOM"
             }
         ));
         tblMesas.setRowHeight(22);
@@ -351,18 +346,6 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         });
         getContentPane().add(jCheckBoxTudo);
         jCheckBoxTudo.setBounds(390, 60, 210, 29);
-
-        lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
-        lblOperador.setText("Operador");
-        getContentPane().add(lblOperador);
-        lblOperador.setBounds(380, 20, 110, 40);
-
-        lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
-        lblCargo.setText("Cargo");
-        getContentPane().add(lblCargo);
-        lblCargo.setBounds(500, 20, 90, 40);
 
         jPanel2.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -401,13 +384,13 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtIdGarcom);
-        txtIdGarcom.setBounds(640, 10, 70, 30);
+        txtIdGarcom.setBounds(500, 10, 70, 30);
 
         txtIdMesa.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         getContentPane().add(txtIdMesa);
-        txtIdMesa.setBounds(640, 50, 70, 30);
+        txtIdMesa.setBounds(590, 10, 70, 30);
         getContentPane().add(txtIdNovoGarcom);
-        txtIdNovoGarcom.setBounds(730, 50, 70, 29);
+        txtIdNovoGarcom.setBounds(680, 10, 70, 29);
 
         setSize(new java.awt.Dimension(819, 524));
         setLocationRelativeTo(null);
@@ -418,20 +401,28 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     }//GEN-LAST:event_comboGarcomItemStateChanged
 
     private void comboGarcomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboGarcomActionPerformed
-        tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
-        modelMesas.redimensionaColunas(tblMesas);
+        // tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
+        // modelMesas.redimensionaColunas(tblMesas);
+
         if (!"Selecione...".equals(comboGarcom.getSelectedItem().toString())) {
-            desbloqueiaCampos();
+            //desbloqueiaCampos();
             f.carregaComboFuncionario(comboNovoGarcom, "Garçom", comboGarcom.getSelectedItem().toString());
+            // f.carregaComboFuncionario(comboGarcom, "Garçom");
+
+            tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
+            modelMesas.redimensionaColunas(tblMesas);
             txtNumeroMesa.setText(null);
-        txtIdGarcom.setText(f.localizaId(comboGarcom.getSelectedItem().toString()));
+            txtIdGarcom.setText(f.localizaId(comboGarcom.getSelectedItem().toString()));
+            estadoInicial();
+            txtNumeroMesa.setEnabled(true);
         } else {
             estadoInicial();
+            
         }
-
+        
 
     }//GEN-LAST:event_comboGarcomActionPerformed
-
+    
     private void limpaForm() {
         txtIdGarcom.setText(null);
         txtNumeroMesa.setText(null);
@@ -442,18 +433,19 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdGarcomActionPerformed
 
     private void tblMesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMesasMouseClicked
-
-        if (jCheckBoxTroca.isSelected()) {
+        
+        if (radioTrocaMesa.isSelected()) {
             txtIdNovoGarcom.setText(f.localizaId(comboNovoGarcom.getSelectedItem().toString()));
             btnTrocaGarcom.setEnabled(true);
         }
-
+        
         int linha = tblMesas.getSelectedRow();
         txtIdMesa.setText(tblMesas.getModel().getValueAt(linha, 0).toString());
-        String nMesa = tblMesas.getModel().getValueAt(linha, 2).toString();
+        System.out.println("ID:" + txtIdMesa.getText());
+        String nMesa = tblMesas.getModel().getValueAt(linha, 1).toString();
         txtNumeroMesa.setText(nMesa);
-
-        String nomeFuncionario = tblMesas.getModel().getValueAt(linha, 1).toString(); // Seleciona nome do funcionário
+        
+        String nomeFuncionario = tblMesas.getModel().getValueAt(linha, 2).toString(); // Seleciona nome do funcionário
         // comboGarcom.setSelectedItem(nomeFuncionario);
         txtIdGarcom.setText(f.localizaId(nomeFuncionario));
         btnLixeira.setEnabled(true);
@@ -475,13 +467,13 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
             m.setId_funcionario(txtIdGarcom.getText());
             m.setNumeroMesa(txtNumeroMesa.getText());
             m.setStatus("0");
-
+            
             cm.adicionaMesa(m);
             tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
             modelMesas.redimensionaColunas(tblMesas);
             txtNumeroMesa.setText(null);
         }
-
+        
 
     }//GEN-LAST:event_txtNumeroMesaKeyPressed
 
@@ -490,7 +482,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         // Exibe todas as mesas de todos os garçom
         if ("Listar todas as mesas" == jCheckBoxTudo.getText()) {
             jCheckBoxTudo.setText("Retornar");
-
+            
             tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
             modelMesas.redimensionaColunas(tblMesas);
         } else {
@@ -498,79 +490,66 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
             tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), false)));
             modelMesas.redimensionaColunas(tblMesas);
         }
-
+        
 
     }//GEN-LAST:event_jCheckBoxTudoMouseClicked
 
-    private void jCheckBoxTrocaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxTrocaMouseClicked
-        //Exibe painel de Troca
-
-        if (jCheckBoxTroca.isSelected()) {
-
-            panelTroca.setVisible(true);
-            //f.carregaComboFuncionario(comboNovoGarcom, "Garçom");
-            f.carregaComboFuncionario(comboNovoGarcom, "Garçom", comboGarcom.getSelectedItem().toString());
-            btnTrocaGarcom.setEnabled(true);
-            lblTrocaTodas.setEnabled(false);
-            txtNumeroMesa.setEnabled(false);
-        } else {
-            panelTroca.setVisible(false);
-            f.carregaComboFuncionario(comboNovoGarcom, "Garçom", comboGarcom.getSelectedItem().toString());
-        }
-    }//GEN-LAST:event_jCheckBoxTrocaMouseClicked
-
     private void lblTrocaTodasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTrocaTodasMouseClicked
         // Troca garçom
-        if (lblTrocaTodas.isEnabled()) {
-            try {
+        if (radioTrocaGeral.isSelected()){
+            if ("Selecione...".equals(comboNovoGarcom.getSelectedItem().toString())) {
+                JOptionPane.showMessageDialog(null, "Escolha o novo Garçom para realizar a troca! ");
+            } else {
+                
+                try {
+                    
+                    txtIdNovoGarcom.setText(f.localizaId(comboNovoGarcom.getSelectedItem().toString()));
+                } catch (Exception e) {
+                    
+                }
+                txtIdGarcom.setText(f.localizaId(comboGarcom.getSelectedItem().toString()));
+                //txtIdNovoGarcom.setText(f.localizaId(comboNovoGarcom.getSelectedItem().toString()));
 
-                txtIdNovoGarcom.setText(f.localizaId(comboNovoGarcom.getSelectedItem().toString()));
-            } catch (Exception e) {
-
-            }
-            txtIdGarcom.setText(f.localizaId(comboGarcom.getSelectedItem().toString()));
-            //txtIdNovoGarcom.setText(f.localizaId(comboNovoGarcom.getSelectedItem().toString()));
-
-            Funcionario novo = new Funcionario();
-            Funcionario antigo = new Funcionario();
-
-            novo.setId(txtIdNovoGarcom.getText());
-            try {
-
-                novo.setNome(comboNovoGarcom.getSelectedItem().toString());
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Garçom inválido!");
-                System.out.println("br.com.bar.view.TelaCadastroDeMesas.lblTrocaTodasMouseClicked()" + e);
-            }
-
-            antigo.setId(txtIdGarcom.getText());
-            antigo.setNome(comboGarcom.getSelectedItem().toString());
-
-            int op = JOptionPane.showConfirmDialog(null, "Confirma a troca de todas as mesas do garçom " + antigo.getNome() + " para o garçom " + novo.getNome() + "?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-
-            if (op == JOptionPane.YES_OPTION) {
-
-                if (txtIdGarcom.getText().equals(txtIdNovoGarcom.getText())) {
-                    JOptionPane.showMessageDialog(null, "Escolha um garçom diferente para continuar");
-                } else {
-
-                    if (cm.trocaGarcom(antigo, novo)) {
-                        JOptionPane.showMessageDialog(null, "Troca realizada com sucesso!");
-                        tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
-                        modelMesas.redimensionaColunas(tblMesas);
-                        txtNumeroMesa.setText(null);
-                        ocultaCampos();
+                Funcionario novo = new Funcionario();
+                Funcionario antigo = new Funcionario();
+                
+                novo.setId(txtIdNovoGarcom.getText());
+                try {
+                    
+                    novo.setNome(comboNovoGarcom.getSelectedItem().toString());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Garçom inválido!");
+                    System.out.println("br.com.bar.view.TelaCadastroDeMesas.lblTrocaTodasMouseClicked()" + e);
+                }
+                
+                antigo.setId(txtIdGarcom.getText());
+                antigo.setNome(comboGarcom.getSelectedItem().toString());
+                
+                int op = JOptionPane.showConfirmDialog(null, "Confirma a troca de todas as mesas do garçom " + antigo.getNome() + " para o garçom " + novo.getNome() + "?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                
+                if (op == JOptionPane.YES_OPTION) {
+                    
+                    if (txtIdGarcom.getText().equals(txtIdNovoGarcom.getText())) {
+                        JOptionPane.showMessageDialog(null, "Escolha um garçom diferente para continuar");
+                    } else {
+                        
+                        if (cm.trocaGarcom(antigo, novo)) {
+                            JOptionPane.showMessageDialog(null, "Troca realizada com sucesso!");
+                            tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
+                            modelMesas.redimensionaColunas(tblMesas);
+                            txtNumeroMesa.setText(null);
+                            panelTroca.setVisible(false);
+                            //ocultaCampos();
+                            estadoInicial();
+                        }
                     }
                 }
             }
+            radioTrocaGeral.setSelected(false);
         }
-
+        
 
     }//GEN-LAST:event_lblTrocaTodasMouseClicked
-
-    private void jCheckBoxTrocaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxTrocaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxTrocaActionPerformed
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
         // Localiza id do funcionário
@@ -590,7 +569,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Número de mesa inválido!");
             } else {
                 int op = JOptionPane.showConfirmDialog(null, "Deseja incluir essa mesa para o garçom " + garcom + "?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-
+                
                 if (op == JOptionPane.YES_OPTION) {
                     // Registro de Log
                     log.setFuncionalidade("Salvar");
@@ -600,15 +579,15 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                     if (cm.adicionaMesa(m)) { // Adiciona mesa
                         JOptionPane.showMessageDialog(null, "Mesa adicionada com sucesso!");
                     }
-
+                    
                 }
             }
         } catch (HeadlessException | NumberFormatException e) {
             System.out.println("br.com.bar.view.TelaCadastroDeMesas.jLabel16MouseClicked()" + e);
             JOptionPane.showMessageDialog(null, "Por favor informe um número de mesa!");
-
+            
         }
-
+        
         tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
         modelMesas.redimensionaColunas(tblMesas);
         txtNumeroMesa.setText(null);
@@ -618,9 +597,9 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         // Exclui Mesam
         m.setId(txtIdMesa.getText());
         if (btnLixeira.isEnabled()) {
-
+            
             int op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esta mesa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-
+            
             if (op == JOptionPane.YES_OPTION) {
 
                 // Inicio do registro de Log
@@ -629,10 +608,10 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 log.gravaLog(log);
                 // Fim do registro de LOG
                 if ("".equals(m.getId())) {
-
+                    
                 } else {
                     if (cm.excluiMesa(m)) {
-
+                        
                         JOptionPane.showMessageDialog(null, "Mesa excluída com sucesso!");
                         tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
                         modelMesas.redimensionaColunas(tblMesas);
@@ -640,43 +619,55 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                         btnLixeira.setEnabled(false);
                     }
                 }
-
+                
             }
         }
     }//GEN-LAST:event_btnLixeiraMouseClicked
 
     private void btnTrocaGarcomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrocaGarcomMouseClicked
         // Altera Mesa
-        if (btnTrocaGarcom.isEnabled()) {
-            txtIdNovoGarcom.setText(f.localizaId(comboNovoGarcom.getSelectedItem().toString()));
-            Mesa mesa = new Mesa();
-            mesa.setId(txtIdMesa.getText());
-            mesa.setNumeroMesa(txtNumeroMesa.getText());
-            mesa.setStatus("0");
-            mesa.setId_funcionario(txtIdNovoGarcom.getText());
+        if (radioTrocaMesa.isSelected()) {
+            
+            if (!"Selecione...".equals(comboNovoGarcom.getSelectedItem().toString())) {
+                
+                txtIdNovoGarcom.setText(f.localizaId(comboNovoGarcom.getSelectedItem().toString()));
+                Mesa mesa = new Mesa();
+                mesa.setId(txtIdMesa.getText());
+                mesa.setNumeroMesa(txtNumeroMesa.getText());
+                //Atenção - Verificar este fluxo//
+                //A mudança de Status deve ocorrer neste momento?
+                mesa.setStatus("0");
+                mesa.setId_funcionario(txtIdNovoGarcom.getText());
 
-            // Inicio do registro de log
-            log.setFuncionalidade("Alterar");
-            log.setDescricao(log.getUsuario() + " alterou dados da mesa -> " + txtNumeroMesa.getText()
-                    + ": " + comboGarcom.getSelectedItem().toString() + " -> " + comboNovoGarcom.getSelectedItem().toString());
-            log.gravaLog(log);
-            // Fim do registro de LOG
-            if ("".equals(txtIdGarcom.getText()) || "".equals(txtIdNovoGarcom.getText())) {
-                JOptionPane.showMessageDialog(null, "Selecione uma mesa para realizar a troca!");
-            } else if (txtIdGarcom.getText().equals(txtIdNovoGarcom.getText())) {
-                JOptionPane.showMessageDialog(null, "Selecione um garçom diferente para continuar!");
-            } else {
-                int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração de garçom para esta mesa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-                if (op == JOptionPane.YES_OPTION) {
-                    if (cm.alteraMesa(mesa)) {
-                        JOptionPane.showMessageDialog(null, "Alteração de garçom para a mesa informada realizada com sucesso!");
-                        tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
-                        modelMesas.redimensionaColunas(tblMesas);
-                        btnTrocaGarcom.setEnabled(false);
-                        txtNumeroMesa.setText(null);
-                        ocultaCampos();
+                // Inicio do registro de log
+                log.setFuncionalidade("Alterar");
+                log.setDescricao(log.getUsuario() + " alterou dados da mesa -> " + txtNumeroMesa.getText()
+                        + ": " + comboGarcom.getSelectedItem().toString() + " -> " + comboNovoGarcom.getSelectedItem().toString());
+                log.gravaLog(log);
+                // Fim do registro de LOG
+                if ("".equals(txtIdGarcom.getText())
+                        || "".equals(txtIdNovoGarcom.getText())
+                        || "".equals(txtNumeroMesa.getText())) {
+                    JOptionPane.showMessageDialog(null, "Selecione uma mesa para realizar a troca!");
+                } else if (txtIdGarcom.getText().equals(txtIdNovoGarcom.getText())) {
+                    JOptionPane.showMessageDialog(null, "Selecione um garçom diferente para continuar!");
+                } else {
+                    int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração de garçom para esta mesa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    if (op == JOptionPane.YES_OPTION) {
+                        if (cm.alteraMesa(mesa)) {
+                            JOptionPane.showMessageDialog(null, "Alteração de garçom para a mesa informada realizada com sucesso!");
+                            tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
+                            modelMesas.redimensionaColunas(tblMesas);
+                            btnTrocaGarcom.setEnabled(false);
+                            txtNumeroMesa.setText(null);
+                            ocultaCampos();
+                            estadoInicial();
+                        }
+                        radioTrocaMesa.setSelected(false);
                     }
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Escolha o novo Garçom para realizar a troca!");
             }
         }
 
@@ -687,35 +678,30 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         txtNumeroMesa.setText(txtNumeroMesa.getText().replaceAll("[^0-9]", ""));
     }//GEN-LAST:event_txtNumeroMesaKeyReleased
 
-    private void checkTrocaGeralMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkTrocaGeralMouseClicked
-        // Habilita CheckBox
-        if (checkTrocaGeral.isSelected()) {
-            panelTroca.setVisible(true);
-            //f.carregaComboFuncionario(comboNovoGarcom, "Garçom");
-            f.carregaComboFuncionario(comboNovoGarcom, "Garçom", comboGarcom.getSelectedItem().toString());
-            lblTrocaTodas.setEnabled(true);
-            btnTrocaGarcom.setEnabled(false);
-            txtNumeroMesa.setEnabled(false);
-
-        } else {
-            panelTroca.setVisible(false);
-        }
-
-    }//GEN-LAST:event_checkTrocaGeralMouseClicked
-
     private void comboNovoGarcomFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboNovoGarcomFocusGained
-        f.carregaComboFuncionario(comboNovoGarcom, "Garçom", comboGarcom.getSelectedItem().toString());
+        //f.carregaComboFuncionario(comboNovoGarcom, "Garçom", comboGarcom.getSelectedItem().toString());
     }//GEN-LAST:event_comboNovoGarcomFocusGained
 
     private void comboNovoGarcomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboNovoGarcomActionPerformed
-        try {
 
-            txtIdNovoGarcom.setText(f.localizaId(comboNovoGarcom.getSelectedItem().toString()));
-        } catch (NullPointerException ex) {
-
-        }
     }//GEN-LAST:event_comboNovoGarcomActionPerformed
 
+    private void radioTrocaMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioTrocaMesaActionPerformed
+        panelTroca.setVisible(true);
+        f.carregaComboFuncionario(comboNovoGarcom, "Garçom", comboGarcom.getSelectedItem().toString());
+        txtNumeroMesa.setEnabled(false);
+        btnTrocaGarcom.setEnabled(true);
+        lblTrocaTodas.setEnabled(false);
+    }//GEN-LAST:event_radioTrocaMesaActionPerformed
+
+    private void radioTrocaGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioTrocaGeralActionPerformed
+        panelTroca.setVisible(true);
+        f.carregaComboFuncionario(comboNovoGarcom, "Garçom", comboGarcom.getSelectedItem().toString());
+        btnTrocaGarcom.setEnabled(false);
+        lblTrocaTodas.setEnabled(true);
+        txtNumeroMesa.setEnabled(false);
+    }//GEN-LAST:event_radioTrocaGeralActionPerformed
+    
     private void selecionaIdMesa() {
         // Seleciona o id da mesa
         int linha = tblMesas.getSelectedRow();
@@ -727,16 +713,17 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         txtIdGarcom.setText(f.localizaId(nomeFuncionario));
         btnLixeira.setEnabled(true);
     }
-
+    
     private void estadoInicial() {
-        checkTrocaGeral.setEnabled(false);
-        jCheckBoxTroca.setEnabled(false);
+        
+        //checkTrocaGeral.setEnabled(false);        
+        //jCheckBoxTroca.setEnabled(false);         
         txtNumeroMesa.setEnabled(false);
+        panelTroca.setVisible(false);
     }
-
+    
     private void desbloqueiaCampos() {
-        checkTrocaGeral.setEnabled(true);
-        jCheckBoxTroca.setEnabled(true);
+       
         txtNumeroMesa.setEnabled(true);
     }
 
@@ -779,10 +766,8 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     private javax.swing.JLabel btnLixeira;
     private javax.swing.JLabel btnTrocaGarcom;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JCheckBox checkTrocaGeral;
     private javax.swing.JComboBox<String> comboGarcom;
     private javax.swing.JComboBox<String> comboNovoGarcom;
-    private javax.swing.JCheckBox jCheckBoxTroca;
     private javax.swing.JCheckBox jCheckBoxTudo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
@@ -799,6 +784,8 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     private javax.swing.JLabel lblTrocaTodas;
     private javax.swing.JPanel menuBar;
     private javax.swing.JPanel panelTroca;
+    private javax.swing.JRadioButton radioTrocaGeral;
+    private javax.swing.JRadioButton radioTrocaMesa;
     private javax.swing.JTable tblMesas;
     private javax.swing.JTextField txtIdGarcom;
     private javax.swing.JTextField txtIdMesa;
@@ -810,15 +797,17 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         txtIdMesa.setText(null);
         txtIdGarcom.setText(null);
         txtNumeroMesa.setText(null);
-
+        
     }
-
+    
     private void ocultaCampos() {
-        estadoInicial();
+        //estadoInicial();
+        /*
         lblNovoGarcom.setVisible(false);
         comboNovoGarcom.setVisible(false);
         btnTrocaGarcom.setVisible(false);
-        lblTrocaTodas.setVisible(false);
+        lblTrocaTodas.setVisible(false);*/
+        panelTroca.setVisible(false);
         comboGarcom.setSelectedItem("Selecione...");
     }
 }

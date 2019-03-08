@@ -5,15 +5,9 @@
  */
 package br.com.bar.view;
 
-import br.com.bar.dao.Backup;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerLog;
-import java.awt.Color;
-import java.io.IOException;
 import static java.lang.Thread.sleep;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.UIManager;
 
 /**
  *

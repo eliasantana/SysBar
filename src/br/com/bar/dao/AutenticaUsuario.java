@@ -51,11 +51,11 @@ public class AutenticaUsuario {
             // Se usuário for bloqueado exibe mensagem de usuário bloqueado
             if (null == usuarioLogin) {
 
-                JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos");
+                JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos!","Atenção",JOptionPane.ERROR_MESSAGE);
             } else {
 
                 if (usuarioBloqueio.equals("1")) {
-                    JOptionPane.showMessageDialog(null, "Usuário Bloqueado! \n Procure um Administrador!");
+                    JOptionPane.showMessageDialog(null, "Usuário Bloqueado! \n Procure um Administrador!","Atenção!",JOptionPane.ERROR_MESSAGE);
                 } else {
 
                     // Caso usuário não seja bloqueado ou localizado será checado a senha e login
@@ -89,6 +89,25 @@ public class AutenticaUsuario {
 
     public String getBloqueio() {
         return usuarioBloqueio;
+    }
+    
+    // Retorna a situação de Bloqueio
+    public String taBloqueado(String login, String senha){
+        String sql = "SELECT login,senha,cargo,status,bloqueado FROM tbcadfuncionario where login=? and senha=?";
+        String bloqueio="";
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, login);
+            pst.setString(2, senha);
+            rs = pst.executeQuery();
+            
+            while (rs.next()){
+                bloqueio = rs.getString("bloqueado");
+            }
+            
+        } catch (SQLException e) {
+        }
+        return bloqueio;
     }
 
 }

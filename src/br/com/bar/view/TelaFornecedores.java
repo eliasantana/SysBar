@@ -72,7 +72,7 @@ public class TelaFornecedores extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
-        tblFornecedores.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
+        tblFornecedores.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tblFornecedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -347,6 +347,7 @@ public class TelaFornecedores extends javax.swing.JFrame {
 
     private void btnAdicionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdicionarMouseClicked
         TelaCadastroFornecedor tlFornc = new TelaCadastroFornecedor();
+        tlFornc.setAlwaysOnTop(true);
         tlFornc.recebeOperador(lblOperador.getText(), lblCargo.getText(), "Incluir",this);       
         tlFornc.setVisible(true);
         

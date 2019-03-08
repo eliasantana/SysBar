@@ -37,7 +37,7 @@ public class TelaLogin extends javax.swing.JFrame {
     ResultSet rs = null;
     ControlerDadosEmpresa d = new ControlerDadosEmpresa();
     ControlerAtivacao ativacao = new ControlerAtivacao();
-
+    AutenticaUsuario autentica = new AutenticaUsuario();
     CriptoGrafa criptoGrafa = new CriptoGrafa();
 
     Util u = new Util();
@@ -45,6 +45,7 @@ public class TelaLogin extends javax.swing.JFrame {
     Date dataAtual = new Date();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat hora = new SimpleDateFormat("h:mm");
+    String bloqueio = "";
     /**
      * Creates new form TelaLogin
      */
@@ -53,11 +54,12 @@ public class TelaLogin extends javax.swing.JFrame {
 
     public TelaLogin() {
         initComponents();
+
         DadosEmpresa dados = d.selecionaDados();
         conexao = ConexaoBd.conector();
         // Carrega o ícone setado no Cadastro Empresa
         lblLogo.setIcon(u.carregaLogo());
-        
+
         /*
         if (conexao!=null){
                DadosEmpresa dadosEmpresa = d.selecionaDados();
@@ -112,8 +114,7 @@ public class TelaLogin extends javax.swing.JFrame {
         }
 
     }
-    
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -314,6 +315,8 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         realizaLogin();
+       
+
     }//GEN-LAST:event_btnLoginActionPerformed
     private void realizaLogin() {
         // Cria log
@@ -326,25 +329,26 @@ public class TelaLogin extends javax.swing.JFrame {
         // Autentica Usuário
         ControlerParametro p = new ControlerParametro();
         ControlerFuncionario cf = new ControlerFuncionario();
-        AutenticaUsuario autentica = new AutenticaUsuario();
 
         if (autentica.autentica(txtLogin.getText().toLowerCase(), txtSenha.getText().toLowerCase())) {
 
             String cargo = autentica.enviarCargo();
-            String bloqueio = autentica.getBloqueio();
+            //Stringbloqueio = autentica.getBloqueio();
+            bloqueio = autentica.getBloqueio();
+
             String status = autentica.getStatus();
 
             if ("1".equals(bloqueio)) {
-                JOptionPane.showMessageDialog(null, "Usuário Bloqueado! \n Procure um administrador!");
-                //Início do Registro de Log
+                JOptionPane.showMessageDialog(null, "Usuário Bloqueado! \n Procure um Administrador!");
 
+                //Início do Registro de Log
                 l.setFuncionalidade("Acesso Negado");
                 l.setDescricao("O usuário " + txtLogin.getText() + " Bloqueado tentou acessar o sistema!");
                 l.gravaLog(l);
                 // Fim do Registro de Log
 
             } else if ("1".equals(status)) {
-                JOptionPane.showMessageDialog(null, "Usuário Inativo! \n Procure um administrador!");
+                JOptionPane.showMessageDialog(null, "Usuário Inativo! \n Procure um Administrador!");
                 //Início do Registro de Log
 
                 l.setFuncionalidade("Acesso Negado");
@@ -392,8 +396,10 @@ public class TelaLogin extends javax.swing.JFrame {
             }
 
         } else {
+
             int contagem = contador();
             int tentavias = 3 - contagem;
+
             if (contagem >= 3) {
                 cp.bloqueiaLogin(cf.localizaIdLogin(txtLogin.getText()));
                 //Início do Registro de Log
@@ -404,7 +410,7 @@ public class TelaLogin extends javax.swing.JFrame {
             } else {
                 //JOptionPane.showMessageDialog(null, "Restam " + tentavias + " tentativas \n Antes do bloqueio!");
                 lblMsg.setForeground(Color.white);
-                lblMsg.setText("Restam " + tentavias + " tentativas \n Antes do bloqueio!");
+                lblMsg.setText("Resta(m) " + tentavias + " tentativa(s) antes do bloqueio!");
                 //Início do Registro de Log
 
                 l.setFuncionalidade("Acesso Negado");

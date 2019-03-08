@@ -14,16 +14,14 @@ import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.util.Calendar;
 import java.util.Map;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import net.proteanit.sql.DbUtils;
 
 /**
  *
  * @author elias
  */
-public class TelaCadastroFornecedor extends JDialog {
+public class TelaCadastroFornecedor extends javax.swing.JFrame {
 
     ControlerFornecedor cf = new ControlerFornecedor();
     Log log = new Log();
@@ -40,8 +38,8 @@ public class TelaCadastroFornecedor extends JDialog {
         txtIdFor.setVisible(false);
         lblCargo.setVisible(false);
         lblOperador.setVisible(false);
-        btnSalvar.setEnabled(false);
-        bloqueiaCampos();
+        //btnSalvar.setEnabled(false);
+        //bloqueiaCampos();
     }
 
     public void recebeOperador(String operador, String cargo, String operacao, TelaFornecedores tl) {
@@ -277,6 +275,11 @@ public class TelaCadastroFornecedor extends JDialog {
         lblEnd.setText("Endereço");
         jPanel2.add(lblEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 110, 20));
 
+        txtFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFornecedorFocusLost(evt);
+            }
+        });
         txtFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtFornecedorKeyReleased(evt);
@@ -347,7 +350,7 @@ public class TelaCadastroFornecedor extends JDialog {
         });
         jPanel2.add(txtSite, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 230, 30));
 
-        comboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Ativo", "Inativo" }));
+        comboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ativo", "Inativo" }));
         comboStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboStatusActionPerformed(evt);
@@ -487,7 +490,7 @@ public class TelaCadastroFornecedor extends JDialog {
         // Cadastra fornecedor
 
         if (btnSalvar.isEnabled()) {
-
+            
             fRebido.setNome(txtFornecedor.getText());
             fRebido.setCnpj(txtCnpj.getText());
             fRebido.setEndereco(txtEndereco.getText());
@@ -503,6 +506,7 @@ public class TelaCadastroFornecedor extends JDialog {
             fRebido.setSite(txtSite.getText());
             fRebido.setStatus(comboStatus.getSelectedItem().toString());
             fRebido.setObs(txtAreaObs.getText());
+            
             if (valida(fRebido)){
                 
                 if ("Incluir".equals(operacao)) {
@@ -577,6 +581,7 @@ public class TelaCadastroFornecedor extends JDialog {
         txtFornecedor.setText(u.tamanhoMaximo(txtFornecedor.getText(), 45));
         lblRazaoSocial.setForeground(Color.BLACK);
         lblMsg.setText(null);
+        
     }//GEN-LAST:event_txtFornecedorKeyReleased
 
     private void txtCnpjMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCnpjMouseClicked
@@ -679,6 +684,10 @@ public class TelaCadastroFornecedor extends JDialog {
             }
         }
     }//GEN-LAST:event_txtCepKeyPressed
+
+    private void txtFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFornecedorFocusLost
+       
+    }//GEN-LAST:event_txtFornecedorFocusLost
 
     /**
      * @param args the command line arguments
