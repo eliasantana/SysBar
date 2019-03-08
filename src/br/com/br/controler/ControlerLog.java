@@ -104,18 +104,25 @@ public class ControlerLog {
         return rs;
     }
 
-    // Lista os registros de Log no período especificado retornando um Boolean
-    // mudando o estado do objeto btn passado no parâmetro conforme resultado da pesquisa.
-    public void listaLog(JTable tabela, String dataInicio, String dataFim, String filtro, JLabel btn, int limit, int offset) {
+    /**
+     * Lista todos os Logs registrados no período informado, paginados conforme o número de registros
+     * informado no parâmetro limit.
+     * @param tabela Tabela onde será exibido o resultado da Query
+     * @param dataInicio Data de Início da pesquisa.
+     * @param dataFim Data Final da pesquisa.
+     * @param filtro Usuário a ser pesquisado.
+     * @param limit Limite de Resgistros por página.
+     * @param offset Pagina a ser exibida com os próximos registros.
+     * 
+     */
+    public void listaLog(JTable tabela, String dataInicio, String dataFim, String filtro, int limit, int offset) {
 
-        String sql = "SELECT \n"
-                + "id as 'CÓDIGO', \n"
+        String sql = "SELECT \n"               
                 + "date_format(data,'%d/%m/%Y')  as 'DATA', \n"
-                + "hora as 'HORA', \n"
-                + "usuario as 'USUÁRIO', \n"
-                + "funcionalidade as 'FUNCIONALIDADE', \n"
+                + "hora as 'HORA', \n"                
+                + "funcionalidade as 'AÇÃO', \n"
                 + "descricao  as 'DESCRIÇÃO'\n"
-                + "FROM dbbar.tb_log where usuario=? and data between ? and ? limit ? offset ?";
+                + "FROM dbbar.tb_log where usuario=? and data between ? and ? ORDER BY data DESC, HORA DESC limit ? offset ? ";
 
         try {
             pst = conexao.prepareStatement(sql);

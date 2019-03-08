@@ -67,6 +67,23 @@ public class Log {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getData() {
+        return data;
+    }
+    
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+
+    public String getHora() {
+        return hora;
+    }
     
        
     

@@ -7,7 +7,11 @@ package br.com.bar.view;
 
 import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.Log;
+import br.com.bar.dao.ReportUtil;
+import br.com.bar.model.DadosEmpresa;
+import br.com.bar.model.TableModelLog;
 import br.com.bar.util.Util;
+import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerLog;
 import java.sql.Connection;
@@ -16,9 +20,6 @@ import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -34,11 +35,16 @@ public class TelaLog extends javax.swing.JFrame {
     ControlerFuncionario f = new ControlerFuncionario();
     Connection conexao = ConexaoBd.conector();
     Util u = new Util();
+    ReportUtil rpu = new ReportUtil();
+    ControlerDadosEmpresa empresa = new ControlerDadosEmpresa();
+    TableModelLog modelLog = new TableModelLog();
+
     int limite = 0;
     int offset = 0;
     int npagina = 0;
     int linhaTabela = 0;
     int total = 0;
+    int visualizados = 0;
 
     public TelaLog() {
         initComponents();
@@ -53,6 +59,8 @@ public class TelaLog extends javax.swing.JFrame {
         //offset = (npagina * limite) - limite;
         //offset = 0;
         desabilitaPaginacao();
+        modelLog.redimensionaColunas(tblLog);
+        btnListar.setEnabled(false);
 
     }
 
@@ -101,7 +109,6 @@ public class TelaLog extends javax.swing.JFrame {
         btnPrimeiro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(243, 156, 18));
@@ -144,10 +151,12 @@ public class TelaLog extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnFechar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 0, -1, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 0, -1, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/log64x64.png"))); // NOI18N
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 9, -1, -1));
@@ -157,42 +166,65 @@ public class TelaLog extends javax.swing.JFrame {
         jPanel1.add(lbltitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 9, 351, 60));
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 1040, 130);
+        jPanel1.setBounds(0, 0, 1030, 130);
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jDateChooserInicio.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                jDateChooserInicioInputMethodTextChanged(evt);
+            }
+        });
+        jDateChooserInicio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateChooserInicioPropertyChange(evt);
+            }
+        });
+
+        jDateChooserFim.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                jDateChooserFimInputMethodTextChanged(evt);
+            }
+        });
+        jDateChooserFim.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateChooserFimPropertyChange(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Início");
 
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Fim");
 
         tblLog.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "CÓDIGO", "DATA", "HORA", "FUNCIONALIDADE", "DESCRIÇÃO"
+                "DATA", "HORA", "AÇÃO", "DESCRIÇÃO"
             }
         ));
         tblLog.setRowHeight(18);
         jScrollPane1.setViewportView(tblLog);
 
-        comboUsuario.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         comboUsuario.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboUsuarioItemStateChanged(evt);
@@ -204,7 +236,7 @@ public class TelaLog extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Usuário");
 
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Impressora32x32.png"))); // NOI18N
@@ -231,7 +263,7 @@ public class TelaLog extends javax.swing.JFrame {
         painelCentralLayout.setHorizontalGroup(
             painelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCentralLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addGroup(painelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(painelCentralLayout.createSequentialGroup()
@@ -246,13 +278,14 @@ public class TelaLog extends javax.swing.JFrame {
                         .addGroup(painelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelCentralLayout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(497, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 497, Short.MAX_VALUE))
                             .addGroup(painelCentralLayout.createSequentialGroup()
                                 .addComponent(comboUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(14, 14, 14))
         );
         painelCentralLayout.setVerticalGroup(
             painelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,7 +298,7 @@ public class TelaLog extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(painelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(comboUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                        .addComponent(comboUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                         .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jDateChooserFim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -318,9 +351,9 @@ public class TelaLog extends javax.swing.JFrame {
         getContentPane().add(jLabel7);
         jLabel7.setBounds(420, 560, 60, 14);
         getContentPane().add(lblTotRegistro);
-        lblTotRegistro.setBounds(700, 550, 300, 20);
+        lblTotRegistro.setBounds(690, 550, 310, 20);
 
-        btnUltimo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnultimo.png"))); // NOI18N
+        btnUltimo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/ultimo2.png"))); // NOI18N
         btnUltimo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnUltimoMouseClicked(evt);
@@ -334,7 +367,7 @@ public class TelaLog extends javax.swing.JFrame {
         getContentPane().add(btnUltimo);
         btnUltimo.setBounds(620, 540, 60, 40);
 
-        btnPrimeiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnPrimeiro.png"))); // NOI18N
+        btnPrimeiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/primeiro.png"))); // NOI18N
         btnPrimeiro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnPrimeiroMouseClicked(evt);
@@ -348,7 +381,7 @@ public class TelaLog extends javax.swing.JFrame {
         getContentPane().add(btnPrimeiro);
         btnPrimeiro.setBounds(260, 540, 60, 40);
 
-        setSize(new java.awt.Dimension(1038, 582));
+        setSize(new java.awt.Dimension(1043, 621));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -358,20 +391,23 @@ public class TelaLog extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharMouseClicked
 
     private void btnListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListarMouseClicked
+        if (btnListar.isEnabled()) {
+            listar();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            String dtInicio = df.format(jDateChooserInicio.getDate().getTime());
+            String dtFim = df.format(jDateChooserFim.getDate().getTime());
 
-        listar();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String dtInicio = df.format(jDateChooserInicio.getDate().getTime());
-        String dtFim = df.format(jDateChooserFim.getDate().getTime());
-       
-        offset = Integer.parseInt(jSpinnerLimite.getValue().toString());
-        
-        System.out.println("Total:" + total);
-        System.out.println("OffSet: "+offset);
-        if (total > 0) {
-            habilitaPaginacao();
-        } else {
-            desabilitaPaginacao();
+            offset = Integer.parseInt(jSpinnerLimite.getValue().toString());
+
+            System.out.println("Total:" + total);
+            System.out.println("OffSet: " + offset);
+            if (total > 0) {
+                habilitaPaginacao();
+                btnImprimir.setEnabled(true);
+            } else {
+                desabilitaPaginacao();
+            }
+
         }
 
 
@@ -381,6 +417,29 @@ public class TelaLog extends javax.swing.JFrame {
         // TODO add your handling code here:
         offset = 0;
         npagina = 0;
+
+        try {
+
+            Date dataInicio = jDateChooserInicio.getDate();
+            Date dataFim = jDateChooserFim.getDate();
+            System.out.println(dataInicio);
+
+            if (null != dataInicio) {
+
+                String dtInicio = u.formataDataBanco(dataInicio);
+                String dtFim = u.formataDataBanco(dataFim);
+
+                long dias = u.retornaTotalDeDias(dtInicio, dtFim);
+                if (dias > 30) {
+                    JOptionPane.showMessageDialog(this, "O período máximo permitido para a pesquisa é de 30 dias!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+                    jDateChooserFim.setDate(new Date());
+                    btnListar.setEnabled(false);
+                } else {
+                    btnListar.setEnabled(true);
+                }
+            }
+        } catch (NullPointerException e) {
+        }
 
     }//GEN-LAST:event_comboUsuarioActionPerformed
 
@@ -395,7 +454,7 @@ public class TelaLog extends javax.swing.JFrame {
 
         // Imprime o resultado da pesquisa e exibe o relatório em tela
         if (btnImprimir.isEnabled()) {
-
+            DadosEmpresa dados = empresa.selecionaDados();
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             String dtIni = df.format(jDateChooserInicio.getDate().getTime());
             String dtfim = df.format(jDateChooserFim.getDate().getTime());
@@ -407,45 +466,60 @@ public class TelaLog extends javax.swing.JFrame {
             // Adiciona o período ao relatório as datas no formato BR 
             param.put("dataInicio", u.formataDataBr(jDateChooserInicio.getDate()));
             param.put("dataFim", u.formataDataBr(jDateChooserFim.getDate()));
+            param.put("logo", dados.getLogo());
 
             try {
-                JasperPrint print = JasperFillManager.fillReport("c:/SysBar/rel/relatorioDeLog.jasper", param, conexao);
-                JasperViewer.viewReport(print, false);
+                rpu.imprimiRelatorioTela("relatorioDeLog.jasper", param);
 
             } catch (JRException e) {
-                System.out.println("br.com.bar.view.TelaLog.jLabel5MouseClicked() + e");
+                System.out.println("br.com.bar.view.TelaLog.jLabel5MouseClicked() e" + e);
             }
         }
 
     }//GEN-LAST:event_btnImprimirMouseClicked
 
     private void btnAnteiorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteiorActionPerformed
+        habilitaPaginacao();
         if (offset > 0) {
             offset = offset - limite;
             listar();
+
         } else {
             /* 
             offset=0;
             listar();*/
             btnAnteior.setEnabled(false);
+            btnPrimeiro.setEnabled(false);
+            btnUltimo.setEnabled(true);
             btnProx.setEnabled(true);
             offset = 0;
             npagina = 0;
         }
         System.out.println("OffSet: " + offset);
+
+
     }//GEN-LAST:event_btnAnteiorActionPerformed
 
     private void btnProxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProxActionPerformed
+        linhaTabela = tblLog.getRowCount();
+        System.out.println(linhaTabela);
 
         if (linhaTabela < Integer.parseInt(jSpinnerLimite.getValue().toString())) {
-            btnProx.setEnabled(false);
+            desabilitaPaginacao();
+            btnPrimeiro.setEnabled(true);
             btnAnteior.setEnabled(true);
+
         } else {
             npagina = npagina + 1;
-            //offset = (limite * npagina) - limite; 
-            offset = offset+ Integer.parseInt(jSpinnerLimite.getValue().toString());
+            offset = (limite * npagina) - limite;
+            //offset = Integer.parseInt(jSpinnerLimite.getValue().toString());
             System.out.println("OffSEt: " + offset);
             listar();
+            if (offset == 0) {
+                btnAnteior.setEnabled(true);
+                btnPrimeiro.setEnabled(true);
+            }
+
         }
 
 
@@ -455,6 +529,7 @@ public class TelaLog extends javax.swing.JFrame {
         offset = 0;
         npagina = 0;
         limite = Integer.parseInt(jSpinnerLimite.getValue().toString());
+        desabilitaPaginacao();
     }//GEN-LAST:event_jSpinnerLimiteStateChanged
 
     private void btnListarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListarMouseEntered
@@ -470,7 +545,22 @@ public class TelaLog extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUltimoMouseClicked
 
     private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
-        // TODO add your handling code here:
+
+        double resto = total % Integer.parseInt(jSpinnerLimite.getValue().toString());
+        if (resto > 0) {
+            double resultado = total / Integer.parseInt(jSpinnerLimite.getValue().toString());
+            int pagina = limite * (int) resultado;
+            offset = pagina;
+            npagina = 0;
+            listar();
+            desabilitaPaginacao();
+            btnPrimeiro.setEnabled(true);
+            btnAnteior.setEnabled(true);
+
+        } else {
+
+        }
+
     }//GEN-LAST:event_btnUltimoActionPerformed
 
     private void btnPrimeiroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrimeiroMouseClicked
@@ -478,8 +568,62 @@ public class TelaLog extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPrimeiroMouseClicked
 
     private void btnPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeiroActionPerformed
-        // TODO add your handling code here:
+        offset = 0;
+        npagina = 0;
+        listar();
+        desabilitaPaginacao();
+        btnProx.setEnabled(true);
+        btnUltimo.setEnabled(true);
+
+
     }//GEN-LAST:event_btnPrimeiroActionPerformed
+
+    private void jDateChooserInicioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooserInicioPropertyChange
+        try {
+
+            Date dtInicio = jDateChooserInicio.getDate();
+            Date dtFim = jDateChooserFim.getDate();
+
+            if (dtInicio.after(dtFim)) {
+                JOptionPane.showMessageDialog(this, "A Data Inicio não pode ser maio que a Data Fim!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+                btnListar.setEnabled(false);
+            }
+
+        } catch (NullPointerException e) {
+
+        }
+
+    }//GEN-LAST:event_jDateChooserInicioPropertyChange
+
+    private void jDateChooserInicioInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jDateChooserInicioInputMethodTextChanged
+
+
+    }//GEN-LAST:event_jDateChooserInicioInputMethodTextChanged
+
+    private void jDateChooserFimInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jDateChooserFimInputMethodTextChanged
+
+    }//GEN-LAST:event_jDateChooserFimInputMethodTextChanged
+
+    private void jDateChooserFimPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooserFimPropertyChange
+        try {
+
+            Date dtInicio = jDateChooserInicio.getDate();
+            Date dtFim = jDateChooserFim.getDate();
+
+            if (dtFim.before(dtInicio)) {
+                JOptionPane.showMessageDialog(this, "A Data Fim não pode ser menor que a Data Início!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+                jDateChooserFim.setDate(new Date());
+                btnListar.setEnabled(false);
+            } else if (dtFim.after(new Date())) {
+                JOptionPane.showMessageDialog(this, "A Data Fim não pode ser maior que a Data Atual!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+                jDateChooserFim.setDate(new Date());
+                btnListar.setEnabled(false);
+            }
+
+        } catch (NullPointerException e) {
+
+        }
+    }//GEN-LAST:event_jDateChooserFimPropertyChange
 
     /**
      * @param args the command line arguments
@@ -548,6 +692,7 @@ public class TelaLog extends javax.swing.JFrame {
 
     private void listar() {
         // Lista todos os logs
+
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         if ("Selecione...".equals(comboUsuario.getSelectedItem().toString())) {
             JOptionPane.showMessageDialog(null, "Selecione um usuário!");
@@ -561,28 +706,35 @@ public class TelaLog extends javax.swing.JFrame {
                 //tblLog.setModel(DbUtils.resultSetToTableModel(lc.listaLog(tblLog, dtInicio, dtFim, comboUsuario.getSelectedItem().toString())));
 
                 // Total de Registros Exibidos na tela
-                lc.listaLog(tblLog, dtInicio, dtFim, comboUsuario.getSelectedItem().toString(), btnImprimir, limite, offset);
+                lc.listaLog(tblLog, dtInicio, dtFim, comboUsuario.getSelectedItem().toString(), limite, offset);
+                modelLog.redimensionaColunas(tblLog);
                 //Totaliza os resitros da pesquisa
                 total = lc.totalizaLog(dtInicio, dtFim, comboUsuario.getSelectedItem().toString());
-                lblTotRegistro.setText("Localizados-> " + total + " registros.");
+                lblTotRegistro.setText(visualizados + " de " + total + " registros localizados");
+
+                linhaTabela = tblLog.getRowCount();
+
+                visualizados = visualizados + linhaTabela;
             } catch (Exception e) {
                 System.out.println("br.com.bar.view.TelaLog.btnListarMouseClicked()" + e);
 
             }
         }
-        linhaTabela = tblLog.getRowCount();
 
     }
 
     private void desabilitaPaginacao() {
         btnAnteior.setEnabled(false);
         btnProx.setEnabled(false);
+        btnUltimo.setEnabled(false);
+        btnPrimeiro.setEnabled(false);
 
     }
 
     private void habilitaPaginacao() {
-        btnAnteior.setEnabled(true);
+
         btnProx.setEnabled(true);
+        btnUltimo.setEnabled(true);
 
     }
 }

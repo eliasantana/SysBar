@@ -206,6 +206,24 @@ public class Util {
 
         return dias;
     }
+    
+    public long retornaTotalDeDias(String data, String dataFim) {
+        
+                //Converte para LocalDate
+        long dias = 0;
+        // Caso o cadastro esteja vazio gera java.lang.NullPointerException
+        try {
+
+            LocalDate dtFinal = LocalDate.parse(data);
+            LocalDate dtIncio = LocalDate.parse(dataFim);
+
+            dias = ChronoUnit.DAYS.between(dtFinal, dtIncio);
+        } catch (Exception e) {
+           
+        }
+
+        return dias;
+    }
 
     /**
      * Este método converte um objeto String(yyyy-MM-dd) em um Date. Adicionado:
