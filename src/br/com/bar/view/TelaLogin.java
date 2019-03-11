@@ -124,7 +124,6 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        txtLogin = new javax.swing.JTextField();
         txtSenha = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
@@ -201,25 +200,6 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(52, 73, 94));
         jPanel2.setLayout(null);
-
-        txtLogin.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        txtLogin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtLogin.setText("admin");
-        txtLogin.setBorder(null);
-        txtLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txtLogin.setMargin(null);
-        txtLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLoginActionPerformed(evt);
-            }
-        });
-        txtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtLoginKeyPressed(evt);
-            }
-        });
-        jPanel2.add(txtLogin);
-        txtLogin.setBounds(20, 10, 250, 40);
 
         txtSenha.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         txtSenha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -318,7 +298,7 @@ public class TelaLogin extends javax.swing.JFrame {
         Log l = new Log();
         
         l.setFuncionalidade("Login");
-        l.setUsuario(txtLogin.getText());
+        l.setUsuario(comboLogin.getSelectedItem().toString());
         l.setDescricao(l.getUsuario() + " Logou no Sistema");
 
         // Autentica Usuário
@@ -377,7 +357,7 @@ public class TelaLogin extends javax.swing.JFrame {
                     comboLogin.setSelectedIndex(0);
                     //Início do Registro de Log
                     l.setFuncionalidade("Acesso Negado");
-                    l.setDescricao("O usuário " + txtLogin.getText() + " por motivos de segurança foi bloqueado");
+                    l.setDescricao("Usuário bloqueado por motivos de segurança.");
                     l.gravaLog(l);
                     // Fim do Registro de Log
                 } else {
@@ -387,7 +367,7 @@ public class TelaLogin extends javax.swing.JFrame {
                     //Início do Registro de Log
 
                     l.setFuncionalidade("Acesso Negado");
-                    l.setDescricao(txtLogin.getText() + " tentou acessar o sistema -> " + tentavias + " vezes");
+                    l.setDescricao("Tentou acessar o sistema -> " + tentavias + " vezes");
                     l.gravaLog(l);
                     // Fim do Registro de Log
 
@@ -397,17 +377,6 @@ public class TelaLogin extends javax.swing.JFrame {
         }
         
     }
-    private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtLoginActionPerformed
-
-    private void txtLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginKeyPressed
-        // Vai para caixa senha
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            txtSenha.requestFocus();
-        }
-    }//GEN-LAST:event_txtLoginKeyPressed
-
     private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
 
     }//GEN-LAST:event_txtSenhaActionPerformed
@@ -496,7 +465,6 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel lblVersao;
     private javax.swing.JLabel lblVersao1;
     private javax.swing.JLabel lbllicenca2;
-    private javax.swing.JTextField txtLogin;
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 

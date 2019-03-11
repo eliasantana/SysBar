@@ -45,14 +45,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
         lblLogo.setIcon(u.carregaLogo());
         lblData.setText(df.format(data)); // Exibe data atual
-        lblCargo.setVisible(false);
-        ArrayList<Double> estatiscas = new ArrayList<>();
-        estatiscas = m.estatistica();
-        lblLivres.setText(String.format("%9.1f", estatiscas.get(0)) + "%");
-        lblOcupadas.setText(String.format("%9.1f", estatiscas.get(1)) + "%");
-        lblNmesaLivre.setText(String.format("%9.0f", estatiscas.get(2)));
-        lblNmesaOcupada.setText(String.format("%9.0f", estatiscas.get(3)));
-
+        lblCargo.setVisible(false);     
+        
         if (cc.contasVencidas()) {
             // Esta msg foi desabilitada porque na tela principal a mensagem já é exibida.
             //JOptionPane.showMessageDialog(null, "Você possui contas vencidas ou com vencimento para hoje!","Atenção!",JOptionPane.ERROR_MESSAGE);
@@ -73,8 +67,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         };
         timer.scheduleAtFixedRate(atualizaEstatistica, 0, timeMilis);
 
-      
-       
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -562,7 +554,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (cz.pratoPendente() > 0) {
             JOptionPane.showMessageDialog(null, "Existem pratos com liberação pendente!");
         }
-        
+
         int op = JOptionPane.showConfirmDialog(null, "Deseja realmente fechar esta tela?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
         if (op == JOptionPane.YES_OPTION) {
@@ -659,8 +651,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ArrayList<Double> estatiscas = new ArrayList<>();
         estatiscas = m.estatistica();
 
-        lblLivres.setText(String.format("%9.1f", estatiscas.get(0)) + "%");
-        lblOcupadas.setText(String.format("%9.1f", estatiscas.get(1)) + "%");
+        lblLivres.setText(String.format("%9.0f", estatiscas.get(0)) + "%");
+        lblOcupadas.setText(String.format("%9.0f", estatiscas.get(1)) + "%");
         lblNmesaLivre.setText(String.format("%9.0f", estatiscas.get(2)));
         lblNmesaOcupada.setText(String.format("%9.0f", estatiscas.get(3)));
     }
@@ -720,7 +712,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaPesquisaFuncionario pesqFunc = new TelaPesquisaFuncionario();
         pesqFunc.recebeOperador(lblOperador.getText(), lblCargo.getText());
         pesqFunc.setVisible(true);
-        
 
         // Inicio do registro de log
         log.setFuncionalidade("Cadastro de Funcionário");

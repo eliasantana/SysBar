@@ -145,10 +145,10 @@ public class ControlerParametro {
                 pst.setString(1, id);
                 pst.executeUpdate();
 
-                JOptionPane.showMessageDialog(null, "Usuário bloqueado! \n Procure o administrador do sistema!");
+                JOptionPane.showMessageDialog(null, "Usuário bloqueado, procure o administrador do sistema!");
 
             } catch (HeadlessException | SQLException e) {
-                JOptionPane.showMessageDialog(null, "Erro ao bloquear usuário" + e);
+                System.out.println("br.com.br.controler.ControlerParametro.bloqueiaLogin()"+e);
 
             }
         }

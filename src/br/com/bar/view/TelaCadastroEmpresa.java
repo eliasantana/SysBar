@@ -69,6 +69,8 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         //u.setIcon(this);
         lblOperador.setVisible(false);
         lblPerfil.setVisible(false);
+        lblCarregaLogo.setVisible(false);
+        labelCarregaLogo.setVisible(false);
     }
 
     // Recebe dados para identificação do operador
@@ -92,8 +94,8 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        labelCarregaLogo = new javax.swing.JLabel();
+        lblCarregaLogo = new javax.swing.JLabel();
         txturlLogo = new javax.swing.JTextField();
         txtIdEmpresa = new javax.swing.JTextField();
         txtUrlBackup = new javax.swing.JFormattedTextField();
@@ -145,24 +147,25 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(52, 73, 94));
 
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/logo.png"))); // NOI18N
 
-        jLabel17.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("Carrega Logo do Sistema");
-        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+        labelCarregaLogo.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        labelCarregaLogo.setForeground(new java.awt.Color(255, 255, 255));
+        labelCarregaLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelCarregaLogo.setText("Carrega Logo do Sistema");
+        labelCarregaLogo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel17MouseClicked(evt);
+                labelCarregaLogoMouseClicked(evt);
             }
         });
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/foto (2).png"))); // NOI18N
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblCarregaLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/foto (2).png"))); // NOI18N
+        lblCarregaLogo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+                lblCarregaLogoMouseClicked(evt);
             }
         });
+
+        txturlLogo.setText("C:\\SysBar\\logo4MasterFood.png");
 
         txtUrlBackup.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
 
@@ -185,11 +188,11 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
                             .addComponent(txturlLogo))
                         .addGap(68, 68, 68))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelCarregaLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(86, 86, 86))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(lblCarregaLogo)
                 .addGap(146, 146, 146))
         );
         jPanel1Layout.setVerticalGroup(
@@ -198,9 +201,9 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(lblCarregaLogo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelCarregaLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(145, 145, 145)
                 .addComponent(txturlLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -509,31 +512,16 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSelecionarArquivoActionPerformed
 
     private void lblExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExcluirMouseClicked
-        // Exclui empresa
-        /*
-        DadosEmpresa objEmpresa = dados.selecionaDados();
-        int op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir \n os dados da empresa?", "Atenção!", JOptionPane.YES_NO_OPTION);
-        if (op == JOptionPane.YES_OPTION) {
-
-            if (dados.excluiEmpresa(objEmpresa)) {
-                JOptionPane.showMessageDialog(null, "Dados excluídos com sucesso!");
-            } else {
-                JOptionPane.showMessageDialog(null, " Não foi possível excluir os dados desta empresa!");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, " Exclusão cancelada com sucesso!");
-
-        }
-        */
-        limpaforme();
+       
+        limpaform();
     }//GEN-LAST:event_lblExcluirMouseClicked
 
-    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
+    private void labelCarregaLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCarregaLogoMouseClicked
 
 
-    }//GEN-LAST:event_jLabel17MouseClicked
+    }//GEN-LAST:event_labelCarregaLogoMouseClicked
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+    private void lblCarregaLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCarregaLogoMouseClicked
         // Seleciona logo do sistema
         //Seleciona local do Arquivo
 
@@ -555,7 +543,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             System.out.println("br.com.bar.view.TelaCadastroEmpresa.jLabel2MouseClicked()");
         }
 
-    }//GEN-LAST:event_jLabel2MouseClicked
+    }//GEN-LAST:event_lblCarregaLogoMouseClicked
 
     private void lblEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMouseClicked
 
@@ -690,8 +678,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -701,7 +687,9 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jpanelImpressao;
+    private javax.swing.JLabel labelCarregaLogo;
     private javax.swing.JLabel lblCaminho;
+    private javax.swing.JLabel lblCarregaLogo;
     private javax.swing.JLabel lblEditar;
     private javax.swing.JLabel lblExcluir;
     private javax.swing.JLabel lblFechar;
@@ -727,7 +715,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JTextField txturlLogo;
     // End of variables declaration//GEN-END:variables
 
-    private void limpaforme() {
+    private void limpaform() {
        txtNomeEmpresa.setText(null);
        txtCnpj.setText(null);
        txtEndereco.setText(null);
@@ -742,7 +730,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
        txtEmail.setText(null);
        radioVisualizar.setSelected(true);
        lblCaminho.setText(null);
-       lblLogo.setIcon(null);
+       //lblLogo.setIcon(null);
       
     }
 }
