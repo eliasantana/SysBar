@@ -168,6 +168,8 @@ public class TelaLog extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1030, 130);
 
+        painelCentral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jDateChooserInicio.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
@@ -180,6 +182,7 @@ public class TelaLog extends javax.swing.JFrame {
                 jDateChooserInicioPropertyChange(evt);
             }
         });
+        painelCentral.add(jDateChooserInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 69, 148, 40));
 
         jDateChooserFim.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
@@ -193,12 +196,15 @@ public class TelaLog extends javax.swing.JFrame {
                 jDateChooserFimPropertyChange(evt);
             }
         });
+        painelCentral.add(jDateChooserFim, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 69, 148, 40));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Início");
+        painelCentral.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 48, 58, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Fim");
+        painelCentral.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 48, 70, -1));
 
         tblLog.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -225,6 +231,8 @@ public class TelaLog extends javax.swing.JFrame {
         tblLog.setRowHeight(18);
         jScrollPane1.setViewportView(tblLog);
 
+        painelCentral.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 127, 1006, 304));
+
         comboUsuario.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboUsuarioItemStateChanged(evt);
@@ -235,9 +243,11 @@ public class TelaLog extends javax.swing.JFrame {
                 comboUsuarioActionPerformed(evt);
             }
         });
+        painelCentral.add(comboUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 69, 210, 40));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Usuário");
+        painelCentral.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 48, 70, -1));
 
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Impressora32x32.png"))); // NOI18N
         btnImprimir.setText("Imprimir");
@@ -246,6 +256,7 @@ public class TelaLog extends javax.swing.JFrame {
                 btnImprimirMouseClicked(evt);
             }
         });
+        painelCentral.add(btnImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 70, 116, 39));
 
         btnListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/localizar32x32.png"))); // NOI18N
         btnListar.setText("Pesquisar");
@@ -257,56 +268,7 @@ public class TelaLog extends javax.swing.JFrame {
                 btnListarMouseEntered(evt);
             }
         });
-
-        javax.swing.GroupLayout painelCentralLayout = new javax.swing.GroupLayout(painelCentral);
-        painelCentral.setLayout(painelCentralLayout);
-        painelCentralLayout.setHorizontalGroup(
-            painelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelCentralLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(painelCentralLayout.createSequentialGroup()
-                        .addGroup(painelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateChooserInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(painelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateChooserFim, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(painelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelCentralLayout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 497, Short.MAX_VALUE))
-                            .addGroup(painelCentralLayout.createSequentialGroup()
-                                .addComponent(comboUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(14, 14, 14))
-        );
-        painelCentralLayout.setVerticalGroup(
-            painelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelCentralLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(painelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(painelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(comboUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                        .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDateChooserFim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jDateChooserInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        painelCentral.add(btnListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, 116, 37));
 
         getContentPane().add(painelCentral);
         painelCentral.setBounds(0, 90, 1030, 440);
@@ -422,8 +384,7 @@ public class TelaLog extends javax.swing.JFrame {
 
             Date dataInicio = jDateChooserInicio.getDate();
             Date dataFim = jDateChooserFim.getDate();
-            System.out.println(dataInicio);
-
+            
             if (null != dataInicio) {
 
                 String dtInicio = u.formataDataBanco(dataInicio);

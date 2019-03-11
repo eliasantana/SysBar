@@ -21,7 +21,6 @@ import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLSyntaxErrorException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -31,7 +30,7 @@ import javax.swing.JOptionPane;
  * @author elias
  */
 public class TelaLogin extends javax.swing.JFrame {
-
+    
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
@@ -39,9 +38,10 @@ public class TelaLogin extends javax.swing.JFrame {
     ControlerAtivacao ativacao = new ControlerAtivacao();
     AutenticaUsuario autentica = new AutenticaUsuario();
     CriptoGrafa criptoGrafa = new CriptoGrafa();
-
+    ControlerFuncionario cf = new ControlerFuncionario();
+    
     Util u = new Util();
-
+    
     Date dataAtual = new Date();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat hora = new SimpleDateFormat("h:mm");
@@ -51,32 +51,20 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     ControlerParametro cp = new ControlerParametro();
     int acumula = 0;
-
+    
     public TelaLogin() {
         initComponents();
-
+        
         DadosEmpresa dados = d.selecionaDados();
         conexao = ConexaoBd.conector();
         // Carrega o ícone setado no Cadastro Empresa
         lblLogo.setIcon(u.carregaLogo());
-
-        /*
-        if (conexao!=null){
-               DadosEmpresa dadosEmpresa = d.selecionaDados();
-               lblLicenca.setText("Copyright Todos os Direitos reservados para");
-               lbllicenca2.setText( dadosEmpresa.getNome_empresa() );
-               lblCnpjEmpresa.setText(dadosEmpresa.getCnpj());
-        }else {
-            
-            TelaPametro param = new TelaPametro();
-            param.setAlwaysOnTop(true); // Coloca a janela parêmetro na frente da tela de login
-            param.setVisible(true);
-        }
-         */
+        txtSenha.setEnabled(false);
+        btnLogin.setEnabled(false);
         // Descriptogafa a chave informada no cadastro empresa
         String chave = criptoGrafa.decripta(dados.getLicenca());
         long dias = u.retornaTotalDeDias(chave);
-
+        cf.carregaComboFuncionarioAtivo(comboLogin);
         if (dias > 10) {
             if (conexao != null) {
                 // Retorna os dados da empresa
@@ -92,19 +80,19 @@ public class TelaLogin extends javax.swing.JFrame {
                 // Exibe Tela de Parâmetro 
                 param.setVisible(true);
             }
-
+            
         } else if (dias > 0 && dias <= 10) {
             // Chma o gerenciador de licença e permite o login
             DadosEmpresa dadosEmpresa = d.selecionaDados();
             lblLicenca.setText("Copyright Todos os Direitos reservados para");
             lbllicenca2.setText(dadosEmpresa.getNome_empresa());
             lblCnpjEmpresa.setText(dadosEmpresa.getCnpj());
-
+            
             TelaGerenciadorDeLicenca g = new TelaGerenciadorDeLicenca();
             g.recebeDias(dias, "A Licença atual expira em " + String.valueOf(dias) + " dia(s)!");
             g.setAlwaysOnTop(true);
             g.setVisible(true);
-
+            
         } else {
             // Chama o gerenciador  de licença e saí do sistema
             TelaGerenciadorDeLicenca g = new TelaGerenciadorDeLicenca();
@@ -112,7 +100,7 @@ public class TelaLogin extends javax.swing.JFrame {
             g.setAlwaysOnTop(true);
             g.setVisible(true);
         }
-
+        
     }
 
     /**
@@ -144,6 +132,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblMsg = new javax.swing.JLabel();
+        comboLogin = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(52, 73, 94));
@@ -198,7 +187,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText(" RESE7 - Soluções em TI");
+        jLabel10.setText(" Rese7 - Soluções em TI");
         jPanel1.add(jLabel10);
         jLabel10.setBounds(30, 330, 240, 20);
 
@@ -230,7 +219,7 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(txtLogin);
-        txtLogin.setBounds(40, 120, 250, 40);
+        txtLogin.setBounds(20, 10, 250, 40);
 
         txtSenha.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         txtSenha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -299,12 +288,20 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario_branco.png"))); // NOI18N
         jLabel6.setText("Login");
         jPanel2.add(jLabel6);
-        jLabel6.setBounds(40, 90, 250, 30);
+        jLabel6.setBounds(40, 80, 250, 30);
 
         lblMsg.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblMsg.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.add(lblMsg);
         lblMsg.setBounds(50, 370, 250, 30);
+
+        comboLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboLoginActionPerformed(evt);
+            }
+        });
+        jPanel2.add(comboLogin);
+        comboLogin.setBounds(40, 110, 250, 40);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(290, 0, 320, 430);
@@ -315,50 +312,27 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         realizaLogin();
-       
-
     }//GEN-LAST:event_btnLoginActionPerformed
     private void realizaLogin() {
         // Cria log
         Log l = new Log();
-
+        
         l.setFuncionalidade("Login");
         l.setUsuario(txtLogin.getText());
         l.setDescricao(l.getUsuario() + " Logou no Sistema");
 
         // Autentica Usuário
         ControlerParametro p = new ControlerParametro();
-        ControlerFuncionario cf = new ControlerFuncionario();
-
-        if (autentica.autentica(txtLogin.getText().toLowerCase(), txtSenha.getText().toLowerCase())) {
-
-            String cargo = autentica.enviarCargo();
-            //Stringbloqueio = autentica.getBloqueio();
-            bloqueio = autentica.getBloqueio();
-
-            String status = autentica.getStatus();
-
-            if ("1".equals(bloqueio)) {
-                JOptionPane.showMessageDialog(null, "Usuário Bloqueado! \n Procure um Administrador!");
-
-                //Início do Registro de Log
-                l.setFuncionalidade("Acesso Negado");
-                l.setDescricao("O usuário " + txtLogin.getText() + " Bloqueado tentou acessar o sistema!");
-                l.gravaLog(l);
-                // Fim do Registro de Log
-
-            } else if ("1".equals(status)) {
-                JOptionPane.showMessageDialog(null, "Usuário Inativo! \n Procure um Administrador!");
-                //Início do Registro de Log
-
-                l.setFuncionalidade("Acesso Negado");
-                l.setDescricao("O usuário " + txtLogin.getText() + " Inativo tentou acessar o sistema!");
-                l.gravaLog(l);
-                // Fim do Registro de Log
-            } else {
-                // Registra acesso do usuário no log
-                l.gravaLog(l);
-                //
+        if ("Selecione...".equals(comboLogin.getSelectedItem().toString())) {
+            lblMsg.setText("Opção Inválida!");
+        } else if (autentica.isExistsSenha(txtSenha.getText().toLowerCase())) {
+            
+            if (autentica.taBloqueado(comboLogin.getSelectedItem().toString(), txtSenha.getText())) {
+                lblMsg.setText("Usuário bloqueado!");
+            } else if (autentica.autentica2(comboLogin.getSelectedItem().toString(), txtSenha.getText().toLowerCase())) {
+                
+                String cargo = autentica.enviarCargo();
+                System.out.println("Cargo: " + cargo);
                 switch (cargo) {
                     case "Gerente": // Vai para tela principal
                         TelaPrincipal principal = new TelaPrincipal();
@@ -366,7 +340,7 @@ public class TelaLogin extends javax.swing.JFrame {
                         principal.setVisible(true);
                         this.dispose();
                         break;
-
+                    
                     case "Estoquista": // Vai para tela Estoque
                         TelaEstoque estoque = new TelaEstoque();
                         estoque.recebeOperador(autentica.enviaOperador(), autentica.enviarCargo());
@@ -393,33 +367,35 @@ public class TelaLogin extends javax.swing.JFrame {
                         this.dispose();
                         break;
                 }
-            }
-
-        } else {
-
-            int contagem = contador();
-            int tentavias = 3 - contagem;
-
-            if (contagem >= 3) {
-                cp.bloqueiaLogin(cf.localizaIdLogin(txtLogin.getText()));
-                //Início do Registro de Log
-                l.setFuncionalidade("Acesso Negado");
-                l.setDescricao("O usuário " + txtLogin.getText() + " por motivos de segurança foi bloqueado");
-                l.gravaLog(l);
-                // Fim do Registro de Log
             } else {
-                //JOptionPane.showMessageDialog(null, "Restam " + tentavias + " tentativas \n Antes do bloqueio!");
-                lblMsg.setForeground(Color.white);
-                lblMsg.setText("Resta(m) " + tentavias + " tentativa(s) antes do bloqueio!");
-                //Início do Registro de Log
+                
+                int contagem = contador();
+                int tentavias = 3 - contagem;
+                
+                if (contagem >= 3) {
+                    cp.bloqueiaLogin(cf.localizaIdLogin(comboLogin.getSelectedItem().toString()));
+                    comboLogin.setSelectedIndex(0);
+                    //Início do Registro de Log
+                    l.setFuncionalidade("Acesso Negado");
+                    l.setDescricao("O usuário " + txtLogin.getText() + " por motivos de segurança foi bloqueado");
+                    l.gravaLog(l);
+                    // Fim do Registro de Log
+                } else {
+                    //JOptionPane.showMessageDialog(null, "Restam " + tentavias + " tentativas \n Antes do bloqueio!");
+                    lblMsg.setForeground(Color.white);
+                    lblMsg.setText("Resta(m) " + tentavias + " tentativa(s) antes do bloqueio!");
+                    //Início do Registro de Log
 
-                l.setFuncionalidade("Acesso Negado");
-                l.setDescricao(txtLogin.getText() + " tentou acessar o sistema -> " + tentavias + " vezes");
-                l.gravaLog(l);
-                // Fim do Registro de Log
+                    l.setFuncionalidade("Acesso Negado");
+                    l.setDescricao(txtLogin.getText() + " tentou acessar o sistema -> " + tentavias + " vezes");
+                    l.gravaLog(l);
+                    // Fim do Registro de Log
 
+                }
             }
+            
         }
+        
     }
     private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed
         // TODO add your handling code here:
@@ -438,6 +414,8 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
         // Realiza login
+        lblMsg.setText(null);
+        btnLogin.setEnabled(true);
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             realizaLogin();
         }
@@ -455,6 +433,13 @@ public class TelaLogin extends javax.swing.JFrame {
     private void btnLoginAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_btnLoginAncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLoginAncestorAdded
+
+    private void comboLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboLoginActionPerformed
+        lblMsg.setText(null);
+        if (!"Selecione...".equals(comboLogin.getSelectedItem().toString())) {
+            txtSenha.setEnabled(true);
+        }
+    }//GEN-LAST:event_comboLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -493,6 +478,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
+    private javax.swing.JComboBox<String> comboLogin;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
@@ -520,5 +506,5 @@ public class TelaLogin extends javax.swing.JFrame {
         System.out.println(acumula);
         return acumula;
     }
-
+    
 }
