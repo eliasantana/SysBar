@@ -230,7 +230,6 @@ public class TelaCadastroFuncionario extends JDialog {
         jDateNascimento = new com.toedter.calendar.JDateChooser();
         lblCelular = new javax.swing.JLabel();
         jDateDesligamento = new com.toedter.calendar.JDateChooser();
-        jButton1 = new javax.swing.JButton();
         lblMsg = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblTiulo = new javax.swing.JLabel();
@@ -642,10 +641,10 @@ public class TelaCadastroFuncionario extends JDialog {
         lblCelular.setBounds(150, 260, 90, 20);
 
         jDateDesligamento.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 jDateDesligamentoInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jDateDesligamento.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -655,15 +654,6 @@ public class TelaCadastroFuncionario extends JDialog {
         });
         jPanel1.add(jDateDesligamento);
         jDateDesligamento.setBounds(560, 280, 130, 30);
-
-        jButton1.setText("Valida");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(610, 230, 61, 23);
 
         lblMsg.setFont(new java.awt.Font("Yu Gothic Light", 0, 12)); // NOI18N
         lblMsg.setForeground(new java.awt.Color(255, 0, 0));
@@ -1186,15 +1176,6 @@ public class TelaCadastroFuncionario extends JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        if (valida()) {
-            System.out.println("Passou");
-        } else {
-            System.out.println("Não passou!");
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void txtCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyReleased
         lblCep.setForeground(Color.BLACK);
     }//GEN-LAST:event_txtCepKeyReleased
@@ -1379,7 +1360,6 @@ public class TelaCadastroFuncionario extends JDialog {
     private javax.swing.JComboBox<String> comboCargo;
     private javax.swing.JComboBox<String> comboSituacao;
     private javax.swing.JComboBox<String> comboUf;
-    private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDateAdmissao;
     private com.toedter.calendar.JDateChooser jDateDesligamento;
     private com.toedter.calendar.JDateChooser jDateNascimento;
@@ -1516,13 +1496,13 @@ public class TelaCadastroFuncionario extends JDialog {
             lblUf.setForeground(Color.red);
             comboUf.requestFocus();
             resp = false;
-        } else if ("".equals(txtLogin.getText())) {
-            lblMsg.setText("*Informe um LOGIN para continuar!");
+        } else if ("".equals(txtLogin.getText())||txtLogin.getText().length()<7) {
+            lblMsg.setText("*Informe um LOGIN com tamanho entre 7 e 10 caracteres!");
             txtLogin.requestFocus();
             lblLogin.setForeground(Color.RED);
             resp = false;
-        } else if ("".equals(txtSenha.getText())) {
-            lblMsg.setText("*Informe uma SENHA para continuar!");
+        } else if ("".equals(txtSenha.getText())||txtSenha.getText().length()<5) {
+            lblMsg.setText("*Informe uma SENHA com tamanho entre 5 e 10 caracteres!");
             txtSenha.requestFocus();
             lblSenha.setForeground(Color.red);
             resp = false;
