@@ -419,6 +419,28 @@ public class ControlerFuncionario extends Funcionario {
             JOptionPane.showMessageDialog(null, "Erro carregaComboFuncionário" + e);
         }
     }
+    /**
+     * Carrega combo com o login dos funcionarios com status ATIVO com cargos
+     * de Gerente e Garçom.
+     * @param combo Combo a ser preenchido.
+     */ 
+    public void carregaComboFuncionarioGerenteGarcom(JComboBox combo) {
+
+        // Recurso utilizado na tela de log
+        String sql = "SELECT login FROM dbbar.tbcadfuncionario where cargo in('Garçom','Gerente') and status=0";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+            combo.addItem("Selecione...");
+            while (rs.next()) {
+                combo.addItem(rs.getString("login"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerFuncionario.carregaComboFuncionarioGerenteGarcom()"+e);
+        }
+    }
 
     
     public String localizaId(String nome) {

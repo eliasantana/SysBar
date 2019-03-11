@@ -183,6 +183,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
         btnAbrirPedido = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblNumeroMesa = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -215,6 +217,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         txtIdGarcom.setText("idGarcom");
@@ -722,6 +729,20 @@ public class TelaPedido2 extends javax.swing.JFrame {
         getContentPane().add(jPanel7);
         jPanel7.setBounds(310, 110, 270, 490);
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/cadeado.png"))); // NOI18N
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(338, 610, 60, 50);
+
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jLabel4.setText("Bloqueia Tela");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(330, 660, 90, 20);
+
         setSize(new java.awt.Dimension(1309, 693));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -1067,6 +1088,18 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tblListaProdutoFocusLost
 
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // Chama a tela de Bloqueio
+        
+    }//GEN-LAST:event_formKeyPressed
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+       // Chama a tela de Bloqueio
+          TelaBloqueio tb = new TelaBloqueio();
+          tb.setModal(true);
+          tb.setVisible(true);
+    }//GEN-LAST:event_jLabel3MouseClicked
+
     private double calculaPedido() {
         double valor = Double.parseDouble(txtValorUnit.getText().replaceAll(",", "."));
         int qtd = Integer.parseInt(txtQtd.getText());
@@ -1117,6 +1150,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
