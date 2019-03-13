@@ -230,7 +230,7 @@ public class TelaReImpressao extends JDialog {
 
             try {
                 if (dadosEmpresa.getImprimir_na_tela() == 0) {
-                    rsp.imprimiRelatorioTela("cupom2.jasper", dados);
+                    rsp.imprimeRelatorioTela("cupom2.jasper", dados);
                 } else {
                     rsp.impressaoDireta("cupom2.jasper", dados);
                 }

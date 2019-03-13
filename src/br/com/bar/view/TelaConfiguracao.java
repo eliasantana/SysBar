@@ -38,12 +38,6 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        btnGrupo = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        btnGrupo1 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         btnFuncionario = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -69,46 +63,6 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                 jPanel2MouseClicked(evt);
             }
         });
-
-        btnGrupo.setBackground(new java.awt.Color(204, 204, 204));
-        btnGrupo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGrupoMouseClicked(evt);
-            }
-        });
-        btnGrupo.setLayout(null);
-
-        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(52, 73, 94));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Grupos Produtos");
-        btnGrupo.add(jLabel9);
-        jLabel9.setBounds(0, 70, 160, 40);
-
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/grupo128x128.png"))); // NOI18N
-        btnGrupo.add(jLabel12);
-        jLabel12.setBounds(0, 0, 160, 80);
-
-        btnGrupo1.setBackground(new java.awt.Color(204, 204, 204));
-        btnGrupo1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGrupo1MouseClicked(evt);
-            }
-        });
-        btnGrupo1.setLayout(null);
-
-        jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(52, 73, 94));
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Grupos Financeiros");
-        btnGrupo1.add(jLabel10);
-        jLabel10.setBounds(0, 70, 160, 40);
-
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/grupo128x128.png"))); // NOI18N
-        btnGrupo1.add(jLabel13);
-        jLabel13.setBounds(0, 0, 160, 80);
 
         btnFuncionario.setBackground(new java.awt.Color(204, 204, 204));
         btnFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -155,31 +109,24 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(102, 102, 102)
                 .addComponent(btnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(43, 43, 43)
                 .addComponent(btnDadosEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGrupo1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnDadosEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnGrupo1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(btnDadosEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(20, 90, 710, 190);
+        jPanel2.setBounds(20, 90, 570, 190);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setLayout(null);
@@ -192,7 +139,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         lblitulo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         lblitulo.setText("Configurações do Sistema");
         jPanel1.add(lblitulo);
-        lblitulo.setBounds(110, 0, 510, 60);
+        lblitulo.setBounds(20, 0, 450, 60);
 
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("jLabel3");
@@ -200,7 +147,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         lblOperador.setBounds(90, 60, 110, 30);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(50, 0, 660, 310);
+        jPanel1.setBounds(50, 0, 520, 310);
 
         jPanel3.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -230,9 +177,9 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(720, 0, 40, 40);
+        jPanel3.setBounds(570, 0, 40, 40);
 
-        setSize(new java.awt.Dimension(760, 309));
+        setSize(new java.awt.Dimension(609, 309));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -257,19 +204,6 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         paraPametro.setVisible(true);
 
     }//GEN-LAST:event_btnFuncionarioMouseClicked
-
-    private void btnGrupo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGrupo1MouseClicked
-        //  Chama tela de configuração financeira
-        TelaGruposFinanceiro gf = new TelaGruposFinanceiro();
-        gf.setVisible(true);
-    }//GEN-LAST:event_btnGrupo1MouseClicked
-
-    private void btnGrupoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGrupoMouseClicked
-        // Exibe cadastro de grupos
-        TelaGruposProdutos grupos = new TelaGruposProdutos();
-        grupos.recebeOperador(lblitulo.getText());
-        grupos.setVisible(true);
-    }//GEN-LAST:event_btnGrupoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -312,16 +246,10 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnDadosEmpresa;
     private javax.swing.JPanel btnFuncionario;
-    private javax.swing.JPanel btnGrupo;
-    private javax.swing.JPanel btnGrupo1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

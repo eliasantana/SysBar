@@ -244,7 +244,7 @@ public class ControlerGrupo {
 
     public ResultSet listaGrupoProduto() {
 
-        String sql = "SELECT id AS 'CÓDIGO',nome AS 'NOME' FROM cad_grupo_produto";
+        String sql = "SELECT id AS 'CÓDIGO',nome AS 'DESCRIÇÃO' FROM cad_grupo_produto";
 
         try {
             pst = conexao.prepareStatement(sql);

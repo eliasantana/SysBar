@@ -82,7 +82,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         btnFechar1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnFechar1.setForeground(new java.awt.Color(255, 255, 255));
         btnFechar1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnFechar1.setText("X");
+        btnFechar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
         btnFechar1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnFechar1MouseClicked(evt);
@@ -99,7 +99,9 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnFechar1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(btnFechar1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCozinha.png"))); // NOI18N
@@ -120,7 +122,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 63, Short.MAX_VALUE))
+                .addGap(0, 65, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,20 +137,20 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setLayout(null);
 
-        lblGarcom.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        lblGarcom.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblGarcom.setText("jLabel2");
         jPanel3.add(lblGarcom);
-        lblGarcom.setBounds(110, 10, 440, 30);
+        lblGarcom.setBounds(90, 10, 460, 30);
 
         lblMesa.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblMesa.setText("jLabel3");
         jPanel3.add(lblMesa);
-        lblMesa.setBounds(110, 40, 60, 25);
+        lblMesa.setBounds(70, 40, 100, 25);
 
         lblNPedido.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblNPedido.setText("jLabel3");
         jPanel3.add(lblNPedido);
-        lblNPedido.setBounds(300, 40, 90, 25);
+        lblNPedido.setBounds(290, 40, 100, 25);
 
         tblStatus.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         tblStatus.setModel(new javax.swing.table.DefaultTableModel(
@@ -159,7 +161,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "N. PEDIDO", "PRATO", "QUANTIDADE", "N. MESA", "STATUS"
+                "PEDIDO", "PRATO", "QUANTIDADE", "MESA", "STATUS"
             }
         ));
         tblStatus.setRowHeight(22);
@@ -174,19 +176,19 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         jScrollPane1.setBounds(5, 70, 608, 310);
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        jLabel3.setText("N. Pedido:");
+        jLabel3.setText("Pedido:");
         jPanel3.add(jLabel3);
-        jLabel3.setBounds(200, 40, 90, 25);
+        jLabel3.setBounds(210, 40, 80, 25);
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel4.setText("Mesa:");
         jPanel3.add(jLabel4);
-        jLabel4.setBounds(10, 40, 60, 25);
+        jLabel4.setBounds(10, 40, 70, 25);
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel5.setText("Garçom:");
         jPanel3.add(jLabel5);
-        jLabel5.setBounds(10, 10, 90, 25);
+        jLabel5.setBounds(10, 10, 90, 30);
 
         getContentPane().add(jPanel3);
         jPanel3.setBounds(0, 100, 618, 388);

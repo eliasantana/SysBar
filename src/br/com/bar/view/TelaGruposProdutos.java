@@ -381,7 +381,7 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
         g.setNomeGrupo(txtNome.getText());
         if (btnExcluir.isEnabled()){
             
-            int op = JOptionPane.showConfirmDialog(null, "Confirma a exclusão do grupo " + g.getNomeGrupo()+"?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(this, "Confirma a exclusão do grupo " + g.getNomeGrupo()+"?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {
 
@@ -394,11 +394,11 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
                     l.setFuncionalidade("Excluir");
                     l.setDescricao(l.getUsuario() + " excluiu o grupo -> " + g.getNomeGrupo());
                     l.gravaLog(l);
-                    JOptionPane.showMessageDialog(null, "Grupo excluído com sucesso!");
+                    JOptionPane.showMessageDialog(this, "Grupo excluído com sucesso!");
                 }
                 
             }else {
-                    JOptionPane.showMessageDialog(null, "Exclusão cancelada com sucesso!");               
+                    JOptionPane.showMessageDialog(this, "Exclusão cancelada com sucesso!");               
             }
         }
     }//GEN-LAST:event_btnExcluirMouseClicked
@@ -414,15 +414,15 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
         g.setNomeGrupo(txtNomeGrupo.getText());
         // Se o grupo de produto for vazio exibe mensagem
         if (g.getNomeGrupo().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o nome do grupo para continuar!");
+            JOptionPane.showMessageDialog(this, "Informe o nome do grupo para continuar!");
         } else {
             // Verifica se o grupo de produto existe
             if (cg.temGrupoProduto(txtNomeGrupo.getText())){
-                JOptionPane.showMessageDialog(null, "Este grupo já existe!");
+                JOptionPane.showMessageDialog(this, "Este grupo já existe!");
             }else {
                 
                 if (cg.adicionarGrupoProduto(g)) {
-                    JOptionPane.showMessageDialog(null, "Grupo adicionado com sucesso!");
+                    JOptionPane.showMessageDialog(this, "Grupo adicionado com sucesso!");
                     limpaForm();
                     tblGrupos.setModel(DbUtils.resultSetToTableModel(cg.atualizaGrupoProduto(tblGrupos)));
                     //Regisra log
@@ -459,12 +459,12 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
         g.setNomeGrupo(txtNomeGrupo.getText());
         //Checa se o botão está habilitado
         if (btnAlterar.isEnabled()){
-            int op = JOptionPane.showConfirmDialog(null, "Deseja realmente realizar a alteração?","Atenção!",JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(this, "Deseja realmente realizar a alteração?","Atenção!",JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE);
             //Solicita confirmação ao usuário
             if (op==JOptionPane.YES_OPTION){
                 // Realiza a alteração
                 if (cg.alteraGrupoProduto(g)) {
-                    JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+                    JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
                     limpaForm();
                     tblGrupos.setModel(DbUtils.resultSetToTableModel(cg.atualizaGrupoProduto(tblGrupos)));
                     // regisra log
@@ -474,7 +474,7 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
                     l.gravaLog(l);
                 }
             }else {
-                 JOptionPane.showMessageDialog(null, "Alteração cancelada com sucesso!");
+                 JOptionPane.showMessageDialog(this, "Alteração cancelada com sucesso!");
             }
         }
         

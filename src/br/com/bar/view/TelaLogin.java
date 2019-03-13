@@ -300,7 +300,8 @@ public class TelaLogin extends javax.swing.JFrame {
         l.setFuncionalidade("Login");
         l.setUsuario(comboLogin.getSelectedItem().toString());
         l.setDescricao(l.getUsuario() + " Logou no Sistema");
-
+        System.out.println("Hora do Log: "+l.getHora());
+        l.gravaLog(l);
         // Autentica Usuário
         ControlerParametro p = new ControlerParametro();
         if ("Selecione...".equals(comboLogin.getSelectedItem().toString())) {

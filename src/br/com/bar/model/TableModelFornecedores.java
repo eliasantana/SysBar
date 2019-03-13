@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class TableModelFornecedores extends AbstractTableModel {
 
     private final ArrayList<Fornecedor> listaFornecedor = new ArrayList<>();
-    String colunas[] = {"RAZÃO SOCIAL", "CNPJ", "REPRESENTANTE", "TELEFONE", "E-MAIL", "STATUS"};
+    String colunas[] = {"RAZÃO SOCIAL", "CNPJ", "REPRESENTANTE", "CELULAR", "E-MAIL", "STATUS"};
 
     @Override
     public int getRowCount() {
@@ -62,8 +62,8 @@ public class TableModelFornecedores extends AbstractTableModel {
         //RAZÃO SOCIAL, CNPJ, REPRESENTANTE, TELEFONE, E-MAIL, STATUS
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(240);
-        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(120);
-        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(200);
+        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(130);
+        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(190);
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(100);
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(230);
         tabela.getColumn(tabela.getColumnName(5)).setPreferredWidth(60);

@@ -66,7 +66,7 @@ public class ControlerFornecedor {
                 + "    nome as 'RAZÃO SOCIAL',    \n"
                 + "    CNPJ as 'CNPJ',\n"
                 + "    representante as 'REPRESENTANTE',\n"
-                + "	telefone as 'TELEFONE',\n"
+                + "	telefone as 'CELULAR',\n"
                 + "    email as 'E-MAIL',\n"
                 + "    status as 'STATUS'    \n"
                 + "FROM  tbfornecedores WHERE nome like ? ORDER BY status, nome";

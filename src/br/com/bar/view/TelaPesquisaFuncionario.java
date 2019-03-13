@@ -19,8 +19,8 @@ import net.proteanit.sql.DbUtils;
  *
  * @author Elias Santana
  */
-public class TelaPesquisaFuncionario extends JDialog {
-
+public class TelaPesquisaFuncionario extends javax.swing.JFrame {
+    
     ControlerFuncionario cf = new ControlerFuncionario();
     Log l = new Log();
     Util u = new Util();
@@ -29,18 +29,18 @@ public class TelaPesquisaFuncionario extends JDialog {
     public TelaPesquisaFuncionario() {
         initComponents();
         bloqueiaBotoes();
-        this.setModal(true);
+       
         //Matem a tela de pesquisa a frente da janela anterior.
         lblOperador.setVisible(false);
         lblPerfil.setVisible(false);
         modelPesqFunc.redimensionaColunas(tblFuncionario);
     }
-
+    
     public void recebeOperador(String operador, String perfil) {
         lblOperador.setText(operador);
         lblPerfil.setText(perfil);
     }
-
+    
     public void atualizaTabela(String nome) {
         // Realiza Pesquisa
         txtFuncionario.setText(nome);
@@ -233,7 +233,7 @@ public class TelaPesquisaFuncionario extends JDialog {
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // Fecha janela
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void lblPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPesquisaMouseClicked
@@ -247,7 +247,7 @@ public class TelaPesquisaFuncionario extends JDialog {
         // Chama o cadastro de Funcionários
         TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
         tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Adicionar");
-       
+        tcf.setAlwaysOnTop(true);
         tcf.setVisible(true);
         
 
@@ -256,7 +256,7 @@ public class TelaPesquisaFuncionario extends JDialog {
     private void tblFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFuncionarioMouseClicked
         // Desbloqueia botões da tela de pesquisa e habilita os botões caso a lista esteja preechida.
         try {
-            tblFuncionario.getModel().getValueAt(0,0).toString();
+            tblFuncionario.getModel().getValueAt(0, 0).toString();
             desbloqueiaBotoes();
             lblConsultar.setEnabled(true);
             
@@ -272,27 +272,28 @@ public class TelaPesquisaFuncionario extends JDialog {
                 Funcionario f = new Funcionario();
                 f.setId(String.valueOf(tblFuncionario.getModel().getValueAt(linha, 0).toString()));
                 Funcionario fLocalizado = cf.localizaFuncionario(f.getId());
-
+                
                 TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
                 tcf.recebeFuncionario(fLocalizado);
+                tcf.setAlwaysOnTop(true);
                 tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Alterar");
                 tcf.setVisible(true);
-               
+                
                 this.dispose();
             }
         } catch (NullPointerException e) {
             lblAlterar.setEnabled(false);
         }
-
+        
 
     }//GEN-LAST:event_lblAlterarMouseClicked
 
     private void lblExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExcluirMouseClicked
         // Solicita confirmação do usuário antes de excluir
         if (lblExcluir.isEnabled()) {
-
-            int op = JOptionPane.showConfirmDialog(null, "Confirma a exclusão do funcionário?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-
+            
+            int op = JOptionPane.showConfirmDialog(this, "Confirma a exclusão do funcionário?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            
             if (op == JOptionPane.YES_OPTION) {
                 int linha = tblFuncionario.getSelectedRow();
                 l.setFuncionalidade("Excluir");
@@ -303,13 +304,13 @@ public class TelaPesquisaFuncionario extends JDialog {
                 if (cf.excluirFuncionario(tblFuncionario.getModel().getValueAt(linha, 0).toString())) {
                     tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario("")));
                     modelPesqFunc.redimensionaColunas(tblFuncionario);
-                    JOptionPane.showMessageDialog(null, "Exclusão realizada com sucesso!");
+                    JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso!");
                     // Início do registro de log
 
                 }
-
+                
             } else {
-                JOptionPane.showMessageDialog(null, "Exclusão cancelada com sucesso!");
+                JOptionPane.showMessageDialog(this, "Exclusão cancelada com sucesso!");
             }
         }
     }//GEN-LAST:event_lblExcluirMouseClicked
@@ -317,7 +318,7 @@ public class TelaPesquisaFuncionario extends JDialog {
     private void txtFuncionarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFuncionarioKeyPressed
         // Realiza Pesquisa
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
+            
             tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario(txtFuncionario.getText())));
             modelPesqFunc.redimensionaColunas(tblFuncionario);
         }
@@ -327,24 +328,25 @@ public class TelaPesquisaFuncionario extends JDialog {
         /*
         * Chama a tela de cadastro com todos os campos desbloqueados
          */
-        if (lblConsultar.isEnabled()){
+        if (lblConsultar.isEnabled()) {
             
             try {
-
+                
                 int linha = tblFuncionario.getSelectedRow();
                 Funcionario f = new Funcionario();
                 f.setId(String.valueOf(tblFuncionario.getModel().getValueAt(linha, 0).toString()));
                 Funcionario fLocalizado = cf.localizaFuncionario(f.getId());
-
+                
                 TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
                 tcf.recebeFuncionario(fLocalizado);
+                tcf.setAlwaysOnTop(rootPaneCheckingEnabled);
                 tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Detalhe");
                 tcf.setVisible(true);
-               
+                
                 this.dispose();
-
-            } catch (Exception e) {
-
+                
+            } catch (SecurityException e) {
+                
             }
         }
     }//GEN-LAST:event_lblConsultarMouseClicked
@@ -406,16 +408,16 @@ public class TelaPesquisaFuncionario extends JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void bloqueiaBotoes() {
-
+        
         lblAlterar.setEnabled(false);
         lblExcluir.setEnabled(false);
         lblConsultar.setEnabled(false);
     }
-
+    
     private void desbloqueiaBotoes() {
-
+        
         lblAlterar.setEnabled(true);
         lblExcluir.setEnabled(true);
     }
-
+    
 }

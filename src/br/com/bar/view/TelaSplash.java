@@ -121,7 +121,7 @@ public class TelaSplash extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel10.setText("Rese7 - Soluções em TI");
+        jLabel10.setText("Rese7 Soluções em TI");
         jPanel1.add(jLabel10);
         jLabel10.setBounds(200, 70, 280, 22);
 

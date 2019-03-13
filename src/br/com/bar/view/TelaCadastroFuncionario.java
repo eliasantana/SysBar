@@ -756,6 +756,7 @@ public class TelaCadastroFuncionario extends JDialog {
     private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked
         if ("Alterar".equals(txtOperacao.getText()) || "Detalhe".equals(txtOperacao.getText()) || "Adicionar".equals(txtOperacao.getText())) {
             this.dispose();
+            
             TelaPesquisaFuncionario tpf = new TelaPesquisaFuncionario();
             tpf.recebeOperador(lblOperador.getText(), lblPerfil.getText());
             tpf.atualizaTabela("");
@@ -885,15 +886,15 @@ public class TelaCadastroFuncionario extends JDialog {
             f.setRg(txtRg.getText());
 
             if (valida()) {
-                int op = JOptionPane.showConfirmDialog(null, "Confirma a inclusão do funcionário?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                int op = JOptionPane.showConfirmDialog(this, "Confirma a inclusão do funcionário?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (op == JOptionPane.YES_OPTION) {
 
                     if (funcionario.temFuncionario(f.getNome())) {
-                        JOptionPane.showMessageDialog(null, "Este funcionário já existe!");
+                        JOptionPane.showMessageDialog(this, "Este funcionário já existe!");
                     } else {
                         if (funcionario.adicionaFuncionario(f)) {
                             limpaForm();
-                            JOptionPane.showMessageDialog(null, "Funcionário adicionado com sucesso!");
+                            JOptionPane.showMessageDialog(this, "Funcionário adicionado com sucesso!");
 
                             // Início do registro de log
                             l.setFuncionalidade("Salvar");
@@ -965,15 +966,15 @@ public class TelaCadastroFuncionario extends JDialog {
                 // Verifica se o funcionário possui mesa cadastrada sob sua responsabilidade
                 if (cf.temMesa(f)) {
                     // Se o funcionário possuir mesa, exibe mensagem e solicita transferida para outro 
-                    JOptionPane.showMessageDialog(null, "Transfira as mesas do funcionário antes de continuar!");
+                    JOptionPane.showMessageDialog(this, "Transfira as mesas do funcionário antes de continuar!");
                 } else {
                     if (valida()) {
-                        int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração dos Dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                        int op = JOptionPane.showConfirmDialog(this, "Confirma a alteração dos Dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                         if (op == JOptionPane.YES_OPTION) {
 
                             // Altera dados do funcionário
                             if (cf.alterar(f, txtId.getText())) {
-                                JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+                                JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
                                 this.dispose();
 
                                 TelaPesquisaFuncionario tpf = new TelaPesquisaFuncionario();
@@ -988,10 +989,10 @@ public class TelaCadastroFuncionario extends JDialog {
 
                                 //Fim do registro de log
                             } else {
-                                JOptionPane.showMessageDialog(null, "Erro ao tentar alterar os dados - contate o SUPORTE!");
+                                JOptionPane.showMessageDialog(this, "Erro ao tentar alterar os dados - contate o SUPORTE!");
                             }
                         } else {
-                            JOptionPane.showMessageDialog(null, "Alteração cancelada com sucesso!");
+                            JOptionPane.showMessageDialog(this, "Alteração cancelada com sucesso!");
                         }
                     }
                     /*
@@ -1002,10 +1003,10 @@ public class TelaCadastroFuncionario extends JDialog {
                 }
             } else {
                 if (valida()) {
-                    int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração dos Dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    int op = JOptionPane.showConfirmDialog(this, "Confirma a alteração dos Dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                     if (op == JOptionPane.YES_OPTION) {
                         if (cf.alterar(f, txtId.getText())) {
-                            JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+                            JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
                             this.dispose();
                             TelaPesquisaFuncionario tpf = new TelaPesquisaFuncionario();
                             //tpf.atualizaTabela(f.getNome());
@@ -1018,10 +1019,10 @@ public class TelaCadastroFuncionario extends JDialog {
                             l.gravaLog(l);
                             //Fim do registro de log
                         } else {
-                            JOptionPane.showMessageDialog(null, "Erro ao tentar alterar os dados - contate o SUPORTE!");
+                            JOptionPane.showMessageDialog(this, "Erro ao tentar alterar os dados - contate o SUPORTE!");
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Alteração candelada com sucesso!");
+                        JOptionPane.showMessageDialog(this, "Alteração candelada com sucesso!");
                     }
                 }
             }
@@ -1167,7 +1168,7 @@ public class TelaCadastroFuncionario extends JDialog {
         if (Util.isCPF(txtCpf.getText())) {
 
         } else {
-            JOptionPane.showMessageDialog(null, "Digite um CPF válido!");
+            JOptionPane.showMessageDialog(this, "Digite um CPF válido!");
             txtCpf.requestFocus();
         }
     }//GEN-LAST:event_txtCpfFocusLost

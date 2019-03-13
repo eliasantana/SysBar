@@ -59,6 +59,7 @@ public class TelaFornecedores extends javax.swing.JFrame {
         lblOperador = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtFornecedor = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -87,7 +88,7 @@ public class TelaFornecedores extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "RAZÃO SOCIAL", "CNPJ", "REPRESENTANTE", "TELEFONE", "E-MAIL", "STATUS"
+                "RAZÃO SOCIAL", "CNPJ", "REPRESENTANTE", "CELULAR", "E-MAIL", "STATUS"
             }
         ));
         tblFornecedores.setRowHeight(25);
@@ -102,9 +103,9 @@ public class TelaFornecedores extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        jLabel2.setText("Cadastro de Fornecedores");
+        jLabel2.setText("Cadastro ");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(170, 30, 470, 48);
+        jLabel2.setBounds(170, 30, 220, 50);
 
         jPanel2.setBackground(new java.awt.Color(52, 73, 94));
 
@@ -149,6 +150,11 @@ public class TelaFornecedores extends javax.swing.JFrame {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/empresa128x128.png"))); // NOI18N
         jPanel1.add(jLabel6);
         jLabel6.setBounds(30, 10, 140, 90);
+
+        jLabel7.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
+        jLabel7.setText("de Fornecedores");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(270, 80, 230, 30);
 
         jLabel4.setText("Fornecedor");
 
@@ -215,7 +221,7 @@ public class TelaFornecedores extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 953, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 951, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -239,7 +245,7 @@ public class TelaFornecedores extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -258,7 +264,7 @@ public class TelaFornecedores extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(973, 515));
+        setSize(new java.awt.Dimension(971, 515));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -288,6 +294,7 @@ public class TelaFornecedores extends javax.swing.JFrame {
             TelaCadastroFornecedor tcf = new TelaCadastroFornecedor();
             tcf.recebeOperador(lblOperador.getText(), lblCargo.getText(), "Alterar",this);
             tcf.recebeFornecedor(fornecedor);
+            tcf.setAlwaysOnTop(true);
             tcf.setVisible(true);
             bloqueiaBotoes();
             
@@ -332,6 +339,7 @@ public class TelaFornecedores extends javax.swing.JFrame {
         TelaCadastroFornecedor tlFornc = new TelaCadastroFornecedor();
         tlFornc.recebeOperador(lblOperador.getText(), lblCargo.getText(), "Consultar",this);
         tlFornc.recebeFornecedor(fornecedor);
+        tlFornc.setAlwaysOnTop(true);
         tlFornc.setVisible(true);
     }//GEN-LAST:event_btnConsultarMouseClicked
 
@@ -400,6 +408,7 @@ public class TelaFornecedores extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

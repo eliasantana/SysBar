@@ -12,7 +12,8 @@ import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCaixa;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerFuncionario;
-import javax.swing.JDialog;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
@@ -39,7 +40,10 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
     public TelaGerenciamentoDeCaixa() {
         initComponents();
         txtIdCaixa.setVisible(false);
-        tblGerenciamentoCaixa.setModel(DbUtils.resultSetToTableModel(cc.listaCaixa()));    
+        btnLiberarCaixa.setEnabled(false);
+        //tblGerenciamentoCaixa.setModel(DbUtils.resultSetToTableModel(cc.listaCaixa()));
+        
+        listarCaixa();
         lblCargo.setVisible(false);
         lblOperador.setVisible(false);
     }
@@ -48,7 +52,7 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
 
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
-
+       
     }
 
     /**
@@ -60,6 +64,7 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelBordas = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -77,6 +82,8 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
+        panelBordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+
         jPanel1.setBackground(new java.awt.Color(243, 156, 18));
         jPanel1.setLayout(null);
 
@@ -88,7 +95,7 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
         jLabel6.setText("de Caixa");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(290, 60, 86, 32);
+        jLabel6.setBounds(290, 50, 86, 32);
         jPanel1.add(txtIdCaixa);
         txtIdCaixa.setBounds(400, 50, 51, 20);
 
@@ -108,22 +115,24 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 1, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(423, 0, 40, 40);
+        jPanel2.setBounds(440, 0, 40, 40);
 
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/caixa.png"))); // NOI18N
         jPanel1.add(jLabel17);
-        jLabel17.setBounds(0, 20, 130, 70);
+        jLabel17.setBounds(0, 10, 130, 70);
 
         tblGerenciamentoCaixa.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         tblGerenciamentoCaixa.setModel(new javax.swing.table.DefaultTableModel(
@@ -163,31 +172,47 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
         lblCargo.setText("cargo");
         jPanel3.add(lblCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(339, 15, 81, 30));
 
+        javax.swing.GroupLayout panelBordasLayout = new javax.swing.GroupLayout(panelBordas);
+        panelBordas.setLayout(panelBordasLayout);
+        panelBordasLayout.setHorizontalGroup(
+            panelBordasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 476, Short.MAX_VALUE)
+            .addGroup(panelBordasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBordasLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(panelBordasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                        .addGroup(panelBordasLayout.createSequentialGroup()
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE))
+        );
+        panelBordasLayout.setVerticalGroup(
+            panelBordasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 329, Short.MAX_VALUE)
+            .addGroup(panelBordasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelBordasLayout.createSequentialGroup()
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(13, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addComponent(panelBordas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(panelBordas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(463, 331));
+        setSize(new java.awt.Dimension(478, 331));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -197,23 +222,20 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void btnLiberarCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarCaixaActionPerformed
-        if (txtIdCaixa.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione um caixa para continuar");
-        } else {
-
-            if (cc.liberaCaixa(txtIdCaixa.getText())) {
-                JOptionPane.showMessageDialog(null, "Caixa liberado com sucesso!");
+         
+             
+        if (cc.liberaCaixa(txtIdCaixa.getText())) {
+                JOptionPane.showMessageDialog(this, "Caixa liberado com sucesso!");
                 tblGerenciamentoCaixa.setModel(DbUtils.resultSetToTableModel(cc.listaCaixa()));
                 //Inicio do Registro de Log
-
+                btnLiberarCaixa.setEnabled(false);
                 l.setFuncionalidade("Caixa");
                 l.setDescricao(lblOperador.getText() + " liberou o caixa");
                 l.setUsuario(lblOperador.getText());
                 l.gravaLog(l);
-
+                listarCaixa();
                 //Fim do Registro de Log
             }
-        }
 
     }//GEN-LAST:event_btnLiberarCaixaActionPerformed
 
@@ -221,6 +243,7 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
 
         int linha = tblGerenciamentoCaixa.getSelectedRow();
         txtIdCaixa.setText(tblGerenciamentoCaixa.getValueAt(linha, 0).toString());
+        btnLiberarCaixa.setEnabled(true);
     }//GEN-LAST:event_tblGerenciamentoCaixaMouseClicked
 
     /**
@@ -270,9 +293,24 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblOperador;
+    private javax.swing.JPanel panelBordas;
     private javax.swing.JTable tblGerenciamentoCaixa;
     private javax.swing.JTextField txtIdCaixa;
     // End of variables declaration//GEN-END:variables
+
+    private void listarCaixa() {
+       ResultSet rs = cc.listaCaixa();
+        try {
+            
+            if (rs.next()) {
+                tblGerenciamentoCaixa.setModel(DbUtils.resultSetToTableModel(cc.listaCaixa()));
+                
+
+            }
+        } catch (SQLException e) {
+            
+        }
+    }
     /*EXcluir este método após todos os testes
     Métodos copiado para a classe  ControlerCaixa
     private Boolean temMovAnterior() {

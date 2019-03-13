@@ -47,7 +47,7 @@ public class ReportUtil {
     }
 
     // Este método abre na tela um relatório passado como parâmetro
-    public void imprimiRelatorioTela(String relatorio, HashMap map) throws JRException {
+    public void imprimeRelatorioTela(String relatorio, HashMap map) throws JRException {
         // Instancia o objeto 
         /*
             Este métodos imprime um cumpom em tela, aqui foi necessário realizar as seguintes modificações

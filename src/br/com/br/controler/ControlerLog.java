@@ -119,9 +119,9 @@ public class ControlerLog {
 
         String sql = "SELECT \n"               
                 + "date_format(data,'%d/%m/%Y')  as 'DATA', \n"
-                + "hora as 'HORA', \n"                
-                + "funcionalidade as 'AÇÃO', \n"
-                + "descricao  as 'DESCRIÇÃO'\n"
+                + "TIME_FORMAT(hora,'%H:%i') as 'HORA', \n"                
+                + "funcionalidade as 'FUNCIONALIDADE', \n"
+                + "descricao  as 'AÇÃO'\n"
                 + "FROM dbbar.tb_log where usuario=? and data between ? and ? ORDER BY data DESC, HORA DESC limit ? offset ? ";
 
         try {

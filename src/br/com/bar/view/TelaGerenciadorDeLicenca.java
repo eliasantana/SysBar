@@ -48,7 +48,7 @@ public class TelaGerenciadorDeLicenca extends JDialog {
             
         }else {
             btnSolicitaLicenca.setEnabled(false);
-            lblAviso.setText("Ops! Você está sem Internet! Para renovar sua licença, ligue para o nós!");
+            lblAviso.setText("Ops! Você está sem Internet! Para renovar sua licença, entre em contato!");
             lblAviso.setForeground(Color.RED);
             lblTelefones.setForeground(Color.red);
         }

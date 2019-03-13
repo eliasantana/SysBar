@@ -109,6 +109,7 @@ public class TelaLog extends javax.swing.JFrame {
         btnPrimeiro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(243, 156, 18));
@@ -225,7 +226,7 @@ public class TelaLog extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "DATA", "HORA", "AÇÃO", "DESCRIÇÃO"
+                "DATA", "HORA", "FUNCIONALIDADE", "AÇÃO"
             }
         ));
         tblLog.setRowHeight(18);
@@ -258,7 +259,7 @@ public class TelaLog extends javax.swing.JFrame {
         });
         painelCentral.add(btnImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 70, 116, 39));
 
-        btnListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/localizar32x32.png"))); // NOI18N
+        btnListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lopa32x32.png"))); // NOI18N
         btnListar.setText("Pesquisar");
         btnListar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -343,7 +344,7 @@ public class TelaLog extends javax.swing.JFrame {
         getContentPane().add(btnPrimeiro);
         btnPrimeiro.setBounds(260, 540, 60, 40);
 
-        setSize(new java.awt.Dimension(1043, 621));
+        setSize(new java.awt.Dimension(1027, 582));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -430,7 +431,7 @@ public class TelaLog extends javax.swing.JFrame {
             param.put("logo", dados.getLogo());
 
             try {
-                rpu.imprimiRelatorioTela("relatorioDeLog.jasper", param);
+                rpu.imprimeRelatorioTela("relatorioDeLog.jasper", param);
 
             } catch (JRException e) {
                 System.out.println("br.com.bar.view.TelaLog.jLabel5MouseClicked() e" + e);

@@ -569,7 +569,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                         HashMap parametro = new HashMap();
                         parametro.put("id", idProdutoCozinha);
                         try {
-                            rpu.imprimiRelatorioTela("contigencia_3.jasper", parametro);
+                            rpu.imprimeRelatorioTela("contigencia_3.jasper", parametro);
                         } catch (JRException e) {
                             System.out.println("br.com.bar.view.TelaConzinha.lblPrepararMouseClicked()" + e);
                             JOptionPane.showMessageDialog(null, "Erro ao tentar imprimir Solicitação - contate o SUPORTE!");

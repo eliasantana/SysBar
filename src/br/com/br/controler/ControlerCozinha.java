@@ -245,7 +245,7 @@ public class ControlerCozinha {
         map.put("id", id);
 
         try {
-            rpu.imprimiRelatorioTela("cozinha.jasper", map);
+            rpu.imprimeRelatorioTela("cozinha.jasper", map);
 
         } catch (JRException e) {
             System.out.println("br.com.br.controler.ControlerCozinha.imprimeComprovanteCozinha()" + e);

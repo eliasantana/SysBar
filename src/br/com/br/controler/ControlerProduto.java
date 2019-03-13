@@ -282,6 +282,7 @@ public class ControlerProduto {
         }
         return p;
     }
+
     // Retorna o grupo do produto informado no parâmetro
     public String localizaGrupoProduto(int id) {
 
@@ -334,7 +335,7 @@ public class ControlerProduto {
 
     public ResultSet listaProdutoParaReajuste() {
 
-        String sql = "SELECT id AS 'CÓDIGO', nome AS 'NOME', format(valor,2,'de_DE') as 'VALOR R$' FROM dbbar.tbproduto";
+        String sql = "SELECT id AS 'CÓDIGO', nome AS 'DESCRIÇÃO', format(valor,2,'de_DE') as 'VALOR R$' FROM dbbar.tbproduto";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -416,13 +417,21 @@ public class ControlerProduto {
 
     }
 
+    /**
+     * Pesquisa o produto informado no parâmetro.
+     *
+     * @param nome Nome do Produto a ser localizado.
+     * @return ResultSet - Contendo o(s) produto(s) localizado(s).
+     */
     public ResultSet pesquisarProduto(String nome) {
-
+        /*
         String sql = "SELECT p.id as 'CÓDIGO', p.nome as 'PRODUTO', p.qtd as 'QTD',  format(p.valor,2,'de_DE') as 'VALOR R$', g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id\n"
-                + "WHERE p.nome LIKE ? AND p.qtd > 0 ";
-
+                + "WHERE p.nome LIKE ? AND p.qtd > 0 ";*/
+        String sql = "SELECT p.id as 'CÓDIGO', p.nome as 'DESCRIÇÃO', format(p.valor,2,'de_DE') as 'VALOR R$'\n"
+                + "FROM tbproduto p\n"
+                + "WHERE p.nome LIKE ? AND p.qtd > 0 ;";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, nome + "%");
@@ -452,5 +461,5 @@ public class ControlerProduto {
         }
         return resp;
     }
-    
+
 }

@@ -498,7 +498,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         // Troca garçom
         if (radioTrocaGeral.isSelected()){
             if ("Selecione...".equals(comboNovoGarcom.getSelectedItem().toString())) {
-                JOptionPane.showMessageDialog(null, "Escolha o novo Garçom para realizar a troca! ");
+                JOptionPane.showMessageDialog(this, "Escolha o novo Garçom para realizar a troca! ");
             } else {
                 
                 try {
@@ -525,7 +525,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 antigo.setId(txtIdGarcom.getText());
                 antigo.setNome(comboGarcom.getSelectedItem().toString());
                 
-                int op = JOptionPane.showConfirmDialog(null, "Confirma a troca de todas as mesas do garçom " + antigo.getNome() + " para o garçom " + novo.getNome() + "?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                int op = JOptionPane.showConfirmDialog(this, "Confirma a troca de todas as mesas do garçom " + antigo.getNome() + " para o garçom " + novo.getNome() + "?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                 
                 if (op == JOptionPane.YES_OPTION) {
                     
@@ -534,7 +534,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                     } else {
                         
                         if (cm.trocaGarcom(antigo, novo)) {
-                            JOptionPane.showMessageDialog(null, "Troca realizada com sucesso!");
+                            JOptionPane.showMessageDialog(this, "Troca realizada com sucesso!");
                             tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
                             modelMesas.redimensionaColunas(tblMesas);
                             txtNumeroMesa.setText(null);
@@ -566,9 +566,9 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
             int nmesa = Integer.parseInt(txtNumeroMesa.getText());
             // Verifica se o número da mesa é maior que zero ou se o campo está vazio
             if (nmesa <= 0 || "".equals(txtNumeroMesa.getText())) {
-                JOptionPane.showMessageDialog(null, "Número de mesa inválido!");
+                JOptionPane.showMessageDialog(this, "Número de mesa inválido!");
             } else {
-                int op = JOptionPane.showConfirmDialog(null, "Deseja incluir essa mesa para o garçom " + garcom + "?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                int op = JOptionPane.showConfirmDialog(this, "Deseja incluir essa mesa para o garçom " + garcom + "?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
                 
                 if (op == JOptionPane.YES_OPTION) {
                     // Registro de Log
@@ -577,14 +577,14 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                     log.gravaLog(log);
                     //Fim do registro de log
                     if (cm.adicionaMesa(m)) { // Adiciona mesa
-                        JOptionPane.showMessageDialog(null, "Mesa adicionada com sucesso!");
+                        JOptionPane.showMessageDialog(this, "Mesa adicionada com sucesso!");
                     }
                     
                 }
             }
         } catch (HeadlessException | NumberFormatException e) {
             System.out.println("br.com.bar.view.TelaCadastroDeMesas.jLabel16MouseClicked()" + e);
-            JOptionPane.showMessageDialog(null, "Por favor informe um número de mesa!");
+            JOptionPane.showMessageDialog(this, "Por favor informe um número de mesa!");
             
         }
         
@@ -598,7 +598,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         m.setId(txtIdMesa.getText());
         if (btnLixeira.isEnabled()) {
             
-            int op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esta mesa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir esta mesa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             
             if (op == JOptionPane.YES_OPTION) {
 
@@ -612,7 +612,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 } else {
                     if (cm.excluiMesa(m)) {
                         
-                        JOptionPane.showMessageDialog(null, "Mesa excluída com sucesso!");
+                        JOptionPane.showMessageDialog(this, "Mesa excluída com sucesso!");
                         tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
                         modelMesas.redimensionaColunas(tblMesas);
                         limpaForm();
@@ -648,14 +648,14 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 if ("".equals(txtIdGarcom.getText())
                         || "".equals(txtIdNovoGarcom.getText())
                         || "".equals(txtNumeroMesa.getText())) {
-                    JOptionPane.showMessageDialog(null, "Selecione uma mesa para realizar a troca!");
+                    JOptionPane.showMessageDialog(this, "Selecione uma mesa para realizar a troca!");
                 } else if (txtIdGarcom.getText().equals(txtIdNovoGarcom.getText())) {
-                    JOptionPane.showMessageDialog(null, "Selecione um garçom diferente para continuar!");
+                    JOptionPane.showMessageDialog(this, "Selecione um garçom diferente para continuar!");
                 } else {
-                    int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração de garçom para esta mesa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    int op = JOptionPane.showConfirmDialog(this, "Confirma a alteração de garçom para esta mesa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                     if (op == JOptionPane.YES_OPTION) {
                         if (cm.alteraMesa(mesa)) {
-                            JOptionPane.showMessageDialog(null, "Alteração de garçom para a mesa informada realizada com sucesso!");
+                            JOptionPane.showMessageDialog(this, "Alteração de garçom para a mesa informada realizada com sucesso!");
                             tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
                             modelMesas.redimensionaColunas(tblMesas);
                             btnTrocaGarcom.setEnabled(false);
@@ -667,7 +667,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Escolha o novo Garçom para realizar a troca!");
+                JOptionPane.showMessageDialog(this, "Escolha o novo Garçom para realizar a troca!");
             }
         }
 
@@ -707,7 +707,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         int linha = tblMesas.getSelectedRow();
         txtIdMesa.setText(tblMesas.getModel().getValueAt(linha, 0).toString());
         txtNumeroMesa.setText(tblMesas.getModel().getValueAt(linha, 2).toString());
-        JOptionPane.showMessageDialog(null, tblMesas.getModel().getValueAt(linha, 2).toString());
+        JOptionPane.showMessageDialog(this, tblMesas.getModel().getValueAt(linha, 2).toString());
         String nomeFuncionario = tblMesas.getModel().getValueAt(linha, 1).toString(); // Seleciona nome do funcionário
         comboGarcom.setSelectedItem(nomeFuncionario);
         txtIdGarcom.setText(f.localizaId(nomeFuncionario));

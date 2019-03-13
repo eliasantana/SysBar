@@ -382,14 +382,14 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         g.setNomeGrupo(txtNomeGrupo.getText());
 
         if (g.getNomeGrupo().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o nome do grupo para continuar!");
+            JOptionPane.showMessageDialog(this, "Informe o nome do grupo para continuar!");
         } else {
             if (cg.temGrupo(txtNomeGrupo.getText())) {
-                JOptionPane.showMessageDialog(null, "Este grupo já existe!");
+                JOptionPane.showMessageDialog(this, "Este grupo já existe!");
             } else {
 
                 if (cg.adicionarGrupo(g)) {
-                    JOptionPane.showMessageDialog(null, "Grupo adicionado com sucesso!");
+                    JOptionPane.showMessageDialog(this, "Grupo adicionado com sucesso!");
                     limpaForm();
                     tblGruposFinanceiro.setModel(DbUtils.resultSetToTableModel(cg.atualizaTabela(tblGruposFinanceiro)));
 
@@ -423,17 +423,17 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
 
         if (lblExcluir.isEnabled()) {
 
-            int op = JOptionPane.showConfirmDialog(null, "Confirma a exclusão do grupo " + g.getNomeGrupo() + "?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(this, "Confirma a exclusão do grupo " + g.getNomeGrupo() + "?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {
 
                 if (cg.excluirGrupo(g)) {
-                    JOptionPane.showMessageDialog(null, "Grupo excluído com sucesso!");
+                    JOptionPane.showMessageDialog(this, "Grupo excluído com sucesso!");
                     limpaForm();
                     tblGruposFinanceiro.setModel(DbUtils.resultSetToTableModel(cg.atualizaTabela(tblGruposFinanceiro)));
                 } 
             }else {
-                    JOptionPane.showMessageDialog(null, "Exclusão cancelada com sucesso!");
+                    JOptionPane.showMessageDialog(this, "Exclusão cancelada com sucesso!");
                 
             }
         }
@@ -446,20 +446,20 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
     private void lblAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlterarMouseClicked
         // Altera Gegistro
         if (lblAlterar.isEnabled()) {
-            int op = JOptionPane.showConfirmDialog(null, "Deseja realmente realizar a alteração?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(this, "Deseja realmente realizar a alteração?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             if (op == JOptionPane.YES_OPTION) {
                 Grupo g = new Grupo();
                 g.setId(txtIdGrupo.getText());
                 g.setNomeGrupo(txtNomeGrupo.getText());
 
                 if (cg.alteraGrupo(g)) {
-                    JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+                    JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
                     limpaForm();
                     tblGruposFinanceiro.setModel(DbUtils.resultSetToTableModel(cg.atualizaTabela(tblGruposFinanceiro)));
                 }
 
             } else {
-                JOptionPane.showMessageDialog(null, "Alteração cancelada com sucesso!");
+                JOptionPane.showMessageDialog(this, "Alteração cancelada com sucesso!");
             }
         }
 

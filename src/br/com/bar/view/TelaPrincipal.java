@@ -105,10 +105,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         btnConasApagar = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        btnMesas = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        btnFuncionarios = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
         btnCaixa = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         btnFuncionarios1 = new javax.swing.JPanel();
@@ -121,6 +117,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         lblAviso = new javax.swing.JLabel();
+        btnFuncionarios2 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -215,7 +213,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/gerenciar64x64.png"))); // NOI18N
-        jLabel5.setText("Gerenciamento");
+        jLabel5.setText("Gestão");
+        jLabel5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jLabel5KeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnProdutoLayout = new javax.swing.GroupLayout(btnProduto);
         btnProduto.setLayout(btnProdutoLayout);
@@ -266,7 +269,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         jPanel1.add(btnConfiguracao);
-        btnConfiguracao.setBounds(230, 320, 195, 99);
+        btnConfiguracao.setBounds(30, 320, 195, 99);
 
         btnConasApagar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnConasApagar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -277,7 +280,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/contas.png"))); // NOI18N
-        jLabel7.setText("Contas a Pagar");
+        jLabel7.setText("Pagamentos");
 
         javax.swing.GroupLayout btnConasApagarLayout = new javax.swing.GroupLayout(btnConasApagar);
         btnConasApagar.setLayout(btnConasApagarLayout);
@@ -298,66 +301,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel1.add(btnConasApagar);
         btnConasApagar.setBounds(430, 210, 195, 99);
-
-        btnMesas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        btnMesas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnMesasMouseClicked(evt);
-            }
-        });
-
-        jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/mesas64x64.png"))); // NOI18N
-        jLabel8.setText("Mesas");
-
-        javax.swing.GroupLayout btnMesasLayout = new javax.swing.GroupLayout(btnMesas);
-        btnMesas.setLayout(btnMesasLayout);
-        btnMesasLayout.setHorizontalGroup(
-            btnMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnMesasLayout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        btnMesasLayout.setVerticalGroup(
-            btnMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(btnMesas);
-        btnMesas.setBounds(30, 210, 195, 99);
-
-        btnFuncionarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        btnFuncionarios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnFuncionariosMouseClicked(evt);
-            }
-        });
-
-        jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/funcionario (3).png"))); // NOI18N
-        jLabel9.setText("Funcionários");
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel9MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnFuncionariosLayout = new javax.swing.GroupLayout(btnFuncionarios);
-        btnFuncionarios.setLayout(btnFuncionariosLayout);
-        btnFuncionariosLayout.setHorizontalGroup(
-            btnFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnFuncionariosLayout.createSequentialGroup()
-                .addGap(0, 20, Short.MAX_VALUE)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        btnFuncionariosLayout.setVerticalGroup(
-            btnFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(btnFuncionarios);
-        btnFuncionarios.setBounds(30, 320, 195, 99);
 
         btnCaixa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnCaixa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -420,8 +363,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnFuncionarios1Layout.setHorizontalGroup(
             btnFuncionarios1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnFuncionarios1Layout.createSequentialGroup()
-                .addGap(0, 21, Short.MAX_VALUE)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
         );
         btnFuncionarios1Layout.setVerticalGroup(
             btnFuncionarios1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -460,7 +403,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         jPanel1.add(btnRelatorios);
-        btnRelatorios.setBounds(430, 320, 195, 99);
+        btnRelatorios.setBounds(230, 320, 195, 99);
 
         jPanel3.setBackground(new java.awt.Color(52, 73, 94));
 
@@ -503,7 +446,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/pedidos.png"))); // NOI18N
-        jLabel17.setText("Lançar Pedido");
+        jLabel17.setText("Pedidos");
 
         javax.swing.GroupLayout btnLancarPedidoLayout = new javax.swing.GroupLayout(btnLancarPedido);
         btnLancarPedido.setLayout(btnLancarPedidoLayout);
@@ -535,11 +478,43 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(430, 450, 110, 69);
+        jLabel10.setBounds(500, 450, 110, 69);
 
         lblAviso.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
         jPanel1.add(lblAviso);
-        lblAviso.setBounds(30, 430, 450, 38);
+        lblAviso.setBounds(30, 430, 590, 38);
+
+        btnFuncionarios2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        btnFuncionarios2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFuncionarios2MouseClicked(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/arquivo.png"))); // NOI18N
+        jLabel13.setText("Cadastros");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnFuncionarios2Layout = new javax.swing.GroupLayout(btnFuncionarios2);
+        btnFuncionarios2.setLayout(btnFuncionarios2Layout);
+        btnFuncionarios2Layout.setHorizontalGroup(
+            btnFuncionarios2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnFuncionarios2Layout.createSequentialGroup()
+                .addGap(0, 20, Short.MAX_VALUE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        btnFuncionarios2Layout.setVerticalGroup(
+            btnFuncionarios2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(btnFuncionarios2);
+        btnFuncionarios2.setBounds(30, 210, 195, 99);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(300, 0, 660, 530);
@@ -605,23 +580,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnConasApagarMouseClicked
-
-    private void btnMesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMesasMouseClicked
-        // Chama o cadastro de Mesas
-        TelaCadastroDeMesas mesas = new TelaCadastroDeMesas();
-        mesas.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        mesas.setVisible(true);
-        log.setFuncionalidade("Cadastro de Mesa");
-        log.setUsuario(lblOperador.getText());
-        log.setDescricao(log.getUsuario() + " acessou " + log.getFuncionalidade());
-        log.gravaLog(log);
-
-    }//GEN-LAST:event_btnMesasMouseClicked
-
-    private void btnFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFuncionariosMouseClicked
-
-
-    }//GEN-LAST:event_btnFuncionariosMouseClicked
 
     private void btnCaixaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaixaMouseClicked
 
@@ -707,20 +665,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel10MouseClicked
 
-    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-        // Chama Tela Cadastro de Funcionários
-        TelaPesquisaFuncionario pesqFunc = new TelaPesquisaFuncionario();
-        pesqFunc.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        pesqFunc.setVisible(true);
-
-        // Inicio do registro de log
-        log.setFuncionalidade("Cadastro de Funcionário");
-        log.setUsuario(lblOperador.getText());
-        log.setDescricao(log.getUsuario() + " acessou o" + log.getFuncionalidade());
-        log.gravaLog(log);
-        // Fim do regisro de log
-    }//GEN-LAST:event_jLabel9MouseClicked
-
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         // Vai para tela Cozinha
         TelaConzinha cozinha = new TelaConzinha();
@@ -730,6 +674,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         log.gravaLog(log);
         cozinha.setVisible(true);
     }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void jLabel5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel5KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel5KeyPressed
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        TelaCadastro cadastro = new TelaCadastro();
+        cadastro.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        cadastro.setAlwaysOnTop(true);
+        cadastro.setVisible(true);
+    }//GEN-LAST:event_jLabel13MouseClicked
+
+    private void btnFuncionarios2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFuncionarios2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFuncionarios2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -770,24 +729,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel btnCaixa;
     private javax.swing.JPanel btnConasApagar;
     private javax.swing.JPanel btnConfiguracao;
-    private javax.swing.JPanel btnFuncionarios;
     private javax.swing.JPanel btnFuncionarios1;
+    private javax.swing.JPanel btnFuncionarios2;
     private javax.swing.JPanel btnLancarPedido;
-    private javax.swing.JPanel btnMesas;
     private javax.swing.JPanel btnProduto;
     private javax.swing.JPanel btnRelatorios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

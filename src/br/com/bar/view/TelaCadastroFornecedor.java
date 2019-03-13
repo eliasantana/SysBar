@@ -29,7 +29,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     String operacao;
     Fornecedor fRebido = new Fornecedor();
     TelaFornecedores tlFor;
-
+    
     /**
      * Creates new form TelaCadastroFornecedor
      */
@@ -165,7 +165,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lblEnd = new javax.swing.JLabel();
         txtFornecedor = new javax.swing.JTextField();
-        lblTelefone = new javax.swing.JLabel();
+        lblCelular = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JFormattedTextField();
         txtCep = new javax.swing.JFormattedTextField();
         lblCnpj = new javax.swing.JLabel();
@@ -287,11 +287,11 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         });
         jPanel2.add(txtFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 35, 320, 30));
 
-        lblTelefone.setText("Telefone");
-        jPanel2.add(lblTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, -1, 20));
+        lblCelular.setText("Celular");
+        jPanel2.add(lblCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, -1, 20));
 
         try {
-            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -550,6 +550,8 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     private void comboUfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboUfActionPerformed
         if (!"Selecione...".equals(comboUf.getSelectedItem().toString()) && !"Selecione...".equals(comboStatus.getSelectedItem().toString())) {
             btnSalvar.setEnabled(true);
+            lblUf.setForeground(Color.black);
+            lblMsg.setText(null);
         } else if (!"Selecione...".equals(comboUf.getSelectedItem().toString())) {
             lblUf.setForeground(Color.black);
             lblMsg.setText(null);
@@ -662,7 +664,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCepKeyReleased
 
     private void txtTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyReleased
-        lblTelefone.setForeground(Color.BLACK);
+        lblCelular.setForeground(Color.BLACK);
         lblMsg.setText(null);
     }//GEN-LAST:event_txtTelefoneKeyReleased
 
@@ -739,6 +741,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCargo;
+    private javax.swing.JLabel lblCelular;
     private javax.swing.JLabel lblCep;
     private javax.swing.JLabel lblCidade;
     private javax.swing.JLabel lblCnpj;
@@ -753,7 +756,6 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JLabel lblRepresentante;
     private javax.swing.JLabel lblSite;
     private javax.swing.JLabel lblStatus;
-    private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblUf;
     private javax.swing.JTextArea txtAreaObs;
@@ -856,16 +858,16 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
                     mudaCor(lblRepresentante);
                     txtRepresentante.requestFocus();
                     resp = false;
-                } else if (f.getTelefone().equals("(  )    -    ")
-                        || f.getTelefone().equals("(00)0000-0000") || f.getTelefone().equals("(11)1111-1111")
-                        || f.getTelefone().equals("(22)2222-2222") || f.getTelefone().equals("(33)3333-3333")
-                        || f.getTelefone().equals("(44)4444-4444") || f.getTelefone().equals("(55)5555-5555")
-                        || f.getTelefone().equals("(66)6666-6666") || f.getTelefone().equals("(77)7777-7777")
-                        || f.getTelefone().equals("(88)8888-8888") || f.getTelefone().equals("(99)9999-9999")
-                        || f.getTelefone().length() != 13) {
+                } else if (f.getTelefone().equals("(  )     -    ")
+                        || f.getTelefone().equals("(00)00000-0000") || f.getTelefone().equals("(11)11111-1111")
+                        || f.getTelefone().equals("(22)22222-2222") || f.getTelefone().equals("(33)33333-3333")
+                        || f.getTelefone().equals("(44)44444-4444") || f.getTelefone().equals("(55)55555-5555")
+                        || f.getTelefone().equals("(66)66666-6666") || f.getTelefone().equals("(77)77777-7777")
+                        || f.getTelefone().equals("(88)88888-8888") || f.getTelefone().equals("(99)99999-9999")
+                        || f.getTelefone().length() != 14) {
                     System.out.println(f.getTelefone().length());
                     lblMsg.setText("*Informe um TELEFONE para continuar!");
-                    mudaCor(lblTelefone);
+                    mudaCor(lblCelular);
                     txtTelefone.requestFocus();
                     resp = false;
                 } else if ("".equals(f.getEmail())) {
