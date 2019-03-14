@@ -52,7 +52,7 @@ public class TableModelGrupoProduto extends AbstractTableModel {
          //{"CÓDIGO", "DESCRIÇÃO"}
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(60); 
-        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(310);
+        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(315);
       
     }
 

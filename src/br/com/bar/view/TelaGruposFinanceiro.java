@@ -6,6 +6,7 @@
 package br.com.bar.view;
 
 import br.com.bar.model.Grupo;
+import br.com.bar.model.TableModelGrupoProduto;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerGrupo;
 import javax.swing.JOptionPane;
@@ -19,7 +20,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
 
     ControlerGrupo cg = new ControlerGrupo();
     Util u = new Util();
-    
+    TableModelGrupoProduto modelGrupo = new TableModelGrupoProduto();
 
     /**
      * Creates new form TelaPaametro
@@ -31,7 +32,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         txtNome.setVisible(false);
         lblAlterar.setEnabled(false);
         lblExcluir.setEnabled(false);
-       
+
     }
 
     /**
@@ -56,17 +57,14 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         txtNomeGrupo = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JPanel();
         lblAdicionar = new javax.swing.JLabel();
-        btnExceluir = new javax.swing.JPanel();
-        lblExcluir = new javax.swing.JLabel();
-        btnEditar = new javax.swing.JPanel();
-        lblAlterar = new javax.swing.JLabel();
         panelTabela = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblGruposFinanceiro = new javax.swing.JTable();
         txtIdGrupo = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
-        btnConsultar = new javax.swing.JPanel();
         lblConsultar = new javax.swing.JLabel();
+        lblAlterar = new javax.swing.JLabel();
+        lblExcluir = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -96,9 +94,9 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(140, 10, 147, 64);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/grupo128x128.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/grupoFinanceiro48x48.png"))); // NOI18N
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(0, 0, 120, 90);
+        jLabel7.setBounds(60, 10, 60, 90);
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(52, 73, 94));
@@ -140,12 +138,15 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         jPanel1.setBounds(0, 0, 440, 110);
 
         jPanel2.setBackground(new java.awt.Color(38, 53, 61));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Nome do Grupo");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 45, -1, -1));
 
         txtNomeGrupo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        jPanel2.add(txtNomeGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 71, 349, 39));
 
         btnSalvar.setBackground(new java.awt.Color(38, 53, 61));
         btnSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -165,83 +166,15 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         btnSalvarLayout.setHorizontalGroup(
             btnSalvarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnSalvarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblAdicionar)
-                .addContainerGap())
+                .addGap(0, 20, Short.MAX_VALUE)
+                .addComponent(lblAdicionar))
         );
         btnSalvarLayout.setVerticalGroup(
             btnSalvarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnSalvarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblAdicionar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(lblAdicionar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
         );
 
-        btnExceluir.setBackground(new java.awt.Color(38, 53, 61));
-        btnExceluir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnExceluirMouseClicked(evt);
-            }
-        });
-
-        lblExcluir.setBackground(new java.awt.Color(153, 153, 153));
-        lblExcluir.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        lblExcluir.setForeground(new java.awt.Color(255, 255, 255));
-        lblExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lixeiraCinza.png"))); // NOI18N
-        lblExcluir.setText("Excluir");
-        lblExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblExcluirMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnExceluirLayout = new javax.swing.GroupLayout(btnExceluir);
-        btnExceluir.setLayout(btnExceluirLayout);
-        btnExceluirLayout.setHorizontalGroup(
-            btnExceluirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnExceluirLayout.createSequentialGroup()
-                .addComponent(lblExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        btnExceluirLayout.setVerticalGroup(
-            btnExceluirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnExceluirLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblExcluir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        btnEditar.setBackground(new java.awt.Color(38, 53, 61));
-        btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnEditarMouseClicked(evt);
-            }
-        });
-
-        lblAlterar.setBackground(new java.awt.Color(153, 153, 153));
-        lblAlterar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        lblAlterar.setForeground(new java.awt.Color(255, 255, 255));
-        lblAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapisCinza.png"))); // NOI18N
-        lblAlterar.setText("Alterar");
-        lblAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblAlterarMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnEditarLayout = new javax.swing.GroupLayout(btnEditar);
-        btnEditar.setLayout(btnEditarLayout);
-        btnEditarLayout.setHorizontalGroup(
-            btnEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblAlterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-        );
-        btnEditarLayout.setVerticalGroup(
-            btnEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnEditarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblAlterar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jPanel2.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 116, -1, -1));
 
         panelTabela.setBackground(new java.awt.Color(44, 62, 80));
         panelTabela.setLayout(null);
@@ -267,87 +200,47 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tblGruposFinanceiro);
 
         panelTabela.add(jScrollPane2);
-        jScrollPane2.setBounds(0, 0, 440, 190);
+        jScrollPane2.setBounds(20, 0, 400, 170);
 
-        btnConsultar.setBackground(new java.awt.Color(38, 53, 61));
-        btnConsultar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnConsultarMouseClicked(evt);
-            }
-        });
+        jPanel2.add(panelTabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 176, 441, 189));
+        jPanel2.add(txtIdGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 11, 56, -1));
+        jPanel2.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 11, 56, -1));
 
         lblConsultar.setBackground(new java.awt.Color(153, 153, 153));
         lblConsultar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblConsultar.setForeground(new java.awt.Color(255, 255, 255));
         lblConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/localizar32x32.png"))); // NOI18N
         lblConsultar.setText("Consultar");
+        lblConsultar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblConsultarMouseClicked(evt);
+            }
+        });
+        jPanel2.add(lblConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, -1, 50));
 
-        javax.swing.GroupLayout btnConsultarLayout = new javax.swing.GroupLayout(btnConsultar);
-        btnConsultar.setLayout(btnConsultarLayout);
-        btnConsultarLayout.setHorizontalGroup(
-            btnConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnConsultarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblConsultar)
-                .addContainerGap())
-        );
-        btnConsultarLayout.setVerticalGroup(
-            btnConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnConsultarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblConsultar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        lblAlterar.setBackground(new java.awt.Color(153, 153, 153));
+        lblAlterar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblAlterar.setForeground(new java.awt.Color(255, 255, 255));
+        lblAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapisCinza.png"))); // NOI18N
+        lblAlterar.setText("Alterar");
+        lblAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAlterarMouseClicked(evt);
+            }
+        });
+        jPanel2.add(lblAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 89, 50));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNomeGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtIdGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(panelTabela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnExceluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNomeGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtIdGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExceluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        lblExcluir.setBackground(new java.awt.Color(153, 153, 153));
+        lblExcluir.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblExcluir.setForeground(new java.awt.Color(255, 255, 255));
+        lblExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lixeiraCinza.png"))); // NOI18N
+        lblExcluir.setText("Excluir");
+        lblExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblExcluirMouseClicked(evt);
+            }
+        });
+        jPanel2.add(lblExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, -1, 50));
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 110, 440, 360);
@@ -360,21 +253,6 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         // Fecha janela deconfigurações
         this.dispose();
     }//GEN-LAST:event_lblFecharMouseClicked
-
-    private void btnConsultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultarMouseClicked
-        // Exibe painel da tabela grupos
-        String nomeBotao = lblConsultar.getText();
-
-        if (nomeBotao.equals("Consultar")) {
-            panelTabela.setVisible(true);
-            lblConsultar.setText("Ocultar");
-            tblGruposFinanceiro.setModel(DbUtils.resultSetToTableModel(cg.atualizaTabela(tblGruposFinanceiro)));
-        } else {
-            panelTabela.setVisible(false);
-            lblConsultar.setText("Consultar");
-        }
-
-    }//GEN-LAST:event_btnConsultarMouseClicked
 
     private void btnSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseClicked
         // Adiciona um grupo Financeiro
@@ -398,11 +276,6 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btnSalvarMouseClicked
-
-    private void btnExceluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExceluirMouseClicked
-
-
-    }//GEN-LAST:event_btnExceluirMouseClicked
 
     private void tblGruposFinanceiroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGruposFinanceiroMouseClicked
         // Seleciona Grupo
@@ -431,17 +304,13 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Grupo excluído com sucesso!");
                     limpaForm();
                     tblGruposFinanceiro.setModel(DbUtils.resultSetToTableModel(cg.atualizaTabela(tblGruposFinanceiro)));
-                } 
-            }else {
-                    JOptionPane.showMessageDialog(this, "Exclusão cancelada com sucesso!");
-                
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Exclusão cancelada com sucesso!");
+
             }
         }
     }//GEN-LAST:event_lblExcluirMouseClicked
-
-    private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
-
-    }//GEN-LAST:event_btnEditarMouseClicked
 
     private void lblAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlterarMouseClicked
         // Altera Gegistro
@@ -464,6 +333,21 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_lblAlterarMouseClicked
+
+    private void lblConsultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultarMouseClicked
+        // Exibe painel da tabela grupos
+        String nomeBotao = lblConsultar.getText();
+
+        if (nomeBotao.equals("Consultar")) {
+            panelTabela.setVisible(true);
+            lblConsultar.setText("Ocultar");
+            tblGruposFinanceiro.setModel(DbUtils.resultSetToTableModel(cg.atualizaTabela(tblGruposFinanceiro)));
+            modelGrupo.redimensionaColunas(tblGruposFinanceiro);
+        } else {
+            panelTabela.setVisible(false);
+            lblConsultar.setText("Consultar");
+        }
+    }//GEN-LAST:event_lblConsultarMouseClicked
 
     private void limpaForm() {
         txtNomeGrupo.setText(null);
@@ -530,9 +414,6 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel btnConsultar;
-    private javax.swing.JPanel btnEditar;
-    private javax.swing.JPanel btnExceluir;
     private javax.swing.JPanel btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

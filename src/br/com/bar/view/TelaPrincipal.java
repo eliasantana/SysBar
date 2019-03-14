@@ -45,8 +45,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
         lblLogo.setIcon(u.carregaLogo());
         lblData.setText(df.format(data)); // Exibe data atual
-        lblCargo.setVisible(false);     
-        
+        lblCargo.setVisible(false);
+
         if (cc.contasVencidas()) {
             // Esta msg foi desabilitada porque na tela principal a mensagem já é exibida.
             //JOptionPane.showMessageDialog(null, "Você possui contas vencidas ou com vencimento para hoje!","Atenção!",JOptionPane.ERROR_MESSAGE);
@@ -676,7 +676,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void jLabel5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel5KeyPressed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jLabel5KeyPressed
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked

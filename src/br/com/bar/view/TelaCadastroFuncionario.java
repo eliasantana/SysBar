@@ -176,6 +176,7 @@ public class TelaCadastroFuncionario extends JDialog {
     private void initComponents() {
 
         jFileChooser1 = new javax.swing.JFileChooser();
+        bordas = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
@@ -249,6 +250,9 @@ public class TelaCadastroFuncionario extends JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(null);
+
+        bordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bordas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setLayout(null);
@@ -660,8 +664,7 @@ public class TelaCadastroFuncionario extends JDialog {
         jPanel1.add(lblMsg);
         lblMsg.setBounds(370, 370, 340, 20);
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 100, 720, 390);
+        bordas.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 101, 720, 390));
 
         jPanel4.setBackground(new java.awt.Color(243, 156, 18));
         jPanel4.setLayout(null);
@@ -728,8 +731,7 @@ public class TelaCadastroFuncionario extends JDialog {
         jPanel4.add(txtOperacao);
         txtOperacao.setBounds(560, 10, 100, 30);
 
-        getContentPane().add(jPanel4);
-        jPanel4.setBounds(0, 0, 730, 100);
+        bordas.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, 720, 100));
 
         jtableGuias.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -746,21 +748,24 @@ public class TelaCadastroFuncionario extends JDialog {
 
         jtableGuias.addTab("Histórico", jScrollPane3);
 
-        getContentPane().add(jtableGuias);
-        jtableGuias.setBounds(0, 490, 720, 220);
+        bordas.add(jtableGuias, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 491, 720, 220));
 
-        setSize(new java.awt.Dimension(720, 716));
+        getContentPane().add(bordas);
+        bordas.setBounds(0, 0, 722, 710);
+
+        setSize(new java.awt.Dimension(723, 716));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+   
     private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked
-        if ("Alterar".equals(txtOperacao.getText()) || "Detalhe".equals(txtOperacao.getText()) || "Adicionar".equals(txtOperacao.getText())) {
+        if ("Alterar".equals(txtOperacao.getText()) || "Detalhe".equals(txtOperacao.getText()) ) {
             this.dispose();
             
             TelaPesquisaFuncionario tpf = new TelaPesquisaFuncionario();
             tpf.recebeOperador(lblOperador.getText(), lblPerfil.getText());
             tpf.atualizaTabela("");
             tpf.setVisible(true);
+            dispose();
 
         } else {
             this.dispose();
@@ -1353,6 +1358,7 @@ public class TelaCadastroFuncionario extends JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bordas;
     private javax.swing.JLabel btnFoto;
     private javax.swing.JToggleButton btnHistorico;
     private javax.swing.JButton btnRecontrata;

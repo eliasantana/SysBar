@@ -844,17 +844,17 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
                     txtCep.requestFocus();
                     resp = false;
                 } else if ("".equals(f.getCidade())) {
-                    lblMsg.setText("*Informe um CIDADE para continuar!");
+                    lblMsg.setText("*Informe a CIDADE para continuar!");
                     mudaCor(lblCidade);
                     txtCidade.requestFocus();
                     resp = false;
                 } else if ("Selecione...".equals(comboUf.getSelectedItem().toString())) {
-                    lblMsg.setText("*Informe uma UF para continuar!");
+                    lblMsg.setText("*Informe a UF para continuar!");
                     mudaCor(lblUf);
                     comboUf.requestFocus();
                     resp = false;
                 } else if ("".equals(f.getRepresentante())) {
-                    lblMsg.setText("*Informe uma REPRESENTANTE para continuar!");
+                    lblMsg.setText("*Informe um REPRESENTANTE para continuar!");
                     mudaCor(lblRepresentante);
                     txtRepresentante.requestFocus();
                     resp = false;

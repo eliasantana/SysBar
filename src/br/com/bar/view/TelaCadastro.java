@@ -306,10 +306,10 @@ public class TelaCadastro extends javax.swing.JFrame {
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         // Chama Tela Cadastro de Funcionários
         TelaPesquisaFuncionario pesqFunc = new TelaPesquisaFuncionario();
-        pesqFunc.setAlwaysOnTop(true);
+        //pesqFunc.setAlwaysOnTop(true);
         pesqFunc.recebeOperador(lblOperador.getText(), lblCargo.getText());
         pesqFunc.setVisible(true);
-        this.dispose();
+        
 
     }//GEN-LAST:event_jLabel10MouseClicked
 

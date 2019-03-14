@@ -29,8 +29,8 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
     public TelaPesquisaFuncionario() {
         initComponents();
         bloqueiaBotoes();
-       
         //Matem a tela de pesquisa a frente da janela anterior.
+        this.setAlwaysOnTop(true);
         lblOperador.setVisible(false);
         lblPerfil.setVisible(false);
         modelPesqFunc.redimensionaColunas(tblFuncionario);
@@ -58,6 +58,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        bordas = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -79,6 +80,9 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(null);
+
+        bordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bordas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(243, 156, 18));
         jPanel1.setForeground(new java.awt.Color(52, 73, 94));
@@ -111,7 +115,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, -1, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(807, 0, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 48)); // NOI18N
         jLabel3.setText("Cadastro ");
@@ -132,20 +136,17 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         lblPerfil.setText("jLabel2");
         jPanel1.add(lblPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, -1));
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 840, 120);
+        bordas.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, 848, 120));
 
         jLabel1.setText("Funcionário");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 130, 150, 14);
+        bordas.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 135, 150, -1));
 
         txtFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtFuncionarioKeyPressed(evt);
             }
         });
-        getContentPane().add(txtFuncionario);
-        txtFuncionario.setBounds(10, 150, 349, 30);
+        bordas.add(txtFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 155, 349, 30));
 
         lblPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lopa32x32.png"))); // NOI18N
         lblPesquisa.setText("Pesquisar");
@@ -154,8 +155,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
                 lblPesquisaMouseClicked(evt);
             }
         });
-        getContentPane().add(lblPesquisa);
-        lblPesquisa.setBounds(370, 150, 120, 32);
+        bordas.add(lblPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 155, 120, -1));
 
         tblFuncionario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tblFuncionario.setModel(new javax.swing.table.DefaultTableModel(
@@ -184,8 +184,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblFuncionario);
 
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 190, 830, 259);
+        bordas.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 195, 830, 259));
 
         lblExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
         lblExcluir.setText("Excluir");
@@ -194,8 +193,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
                 lblExcluirMouseClicked(evt);
             }
         });
-        getContentPane().add(lblExcluir);
-        lblExcluir.setBounds(530, 450, 100, 50);
+        bordas.add(lblExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(531, 455, 100, 50));
 
         lblAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
         lblAdicionar.setText("Adicionar");
@@ -204,8 +202,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
                 lblAdicionarMouseClicked(evt);
             }
         });
-        getContentPane().add(lblAdicionar);
-        lblAdicionar.setBounds(180, 450, 100, 50);
+        bordas.add(lblAdicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(181, 455, 100, 50));
 
         lblAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lapis.png"))); // NOI18N
         lblAlterar.setText("Alterar");
@@ -214,8 +211,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
                 lblAlterarMouseClicked(evt);
             }
         });
-        getContentPane().add(lblAlterar);
-        lblAlterar.setBounds(420, 450, 100, 50);
+        bordas.add(lblAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(421, 455, 100, 50));
 
         lblConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/pasta32x32 (2).png"))); // NOI18N
         lblConsultar.setText("Consultar");
@@ -224,16 +220,18 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
                 lblConsultarMouseClicked(evt);
             }
         });
-        getContentPane().add(lblConsultar);
-        lblConsultar.setBounds(300, 450, 100, 50);
+        bordas.add(lblConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 455, 100, 50));
 
-        setSize(new java.awt.Dimension(839, 496));
+        getContentPane().add(bordas);
+        bordas.setBounds(0, 0, 850, 507);
+
+        setSize(new java.awt.Dimension(850, 507));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // Fecha janela
-        this.dispose();
+        dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void lblPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPesquisaMouseClicked
@@ -388,6 +386,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bordas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

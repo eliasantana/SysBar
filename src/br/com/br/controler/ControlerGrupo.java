@@ -80,7 +80,7 @@ public class ControlerGrupo {
 
     public ResultSet atualizaTabela(JTable tabela) {
 
-        String sql = "SELECT id as 'ID', grupo as 'GRUPO' FROM tbgrupo";
+        String sql = "SELECT id as 'CÓDIGO', grupo as 'DESCRIÇÃO' FROM tbgrupo";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -97,7 +97,7 @@ public class ControlerGrupo {
     public ResultSet atualizaGrupoProduto(JTable tabela) {
 
         
-        String sql = "SELECT id AS 'ID', nome AS 'NOME' FROM cad_grupo_produto";
+        String sql = "SELECT id AS 'CÓDIGO', nome AS 'DESCRIÇÃO' FROM cad_grupo_produto";
 
         try {
             pst = conexao.prepareStatement(sql);

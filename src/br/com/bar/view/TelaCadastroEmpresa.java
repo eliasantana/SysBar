@@ -9,11 +9,14 @@ import br.com.bar.model.DadosEmpresa;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerParametro;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
+import java.util.Date;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -32,7 +35,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
      */
     public TelaCadastroEmpresa() {
         initComponents();
-       
+
         txtIdEmpresa.setVisible(false);
         // Instancia o objeto e executa o método retornando um objetodo tipo
         // Dados empresa
@@ -44,7 +47,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         //if (d.getNome_empresa().isEmpty()){
         //  lblAdicionar.setVisible(true);
         // }
-       
+
         txtNomeEmpresa.setText(d.getNome_empresa());
         txtEndereco.setText(d.getEndereco());
         txtNumero.setText(String.valueOf(d.getNumero()));
@@ -105,37 +108,38 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         lblPerfil = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtNomeEmpresa = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        lblNomeEmpresa = new javax.swing.JLabel();
         txtEndereco = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lblEndereco = new javax.swing.JLabel();
+        lblBairro = new javax.swing.JLabel();
         txtCidade = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lblComplemento = new javax.swing.JLabel();
+        lblCidade = new javax.swing.JLabel();
         txtBairro = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        lblCEP = new javax.swing.JLabel();
+        lblUf = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JFormattedTextField();
         txtCelular = new javax.swing.JFormattedTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        lblCelular = new javax.swing.JLabel();
+        lblCNPJ = new javax.swing.JLabel();
         txtCnpj = new javax.swing.JFormattedTextField();
         lblExcluir = new javax.swing.JLabel();
         lblEditar = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
+        lblTelefone = new javax.swing.JLabel();
         jpanelImpressao = new javax.swing.JPanel();
         radioDireto = new javax.swing.JRadioButton();
         radioVisualizar = new javax.swing.JRadioButton();
         lblTextocaminhoBanco = new javax.swing.JLabel();
         lblCaminho = new javax.swing.JLabel();
         txtComplemento = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
+        lblNumero = new javax.swing.JLabel();
         btnSelecionarArquivo = new javax.swing.JButton();
         comboUf = new javax.swing.JComboBox<>();
         txtCep = new javax.swing.JFormattedTextField();
         txtNumero = new javax.swing.JFormattedTextField();
+        lblMsg = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -174,8 +178,8 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(150, 150, 150)
-                .addComponent(txtIdEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(123, 123, 123)
+                .addComponent(txtIdEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtUrlBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(93, Short.MAX_VALUE))
@@ -208,7 +212,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
                 .addComponent(txturlLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIdEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUrlBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(64, Short.MAX_VALUE))
         );
@@ -266,22 +270,28 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         getContentPane().add(txtNomeEmpresa);
         txtNomeEmpresa.setBounds(360, 160, 330, 30);
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel5.setText("Nome da Empresa");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(360, 140, 180, 16);
+        lblNomeEmpresa.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        lblNomeEmpresa.setText("Nome da Empresa");
+        getContentPane().add(lblNomeEmpresa);
+        lblNomeEmpresa.setBounds(360, 140, 180, 16);
+
+        txtEndereco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEnderecoKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtEndereco);
-        txtEndereco.setBounds(360, 220, 250, 30);
+        txtEndereco.setBounds(360, 220, 270, 30);
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel6.setText("Endereço");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(360, 200, 180, 16);
+        lblEndereco.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        lblEndereco.setText("Endereço");
+        getContentPane().add(lblEndereco);
+        lblEndereco.setBounds(360, 200, 180, 16);
 
-        jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel7.setText("Bairro");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(360, 260, 140, 16);
+        lblBairro.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        lblBairro.setText("Bairro");
+        getContentPane().add(lblBairro);
+        lblBairro.setBounds(360, 260, 140, 16);
 
         txtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -291,15 +301,15 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         getContentPane().add(txtCidade);
         txtCidade.setBounds(610, 280, 210, 30);
 
-        jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel8.setText("Complemento");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(680, 200, 110, 16);
+        lblComplemento.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        lblComplemento.setText("Complemento");
+        getContentPane().add(lblComplemento);
+        lblComplemento.setBounds(700, 200, 110, 16);
 
-        jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel9.setText("Cidade");
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(610, 260, 60, 16);
+        lblCidade.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        lblCidade.setText("Cidade");
+        getContentPane().add(lblCidade);
+        lblCidade.setBounds(610, 260, 60, 16);
 
         txtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -309,26 +319,31 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         getContentPane().add(txtBairro);
         txtBairro.setBounds(360, 280, 140, 30);
 
-        jLabel10.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel10.setText("CEP");
-        getContentPane().add(jLabel10);
-        jLabel10.setBounds(510, 260, 70, 16);
+        lblCEP.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        lblCEP.setText("CEP");
+        getContentPane().add(lblCEP);
+        lblCEP.setBounds(510, 260, 70, 16);
 
-        jLabel11.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel11.setText("UF");
-        getContentPane().add(jLabel11);
-        jLabel11.setBounds(830, 260, 60, 16);
+        lblUf.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        lblUf.setText("UF");
+        getContentPane().add(lblUf);
+        lblUf.setBounds(830, 260, 60, 16);
 
-        jLabel12.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel12.setText("e-mail");
-        getContentPane().add(jLabel12);
-        jLabel12.setBounds(640, 320, 60, 16);
+        lblEmail.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        lblEmail.setText("E-mail");
+        getContentPane().add(lblEmail);
+        lblEmail.setBounds(640, 320, 60, 16);
 
         try {
             txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTelefoneKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtTelefone);
         txtTelefone.setBounds(360, 340, 130, 30);
 
@@ -340,21 +355,26 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         getContentPane().add(txtCelular);
         txtCelular.setBounds(500, 340, 130, 30);
 
-        jLabel13.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel13.setText("Celular");
-        getContentPane().add(jLabel13);
-        jLabel13.setBounds(500, 320, 60, 16);
+        lblCelular.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        lblCelular.setText("Celular");
+        getContentPane().add(lblCelular);
+        lblCelular.setBounds(500, 320, 60, 16);
 
-        jLabel15.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel15.setText("CNPJ");
-        getContentPane().add(jLabel15);
-        jLabel15.setBounds(700, 140, 60, 16);
+        lblCNPJ.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        lblCNPJ.setText("CNPJ");
+        getContentPane().add(lblCNPJ);
+        lblCNPJ.setBounds(700, 140, 60, 16);
 
         try {
             txtCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCnpj.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCnpjKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtCnpj);
         txtCnpj.setBounds(700, 160, 190, 30);
 
@@ -393,10 +413,10 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         getContentPane().add(txtEmail);
         txtEmail.setBounds(640, 340, 250, 30);
 
-        jLabel14.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel14.setText("Telefone");
-        getContentPane().add(jLabel14);
-        jLabel14.setBounds(360, 320, 120, 16);
+        lblTelefone.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        lblTelefone.setText("Telefone");
+        getContentPane().add(lblTelefone);
+        lblTelefone.setBounds(360, 320, 120, 16);
 
         jpanelImpressao.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Tipo de Impressão - Recibo")));
 
@@ -451,12 +471,12 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtComplemento);
-        txtComplemento.setBounds(680, 220, 210, 30);
+        txtComplemento.setBounds(700, 220, 190, 30);
 
-        jLabel16.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel16.setText("Número");
-        getContentPane().add(jLabel16);
-        jLabel16.setBounds(620, 200, 60, 16);
+        lblNumero.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        lblNumero.setText("Número");
+        getContentPane().add(lblNumero);
+        lblNumero.setBounds(640, 200, 60, 16);
 
         btnSelecionarArquivo.setText("Selecionar ...");
         btnSelecionarArquivo.addActionListener(new java.awt.event.ActionListener() {
@@ -481,12 +501,26 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCepKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtCep);
         txtCep.setBounds(510, 280, 90, 30);
 
         txtNumero.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
+        txtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNumeroKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtNumero);
-        txtNumero.setBounds(620, 220, 46, 30);
+        txtNumero.setBounds(640, 220, 46, 30);
+
+        lblMsg.setForeground(new java.awt.Color(255, 0, 51));
+        getContentPane().add(lblMsg);
+        lblMsg.setBounds(360, 550, 340, 20);
 
         setSize(new java.awt.Dimension(903, 585));
         setLocationRelativeTo(null);
@@ -512,7 +546,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSelecionarArquivoActionPerformed
 
     private void lblExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExcluirMouseClicked
-       
+
         limpaform();
     }//GEN-LAST:event_lblExcluirMouseClicked
 
@@ -552,44 +586,48 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         d.setNome_empresa(txtNomeEmpresa.getText());
         d.setEndereco(txtEndereco.getText());
         d.setBairro(txtBairro.getText());
-
+        d.setComplemento(txtComplemento.getText());
         try {
 
             d.setNumero(Integer.parseInt(txtNumero.getText()));
         } catch (NumberFormatException e) {
-            System.out.println("br.com.bar.view.TelaCadastroEmpresa.lblAlterarMouseClicked()" + e);
+            mudaCor(lblNumero);
         }
         d.setCep(txtCep.getText());
         d.setCidade(txtCidade.getText());
         d.setTelefone(txtTelefone.getText());
         d.setCelular(txtCelular.getText());
         d.setEmail(txtEmail.getText());
-        d.setCnpj(txtCnpj.getText());
+        String cnpj = txtCnpj.getText();
+        //Retira ponto do CNPJ
+        String cnpjSemPonto = cnpj.replace(".", "");
+        cnpj = cnpjSemPonto.replace("/", "");
+        cnpjSemPonto = cnpj.replace("-", "");
+        d.setCnpj(cnpjSemPonto);
+        
         d.setUrlbackup(txtUrlBackup.getText());
         d.setUf(comboUf.getSelectedItem().toString());
         d.setLogo(txturlLogo.getText());
 
-        System.out.println("nome Empresa" + d.getNome_empresa());
+       
         if ((radioDireto.isSelected())) {
             // 1 - Imprime na Tela 0 - Imprime Direto
             d.setImprimir_na_tela(1); // Direto para impressora
         } else {
             d.setImprimir_na_tela(0); // Na tela
         }
-
-        if ("".equals(txtNomeEmpresa.getText()) || txtNomeEmpresa.getText() == null) {
-            JOptionPane.showMessageDialog(null, "Dados inválidos, preencha todos os campos para continuar!");
-        } else {
+        
+        if(valida(d)){            
             int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração dos dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             if (op == JOptionPane.YES_OPTION) {
-
                 if (dados.alteraDados(d)) {
-                    JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+                    JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Não foi possível alterar os dados!");
+                    lblMsg.setText("Não foi possível alterar os dados! Contate o SUPORTE!");
                 }
-            } 
+            }
         }
+
 
     }//GEN-LAST:event_lblEditarMouseClicked
 
@@ -598,12 +636,17 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     }//GEN-LAST:event_radioVisualizarActionPerformed
 
     private void comboUfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboUfActionPerformed
-        // TODO add your handling code here:
+        if (!"Selecione...".equals(comboUf.getSelectedItem().toString())) {
+            lblMsg.setText(null);
+            lblUf.setForeground(Color.black);
+        }
     }//GEN-LAST:event_comboUfActionPerformed
 
     private void txtNomeEmpresaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeEmpresaKeyReleased
         // Limita Tamanho do Campo ENDEREÇO
         u.tamanhoMaximo(txtEndereco.getText(), 45);
+        lblMsg.setText(null);
+        lblNomeEmpresa.setForeground(Color.black);
     }//GEN-LAST:event_txtNomeEmpresaKeyReleased
 
     private void txtComplementoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtComplementoKeyReleased
@@ -614,22 +657,52 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private void txtBairroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBairroKeyReleased
         // Limita Tamanho do Campo BAIRRO
         u.tamanhoMaximo(txtBairro.getText(), 35);
+        lblMsg.setText(null);
+        lblBairro.setForeground(Color.black);
     }//GEN-LAST:event_txtBairroKeyReleased
 
     private void txtCidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyReleased
         // Limita Tamanho do Campo CIDADE
         u.tamanhoMaximo(txtCidade.getText(), 45);
+        lblMsg.setText(null);
+        lblCidade.setForeground(Color.black);
     }//GEN-LAST:event_txtCidadeKeyReleased
 
     private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
         // Limita Tamanho do Campo
         u.tamanhoMaximo(txtEmail.getText(), 245);
+        lblMsg.setText(null);
+        lblEmail.setForeground(Color.black);
 
     }//GEN-LAST:event_txtEmailKeyReleased
 
     private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
 
     }//GEN-LAST:event_txtEmailFocusLost
+
+    private void txtCnpjKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCnpjKeyReleased
+        lblMsg.setText(null);
+        lblCNPJ.setForeground(Color.black);
+    }//GEN-LAST:event_txtCnpjKeyReleased
+
+    private void txtEnderecoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEnderecoKeyReleased
+        lblMsg.setText(null);
+        lblEndereco.setForeground(Color.black);
+    }//GEN-LAST:event_txtEnderecoKeyReleased
+
+    private void txtNumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyReleased
+        lblMsg.setText(null);
+        lblNumero.setForeground(Color.black);
+    }//GEN-LAST:event_txtNumeroKeyReleased
+
+    private void txtCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyReleased
+        lblMsg.setText(null);
+        lblCEP.setForeground(Color.black);
+    }//GEN-LAST:event_txtCepKeyReleased
+
+    private void txtTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyReleased
+
+    }//GEN-LAST:event_txtTelefoneKeyReleased
 
     /**
      * @param args the command line arguments
@@ -671,32 +744,33 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> comboUf;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jpanelImpressao;
     private javax.swing.JLabel labelCarregaLogo;
+    private javax.swing.JLabel lblBairro;
+    private javax.swing.JLabel lblCEP;
+    private javax.swing.JLabel lblCNPJ;
     private javax.swing.JLabel lblCaminho;
     private javax.swing.JLabel lblCarregaLogo;
+    private javax.swing.JLabel lblCelular;
+    private javax.swing.JLabel lblCidade;
+    private javax.swing.JLabel lblComplemento;
     private javax.swing.JLabel lblEditar;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblEndereco;
     private javax.swing.JLabel lblExcluir;
     private javax.swing.JLabel lblFechar;
     private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblMsg;
+    private javax.swing.JLabel lblNomeEmpresa;
+    private javax.swing.JLabel lblNumero;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblPerfil;
+    private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblTextocaminhoBanco;
+    private javax.swing.JLabel lblUf;
     private javax.swing.JRadioButton radioDireto;
     private javax.swing.JRadioButton radioVisualizar;
     private javax.swing.JTextField txtBairro;
@@ -716,21 +790,85 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void limpaform() {
-       txtNomeEmpresa.setText(null);
-       txtCnpj.setText(null);
-       txtEndereco.setText(null);
-       txtNumero.setText(null);
-       txtComplemento.setText(null);
-       txtBairro.setText(null);
-       txtCep.setText(null);
-       txtCidade.setText(null);
-       comboUf.setSelectedItem("Selecione...");
-       txtTelefone.setText(null);
-       txtCelular.setText(null);
-       txtEmail.setText(null);
-       radioVisualizar.setSelected(true);
-       lblCaminho.setText(null);
-       //lblLogo.setIcon(null);
-      
+        txtNomeEmpresa.setText(null);
+        txtCnpj.setText(null);
+        txtEndereco.setText(null);
+        txtNumero.setText(null);
+        txtComplemento.setText(null);
+        txtBairro.setText(null);
+        txtCep.setText(null);
+        txtCidade.setText(null);
+        comboUf.setSelectedItem("Selecione...");
+        txtTelefone.setText(null);
+        txtCelular.setText(null);
+        txtEmail.setText(null);
+        radioVisualizar.setSelected(true);
+        lblCaminho.setText(null);
+        //lblLogo.setIcon(null);
+
+    }
+
+    private boolean valida(DadosEmpresa d) {
+        // Seta  resposta padrão com TRUE.
+        boolean resp = true;
+
+        if ("".equals(d.getNome_empresa())) {
+            lblMsg.setText("*Informe o NOME DA EMPRESA para continuar!");
+            txtNomeEmpresa.requestFocus();
+            mudaCor(lblNomeEmpresa);
+            resp = false;
+        } else if ("  .   .   /    -  ".equals(d.getCnpj()) || !u.isCNPJ(d.getCnpj())) {// 00.000.000/0001-00
+            lblMsg.setText("*Informe o CNPJ para continuar!");
+            mudaCor(lblCNPJ);
+            txtCnpj.requestFocus();
+            resp = false;
+        } else if ("".equals(d.getEndereco())) {
+            lblMsg.setText("*Informe o ENDEREÇO para continuar!");
+            mudaCor(lblEndereco);
+            txtEndereco.requestFocus();
+            resp = false;
+        } else if ("".equals(d.getNumero())) {
+            lblMsg.setText("*Informe o NÚMERO para continuar!");
+            mudaCor(lblNumero);
+            txtNumero.requestFocus();
+            resp = false;
+        } else if ("".equals(d.getBairro())) {
+            lblMsg.setText("*Informe o BAIRRO para continuar!");
+            mudaCor(lblBairro);
+            txtBairro.requestFocus();
+            resp = false;
+        } else if (d.getCep().equals("     -   ")
+                || d.getCep().equals("00000-000") || d.getCep().equals("11111-111")
+                || d.getCep().equals("22222-222") || d.getCep().equals("33333-333")
+                || d.getCep().equals("44444-444") || d.getCep().equals("55555-555")
+                || d.getCep().equals("66666-666") || d.getCep().equals("77777-777")
+                || d.getCep().equals("88888-888") || d.getCep().equals("99999-999")
+                || (d.getCep().length() != 9)) {
+            lblMsg.setText("*Informe o CEP válido para continuar!");
+            mudaCor(lblCEP);
+            txtCep.requestFocus();
+            resp = false;
+        } else if ("".equals(d.getCidade())) {
+            lblMsg.setText("*Informe a CIDADE para continuar!");
+            mudaCor(lblCidade);
+            txtCidade.requestFocus();
+            resp = false;
+        } else if ("Selecione...".equals(comboUf.getSelectedItem().toString())) {
+            lblMsg.setText("*Informe a UF para continuar!");
+            mudaCor(lblUf);
+            comboUf.requestFocus();
+            resp = false;
+        } else if ("".equals(d.getEmail())) {
+            lblMsg.setText("*Informe o E-mail para continuar!");
+            mudaCor(lblEmail);
+            lblEmail.requestFocus();
+            resp = false;
+        }
+
+        return resp;
+    }
+
+    private void mudaCor(JLabel label) {
+        label.setForeground(Color.red);
     }
 }

@@ -28,6 +28,7 @@ public class DadosEmpresa {
     private int imprimir_na_tela;
     private String licenca;
     private String dts;
+    private String complemento;
             
     
     
@@ -171,9 +172,16 @@ public class DadosEmpresa {
     public String getDts() {
         return dts;
     }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
     
-    
-    
+       
     
     
 }

@@ -65,7 +65,7 @@ public class TableModelFornecedores extends AbstractTableModel {
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(130);
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(190);
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(100);
-        tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(230);
+        tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(215);
         tabela.getColumn(tabela.getColumnName(5)).setPreferredWidth(60);
         adicionaCoresTabela(tabela);
     }

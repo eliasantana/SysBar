@@ -186,7 +186,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText(" Rese7 - Soluções em TI");
+        jLabel10.setText(" Rese7 Soluções em TI");
         jPanel1.add(jLabel10);
         jLabel10.setBounds(30, 330, 240, 20);
 
@@ -229,12 +229,12 @@ public class TelaLogin extends javax.swing.JFrame {
         btnLogin.setText("Entrar");
         btnLogin.setBorder(null);
         btnLogin.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 btnLoginAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -273,7 +273,7 @@ public class TelaLogin extends javax.swing.JFrame {
         lblMsg.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblMsg.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.add(lblMsg);
-        lblMsg.setBounds(40, 370, 260, 30);
+        lblMsg.setBounds(40, 370, 270, 30);
 
         comboLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

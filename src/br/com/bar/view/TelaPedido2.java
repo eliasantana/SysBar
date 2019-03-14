@@ -68,10 +68,10 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Oculta caixa de pesquisa
         lblPesquisa.setVisible(false);
         txtPesquisa.setVisible(false);
-        txtIdGarcom.setVisible(true);
-        txtIdMesa.setVisible(true);
-        txtNumeroPedido.setVisible(true);
-        txtNumeroMesa.setVisible(true);
+        txtIdGarcom.setVisible(false);
+        txtIdMesa.setVisible(false);
+        txtNumeroPedido.setVisible(false);
+        txtNumeroMesa.setVisible(false);
         txtDescricao.setEnabled(false);
         txtValorUnit.setEnabled(false);
         txtValorTotal.setEnabled(false);
