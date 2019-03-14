@@ -20,7 +20,7 @@ public class TableModelCaixa extends AbstractTableModel {
 
     private final ArrayList<ModelCaixa> listaPratosCozinha = new ArrayList<>();
    
-    String colunas[] = {"CÓDIGO", "PRODUTO", "QUANTIDADE", "VLR UNITARIO R$", "VLR TOTAL R$"};
+    String colunas[] = {"CÓDIGO", "PRODUTO", "QTD", "VLR UNITÁRIO R$", "VLR TOTAL R$"};
     public void adicionaPratoCozinha (ModelCaixa c){
         listaPratosCozinha.add(c);
     }

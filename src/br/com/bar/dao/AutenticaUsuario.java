@@ -77,7 +77,7 @@ public class AutenticaUsuario {
     // Autentica Usuário
     public boolean autentica2(String login, String senha) {
         boolean resp = false;
-               String sql = "SELECT login,senha,cargo,status,bloqueado FROM tbcadfuncionario where login=? and senha=?";
+        String sql = "SELECT login,senha,cargo,status,bloqueado FROM tbcadfuncionario where login=? and senha=?";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -92,14 +92,18 @@ public class AutenticaUsuario {
                 usuarioCargo = rs.getString("cargo");
                 usuarioStatus = rs.getString("status");
                 usuarioBloqueio = rs.getString("bloqueado");
-                resp=true;
+
             }
-           
+
+             if (usuarioSenha.equals(senha.toLowerCase())) {
+
+                    resp = true;
+             }
 
         } catch (HeadlessException | SQLException e) {
             System.out.println("br.com.bar.dao.AutenticaUsuario.autentica2()" + e);
         }
-       
+
         return resp;
     }
 
@@ -133,12 +137,12 @@ public class AutenticaUsuario {
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, usuario);
-           rs = pst.executeQuery();
+            rs = pst.executeQuery();
 
             while (rs.next()) {
                 user = rs.getString("login");
             }
-            
+
             if (usuario.equals(user)) {
                 resp = true;
             }
@@ -176,22 +180,23 @@ public class AutenticaUsuario {
     }
 
     // Retorna a situação de Bloqueio
-    public boolean taBloqueado(String login, String senha) {
-        String sql = "SELECT login,senha,cargo,status,bloqueado FROM tbcadfuncionario where login=? and senha=?";
-        boolean resp=false;
-        int bloqueio=0;
+    public boolean taBloqueado(String login) {
+        //String sql = "SELECT login,senha,cargo,status,bloqueado FROM tbcadfuncionario where login=? and senha=?";
+        String sql = "SELECT login,senha,cargo,status,bloqueado FROM tbcadfuncionario where login=?";
+        boolean resp = false;
+        int bloqueio = 0;
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, login);
-            pst.setString(2, senha);
+            //pst.setString(2, senha);
             rs = pst.executeQuery();
 
             while (rs.next()) {
-               bloqueio = rs.getInt("bloqueado");
+                bloqueio = rs.getInt("bloqueado");
             }
-            
-            if (bloqueio==1){
-                resp=true;
+
+            if (bloqueio == 1) {
+                resp = true;
             }
         } catch (SQLException e) {
         }

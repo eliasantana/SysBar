@@ -49,7 +49,7 @@ public class TelaConzinha extends javax.swing.JFrame {
 
     public TelaConzinha() {
         initComponents();
-        lblCargo.setVisible(false);
+        lblCargo.setVisible(true);
         Date dt = new Date();
         lblData.setText(u.formataDataBr(dt));
         txtidProdutoCozinha.setVisible(false);
@@ -376,15 +376,8 @@ public class TelaConzinha extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        // Fecha Janela
-        Log l = new Log();
-        l.setUsuario(lblOperador.getText());
-        l.setFuncionalidade("Fechar");
-
         String cargo = lblCargo.getText();
-        if ("Gerente".equals(cargo)) {
-            l.setDescricao(l.getUsuario() + " Fechou a tela cozinha");
-            l.gravaLog(l);
+        if ("Gerente".equals(cargo)) {           
             dispose();
         } else {
 
@@ -393,8 +386,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                 // Só permite fechar a Tela Cozinha após liberação de todos os pratos.
 
             } else {
-                l.setDescricao(l.getUsuario() + " Saiu da tela cozinha");
-                l.gravaLog(l);
+                dispose();
                 TelaLogin login = new TelaLogin();
                 login.setVisible(true);
             }

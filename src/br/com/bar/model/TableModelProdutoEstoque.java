@@ -45,6 +45,10 @@ public class TableModelProdutoEstoque extends AbstractTableModel{
                 return listaProdutoEstoque.get(row);
         }
     }
+    @Override
+    public String getColumnName(int row) {
+        return this.colunas[row];
+    }
     
      public void redimensionaColunas(JTable tabela) {
 

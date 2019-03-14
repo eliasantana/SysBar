@@ -5,12 +5,11 @@
  */
 package br.com.bar.view;
 
-import br.com.bar.model.Grupo;
 import br.com.bar.model.Pedido;
 import br.com.bar.model.Produto;
 import br.com.bar.model.ProdutoPedido;
-import br.com.bar.model.TableModelCozinha;
 import br.com.bar.model.TableModelDetalhePedido;
+import br.com.bar.model.TableModelMesaPedido;
 import br.com.bar.model.TableModelPedidosAbertos;
 import br.com.bar.model.TableModelProdutoEstoque;
 import br.com.bar.util.FormataValor;
@@ -24,22 +23,15 @@ import br.com.br.controler.ControlerPedido;
 import br.com.br.controler.ControlerProduto;
 import java.awt.Color;
 import java.awt.HeadlessException;
-import java.awt.Image;
 import java.awt.event.KeyEvent;
-import java.sql.ResultSet;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
-import org.apache.tools.ant.taskdefs.Sleep;
 
 /**
  *
@@ -56,6 +48,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
     TableModelPedidosAbertos modelPedidos = new TableModelPedidosAbertos();
     TableModelDetalhePedido modelDetPedido = new TableModelDetalhePedido();
     TableModelProdutoEstoque modelProduroEstoque = new TableModelProdutoEstoque();
+    TableModelMesaPedido modelMesa = new TableModelMesaPedido();
+    
     JFrame tlGerenciarPedido;
     Util u = new Util();
 
@@ -74,10 +68,10 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Oculta caixa de pesquisa
         lblPesquisa.setVisible(false);
         txtPesquisa.setVisible(false);
-        txtIdGarcom.setVisible(false);
-        txtIdMesa.setVisible(false);
-        txtNumeroPedido.setVisible(false);
-        txtNumeroMesa.setVisible(false);
+        txtIdGarcom.setVisible(true);
+        txtIdMesa.setVisible(true);
+        txtNumeroPedido.setVisible(true);
+        txtNumeroMesa.setVisible(true);
         txtDescricao.setEnabled(false);
         txtValorUnit.setEnabled(false);
         txtValorTotal.setEnabled(false);
@@ -114,7 +108,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     
     public void atualizaPedidos(){
         // Atualiza pedido após. Este método é executado após remoção do pedido 
-        // Na tela de Gerenciamento de Peidido
+        // Na tela de Gerenciamento de Peidido.
         tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos(txtIdGarcom.getText())));
         modelPedidos.redimensionaColunas(tblPedidosAbertos);
     }
@@ -286,7 +280,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         lblData2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
         lblData2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblData2.setText("Lançamento de Pedidos");
+        lblData2.setText("Pedidos");
         getContentPane().add(lblData2);
         lblData2.setBounds(400, 20, 840, 80);
 
@@ -345,7 +339,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Sair");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(1140, 660, 70, 20);
+        jLabel6.setBounds(1200, 660, 70, 20);
 
         lblGerenciarPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblGerenciarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/relatorios32x32.png"))); // NOI18N
@@ -372,7 +366,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(1140, 610, 70, 50);
+        jLabel9.setBounds(1200, 610, 70, 50);
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel10.setText("Status Cozinha");
@@ -739,7 +733,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jLabel3.setBounds(338, 610, 60, 50);
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        jLabel4.setText("Bloqueia Tela");
+        jLabel4.setText("Bloquear Tela");
         getContentPane().add(jLabel4);
         jLabel4.setBounds(330, 660, 90, 20);
 
@@ -748,17 +742,30 @@ public class TelaPedido2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboGarcomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboGarcomActionPerformed
-
+        
         if ("Selecione...".equals(comboGarcom.getSelectedItem().toString())) {
             btnListar.setEnabled(false);
             btnAbrirPedido.setEnabled(false);
 
         } else {
             btnListar.setEnabled(true);
-
+            
         }
         limpaform();
         bloqueiaCampos();
+        //Limpa as tabelas [PEDIDOS, MESAS,DETALHE PEDIDO,LISTA DE PRODUTOS]
+        tblPedidosAbertos.setModel(modelPedidos);
+        modelPedidos.redimensionaColunas(tblPedidosAbertos);
+        tblNumeroMesa.setModel(modelMesa);
+        modelMesa.redimensionaColunas(tblNumeroMesa);
+        tblDetalhePedido.setModel(modelDetPedido);
+        modelDetPedido.redimensionaColunas(tblDetalhePedido);
+        tblListaProduto.setModel(modelProduroEstoque);
+        modelProduroEstoque.redimensionaColunas(tblListaProduto);
+        // Seta valor do capo número mesa parao estado inicial
+        // Este valor é necessário na checagem do comportamento conforme aba seleciona.
+        txtNumeroPedido.setText("nPedido");
+        btnAbrirPedido.setEnabled(false);
     }//GEN-LAST:event_comboGarcomActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
@@ -767,8 +774,10 @@ public class TelaPedido2 extends javax.swing.JFrame {
         String idFunc = cFunc.localizaId(nomeFunc);
         txtIdGarcom.setText(cFunc.localizaId(comboGarcom.getSelectedItem().toString()));
         tblNumeroMesa.setModel(DbUtils.resultSetToTableModel(cm.listaMesaLivre(idFunc)));
+        modelMesa.redimensionaColunas(tblNumeroMesa);
         tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos(txtIdGarcom.getText())));
         modelPedidos.redimensionaColunas(tblPedidosAbertos);
+        
         btnAbrirPedido.setEnabled(false);
         // Vai para a primeira guia
         jTabbedPanePedido.setSelectedIndex(0);
@@ -796,6 +805,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 modelPedidos.redimensionaColunas(tblPedidosAbertos);
                 cm.trocaStatusMesa(numero_mesa, "1");
                 tblNumeroMesa.setModel(DbUtils.resultSetToTableModel(cm.listaMesaLivre(txtIdGarcom.getText())));
+                modelMesa.redimensionaColunas(tblNumeroMesa);
                 txtNumeroMesa.setText(null);
                 lblMsgRetorno.setText("*Pedido gerado com sucesso!");
                 btnAbrirPedido.setEnabled(false);
@@ -841,7 +851,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             txtQtd.setEnabled(false);
             txtCodigoProduto.requestFocus();
 
-            comboGarcom.setSelectedItem(tblPedidosAbertos.getModel().getValueAt(linha, 4).toString());
+           // comboGarcom.setSelectedItem(tblPedidosAbertos.getModel().getValueAt(linha, 4).toString());
             jTabbedPanePedido.setSelectedIndex(1);
             txtCodigoProduto.setEnabled(true);
             // Bloqueia gerenciar pedido caso o ususário logado não seja gerente.

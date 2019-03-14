@@ -17,12 +17,11 @@ import javax.swing.table.AbstractTableModel;
 public class TableModelPedidosAbertos extends AbstractTableModel{
     
     private final ArrayList<ModelPedidosAbertos> listaPedidos = new ArrayList<>();
-    String[] colunas={"N. MESA", "N. PEDIDO", "DATA", "STATUS", "GARÇOM"};
+    String[] colunas={"MESA", "PEDIDO", "DATA", "STATUS", "GARÇOM"};
 
     @Override
     public int getRowCount() {
        return listaPedidos.size();
-       
     }
 
     @Override
@@ -48,6 +47,11 @@ public class TableModelPedidosAbertos extends AbstractTableModel{
                 return listaPedidos.get(row);
                 
         }
+    }
+    
+     @Override
+    public String getColumnName(int row) {
+        return this.colunas[row];
     }
     
      public void redimensionaColunas(JTable tabela) {
