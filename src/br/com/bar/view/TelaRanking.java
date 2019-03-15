@@ -41,7 +41,7 @@ public class TelaRanking extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel4 = new javax.swing.JPanel();
+        bordas = new javax.swing.JPanel();
         painelSuperior = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -61,8 +61,8 @@ public class TelaRanking extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(null);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        bordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        bordas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         painelSuperior.setBackground(new java.awt.Color(243, 156, 18));
         painelSuperior.setLayout(null);
@@ -107,11 +107,11 @@ public class TelaRanking extends javax.swing.JFrame {
         painelSuperior.add(jPanel1);
         jPanel1.setBounds(370, 0, 40, 40);
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnGrafico.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/grafico_linha48x48.png"))); // NOI18N
         painelSuperior.add(jLabel6);
-        jLabel6.setBounds(30, 20, 80, 80);
+        jLabel6.setBounds(50, 20, 60, 80);
 
-        jPanel4.add(painelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, 405, 120));
+        bordas.add(painelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, 405, 120));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setForeground(new java.awt.Color(153, 153, 153));
@@ -193,10 +193,10 @@ public class TelaRanking extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 120, 405, 220));
+        bordas.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 120, 405, 220));
 
-        getContentPane().add(jPanel4);
-        jPanel4.setBounds(0, 0, 407, 343);
+        getContentPane().add(bordas);
+        bordas.setBounds(0, 0, 407, 343);
 
         setSize(new java.awt.Dimension(407, 343));
         setLocationRelativeTo(null);
@@ -268,6 +268,7 @@ public class TelaRanking extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bordas;
     private javax.swing.JLabel btnGerarGráfico;
     private javax.swing.JLabel btnImprimirResultado;
     private javax.swing.JLabel jLabel1;
@@ -278,7 +279,6 @@ public class TelaRanking extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private com.toedter.calendar.JDateChooser jdataFim;
     private com.toedter.calendar.JDateChooser jdataInicio;
     private javax.swing.JLabel lblFechar;

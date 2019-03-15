@@ -172,10 +172,10 @@ public class TelaLog extends javax.swing.JFrame {
         painelCentral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jDateChooserInicio.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 jDateChooserInicioInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jDateChooserInicio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -186,10 +186,10 @@ public class TelaLog extends javax.swing.JFrame {
         painelCentral.add(jDateChooserInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 69, 148, 40));
 
         jDateChooserFim.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 jDateChooserFimInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jDateChooserFim.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -226,7 +226,7 @@ public class TelaLog extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "DATA", "HORA", "FUNCIONALIDADE", "AÇÃO"
+                "DATA", "HORA", "FUNÇÃO", "AÇÃO"
             }
         ));
         tblLog.setRowHeight(18);

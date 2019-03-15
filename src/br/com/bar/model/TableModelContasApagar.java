@@ -72,10 +72,15 @@ public class TableModelContasApagar extends AbstractTableModel {
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(90); 
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(90); 
         tabela.getColumn(tabela.getColumnName(5)).setPreferredWidth(90); 
-        tabela.getColumn(tabela.getColumnName(6)).setPreferredWidth(102); 
+        tabela.getColumn(tabela.getColumnName(6)).setPreferredWidth(182); 
         tabela.getColumn(tabela.getColumnName(7)).setPreferredWidth(120); 
+        // Oculta a primeira colunas
         
-
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(0);
+        tabela.getColumnModel().getColumn(0).setMinWidth(0);
+        tabela.getColumnModel().getColumn(0).setMaxWidth(0);
+        
+        
     }
 
 }

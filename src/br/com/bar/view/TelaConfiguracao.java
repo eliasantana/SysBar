@@ -37,6 +37,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        bordas = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnFuncionario = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -44,18 +45,21 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnDadosEmpresa = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        lblFechar = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblCargo = new javax.swing.JLabel();
         lblitulo = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        lblFechar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SysBar - Parâmetro");
         setBackground(new java.awt.Color(44, 62, 80));
         setUndecorated(true);
         getContentPane().setLayout(null);
+
+        bordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        bordas.setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(38, 53, 61));
         jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -125,29 +129,8 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2);
+        bordas.add(jPanel2);
         jPanel2.setBounds(20, 90, 570, 190);
-
-        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel1.setLayout(null);
-
-        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
-        lblCargo.setText("jLabel3");
-        jPanel1.add(lblCargo);
-        lblCargo.setBounds(10, 60, 110, 30);
-
-        lblitulo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        lblitulo.setText("Configurações do Sistema");
-        jPanel1.add(lblitulo);
-        lblitulo.setBounds(20, 0, 450, 60);
-
-        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
-        lblOperador.setText("jLabel3");
-        jPanel1.add(lblOperador);
-        lblOperador.setBounds(90, 60, 110, 30);
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(50, 0, 520, 310);
 
         jPanel3.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -176,10 +159,35 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                 .addComponent(lblFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        getContentPane().add(jPanel3);
+        bordas.add(jPanel3);
         jPanel3.setBounds(570, 0, 40, 40);
 
-        setSize(new java.awt.Dimension(609, 309));
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel1.setLayout(null);
+
+        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
+        lblCargo.setText("jLabel3");
+        jPanel1.add(lblCargo);
+        lblCargo.setBounds(10, 60, 110, 30);
+
+        lblitulo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
+        lblitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblitulo.setText("Configurações do Sistema");
+        jPanel1.add(lblitulo);
+        lblitulo.setBounds(0, 0, 520, 60);
+
+        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
+        lblOperador.setText("jLabel3");
+        jPanel1.add(lblOperador);
+        lblOperador.setBounds(90, 60, 110, 30);
+
+        bordas.add(jPanel1);
+        jPanel1.setBounds(50, 0, 520, 310);
+
+        getContentPane().add(bordas);
+        bordas.setBounds(0, 0, 610, 311);
+
+        setSize(new java.awt.Dimension(610, 312));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -244,6 +252,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bordas;
     private javax.swing.JPanel btnDadosEmpresa;
     private javax.swing.JPanel btnFuncionario;
     private javax.swing.JLabel jLabel18;

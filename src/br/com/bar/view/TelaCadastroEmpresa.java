@@ -258,7 +258,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         lblPerfil.setBounds(800, 90, 100, 32);
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 36)); // NOI18N
-        jLabel3.setText("Cadastro Empresa");
+        jLabel3.setText("Dados da Empresa");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(480, 20, 310, 50);
 
@@ -588,10 +588,11 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         d.setBairro(txtBairro.getText());
         d.setComplemento(txtComplemento.getText());
         try {
-
             d.setNumero(Integer.parseInt(txtNumero.getText()));
         } catch (NumberFormatException e) {
             mudaCor(lblNumero);
+            txtNumero.requestFocus();
+            
         }
         d.setCep(txtCep.getText());
         d.setCidade(txtCidade.getText());
@@ -827,7 +828,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             mudaCor(lblEndereco);
             txtEndereco.requestFocus();
             resp = false;
-        } else if ("".equals(d.getNumero())) {
+        } else if ("".equals(txtNumero.getText())) {
             lblMsg.setText("*Informe o NÚMERO para continuar!");
             mudaCor(lblNumero);
             txtNumero.requestFocus();
@@ -844,7 +845,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
                 || d.getCep().equals("66666-666") || d.getCep().equals("77777-777")
                 || d.getCep().equals("88888-888") || d.getCep().equals("99999-999")
                 || (d.getCep().length() != 9)) {
-            lblMsg.setText("*Informe o CEP válido para continuar!");
+            lblMsg.setText("*Informe um CEP válido para continuar!");
             mudaCor(lblCEP);
             txtCep.requestFocus();
             resp = false;

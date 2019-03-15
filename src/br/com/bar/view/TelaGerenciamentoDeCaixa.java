@@ -8,6 +8,7 @@ package br.com.bar.view;
 import br.com.bar.dao.Log;
 import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.MovimentacaoCaixa;
+import br.com.bar.model.TableModelGerenciarCaixa;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCaixa;
 import br.com.br.controler.ControlerDadosEmpresa;
@@ -33,7 +34,8 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
     MovimentacaoCaixa cx = new MovimentacaoCaixa();
     ControlerDadosEmpresa de = new ControlerDadosEmpresa();
     ReportUtil rpu = new ReportUtil();
-
+    TableModelGerenciarCaixa modelGerenciarCaixa = new TableModelGerenciarCaixa();
+    
     Log l = new Log();
     Util u = new Util();
 
@@ -46,6 +48,9 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
         listarCaixa();
         lblCargo.setVisible(false);
         lblOperador.setVisible(false);
+        
+        modelGerenciarCaixa.redimensionaColunas(tblGerenciamentoCaixa);                
+        
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -140,7 +145,7 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
 
             },
             new String [] {
-
+                "CÓD.INTERNO", "DATA", "SALDO R$", "OPERADOR"
             }
         ));
         tblGerenciamentoCaixa.setRowHeight(21);
@@ -227,6 +232,7 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
         if (cc.liberaCaixa(txtIdCaixa.getText())) {
                 JOptionPane.showMessageDialog(this, "Caixa liberado com sucesso!");
                 tblGerenciamentoCaixa.setModel(DbUtils.resultSetToTableModel(cc.listaCaixa()));
+                modelGerenciarCaixa.redimensionaColunas(tblGerenciamentoCaixa);   
                 //Inicio do Registro de Log
                 btnLiberarCaixa.setEnabled(false);
                 l.setFuncionalidade("Caixa");

@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class TableModelGerenciarPedido extends AbstractTableModel {
 
     private final ArrayList<ModelGerenciarPedido> modelGerPedido = new ArrayList<>();
-    String colunas[] = {"CÓD", "PRODUTO", "QTD", "VLR UNITÁRIO R$", "VLR TOTAL R$", "CÓD. INTERNO"};
+    String colunas[] = {"CÓDIGO", "PRODUTO", "QTD", "VLR UNITÁRIO R$", "VLR TOTAL R$", "CÓD. INTERNO"};
     
     public void adicionaPratoCozinha (ModelGerenciarPedido pc){
         modelGerPedido.add(pc);
@@ -62,16 +62,19 @@ public class TableModelGerenciarPedido extends AbstractTableModel {
     }
 
      public void redimensionaColunas(JTable tabela) {
-         //"CÓD", "PRODUTO", "QTD", "VLR UNITÁRIO R$", "VLR TOTAL R$", "CÓD. INTERNO"
+         //"CÓDIGO", "PRODUTO", "QTD", "VLR UNITÁRIO R$", "VLR TOTAL R$", "CÓD. INTERNO"
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(50); 
-        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(320);
+        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(80); 
+        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(348);
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(50); 
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(115); 
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(110); 
         tabela.getColumn(tabela.getColumnName(5)).setPreferredWidth(105); 
        
-
+         // Oculta a primeira colunas
+        tabela.getColumnModel().getColumn(5).setPreferredWidth(0);
+        tabela.getColumnModel().getColumn(5).setMinWidth(0);
+        tabela.getColumnModel().getColumn(5).setMaxWidth(0);
     }
 
     

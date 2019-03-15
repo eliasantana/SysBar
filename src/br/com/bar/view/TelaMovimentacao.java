@@ -70,6 +70,7 @@ public class TelaMovimentacao extends JDialog {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        bordas = new javax.swing.JPanel();
         panelProdutos = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         radioPesquisaNome = new javax.swing.JRadioButton();
@@ -92,6 +93,7 @@ public class TelaMovimentacao extends JDialog {
         jPanel4 = new javax.swing.JPanel();
         btnFechar = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         panelQtd = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaObservacao = new javax.swing.JTextArea();
@@ -106,6 +108,9 @@ public class TelaMovimentacao extends JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(null);
+
+        bordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        bordas.setLayout(null);
 
         panelProdutos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -167,7 +172,7 @@ public class TelaMovimentacao extends JDialog {
                                 .addComponent(txtIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtIdOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 110, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -257,13 +262,13 @@ public class TelaMovimentacao extends JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jRadioButton1)
-                .addGap(18, 18, 18)
+                .addGap(120, 120, 120)
                 .addComponent(radioExistente)
                 .addContainerGap(197, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton1)
@@ -298,21 +303,21 @@ public class TelaMovimentacao extends JDialog {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panelProdutos);
+        bordas.add(panelProdutos);
         panelProdutos.setBounds(10, 150, 400, 370);
 
         painelTopo.setBackground(new java.awt.Color(243, 156, 18));
         painelTopo.setLayout(null);
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
-        jLabel4.setText("Gerenciamento Estoque");
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
+        jLabel4.setText("de Estoque");
         painelTopo.add(jLabel4);
-        jLabel4.setBounds(90, 10, 525, 64);
+        jLabel4.setBounds(180, 50, 200, 64);
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/produto.png"))); // NOI18N
         painelTopo.add(jLabel9);
-        jLabel9.setBounds(30, 30, 32, 32);
+        jLabel9.setBounds(40, 20, 60, 50);
 
         lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
@@ -363,7 +368,12 @@ public class TelaMovimentacao extends JDialog {
         painelTopo.add(lblData);
         lblData.setBounds(610, 90, 140, 30);
 
-        getContentPane().add(painelTopo);
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
+        jLabel5.setText("Gestão");
+        painelTopo.add(jLabel5);
+        jLabel5.setBounds(100, 10, 200, 64);
+
+        bordas.add(painelTopo);
         painelTopo.setBounds(0, 0, 750, 130);
 
         panelQtd.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -425,7 +435,7 @@ public class TelaMovimentacao extends JDialog {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panelQtd);
+        bordas.add(panelQtd);
         panelQtd.setBounds(420, 150, 320, 370);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -468,10 +478,13 @@ public class TelaMovimentacao extends JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel5);
+        bordas.add(jPanel5);
         jPanel5.setBounds(10, 540, 730, 150);
 
-        setSize(new java.awt.Dimension(752, 698));
+        getContentPane().add(bordas);
+        bordas.setBounds(0, 0, 748, 698);
+
+        setSize(new java.awt.Dimension(749, 698));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -771,11 +784,13 @@ public class TelaMovimentacao extends JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel blbIncluir;
+    private javax.swing.JPanel bordas;
     private javax.swing.JLabel btnFechar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> comboOperacao;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;

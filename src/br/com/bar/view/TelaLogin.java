@@ -270,7 +270,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel2.add(jLabel6);
         jLabel6.setBounds(40, 80, 250, 30);
 
-        lblMsg.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblMsg.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         lblMsg.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.add(lblMsg);
         lblMsg.setBounds(40, 370, 270, 30);
@@ -415,7 +415,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 txtSenha.setEnabled(true);
                 acumula=0;
             }else {
-                lblMsg.setText("Procure o Administrador!");
+                lblMsg.setText("Usuário bloqueado, procure um administrador!");
             }
             
         }

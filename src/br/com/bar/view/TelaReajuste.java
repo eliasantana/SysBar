@@ -86,6 +86,7 @@ public class TelaReajuste extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        bordas = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
@@ -115,6 +116,9 @@ public class TelaReajuste extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(null);
+
+        bordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        bordas.setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(243, 156, 18));
         jPanel1.setLayout(null);
@@ -152,23 +156,27 @@ public class TelaReajuste extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(750, 0, 40, 40);
+        jPanel2.setBounds(741, 0, 40, 40);
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/money-64.png"))); // NOI18N
         jPanel1.add(jLabel15);
         jLabel15.setBounds(60, 10, 80, 60);
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 790, 120);
+        bordas.add(jPanel1);
+        jPanel1.setBounds(0, 0, 780, 120);
 
         panelFormaReajuste.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Forma de Reajuste"));
 
@@ -286,7 +294,7 @@ public class TelaReajuste extends javax.swing.JFrame {
                 .addContainerGap(85, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panelFormaReajuste);
+        bordas.add(panelFormaReajuste);
         panelFormaReajuste.setBounds(10, 210, 330, 320);
 
         panelProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder()));
@@ -351,7 +359,7 @@ public class TelaReajuste extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(panelProdutos);
+        bordas.add(panelProdutos);
         panelProdutos.setBounds(360, 146, 410, 382);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Tipo de Reajuste"));
@@ -403,10 +411,13 @@ public class TelaReajuste extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel5);
+        bordas.add(jPanel5);
         jPanel5.setBounds(10, 130, 330, 70);
 
-        setSize(new java.awt.Dimension(790, 542));
+        getContentPane().add(bordas);
+        bordas.setBounds(0, 0, 781, 540);
+
+        setSize(new java.awt.Dimension(781, 542));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -643,6 +654,7 @@ public class TelaReajuste extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bordas;
     private javax.swing.JButton btnAplicar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;

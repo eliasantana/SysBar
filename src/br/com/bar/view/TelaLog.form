@@ -245,7 +245,7 @@
                   <Table columnCount="4" rowCount="15">
                     <Column editable="true" title="DATA" type="java.lang.Object"/>
                     <Column editable="true" title="HORA" type="java.lang.Object"/>
-                    <Column editable="true" title="FUNCIONALIDADE" type="java.lang.Object"/>
+                    <Column editable="true" title="FUN&#xc7;&#xc3;O" type="java.lang.Object"/>
                     <Column editable="true" title="A&#xc7;&#xc3;O" type="java.lang.Object"/>
                   </Table>
                 </Property>

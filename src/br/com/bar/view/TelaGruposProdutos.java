@@ -154,12 +154,15 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
         jPanel1.setBounds(0, 0, 430, 120);
 
         jPanel2.setBackground(new java.awt.Color(44, 62, 80));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Nome do Grupo");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
         txtNomeGrupo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        jPanel2.add(txtNomeGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 300, 39));
 
         panelAdicionar.setBackground(new java.awt.Color(44, 62, 80));
         panelAdicionar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -194,6 +197,8 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
                 .addComponent(btnAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
         );
 
+        jPanel2.add(panelAdicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 108, -1, -1));
+
         panelConsultar.setBackground(new java.awt.Color(44, 62, 80));
         panelConsultar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -226,6 +231,8 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
         );
+
+        jPanel2.add(panelConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, -1, -1));
 
         panelAlterar.setBackground(new java.awt.Color(44, 62, 80));
         panelAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -275,6 +282,8 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
                     .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
+        jPanel2.add(panelAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, -1, -1));
+
         panelExcluir.setBackground(new java.awt.Color(44, 62, 80));
         panelExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -292,6 +301,8 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
             panelExcluirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 54, Short.MAX_VALUE)
         );
+
+        jPanel2.add(panelExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 110, -1, -1));
 
         panelTabela.setBackground(new java.awt.Color(44, 62, 80));
         panelTabela.setLayout(null);
@@ -316,57 +327,9 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
         panelTabela.add(jScrollPane2);
         jScrollPane2.setBounds(20, 0, 390, 170);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(txtIdGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel2))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(txtNomeGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(panelConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(7, 7, 7)
-                .addComponent(panelAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(panelExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(panelTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtIdGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(jLabel2)
-                .addGap(0, 0, 0)
-                .addComponent(txtNomeGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(panelAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(panelExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(4, 4, 4)
-                .addComponent(panelTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jPanel2.add(panelTabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 168, 420, 182));
+        jPanel2.add(txtIdGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 56, -1));
+        jPanel2.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 56, -1));
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 120, 430, 350);

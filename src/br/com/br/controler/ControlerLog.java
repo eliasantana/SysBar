@@ -32,8 +32,8 @@ public class ControlerLog {
                 + "date_format(data,'%d/%m/%Y')  as 'DATA', \n"
                 + "hora as 'HORA', \n"
                 + "usuario as 'USUÁRIO', \n"
-                + "funcionalidade as 'FUNCIONALIDADE', \n"
-                + "descricao  as 'DESCRIÇÃO'\n"
+                + "funcionalidade as 'FUNÇÃO', \n"
+                + "descricao  as 'AÇÃO'\n"
                 + "FROM dbbar.tb_log";
 
         try {
@@ -55,7 +55,7 @@ public class ControlerLog {
                 + "hora as 'HORA', \n"
                 + "usuario as 'USUÁRIO', \n"
                 + "funcionalidade as 'FUNCIONALIDADE', \n"
-                + "descricao  as 'DESCRIÇÃO'\n"
+                + "descricao  as 'AÇÃO'\n"
                 + "FROM dbbar.tb_log\n"
                 + "WHERE usuario=?;";
 
@@ -79,8 +79,8 @@ public class ControlerLog {
                 + "date_format(data,'%d/%m/%Y')  as 'DATA', \n"
                 + "hora as 'HORA', \n"
                 + "usuario as 'USUÁRIO', \n"
-                + "funcionalidade as 'FUNCIONALIDADE', \n"
-                + "descricao  as 'DESCRIÇÃO'\n"
+                + "funcionalidade as 'FUNÇÃO', \n"
+                + "descricao  as 'AÇÃO'\n"
                 + "FROM dbbar.tb_log where usuario=? and data between ? and ?";
 
         try {
@@ -120,7 +120,7 @@ public class ControlerLog {
         String sql = "SELECT \n"               
                 + "date_format(data,'%d/%m/%Y')  as 'DATA', \n"
                 + "TIME_FORMAT(hora,'%H:%i') as 'HORA', \n"                
-                + "funcionalidade as 'FUNCIONALIDADE', \n"
+                + "funcionalidade as 'FUNÇÃO', \n"
                 + "descricao  as 'AÇÃO'\n"
                 + "FROM dbbar.tb_log where usuario=? and data between ? and ? ORDER BY data DESC, HORA DESC limit ? offset ? ";
 
@@ -190,8 +190,8 @@ public class ControlerLog {
                 + "date_format(data,'%d/%m/%Y')  as 'DATA', \n"
                 + "hora as 'HORA', \n"
                 + "usuario as 'USUÁRIO', \n"
-                + "funcionalidade as 'FUNCIONALIDADE', \n"
-                + "descricao  as 'DESCRIÇÃO'\n"
+                + "funcionalidade as 'FUNÇÃO', \n"
+                + "descricao  as 'AÇÃO'\n"
                 + "FROM dbbar.tb_log where usuario=? and data between ? and ?";
 
         try {

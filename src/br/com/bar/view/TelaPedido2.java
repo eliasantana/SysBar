@@ -331,7 +331,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         textoLblPedido.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
         textoLblPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoLblPedido.setText("Gerenciar Pedido");
+        textoLblPedido.setText("Gestão de Pedidos");
         getContentPane().add(textoLblPedido);
         textoLblPedido.setBounds(650, 660, 150, 23);
 

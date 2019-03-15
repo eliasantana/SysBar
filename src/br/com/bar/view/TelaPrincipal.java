@@ -647,16 +647,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         double nMesasOcupadas = dadosOcupacao.get(1);
 
         if (nMesasOcupadas > 0) {
-            int op = JOptionPane.showConfirmDialog(null, "Existem pedidos em aberto! \nDeseja sair mesmo assim?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(null, "Existem pedidos abertos! Deseja sair mesmo assim?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {
 
                 dispose();
                 TelaLogin login = new TelaLogin();
                 login.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "Feche todos os pedidos antes de continuar!");
-            }
+            } 
 
         } else {
             dispose();

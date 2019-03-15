@@ -167,16 +167,16 @@ public class TelaCadastro extends javax.swing.JFrame {
             btnMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnMesasLayout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(31, 31, 31))
         );
         btnMesasLayout.setVerticalGroup(
             btnMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
             .addGroup(btnMesasLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(37, 37, 37)
                 .addComponent(jLabel12)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -195,23 +195,23 @@ public class TelaCadastro extends javax.swing.JFrame {
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel14.setText("Grupos de");
         panelGrupoProduto.add(jLabel14);
-        jLabel14.setBounds(120, 30, 70, 20);
+        jLabel14.setBounds(80, 30, 70, 20);
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/grupo128x128.png"))); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/grupo64x64.png"))); // NOI18N
         jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel13MouseClicked(evt);
             }
         });
         panelGrupoProduto.add(jLabel13);
-        jLabel13.setBounds(0, 0, 190, 100);
+        jLabel13.setBounds(10, 0, 180, 100);
 
         jLabel18.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel18.setText("Produtos");
         panelGrupoProduto.add(jLabel18);
-        jLabel18.setBounds(120, 50, 70, 20);
+        jLabel18.setBounds(80, 50, 70, 20);
 
         jPanel3.add(panelGrupoProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 194, 100));
 
@@ -264,18 +264,18 @@ public class TelaCadastro extends javax.swing.JFrame {
             }
         });
         btnProduto2.add(lblFornecedores3);
-        lblFornecedores3.setBounds(100, 40, 90, 20);
+        lblFornecedores3.setBounds(70, 40, 90, 20);
 
         lblFornecedores.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblFornecedores.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblFornecedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/empresa128x128.png"))); // NOI18N
+        lblFornecedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/empresa64x64.png"))); // NOI18N
         lblFornecedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblFornecedoresMouseClicked(evt);
             }
         });
         btnProduto2.add(lblFornecedores);
-        lblFornecedores.setBounds(-10, 0, 210, 100);
+        lblFornecedores.setBounds(10, 0, 190, 100);
 
         jPanel3.add(btnProduto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 110, 200, 100));
 

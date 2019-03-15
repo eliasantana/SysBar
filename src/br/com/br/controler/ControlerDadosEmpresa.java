@@ -128,7 +128,7 @@ public class ControlerDadosEmpresa {
         boolean resp = false;
               
         String sql = "UPDATE tb_dados_empresa  SET"
-                + " nome_empresa=?, endereco=?, numero=?, bairro=?, cep=?, cidade=?, uf=?, telefone=?, celular=?, email=?, logo=?, cnpj=?, urlbackup=?, imprimir_na_tela=?  "
+                + " nome_empresa=?, endereco=?, numero=?, bairro=?, cep=?, cidade=?, uf=?, telefone=?, celular=?, email=?, logo=?, cnpj=?,complemento=?, urlbackup=?, imprimir_na_tela=?  "
                 + " WHERE id=?";
 
         try {
@@ -146,9 +146,10 @@ public class ControlerDadosEmpresa {
             pst.setString(10, d.getEmail());
             pst.setString(11, d.getLogo());
             pst.setString(12, d.getCnpj());
-            pst.setString(13, d.getUrlbackup());
-            pst.setInt(14, d.getImprimir_na_tela());
-            pst.setInt(15, d.getId());
+            pst.setString(13, d.getComplemento());
+            pst.setString(14, d.getUrlbackup());
+            pst.setInt(15, d.getImprimir_na_tela());
+            pst.setInt(16, d.getId());
             
             pst.executeUpdate();
 

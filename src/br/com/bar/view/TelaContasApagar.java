@@ -444,7 +444,7 @@ public class TelaContasApagar extends JDialog {
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Contas a Pagar");
+        jLabel2.setText("Pagamentos");
         painelDireito.add(jLabel2);
         jLabel2.setBounds(270, 10, 350, 64);
 
@@ -492,7 +492,7 @@ public class TelaContasApagar extends JDialog {
 
     private void tblContasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblContasMouseClicked
         // Habilita Botões
-
+      
         if (!"Abertas".equals(comboFiltro.getSelectedItem().toString())) {
 
         } else {

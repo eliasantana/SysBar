@@ -13,8 +13,6 @@ import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCozinha;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerFuncionario;
-import com.mysql.cj.protocol.Resultset;
-import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -23,7 +21,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JRException;
@@ -210,6 +207,19 @@ public class TelaConzinha extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
@@ -249,7 +259,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         }
 
         paineldireito.add(jScrollPane1);
-        jScrollPane1.setBounds(0, 119, 1020, 460);
+        jScrollPane1.setBounds(10, 119, 1010, 460);
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -371,7 +381,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         getContentPane().add(paineldireito);
         paineldireito.setBounds(280, 0, 1030, 690);
 
-        setSize(new java.awt.Dimension(1309, 693));
+        setSize(new java.awt.Dimension(1309, 690));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

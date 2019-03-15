@@ -88,6 +88,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        bordas = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -118,30 +119,33 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        bordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        bordas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jPanel1.setBackground(new java.awt.Color(243, 156, 18));
         jPanel1.setForeground(new java.awt.Color(243, 156, 18));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        jLabel2.setText("Gerenciamento");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 260, 30));
+        jLabel2.setText("Gestão");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 230, 30));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/pedidos.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 64, 64));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
         jLabel5.setText("de Pedidos");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 160, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 160, -1));
 
         lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("Operador");
-        jPanel1.add(lblOperador, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 90, -1));
+        jPanel1.add(lblOperador, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 90, -1));
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("Cargo");
-        jPanel1.add(lblCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 50, 100, 30));
+        jPanel1.add(lblCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, 100, 30));
 
         jPanel2.setBackground(new java.awt.Color(44, 62, 80));
 
@@ -165,15 +169,17 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 0, 40, 40));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(689, 0, 40, 40));
 
         jPanel3.setLayout(null);
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 0, 0));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 99));
+        bordas.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 99));
 
         jcomboPedido.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jcomboPedido.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -186,7 +192,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                 jcomboPedidoActionPerformed(evt);
             }
         });
-        getContentPane().add(jcomboPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 139, 121, 37));
+        bordas.add(jcomboPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 139, 121, 37));
 
         tblDetalhe.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         tblDetalhe.setModel(new javax.swing.table.DefaultTableModel(
@@ -194,7 +200,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CÓD", "PRODUTO", "QTD", "VLR UNITÁRIO R$", "VLR TOTAL R$", "CÓD. INTERNO"
+                "CÓDIGO", "PRODUTO", "QTD", "VLR UNITÁRIO R$", "VLR TOTAL R$", "CÓD. INTERNO"
             }
         ));
         tblDetalhe.setRowHeight(22);
@@ -205,7 +211,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblDetalhe);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 218, 760, 170));
+        bordas.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 218, 710, 170));
 
         btnListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lopa32x32.png"))); // NOI18N
         btnListar.setText("Listar");
@@ -214,23 +220,23 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                 btnListarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 139, 106, 37));
+        bordas.add(btnListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 139, 106, 37));
 
         lblNumeroMesa.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblNumeroMesa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        getContentPane().add(lblNumeroMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 83, 30));
+        bordas.add(lblNumeroMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 83, 30));
 
         lblNumeroMesa1.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         lblNumeroMesa1.setText("Pedido:");
-        getContentPane().add(lblNumeroMesa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 81, -1));
+        bordas.add(lblNumeroMesa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 81, -1));
 
         lblItensDoPedido.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         lblItensDoPedido.setText("Quantidade de Itens:");
-        getContentPane().add(lblItensDoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 182, 199, -1));
-        getContentPane().add(txtIdProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 61, -1));
+        bordas.add(lblItensDoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 182, 199, -1));
+        bordas.add(txtIdProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 110, 61, -1));
 
         lblRemoverItemDoPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
-        lblRemoverItemDoPedido.setText("Remover item do pedido");
+        lblRemoverItemDoPedido.setText("Remover item");
         lblRemoverItemDoPedido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblRemoverItemDoPedidoMouseClicked(evt);
@@ -239,9 +245,9 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                 lblRemoverItemDoPedidoMouseEntered(evt);
             }
         });
-        getContentPane().add(lblRemoverItemDoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 180, 40));
-        getContentPane().add(txtQtd, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, 61, -1));
-        getContentPane().add(txtIDItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, 61, -1));
+        bordas.add(lblRemoverItemDoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 139, 130, 40));
+        bordas.add(txtQtd, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, 61, -1));
+        bordas.add(txtIDItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 110, 61, -1));
 
         btnCancelarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fechar.png"))); // NOI18N
         btnCancelarPedido.setText("Cancelar Pedido");
@@ -250,16 +256,18 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                 btnCancelarPedidoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCancelarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, -1, 37));
+        bordas.add(btnCancelarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 139, -1, -1));
 
         lblNumeroMesa3.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         lblNumeroMesa3.setText("Mesa:");
-        getContentPane().add(lblNumeroMesa3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 61, 30));
+        bordas.add(lblNumeroMesa3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 61, 30));
 
         lblQtdItens.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        getContentPane().add(lblQtdItens, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 90, 30));
+        bordas.add(lblQtdItens, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 90, 30));
 
-        setSize(new java.awt.Dimension(778, 425));
+        getContentPane().add(bordas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 400));
+
+        setSize(new java.awt.Dimension(730, 402));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -479,6 +487,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bordas;
     private javax.swing.JButton btnCancelarPedido;
     private javax.swing.JButton btnListar;
     private javax.swing.JLabel jLabel1;

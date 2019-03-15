@@ -1205,7 +1205,15 @@ public class TelaCaixa extends JDialog {
                 tgeral.setEnabled(true);
                 lblTotal.setEnabled(true);
                 percent.setEnabled(true);
-                
+                int linhas = tblDetalhePedido.getRowCount();
+                if (linhas==0){
+                    percent.setEnabled(false);
+                    tgeral.setEnabled(false);
+                    lblTotal.setEnabled(false);
+                    checkCartao.setEnabled(false);
+                    checkDinheiro.setEnabled(false);
+                    checkTxServico.setEnabled(false);
+                }
 
             } catch (NumberFormatException | SQLException e) {
                 System.out.println("br.com.bar.view.TelaCaixa.btnListarActionPerformed()"+e);
