@@ -13,6 +13,7 @@ import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCozinha;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerFuncionario;
+import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -37,9 +38,9 @@ public class TelaConzinha extends javax.swing.JFrame {
     ControlerCozinha cc = new ControlerCozinha();
     ControlerFuncionario cf = new ControlerFuncionario();
     TableModelCozinha modelCozinha = new TableModelCozinha();
-
+    Funcionario f = new Funcionario();
     Util u = new Util();
-
+    String idProdutoCozinha = null; // Id do Prato a ser preparado 
     ControlerDadosEmpresa ce = new ControlerDadosEmpresa();
     //Guarda o id do prato liberado
     String id_pratoLiberado = null;
@@ -85,6 +86,13 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblLogo.setIcon(u.carregaLogo());
         //bloqueiaBotoes(true);
 
+    }
+    // Recebe o código do funcionário retornado da Tela ConfirmaCozinheiro.
+    public void recebeCozinheiro (Funcionario f, String idPrato){
+        this.f =f;
+        this.idProdutoCozinha = idPrato;       
+        preparar(); 
+        
     }
 
     private void relogio() {
@@ -322,7 +330,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Cozinha");
         paineldireito.add(jLabel3);
-        jLabel3.setBounds(27, 22, 960, 64);
+        jLabel3.setBounds(347, 22, 640, 64);
 
         lblSair.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblSair.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -533,23 +541,24 @@ public class TelaConzinha extends javax.swing.JFrame {
 
     private void lblPrepararMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrepararMouseClicked
         if (lblPreparar.isEnabled()) {
+            
+                TelaConfirmaCozinheiro tcc = new TelaConfirmaCozinheiro();
+                tcc.recebeIdPrato(txtidProdutoCozinha.getText(),this);
+                tcc.setModal(true);
+                tcc.setVisible(true);                
+          
+        }
 
-            // Registra Preparação do Prato
-            Funcionario f = new Funcionario();
-            String idProdutoCozinha = null;
-            String codUsuario = null;
-            // Localiza o usuário pelo codigo informado
-            codUsuario = JOptionPane.showInputDialog(null, "Informe o código do Cozinheiro:");
-            f = cf.localizaFuncionario(codUsuario);
+    }//GEN-LAST:event_lblPrepararMouseClicked
 
-            while (codUsuario.equals("") || !"Cozinheiro".equals(f.getCargo()) || f.getNome() == null) {
-                codUsuario = JOptionPane.showInputDialog("Por favor, informe um código Válido!");
-                System.out.println("id do prato cozinha " + idProdutoCozinha);
-                f = cf.localizaFuncionario(codUsuario);
-            }
-            int linha = tblCozinha.getSelectedRow();
-            idProdutoCozinha = tblCozinha.getModel().getValueAt(linha, 0).toString();
-
+    private void lblREmovePratoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblREmovePratoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblREmovePratoKeyPressed
+    
+    private void preparar(){
+        int linha = tblCozinha.getSelectedRow();
+           // String idProdutoCozinha = idProduto;
+            
             if ("Cozinheiro".equals(f.getCargo())) {
                 // Registra a solicitação do preparo 
                 cc.registraPreparo(idProdutoCozinha, f.getNome());
@@ -563,8 +572,9 @@ public class TelaConzinha extends javax.swing.JFrame {
                 modelCozinha.adicionaCoresTabela(tblCozinha);
                 // Possibilita a impressao de 'Solicitacao de Prato' atraves do perfil 'Gerente' (APENAS)
                 // Verifica se o usuário logado é o Gerente
+                
                 if ("Gerente".equals(lblCargo.getText())) {
-                    int op = JOptionPane.showConfirmDialog(null, "Contingência! Deseja imprimir essa Solicitação?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    int op = JOptionPane.showConfirmDialog(this, "Contingência! Deseja imprimir essa Solicitação?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
                     if (op == JOptionPane.YES_OPTION) {
                         ReportUtil rpu = new ReportUtil();
@@ -579,14 +589,8 @@ public class TelaConzinha extends javax.swing.JFrame {
                     }
                 }
             }
-        }
-
-    }//GEN-LAST:event_lblPrepararMouseClicked
-
-    private void lblREmovePratoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblREmovePratoKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblREmovePratoKeyPressed
-
+            
+    }
     /**
      * @param args the command line arguments
      */
