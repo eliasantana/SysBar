@@ -364,6 +364,7 @@ public class TelaLogin extends javax.swing.JFrame {
             cp.bloqueiaLogin(cf.localizaIdLogin(comboLogin.getSelectedItem().toString()));
             comboLogin.setSelectedIndex(0);
             acumula = 0;
+            txtSenha.setEnabled(false);
             //Início do Registro de Log
             l.setFuncionalidade("Acesso Negado");
             l.setDescricao("Usuário bloqueado por motivos de segurança.");
@@ -409,13 +410,14 @@ public class TelaLogin extends javax.swing.JFrame {
         boolean bloqueado = autentica.taBloqueado(comboLogin.getSelectedItem().toString());
        
         if ("Selecione...".equals(comboLogin.getSelectedItem().toString())) {
-           
+           txtSenha.setEnabled(false);
         }else {
             if (!bloqueado){
                 txtSenha.setEnabled(true);
                 acumula=0;
             }else {
-                lblMsg.setText("Usuário bloqueado, procure um administrador!");
+                lblMsg.setText("*Usuário bloqueado, procure um Administrador!");
+                txtSenha.setEnabled(false);
             }
             
         }

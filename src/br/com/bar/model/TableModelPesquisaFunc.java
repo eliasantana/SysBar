@@ -73,11 +73,11 @@ public class TableModelPesquisaFunc extends AbstractTableModel {
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(65); //CÓDIGO
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(200);// NOME
-        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(100); // CPF
-        tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(80); //RG
+        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(110); // CPF
+        tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(90); //RG
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(110); //CELULAR
         tabela.getColumn(tabela.getColumnName(5)).setPreferredWidth(80); // ADMISSÃO
-        tabela.getColumn(tabela.getColumnName(6)).setPreferredWidth(80); // STATUS
+        tabela.getColumn(tabela.getColumnName(6)).setPreferredWidth(60); // STATUS
         tabela.getColumn(tabela.getColumnName(7)).setPreferredWidth(100); // BLOQUEIO
          adicionaCoresTabela(tabela);
 

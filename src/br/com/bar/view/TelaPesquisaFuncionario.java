@@ -11,7 +11,6 @@ import br.com.bar.model.TableModelPesquisaFunc;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerFuncionario;
 import java.awt.event.KeyEvent;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 

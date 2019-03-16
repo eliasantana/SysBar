@@ -451,7 +451,7 @@ public class TelaContasApagar extends JDialog {
         getContentPane().add(painelDireito);
         painelDireito.setBounds(360, 0, 920, 550);
 
-        setSize(new java.awt.Dimension(1274, 552));
+        setSize(new java.awt.Dimension(1274, 548));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

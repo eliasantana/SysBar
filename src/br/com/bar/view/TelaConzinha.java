@@ -47,7 +47,7 @@ public class TelaConzinha extends javax.swing.JFrame {
 
     public TelaConzinha() {
         initComponents();
-        lblCargo.setVisible(true);
+        lblCargo.setVisible(false);
         Date dt = new Date();
         lblData.setText(u.formataDataBr(dt));
         txtidProdutoCozinha.setVisible(false);
@@ -137,7 +137,6 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblSair = new javax.swing.JLabel();
         lblLiberaRefeicao = new javax.swing.JLabel();
         lblPreparar = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
         lblMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -228,6 +227,8 @@ public class TelaConzinha extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
@@ -267,7 +268,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         }
 
         paineldireito.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 119, 1010, 460);
+        jScrollPane1.setBounds(10, 119, 1010, 505);
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -324,13 +325,13 @@ public class TelaConzinha extends javax.swing.JFrame {
             }
         });
         paineldireito.add(lblREmovePrato);
-        lblREmovePrato.setBounds(540, 610, 160, 70);
+        lblREmovePrato.setBounds(540, 630, 160, 50);
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Cozinha");
         paineldireito.add(jLabel3);
-        jLabel3.setBounds(347, 22, 640, 64);
+        jLabel3.setBounds(7, 22, 990, 64);
 
         lblSair.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblSair.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -342,7 +343,7 @@ public class TelaConzinha extends javax.swing.JFrame {
             }
         });
         paineldireito.add(lblSair);
-        lblSair.setBounds(680, 610, 141, 70);
+        lblSair.setBounds(680, 630, 141, 50);
 
         lblLiberaRefeicao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblLiberaRefeicao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCozinha.png"))); // NOI18N
@@ -353,7 +354,7 @@ public class TelaConzinha extends javax.swing.JFrame {
             }
         });
         paineldireito.add(lblLiberaRefeicao);
-        lblLiberaRefeicao.setBounds(380, 610, 160, 70);
+        lblLiberaRefeicao.setBounds(380, 630, 160, 50);
 
         lblPreparar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblPreparar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/preparar32x32.png"))); // NOI18N
@@ -364,27 +365,13 @@ public class TelaConzinha extends javax.swing.JFrame {
             }
         });
         paineldireito.add(lblPreparar);
-        lblPreparar.setBounds(220, 610, 140, 70);
+        lblPreparar.setBounds(220, 630, 140, 50);
 
         lblMsg.setForeground(new java.awt.Color(0, 0, 153));
         lblMsg.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(555, Short.MAX_VALUE)
-                .addComponent(lblMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblMsg, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-        );
-
-        paineldireito.add(jPanel2);
-        jPanel2.setBounds(0, 580, 1020, 30);
+        lblMsg.setText("msg");
+        paineldireito.add(lblMsg);
+        lblMsg.setBounds(120, 630, 900, 20);
 
         getContentPane().add(paineldireito);
         paineldireito.setBounds(280, 0, 1030, 690);
@@ -631,7 +618,6 @@ public class TelaConzinha extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblData;
