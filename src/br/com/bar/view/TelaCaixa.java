@@ -118,6 +118,7 @@ public class TelaCaixa extends JDialog {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         painelEsquerdo = new javax.swing.JPanel();
         lblLLogo = new javax.swing.JLabel();
         panelMovimentacao = new javax.swing.JPanel();
@@ -155,8 +156,6 @@ public class TelaCaixa extends JDialog {
         lblTotal = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        checkDinheiro = new javax.swing.JCheckBox();
-        checkCartao = new javax.swing.JCheckBox();
         checkTxServico = new javax.swing.JCheckBox();
         lblPago = new javax.swing.JLabel();
         txtValorPago = new javax.swing.JTextField();
@@ -165,6 +164,8 @@ public class TelaCaixa extends JDialog {
         checkConcedeDesconto = new javax.swing.JCheckBox();
         txtDesconto = new javax.swing.JTextField();
         lblValorDesc = new javax.swing.JLabel();
+        radioDinheiro = new javax.swing.JRadioButton();
+        radioCartao = new javax.swing.JRadioButton();
         jLabel21 = new javax.swing.JLabel();
         jSpinFieldPessoas = new javax.swing.JSpinner();
         btnImprimir = new javax.swing.JLabel();
@@ -547,31 +548,6 @@ public class TelaCaixa extends JDialog {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Forma de Pagamento")));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        buttonGroup1.add(checkDinheiro);
-        checkDinheiro.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        checkDinheiro.setText("Dinheiro");
-        checkDinheiro.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                checkDinheiroMouseClicked(evt);
-            }
-        });
-        checkDinheiro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkDinheiroActionPerformed(evt);
-            }
-        });
-        jPanel4.add(checkDinheiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 23, 90, -1));
-
-        buttonGroup1.add(checkCartao);
-        checkCartao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        checkCartao.setText("Cartão");
-        checkCartao.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                checkCartaoMouseClicked(evt);
-            }
-        });
-        jPanel4.add(checkCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 23, 80, -1));
-
         checkTxServico.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         checkTxServico.setText("Taxa de Serviço");
         checkTxServico.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -652,6 +628,24 @@ public class TelaCaixa extends JDialog {
         lblValorDesc.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
         lblValorDesc.setText("Valor Desconto R$");
         jPanel4.add(lblValorDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 50, 141, 30));
+
+        buttonGroup2.add(radioDinheiro);
+        radioDinheiro.setText("Dinheiro");
+        radioDinheiro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioDinheiroMouseClicked(evt);
+            }
+        });
+        jPanel4.add(radioDinheiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 23, -1, 30));
+
+        buttonGroup2.add(radioCartao);
+        radioCartao.setText("Cartão");
+        radioCartao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioCartaoMouseClicked(evt);
+            }
+        });
+        jPanel4.add(radioCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 23, -1, 30));
 
         painelDireito.add(jPanel4);
         jPanel4.setBounds(10, 260, 350, 220);
@@ -887,14 +881,18 @@ public class TelaCaixa extends JDialog {
     }//GEN-LAST:event_btnFecharMouseClicked
 
     private void comboMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMesaActionPerformed
-         btnListar.setEnabled(false);
-        if (!"Selecione...".equals(comboMesa.getSelectedItem())){
+        btnListar.setEnabled(false);
+        if (!"Selecione...".equals(comboMesa.getSelectedItem())) {
             btnListar.setEnabled(true);
-        }else {
+        } else {
             lblReceber.setEnabled(false);
             lblReceberPAgamento.setEnabled(false);
-            checkCartao.setEnabled(false);
-            checkDinheiro.setEnabled(false);
+
+            //checkCartao.setEnabled(false); ///- Excluir - checkCartao
+            //checkDinheiro.setEnabled(false);///- Excluir
+            radioCartao.setEnabled(false);
+            radioDinheiro.setEnabled(false);
+
             btnImprimir.setEnabled(false);
             jSpinFieldPessoas.setEnabled(false);
             lblTotal.setEnabled(false);
@@ -988,23 +986,23 @@ public class TelaCaixa extends JDialog {
 
             // Instancia um produto
             Pedido p = new Pedido();
-            
+
             //p.setTotal(lblTotal.getText().replaceAll(",", "."));
             p.setTotal(tGeral);
             String comissao = percent.getText().replace(".", "");
-            comissao = comissao.replace(",",".");
+            comissao = comissao.replace(",", ".");
             p.setComissao(comissao);
-            
+
             String vlrPago = txtValorPago.getText().replace(".", "");
             vlrPago = vlrPago.replace(",", ".");
             p.setTotalPago(vlrPago);
-            
+
             p.setStatus("1");
             p.setOperador(lblOperador.getText());
             p.setId(txtIdPedido.getText());
 
             // Pega forma de pagamento selecionada
-            if (checkCartao.isSelected()) {
+            if (radioCartao.isSelected()) {
 
                 p.setFormaPagto("Cartão");
             } else {
@@ -1018,7 +1016,7 @@ public class TelaCaixa extends JDialog {
 
             if (op == JOptionPane.YES_OPTION) {  // Se confirmado fecha o pedido
 
-                if (checkCartao.isSelected() || checkDinheiro.isSelected()) {
+                if (radioCartao.isSelected() || radioDinheiro.isSelected()) {
                     // Pega a data Atual
                     String dtAtual = utils.formataDataBr(data).replaceAll("/", "");
                     // Pega a hora atual
@@ -1084,7 +1082,6 @@ public class TelaCaixa extends JDialog {
                     dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone() + " - " + dadosEmpresa.getEmail());
                     dados.put("cnpj", dadosEmpresa.getCnpj());
                     dados.put("desc", Double.parseDouble(txtDesconto.getText().replaceAll(",", ".")));
-                  
 
                     try {
                         // Verifica o método de impressão 0 -> Impressção em tela 1 - Impressão direta
@@ -1115,8 +1112,10 @@ public class TelaCaixa extends JDialog {
                     txtDesconto.setText("0,00");
                     lblReceber.setEnabled(false);
                     txtTroco.setText("0,00");
-                    checkCartao.setSelected(false);
-                    checkDinheiro.setSelected(false);
+                    //checkCartao.setSelected(false); //Excluir
+                   // checkDinheiro.setSelected(false); // Excluir
+                    radioCartao.setSelected(false);
+                    radioDinheiro.setSelected(false);
                     lblNPedido.setText(null);
                     lblEntradas.setText(String.format("%9.2f", caixa.totalizaEntradas()));
                     lblGarcom.setText(null);
@@ -1131,14 +1130,14 @@ public class TelaCaixa extends JDialog {
                         caixa.listaMesaOcupada(comboMesa);
 
                     } catch (NullPointerException e) {
-                        
+
                     }
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Selecione uma forma de pagameto!");
                 }
 
-            } 
+            }
         }
     }//GEN-LAST:event_lblReceberMouseClicked
 
@@ -1157,101 +1156,102 @@ public class TelaCaixa extends JDialog {
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         try {
-            
-        if (!"Selecione...".equals(comboMesa.getSelectedItem().toString())) {
-            checkCartao.setEnabled(true);
-            checkTxServico.setEnabled(true);
-            checkDinheiro.setEnabled(true);
-            // Localiza o id da mesa selecionada
-            txtIdMEsa.setText(cm.localizaIdMesa(comboMesa.getSelectedItem().toString()));
-            //Localiza o id do  Pedido
-            txtIdPedido.setText(cp.LocalizaIdPedido(comboMesa.getSelectedItem().toString()));
-            lblNPedido.setText(txtIdPedido.getText());
-            // Exibe detalhe do pedido por mesa de acordo com o id do pedido
-            tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(comboMesa.getSelectedItem().toString(), txtIdPedido.getText())));
-            modelCaixa.redimensionaColunas(tblDetalhePedido);
-            // Inicializa das variáveis TOTAL E totalGeral
-            double total = 0;
-            double totalGeral = 0;
 
-            try {
-                // Lista resultado da pesquisa e totaliza os produtos do pedido
-                ResultSet rs = cp.detalhePorPedido(comboMesa.getSelectedItem().toString(), txtIdPedido.getText());
+            if (!"Selecione...".equals(comboMesa.getSelectedItem().toString())) {
+                //checkCartao.setEnabled(true);// Excluir
+                checkTxServico.setEnabled(true);
+                //checkDinheiro.setEnabled(true);  // Excluir
+                radioDinheiro.setEnabled(true);
+                radioCartao.setEnabled(true);
+                // Localiza o id da mesa selecionada
+                txtIdMEsa.setText(cm.localizaIdMesa(comboMesa.getSelectedItem().toString()));
+                //Localiza o id do  Pedido
+                txtIdPedido.setText(cp.LocalizaIdPedido(comboMesa.getSelectedItem().toString()));
+                lblNPedido.setText(txtIdPedido.getText());
+                // Exibe detalhe do pedido por mesa de acordo com o id do pedido
+                tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(comboMesa.getSelectedItem().toString(), txtIdPedido.getText())));
+                modelCaixa.redimensionaColunas(tblDetalhePedido);
+                // Inicializa das variáveis TOTAL E totalGeral
+                double total = 0;
+                double totalGeral = 0;
 
-                // ========================  tratar estouro na formatação de valores ========================///
-                /*
+                try {
+                    // Lista resultado da pesquisa e totaliza os produtos do pedido
+                    ResultSet rs = cp.detalhePorPedido(comboMesa.getSelectedItem().toString(), txtIdPedido.getText());
+
+                    // ========================  tratar estouro na formatação de valores ========================///
+                    /*
                 while (rs.next()) {
                     total = Double.parseDouble(rs.getString("VLR TOTAL R$").replaceAll(",", "."));
                     totalGeral = totalGeral + total;
                 }*/
-                
-                
-                while (rs.next()) {
-                    
-                    NumberFormat nf = NumberFormat.getNumberInstance();
-                    
-                    try {
-                        total =  nf.parse(rs.getString("VLR TOTAL R$")).doubleValue();
-                        totalGeral = totalGeral + total;
-                        
-                    } catch (ParseException ex) {
-                        Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
+                    while (rs.next()) {
+
+                        NumberFormat nf = NumberFormat.getNumberInstance();
+
+                        try {
+                            total = nf.parse(rs.getString("VLR TOTAL R$")).doubleValue();
+                            totalGeral = totalGeral + total;
+
+                        } catch (ParseException ex) {
+                            Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
+
+                    // Formata e exibe o total geral do pedido
+                    tgeral.setText(String.format("%9.2f", totalGeral));
+                    tgeral.setEnabled(true);
+                    lblTotal.setEnabled(true);
+                    percent.setEnabled(true);
+                    int linhas = tblDetalhePedido.getRowCount();
+                    if (linhas == 0) {
+                        percent.setEnabled(false);
+                        tgeral.setEnabled(false);
+                        lblTotal.setEnabled(false);
+                        //checkCartao.setEnabled(false); // Excluir
+                        //checkDinheiro.setEnabled(false); // Excluir
+                        radioDinheiro.setEnabled(false);
+                        radioCartao.setEnabled(false);
+                        checkTxServico.setEnabled(false);
+                    }
+
+                } catch (NumberFormatException | SQLException e) {
+                    System.out.println("br.com.bar.view.TelaCaixa.btnListarActionPerformed()" + e);
                 }
-                
-                // Formata e exibe o total geral do pedido
-               
-                tgeral.setText(String.format("%9.2f", totalGeral));
-                tgeral.setEnabled(true);
-                lblTotal.setEnabled(true);
-                percent.setEnabled(true);
-                int linhas = tblDetalhePedido.getRowCount();
-                if (linhas==0){
-                    percent.setEnabled(false);
-                    tgeral.setEnabled(false);
-                    lblTotal.setEnabled(false);
-                    checkCartao.setEnabled(false);
-                    checkDinheiro.setEnabled(false);
-                    checkTxServico.setEnabled(false);
-                }
+                // Calcula a taxa de serviço somando ao total do pedido
+                calculaTaxa();
 
-            } catch (NumberFormatException | SQLException e) {
-                System.out.println("br.com.bar.view.TelaCaixa.btnListarActionPerformed()"+e);
-            }
-            // Calcula a taxa de serviço somando ao total do pedido
-            calculaTaxa();
+                lblGarcom.setText(func.retornaGarcom(comboMesa.getSelectedItem().toString()));
 
-            lblGarcom.setText(func.retornaGarcom(comboMesa.getSelectedItem().toString()));
+                //Iníciodo registro de Log
+                l.setFuncionalidade("Listar");
+                l.setDescricao(l.getUsuario() + " listou o detalhe do pedido ->" + txtIdPedido.getText() + "  Garçom " + lblGarcom.getText() + " Mesa-> " + comboMesa.getSelectedItem().toString());
+                l.gravaLog(l);
+                //
 
-            //Iníciodo registro de Log
-            l.setFuncionalidade("Listar");
-            l.setDescricao(l.getUsuario() + " listou o detalhe do pedido ->" + txtIdPedido.getText() + "  Garçom " + lblGarcom.getText() + " Mesa-> " + comboMesa.getSelectedItem().toString());
-            l.gravaLog(l);
-            //
-
-            txtValorPago.setText("0,00");
-            txtTroco.setText("0,00");
-            txtDesconto.setText("0,00");
-            //lblReceber.setEnabled(true);
-            // Substituição multipla na sequencia para evitar NumberFormatException: Multiple Points
-            // Calsada pela formatação 0.000,00
-            String sTotal = lblTotal.getText().replace(".","");
-            sTotal = sTotal.replace(",", ".");
-            if (Double.parseDouble(sTotal)==0){
-                btnImprimir.setEnabled(false);
-                lblReceber.setEnabled(false);
-            }else {
+                txtValorPago.setText("0,00");
+                txtTroco.setText("0,00");
+                txtDesconto.setText("0,00");
                 //lblReceber.setEnabled(true);
+                // Substituição multipla na sequencia para evitar NumberFormatException: Multiple Points
+                // Calsada pela formatação 0.000,00
+                String sTotal = lblTotal.getText().replace(".", "");
+                sTotal = sTotal.replace(",", ".");
+                if (Double.parseDouble(sTotal) == 0) {
+                    btnImprimir.setEnabled(false);
+                    lblReceber.setEnabled(false);
+                } else {
+                    //lblReceber.setEnabled(true);
+                }
+
+                // Formata valores após listagem
+                FormataValor fv = new FormataValor();
+                tgeral.setText(fv.Formata(tgeral.getText()));
+                lblTotal.setText(fv.Formata(lblTotal.getText()));
+
             }
-            
-           // Formata valores após listagem
-            FormataValor fv = new FormataValor();
-            tgeral.setText(fv.Formata(tgeral.getText()));
-            lblTotal.setText(fv.Formata(lblTotal.getText()));
-            
-        }
         } catch (NumberFormatException e) {
-            
+
         }
 
     }//GEN-LAST:event_btnListarActionPerformed
@@ -1303,9 +1303,7 @@ public class TelaCaixa extends JDialog {
                     rpu.imprimeRelatorioTela("cupom2.jasper", dados);
 
                 } else {
-                    /*
-                    JasperPrint print = JasperFillManager.fillReport(ControlerParametro.getRELATORIOS() + "cupom2.jasper", dados, conexao);
-                    JasperPrintManager.printPage(print, 0, false);*/
+
                     rpu.impressaoDireta("cupom2.jasper", dados);
                 }
             } catch (JRException e) {
@@ -1352,7 +1350,7 @@ public class TelaCaixa extends JDialog {
                 } else {
                     if (caixa.gravaMovimentacao(cx)) {
                         JOptionPane.showMessageDialog(null, "Caixa fechado com sucesso!");
-                        
+
                         // Desabilita botões Listar e Fechar caixa após o fechamento
                         btnListar.setEnabled(false);
                         btnFecharCaixa.setEnabled(false);
@@ -1362,7 +1360,7 @@ public class TelaCaixa extends JDialog {
                         labelFecharCaixa.setEnabled(false);
                         lblReceber.setEnabled(false);
                         lblReceberPAgamento.setEnabled(false);
-                        
+
                         // Inicio do Registro de Log
                         l.setDescricao("Caixa");
                         l.setFuncionalidade("Fehamento de Caixa");
@@ -1409,7 +1407,7 @@ public class TelaCaixa extends JDialog {
 
                     }
                 }
-            } 
+            }
         }
     }//GEN-LAST:event_btnFecharCaixaMouseClicked
 
@@ -1466,33 +1464,6 @@ public class TelaCaixa extends JDialog {
 
     }//GEN-LAST:event_btnGraficoMouseClicked
 
-    private void checkDinheiroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkDinheiroMouseClicked
-        //Abilita textFild para recebimento em dinheiro
-        if (checkDinheiro.isSelected()) {
-            txtValorPago.setText(lblTotal.getText());
-            txtValorPago.setEnabled(true);
-            jSpinFieldPessoas.setEnabled(true);
-            btnImprimir.setEnabled(true);
-            checkConcedeDesconto.setEnabled(true);
-            lblReceber.setEnabled(true);
-            lblReceberPAgamento.setEnabled(true);
-        }
-    }//GEN-LAST:event_checkDinheiroMouseClicked
-
-    private void checkCartaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkCartaoMouseClicked
-        if (checkCartao.isSelected()) {
-            txtValorPago.setText(lblTotal.getText());
-            txtValorPago.setEnabled(false);
-            txtTroco.setText("0,00");
-            jSpinFieldPessoas.setEnabled(true);
-            btnImprimir.setEnabled(true);
-            checkConcedeDesconto.setEnabled(true);
-            lblReceber.setEnabled(true);
-            lblReceberPAgamento.setEnabled(true);
-        }
-
-    }//GEN-LAST:event_checkCartaoMouseClicked
-
     private void checkExibirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkExibirMouseClicked
         if ("Caixa Aberto".equals(lblMsgStatus.getText())) {
             if (checkExibir.isSelected()) {
@@ -1519,10 +1490,6 @@ public class TelaCaixa extends JDialog {
 
     }//GEN-LAST:event_checkExibirMouseClicked
 
-    private void checkDinheiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDinheiroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkDinheiroActionPerformed
-
     private void checkExibirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkExibirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_checkExibirActionPerformed
@@ -1547,10 +1514,10 @@ public class TelaCaixa extends JDialog {
 
             // Forma de Pagamento
             String formaPagto = "";
-            if (checkCartao.isSelected()) {
-                formaPagto = checkCartao.getText();
+            if (radioCartao.isSelected()) {
+                formaPagto = radioCartao.getText();
             } else {
-                formaPagto = checkDinheiro.getText();
+                formaPagto = radioDinheiro.getText();
             }
             dadosDoPedido.add(formaPagto);
 
@@ -1578,15 +1545,41 @@ public class TelaCaixa extends JDialog {
             }
         }
     }//GEN-LAST:event_checkReimpressaoActionPerformed
+
+    private void radioDinheiroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioDinheiroMouseClicked
+        //Abilita textFild para recebimento em dinheiro
+        if (radioDinheiro.isSelected()) {
+            txtValorPago.setText(lblTotal.getText());
+            txtValorPago.setEnabled(true);
+            jSpinFieldPessoas.setEnabled(true);
+            btnImprimir.setEnabled(true);
+            checkConcedeDesconto.setEnabled(true);
+            lblReceber.setEnabled(true);
+            lblReceberPAgamento.setEnabled(true);
+        }
+    }//GEN-LAST:event_radioDinheiroMouseClicked
+
+    private void radioCartaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioCartaoMouseClicked
+        if (radioCartao.isSelected()) {
+            txtValorPago.setText(lblTotal.getText());
+            txtValorPago.setEnabled(false);
+            txtTroco.setText("0,00");
+            jSpinFieldPessoas.setEnabled(true);
+            btnImprimir.setEnabled(true);
+            checkConcedeDesconto.setEnabled(true);
+            lblReceber.setEnabled(true);
+            lblReceberPAgamento.setEnabled(true);
+        }
+    }//GEN-LAST:event_radioCartaoMouseClicked
     public void recebeOperador(String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
         l.setUsuario(operador);
         String id = func.localizaIdLogin(operador);
-         btnListar.setEnabled(false);
+        btnListar.setEnabled(false);
         caixa.statusCaixa(lblStatus, caixa.temMovimentacao(Integer.parseInt(id)), lblMsgStatus);
-        
+
         if ("Caixa Fechado".equals(lblMsgStatus.getText())) {
             lblReceber.setEnabled(false);
             lblReceberPAgamento.setEnabled(false);
@@ -1640,23 +1633,27 @@ public class TelaCaixa extends JDialog {
 
     public void recebeDadosComDesconto(ArrayList<String> dados) {
         listAutoDesconto = dados;
-// total - tx de servico - total geral - Desconto - Mesa
+        // total - tx de servico - total geral - Desconto - Mesa
         tgeral.setText(dados.get(0));
         percent.setText(dados.get(1));
         lblTotal.setText(dados.get(2));
         txtIdPedido.setText(dados.get(4));
         if ("Cartão".equals(dados.get(5))) {
-            checkCartao.setSelected(true);
+            //checkCartao.setSelected(true);// Excluir
+            radioCartao.setSelected(true);
         } else {
-            checkDinheiro.setSelected(true);
+            //checkDinheiro.setSelected(true); // Excluir
+            radioDinheiro.setSelected(rootPaneCheckingEnabled);
         }
         txtDesconto.setText(dados.get(6));
         comboMesa.setSelectedItem(dados.get(3));
         tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(comboMesa.getSelectedItem().toString(), txtIdPedido.getText())));
         modelCaixa.redimensionaColunas(tblDetalhePedido);
-        checkCartao.setEnabled(true);
+       // checkCartao.setEnabled(true); // Excluir
+        radioCartao.setEnabled(true);
         checkTxServico.setEnabled(true);
-        checkDinheiro.setEnabled(true);
+        //checkDinheiro.setEnabled(true); // Excluir
+        radioDinheiro.setEnabled(true);
         txtValorPago.setText(dados.get(2));
 
     }
@@ -1716,9 +1713,8 @@ public class TelaCaixa extends JDialog {
     private javax.swing.JLabel btnImprimir;
     private javax.swing.JButton btnListar;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JCheckBox checkCartao;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JCheckBox checkConcedeDesconto;
-    private javax.swing.JCheckBox checkDinheiro;
     private javax.swing.JCheckBox checkExibir;
     private javax.swing.JCheckBox checkReimpressao;
     private javax.swing.JCheckBox checkTxServico;
@@ -1772,6 +1768,8 @@ public class TelaCaixa extends JDialog {
     private javax.swing.JPanel panelGrafico;
     private javax.swing.JPanel panelMovimentacao;
     private javax.swing.JLabel percent;
+    private javax.swing.JRadioButton radioCartao;
+    private javax.swing.JRadioButton radioDinheiro;
     private javax.swing.JTable tblDetalhePedido;
     private javax.swing.JLabel tgeral;
     private javax.swing.JTextField txtDesconto;
@@ -1783,7 +1781,7 @@ public class TelaCaixa extends JDialog {
 
     private void calculaTaxa() {
         FormataValor fv = new FormataValor();
-        
+
         double txServico = 0.10; // 10%
         //double totalConta = Double.parseDouble(lblTotal.getText().replaceAll(",", "."));
         String tConta = tgeral.getText().replace(".", "");
@@ -1798,13 +1796,11 @@ public class TelaCaixa extends JDialog {
 
         if (checkTxServico.isSelected()) {
 
-         
             //lblTotal.setText(String.format("%9.2f", (totalConta + totalTxServico) - desconto));
             double tTotal = (totalConta + totalTxServico) - desconto;
             lblTotal.setText(fv.Formata(String.valueOf(tTotal)));
             //txtTaxaServico.setText(String.format("%9.2f", totalTxServico));
             percent.setText(fv.Formata(String.valueOf(totalTxServico)));
-          
 
         } else {
             //txtTotalGeral.setText(String.format("%9.2f", totalConta));
@@ -1858,10 +1854,12 @@ public class TelaCaixa extends JDialog {
     private void bloqueiaControlePagamento() {
         txtValorPago.setEnabled(false);
         txtTroco.setEnabled(false);
-        checkDinheiro.setEnabled(false);
-        checkCartao.setEnabled(false);
-        checkDinheiro.setSelected(false);
-        checkCartao.setSelected(false);
+       //checkDinheiro.setEnabled(false);//Excluir
+        //checkCartao.setEnabled(false);//Excluir
+        radioDinheiro.setEnabled(false);
+        radioCartao.setEnabled(false);
+        //checkDinheiro.setSelected(false); // Redundante Excluir
+        //checkCartao.setSelected(false);// Redundante Excluir
         checkTxServico.setEnabled(false);
         jSpinFieldPessoas.setEnabled(false);
         btnImprimir.setEnabled(false);

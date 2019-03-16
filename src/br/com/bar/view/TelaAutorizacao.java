@@ -305,7 +305,7 @@ public class TelaAutorizacao extends JDialog {
             AutenticaUsuario autentica = new AutenticaUsuario();
             String funcionario = comboFuncionario.getSelectedItem().toString().toLowerCase();
             String senha = txtSenha.getText().toLowerCase();
-
+            System.out.println("Usuario: "+funcionario+" Senha "+senha);
             if (autentica.autentica(funcionario, senha)) {
                 habilitaDesconto();
                 txtValorDesconto.requestFocus();
@@ -346,14 +346,7 @@ public class TelaAutorizacao extends JDialog {
             double totalGeral = Double.parseDouble(tgeral);
             if (desconto <= totalGeral && desconto > 0) {
                 totalGeral = totalGeral - desconto;
-                /*
-                Excluir este  trecho após teste......................................
-               
-                listaDeSValores.set(2, String.format("%9.2f", totalGeral));
-                listaDeSValores.add(String.format("%9.2f", desconto));// Adiciona o desconto
-                listaDeSValores.add(cf.localizaIdLogin(comboFuncionario.getSelectedItem().toString()));//ID de quem autorizou o desconto
-                listaDeSValores.add(txtMotivoDesconto.getText());//Motivo */
-                
+                                
                 listaDeSValores.set(2, fv.Formata(String.valueOf(totalGeral)));
                 listaDeSValores.add(fv.Formata(String.valueOf(desconto)));// Adiciona o desconto
                 listaDeSValores.add(cf.localizaIdLogin(comboFuncionario.getSelectedItem().toString()));//ID de quem autorizou o desconto

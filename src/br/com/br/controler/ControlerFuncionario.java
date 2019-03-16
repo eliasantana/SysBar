@@ -296,6 +296,7 @@ public class ControlerFuncionario extends Funcionario {
     }
 
     // Lista funcionários adicionando o conteúdo do último parâmetro no indice0 do objeto ComboBox
+    // Este método é especialmente utilizado na tela de Autorização de Desconto
     public void carregaComboFuncionario2(JComboBox combo, String filtro, String indice0) {
 
         // Carrega combo com o nome do funciário a partir do critério indicado em filtro
@@ -328,7 +329,7 @@ public class ControlerFuncionario extends Funcionario {
                 combo.removeAllItems();
                 combo.addItem(indice0);
                 while (rs.next()) {
-                    combo.addItem(rs.getString("nome"));
+                    combo.addItem(rs.getString("login"));
                 }
 
             } catch (SQLException e) {
