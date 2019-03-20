@@ -294,7 +294,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
             if (op == JOptionPane.YES_OPTION) {
                 int linha = tblFuncionario.getSelectedRow();
                 l.setFuncionalidade("Excluir");
-                l.setDescricao(l.getUsuario() + " Excluiu ->" + tblFuncionario.getModel().getValueAt(linha, 1).toString() + " do cadastro de funcionários");
+                l.setDescricao("Excluiu ->" + tblFuncionario.getModel().getValueAt(linha, 1).toString() + " do cadastro de funcionários");
                 l.gravaLog(l);
                 //Fim do registro de log   
                 //Atualiza tela
@@ -302,8 +302,6 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
                     tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario("")));
                     modelPesqFunc.redimensionaColunas(tblFuncionario);
                     JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso!");
-                    // Início do registro de log
-
                 }
                 
             } else {

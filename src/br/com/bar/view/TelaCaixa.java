@@ -33,7 +33,6 @@ import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 import org.jfree.chart.*;
 import org.jfree.data.category.DefaultCategoryDataset;
 import br.com.bar.util.Util;
@@ -79,7 +78,7 @@ public class TelaCaixa extends JDialog {
 
     public TelaCaixa() {
         initComponents();
-        //lblLLogo.setIcon(utils.carregaLogo());
+        
         caixa.listaMesaOcupada(comboMesa);
         checkTxServico.setSelected(true);
         txtIdMEsa.setVisible(false);
@@ -950,7 +949,7 @@ public class TelaCaixa extends JDialog {
                 txtTroco.setText(String.format("%9.2f", totalPago - totalGeral));
 
             } else {
-                JOptionPane.showMessageDialog(null, "O valor pago não pode ser menor que o total da conta!");
+                JOptionPane.showMessageDialog(this, "O valor pago não pode ser menor que o total da conta!");
                 txtTroco.setText("00.00");
 
             }
@@ -1012,7 +1011,7 @@ public class TelaCaixa extends JDialog {
 
             p.setCadMesaId(txtIdMEsa.getText());
             // Solicita confirmação do usuário
-            int op = JOptionPane.showConfirmDialog(null, "Deseja realmente fechar este Pedido?", "Atenção!", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(this, "Deseja realmente fechar este Pedido?", "Atenção!", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {  // Se confirmado fecha o pedido
 
@@ -1029,7 +1028,7 @@ public class TelaCaixa extends JDialog {
 
                     //Início do Registro de log
                     l.setFuncionalidade("Recebimento");
-                    l.setDescricao(l.getUsuario() + " Recebeu R$ " + p.getTotalPago() + " Pedido: " + txtIdPedido.getText() + " Comissão:" + p.getComissao());
+                    l.setDescricao("Recebeu R$ " + p.getTotalPago() + " Pedido: " + txtIdPedido.getText() + " Comissão:" + p.getComissao());
                     l.gravaLog(l);
 
                     // Libera a mesa após o pagamento
@@ -1079,7 +1078,7 @@ public class TelaCaixa extends JDialog {
                     dados.put("mesa", comboMesa.getSelectedItem().toString());
                     dados.put("nome_empresa", dadosEmpresa.getNome_empresa());
                     dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro() + " - " + dadosEmpresa.getCep());
-                    dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone() + " - " + dadosEmpresa.getEmail());
+                    dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone());
                     dados.put("cnpj", dadosEmpresa.getCnpj());
                     dados.put("desc", Double.parseDouble(txtDesconto.getText().replaceAll(",", ".")));
 
@@ -1179,12 +1178,7 @@ public class TelaCaixa extends JDialog {
                     // Lista resultado da pesquisa e totaliza os produtos do pedido
                     ResultSet rs = cp.detalhePorPedido(comboMesa.getSelectedItem().toString(), txtIdPedido.getText());
 
-                    // ========================  tratar estouro na formatação de valores ========================///
-                    /*
-                while (rs.next()) {
-                    total = Double.parseDouble(rs.getString("VLR TOTAL R$").replaceAll(",", "."));
-                    totalGeral = totalGeral + total;
-                }*/
+                  
                     while (rs.next()) {
 
                         NumberFormat nf = NumberFormat.getNumberInstance();
@@ -1223,10 +1217,7 @@ public class TelaCaixa extends JDialog {
 
                 lblGarcom.setText(func.retornaGarcom(comboMesa.getSelectedItem().toString()));
 
-                //Iníciodo registro de Log
-                l.setFuncionalidade("Listar");
-                l.setDescricao(l.getUsuario() + " listou o detalhe do pedido ->" + txtIdPedido.getText() + "  Garçom " + lblGarcom.getText() + " Mesa-> " + comboMesa.getSelectedItem().toString());
-                l.gravaLog(l);
+               
                 //
 
                 txtValorPago.setText("0,00");
@@ -1269,11 +1260,7 @@ public class TelaCaixa extends JDialog {
             Double totalGeral = Double.parseDouble(strTotal);
             Double totalPessoas = totalGeral / nPesoas;
             System.out.println(nPesoas);
-            //Início do Registro de log
-            l.setFuncionalidade("Imprimir");
-            l.setDescricao(l.getUsuario() + "Imprimiu a parcial do pedido N." + txtIdPedido.getText() + " Comissão: " + percent.getText());
-            l.gravaLog(l);
-
+            
             //
             HashMap dados = new HashMap();
             Date dt = new Date();
@@ -1291,7 +1278,7 @@ public class TelaCaixa extends JDialog {
             dados.put("mesa", comboMesa.getSelectedItem().toString());
             dados.put("nome_empresa", dadosEmpresa.getNome_empresa());
             dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro() + " - " + dadosEmpresa.getCep());
-            dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone() + " - " + dadosEmpresa.getEmail());
+            dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone());
             dados.put("cnpj", dadosEmpresa.getCnpj());
             String strDesc = txtDesconto.getText().replace(".", "");
             strDesc = strDesc.replace(",", ".");
@@ -1365,6 +1352,7 @@ public class TelaCaixa extends JDialog {
                         l.setDescricao("Caixa");
                         l.setFuncionalidade("Fehamento de Caixa");
                         l.setUsuario(lblOperador.getText());
+                        l.setDescricao("Fechamento do Caixa. ");
                         l.gravaLog(l);
                         // Fim do Registro de Log
                         //Desabilita o combo Mesa

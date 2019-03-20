@@ -903,7 +903,7 @@ public class TelaCadastroFuncionario extends JDialog {
 
                             // Início do registro de log
                             l.setFuncionalidade("Salvar");
-                            l.setDescricao(l.getUsuario() + " adicionou ->" + f.getNome() + " ao cadastro de funcionários");
+                            l.setDescricao("Adicionou ->" + f.getNome() + " ao cadastro de funcionários");
                             l.gravaLog(l);
                             //Fim do registro de log
                         }
@@ -989,7 +989,7 @@ public class TelaCadastroFuncionario extends JDialog {
                                 tpf.setVisible(true);
                                 // Início do registro de log
                                 l.setFuncionalidade("Alterar");
-                                l.setDescricao(l.getUsuario() + " alterou o registro do funcionário ->" + f.getNome());
+                                l.setDescricao("Alterou o registro do funcionário ->" + f.getNome());
                                 l.gravaLog(l);
 
                                 //Fim do registro de log
@@ -1000,11 +1000,7 @@ public class TelaCadastroFuncionario extends JDialog {
                             JOptionPane.showMessageDialog(this, "Alteração cancelada com sucesso!");
                         }
                     }
-                    /*
-                    else {
-                        JOptionPane.showMessageDialog(null, "Não foi possível alterar os dados do funcionário!");
-                    }
-                     */
+                   
                 }
             } else {
                 if (valida()) {
@@ -1020,7 +1016,7 @@ public class TelaCadastroFuncionario extends JDialog {
                             tpf.setVisible(true);
                             // Início do registro de log
                             l.setFuncionalidade("Alterar");
-                            l.setDescricao(l.getUsuario() + " alterou o registro do funcionário ->" + f.getNome());
+                            l.setDescricao("Alterou o registro do funcionário ->" + f.getNome());
                             l.gravaLog(l);
                             //Fim do registro de log
                         } else {

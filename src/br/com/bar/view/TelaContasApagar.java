@@ -629,6 +629,9 @@ public class TelaContasApagar extends JDialog {
                             btnBaixar.setEnabled(false);
                             lblExcluir.setEnabled(false);
                             limpaForm();
+                            l.setFuncionalidade("Contas");
+                            l.setDescricao("Realizou o paramento da conta-> "+c.getDescricao() + " R$ "+c.getValor());
+                            l.gravaLog(l);
                         }
                     }
                 }
@@ -715,7 +718,7 @@ public class TelaContasApagar extends JDialog {
                     if (cc.adicionaConta(c)) {
                         //Registra operação no log
                         l.setFuncionalidade("Salvar");
-                        l.setDescricao(l.getUsuario() + " adicionou uma nova conta ->" + txtDescricao.getText());
+                        l.setDescricao("Adicionou uma nova conta ->" + txtDescricao.getText() + " R$ "+ txtValor.getText());
                         l.gravaLog(l);
                         // fim do registro de log
                         limpaForm();
@@ -766,7 +769,6 @@ public class TelaContasApagar extends JDialog {
                     // Registra operação no log
                     l.setFuncionalidade("Excluir");
                     l.setDescricao("Excluiu a conta ->" + txtDescricao.getText() + " Vencimento: " + c.getDataVencto() + c.getValor());
-
                     l.gravaLog(l);
                     // Fim registro de log
                     if (c.getDescricao() == null || "".equals(c.getDescricao())) {

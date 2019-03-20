@@ -5,6 +5,7 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.dao.Log;
 import br.com.bar.model.Funcionario;
 import br.com.br.controler.ControlerFuncionario;
 import java.awt.event.KeyEvent;
@@ -146,7 +147,7 @@ public class TelaConfirmaCozinheiro extends JDialog {
     private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
         lblMsg.setText(null);
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-           
+           confirmaCozinheiro();
         }
     }//GEN-LAST:event_txtCodigoKeyPressed
 
@@ -155,13 +156,8 @@ public class TelaConfirmaCozinheiro extends JDialog {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        f = cf.localizaFuncionario(txtCodigo.getText());
-        if (null!=f.getId()){          
-           cozinha.recebeCozinheiro(f,idPrato);
-           this.dispose();
-        }else {
-            lblMsg.setText("*Informe um código válido!");
-        }
+        confirmaCozinheiro();
+        
     }//GEN-LAST:event_btnOkActionPerformed
 
     /**
@@ -209,4 +205,17 @@ public class TelaConfirmaCozinheiro extends JDialog {
     private javax.swing.JLabel lblMsg;
     private javax.swing.JPasswordField txtCodigo;
     // End of variables declaration//GEN-END:variables
+
+    private void confirmaCozinheiro() {
+        f = cf.localizaFuncionario(txtCodigo.getText());
+        if (null!=f.getId()){          
+           cozinha.recebeCozinheiro(f,idPrato);
+           //Log
+            Log log = new Log(f.getNome(), "Liberação", "Liberou o prato->"+ idPrato);
+            log.gravaLog(log);
+           this.dispose();
+        }else {
+            lblMsg.setText("*Informe um código válido!");
+        }
+    }
 }

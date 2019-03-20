@@ -30,7 +30,7 @@ public class TelaLog extends javax.swing.JFrame {
     /**
      * Creates new form TelaLog
      */
-    Log l = new Log();
+    
     ControlerLog lc = new ControlerLog();
     ControlerFuncionario f = new ControlerFuncionario();
     Connection conexao = ConexaoBd.conector();
@@ -61,6 +61,10 @@ public class TelaLog extends javax.swing.JFrame {
         desabilitaPaginacao();
         modelLog.redimensionaColunas(tblLog);
         btnListar.setEnabled(false);
+        btnPrimeiro.setVisible(false);
+        btnUltimo.setVisible(false);
+        lblTotRegistro.setVisible(false);
+        
 
     }
 
@@ -475,7 +479,7 @@ public class TelaLog extends javax.swing.JFrame {
             npagina = npagina + 1;
             offset = (limite * npagina) - limite;
             //offset = Integer.parseInt(jSpinnerLimite.getValue().toString());
-            System.out.println("OffSEt: " + offset);
+            //System.out.println("OffSEt: " + offset);
             listar();
             if (offset == 0) {
                 btnAnteior.setEnabled(true);
@@ -672,6 +676,7 @@ public class TelaLog extends javax.swing.JFrame {
                 modelLog.redimensionaColunas(tblLog);
                 //Totaliza os resitros da pesquisa
                 total = lc.totalizaLog(dtInicio, dtFim, comboUsuario.getSelectedItem().toString());
+               
                 lblTotRegistro.setText(visualizados + " de " + total + " registros localizados");
 
                 linhaTabela = tblLog.getRowCount();

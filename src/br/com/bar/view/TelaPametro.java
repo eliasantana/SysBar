@@ -172,6 +172,11 @@ public class TelaPametro extends javax.swing.JFrame {
         jLabel8.setBounds(50, 320, 260, 40);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel3MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -195,6 +200,7 @@ public class TelaPametro extends javax.swing.JFrame {
         ControlerParametro parametro = new ControlerParametro();
         parametro.criarArquivoParametro(txtIpServidor.getText(), txtUsuario.getText(), txtSenha.getText(), txtNomeBanco.getText(), txtPorta.getText());
         System.exit(0);
+        
     }//GEN-LAST:event_bnSalvarActionPerformed
 
     private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked
@@ -262,6 +268,10 @@ public class TelaPametro extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel3MouseClicked
     public void copyBakup(String origem, String destino){
          //System.out.println("Backup copiado de->" + origem + " para " + destino);
          Path pathOrigem = Paths.get(origem);

@@ -306,9 +306,13 @@ public class TelaFornecedores extends javax.swing.JFrame {
         // Executa  método de exclusão de fornecedores
         int op = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este fornecedor?", "Atenção!", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
         if (op == JOptionPane.YES_OPTION) {
-
+            //Log
+            Log l = new Log(lblOperador.getText(), "Exluir", "Excluiu o fornecedor-> "+fornecedor.getNome());
+            l.gravaLog(l);
+            
             if (cf.excluirFornecedor(fornecedor)) {
                 JOptionPane.showMessageDialog(null, "Fornecedor excluído com sucesso!");
+                
             }
             tblFornecedores.setModel(DbUtils.resultSetToTableModel(cf.listaFornecedor("")));
             modelFornecedores.redimensionaColunas(tblFornecedores);

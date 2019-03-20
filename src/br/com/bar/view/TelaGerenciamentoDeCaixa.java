@@ -43,7 +43,7 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
         initComponents();
         txtIdCaixa.setVisible(false);
         btnLiberarCaixa.setEnabled(false);
-        //tblGerenciamentoCaixa.setModel(DbUtils.resultSetToTableModel(cc.listaCaixa()));
+      
         
         listarCaixa();
         lblCargo.setVisible(false);
@@ -236,7 +236,7 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
                 //Inicio do Registro de Log
                 btnLiberarCaixa.setEnabled(false);
                 l.setFuncionalidade("Caixa");
-                l.setDescricao(lblOperador.getText() + " liberou o caixa");
+                l.setDescricao("Liberou o caixa");
                 l.setUsuario(lblOperador.getText());
                 l.gravaLog(l);
                 listarCaixa();
@@ -317,30 +317,5 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
             
         }
     }
-    /*EXcluir este método após todos os testes
-    Métodos copiado para a classe  ControlerCaixa
-    private Boolean temMovAnterior() {
-        boolean resp = false;
-        try {
 
-            Calendar c = Calendar.getInstance();
-            c.add(Calendar.DAY_OF_WEEK, -1);
-            String dataAnterior = u.formataDataBanco(c.getTime());
-            Double saida = caixa.totalizaSaida(combofuncionario.getSelectedItem().toString(), dataAnterior);
-            Double entrada = caixa.totalizaEntradas(combofuncionario.getSelectedItem().toString(), dataAnterior);
-            Double saldo = entrada - saida;
-            if (0 != saida || 0 != entrada) {
-                btnLiberaCxAnterior.setEnabled(true);
-            } else {
-                btnLiberaCxAnterior.setEnabled(false);
-            }
-            resp = true;
-
-        } catch (Exception e) {
-            System.out.println("br.com.bar.view.TelaGerenciamentoDeCaixa.temMovAnterior()" + e);
-        }
-        return resp;
-    }
-*/
-    
 }

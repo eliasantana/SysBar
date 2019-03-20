@@ -294,13 +294,8 @@ public class TelaLogin extends javax.swing.JFrame {
         realizaLogin();
     }//GEN-LAST:event_btnLoginActionPerformed
     private void realizaLogin() {
-        // Cria log
-        Log l = new Log();
-
-        l.setFuncionalidade("Login");
-        l.setUsuario(comboLogin.getSelectedItem().toString());
-        l.setDescricao(l.getUsuario() + " Logou no Sistema");
-        l.gravaLog(l);
+       
+        
         // Autentica Usuário
         ControlerParametro p = new ControlerParametro();
         if ("Selecione...".equals(comboLogin.getSelectedItem().toString())) {
@@ -359,28 +354,18 @@ public class TelaLogin extends javax.swing.JFrame {
     private void realizaControleLogin() {
         int contagem = contador();
         int tentavias = 3 - contagem;
-        Log l = new Log();
+       
         if (contagem > 3) {
             cp.bloqueiaLogin(cf.localizaIdLogin(comboLogin.getSelectedItem().toString()));
             comboLogin.setSelectedIndex(0);
             acumula = 0;
             txtSenha.setEnabled(false);
             //Início do Registro de Log
-            l.setFuncionalidade("Acesso Negado");
-            l.setDescricao("Usuário bloqueado por motivos de segurança.");
-            l.gravaLog(l);
-            // Fim do Registro de Log
+           
         } else {
             //JOptionPane.showMessageDialog(null, "Restam " + tentavias + " tentativas \n Antes do bloqueio!");
             lblMsg.setForeground(Color.white);
             lblMsg.setText("Resta(m) " + tentavias + " tentativa(s) antes do bloqueio!");
-            //Início do Registro de Log
-
-            l.setFuncionalidade("Acesso Negado");
-            l.setDescricao("Tentou acessar o sistema -> " + tentavias + " vezes");
-            l.gravaLog(l);
-            // Fim do Registro de Log
-
         }
     }
     private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed

@@ -8,7 +8,6 @@ package br.com.bar.view;
 import br.com.bar.dao.AutenticaUsuario;
 import br.com.br.controler.ControlerFuncionario;
 import java.awt.event.KeyEvent;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 
 /**

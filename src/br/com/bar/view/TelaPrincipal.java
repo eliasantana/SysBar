@@ -36,7 +36,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     ControlerCozinha cz = new ControlerCozinha();
     Util u = new Util();
 
-    Log log = new Log();
+   
 
     /**
      * Creates new form TelaPrincipal
@@ -72,7 +72,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public void recebeOperador(String operador, String cargo) {
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
-        log.setUsuario(operador);
+       
 
     }
 
@@ -543,23 +543,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaEstoque p = new TelaEstoque();
         p.recebeOperador(lblOperador.getText(), lblCargo.getText());
         p.setVisible(true);
-        // Inicio do Registro de Log
-        log.setDescricao(lblOperador.getText() + " acessou o Estoque");
-        log.setFuncionalidade("Estoque");
-        log.setUsuario(lblOperador.getText());
-        log.gravaLog(log);
+        
     }//GEN-LAST:event_btnProdutoMouseClicked
 
     private void btnConfiguracaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracaoMouseClicked
         // Chama a tela de configuração
-        //Registra log
-
-        log.setFuncionalidade("Configuração");
-        log.setUsuario(lblOperador.getText());
-        log.setDescricao(log.getUsuario() + " acessou as Configurações do Sistema");
-        log.gravaLog(log);
-        // Fim do log
-
+        
         TelaConfiguracao config = new TelaConfiguracao();
         config.recebeOperador(lblOperador.getText(), lblCargo.getText());
         config.setVisible(true);
@@ -567,12 +556,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnConasApagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConasApagarMouseClicked
 
-        //Registra log
-        log.setFuncionalidade("Contas a Pagar");
-        log.setDescricao(log.getUsuario() + " acessou a funcionalidade " + log.getFuncionalidade());
-        log.gravaLog(log);
-        // Chama o contas a pagar
-
+       
         TelaContasApagar contas = new TelaContasApagar();
         contas.recebeOperador(lblOperador.getText(), lblCargo.getText());
         contas.setModal(true);
@@ -627,14 +611,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         TelaCaixa caixa = new TelaCaixa();
         caixa.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        caixa.setVisible(true);
-
-        // Inicio do registro de log
-        log.setFuncionalidade("Caixa");
-        log.setDescricao(log.getUsuario() + " acessou a funcionalidade caixa ");
-        log.gravaLog(log);
-
-        //
+        caixa.setVisible(true);    
 
     }//GEN-LAST:event_jLabel12MouseClicked
 
@@ -667,9 +644,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // Vai para tela Cozinha
         TelaConzinha cozinha = new TelaConzinha();
         cozinha.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        log.setFuncionalidade("Cozinha");
-        log.setDescricao(log.getUsuario() + "acessou a funcionalidade " + log.getFuncionalidade());
-        log.gravaLog(log);
+        
         cozinha.setVisible(true);
     }//GEN-LAST:event_jLabel11MouseClicked
 

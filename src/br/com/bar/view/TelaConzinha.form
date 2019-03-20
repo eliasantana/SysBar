@@ -159,7 +159,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="10" y="119" width="1010" height="505"/>
+              <AbsoluteConstraints x="10" y="119" width="1010" height="480"/>
             </Constraint>
           </Constraints>
 
@@ -171,7 +171,7 @@
                   <Font name="Yu Gothic UI Light" size="14" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="9" rowCount="19">
+                  <Table columnCount="9" rowCount="18">
                     <Column editable="false" title="SEQ" type="java.lang.String"/>
                     <Column editable="false" title="PRATO" type="java.lang.String"/>
                     <Column editable="false" title="QTD" type="java.lang.String"/>
@@ -352,7 +352,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="680" y="630" width="141" height="50"/>
+              <AbsoluteConstraints x="880" y="630" width="141" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -404,7 +404,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="120" y="630" width="900" height="20"/>
+              <AbsoluteConstraints x="120" y="610" width="900" height="20"/>
             </Constraint>
           </Constraints>
         </Component>

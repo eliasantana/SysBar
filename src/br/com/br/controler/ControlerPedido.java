@@ -156,11 +156,11 @@ public class ControlerPedido {
                 + "	INNER JOIN cadmesa m on m.id = p.cadmesa_id\n"
                 + "    INNER JOIN tbdesconto_pedido dp on dp.cadpedido_id_pedido = p.id_pedido\n"
                 + "    INNER JOIN tbcadfuncionario f on f.id = p.tbcadfuncionario_id\n"
-                + "	WHERE p.data = curdate() AND p.status=1 AND m.numero_mesa = ? ORDER BY p.id_pedido desc;";
+                + "	WHERE p.data = curdate() AND p.status=1 AND m.numero_mesa LIKE ? ORDER BY p.id_pedido desc;";
 
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, numeroMesa);
+            pst.setString(1, numeroMesa+"%");
             rs = pst.executeQuery();
         } catch (SQLException ex) {
             System.out.println("br.com.br.controler.ControlerPedido.listaPedidosReimpressao()" + ex);

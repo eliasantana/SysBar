@@ -5,6 +5,7 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.dao.Log;
 import br.com.bar.model.Grupo;
 import br.com.bar.model.TableModelGrupoProduto;
 import br.com.bar.util.Util;
@@ -21,7 +22,8 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
     ControlerGrupo cg = new ControlerGrupo();
     Util u = new Util();
     TableModelGrupoProduto modelGrupo = new TableModelGrupoProduto();
-
+    Log l = new Log();
+    
     /**
      * Creates new form TelaPaametro
      */
@@ -253,7 +255,9 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
         // Fecha janela deconfigurações
         this.dispose();
     }//GEN-LAST:event_lblFecharMouseClicked
-
+    public void receebeOperador(String operador){
+        l.setUsuario(operador);
+    }
     private void btnSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseClicked
         // Adiciona um grupo Financeiro
         Grupo g = new Grupo();
@@ -268,6 +272,9 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
 
                 if (cg.adicionarGrupo(g)) {
                     JOptionPane.showMessageDialog(this, "Grupo adicionado com sucesso!");
+                    l.setFuncionalidade("Adicionar");
+                    l.setDescricao("Adicionou o grupo "+g.getNomeGrupo());
+                    l.gravaLog(l);
                     limpaForm();
                     tblGruposFinanceiro.setModel(DbUtils.resultSetToTableModel(cg.atualizaTabela(tblGruposFinanceiro)));
 
@@ -299,7 +306,11 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
             int op = JOptionPane.showConfirmDialog(this, "Confirma a exclusão do grupo " + g.getNomeGrupo() + "?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {
-
+                // Log
+                l.setFuncionalidade("Excluir");
+                l.setDescricao("Excluiu o grupo "+g.getNomeGrupo());
+                l.gravaLog(l);
+                
                 if (cg.excluirGrupo(g)) {
                     JOptionPane.showMessageDialog(this, "Grupo excluído com sucesso!");
                     limpaForm();
@@ -320,7 +331,10 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
                 Grupo g = new Grupo();
                 g.setId(txtIdGrupo.getText());
                 g.setNomeGrupo(txtNomeGrupo.getText());
-
+                // Log
+                l.setFuncionalidade("Alterar");
+                l.setDescricao("Excluiu o grupo "+g.getNomeGrupo());
+                l.gravaLog(l);
                 if (cg.alteraGrupo(g)) {
                     JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
                     limpaForm();

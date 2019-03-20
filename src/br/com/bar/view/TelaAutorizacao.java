@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -7,9 +8,6 @@ package br.com.bar.view;
 
 import br.com.bar.dao.AutenticaUsuario;
 import br.com.bar.dao.Log;
-import br.com.bar.model.DescontoPedido;
-import br.com.bar.model.Funcionario;
-import br.com.bar.model.Pedido;
 import br.com.bar.util.FormataValor;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCaixa;
@@ -18,7 +16,6 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 
 /**
  *
@@ -356,8 +353,9 @@ public class TelaAutorizacao extends JDialog {
                 Log l = new Log();
                 l.setFuncionalidade("Desconto");
                 l.setUsuario(comboFuncionario.getSelectedItem().toString());
-                l.setDescricao(l.getUsuario() + " condedeu desconto ao pedido " + listaDeSValores.get(4) + " Mesa:" + listaDeSValores.get(3));
+                l.setDescricao("Condedeu desconto ao pedido " + listaDeSValores.get(4) + " Mesa:" + listaDeSValores.get(3));
                 l.gravaLog(l);
+                
                 cx.recebeDadosComDesconto(listaDeSValores);
 
                 this.dispose();

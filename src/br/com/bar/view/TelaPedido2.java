@@ -5,6 +5,7 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.dao.Log;
 import br.com.bar.model.Pedido;
 import br.com.bar.model.Produto;
 import br.com.bar.model.ProdutoPedido;
@@ -49,7 +50,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     TableModelDetalhePedido modelDetPedido = new TableModelDetalhePedido();
     TableModelProdutoEstoque modelProduroEstoque = new TableModelProdutoEstoque();
     TableModelMesaPedido modelMesa = new TableModelMesaPedido();
-    
+
     JFrame tlGerenciarPedido;
     Util u = new Util();
 
@@ -100,13 +101,13 @@ public class TelaPedido2 extends javax.swing.JFrame {
     }
 
     public void atuDetalheDoPedido(String nMesa, String nPedido) {
-        
+
         // Lista os produtos do pedido selecionado
         tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(nMesa, nPedido)));
         modelDetPedido.redimensionaColunas(tblDetalhePedido);
     }
-    
-    public void atualizaPedidos(){
+
+    public void atualizaPedidos() {
         // Atualiza pedido após. Este método é executado após remoção do pedido 
         // Na tela de Gerenciamento de Peidido.
         tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos(txtIdGarcom.getText())));
@@ -742,14 +743,14 @@ public class TelaPedido2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboGarcomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboGarcomActionPerformed
-        
+
         if ("Selecione...".equals(comboGarcom.getSelectedItem().toString())) {
             btnListar.setEnabled(false);
             btnAbrirPedido.setEnabled(false);
 
         } else {
             btnListar.setEnabled(true);
-            
+
         }
         limpaform();
         bloqueiaCampos();
@@ -777,7 +778,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         modelMesa.redimensionaColunas(tblNumeroMesa);
         tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos(txtIdGarcom.getText())));
         modelPedidos.redimensionaColunas(tblPedidosAbertos);
-        
+
         btnAbrirPedido.setEnabled(false);
         // Vai para a primeira guia
         jTabbedPanePedido.setSelectedIndex(0);
@@ -809,6 +810,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 txtNumeroMesa.setText(null);
                 lblMsgRetorno.setText("*Pedido gerado com sucesso!");
                 btnAbrirPedido.setEnabled(false);
+                //Log
+                Log l = new Log(lblOperador.getText(), "Pedido", "Abriu um novo pedido");
+                l.gravaLog(l);
             }
 
         }
@@ -851,7 +855,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             txtQtd.setEnabled(false);
             txtCodigoProduto.requestFocus();
 
-           // comboGarcom.setSelectedItem(tblPedidosAbertos.getModel().getValueAt(linha, 4).toString());
+            // comboGarcom.setSelectedItem(tblPedidosAbertos.getModel().getValueAt(linha, 4).toString());
             jTabbedPanePedido.setSelectedIndex(1);
             txtCodigoProduto.setEnabled(true);
             // Bloqueia gerenciar pedido caso o ususário logado não seja gerente.
@@ -1100,14 +1104,14 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         // Chama a tela de Bloqueio
-        
+
     }//GEN-LAST:event_formKeyPressed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-       // Chama a tela de Bloqueio
-          TelaBloqueio tb = new TelaBloqueio();
-          tb.setModal(true);
-          tb.setVisible(true);
+        // Chama a tela de Bloqueio
+        TelaBloqueio tb = new TelaBloqueio();
+        tb.setModal(true);
+        tb.setVisible(true);
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private double calculaPedido() {
@@ -1274,6 +1278,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
                             lblMsgRetorno.setText("*Produto adicionado com sucesso!");
 
                         }
+                        //Log
+                        Log l = new Log(lblOperador.getText(), "Adicionar","Adicionou o item " + txtDescricao.getText());
+                        l.gravaLog(l);
 
                         // Retira o produto do estoque                 
                         ec.retiraEstoque(pp, pp.getQtd());
@@ -1344,43 +1351,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
         limpaform();
     }
 
-    /*
-    private void enviaParaCozinha() {
-        // Envia porduto para a cozinha
-
-        ControlerCozinha cc = new ControlerCozinha(); // Instancia o controler cozinha
-        if (lblEnviarCozinha.isEnabled()) {
-            lblStatusCozinha.setEnabled(true);
-            int linha = tblDetalhePedido.getSelectedRow();
-
-            ArrayList<String> pCozinha = new ArrayList<>();
-
-            //codProduto, produto, qtd, funcionario, mesa, data, status
-            pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 1).toString()); // Produto
-            pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 0).toString()); // // Código Produto
-            pCozinha.add(tblDetalhePedido.getModel().getValueAt(linha, 2).toString()); // Qtd         
-            pCozinha.add(comboGarcom.getSelectedItem().toString()); // Nome do Funcionario
-            pCozinha.add(txtNumeroMesa.getText()); // Numero da mesa
-            //pCozinha.add(cp.myDataAtual()); // Data Atual 
-            pCozinha.add("Pendente"); // Status Pendente - Liberado
-            pCozinha.add(txtNumeroPedido.getText());
-            Date dtAtual = new Date();
-            Timestamp tms = new Timestamp(dtAtual.getTime());
-
-            //SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            //pCozinha.add(sdf.format(dtAtual)); // Data Atual            
-            pCozinha.add(String.valueOf(tms)); // Data Atual            
-
-            int op = JOptionPane.showConfirmDialog(null, "Confirma o envio da solicitação para a cozinha? ", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-
-            if (op == JOptionPane.YES_OPTION) {
-
-                cp.enviaProdutoCozinha(pCozinha);
-
-            }
-        }
-    }
-     */
     // Recebe um ArrayList de String com os dados do prato a ser enviado para cozinha
     // na inclusão do produto no pedido.
     private void enviaParaCozinha(ArrayList<String> prato) {

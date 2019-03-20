@@ -29,7 +29,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     String operacao;
     Fornecedor fRebido = new Fornecedor();
     TelaFornecedores tlFor;
-    
+
     /**
      * Creates new form TelaCadastroFornecedor
      */
@@ -490,7 +490,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         // Cadastra fornecedor
 
         if (btnSalvar.isEnabled()) {
-            
+
             fRebido.setNome(txtFornecedor.getText());
             fRebido.setCnpj(txtCnpj.getText());
             fRebido.setEndereco(txtEndereco.getText());
@@ -506,9 +506,9 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
             fRebido.setSite(txtSite.getText());
             fRebido.setStatus(comboStatus.getSelectedItem().toString());
             fRebido.setObs(txtAreaObs.getText());
-            
-            if (valida(fRebido)){
-                
+
+            if (valida(fRebido)) {
+
                 if ("Incluir".equals(operacao)) {
 
                     if (cf.temFornecedor(fRebido)) {
@@ -523,12 +523,20 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
 
                         Log l = new Log();
                         l.setUsuario(lblOperador.getText());
-                        l.setDescricao(l.getUsuario() + " Cadastrou um novo fornecedor " + fRebido.getNome());
+                        l.setDescricao("Cadastrou um novo fornecedor " + fRebido.getNome());
                         l.setFuncionalidade("Tela Fornecedores");
                         l.gravaLog(l);
                     }
                 } else {
                     cf.alteraFornecedor(fRebido);
+                    //Log
+                    Log l = new Log();
+                    
+                    l.setUsuario(lblOperador.getText());
+                    l.setDescricao("Alterout um fornecedor " + fRebido.getNome());
+                    l.setFuncionalidade("Tela Fornecedores");
+                    l.gravaLog(l);
+                    
                     System.out.println("Id:" + fRebido.getId());
                     lblMsg.setText("*Alteração realizada com sucesso!");
                     tlFor.atualizaTabela();
@@ -537,7 +545,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
 
                 limparform();
             }
-            
+
         }
 
     }//GEN-LAST:event_btnSalvarMouseClicked
@@ -555,7 +563,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         } else if (!"Selecione...".equals(comboUf.getSelectedItem().toString())) {
             lblUf.setForeground(Color.black);
             lblMsg.setText(null);
-        }else {
+        } else {
             btnSalvar.setEnabled(false);
         }
     }//GEN-LAST:event_comboUfActionPerformed
@@ -571,11 +579,11 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         } else if (!"Selecione...".equals(comboStatus.getSelectedItem().toString())) {
             lblStatus.setForeground(Color.black);
             lblMsg.setText(null);
-            
-        }else {
+
+        } else {
             btnSalvar.setEnabled(false);
         }
-       
+
     }//GEN-LAST:event_comboStatusActionPerformed
 
     private void txtFornecedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFornecedorKeyReleased
@@ -583,7 +591,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         txtFornecedor.setText(u.tamanhoMaximo(txtFornecedor.getText(), 45));
         lblRazaoSocial.setForeground(Color.BLACK);
         lblMsg.setText(null);
-        
+
     }//GEN-LAST:event_txtFornecedorKeyReleased
 
     private void txtCnpjMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCnpjMouseClicked
@@ -669,26 +677,26 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTelefoneKeyReleased
 
     private void txtCepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyPressed
-       
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String cep = txtCep.getText().replace("-", "");
             String json = ClienteViaCepWS.buscarCep(cep);
             Map mapa = ClienteViaCepWS.formataCepWs(json);
-            try {         
+            try {
                 txtEndereco.setText(mapa.get("logradouro").toString());
                 txtBairro.setText(mapa.get("bairro").toString());
                 txtCidade.setText(mapa.get("localidade").toString());
                 txtComplemento.setText(mapa.get("complemento").toString());
                 comboUf.setSelectedItem(mapa.get("uf"));
-                
+
             } catch (NullPointerException e) {
-                
+
             }
         }
     }//GEN-LAST:event_txtCepKeyPressed
 
     private void txtFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFornecedorFocusLost
-       
+
     }//GEN-LAST:event_txtFornecedorFocusLost
 
     /**

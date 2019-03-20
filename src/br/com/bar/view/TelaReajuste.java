@@ -5,15 +5,13 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.dao.Log;
 import br.com.bar.model.TableModelGrupoProduto;
 import br.com.bar.model.TableModelReajuste;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerGrupo;
 import br.com.br.controler.ControlerProduto;
-import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -442,6 +440,11 @@ public class TelaReajuste extends javax.swing.JFrame {
                         model.redimensionaColunas(tblProdutos);
                         txtPercentual.setText("0,0");
                         txtId.setText(null);
+                        // Log
+                        Log l = new Log();
+                        l.setDescricao("Reajustou o Grupo de produtos->"+txtId.getText());
+                        l.gravaLog(l);
+                        
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Percentual inválido");
@@ -456,6 +459,10 @@ public class TelaReajuste extends javax.swing.JFrame {
                         // Aplica reajuste e exibe mensagem caso o produto seja atualizado
                         if (cp.reajustaValorProduto(txtId.getText(), Double.parseDouble(txtValor.getText().replaceAll(",", ".")), Double.parseDouble(txtPercentual.getText().replaceAll(",", ".")))){
                             JOptionPane.showMessageDialog(null, "Produto reajustado com sucesso!");
+                            // Log
+                        Log l = new Log();
+                        l.setDescricao("Reajustou o valor do produto ->"+txtId.getText());
+                        l.gravaLog(l);
                         }
                         tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
                         model.redimensionaColunas(tblProdutos);
@@ -473,7 +480,10 @@ public class TelaReajuste extends javax.swing.JFrame {
                     }else {
                         // Aplica reajuste a partir do valor informado
                         cp.reajustaValorProduto(txtId.getText(), vDireto);
-                        
+                        // Log
+                        Log l = new Log();
+                        l.setDescricao("Reajustou o valor do produto->"+txtId.getText()+" "+txtValorDireto.getText());
+                        l.gravaLog(l);
                         tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
                         model.redimensionaColunas(tblProdutos);
                         JOptionPane.showMessageDialog(null, "Produto reajustado com sucesso!");

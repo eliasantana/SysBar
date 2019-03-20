@@ -228,7 +228,6 @@ public class TelaConzinha extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
@@ -268,7 +267,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         }
 
         paineldireito.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 119, 1010, 505);
+        jScrollPane1.setBounds(10, 119, 1010, 480);
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -343,7 +342,7 @@ public class TelaConzinha extends javax.swing.JFrame {
             }
         });
         paineldireito.add(lblSair);
-        lblSair.setBounds(680, 630, 141, 50);
+        lblSair.setBounds(880, 630, 141, 50);
 
         lblLiberaRefeicao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblLiberaRefeicao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCozinha.png"))); // NOI18N
@@ -371,7 +370,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblMsg.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblMsg.setText("msg");
         paineldireito.add(lblMsg);
-        lblMsg.setBounds(120, 630, 900, 20);
+        lblMsg.setBounds(120, 610, 900, 20);
 
         getContentPane().add(paineldireito);
         paineldireito.setBounds(280, 0, 1030, 690);
@@ -439,7 +438,8 @@ public class TelaConzinha extends javax.swing.JFrame {
                 String prato =  tblCozinha.getModel().getValueAt(0, 1).toString();
                 lblMsg.setText( "*Prato " +"'"+prato +"'"+" liberado com sucesso! ");
                 Log l = new Log();
-                l.setDescricao(lblOperador.getText() + " liberou o prato " + tblCozinha.getModel().getValueAt(0, 1).toString() + " da cozinha");
+                //Log
+                l.setDescricao("Liberou o prato " + tblCozinha.getModel().getValueAt(0, 1).toString() + " da cozinha");
                 l.setFuncionalidade("Liberar Prato");
                 l.setUsuario(lblOperador.getText());
                 l.gravaLog(l);
@@ -470,16 +470,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         } else {
             if (cc.pratoPendente() > 0) {
                 JOptionPane.showMessageDialog(null, "Realize a liberação dos pratos pendentes antes de sair!");
-            } else {
-
-                // Faz logout
-                Log l = new Log();
-
-                l.setDescricao(lblOperador.getText() + "Fez logout no sistema");
-                l.setFuncionalidade("Logout");
-                l.setUsuario(lblOperador.getText());
-                l.gravaLog(l);
-
+            } else {               
                 dispose();
                 TelaLogin login = new TelaLogin();
                 login.setVisible(true);
@@ -498,6 +489,9 @@ public class TelaConzinha extends javax.swing.JFrame {
                     if (cc.removePrato(txtidProdutoCozinha.getText())) {
                         JOptionPane.showMessageDialog(null, "Prato removido com sucesso!");
                         ResultSet result = cc.listaProdutosCozinha();
+                        // Log
+                        Log l = new Log(lblOperador.getText(), "Remover", "Removeu o prato->"+ txtidProdutoCozinha);
+                        l.gravaLog(l);
                         try {
 
                             if (result.next()) {
@@ -549,6 +543,8 @@ public class TelaConzinha extends javax.swing.JFrame {
             if ("Cozinheiro".equals(f.getCargo())) {
                 // Registra a solicitação do preparo 
                 cc.registraPreparo(idProdutoCozinha, f.getNome());
+                Log l = new Log(lblOperador.getText(), "Preparo", "Iniciou a preparação do prato-> " + idProdutoCozinha);
+                l.gravaLog(l);
                 lblMsg.setText("*Preparo iniciado com sucesso!");
                 //Habilita botões remover e preparar
                 lblPreparar.setEnabled(false);

@@ -38,7 +38,7 @@ public class TelaReImpressao extends JDialog {
     public TelaReImpressao() {
         initComponents();
         lblImprimir.setEnabled(false);
-        lblPesquisar.setEnabled(false);
+        lblPesquisar.setEnabled(true);
         modelReimpressao.redimensionaColunas(tblPedidos);
      
     }
@@ -224,7 +224,7 @@ public class TelaReImpressao extends JDialog {
             dados.put("mesa", nMesa);
             dados.put("nome_empresa", dadosEmpresa.getNome_empresa());
             dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro() + " - " + dadosEmpresa.getCep());
-            dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone() + " - " + dadosEmpresa.getEmail());
+            dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone());
             dados.put("cnpj", dadosEmpresa.getCnpj());
             dados.put("desc", desc);
 
@@ -320,7 +320,7 @@ public class TelaReImpressao extends JDialog {
             modelReimpressao.redimensionaColunas(tblPedidos);
             try {
                 if (rs.isFirst()){
-                    
+                   
                 }else {
                     lblImprimir.setEnabled(false);
                 }

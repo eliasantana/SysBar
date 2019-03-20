@@ -606,7 +606,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                     tblProduto.setModel(DbUtils.resultSetToTableModel(cp.listaProduto()));
 
                     // Início do Registro de Log
-                    l.setDescricao(lblOperador.getText() + " adicionou um produto " + p.getNome() + " ao estoque");
+                    l.setDescricao("Adicionou o produto " + p.getNome() + " ao estoque");
                     l.setFuncionalidade("Salvar");
                     l.gravaLog(l);
                     // Fim do Log
@@ -708,7 +708,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                     tblProduto.setModel(DbUtils.resultSetToTableModel(cp.listaProduto()));
                     //Registra log
                     l.setFuncionalidade("Alterar");
-                    l.setDescricao(l.getUsuario() + " alterou o produto " + txtDescricao.getText());
+                    l.setDescricao("Alterou o produto " + txtDescricao.getText());
                     l.gravaLog(l);
                     btnExcluir.setEnabled(false);
                     btnAlteraProduto.setEnabled(false);
@@ -744,7 +744,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                     // Registra exlusão no log
                     Log log = new Log();
                     log.setFuncionalidade("Excluir");
-                    log.setDescricao(l.getUsuario() + " Excluiu o produto " + p.getNome() + " do estoque");
+                    log.setDescricao("Excluiu o produto " + p.getNome() + " do estoque");
                     log.gravaLog(log);
 
                     JOptionPane.showMessageDialog(null, "Produto excluído com sucesso!");

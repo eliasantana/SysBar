@@ -14,9 +14,6 @@ import br.com.br.controler.ControlerMesa;
 import br.com.br.controler.ControlerPedido;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.scene.AccessibleRole;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
@@ -367,7 +364,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                             // Inicio do Registro de Log
                             l.setFuncionalidade("Devolução");
                             l.setUsuario(lblOperador.getText());
-                            l.setDescricao(l.getUsuario() + " removeu o item " + txtIDItem.getText() + " do pedido ->" + jcomboPedido.getSelectedItem().toString());
+                            l.setDescricao("Removeu o item " + txtIDItem.getText() + " do pedido ->" + jcomboPedido.getSelectedItem().toString());
                             l.gravaLog(l);
                             // Fim do Registro de Log
 
@@ -411,7 +408,8 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                 // Registra log da operação              
                 l.setUsuario(lblOperador.getText());
                 l.setFuncionalidade("Cancelamento Pedido");
-                l.setDescricao(l.getUsuario() + " cancelou o pedido ->" + nPedido);
+                l.setDescricao("Cancelou o pedido ->" + nPedido);
+                l.gravaLog(l);
                 btnCancelarPedido.setEnabled(false);
                 lblNumeroMesa.setText(null);
                 tlPedido.atualizaPedidos();

@@ -341,6 +341,7 @@ public class TelaCadastro extends javax.swing.JFrame {
          //  Chama tela de configuração financeira
         TelaGruposFinanceiro gf = new TelaGruposFinanceiro();
         gf.setAlwaysOnTop(true);
+        gf.receebeOperador(lblOperador.getText());
         gf.setVisible(true);
     }//GEN-LAST:event_jLabel15MouseClicked
 

@@ -14,8 +14,6 @@ import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerMesa;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
-import java.util.Arrays;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
@@ -573,7 +571,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 if (op == JOptionPane.YES_OPTION) {
                     // Registro de Log
                     log.setFuncionalidade("Salvar");
-                    log.setDescricao(log.getUsuario() + " Adicionou uma mesa -> " + m.getNumeroMesa());
+                    log.setDescricao("Adicionou uma mesa -> " + m.getNumeroMesa());
                     log.gravaLog(log);
                     //Fim do registro de log
                     if (cm.adicionaMesa(m)) { // Adiciona mesa
@@ -604,7 +602,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
 
                 // Inicio do registro de Log
                 log.setFuncionalidade("Excluir");
-                log.setDescricao(log.getUsuario() + " excluiu a mesa " + txtNumeroMesa.getText());
+                log.setDescricao("Excluiu a mesa " + txtNumeroMesa.getText());
                 log.gravaLog(log);
                 // Fim do registro de LOG
                 if ("".equals(m.getId())) {
@@ -641,7 +639,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
 
                 // Inicio do registro de log
                 log.setFuncionalidade("Alterar");
-                log.setDescricao(log.getUsuario() + " alterou dados da mesa -> " + txtNumeroMesa.getText()
+                log.setDescricao("Alterou dados da mesa -> " + txtNumeroMesa.getText()
                         + ": " + comboGarcom.getSelectedItem().toString() + " -> " + comboNovoGarcom.getSelectedItem().toString());
                 log.gravaLog(log);
                 // Fim do registro de LOG
@@ -801,12 +799,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     }
     
     private void ocultaCampos() {
-        //estadoInicial();
-        /*
-        lblNovoGarcom.setVisible(false);
-        comboNovoGarcom.setVisible(false);
-        btnTrocaGarcom.setVisible(false);
-        lblTrocaTodas.setVisible(false);*/
+        
         panelTroca.setVisible(false);
         comboGarcom.setSelectedItem("Selecione...");
     }

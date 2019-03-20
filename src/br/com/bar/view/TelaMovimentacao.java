@@ -617,7 +617,7 @@ public class TelaMovimentacao extends JDialog {
                         // Início do Registro de Log
                         l.setFuncionalidade(comboOperacao.getSelectedItem().toString());
                         l.setUsuario(lblOperador.getText());
-                        l.setDescricao(l.getUsuario() + " realizou uma " + l.getFuncionalidade() + " para o produto-> " + txtIdProduto.getText() + " Motivo : " + txtAreaObservacao.getText());
+                        l.setDescricao("Realizou uma " + l.getFuncionalidade() + " para o produto-> " + txtIdProduto.getText() + " Motivo : " + txtAreaObservacao.getText());
                         l.gravaLog(l);
                         // Fim do Registro de Lg
 
@@ -652,7 +652,7 @@ public class TelaMovimentacao extends JDialog {
                     // Início do Registro de Log
                     l.setFuncionalidade(comboOperacao.getSelectedItem().toString());
                     l.setUsuario(lblOperador.getText());
-                    l.setDescricao(l.getUsuario() + " realizou uma " + l.getFuncionalidade() + "Produto-> " + txtIdProduto.getText() + " Motivo : " + txtAreaObservacao.getText());
+                    l.setDescricao("Realizou uma " + l.getFuncionalidade() + " do produto-> " + txtIdProduto.getText() + " Motivo : " + txtAreaObservacao.getText());
                     l.gravaLog(l);
                     // Fim do Registro de Log
                     // limpa campos
@@ -683,7 +683,7 @@ public class TelaMovimentacao extends JDialog {
                     // Início do Registro de Log
                     l.setFuncionalidade(comboOperacao.getSelectedItem().toString());
                     l.setUsuario(lblOperador.getText());
-                    l.setDescricao(l.getUsuario() + " realizou uma " + l.getFuncionalidade() + "Produto-> " + txtIdProduto.getText() + " Motivo : " + txtAreaObservacao.getText());
+                    l.setDescricao("Realizou uma " + l.getFuncionalidade() + "do do produto-> " + txtIdProduto.getText() + " Motivo : " + txtAreaObservacao.getText());
                     l.gravaLog(l);
 
                     // Fim do Registro de Log 
@@ -719,7 +719,7 @@ public class TelaMovimentacao extends JDialog {
                     // Início do Registro de Log
                     l.setFuncionalidade(comboOperacao.getSelectedItem().toString());
                     l.setUsuario(lblOperador.getText());
-                    l.setDescricao(l.getUsuario() + " realizou uma " + l.getFuncionalidade() + "Produto-> " + txtIdProduto.getText() + " Motivo : " + txtAreaObservacao.getText());
+                    l.setDescricao("Realizou um " + l.getFuncionalidade() + " do produto-> " + txtIdProduto.getText() + " Motivo : " + txtAreaObservacao.getText());
                     l.gravaLog(l);
 
                     // Fim do Registro de Log 

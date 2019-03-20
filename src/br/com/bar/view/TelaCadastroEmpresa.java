@@ -5,6 +5,7 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.dao.Log;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerDadosEmpresa;
@@ -29,6 +30,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     ControlerParametro p = new ControlerParametro();
     DadosEmpresa d = dados.selecionaDados();
     Util u = new Util();
+    Log l = new Log();
 
     /**
      * Creates new form TelaCadastroEmpresa
@@ -580,48 +582,58 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     }//GEN-LAST:event_lblCarregaLogoMouseClicked
 
     private void lblEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMouseClicked
-
+        DadosEmpresa novoDadosEmpesa = new DadosEmpresa();
         // Instancia objeto dados
-        d.setId(Integer.parseInt(txtIdEmpresa.getText()));
-        d.setNome_empresa(txtNomeEmpresa.getText());
-        d.setEndereco(txtEndereco.getText());
-        d.setBairro(txtBairro.getText());
-        d.setComplemento(txtComplemento.getText());
+        novoDadosEmpesa.setId(Integer.parseInt(txtIdEmpresa.getText()));
+        novoDadosEmpesa.setNome_empresa(txtNomeEmpresa.getText());
+        novoDadosEmpesa.setEndereco(txtEndereco.getText());
+        novoDadosEmpesa.setBairro(txtBairro.getText());
+        novoDadosEmpesa.setComplemento(txtComplemento.getText());
         try {
-            d.setNumero(Integer.parseInt(txtNumero.getText()));
+            novoDadosEmpesa.setNumero(Integer.parseInt(txtNumero.getText()));
         } catch (NumberFormatException e) {
             mudaCor(lblNumero);
             txtNumero.requestFocus();
             
         }
-        d.setCep(txtCep.getText());
-        d.setCidade(txtCidade.getText());
-        d.setTelefone(txtTelefone.getText());
-        d.setCelular(txtCelular.getText());
-        d.setEmail(txtEmail.getText());
+        novoDadosEmpesa.setCep(txtCep.getText());
+        novoDadosEmpesa.setCidade(txtCidade.getText());
+        novoDadosEmpesa.setTelefone(txtTelefone.getText());
+        novoDadosEmpesa.setCelular(txtCelular.getText());
+        novoDadosEmpesa.setEmail(txtEmail.getText());
         String cnpj = txtCnpj.getText();
         //Retira ponto do CNPJ
         String cnpjSemPonto = cnpj.replace(".", "");
         cnpj = cnpjSemPonto.replace("/", "");
         cnpjSemPonto = cnpj.replace("-", "");
-        d.setCnpj(cnpjSemPonto);
+        novoDadosEmpesa.setCnpj(cnpjSemPonto);
         
-        d.setUrlbackup(txtUrlBackup.getText());
-        d.setUf(comboUf.getSelectedItem().toString());
-        d.setLogo(txturlLogo.getText());
+        novoDadosEmpesa.setUrlbackup(txtUrlBackup.getText());
+        novoDadosEmpesa.setUf(comboUf.getSelectedItem().toString());
+        novoDadosEmpesa.setLogo(txturlLogo.getText());
 
        
         if ((radioDireto.isSelected())) {
             // 1 - Imprime na Tela 0 - Imprime Direto
-            d.setImprimir_na_tela(1); // Direto para impressora
+            novoDadosEmpesa.setImprimir_na_tela(1); // Direto para impressora
         } else {
-            d.setImprimir_na_tela(0); // Na tela
+            novoDadosEmpesa.setImprimir_na_tela(0); // Na tela
         }
         
-        if(valida(d)){            
+        if(valida(novoDadosEmpesa)){ 
+            // Devolve os caracteres especiais removidos durante a validação.
+            novoDadosEmpesa.setCnpj(u.imprimeCNPJ(novoDadosEmpesa.getCnpj()));
+            //Log
+            Date dtAtual=new Date();
+            l.setData(u.formataDataBanco(dtAtual));
+            l.setFuncionalidade("Alteração");
+            l.setDescricao("Alterou os dados da empresa->" + d.getNome_empresa() + " para->"+novoDadosEmpesa.getNome_empresa());
+            l.gravaLog(l);
+            
             int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração dos dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             if (op == JOptionPane.YES_OPTION) {
-                if (dados.alteraDados(d)) {
+                if (dados.alteraDados(novoDadosEmpesa)) {
+                    
                     JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
                 } else {
                     lblMsg.setText("Não foi possível alterar os dados! Contate o SUPORTE!");
