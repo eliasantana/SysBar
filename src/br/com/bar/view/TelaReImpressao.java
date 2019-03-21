@@ -8,6 +8,7 @@ package br.com.bar.view;
 import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.model.TableModelReimpressao;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerPedido;
 import java.awt.Toolkit;
@@ -15,6 +16,7 @@ import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -31,7 +33,7 @@ public class TelaReImpressao extends JDialog {
 
     ControlerPedido cp = new ControlerPedido();
     ReportUtil rsp = new ReportUtil();
-
+    Util u = new Util();
     ControlerDadosEmpresa de = new ControlerDadosEmpresa();
     TableModelReimpressao modelReimpressao = new TableModelReimpressao();
     
@@ -63,6 +65,7 @@ public class TelaReImpressao extends JDialog {
         lblImprimir = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtNumeroMesa = new javax.swing.JFormattedTextField();
+        checkDiaAnterior = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -134,7 +137,7 @@ public class TelaReImpressao extends JDialog {
         jScrollPane1.setViewportView(tblPedidos);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(2, 110, 660, 150);
+        jScrollPane1.setBounds(10, 110, 660, 150);
 
         lblPesquisar.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
         lblPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lopa32x32.png"))); // NOI18N
@@ -145,7 +148,7 @@ public class TelaReImpressao extends JDialog {
             }
         });
         jPanel1.add(lblPesquisar);
-        lblPesquisar.setBounds(180, 70, 109, 28);
+        lblPesquisar.setBounds(90, 70, 109, 28);
 
         lblImprimir.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
         lblImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Impressora.png"))); // NOI18N
@@ -163,6 +166,7 @@ public class TelaReImpressao extends JDialog {
         jLabel3.setBounds(12, 44, 160, 20);
 
         txtNumeroMesa.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtNumeroMesa.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtNumeroMesa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtNumeroMesaKeyPressed(evt);
@@ -172,7 +176,16 @@ public class TelaReImpressao extends JDialog {
             }
         });
         jPanel1.add(txtNumeroMesa);
-        txtNumeroMesa.setBounds(10, 70, 150, 30);
+        txtNumeroMesa.setBounds(10, 70, 70, 30);
+
+        checkDiaAnterior.setText("Dia anterior");
+        checkDiaAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkDiaAnteriorActionPerformed(evt);
+            }
+        });
+        jPanel1.add(checkDiaAnterior);
+        checkDiaAnterior.setBounds(441, 70, 100, 30);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(1, 0, 680, 270);
@@ -210,8 +223,12 @@ public class TelaReImpressao extends JDialog {
             // Imprime cupom de pagamento
             HashMap dados = new HashMap();
             Date dt = new Date();
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            if (checkDiaAnterior.isSelected()){
+                Calendar c = Calendar.getInstance();
+                c.add(Calendar.DATE, -1);
+                dt.setTime(c.getTime().getTime());
+            }
             dados.put("data", df.format(dt));
             dados.put("garcom", tblPedidos.getModel().getValueAt(linha, 5).toString());
             dados.put("titulo", "COMPROVANTE DE PAGAMENTO");
@@ -239,9 +256,8 @@ public class TelaReImpressao extends JDialog {
             }
 
             lblImprimir.setEnabled(false);            
-            lblPesquisar.setEnabled(false);
             txtNumeroMesa.setText(null);
-            tblPedidos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidosReimpressao(txtNumeroMesa.getText())));
+            //tblPedidos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidosReimpressao(txtNumeroMesa.getText())));
             modelReimpressao.redimensionaColunas(tblPedidos);
         }
 
@@ -255,14 +271,19 @@ public class TelaReImpressao extends JDialog {
     }//GEN-LAST:event_txtNumeroMesaKeyPressed
 
     private void txtNumeroMesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroMesaKeyReleased
-        if ("".equals(txtNumeroMesa.getText())) {
-            lblPesquisar.setEnabled(false);
-        }
+       
     }//GEN-LAST:event_txtNumeroMesaKeyReleased
 
     private void tblPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPedidosMouseClicked
         lblImprimir.setEnabled(true);
     }//GEN-LAST:event_tblPedidosMouseClicked
+
+    private void checkDiaAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDiaAnteriorActionPerformed
+        
+        tblPedidos.setModel(modelReimpressao);
+        modelReimpressao.redimensionaColunas(tblPedidos);
+        
+    }//GEN-LAST:event_checkDiaAnteriorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -301,6 +322,7 @@ public class TelaReImpressao extends JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JCheckBox checkDiaAnterior;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -314,10 +336,20 @@ public class TelaReImpressao extends JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void listar() {
-        if (lblPesquisar.isEnabled()) {
-            ResultSet rs = cp.listaPedidosReimpressao(txtNumeroMesa.getText());
+            // Captura a data atual
+            Calendar c = Calendar.getInstance();
+            // Se o CheckBox "Dia anterior" estiver marcado retorna a data um dia.
+            if (checkDiaAnterior.isSelected()){
+                c.add(Calendar.DATE, -1);
+            }
+            // Formada a data no Formato 'yyyy-MM-dd' (Mysql).
+            String data = u.formataDataBanco(c.getTime());
+           
+            
+            ResultSet rs = cp.listaPedidosReimpressao(txtNumeroMesa.getText(),data);
             tblPedidos.setModel(DbUtils.resultSetToTableModel(rs));
             modelReimpressao.redimensionaColunas(tblPedidos);
+            
             try {
                 if (rs.isFirst()){
                    
@@ -327,7 +359,6 @@ public class TelaReImpressao extends JDialog {
             } catch (SQLException ex) {
                 Logger.getLogger(TelaReImpressao.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
     }
 
    

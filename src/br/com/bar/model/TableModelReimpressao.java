@@ -65,14 +65,13 @@ public class TableModelReimpressao extends AbstractTableModel {
     
     // // MESA, PEDIDO, TX. SERVIÇO R$, DESCONTO R$, TOTAL R$, GARÇOM
      public void redimensionaColunas(JTable tabela) {
-
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(50); 
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(70);
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(110); 
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(100); 
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(110); 
-        tabela.getColumn(tabela.getColumnName(5)).setPreferredWidth(198); 
+        tabela.getColumn(tabela.getColumnName(5)).setPreferredWidth(199); 
         //tabela.getColumnModel().getColumn(5).setMaxWidth(0);
         //tabela.getColumnModel().getColumn(5).setMaxWidth(0);
         

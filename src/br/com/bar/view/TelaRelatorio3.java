@@ -46,13 +46,11 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
         dtFim.setVisible(false);
 
         // Produto      
-        listaRelProduto.add("Grupo de Produtos");
         listaRelProduto.add("Produtos em Estoque");
         listaRelProduto.add("Posição do Estoque - Compras");
         //listaRelProduto.add("Movimentação"); // Falta
         
         // Financeiro
-        listaRelFinanceiro.add("Grupo Financeiro");
         listaRelFinanceiro.add("Comissão (Sintético)");
         listaRelFinanceiro.add("Comissão (Analítico)");
         listaRelFinanceiro.add("Contas Vecidas");
@@ -63,9 +61,8 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
         // Funcionarios
         listaRelFuncionario.add("Funcionários Ativos");
         listaRelFuncionario.add("Funcionários Inativos");
-        listaRelFuncionario.add("Funcionários Geral");
-        // Mesas
-        listaRelMesas.add("Relatório de Mesas");
+        listaRelFuncionario.add("Funcionários Geral");    
+      
         lblCargo.setVisible(false);
         lblOperaodr.setVisible(false);
        
@@ -298,31 +295,9 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
 
         switch (combo) {
 
-            case "Grupo de Produtos":
-                try {
-                    
-                    rpu.imprimeRelatorioTela("relGruposProduto.jasper", rodape(dados));
-                    // Registra Operação no Log
-                    l.setFuncionalidade("Relatório");
-                    l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Grupo de Produtos");
-                    l.gravaLog(l);
-
-                } catch (JRException e) {
-                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Grupo de Produtos" + e);
-                }
-
-                break;
-
             case "Produtos em Estoque":
                 try {
-                    rpu.imprimeRelatorioTela("relProdutos.jasper",rodape(dados));
-                    // Registra Operação no Log
-                    l.setFuncionalidade("Relatório");
-                    l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " de Produtos em Estoque");
-                    l.gravaLog(l);
-
+                    rpu.imprimeRelatorioTela("relProdutos.jasper",rodape(dados));              
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Produto em Estoque" + e);
                 }
@@ -330,30 +305,9 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
 
             case "Posição do Estoque - Compras":
                 try {
-                    rpu.imprimeRelatorioTela("relPosicaoEstoque.jasper",rodape(dados));
-                    // Registra Operação no Log
-                    l.setFuncionalidade("Relatório");
-                    l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Posição do Estoque - Compras");
-                    l.gravaLog(l);
-
+                    rpu.imprimeRelatorioTela("relPosicaoEstoque.jasper",rodape(dados));                  
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() Posição do Estoque" + e);
-                }
-                break;
-
-            case "Grupo Financeiro":
-                try {
-
-                    rpu.imprimeRelatorioTela("relGruposFinanceiro.jasper",rodape(dados));
-                    // Registra Operação no Log
-                    l.setFuncionalidade("Relatório");
-                    l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Grupo Financeiro");
-                    l.gravaLog(l);
-
-                } catch (JRException e) {
-                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Grupo Financeiro" + e);
                 }
                 break;
 
@@ -367,11 +321,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     map.put("dtFim", dataFim);
 
                     rpu.imprimeRelatorioTela("relSintComissao.jasper", rodape(dados, map));
-                    // Registra Operação no Log
-                    l.setFuncionalidade("Relatório");
-                    l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Comissão (Sintético)");
-                    l.gravaLog(l);
+                    
 
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Sintético" + e);
@@ -388,11 +338,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     map.put("dataFim", dataFim);
 
                     rpu.imprimeRelatorioTela("comissaoGeral.jasper", rodape(dados, map));
-                    // Registra Operação no Log
-                    l.setFuncionalidade("Relatório");
-                    l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Comissão (Analítico)");
-                    l.gravaLog(l);
+                   
 
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Comissão Análítico" + e);
@@ -403,11 +349,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                 try {
 
                     rpu.imprimeRelatorioTela("contasApagarVencidas.jasper",rodape(dados));
-                    // Registra Operação no Log
-                    l.setFuncionalidade("Relatório");
-                    l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Contas Vecidas");
-                    l.gravaLog(l);
+                   
 
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Contas Vencidas" + e);
@@ -418,12 +360,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                 try {
 
                     rpu.imprimeRelatorioTela("contasAvencer.jasper",rodape(dados));
-                    // Registra Operação no Log
-                    l.setFuncionalidade("Relatório");
-                    l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Conta à (Vencer)");
-                    l.gravaLog(l);
-
+                    
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Contas a Vencer" + e);
                 }
@@ -439,11 +376,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     map.put("dt_fim", dataFim);
 
                     rpu.imprimeRelatorioTela("Saidas.jasper", rodape(dados, map));
-                    // Registra Operação no Log
-                    l.setFuncionalidade("Relatório");
-                    l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Saídas de Caixa");
-                    l.gravaLog(l);
+                  
 
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Saída de Caixa" + e);
@@ -460,11 +393,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     map.put("fim", dataFim);
 
                     rpu.imprimeRelatorioTela("relCaixa.jasper", rodape(dados, map));
-                    // Registra Operação no Log
-                    l.setFuncionalidade("Relatório");
-                    l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Entradas de Caixa");
-                    l.gravaLog(l);
+                    
 
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Entrada de Caixa" + e);
@@ -480,12 +409,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     map.put("fim", dataFim);
 
                     rpu.imprimeRelatorioTela("caixaSintetico.jasper", rodape(dados, map));
-                    // Registra Operação no Log
-                    l.setFuncionalidade("Relatório");
-                    l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Caixa Sintético");
-                    l.gravaLog(l);
-
+                   
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Caixa Sintético" + e);
                 }
@@ -497,11 +421,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     HashMap map = new HashMap();
                     map.put("b", 0);
                     rpu.imprimeRelatorioTela("relFuncBlocDesb.jasper", rodape(dados, map));
-                    // Registra Operação no Log
-                    l.setFuncionalidade("Relatório");
-                    l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Funcionários Ativos");
-                    l.gravaLog(l);
+                   
 
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Funcionários Ativos" + e);
@@ -514,12 +434,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     HashMap map = new HashMap();
                     map.put("b", 1);
                     rpu.imprimeRelatorioTela("relFuncBlocDesb.jasper", rodape(dados, map));
-                    // Registra Operação no Log
-                    l.setFuncionalidade("Relatório");
-                    l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Funcionários Inativos");
-                    l.gravaLog(l);
-
+                    
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Funcionários Inativo" + e);
                 }
@@ -529,31 +444,14 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                 try {
 
                     rpu.imprimeRelatorioTela("relGeralDeFuncionarios.jasper",rodape(dados));
-                    // Registra Operação no Log
-                    l.setFuncionalidade("Relatório");
-                    l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Funcionários Geral");
-                    l.gravaLog(l);
+                    
 
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Entrada de Caixa" + e);
                 }
                 break;
 
-            case "Relatório de Mesas":
-                try {
-
-                    rpu.imprimeRelatorioTela("relatorioDeMesas.jasper",rodape(dados));
-                    // Registra Operação no Log
-                    l.setFuncionalidade("Relatório");
-                    l.setUsuario(lblOperaodr.getText());
-                    l.setDescricao(l.getUsuario() + " Visualizou o " + l.getFuncionalidade() + " Relatório de Mesas");
-                    l.gravaLog(l);
-
-                } catch (JRException e) {
-                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Relatório de Mesas" + e);
-                }
-                break;
+           
 
         }
 

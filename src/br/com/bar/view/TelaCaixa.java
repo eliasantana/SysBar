@@ -102,7 +102,7 @@ public class TelaCaixa extends JDialog {
         lblCargo.setVisible(false);
         modelCaixa.redimensionaColunas(tblDetalhePedido);
         this.setModal(true);
-        checkReimpressao.setEnabled(false);
+        checkReimpressao.setEnabled(true);
         lblReceberPAgamento.setEnabled(false);
 
     }
@@ -804,7 +804,7 @@ public class TelaCaixa extends JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(lblNPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(comboMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -951,6 +951,7 @@ public class TelaCaixa extends JDialog {
             } else {
                 JOptionPane.showMessageDialog(this, "O valor pago não pode ser menor que o total da conta!");
                 txtTroco.setText("00.00");
+                txtValorPago.setText(lblTotal.getText());
 
             }
         }
@@ -1053,7 +1054,8 @@ public class TelaCaixa extends JDialog {
                         caixa.registraDesconto(descPedido);
                     } else {
 
-                        f.setId(func.localizaId(lblOperador.getText()));
+                        f.setId(func.localizaIdLogin(lblOperador.getText()));
+                        System.out.println("Id do Funcionário:"+f.getId());
                         desconto = 0.0;
                         DescontoPedido descPedido = new DescontoPedido(desconto, "", f, p);
                         caixa.registraDesconto(descPedido);
