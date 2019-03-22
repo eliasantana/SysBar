@@ -39,6 +39,7 @@ import br.com.bar.util.Util;
 import br.com.br.controler.ControlerDadosEmpresa;
 import java.awt.Color;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -982,8 +983,7 @@ public class TelaCaixa extends JDialog {
             tGeral = tGeral.replace(",", ".");
             Double totalGeral = Double.parseDouble(tGeral);
             Double totalPessoas = totalGeral / nPesoas;
-            System.out.println(nPesoas);
-
+           
             // Instancia um produto
             Pedido p = new Pedido();
 
@@ -1000,7 +1000,10 @@ public class TelaCaixa extends JDialog {
             p.setStatus("1");
             p.setOperador(lblOperador.getText());
             p.setId(txtIdPedido.getText());
-
+            // Data de Fechamento do Pedido
+            Date dataPedido = new Date();
+            Timestamp datapedidoTms= new Timestamp(dataPedido.getTime());
+            p.setData(String.valueOf(datapedidoTms));
             // Pega forma de pagamento selecionada
             if (radioCartao.isSelected()) {
 
@@ -1024,6 +1027,7 @@ public class TelaCaixa extends JDialog {
                     //Gera Autenticacao
                     String autentica = cp.autentica(func.localizaId(lblGarcom.getText()), comboMesa.getSelectedItem().toString(), txtIdPedido.getText(), dtAtual + "." + horaAtual);
                     p.setAutenticacao(autentica);
+                   
                     // Fecha o pedido após o recebimento
                     cp.fechaPedido(p);
 
@@ -1532,6 +1536,7 @@ public class TelaCaixa extends JDialog {
                 TelaReImpressao rImpressao = new TelaReImpressao();
                 rImpressao.setModal(true);
                 rImpressao.setVisible(true);
+                checkReimpressao.setSelected(false);
             }
         }
     }//GEN-LAST:event_checkReimpressaoActionPerformed

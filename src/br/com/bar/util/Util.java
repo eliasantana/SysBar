@@ -139,6 +139,8 @@ public class Util {
             plot.setRangeGridlinePaint(Color.BLACK);
             // Tamanho da Janela
             ChartFrame f = new ChartFrame("Gráfico - Ranking de Vendas por Garçom", chart);
+            setIcon(f);
+            f.setAlwaysOnTop(true);
             f.setSize(800, 600);
             f.setVisible(true);
         } catch (Exception e) {

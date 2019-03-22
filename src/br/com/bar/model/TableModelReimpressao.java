@@ -20,7 +20,7 @@ public class TableModelReimpressao extends AbstractTableModel {
 
     private final ArrayList<ModelReimpressao> listaReimpressao = new ArrayList<>();
     // MESA, PEDIDO, TX. SERVIÇO R$, DESCONTO R$, TOTAL R$, GARÇOM
-    String colunas[] = {"MESA", "PEDIDO", "TX. SERVIÇO", "DESCONTO R$", "TOTAL R$","GARÇOM"};
+    String colunas[] = {"MESA", "PEDIDO", "TX. SERVIÇO R$", "DESCONTO R$", "TOTAL R$","GARÇOM"};
     public void adicionaPratoCozinha (ModelReimpressao r){
         listaReimpressao.add(r);
     }

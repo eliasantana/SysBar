@@ -156,7 +156,7 @@ public class ControlerPedido {
                 + "	INNER JOIN cadmesa m on m.id = p.cadmesa_id\n"
                 + "    INNER JOIN tbdesconto_pedido dp on dp.cadpedido_id_pedido = p.id_pedido\n"
                 + "    INNER JOIN tbcadfuncionario f on f.id = p.tbcadfuncionario_id\n"
-                + "	WHERE p.data = ? AND p.status=1 AND m.numero_mesa LIKE ? ORDER BY p.id_pedido desc;";
+                + "	WHERE date_format(p.data,'%Y-%m-%d') = ? AND p.status=1 AND m.numero_mesa LIKE ? ORDER BY p.id_pedido desc;";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -284,7 +284,7 @@ public class ControlerPedido {
     // Fecha o pedido armazenando informações do pagamento, da mesa e do pedido,
     // atualizando a data do pedido para a data atual do recebimento
     public boolean fechaPedido(Pedido p) {
-        String sql = "UPDATE cadpedido SET status=?, total=?, comissao=?, formaPagto=?,operador=?, autenticacao=?, data=curdate() WHERE cadmesa_id=? AND id_pedido=?";
+        String sql = "UPDATE cadpedido SET status=?, total=?, comissao=?, formaPagto=?,operador=?, autenticacao=?, data=? WHERE cadmesa_id=? AND id_pedido=?";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -295,8 +295,9 @@ public class ControlerPedido {
             pst.setString(4, p.getFormaPagto());
             pst.setString(5, p.getOperador());
             pst.setString(6, p.getAutenticacao());
-            pst.setString(7, p.getCadMesaId());
-            pst.setString(8, p.getId());
+            pst.setString(7, p.getData());            
+            pst.setString(8, p.getCadMesaId());
+            pst.setString(9, p.getId());
 
             pst.executeUpdate();
 

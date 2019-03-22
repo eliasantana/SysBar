@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
@@ -31,8 +32,9 @@ public class Log {
 
     Date dataAtual = new Date();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    SimpleDateFormat shf = new SimpleDateFormat("h:mm");
-
+    SimpleDateFormat shf = new SimpleDateFormat("H:mm");
+    
+    
     public Log() {
     }
 
@@ -90,11 +92,11 @@ public class Log {
     public void gravaLog(Log l){
         
         String sql="INSERT INTO tb_log (data,hora,usuario,funcionalidade,descricao) VALUES (?,?,?,?,?)";
-        
+        Time t = new Time(dataAtual.getTime());
         try {
             pst=conexao.prepareStatement(sql);
             pst.setString(1, sdf.format(dataAtual));
-            pst.setString(2, shf.format(dataAtual));
+            pst.setString(2, shf.format(t.getTime()));
             pst.setString(3, l.getUsuario());
             pst.setString(4, l.getFuncionalidade());
             pst.setString(5, l.getDescricao());

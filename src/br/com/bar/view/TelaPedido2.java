@@ -25,14 +25,18 @@ import br.com.br.controler.ControlerProduto;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.SimpleTimeZone;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
+import sun.java2d.pipe.SpanShapeRenderer;
 
 /**
  *
@@ -792,8 +796,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
         } else {
             Pedido p = new Pedido();
             p.setCadMesaId(txtIdMesa.getText());
-            String dataAtual = cp.myDataAtual();
-            p.setData(dataAtual);
+            //String dataAtual = cp.myDataAtual();
+            Date data = new Date();
+            Timestamp dtAtualTms=new Timestamp(data.getTime());
+            //p.setData(dataAtual);
+            p.setData(String.valueOf(dtAtualTms));
             p.setStatus("0"); // Pedido Aberto
             p.setIdFuncionario(txtIdGarcom.getText());
             //p.setId_pedido(txtNumeroPedido.getText());

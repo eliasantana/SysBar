@@ -343,8 +343,7 @@ public class TelaReImpressao extends JDialog {
                 c.add(Calendar.DATE, -1);
             }
             // Formada a data no Formato 'yyyy-MM-dd' (Mysql).
-            String data = u.formataDataBanco(c.getTime());
-           
+            String data = u.formataDataBanco(c.getTime());       
             
             ResultSet rs = cp.listaPedidosReimpressao(txtNumeroMesa.getText(),data);
             tblPedidos.setModel(DbUtils.resultSetToTableModel(rs));

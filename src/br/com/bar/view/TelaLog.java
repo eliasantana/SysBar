@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
+import org.apache.hadoop.mapreduce.lib.db.IntegerSplitter;
 
 /**
  *
@@ -30,7 +31,7 @@ public class TelaLog extends javax.swing.JFrame {
     /**
      * Creates new form TelaLog
      */
-    
+  
     ControlerLog lc = new ControlerLog();
     ControlerFuncionario f = new ControlerFuncionario();
     Connection conexao = ConexaoBd.conector();
@@ -61,11 +62,12 @@ public class TelaLog extends javax.swing.JFrame {
         desabilitaPaginacao();
         modelLog.redimensionaColunas(tblLog);
         btnListar.setEnabled(false);
+        
         btnPrimeiro.setVisible(false);
         btnUltimo.setVisible(false);
         lblTotRegistro.setVisible(false);
+        lblVisualizados.setVisible(false);
         
-
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -111,6 +113,7 @@ public class TelaLog extends javax.swing.JFrame {
         lblTotRegistro = new javax.swing.JLabel();
         btnUltimo = new javax.swing.JButton();
         btnPrimeiro = new javax.swing.JButton();
+        lblVisualizados = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -176,10 +179,10 @@ public class TelaLog extends javax.swing.JFrame {
         painelCentral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jDateChooserInicio.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 jDateChooserInicioInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jDateChooserInicio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -190,10 +193,10 @@ public class TelaLog extends javax.swing.JFrame {
         painelCentral.add(jDateChooserInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 69, 148, 40));
 
         jDateChooserFim.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 jDateChooserFimInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jDateChooserFim.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -317,8 +320,10 @@ public class TelaLog extends javax.swing.JFrame {
         jLabel7.setText("Página");
         getContentPane().add(jLabel7);
         jLabel7.setBounds(420, 560, 60, 14);
+
+        lblTotRegistro.setText("0");
         getContentPane().add(lblTotRegistro);
-        lblTotRegistro.setBounds(690, 550, 310, 20);
+        lblTotRegistro.setBounds(830, 550, 50, 20);
 
         btnUltimo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/ultimo2.png"))); // NOI18N
         btnUltimo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -348,6 +353,11 @@ public class TelaLog extends javax.swing.JFrame {
         getContentPane().add(btnPrimeiro);
         btnPrimeiro.setBounds(260, 540, 60, 40);
 
+        lblVisualizados.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblVisualizados.setText("0");
+        getContentPane().add(lblVisualizados);
+        lblVisualizados.setBounds(750, 550, 50, 20);
+
         setSize(new java.awt.Dimension(1027, 582));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -358,26 +368,34 @@ public class TelaLog extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharMouseClicked
 
     private void btnListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListarMouseClicked
+       
+       
         if (btnListar.isEnabled()) {
             listar();
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            String dtInicio = df.format(jDateChooserInicio.getDate().getTime());
-            String dtFim = df.format(jDateChooserFim.getDate().getTime());
-
             offset = Integer.parseInt(jSpinnerLimite.getValue().toString());
-
-            System.out.println("Total:" + total);
+            //System.out.println("Total:" + total);
             System.out.println("OffSet: " + offset);
             if (total > 0) {
                 habilitaPaginacao();
                 btnImprimir.setEnabled(true);
+                if (total>limite){
+                    visualizados = offset;
+                    lblVisualizados.setText(String.valueOf(visualizados));
+                }else {
+                    lblVisualizados.setText(String.valueOf(visualizados));
+                }
             } else {
                 desabilitaPaginacao();
             }
 
         }
+         int linhas = tblLog.getRowCount();
+        if (linhas < Integer.parseInt(jSpinnerLimite.getValue().toString())){
+            btnProx.setEnabled(false);
+        }
+        System.out.println("Linhas Tabelas "+linhas);
 
-
+        
     }//GEN-LAST:event_btnListarMouseClicked
 
     private void comboUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboUsuarioActionPerformed
@@ -446,10 +464,14 @@ public class TelaLog extends javax.swing.JFrame {
 
     private void btnAnteiorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteiorActionPerformed
         habilitaPaginacao();
+       
         if (offset > 0) {
-            offset = offset - limite;
+            limite = Integer.parseInt(jSpinnerLimite.getValue().toString());
+            offset =  offset- limite;
+            lblVisualizados.setText(String.valueOf(offset));
+            System.out.println("Anterior OffSET"+offset);
+            System.out.println("Limite ANTERIOR: "+limite);
             listar();
-
         } else {
             /* 
             offset=0;
@@ -461,15 +483,13 @@ public class TelaLog extends javax.swing.JFrame {
             offset = 0;
             npagina = 0;
         }
-        System.out.println("OffSet: " + offset);
-
+        
 
     }//GEN-LAST:event_btnAnteiorActionPerformed
 
     private void btnProxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProxActionPerformed
-        linhaTabela = tblLog.getRowCount();
-        System.out.println(linhaTabela);
-
+        linhaTabela = tblLog.getRowCount();        
+        lblVisualizados.setText(String.valueOf(jSpinnerLimite.getValue().toString()));
         if (linhaTabela < Integer.parseInt(jSpinnerLimite.getValue().toString())) {
             desabilitaPaginacao();
             btnPrimeiro.setEnabled(true);
@@ -478,16 +498,34 @@ public class TelaLog extends javax.swing.JFrame {
         } else {
             npagina = npagina + 1;
             offset = (limite * npagina) - limite;
-            //offset = Integer.parseInt(jSpinnerLimite.getValue().toString());
-            //System.out.println("OffSEt: " + offset);
+            
             listar();
+           
             if (offset == 0) {
                 btnAnteior.setEnabled(true);
                 btnPrimeiro.setEnabled(true);
             }
 
         }
+         //visualizados = visualizados+Integer.parseInt(jSpinnerLimite.getValue().toString());
+         
+         if (visualizados==0){
+             lblTotRegistro.setText(jSpinnerLimite.getValue().toString());
+             offset=Integer.parseInt(jSpinnerLimite.getValue().toString());
 
+         }
+         
+         if (offset>Integer.parseInt(lblTotRegistro.getText())){
+             lblVisualizados.setText(lblTotRegistro.getText());
+             btnPrimeiro.setEnabled(true);
+             btnAnteior.setEnabled(true);
+         }else {
+             
+             lblVisualizados.setText(String.valueOf(offset));
+         }
+         System.out.println("OFFSET PROXIMO:"+offset);
+         System.out.println("Limite: "+limite);
+                 
 
     }//GEN-LAST:event_btnProxActionPerformed
 
@@ -617,6 +655,9 @@ public class TelaLog extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaLog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -650,6 +691,7 @@ public class TelaLog extends javax.swing.JFrame {
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblTotRegistro;
+    private javax.swing.JLabel lblVisualizados;
     private javax.swing.JLabel lbltitulo;
     private javax.swing.JLabel lbltitulo1;
     private javax.swing.JPanel painelCentral;
@@ -668,21 +710,27 @@ public class TelaLog extends javax.swing.JFrame {
                 // Pega data do componente e converte para string
                 String dtInicio = df.format(jDateChooserInicio.getDate().getTime());
                 String dtFim = df.format(jDateChooserFim.getDate().getTime());
-                // Lista a cessos com base no intervalor de datas informardos e habilita ou desabilita o botão conforme resultado da pesquisa.
-                //tblLog.setModel(DbUtils.resultSetToTableModel(lc.listaLog(tblLog, dtInicio, dtFim, comboUsuario.getSelectedItem().toString())));
-
+               
                 // Total de Registros Exibidos na tela
                 lc.listaLog(tblLog, dtInicio, dtFim, comboUsuario.getSelectedItem().toString(), limite, offset);
                 modelLog.redimensionaColunas(tblLog);
                 //Totaliza os resitros da pesquisa
-                total = lc.totalizaLog(dtInicio, dtFim, comboUsuario.getSelectedItem().toString());
                
-                lblTotRegistro.setText(visualizados + " de " + total + " registros localizados");
+                total = lc.totalizaLog(dtInicio, dtFim, comboUsuario.getSelectedItem().toString());
+                if (total < Integer.parseInt(jSpinnerLimite.getValue().toString())){
+                    visualizados = total;
+                    
+                }else {                
+                    visualizados = total -(total - limite);
+                    
+                }
+               // offset = offset+limite;
+                lblTotRegistro.setText(String.valueOf(total));
+                
+               //linhaTabela = tblLog.getRowCount();
 
-                linhaTabela = tblLog.getRowCount();
-
-                visualizados = visualizados + linhaTabela;
-            } catch (Exception e) {
+              // visualizados = visualizados + linhaTabela;
+            } catch (NumberFormatException e) {
                 System.out.println("br.com.bar.view.TelaLog.btnListarMouseClicked()" + e);
 
             }
