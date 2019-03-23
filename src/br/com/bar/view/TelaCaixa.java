@@ -1033,7 +1033,7 @@ public class TelaCaixa extends JDialog {
 
                     //Início do Registro de log
                     l.setFuncionalidade("Recebimento");
-                    l.setDescricao("Recebeu R$ " + p.getTotalPago() + " Pedido: " + txtIdPedido.getText() + " Comissão:" + p.getComissao());
+                    l.setDescricao("Recebeu R$ " + p.getTotalPago().replace(".", ",") + " Pedido: " + txtIdPedido.getText() + " Comissão:" + p.getComissao().replace(".", ","));
                     l.gravaLog(l);
 
                     // Libera a mesa após o pagamento

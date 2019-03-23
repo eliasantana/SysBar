@@ -71,28 +71,6 @@ public class ControlerPedido {
         return false;
     }
 
-    /*
-    public ResultSet listaPedidos(String idFuncionario) {
-
-        String sql = "SELECT \n"
-                + "	m.numero_mesa AS 'MESA',\n"
-                + "	date_format(p.data,'%d/%m/%Y') AS 'DATA', \n"
-                + "	p.status as 'SITUAÇÃO', \n"
-                + "	p.id_pedido as 'N. PEDIDO' \n"
-                + "FROM cadpedido p \n"
-                + "INNER JOIN cadmesa m on m.id=p.cadmesa_id \n"
-                + "WHERE p.status=0 AND p.tbcadfuncionario_id=?";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, idFuncionario);
-            rs = pst.executeQuery();
-
-        } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerPedido.listaPedidos()" + e);
-        }
-        return rs;
-    }
-     */
     public ResultSet listaPedidos() {
 
         String sql = "SELECT\n"
@@ -161,7 +139,7 @@ public class ControlerPedido {
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, data);
-            pst.setString(2, numeroMesa+"%");
+            pst.setString(2, numeroMesa + "%");
             rs = pst.executeQuery();
         } catch (SQLException ex) {
             System.out.println("br.com.br.controler.ControlerPedido.listaPedidosReimpressao()" + ex);
@@ -295,7 +273,7 @@ public class ControlerPedido {
             pst.setString(4, p.getFormaPagto());
             pst.setString(5, p.getOperador());
             pst.setString(6, p.getAutenticacao());
-            pst.setString(7, p.getData());            
+            pst.setString(7, p.getData());
             pst.setString(8, p.getCadMesaId());
             pst.setString(9, p.getId());
 
@@ -443,5 +421,36 @@ public class ControlerPedido {
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerPedido.atualizaQtdItem()" + e);
         }
+    }
+
+    /**
+     * Retorna código do pedido aberto pelo operador
+     *
+     * @param idOperador  Id do operador que está gerando o pedido.
+     * @return id do pedido gerado.
+     *
+     */
+    public String idUltimoPedido(String idOperador) {
+        String id=null;
+        String sql = " SELECT MAX("
+                + " id_pedido\n"
+                + "        ) as 'id'\n"
+                + "        FROM dbbar\n"
+                + "        .cadpedido WHERE status = 0 and tbcadfuncionario_id = ?";
+        
+        
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, idOperador);
+            rs = pst.executeQuery();
+            while (rs.next()){
+                id = rs.getString("id");
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.idUiltimoPedido()"+e);
+        }
+        
+        return  id;
     }
 }

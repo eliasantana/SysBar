@@ -818,7 +818,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 lblMsgRetorno.setText("*Pedido gerado com sucesso!");
                 btnAbrirPedido.setEnabled(false);
                 //Log
-                Log l = new Log(lblOperador.getText(), "Pedido", "Abriu um novo pedido");
+                String idPedidoGErado = cp.idUltimoPedido(txtIdGarcom.getText());
+                Log l = new Log(lblOperador.getText(), "Pedido", "Abriu o pedido "+idPedidoGErado);
                 l.gravaLog(l);
             }
 
@@ -1286,7 +1287,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
                         }
                         //Log
-                        Log l = new Log(lblOperador.getText(), "Adicionar","Adicionou o item " + txtDescricao.getText());
+                        
+                        Log l = new Log(lblOperador.getText(), "Adicionar","Adicionou o item " + txtDescricao.getText() + " no pedido N."+txtNumeroPedido.getText());
                         l.gravaLog(l);
 
                         // Retira o produto do estoque                 
