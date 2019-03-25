@@ -198,7 +198,6 @@ public class TelaCadastroFuncionario extends JDialog {
         lblCargo = new javax.swing.JLabel();
         lblLogin = new javax.swing.JLabel();
         txtLogin = new javax.swing.JTextField();
-        txtSenha = new javax.swing.JTextField();
         lblSenha = new javax.swing.JLabel();
         comboSituacao = new javax.swing.JComboBox<>();
         lblSituação = new javax.swing.JLabel();
@@ -232,6 +231,7 @@ public class TelaCadastroFuncionario extends JDialog {
         lblCelular = new javax.swing.JLabel();
         jDateDesligamento = new com.toedter.calendar.JDateChooser();
         lblMsg = new javax.swing.JLabel();
+        txtSenha = new javax.swing.JPasswordField();
         jPanel4 = new javax.swing.JPanel();
         lblTiulo = new javax.swing.JLabel();
         lblSubTitulo = new javax.swing.JLabel();
@@ -399,14 +399,6 @@ public class TelaCadastroFuncionario extends JDialog {
         });
         jPanel1.add(txtLogin);
         txtLogin.setBounds(340, 180, 100, 30);
-
-        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtSenhaKeyReleased(evt);
-            }
-        });
-        jPanel1.add(txtSenha);
-        txtSenha.setBounds(450, 180, 100, 30);
 
         lblSenha.setText("Senha");
         jPanel1.add(lblSenha);
@@ -645,10 +637,10 @@ public class TelaCadastroFuncionario extends JDialog {
         lblCelular.setBounds(150, 260, 90, 20);
 
         jDateDesligamento.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 jDateDesligamentoInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jDateDesligamento.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -663,6 +655,10 @@ public class TelaCadastroFuncionario extends JDialog {
         lblMsg.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(lblMsg);
         lblMsg.setBounds(370, 370, 340, 20);
+
+        txtSenha.setText("jPasswordField1");
+        jPanel1.add(txtSenha);
+        txtSenha.setBounds(450, 180, 100, 30);
 
         bordas.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 101, 720, 390));
 
@@ -1110,13 +1106,6 @@ public class TelaCadastroFuncionario extends JDialog {
         lblMsg.setText(null);
     }//GEN-LAST:event_txtLoginKeyReleased
 
-    private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyReleased
-        // TODO add your handling code here:
-        txtSenha.setText(u.tamanhoMaximo(txtSenha.getText(), 10));
-        lblSenha.setForeground(Color.BLACK);
-        lblMsg.setText(null);
-    }//GEN-LAST:event_txtSenhaKeyReleased
-
     private void txtTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyReleased
         // limita tamanho do campo TELEFONE
 
@@ -1422,7 +1411,7 @@ public class TelaCadastroFuncionario extends JDialog {
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtOperacao;
     private javax.swing.JTextField txtRg;
-    private javax.swing.JTextField txtSenha;
+    private javax.swing.JPasswordField txtSenha;
     private javax.swing.JFormattedTextField txtTelRecado;
     private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables

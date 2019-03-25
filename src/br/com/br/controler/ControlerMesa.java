@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
@@ -75,7 +76,7 @@ public class ControlerMesa {
     }
 
     public boolean adicionaMesa(Mesa m) {
-
+         
         String sql = "INSERT INTO cadmesa (numero_mesa,status,tbCadfuncionario_id) VALUES (?, ?, ?)";
         boolean resp = false;
         try {
@@ -86,9 +87,9 @@ public class ControlerMesa {
             pst.setString(3, m.getId_funcionario());
 
             pst.executeUpdate();
-
+            resp=true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Este número de mesa já está sendo utilizado, informe outro!");
+             
             System.out.println("br.com.br.controler.ControlerMesa.adicionaMesa()" +e);
            
         }

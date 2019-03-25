@@ -8,9 +8,11 @@ package br.com.bar.view;
 import br.com.bar.dao.Log;
 import br.com.bar.model.TableModelGrupoProduto;
 import br.com.bar.model.TableModelReajuste;
+import br.com.bar.util.FormataValor;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerGrupo;
 import br.com.br.controler.ControlerProduto;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
@@ -28,7 +30,7 @@ public class TelaReajuste extends javax.swing.JFrame {
     Util u = new Util();
     TableModelReajuste model = new TableModelReajuste();
     TableModelGrupoProduto modelGrupo = new TableModelGrupoProduto();
-        
+
     public TelaReajuste() {
         initComponents();
         txtId.setVisible(false);
@@ -45,32 +47,32 @@ public class TelaReajuste extends javax.swing.JFrame {
         txtNomeProduto.setVisible(true);
         habilitaFator();
         radioFator.setSelected(true);
-        
+
     }
-    
+
     private void desabilitaFator() {
-       
+
         txtPercentual.setEnabled(false);
         lblPercentual.setEnabled(false);
     }
-    
+
     private void habilitaFator() {
-       
+
         txtPercentual.setEnabled(true);
         lblPercentual.setEnabled(true);
-        
+
     }
-    
+
     private void desabilitaValorDireto() {
         lblCifra.setEnabled(false);
         txtValorDireto.setEnabled(false);
-        
+
     }
-    
+
     private void habilitaValorDireto() {
         lblCifra.setEnabled(true);
         txtValorDireto.setEnabled(true);
-       
+
     }
 
     /**
@@ -225,6 +227,9 @@ public class TelaReajuste extends javax.swing.JFrame {
             }
         });
         txtValorDireto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtValorDiretoKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtValorDiretoKeyReleased(evt);
             }
@@ -420,90 +425,87 @@ public class TelaReajuste extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarActionPerformed
-        int resp = JOptionPane.showConfirmDialog(null, "Confirma o reajuste?","Atenção!",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE);
-       
-        if (resp == JOptionPane.YES_OPTION){
-            // Informa ao usuário para selecionar um forma de reajuste
-        if (radioPorValorUnit.isSelected() || radioPorGrupo.isSelected()) {
-            
-            if (radioPorGrupo.isSelected() & radioFator.isSelected()) {
-                // Reajusta grupo pelo percentual
-                Double percentual = Double.parseDouble(txtPercentual.getText().replaceAll(",", ".") );
-                // Reajusta caso o percentual seja maior que zero
-                if (percentual > 0) {
-                    if (txtId.getText().isEmpty()) { // VErifica se o produto foi seleciondo
-                        JOptionPane.showMessageDialog(null, "Selecione um grupo!");
-                    } else {
-                        // Reajusta o grupo de produto
-                        cp.reajusteGrupoProduto(txtId.getText(), txtPercentual.getText());
-                        tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
-                        model.redimensionaColunas(tblProdutos);
-                        txtPercentual.setText("0,0");
-                        txtId.setText(null);
-                        // Log
-                        Log l = new Log();
-                        l.setDescricao("Reajustou o Grupo de produtos->"+txtId.getText());
-                        l.gravaLog(l);
-                        
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Percentual inválido");
-                }
-                // Aplica reajuste unitário por fator de reajuste
-            } else if (radioPorValorUnit.isSelected() && radioFator.isSelected()) {
-                Double percentual = Double.parseDouble(txtPercentual.getText().replaceAll(",", "."));
-                if (percentual > 0) { // Se o percentual for maior que zero continua
-                    if (txtId.getText().isEmpty()) { // Solicita que o usuario selecione um produto
-                        JOptionPane.showMessageDialog(null, "Selecione um produto para continuar!");
-                    } else {
-                        // Aplica reajuste e exibe mensagem caso o produto seja atualizado
-                        if (cp.reajustaValorProduto(txtId.getText(), Double.parseDouble(txtValor.getText().replaceAll(",", ".")), Double.parseDouble(txtPercentual.getText().replaceAll(",", ".")))){
-                            JOptionPane.showMessageDialog(null, "Produto reajustado com sucesso!");
-                            // Log
-                        Log l = new Log();
-                        l.setDescricao("Reajustou o valor do produto ->"+txtId.getText());
-                        l.gravaLog(l);
-                        }
-                        tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
-                        model.redimensionaColunas(tblProdutos);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Percentual inválido!");
-                }
-                // Reajusta valor diretamente a partir do valor informado pelo usuário
-            }else if (radioPorValorUnit.isSelected() && radioValorDireto.isSelected()){
-                
-                double vDireto = Double.parseDouble(txtValorDireto.getText().replace(",", "."));
-                if (vDireto > 0){ // Informa que o produto não foi selecionado
-                    if (txtId.getText().isEmpty()){
-                        JOptionPane.showMessageDialog(null, "Selecione um produto para continuar!");
-                    }else {
-                        // Aplica reajuste a partir do valor informado
-                        cp.reajustaValorProduto(txtId.getText(), vDireto);
-                        // Log
-                        Log l = new Log();
-                        l.setDescricao("Reajustou o valor do produto->"+txtId.getText()+" "+txtValorDireto.getText());
-                        l.gravaLog(l);
-                        tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
-                        model.redimensionaColunas(tblProdutos);
-                        JOptionPane.showMessageDialog(null, "Produto reajustado com sucesso!");
-                        txtId.setText(null);
-                        txtValorDireto.setText("0,00");
-                    }
-                }else {
-                    JOptionPane.showMessageDialog(null, "Valor inválido!");
-                }
-            }
-            
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione um tipo de reajuste!");
-        }     
-        }else {
-            JOptionPane.showMessageDialog(null, "Reajuste cancelado!");
-        }
+        int resp = JOptionPane.showConfirmDialog(this, "Confirma o reajuste?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
-           
-        
+        if (resp == JOptionPane.YES_OPTION) {
+            // Informa ao usuário para selecionar um forma de reajuste
+            if (radioPorValorUnit.isSelected() || radioPorGrupo.isSelected()) {
+
+                if (radioPorGrupo.isSelected() & radioFator.isSelected()) {
+                    // Reajusta grupo pelo percentual
+                    Double percentual = Double.parseDouble(txtPercentual.getText().replaceAll(",", "."));
+                    // Reajusta caso o percentual seja maior que zero
+                    if (percentual > 0) {
+                        if (txtId.getText().isEmpty()) { // VErifica se o produto foi seleciondo
+                            JOptionPane.showMessageDialog(this, "Selecione um grupo!");
+                        } else {
+                            // Reajusta o grupo de produto
+                            cp.reajusteGrupoProduto(txtId.getText(), txtPercentual.getText());
+                            tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
+                            model.redimensionaColunas(tblProdutos);
+                            txtPercentual.setText("0,0");
+                            txtId.setText(null);
+                            // Log
+                            Log l = new Log();
+                            l.setDescricao("Reajustou o Grupo de produtos->" + txtId.getText());
+                            l.gravaLog(l);
+
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Percentual inválido");
+                    }
+                    // Aplica reajuste unitário por fator de reajuste
+                } else if (radioPorValorUnit.isSelected() && radioFator.isSelected()) {
+                    Double percentual = Double.parseDouble(txtPercentual.getText().replaceAll(",", "."));
+                    if (percentual > 0) { // Se o percentual for maior que zero continua
+                        if (txtId.getText().isEmpty()) { // Solicita que o usuario selecione um produto
+                            JOptionPane.showMessageDialog(this, "Selecione um produto para continuar!");
+                        } else {
+                            // Aplica reajuste e exibe mensagem caso o produto seja atualizado
+                            if (cp.reajustaValorProduto(txtId.getText(), Double.parseDouble(txtValor.getText().replaceAll(",", ".")), Double.parseDouble(txtPercentual.getText().replaceAll(",", ".")))) {
+                                JOptionPane.showMessageDialog(this, "Produto reajustado com sucesso!");
+                                // Log
+                                Log l = new Log();
+                                l.setDescricao("Reajustou o valor do produto ->" + txtId.getText());
+                                l.gravaLog(l);
+                            }
+                            tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
+                            model.redimensionaColunas(tblProdutos);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Percentual inválido!");
+                    }
+                    // Reajusta valor diretamente a partir do valor informado pelo usuário
+                } else if (radioPorValorUnit.isSelected() && radioValorDireto.isSelected()) {
+
+                    double vDireto = Double.parseDouble(txtValorDireto.getText().replace(",", "."));
+                    if (vDireto > 0) { // Informa que o produto não foi selecionado
+                        if (txtId.getText().isEmpty()) {
+                            JOptionPane.showMessageDialog(this, "Selecione um produto para continuar!");
+                        } else {
+                            // Aplica reajuste a partir do valor informado
+                            cp.reajustaValorProduto(txtId.getText(), vDireto);
+                            // Log
+                            Log l = new Log();
+                            l.setDescricao("Reajustou o valor do produto->" + txtId.getText() + " " + txtValorDireto.getText());
+                            l.gravaLog(l);
+                            tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
+                            model.redimensionaColunas(tblProdutos);
+                            JOptionPane.showMessageDialog(this, "Produto reajustado com sucesso!");
+                            txtId.setText(null);
+                            txtValorDireto.setText("0,00");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Valor inválido!");
+                    }
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecione um tipo de reajuste!");
+            }
+        } 
+
+
     }//GEN-LAST:event_btnAplicarActionPerformed
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
@@ -517,7 +519,7 @@ public class TelaReajuste extends javax.swing.JFrame {
         txtNomeProduto.setText(null);
         if (radioPorGrupo.isSelected()) {
             txtId.setText(tblProdutos.getModel().getValueAt(linha, 0).toString());
-           
+
         } else {
             txtId.setText(tblProdutos.getModel().getValueAt(linha, 0).toString());
             txtValor.setText(tblProdutos.getModel().getValueAt(linha, 2).toString());
@@ -528,7 +530,7 @@ public class TelaReajuste extends javax.swing.JFrame {
     }//GEN-LAST:event_tblProdutosMouseClicked
 
     private void txtPercentualKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPercentualKeyReleased
-       
+
     }//GEN-LAST:event_txtPercentualKeyReleased
 
     private void btnAplicarAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_btnAplicarAncestorAdded
@@ -582,7 +584,7 @@ public class TelaReajuste extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeProdutoKeyPressed
 
     private void radioPorGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPorGrupoActionPerformed
-       if (radioPorGrupo.isSelected()) {
+        if (radioPorGrupo.isSelected()) {
             desabilitaValorDireto();
             habilitaFator();
             radioValorDireto.setEnabled(false);
@@ -591,13 +593,13 @@ public class TelaReajuste extends javax.swing.JFrame {
     }//GEN-LAST:event_radioPorGrupoActionPerformed
 
     private void radioPorValorUnitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPorValorUnitActionPerformed
-                
+
         if (radioPorValorUnit.isSelected()) {
             radioValorDireto.setEnabled(true);
             txtId.setText(null);
             radioFator.setSelected(true);
             habilitaFator();
-            
+
         }
     }//GEN-LAST:event_radioPorValorUnitActionPerformed
 
@@ -615,7 +617,7 @@ public class TelaReajuste extends javax.swing.JFrame {
     }//GEN-LAST:event_radioPorGrupoMouseClicked
 
     private void radioPorValorUnitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioPorValorUnitMouseClicked
-         // Lista produtos para reajuste
+        // Lista produtos para reajuste
 
         tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
         model.redimensionaColunas(tblProdutos);
@@ -627,6 +629,15 @@ public class TelaReajuste extends javax.swing.JFrame {
         txtPercentual.setText("0,0");
         btnAplicar.setEnabled(false);
     }//GEN-LAST:event_radioPorValorUnitMouseClicked
+
+    private void txtValorDiretoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorDiretoKeyPressed
+
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+            FormataValor fv = new FormataValor();
+            txtValorDireto.setText(fv.Formata(txtValorDireto.getText()));
+                             
+        }
+    }//GEN-LAST:event_txtValorDiretoKeyPressed
 
     /**
      * @param args the command line arguments

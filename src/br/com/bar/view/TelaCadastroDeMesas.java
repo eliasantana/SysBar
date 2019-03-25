@@ -516,7 +516,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                     
                     novo.setNome(comboNovoGarcom.getSelectedItem().toString());
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Garçom inválido!");
+                    JOptionPane.showMessageDialog(this, "Garçom inválido!");
                     System.out.println("br.com.bar.view.TelaCadastroDeMesas.lblTrocaTodasMouseClicked()" + e);
                 }
                 
@@ -528,7 +528,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 if (op == JOptionPane.YES_OPTION) {
                     
                     if (txtIdGarcom.getText().equals(txtIdNovoGarcom.getText())) {
-                        JOptionPane.showMessageDialog(null, "Escolha um garçom diferente para continuar");
+                        JOptionPane.showMessageDialog(this, "Escolha um garçom diferente para continuar");
                     } else {
                         
                         if (cm.trocaGarcom(antigo, novo)) {
@@ -570,12 +570,15 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 
                 if (op == JOptionPane.YES_OPTION) {
                     // Registro de Log
-                    log.setFuncionalidade("Salvar");
+                    log.setFuncionalidade("Adicionar");
                     log.setDescricao("Adicionou uma mesa -> " + m.getNumeroMesa());
-                    log.gravaLog(log);
+                    
                     //Fim do registro de log
                     if (cm.adicionaMesa(m)) { // Adiciona mesa
                         JOptionPane.showMessageDialog(this, "Mesa adicionada com sucesso!");
+                        log.gravaLog(log);
+                    }else {
+                        JOptionPane.showMessageDialog(this, "Este número de mesa já está sendo utilizado, informe outro!");
                     }
                     
                 }

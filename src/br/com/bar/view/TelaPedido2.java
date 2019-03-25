@@ -6,6 +6,7 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.Log;
+import br.com.bar.model.Funcionario;
 import br.com.bar.model.Pedido;
 import br.com.bar.model.Produto;
 import br.com.bar.model.ProdutoPedido;
@@ -25,18 +26,13 @@ import br.com.br.controler.ControlerProduto;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.SimpleTimeZone;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
-import sun.java2d.pipe.SpanShapeRenderer;
 
 /**
  *
@@ -57,7 +53,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
     JFrame tlGerenciarPedido;
     Util u = new Util();
-
+    Funcionario funcLogado;
+    
     /**
      * Creates new form TelaPedido2
      */
@@ -66,7 +63,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         initComponents();
         lbllogo.setIcon(u.carregaLogo());
         cFunc.carregaComboFuncionario(comboGarcom, "Garçom");
-
+        
         Calendar c = Calendar.getInstance();
         lblData.setText(u.formataDataBr(c.getTime()));
         bloqueiaCampos();
@@ -83,7 +80,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblLupa.setVisible(false);
         lblStatusCozinha.setEnabled(false);
         btnAbrirPedido.setEnabled(false);
-        lblCargo.setVisible(false);
+        lblCargo.setVisible(true);
 
     }
 
@@ -101,7 +98,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
             lblGerenciarPedido.setVisible(false);
             textoLblPedido.setVisible(false);
         }
-
+        
+        //Recupera o id do funcionario logado.
+        funcLogado = cFunc.localizaFuncionario(cFunc.localizaIdLogin(operador));
     }
 
     public void atuDetalheDoPedido(String nMesa, String nPedido) {
@@ -819,8 +818,21 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 btnAbrirPedido.setEnabled(false);
                 //Log
                 String idPedidoGErado = cp.idUltimoPedido(txtIdGarcom.getText());
-                Log l = new Log(lblOperador.getText(), "Pedido", "Abriu o pedido "+idPedidoGErado);
+                Log l = new Log();
+                l.setUsuario(lblOperador.getText());
+                l.setFuncionalidade("Pedido");
+                String idFuncLogado = funcLogado.getId();
+                
+                if (idFuncLogado.equals(txtIdGarcom.getText())){
+                    l.setDescricao("Abriu o pedido ->"+idPedidoGErado);
+                }else {
+                    Funcionario funcCombo = cFunc.localizaFuncionario(cFunc.localizaId(comboGarcom.getSelectedItem().toString()));
+                    l.setUsuario(funcCombo.getLogin());
+                    l.setDescricao("Abriu o pedido -> "+idPedidoGErado + " [USUÁRIO LOGADO: " +funcLogado.getLogin()+"]");                    
+                }
+                
                 l.gravaLog(l);
+                System.out.println("ID Logado: " + idFuncLogado);
             }
 
         }
