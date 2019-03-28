@@ -104,7 +104,8 @@ public class TelaCaixa extends JDialog {
         modelCaixa.redimensionaColunas(tblDetalhePedido);
         this.setModal(true);
         checkReimpressao.setEnabled(true);
-        lblReceberPAgamento.setEnabled(false);
+       
+        
 
     }
 
@@ -187,6 +188,7 @@ public class TelaCaixa extends JDialog {
         lblCargo = new javax.swing.JLabel();
         lblNPedido = new javax.swing.JLabel();
         labelPedido = new javax.swing.JLabel();
+        lblAlteraSenha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -560,7 +562,7 @@ public class TelaCaixa extends JDialog {
                 checkTxServicoActionPerformed(evt);
             }
         });
-        jPanel4.add(checkTxServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 23, 128, -1));
+        jPanel4.add(checkTxServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 27, 150, -1));
 
         lblPago.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
         lblPago.setText("Valor Pago R$");
@@ -618,34 +620,36 @@ public class TelaCaixa extends JDialog {
                 checkConcedeDescontoMouseClicked(evt);
             }
         });
-        jPanel4.add(checkConcedeDesconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 52, -1, -1));
+        jPanel4.add(checkConcedeDesconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 64, -1, -1));
 
         txtDesconto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtDesconto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtDesconto.setText("0,00");
-        jPanel4.add(txtDesconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 130, 40));
+        jPanel4.add(txtDesconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 90, 134, 40));
 
         lblValorDesc.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
         lblValorDesc.setText("Valor Desconto R$");
-        jPanel4.add(lblValorDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 50, 141, 30));
+        jPanel4.add(lblValorDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 60, 141, 30));
 
         buttonGroup2.add(radioDinheiro);
+        radioDinheiro.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         radioDinheiro.setText("Dinheiro");
         radioDinheiro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 radioDinheiroMouseClicked(evt);
             }
         });
-        jPanel4.add(radioDinheiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 23, -1, 30));
+        jPanel4.add(radioDinheiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 23, -1, 30));
 
         buttonGroup2.add(radioCartao);
+        radioCartao.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
         radioCartao.setText("Cartão");
         radioCartao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 radioCartaoMouseClicked(evt);
             }
         });
-        jPanel4.add(radioCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 23, -1, 30));
+        jPanel4.add(radioCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 23, -1, 30));
 
         painelDireito.add(jPanel4);
         jPanel4.setBounds(10, 260, 350, 220);
@@ -771,6 +775,13 @@ public class TelaCaixa extends JDialog {
         labelPedido.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         labelPedido.setText("Pedido:");
 
+        lblAlteraSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/chave48x48.png"))); // NOI18N
+        lblAlteraSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAlteraSenhaMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -789,7 +800,8 @@ public class TelaCaixa extends JDialog {
                                 .addComponent(labelPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblAlteraSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblContasAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -856,16 +868,18 @@ public class TelaCaixa extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblContasAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblContasAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAlteraSenha))
                 .addGap(24, 24, 24))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtIdMEsa, txtIdPedido});
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(300, 0, 640, 690);
+        jPanel1.setBounds(300, 0, 640, 700);
 
-        setSize(new java.awt.Dimension(1309, 693));
+        setSize(new java.awt.Dimension(1309, 699));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1566,6 +1580,13 @@ public class TelaCaixa extends JDialog {
             lblReceberPAgamento.setEnabled(true);
         }
     }//GEN-LAST:event_radioCartaoMouseClicked
+
+    private void lblAlteraSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlteraSenhaMouseClicked
+        TelaAlteraSenha alteraSenha = new TelaAlteraSenha();
+        alteraSenha.setModal(true);
+        alteraSenha.receberOperador(lblOperador.getText());
+        alteraSenha.setVisible(true);
+    }//GEN-LAST:event_lblAlteraSenhaMouseClicked
     public void recebeOperador(String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
@@ -1591,6 +1612,9 @@ public class TelaCaixa extends JDialog {
                 btnListar.setEnabled(false);
                 comboMesa.setEnabled(false);
             }
+        }
+        if ("Gerente".equals(lblCargo.getText())){
+            lblAlteraSenha.setVisible(false);
         }
 
     }
@@ -1740,6 +1764,7 @@ public class TelaCaixa extends JDialog {
     private javax.swing.JLabel labelPedido;
     private javax.swing.JLabel labelSaidas;
     private javax.swing.JLabel labelSaldo;
+    private javax.swing.JLabel lblAlteraSenha;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblContasAPagar;
     private javax.swing.JLabel lblData;

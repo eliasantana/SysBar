@@ -187,6 +187,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         tblNumeroMesa = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        lblAlterarSenha = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -738,12 +739,21 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(338, 610, 60, 50);
+        jLabel3.setBounds(390, 610, 60, 50);
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel4.setText("Bloquear Tela (F8)");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(320, 660, 120, 20);
+        jLabel4.setBounds(370, 660, 120, 20);
+
+        lblAlterarSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/chave48x48.png"))); // NOI18N
+        lblAlterarSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAlterarSenhaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblAlterarSenha);
+        lblAlterarSenha.setBounds(310, 610, 90, 50);
 
         setSize(new java.awt.Dimension(1309, 693));
         setLocationRelativeTo(null);
@@ -1156,6 +1166,14 @@ public class TelaPedido2 extends javax.swing.JFrame {
         tb.setVisible(true);
     }//GEN-LAST:event_jLabel3MouseClicked
 
+    private void lblAlterarSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlterarSenhaMouseClicked
+        //Chama a tela de alteração de Senha
+        TelaAlteraSenha alteraSenha = new TelaAlteraSenha();
+        alteraSenha.setModal(true);
+        alteraSenha.receberOperador(lblOperador.getText());
+        alteraSenha.setVisible(true);
+    }//GEN-LAST:event_lblAlterarSenhaMouseClicked
+
     private double calculaPedido() {
         double valor = Double.parseDouble(txtValorUnit.getText().replaceAll(",", "."));
         int qtd = Integer.parseInt(txtQtd.getText());
@@ -1224,6 +1242,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPanePedido;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JLabel lblAlterarSenha;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCodigo1;

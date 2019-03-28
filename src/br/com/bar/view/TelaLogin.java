@@ -315,7 +315,7 @@ public class TelaLogin extends javax.swing.JFrame {
                             break;
 
                         case "Estoquista": // Vai para tela Estoque
-                            TelaEstoque estoque = new TelaEstoque();
+                            TelaMovimentacao estoque = new TelaMovimentacao();
                             estoque.recebeOperador(autentica.enviaOperador(), autentica.enviarCargo());
                             estoque.setVisible(true);
                             this.dispose();

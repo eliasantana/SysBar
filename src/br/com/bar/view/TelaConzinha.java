@@ -53,7 +53,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         txtidProdutoCozinha.setVisible(false);
 
         desabilitaTodosBtns();
-
+        
         // Atualiza a lista de pedidos da cozinha após período de tempo informado
         long minutos = 60000; //milisegundos = 1 minuto
         java.util.Timer timer = new java.util.Timer();
@@ -75,7 +75,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         timer.scheduleAtFixedRate(atualizaCozinha, 0, minutos);
         relogio();
         
-     
+        
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -84,7 +84,9 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblCargo.setText(cargo);
 
         lblLogo.setIcon(u.carregaLogo());
-        //bloqueiaBotoes(true);
+        if ("Gerente".equals(lblCargo.getText())){
+            lblAlteraSenha.setVisible(false);
+        }
 
     }
     // Recebe o código do funcionário retornado da Tela ConfirmaCozinheiro.
@@ -138,6 +140,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblLiberaRefeicao = new javax.swing.JLabel();
         lblPreparar = new javax.swing.JLabel();
         lblMsg = new javax.swing.JLabel();
+        lblAlteraSenha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -372,6 +375,15 @@ public class TelaConzinha extends javax.swing.JFrame {
         paineldireito.add(lblMsg);
         lblMsg.setBounds(120, 610, 900, 20);
 
+        lblAlteraSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/chave48x48.png"))); // NOI18N
+        lblAlteraSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAlteraSenhaMouseClicked(evt);
+            }
+        });
+        paineldireito.add(lblAlteraSenha);
+        lblAlteraSenha.setBounds(20, 630, 100, 50);
+
         getContentPane().add(paineldireito);
         paineldireito.setBounds(280, 0, 1030, 690);
 
@@ -535,6 +547,14 @@ public class TelaConzinha extends javax.swing.JFrame {
     private void lblREmovePratoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblREmovePratoKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_lblREmovePratoKeyPressed
+
+    private void lblAlteraSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlteraSenhaMouseClicked
+        // Chama a tela de alteração de senha
+        TelaAlteraSenha alteraSenha = new TelaAlteraSenha();
+        alteraSenha.setAlwaysOnTop(true);
+        alteraSenha.receberOperador(lblOperador.getText());
+        alteraSenha.setVisible(true);
+    }//GEN-LAST:event_lblAlteraSenhaMouseClicked
     
     private void preparar(){
         int linha = tblCozinha.getSelectedRow();
@@ -615,6 +635,7 @@ public class TelaConzinha extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblAlteraSenha;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblLiberaRefeicao;

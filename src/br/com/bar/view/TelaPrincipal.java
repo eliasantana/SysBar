@@ -162,8 +162,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         lblLivres.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         lblLivres.setForeground(new java.awt.Color(255, 255, 255));
+        lblLivres.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblLivres.setText("Livres");
-        jPanel4.add(lblLivres, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 27, 76, 30));
+        lblLivres.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jPanel4.add(lblLivres, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 27, 60, 30));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Livres");
@@ -174,12 +176,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblNmesaOcupada.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNmesaOcupada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/mesavermelha (2).png"))); // NOI18N
         lblNmesaOcupada.setText("jLabel17");
-        jPanel4.add(lblNmesaOcupada, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 57, 90, 30));
+        jPanel4.add(lblNmesaOcupada, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 57, 92, 30));
 
         lblOcupadas.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         lblOcupadas.setForeground(new java.awt.Color(255, 255, 255));
+        lblOcupadas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblOcupadas.setText("Ocupadas");
-        jPanel4.add(lblOcupadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 57, 76, 30));
+        lblOcupadas.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jPanel4.add(lblOcupadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 57, 60, 30));
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Ocupadas");

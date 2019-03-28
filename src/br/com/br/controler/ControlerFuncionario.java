@@ -626,4 +626,27 @@ public class ControlerFuncionario extends Funcionario {
         }
         return f;
     }
+    /**
+     * Altera a senha do funcionário informado.
+     * @param senha Nova Senha.
+     * @param id ID do usuário.
+     * @return Retorna True se a operação for bem sucedida.
+     */
+    
+    public boolean alteraSenha(String senha, String id){
+        String sql="UPDATE tbcadfuncionario SET senha=? WHERE id=?";
+        boolean resp=false;
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, senha);
+            pst.setString(2, id);
+            pst.executeUpdate();
+           
+            resp=true;
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerFuncionario.alteraSenha()" +e);
+        }
+        
+        return resp;
+    }
 }
