@@ -25,10 +25,12 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import net.sf.jasperreports.engine.xml.JRFontFactory;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.PieDataset;
 
 /**
  *
@@ -139,14 +141,23 @@ public class Util {
             plot.setRangeGridlinePaint(Color.BLACK);
             // Tamanho da Janela
             ChartFrame f = new ChartFrame("Gráfico - Ranking de Vendas por Garçom", chart);
-            setIcon(f);
             f.setAlwaysOnTop(true);
             f.setSize(800, 600);
             f.setVisible(true);
-        } catch (Exception e) {
+        } catch (SecurityException e) {
             System.out.println("Erro ao gerarGraficoDeBarras");
         }
 
+    }
+    
+    public void geraGraficoPizza(PieDataset data, String titulo){
+        JFreeChart chart = ChartFactory.createPieChart3D(titulo, data);
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.setRangeGridlinePaint(Color.black);
+        ChartFrame f = new ChartFrame("Ranking de Vendas por Garçom", chart);
+        f.setSize(800,600);
+        f.setAlwaysOnTop(true);
+        f.setVisible(true);
     }
 
     public String formataDataHora(Date data, String opcao) {

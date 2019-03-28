@@ -15,6 +15,7 @@ import br.com.bar.model.TableModelMesaPedido;
 import br.com.bar.model.TableModelPedidosAbertos;
 import br.com.bar.model.TableModelProdutoEstoque;
 import br.com.bar.util.FormataValor;
+import br.com.bar.util.LeitorDeTeclas;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCozinha;
 import br.com.br.controler.ControlerEstoque;
@@ -54,7 +55,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     JFrame tlGerenciarPedido;
     Util u = new Util();
     Funcionario funcLogado;
-    
+
     /**
      * Creates new form TelaPedido2
      */
@@ -63,7 +64,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         initComponents();
         lbllogo.setIcon(u.carregaLogo());
         cFunc.carregaComboFuncionario(comboGarcom, "Garçom");
-        
+
         Calendar c = Calendar.getInstance();
         lblData.setText(u.formataDataBr(c.getTime()));
         bloqueiaCampos();
@@ -80,8 +81,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblLupa.setVisible(false);
         lblStatusCozinha.setEnabled(false);
         btnAbrirPedido.setEnabled(false);
-        lblCargo.setVisible(true);
-
+        lblCargo.setVisible(false);
+        //Torna a tela Selecionavel 'Necessário para que o evento de bloqueio ocorra'
+        this.setFocusable(true);
+        // Adiciona Listner para bloquear tela
+        addKeyListener(new LeitorDeTeclas());
     }
 
     public void recebeOperador(String operador, String perfil) {
@@ -98,7 +102,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             lblGerenciarPedido.setVisible(false);
             textoLblPedido.setVisible(false);
         }
-        
+
         //Recupera o id do funcionario logado.
         funcLogado = cFunc.localizaFuncionario(cFunc.localizaIdLogin(operador));
     }
@@ -578,13 +582,13 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         tblListaProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-
+                "Título 1", "Título 2", "Título 3", "Título 4", "Título 5"
             }
         ));
         tblListaProduto.setRowHeight(25);
@@ -737,9 +741,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jLabel3.setBounds(338, 610, 60, 50);
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        jLabel4.setText("Bloquear Tela");
+        jLabel4.setText("Bloquear Tela (F8)");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(330, 660, 90, 20);
+        jLabel4.setBounds(320, 660, 120, 20);
 
         setSize(new java.awt.Dimension(1309, 693));
         setLocationRelativeTo(null);
@@ -797,7 +801,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             p.setCadMesaId(txtIdMesa.getText());
             //String dataAtual = cp.myDataAtual();
             Date data = new Date();
-            Timestamp dtAtualTms=new Timestamp(data.getTime());
+            Timestamp dtAtualTms = new Timestamp(data.getTime());
             //p.setData(dataAtual);
             p.setData(String.valueOf(dtAtualTms));
             p.setStatus("0"); // Pedido Aberto
@@ -822,17 +826,17 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 l.setUsuario(lblOperador.getText());
                 l.setFuncionalidade("Pedido");
                 String idFuncLogado = funcLogado.getId();
-                
-                if (idFuncLogado.equals(txtIdGarcom.getText())){
-                    l.setDescricao("Abriu o pedido ->"+idPedidoGErado);
-                }else {
+
+                if (idFuncLogado.equals(txtIdGarcom.getText())) {
+                    l.setDescricao("Abriu o pedido ->" + idPedidoGErado);
+                } else {
                     Funcionario funcCombo = cFunc.localizaFuncionario(cFunc.localizaId(comboGarcom.getSelectedItem().toString()));
                     l.setUsuario(funcCombo.getLogin());
-                    l.setDescricao("Abriu o pedido -> "+idPedidoGErado + " [USUÁRIO LOGADO: " +funcLogado.getLogin()+"]");                    
+                    l.setDescricao("Abriu o pedido -> " + idPedidoGErado + " [USUÁRIO LOGADO: " + funcLogado.getLogin() + "]");
                 }
-                
+
                 l.gravaLog(l);
-                System.out.println("ID Logado: " + idFuncLogado);
+
             }
 
         }
@@ -888,6 +892,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
     }//GEN-LAST:event_tblPedidosAbertosMouseClicked
 
     private void jTabbedPanePedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPanePedidoMouseClicked
+        /*
+        int index = jTabbedPanePedido.getSelectedIndex();       
+        if ("Lista de Produtos".equals(jTabbedPanePedido.getTitleAt(index))) {
+            lblPesquisa.setVisible(true);
+            txtPesquisa.setVisible(true);
+        }*/
         if (!"nPedido".equals(txtNumeroPedido.getText())) {
 
             // Exibe caixa de pesquisa e lista todos os produtos disponível no estoque
@@ -924,13 +934,25 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 // em outra aba.
 
                 lblStatusCozinha.setEnabled(false);
-
                 tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
                 modelProduroEstoque.redimensionaColunas(tblListaProduto);
             }
         } else {
-            bloqueiaCampos();
+        bloqueiaCampos();
+        int index = jTabbedPanePedido.getSelectedIndex();                  
+        if ("Lista de Produtos".equals(jTabbedPanePedido.getTitleAt(index))) {
+            lblPesquisa.setVisible(true);
+            txtPesquisa.setVisible(true);
+            txtPesquisa.setText(null);
+            txtQtd.setText(null);
+        }else {
+            lblPesquisa.setVisible(false);
+            txtPesquisa.setVisible(false);
+            limpaform();
         }
+        
+        }
+            
 
     }//GEN-LAST:event_jTabbedPanePedidoMouseClicked
 
@@ -1244,6 +1266,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
         txtValorUnit.setText("0,00");
         txtQtd.setText(null);
         txtValorTotal.setText("0,00");
+        txtPesquisa.setText(null);
+        txtPesquisa.setVisible(false);
+        lblPesquisa.setVisible(false);
 
     }
 
@@ -1266,7 +1291,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             } else {
                 Double totalpedido = calculaPedido();
                 txtValorTotal.setText(String.format("%9.2f", totalpedido));
-                System.out.println("Cálculo do Pedido: " + totalpedido);
+
                 lblMensagem.setText(null);
 
                 // Verifica se o pedido foi selecionado
@@ -1289,8 +1314,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
                     ControlerEstoque ec = new ControlerEstoque();
                     int qtdEstoque = ec.temNoEstoque(pp.getTbproduto_id());
 
-                    System.out.println("Qtd: " + qtdEstoque);
-
                     if (Integer.parseInt(pp.getQtd()) <= qtdEstoque) {
 
                         // Adiciona o produto ao pedido
@@ -1299,8 +1322,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
                         }
                         //Log
-                        
-                        Log l = new Log(lblOperador.getText(), "Adicionar","Adicionou o item " + txtDescricao.getText() + " no pedido N."+txtNumeroPedido.getText());
+
+                        Log l = new Log(lblOperador.getText(), "Adicionar", "Adicionou o item " + txtDescricao.getText() + " no pedido N." + txtNumeroPedido.getText());
                         l.gravaLog(l);
 
                         // Retira o produto do estoque                 

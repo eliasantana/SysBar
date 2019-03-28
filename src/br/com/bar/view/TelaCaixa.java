@@ -749,7 +749,7 @@ public class TelaCaixa extends JDialog {
         lblGarcom.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
 
         lblContasAPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario (2).png"))); // NOI18N
-        lblContasAPagar.setText("Contas a Pagar");
+        lblContasAPagar.setText("Pagamentos");
         lblContasAPagar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblContasAPagarMouseClicked(evt);
@@ -781,15 +781,16 @@ public class TelaCaixa extends JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lblContasAPagar))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(labelPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblContasAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -862,7 +863,7 @@ public class TelaCaixa extends JDialog {
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtIdMEsa, txtIdPedido});
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(300, 0, 640, 700);
+        jPanel1.setBounds(300, 0, 640, 690);
 
         setSize(new java.awt.Dimension(1309, 693));
         setLocationRelativeTo(null);
@@ -1117,10 +1118,9 @@ public class TelaCaixa extends JDialog {
                     txtDesconto.setText("0,00");
                     lblReceber.setEnabled(false);
                     txtTroco.setText("0,00");
-                    //checkCartao.setSelected(false); //Excluir
-                   // checkDinheiro.setSelected(false); // Excluir
-                    radioCartao.setSelected(false);
-                    radioDinheiro.setSelected(false);
+                    
+                    buttonGroup2.clearSelection();
+                    
                     lblNPedido.setText(null);
                     lblEntradas.setText(String.format("%9.2f", caixa.totalizaEntradas()));
                     lblGarcom.setText(null);
@@ -1849,12 +1849,10 @@ public class TelaCaixa extends JDialog {
     private void bloqueiaControlePagamento() {
         txtValorPago.setEnabled(false);
         txtTroco.setEnabled(false);
-       //checkDinheiro.setEnabled(false);//Excluir
-        //checkCartao.setEnabled(false);//Excluir
+       
         radioDinheiro.setEnabled(false);
         radioCartao.setEnabled(false);
-        //checkDinheiro.setSelected(false); // Redundante Excluir
-        //checkCartao.setSelected(false);// Redundante Excluir
+        
         checkTxServico.setEnabled(false);
         jSpinFieldPessoas.setEnabled(false);
         btnImprimir.setEnabled(false);

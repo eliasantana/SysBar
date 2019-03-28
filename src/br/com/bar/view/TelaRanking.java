@@ -8,11 +8,21 @@ package br.com.bar.view;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCaixa;
 import br.com.br.controler.ControlerContasApagar;
+import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DatasetChangeListener;
+import org.jfree.data.general.DatasetGroup;
+import org.jfree.data.general.PieDataset;
 
 /**
  *
@@ -170,27 +180,27 @@ public class TelaRanking extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnImprimirResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGerarGráfico, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(16, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnImprimirResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnGerarGráfico, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnImprimirResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGerarGráfico))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGerarGráfico)
+                    .addComponent(btnImprimirResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         bordas.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 120, 405, 220));
@@ -209,21 +219,19 @@ public class TelaRanking extends javax.swing.JFrame {
 
     private void btnGerarGráficoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerarGráficoMouseClicked
         // Gera gráfico no periodo selecionado
-        if (jdataInicio.getDate().after(jdataFim.getDate())){
-            JOptionPane.showMessageDialog(null, "Data de início inválida!\nA data inicial não pode ser maior que a data final!");
-        }else {
-            
+        if (jdataInicio.getDate().after(jdataFim.getDate())) {
+            JOptionPane.showMessageDialog(this, "Data de início inválida!\nA data inicial não pode ser maior que a data final!");
+        } else {
+
             DefaultCategoryDataset data = new DefaultCategoryDataset();
 
             try {
                 ResultSet rs = cc.rakingDeVendas(cAp.myData(jdataInicio), cAp.myData(jdataFim));
                 while (rs.next()) {
-                    data.setValue(rs.getDouble("total"), "Garçom", rs.getString("nome"));
+                    data.addValue(rs.getDouble("total"), "Garçom", rs.getString("nome"));
                 }
-
-                Util u = new Util();
-                u.geraGraficoBarras(data, "Ranking de Vendas " + "Período " + u.formataDataBr(jdataInicio.getDate()) + " - " + u.formataDataBr(jdataFim.getDate()));
-
+                 u.geraGraficoBarras(data, "Ranking de Vendas " + "Período " + u.formataDataBr(jdataInicio.getDate()) + " - " + u.formataDataBr(jdataFim.getDate()));
+               
             } catch (SQLException e) {
                 System.out.println("Erro ao gerarGráfico" + e);
             }

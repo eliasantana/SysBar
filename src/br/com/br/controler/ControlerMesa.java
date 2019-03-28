@@ -271,8 +271,9 @@ public class ControlerMesa {
         double percentualLivre;
         double percentualOcupadas;
 
-        percentualLivre = (mesaslivres / total) * 100;
-        percentualOcupadas = (totalOcupadas / total) * 100;
+        percentualOcupadas = Math.round((totalOcupadas / total) * 100);
+       //percentualLivre = (mesaslivres / total) * 100;
+        percentualLivre = 100-percentualOcupadas;
 
         estatisticas.add(percentualLivre);
         estatisticas.add(percentualOcupadas);

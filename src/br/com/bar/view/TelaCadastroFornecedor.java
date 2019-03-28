@@ -70,7 +70,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         txtCidade.setText(f.getCidade());
         comboUf.setSelectedItem(f.getUf());
         txtRepresentante.setText(f.getRepresentante());
-        txtTelefone.setText(f.getTelefone());
+        txtCelular.setText(f.getTelefone());
         txtEmail.setText(f.getEmail());
         txtSite.setText(f.getSite());
         comboStatus.setSelectedItem(f.getStatus());
@@ -113,7 +113,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         txtCidade.setText(null);
         comboUf.setSelectedIndex(0);
         txtRepresentante.setText(null);
-        txtTelefone.setText(null);
+        txtCelular.setText(null);
         txtEmail.setText(null);
         txtSite.setText(null);
         comboStatus.setSelectedIndex(0);
@@ -134,7 +134,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         txtNumero.setEnabled(false);
         comboUf.setEnabled(false);
         txtRepresentante.setEnabled(false);
-        txtTelefone.setEnabled(false);
+        txtCelular.setEnabled(false);
         txtEmail.setEnabled(false);
         txtSite.setEnabled(false);
         comboStatus.setEnabled(false);
@@ -166,7 +166,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         lblEnd = new javax.swing.JLabel();
         txtFornecedor = new javax.swing.JTextField();
         lblCelular = new javax.swing.JLabel();
-        txtTelefone = new javax.swing.JFormattedTextField();
+        txtCelular = new javax.swing.JFormattedTextField();
         txtCep = new javax.swing.JFormattedTextField();
         lblCnpj = new javax.swing.JLabel();
         txtRepresentante = new javax.swing.JTextField();
@@ -291,16 +291,16 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         jPanel2.add(lblCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, -1, 20));
 
         try {
-            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+            txtCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtCelular.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtTelefoneKeyReleased(evt);
+                txtCelularKeyReleased(evt);
             }
         });
-        jPanel2.add(txtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 160, 30));
+        jPanel2.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 160, 30));
 
         try {
             txtCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -500,7 +500,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
             fRebido.setCep(txtCep.getText());
             fRebido.setCidade(txtCidade.getText());
             fRebido.setUf(comboUf.getSelectedItem().toString());
-            fRebido.setTelefone(txtTelefone.getText());
+            fRebido.setTelefone(txtCelular.getText());
             fRebido.setEmail(txtEmail.getText());
             fRebido.setRepresentante(txtRepresentante.getText());
             fRebido.setSite(txtSite.getText());
@@ -671,10 +671,10 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         lblMsg.setText(null);
     }//GEN-LAST:event_txtCepKeyReleased
 
-    private void txtTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyReleased
+    private void txtCelularKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCelularKeyReleased
         lblCelular.setForeground(Color.BLACK);
         lblMsg.setText(null);
-    }//GEN-LAST:event_txtTelefoneKeyReleased
+    }//GEN-LAST:event_txtCelularKeyReleased
 
     private void txtCepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyPressed
 
@@ -768,6 +768,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JLabel lblUf;
     private javax.swing.JTextArea txtAreaObs;
     private javax.swing.JTextField txtBairro;
+    private javax.swing.JFormattedTextField txtCelular;
     private javax.swing.JFormattedTextField txtCep;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JFormattedTextField txtCnpj;
@@ -779,7 +780,6 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtRepresentante;
     private javax.swing.JTextField txtSite;
-    private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 
     private void desbloqueiaCampos() {
@@ -792,7 +792,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         txtCidade.setEnabled(true);
         comboUf.setEnabled(true);
         txtRepresentante.setEnabled(true);
-        txtTelefone.setEnabled(true);
+        txtCelular.setEnabled(true);
         txtEmail.setEnabled(true);
         txtSite.setEnabled(true);
         comboStatus.setEnabled(true);
@@ -876,7 +876,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
                     System.out.println(f.getTelefone().length());
                     lblMsg.setText("*Informe um TELEFONE para continuar!");
                     mudaCor(lblCelular);
-                    txtTelefone.requestFocus();
+                    txtCelular.requestFocus();
                     resp = false;
                 } else if ("".equals(f.getEmail())) {
                     lblMsg.setText("*Informe um E-MAIL para continuar!");

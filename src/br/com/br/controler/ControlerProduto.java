@@ -424,14 +424,14 @@ public class ControlerProduto {
      * @return ResultSet - Contendo o(s) produto(s) localizado(s).
      */
     public ResultSet pesquisarProduto(String nome) {
-        /*
-        String sql = "SELECT p.id as 'CÓDIGO', p.nome as 'PRODUTO', p.qtd as 'QTD',  format(p.valor,2,'de_DE') as 'VALOR R$', g.nome as 'GRUPO'\n"
+
+        /*String sql = "SELECT p.id as 'CÓDIGO', p.nome as 'DESCRIÇÃO', format(p.valor,2,'de_DE') as 'VALOR R$'\n"
                 + "FROM tbproduto p\n"
-                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id\n"
-                + "WHERE p.nome LIKE ? AND p.qtd > 0 ";*/
-        String sql = "SELECT p.id as 'CÓDIGO', p.nome as 'DESCRIÇÃO', format(p.valor,2,'de_DE') as 'VALOR R$'\n"
+                + "WHERE p.nome LIKE ? AND p.qtd > 0 ;";*/
+        String sql = "SELECT p.id as 'CÓDIGO', p.nome as 'DESCRIÇÃO', p.qtd as 'ESTOQUE',format(p.valor,2,'de_DE') as 'VALOR R$', g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
-                + "WHERE p.nome LIKE ? AND p.qtd > 0 ;";
+                + "INNER JOIN cad_grupo_produto g on g.id = p.cad_grupo_produto_id\n"
+                + "WHERE p.nome LIKE ? AND p.qtd > 0 ";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, nome + "%");

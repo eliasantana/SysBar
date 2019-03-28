@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
@@ -143,7 +142,11 @@ public class ControlerLog {
         }
 
     }
-
+    /**
+     * Realiza Expurgo de dados de log na base a partir de registros gravados a três meses antes da data atual.
+     * @return Retorna um TRUE caso a exclusão tenha ocorrido com sucesso.
+     */ 
+    
     public boolean expurgo() {
         // Retorna o menor ID da lista de data anterior a 3 meses
         String sql = "select MIN(id) as 'id' from tb_log where data < (SELECT DATE_FORMAT(adddate(now(), INTERVAL -3 MONTH ),'%Y-%m-%d')); ";

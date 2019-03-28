@@ -225,6 +225,9 @@ public class TelaReajuste extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtValorDiretoFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtValorDiretoFocusLost(evt);
+            }
         });
         txtValorDireto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -634,10 +637,16 @@ public class TelaReajuste extends javax.swing.JFrame {
 
         if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
             FormataValor fv = new FormataValor();
-            txtValorDireto.setText(fv.Formata(txtValorDireto.getText()));
-                             
+            txtValorDireto.setText(fv.Formata(txtValorDireto.getText()));                            
         }
     }//GEN-LAST:event_txtValorDiretoKeyPressed
+
+    private void txtValorDiretoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorDiretoFocusLost
+        
+            FormataValor fv = new FormataValor();
+            txtValorDireto.setText(fv.Formata(txtValorDireto.getText()));                            
+        
+    }//GEN-LAST:event_txtValorDiretoFocusLost
 
     /**
      * @param args the command line arguments

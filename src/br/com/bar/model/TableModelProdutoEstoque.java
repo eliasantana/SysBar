@@ -54,7 +54,7 @@ public class TableModelProdutoEstoque extends AbstractTableModel{
 
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(60);     
-        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(330);    
+        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(342);    
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(80);  
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(80);  
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(115);   

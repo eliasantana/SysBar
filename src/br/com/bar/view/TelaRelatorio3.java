@@ -141,8 +141,8 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Relatório");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 155, -1));
+        jLabel1.setText("Relatórios");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 20, 200, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/cadastro-64.png"))); // NOI18N
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 20, -1, -1));
@@ -312,6 +312,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                 break;
 
             case "Comissão (Sintético)":
+                //RANGE - 
                 try {
                     HashMap map = new HashMap();
                     String dataInicio = u.formataDataBanco(dtInicio.getDate());
