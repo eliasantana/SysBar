@@ -8,7 +8,6 @@ package br.com.bar.view;
 import br.com.bar.dao.AutenticaUsuario;
 import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.CriptoGrafa;
-import br.com.bar.dao.Log;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerAtivacao;
@@ -23,7 +22,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.JOptionPane;
 
 /**
  *

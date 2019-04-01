@@ -7,12 +7,13 @@ package br.com.bar.view;
 
 import br.com.bar.dao.Log;
 import br.com.bar.model.Produto;
+import br.com.bar.model.TableModelmMovimentacao;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerEstoque;
 import br.com.br.controler.ControlerProduto;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
@@ -20,7 +21,7 @@ import net.proteanit.sql.DbUtils;
  *
  * @author elias
  */
-public class TelaMovimentacao extends JDialog {
+public class TelaMovimentacao extends JFrame {
 
     /**
      * Creates new form TelaMovimentacao
@@ -29,10 +30,10 @@ public class TelaMovimentacao extends JDialog {
     ControlerEstoque est = new ControlerEstoque();
     Log l = new Log();
     Util u = new Util();
+    TableModelmMovimentacao modelMov = new TableModelmMovimentacao();
     
     public TelaMovimentacao() {
-        initComponents();
-        this.setModal(true);
+        initComponents();       
         est.carregaComboOperacao(comboOperacao);
         Date dataAtual = new Date();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -42,7 +43,9 @@ public class TelaMovimentacao extends JDialog {
         lblOperador.setVisible(false);
         lblCargo.setVisible(false);
         lblData.setVisible(false);
-        
+        radioExistente.setSelected(true);
+        tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
+        modelMov.redimensionaColunas(tblProduto);
     }
     
     public void recebeOperador(String operador, String cargo) {
@@ -98,9 +101,9 @@ public class TelaMovimentacao extends JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaObservacao = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
-        txtQuantidade = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         blbIncluir = new javax.swing.JLabel();
+        txtQuantidade = new javax.swing.JFormattedTextField();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblProduto = new javax.swing.JTable();
@@ -115,6 +118,7 @@ public class TelaMovimentacao extends JDialog {
         panelProdutos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Filtrar por")));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         buttonGroup2.add(radioPesquisaNome);
         radioPesquisaNome.setText("Nome");
@@ -128,6 +132,7 @@ public class TelaMovimentacao extends JDialog {
                 radioPesquisaNomeActionPerformed(evt);
             }
         });
+        jPanel3.add(radioPesquisaNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 31, 57, -1));
 
         buttonGroup2.add(radioPesquisaCodigo);
         radioPesquisaCodigo.setText("Código");
@@ -136,6 +141,7 @@ public class TelaMovimentacao extends JDialog {
                 radioPesquisaCodigoMouseClicked(evt);
             }
         });
+        jPanel3.add(radioPesquisaCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 31, -1, -1));
 
         txtPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -150,49 +156,12 @@ public class TelaMovimentacao extends JDialog {
                 txtPesquisarKeyReleased(evt);
             }
         });
+        jPanel3.add(txtPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 86, 242, 31));
 
         lblPesquisa.setText("Pesquisar");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPesquisar)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPesquisa)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(radioPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(radioPesquisaCodigo)
-                                .addGap(38, 38, 38)
-                                .addComponent(txtIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtIdOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(radioPesquisaNome)
-                            .addComponent(radioPesquisaCodigo)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtIdOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblPesquisa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
+        jPanel3.add(lblPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 66, -1, -1));
+        jPanel3.add(txtIdProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(259, 27, 36, 31));
+        jPanel3.add(txtIdOperacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 27, 36, 31));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Operação")));
 
@@ -233,6 +202,7 @@ public class TelaMovimentacao extends JDialog {
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Tipo de Produto")));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Novo");
@@ -246,6 +216,7 @@ public class TelaMovimentacao extends JDialog {
                 jRadioButton1ActionPerformed(evt);
             }
         });
+        jPanel2.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 31, -1, -1));
 
         buttonGroup1.add(radioExistente);
         radioExistente.setText("Existente");
@@ -254,50 +225,30 @@ public class TelaMovimentacao extends JDialog {
                 radioExistenteMouseClicked(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jRadioButton1)
-                .addGap(120, 120, 120)
-                .addComponent(radioExistente)
-                .addContainerGap(105, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(radioExistente))
-                .addGap(36, 36, 36))
-        );
+        jPanel2.add(radioExistente, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, -1, -1));
 
         javax.swing.GroupLayout panelProdutosLayout = new javax.swing.GroupLayout(panelProdutos);
         panelProdutos.setLayout(panelProdutosLayout);
         panelProdutosLayout.setHorizontalGroup(
             panelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelProdutosLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProdutosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panelProdutosLayout.setVerticalGroup(
             panelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProdutosLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         bordas.add(panelProdutos);
@@ -382,13 +333,6 @@ public class TelaMovimentacao extends JDialog {
 
         jLabel7.setText("Observação");
 
-        txtQuantidade.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtQuantidade.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtQuantidadeFocusGained(evt);
-            }
-        });
-
         jLabel6.setText("Quantidade");
 
         blbIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
@@ -398,6 +342,8 @@ public class TelaMovimentacao extends JDialog {
                 blbIncluirMouseClicked(evt);
             }
         });
+
+        txtQuantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         javax.swing.GroupLayout panelQtdLayout = new javax.swing.GroupLayout(panelQtd);
         panelQtd.setLayout(panelQtdLayout);
@@ -410,9 +356,8 @@ public class TelaMovimentacao extends JDialog {
                     .addComponent(jLabel7)
                     .addComponent(jLabel6)
                     .addGroup(panelQtdLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
                         .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(11, 11, 11)
                         .addComponent(blbIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
@@ -445,7 +390,7 @@ public class TelaMovimentacao extends JDialog {
                 {null, null, null, null}
             },
             new String [] {
-                "CÓDIGO", "PRODUTO", "QTD", "GRUPO"
+                "CÓDIGO", "DESCRIÇÃO", "QTD", "GRUPO"
             }
         ));
         tblProduto.setRowHeight(22);
@@ -495,6 +440,7 @@ public class TelaMovimentacao extends JDialog {
             panelQtd.setVisible(true);
             panelProdutos.setVisible(true);
             tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
+            modelMov.redimensionaColunas(tblProduto);
         }
         
 
@@ -510,6 +456,7 @@ public class TelaMovimentacao extends JDialog {
 
         dispose();
         TelaCadastroProduto cp = new TelaCadastroProduto();
+        cp.setAlwaysOnTop(true);
         cp.recebeOperador(lblOperador.getText(), lblCargo.getText());
         cp.setVisible(true);
     }//GEN-LAST:event_jRadioButton1MouseClicked
@@ -525,7 +472,7 @@ public class TelaMovimentacao extends JDialog {
         if (radioExistente.isSelected()) {
             
             try {
-                txtIdProduto.setText(tblProduto.getModel().getValueAt(linha, 0).toString());
+              txtIdProduto.setText(tblProduto.getModel().getValueAt(linha, 0).toString());
                 
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("br.com.bar.view.TelaMovimentacao.tblProdutoMouseClicked()" + e);
@@ -551,9 +498,13 @@ public class TelaMovimentacao extends JDialog {
         
         if (radioPesquisaNome.isSelected()) {
             
-            tblProduto.setModel(DbUtils.resultSetToTableModel(est.pesquisarProduto("nome", txtPesquisar.getText())));
+            //tblProduto.setModel(DbUtils.resultSetToTableModel(est.pesquisarProduto("nome", txtPesquisar.getText())));
+            tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade("nome", txtPesquisar.getText())));
+            modelMov.redimensionaColunas(tblProduto);
         } else {
-            tblProduto.setModel(DbUtils.resultSetToTableModel(est.pesquisarProduto("id", txtPesquisar.getText())));
+            //tblProduto.setModel(DbUtils.resultSetToTableModel(est.pesquisarProduto("id", txtPesquisar.getText())));
+            tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade("id", txtPesquisar.getText())));
+            modelMov.redimensionaColunas(tblProduto);
             
         }
 
@@ -599,138 +550,137 @@ public class TelaMovimentacao extends JDialog {
         String operacao = comboOperacao.getSelectedItem().toString();
         
         Produto p = new Produto();
-        
-        switch (operacao) {
-            // Realiza a entrada de um produto já cadastrado
-            case "Entrada":
-                
-                if (est.registraMovimentacao(txtIdProduto.getText(), txtQuantidade.getText(), txtIdOperacao.getText(), txtAreaObservacao.getText())) {
-                    // Adiciona quantidae no estoque
-                    if (est.entradaDeProduto(txtIdProduto.getText(), txtQuantidade.getText())) {
-                        JOptionPane.showMessageDialog(null, "Produto Adicionado com sucesso");
-                        limpaTela();
+        if ("".equals(txtQuantidade.getText())|| Integer.parseInt(txtQuantidade.getText())<=0){
+            JOptionPane.showMessageDialog(this, "Quantidade Inválida!");
+        }else {
+            
+            switch (operacao) {
+                // Realiza a entrada de um produto já cadastrado
+                case "Entrada":
+
+                    if (est.registraMovimentacao(txtIdProduto.getText(), txtQuantidade.getText(), txtIdOperacao.getText(), txtAreaObservacao.getText())) {
+                        // Adiciona quantidae no estoque
+                        if (est.entradaDeProduto(txtIdProduto.getText(), txtQuantidade.getText())) {
+                            JOptionPane.showMessageDialog(this, "Produto Adicionado com sucesso");
+                            limpaTela();
+                            tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
+                            modelMov.redimensionaColunas(tblProduto);
+                            // Início do Registro de Log
+                            l.setFuncionalidade(comboOperacao.getSelectedItem().toString());
+                            l.setUsuario(lblOperador.getText());
+                            l.setDescricao("Realizou uma " + l.getFuncionalidade() + " para o produto-> " + txtIdProduto.getText() + " Motivo : " + txtAreaObservacao.getText());
+                            l.gravaLog(l);
+                            // Fim do Registro de Lg
+
+                            // limpa campos
+                            txtAreaObservacao.setText(null);
+                            txtQuantidade.setText(null);
+                            txtIdProduto.setText(null);
+                            txtIdOperacao.setText(null);
+                        }
+
+                    }
+                    break;
+
+                case "Saída": // retira um prpoduto do estoque
+
+                    p.setId(txtIdProduto.getText());
+                    p.setQtd(txtQuantidade.getText());
+
+                    // Retira o produto do estoque
+                    est.retiraEstoque(p, p.getQtd());
+                    // Registra movimentação
+                    if (est.registraMovimentacao(p.getId(), p.getQtd(), est.localizaIdOperacao("Saída"), txtAreaObservacao.getText())) {
+
+                        JOptionPane.showMessageDialog(this, "Produto retirado do estoque com sucesso");
+
                         tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
+                        modelMov.redimensionaColunas(tblProduto);
+                        txtQuantidade.setText(null);
+                        txtAreaObservacao.setText(null);
 
                         // Início do Registro de Log
                         l.setFuncionalidade(comboOperacao.getSelectedItem().toString());
                         l.setUsuario(lblOperador.getText());
-                        l.setDescricao("Realizou uma " + l.getFuncionalidade() + " para o produto-> " + txtIdProduto.getText() + " Motivo : " + txtAreaObservacao.getText());
+                        l.setDescricao("Realizou uma " + l.getFuncionalidade() + " do produto-> " + txtIdProduto.getText() + " Motivo : " + txtAreaObservacao.getText());
                         l.gravaLog(l);
-                        // Fim do Registro de Lg
-
+                        // Fim do Registro de Log
                         // limpa campos
                         txtAreaObservacao.setText(null);
                         txtQuantidade.setText(null);
                         txtIdProduto.setText(null);
                         txtIdOperacao.setText(null);
                     }
-                    
-                } else {
-                    JOptionPane.showMessageDialog(null, "Valor Inválido");
-                }
-                break;
-            
-            case "Saída": // retira um prpoduto do estoque
+                    break;
 
-                p.setId(txtIdProduto.getText());
-                p.setQtd(txtQuantidade.getText());
+                case "Devolução":// Devolve o produto ao fornecedor gerando uma saída no estoque
+                    // Exibe painel
+                    panelProdutos.setVisible(true);
 
-                // Retira o produto do estoque
-                est.retiraEstoque(p, p.getQtd());
-                // Registra movimentação
-                if (est.registraMovimentacao(p.getId(), p.getQtd(), est.localizaIdOperacao("Saída"), txtAreaObservacao.getText())) {
-                    
-                    JOptionPane.showMessageDialog(null, "Produto retirado do estoque com sucesso");
-                    
-                    tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
-                    txtQuantidade.setText(null);
-                    txtAreaObservacao.setText(null);
+                    Produto produto = new Produto();
+                    produto.setId(txtIdProduto.getText());
+                    produto.setQtd(txtQuantidade.getText());
+                    int op = JOptionPane.showConfirmDialog(this, "Devolver produto ao fornecedor?", "Atenção!", JOptionPane.YES_NO_OPTION);
+                    // Solicita confirmação ao operador
+                    if (op == JOptionPane.YES_OPTION) {
 
-                    // Início do Registro de Log
-                    l.setFuncionalidade(comboOperacao.getSelectedItem().toString());
-                    l.setUsuario(lblOperador.getText());
-                    l.setDescricao("Realizou uma " + l.getFuncionalidade() + " do produto-> " + txtIdProduto.getText() + " Motivo : " + txtAreaObservacao.getText());
-                    l.gravaLog(l);
-                    // Fim do Registro de Log
-                    // limpa campos
-                    txtAreaObservacao.setText(null);
-                    txtQuantidade.setText(null);
-                    txtIdProduto.setText(null);
-                    txtIdOperacao.setText(null);
-                }
-                break;
-            
-            case "Devolução":// Devolve o produto ao fornecedor gerando uma saída no estoque
-                // Exibe painel
-                panelProdutos.setVisible(true);
-                
-                Produto produto = new Produto();
-                produto.setId(txtIdProduto.getText());
-                produto.setQtd(txtQuantidade.getText());
-                int op = JOptionPane.showConfirmDialog(null, "Devolver produto ao fornecedor?", "Atenção!", JOptionPane.YES_NO_OPTION);
-                // Solicita confirmação ao operador
-                if (op == JOptionPane.YES_OPTION) {
+                        //Retira do estoque o produto 
+                        est.retiraEstoque(produto, produto.getQtd());
+                        JOptionPane.showMessageDialog(this, "Devolução de produto realizada com sucesso!");
+                        est.registraMovimentacao(produto.getId(), produto.getQtd(), est.localizaIdOperacao(operacao), txtAreaObservacao.getText());
+                        tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
+                        modelMov.redimensionaColunas(tblProduto);
+                        // Início do Registro de Log
+                        l.setFuncionalidade(comboOperacao.getSelectedItem().toString());
+                        l.setUsuario(lblOperador.getText());
+                        l.setDescricao("Realizou uma " + l.getFuncionalidade() + "do do produto-> " + txtIdProduto.getText() + " Motivo : " + txtAreaObservacao.getText());
+                        l.gravaLog(l);
 
-                    //Retira do estoque o produto 
-                    est.retiraEstoque(produto, produto.getQtd());
-                    JOptionPane.showMessageDialog(null, "Devolução de produto realizada com sucesso!");
-                    est.registraMovimentacao(produto.getId(), produto.getQtd(), est.localizaIdOperacao(operacao), txtAreaObservacao.getText());
-                    tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
+                        // Fim do Registro de Log 
+                        // limpa campos
+                        txtAreaObservacao.setText(null);
+                        txtQuantidade.setText(null);
+                        txtIdProduto.setText(null);
+                        txtIdOperacao.setText(null);
 
-                    // Início do Registro de Log
-                    l.setFuncionalidade(comboOperacao.getSelectedItem().toString());
-                    l.setUsuario(lblOperador.getText());
-                    l.setDescricao("Realizou uma " + l.getFuncionalidade() + "do do produto-> " + txtIdProduto.getText() + " Motivo : " + txtAreaObservacao.getText());
-                    l.gravaLog(l);
+                    }
 
-                    // Fim do Registro de Log 
-                    // limpa campos
-                    txtAreaObservacao.setText(null);
-                    txtQuantidade.setText(null);
-                    txtIdProduto.setText(null);
-                    txtIdOperacao.setText(null);
-                    
-                } else {
-                    JOptionPane.showMessageDialog(null, "Operação cancelada!");                    
-                }
-                
-                break;
-            
-            case "Descarte":// Retira o produto o estoque
-                // Exibe painel
-                panelProdutos.setVisible(true);                
-                
-                Produto pDescarte = new Produto();
-                pDescarte.setId(txtIdProduto.getText());
-                pDescarte.setQtd(txtQuantidade.getText());
-                int confirma = JOptionPane.showConfirmDialog(null, "Descartar este produto?", "Atenção!", JOptionPane.YES_NO_OPTION);
-                // Solicita confirmação ao operador
-                if (confirma == JOptionPane.YES_OPTION) {
+                    break;
 
-                    //Retira do estoque o produto 
-                    est.retiraEstoque(pDescarte, pDescarte.getQtd());
-                    JOptionPane.showMessageDialog(null, "O produto foi descartado!");
-                    est.registraMovimentacao(pDescarte.getId(), pDescarte.getQtd(), est.localizaIdOperacao(operacao), txtAreaObservacao.getText());
-                    tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
+                case "Descarte":// Retira o produto o estoque
+                    // Exibe painel
+                    panelProdutos.setVisible(true);
 
-                    // Início do Registro de Log
-                    l.setFuncionalidade(comboOperacao.getSelectedItem().toString());
-                    l.setUsuario(lblOperador.getText());
-                    l.setDescricao("Realizou um " + l.getFuncionalidade() + " do produto-> " + txtIdProduto.getText() + " Motivo : " + txtAreaObservacao.getText());
-                    l.gravaLog(l);
+                    Produto pDescarte = new Produto();
+                    pDescarte.setId(txtIdProduto.getText());
+                    pDescarte.setQtd(txtQuantidade.getText());
+                    int confirma = JOptionPane.showConfirmDialog(this, "Descartar este produto?", "Atenção!", JOptionPane.YES_NO_OPTION);
+                    // Solicita confirmação ao operador
+                    if (confirma == JOptionPane.YES_OPTION) {
 
-                    // Fim do Registro de Log 
-                    // limpa campos
-                    txtAreaObservacao.setText(null);
-                    txtQuantidade.setText(null);
-                    txtIdProduto.setText(null);
-                    txtIdOperacao.setText(null);
-                    
-                } else {
-                    JOptionPane.showMessageDialog(null, "Operação cancelada!");                    
-                }
-                
-                break;
+                        //Retira do estoque o produto 
+                        est.retiraEstoque(pDescarte, pDescarte.getQtd());
+                        JOptionPane.showMessageDialog(this, "O produto foi descartado!");
+                        est.registraMovimentacao(pDescarte.getId(), pDescarte.getQtd(), est.localizaIdOperacao(operacao), txtAreaObservacao.getText());
+                        tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
+                        modelMov.redimensionaColunas(tblProduto);
+                        // Início do Registro de Log
+                        l.setFuncionalidade(comboOperacao.getSelectedItem().toString());
+                        l.setUsuario(lblOperador.getText());
+                        l.setDescricao("Realizou um " + l.getFuncionalidade() + " do produto-> " + txtIdProduto.getText() + " Motivo : " + txtAreaObservacao.getText());
+                        l.gravaLog(l);
+
+                        // Fim do Registro de Log 
+                        // limpa campos
+                        txtAreaObservacao.setText(null);
+                        txtQuantidade.setText(null);
+                        txtIdProduto.setText(null);
+                        txtIdOperacao.setText(null);
+
+                    }
+
+                    break;
+            }
         }
         
 
@@ -739,10 +689,6 @@ public class TelaMovimentacao extends JDialog {
     private void txtPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPesquisarKeyReleased
-
-    private void txtQuantidadeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQuantidadeFocusGained
-        
-    }//GEN-LAST:event_txtQuantidadeFocusGained
 
     /**
      * @param args the command line arguments
@@ -815,6 +761,6 @@ public class TelaMovimentacao extends JDialog {
     private javax.swing.JTextField txtIdOperacao;
     private javax.swing.JTextField txtIdProduto;
     private javax.swing.JTextField txtPesquisar;
-    private javax.swing.JTextField txtQuantidade;
+    private javax.swing.JFormattedTextField txtQuantidade;
     // End of variables declaration//GEN-END:variables
 }

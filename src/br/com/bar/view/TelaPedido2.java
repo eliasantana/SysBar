@@ -93,10 +93,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblCargo.setText(perfil);
         lblCargo.setVisible(false);
         modelPedidos.redimensionaColunas(tblPedidosAbertos);
+        
         if ("Gerente".equals(lblCargo.getText())) {
 
             lblGerenciarPedido.setVisible(true);
             textoLblPedido.setVisible(true);
+            lblAlterarSenha.setVisible(false);
         } else {
 
             lblGerenciarPedido.setVisible(false);

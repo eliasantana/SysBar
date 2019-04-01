@@ -11,9 +11,13 @@ import br.com.bar.model.DadosEmpresa;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerContasApagar;
 import br.com.br.controler.ControlerDadosEmpresa;
+import br.com.br.controler.ControlerGrupo;
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 
 /**
@@ -33,45 +37,50 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
     ReportUtil rpu = new ReportUtil();
     ControlerContasApagar contasApagar = new ControlerContasApagar();
     ControlerDadosEmpresa ce = new ControlerDadosEmpresa();
+    ControlerGrupo g = new ControlerGrupo();
+    
     Util u = new Util();
     Log l = new Log();
     DadosEmpresa dados = ce.selecionaDados();
-
+    int range;
+    
     public TelaRelatorio3() {
         initComponents();
-
+        btnImprimir.setEnabled(false);
         Calendar c = Calendar.getInstance();
       
         dtInicio.setVisible(false);
+        dtInicio.setDate(new Date());
         dtFim.setVisible(false);
-
+        dtFim.setDate(new Date());
+        lblDe.setVisible(false);
+        lblAte.setVisible(false);
+                
         // Produto      
-        listaRelProduto.add("Produtos em Estoque");
+        listaRelProduto.add("Selecione...");
+        listaRelProduto.add("Em Estoque - Por Grupo(s)");
         listaRelProduto.add("Posição do Estoque - Compras");
         //listaRelProduto.add("Movimentação"); // Falta
         
         // Financeiro
-        listaRelFinanceiro.add("Comissão (Sintético)");
-        listaRelFinanceiro.add("Comissão (Analítico)");
-        listaRelFinanceiro.add("Contas Vecidas");
-        listaRelFinanceiro.add("Conta à (Vencer)");
-        listaRelFinanceiro.add("Saídas de Caixa");
-        listaRelFinanceiro.add("Entradas de Caixa");
-        listaRelFinanceiro.add("Caixa Sintético");
-        // Funcionarios
-        listaRelFuncionario.add("Funcionários Ativos");
-        listaRelFuncionario.add("Funcionários Inativos");
-        listaRelFuncionario.add("Funcionários Geral");    
+        listaRelFinanceiro.add("Selecione...");
+        listaRelFinanceiro.add("Caixa Sintético"); // Limite para pesquisa: 6 Meses
+        listaRelFinanceiro.add("Entradas do Caixa"); // Limite para pesquisa: 1 Mês
+        listaRelFinanceiro.add("Saídas do Caixa"); //  Limite para pesquisa: 3 meses 
+        listaRelFinanceiro.add("Comissão (Sintético)"); // Limite para pesquisa: 3 meses 
+        listaRelFinanceiro.add("Comissão (Analítico)"); //Limite para pesquisa: 1 mes    
+       
       
         lblCargo.setVisible(false);
         lblOperaodr.setVisible(false);
-       
+        
+        jcomboGrupo.setVisible(false);
     }
 
     public void listaRelatorios(ArrayList<String> lista) {
-        comboReltorio.removeAllItems();
+        comboRelatorio.removeAllItems();
         for (int i = 0; i < lista.size(); i++) {
-            comboReltorio.addItem(lista.get(i));
+            comboRelatorio.addItem(lista.get(i));
         }
     }
 
@@ -95,12 +104,13 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         radioProduto = new javax.swing.JRadioButton();
         radioFinanceiro = new javax.swing.JRadioButton();
-        radioFuncionario = new javax.swing.JRadioButton();
-        radioMesa = new javax.swing.JRadioButton();
-        comboReltorio = new javax.swing.JComboBox<>();
+        comboRelatorio = new javax.swing.JComboBox<>();
         dtInicio = new com.toedter.calendar.JDateChooser();
         dtFim = new com.toedter.calendar.JDateChooser();
-        Imprimir = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
+        jcomboGrupo = new javax.swing.JComboBox<>();
+        lblDe = new javax.swing.JLabel();
+        lblAte = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -156,14 +166,26 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
         jPanel2.add(lblCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         buttonGroup1.add(radioProduto);
-        radioProduto.setText("Produto");
+        radioProduto.setText("Produtos");
+        radioProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                radioProdutoFocusLost(evt);
+            }
+        });
         radioProduto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 radioProdutoMouseClicked(evt);
             }
         });
+        radioProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioProdutoActionPerformed(evt);
+            }
+        });
+        jPanel3.add(radioProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
         buttonGroup1.add(radioFinanceiro);
         radioFinanceiro.setText("Financeiro");
@@ -172,108 +194,77 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                 radioFinanceiroMouseClicked(evt);
             }
         });
+        jPanel3.add(radioFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, -1));
 
-        buttonGroup1.add(radioFuncionario);
-        radioFuncionario.setText("Funcionários");
-        radioFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                radioFuncionarioMouseClicked(evt);
-            }
-        });
-
-        buttonGroup1.add(radioMesa);
-        radioMesa.setText("Mesa");
-        radioMesa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                radioMesaMouseClicked(evt);
-            }
-        });
-
-        comboReltorio.addItemListener(new java.awt.event.ItemListener() {
+        comboRelatorio.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboReltorioItemStateChanged(evt);
+                comboRelatorioItemStateChanged(evt);
             }
         });
-        comboReltorio.addActionListener(new java.awt.event.ActionListener() {
+        comboRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboReltorioActionPerformed(evt);
+                comboRelatorioActionPerformed(evt);
             }
         });
+        jPanel3.add(comboRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 291, 33));
 
-        Imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Impressora.png"))); // NOI18N
-        Imprimir.setText("Imprimir");
-        Imprimir.addActionListener(new java.awt.event.ActionListener() {
+        dtInicio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dtInicioPropertyChange(evt);
+            }
+        });
+        jPanel3.add(dtInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 140, 31));
+
+        dtFim.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dtFimPropertyChange(evt);
+            }
+        });
+        jPanel3.add(dtFim, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 141, 31));
+
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Impressora.png"))); // NOI18N
+        btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ImprimirActionPerformed(evt);
+                btnImprimirActionPerformed(evt);
             }
         });
+        jPanel3.add(btnImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, -1, -1));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(comboReltorio, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(radioProduto)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(radioFinanceiro)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(radioFuncionario)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(radioMesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addComponent(Imprimir))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(dtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dtFim, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(radioProduto)
-                    .addComponent(radioFinanceiro)
-                    .addComponent(radioFuncionario)
-                    .addComponent(radioMesa))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(comboReltorio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dtFim, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addComponent(Imprimir)
-                .addContainerGap(69, Short.MAX_VALUE))
-        );
+        jcomboGrupo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcomboGrupoItemStateChanged(evt);
+            }
+        });
+        jcomboGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcomboGrupoActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jcomboGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 140, 30));
+
+        lblDe.setText("De");
+        jPanel3.add(lblDe, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 30, -1));
+
+        lblAte.setText("Até");
+        jPanel3.add(lblAte, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 50, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(342, 361));
+        setSize(new java.awt.Dimension(342, 330));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -286,20 +277,34 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (radioProduto.isSelected()) {
             listaRelatorios(listaRelProduto);
+            desabilitaData();
         }
     }//GEN-LAST:event_radioProdutoMouseClicked
 
-    private void ImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirActionPerformed
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // Abre relatório na tela
-        String combo = comboReltorio.getSelectedItem().toString();
-
+        String combo = comboRelatorio.getSelectedItem().toString();
+        
         switch (combo) {
 
-            case "Produtos em Estoque":
-                try {
-                    rpu.imprimeRelatorioTela("relProdutos.jasper",rodape(dados));              
-                } catch (JRException e) {
-                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Produto em Estoque" + e);
+            case "Em Estoque - Por Grupo(s)":
+                if ("Selecione...".equals(jcomboGrupo.getSelectedItem().toString())){
+                    
+                    try {
+                        rpu.imprimeRelatorioTela("relProdutos.jasper", rodape(dados));
+                    } catch (JRException e) {
+                        System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Produto em Estoque" + e);
+                    }
+                }else{
+                    try {
+                        
+                        HashMap map = new HashMap();
+                        map.put("grupo", jcomboGrupo.getSelectedItem().toString());
+                        rpu.imprimeRelatorioTela("relProdutos_x_grupo.jasper",rodape(dados, map));
+                        
+                    } catch (JRException e) {
+                        System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Produto em Estoque" + e);
+                    }
                 }
                 break;
 
@@ -343,27 +348,6 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
 
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Comissão Análítico" + e);
-                }
-                break;
-
-            case "Contas Vecidas":
-                try {
-
-                    rpu.imprimeRelatorioTela("contasApagarVencidas.jasper",rodape(dados));
-                   
-
-                } catch (JRException e) {
-                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Contas Vencidas" + e);
-                }
-                break;
-
-            case "Conta à (Vencer)":
-                try {
-
-                    rpu.imprimeRelatorioTela("contasAvencer.jasper",rodape(dados));
-                    
-                } catch (JRException e) {
-                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Contas a Vencer" + e);
                 }
                 break;
 
@@ -414,32 +398,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Caixa Sintético" + e);
                 }
-                break;
-
-            case "Funcionários Ativos":
-                try {
-
-                    HashMap map = new HashMap();
-                    map.put("b", 0);
-                    rpu.imprimeRelatorioTela("relFuncBlocDesb.jasper", rodape(dados, map));
-                   
-
-                } catch (JRException e) {
-                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Funcionários Ativos" + e);
-                }
-                break;
-
-            case "Funcionários Inativos":
-                try {
-
-                    HashMap map = new HashMap();
-                    map.put("b", 1);
-                    rpu.imprimeRelatorioTela("relFuncBlocDesb.jasper", rodape(dados, map));
-                    
-                } catch (JRException e) {
-                    System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Funcionários Inativo" + e);
-                }
-                break;
+                break;          
 
             case "Funcionários Geral":
                 try {
@@ -456,22 +415,34 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
 
         }
 
-    }//GEN-LAST:event_ImprimirActionPerformed
+    }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void radioFinanceiroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioFinanceiroMouseClicked
         if (radioFinanceiro.isSelected()) {
             listaRelatorios(listaRelFinanceiro);
+           
         }
     }//GEN-LAST:event_radioFinanceiroMouseClicked
 
-    private void comboReltorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboReltorioActionPerformed
+    private void comboRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboRelatorioActionPerformed
+        try {
+            
+            String opcao = comboRelatorio.getSelectedItem().toString();
 
-    }//GEN-LAST:event_comboReltorioActionPerformed
+            if ("Posição do Estoque - Compras".equals(opcao)) {
+                jcomboGrupo.setVisible(false);
+            } else {
+                btnImprimir.setEnabled(true);
+            }
+        } catch (Exception e) {
+        }
+   
+    }//GEN-LAST:event_comboRelatorioActionPerformed
 
-    private void comboReltorioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboReltorioItemStateChanged
+    private void comboRelatorioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboRelatorioItemStateChanged
         try {
 
-            String opcao = comboReltorio.getSelectedItem().toString();
+            String opcao = comboRelatorio.getSelectedItem().toString();
 
             if (null == opcao) {
                 desabilitaData();
@@ -480,6 +451,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
 
                     case "Comissão (Sintético)":
                         habilitaData();
+                        range=180;                        
                         break;
                     case "Contas Vecidas":
                         habilitaData();
@@ -496,6 +468,11 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     case "Caixa Sintético":
                         habilitaData();
                         break;
+                    case "Em Estoque - Por Grupo(s)":
+                        jcomboGrupo.setVisible(true);
+                        g.carregaComboGrupoProduto(jcomboGrupo);
+                        
+                        break;
 
                     default:
                         desabilitaData();
@@ -506,19 +483,40 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
         } catch (NullPointerException e) {
             System.out.println("br.com.bar.view.TelaRelatorio3.comboReltorioItemStateChanged()");
         }
-    }//GEN-LAST:event_comboReltorioItemStateChanged
+    }//GEN-LAST:event_comboRelatorioItemStateChanged
 
-    private void radioFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioFuncionarioMouseClicked
-        if (radioFuncionario.isSelected()) {
-            listaRelatorios(listaRelFuncionario);
-        }
-    }//GEN-LAST:event_radioFuncionarioMouseClicked
+    private void radioProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_radioProdutoFocusLost
+       
+    }//GEN-LAST:event_radioProdutoFocusLost
 
-    private void radioMesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioMesaMouseClicked
-        if (radioMesa.isSelected()) {
-            listaRelatorios(listaRelMesas);
+    private void radioProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioProdutoActionPerformed
+
+    private void jcomboGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboGrupoActionPerformed
+       
+    }//GEN-LAST:event_jcomboGrupoActionPerformed
+
+    private void jcomboGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcomboGrupoItemStateChanged
+       
+    }//GEN-LAST:event_jcomboGrupoItemStateChanged
+
+    private void dtFimPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dtFimPropertyChange
+        
+       
+    }//GEN-LAST:event_dtFimPropertyChange
+
+    private void dtInicioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dtInicioPropertyChange
+        try {
+            Date dataInicio = dtInicio.getDate();
+            Date dataFimDate = dtFim.getDate();
+            if (dataInicio.after(dataFimDate)) {
+                JOptionPane.showMessageDialog(this, "A data inicial não pode ser maior que a data final!");                
+            }
+            
+        } catch (NullPointerException e) {
         }
-    }//GEN-LAST:event_radioMesaMouseClicked
+    }//GEN-LAST:event_dtInicioPropertyChange
     public void recebeOperador(String operador, String perfil) {
         lblOperaodr.setText(operador);
         lblCargo.setText(perfil);
@@ -528,11 +526,15 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
     public void habilitaData() {
         dtInicio.setVisible(true);
         dtFim.setVisible(true);
+        lblDe.setVisible(true);
+        lblAte.setVisible(true);
     }
 
     public void desabilitaData() {
         dtInicio.setVisible(false);
         dtFim.setVisible(false);
+        lblAte.setVisible(false);
+        lblDe.setVisible(false);
     }
 
     private HashMap rodape(DadosEmpresa d) {
@@ -552,6 +554,17 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
         map.put("logo", d.getLogo());
         
         return map;
+    }
+    
+    private int totalizaDias(Date dtIni, Date dtFim){
+        int dias;
+        Calendar cIni = Calendar.getInstance();
+        Calendar cFim = Calendar.getInstance();
+        cIni.setTime(dtIni);
+        cFim.setTime(dtFim);
+        
+        dias = (cFim.get(Calendar.DAY_OF_YEAR)-cIni.get(Calendar.DAY_OF_YEAR));
+        return dias;
     }
 
     /**
@@ -590,9 +603,9 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Imprimir;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> comboReltorio;
+    private javax.swing.JComboBox<String> comboRelatorio;
     private com.toedter.calendar.JDateChooser dtFim;
     private com.toedter.calendar.JDateChooser dtInicio;
     private javax.swing.JLabel jLabel1;
@@ -601,11 +614,12 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JComboBox<String> jcomboGrupo;
+    private javax.swing.JLabel lblAte;
     private javax.swing.JLabel lblCargo;
+    private javax.swing.JLabel lblDe;
     private javax.swing.JLabel lblOperaodr;
     private javax.swing.JRadioButton radioFinanceiro;
-    private javax.swing.JRadioButton radioFuncionario;
-    private javax.swing.JRadioButton radioMesa;
     private javax.swing.JRadioButton radioProduto;
     // End of variables declaration//GEN-END:variables
 }

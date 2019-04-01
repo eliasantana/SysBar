@@ -165,14 +165,14 @@ public class ControlerGrupo {
 
     public void carregaComboGrupoProduto(JComboBox combo) {
 
-        String sql = "SELECT nome FROM cad_grupo_produto";
+        String sql = "SELECT distinct(nome) FROM cad_grupo_produto";
 
         try {
             pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery();
 
             combo.removeAllItems();
-
+            combo.addItem("Selecione...");
             while (rs.next()) {
                 combo.addItem(rs.getString("nome"));
             }

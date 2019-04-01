@@ -109,12 +109,11 @@ public class ControlerEstoque {
         Verifica se o produto inserido possui quantidade em estoque.
         e retor sua quantidade.
      */
-    
     public int temNoEstoque(String id) {
 
         String sql = "SELECT * FROM dbbar.tbproduto WHERE id=?";
         boolean tem = false;
-        int qtd=0;
+        int qtd = 0;
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, id);
@@ -123,8 +122,8 @@ public class ControlerEstoque {
             while (rs.next()) {
 
                 tem = rs.getInt("qtd") > 0;
-                if (tem){
-                  qtd = rs.getInt("qtd");
+                if (tem) {
+                    qtd = rs.getInt("qtd");
                 }
 
             }
@@ -153,7 +152,7 @@ public class ControlerEstoque {
             System.out.println("br.com.br.controler.ControlerEstoque.carregaComboOperacao()" + e);
         }
     }
-
+    
     // Realiza pesquisa no banco por nome ou por código do produto
     public ResultSet pesquisarProduto(String coluna, String localizar) {
 
@@ -166,7 +165,7 @@ public class ControlerEstoque {
 
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerEstoque.pesquisaPorNome()" + e);
-            System.out.println(coluna + localizar);
+            
 
         }
 
@@ -290,5 +289,22 @@ public class ControlerEstoque {
 
         return id;
     }
-    
+
+    public boolean estoqueBaixo() {
+        String sql = "SELECT * FROM dbbar.tbproduto where qtd<=qtd_min;";
+        boolean resp = false;
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+            while (rs.next()) {
+                resp=true;
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerEstoque.isBaixo()" + e);
+        }
+        return resp;
+    }
+
 }

@@ -110,6 +110,11 @@ public class TelaEstoque extends javax.swing.JFrame {
                 lblGerenciarEstoqueMouseClicked(evt);
             }
         });
+        lblGerenciarEstoque.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                lblGerenciarEstoqueKeyPressed(evt);
+            }
+        });
         btnProduto1.add(lblGerenciarEstoque);
         lblGerenciarEstoque.setBounds(11, 1, 180, 96);
 
@@ -463,6 +468,10 @@ public class TelaEstoque extends javax.swing.JFrame {
        ranking.setAlwaysOnTop(true);
        ranking.setVisible(true);
     }//GEN-LAST:event_jLabel24MouseClicked
+
+    private void lblGerenciarEstoqueKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblGerenciarEstoqueKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblGerenciarEstoqueKeyPressed
 
     /**
      * @param args the command line arguments

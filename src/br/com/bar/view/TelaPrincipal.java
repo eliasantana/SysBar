@@ -10,6 +10,7 @@ import br.com.bar.dao.Log;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerContasApagar;
 import br.com.br.controler.ControlerCozinha;
+import br.com.br.controler.ControlerEstoque;
 import br.com.br.controler.ControlerMesa;
 import br.com.br.controler.ControlerParametro;
 import java.awt.Color;
@@ -34,6 +35,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     ControlerParametro param = new ControlerParametro();
     ControlerContasApagar cc = new ControlerContasApagar();
     ControlerCozinha cz = new ControlerCozinha();
+    ControlerEstoque estoque = new ControlerEstoque();
     Util u = new Util();
 
    
@@ -46,15 +48,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblLogo.setIcon(u.carregaLogo());
         lblData.setText(df.format(data)); // Exibe data atual
         lblCargo.setVisible(false);
-
+        // Verifica contas vencidas em aberto.
         if (cc.contasVencidas()) {
             // Esta msg foi desabilitada porque na tela principal a mensagem já é exibida.
             //JOptionPane.showMessageDialog(null, "Você possui contas vencidas ou com vencimento para hoje!","Atenção!",JOptionPane.ERROR_MESSAGE);
             jLabel7.setForeground(Color.red);
-            lblAviso.setText("*Você possui contas vencidas ou com vencimento para hoje!");
-            lblAviso.setForeground(Color.red);
+            lblAviso.setText("*Você possui Contas vencidas ou com vencimento para hoje!");
+            
         }
-
+        if (estoque.estoqueBaixo()){
+            if ("".equals(lblAviso.getText())){
+                lblAviso.setText("*Existe produto com Estoque inferior a quantidade desejada!");
+            }else {
+                lblAviso2.setText("*Existe produto com Estoque inferior a quantidade desejada!");
+            }
+            lblGestao.setForeground(Color.red);
+        }
+        lblAviso.setForeground(Color.red);
+        lblAviso2.setForeground(Color.red);
         // Determina tempo de execução
         long timeMilis = 6000; // milisegundos
         Timer timer = new Timer();
@@ -100,7 +111,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblCargo = new javax.swing.JLabel();
         btnProduto = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        lblGestao = new javax.swing.JLabel();
         btnConfiguracao = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         btnConasApagar = new javax.swing.JPanel();
@@ -119,6 +130,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblAviso = new javax.swing.JLabel();
         btnFuncionarios2 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
+        lblAviso2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -215,12 +227,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/gerenciar64x64.png"))); // NOI18N
-        jLabel5.setText("Gestão");
-        jLabel5.addKeyListener(new java.awt.event.KeyAdapter() {
+        lblGestao.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        lblGestao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/gerenciar64x64.png"))); // NOI18N
+        lblGestao.setText("Gestão");
+        lblGestao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jLabel5KeyPressed(evt);
+                lblGestaoKeyPressed(evt);
             }
         });
 
@@ -230,14 +242,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             btnProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnProdutoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                .addComponent(lblGestao, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                 .addContainerGap())
         );
         btnProdutoLayout.setVerticalGroup(
             btnProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnProdutoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                .addComponent(lblGestao, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -486,7 +498,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         lblAviso.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
         jPanel1.add(lblAviso);
-        lblAviso.setBounds(30, 430, 590, 38);
+        lblAviso.setBounds(30, 430, 590, 30);
 
         btnFuncionarios2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnFuncionarios2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -520,6 +532,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel1.add(btnFuncionarios2);
         btnFuncionarios2.setBounds(30, 210, 195, 99);
 
+        lblAviso2.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
+        jPanel1.add(lblAviso2);
+        lblAviso2.setBounds(30, 460, 480, 30);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(300, 0, 660, 530);
 
@@ -544,7 +560,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdutoMouseClicked
         // Chama tela de Cadastro de Produto
-        TelaEstoque p = new TelaEstoque();
+        TelaEstoque p = new TelaEstoque();      
         p.recebeOperador(lblOperador.getText(), lblCargo.getText());
         p.setVisible(true);
         
@@ -653,9 +669,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         cozinha.setVisible(true);
     }//GEN-LAST:event_jLabel11MouseClicked
 
-    private void jLabel5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel5KeyPressed
+    private void lblGestaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblGestaoKeyPressed
 
-    }//GEN-LAST:event_jLabel5KeyPressed
+    }//GEN-LAST:event_lblGestaoKeyPressed
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
         TelaCadastro cadastro = new TelaCadastro();
@@ -720,7 +736,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
@@ -728,9 +743,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lblAviso;
+    private javax.swing.JLabel lblAviso2;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblFEchar;
+    private javax.swing.JLabel lblGestao;
     private javax.swing.JLabel lblLivres;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblNmesaLivre;

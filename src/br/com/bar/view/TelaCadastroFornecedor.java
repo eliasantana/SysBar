@@ -152,6 +152,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     private void initComponents() {
 
         jRadioButton1 = new javax.swing.JRadioButton();
+        panelBordas = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -202,6 +203,9 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(null);
+
+        panelBordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        panelBordas.setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(243, 156, 18));
         jPanel1.setLayout(null);
@@ -260,15 +264,15 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(455, 0, 40, 40);
+        jPanel3.setBounds(457, 0, 40, 40);
 
         lblTitulo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         lblTitulo.setText("titulo");
         jPanel1.add(lblTitulo);
         lblTitulo.setBounds(120, 10, 180, 48);
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(-2, 0, 500, 120);
+        panelBordas.add(jPanel1);
+        jPanel1.setBounds(1, 1, 496, 120);
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -479,10 +483,13 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         lblMsg.setForeground(new java.awt.Color(255, 0, 0));
         jPanel2.add(lblMsg, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 350, 20));
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 120, 490, 500);
+        panelBordas.add(jPanel2);
+        jPanel2.setBounds(5, 120, 480, 505);
 
-        setSize(new java.awt.Dimension(492, 622));
+        getContentPane().add(panelBordas);
+        panelBordas.setBounds(0, 0, 498, 630);
+
+        setSize(new java.awt.Dimension(498, 631));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -766,6 +773,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblUf;
+    private javax.swing.JPanel panelBordas;
     private javax.swing.JTextArea txtAreaObs;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JFormattedTextField txtCelular;

@@ -139,6 +139,33 @@ public class ControlerProduto {
         return rs;
     }
 
+    public ResultSet listaEquantidade(String coluna, String pesquisa) {
+        if ("nome".equals(coluna)){
+            coluna="p.nome";
+        }else {
+            coluna="p.id";
+        }
+        String sql = "SELECT\n"
+                + "	p.id as 'CÓDIGO', \n"
+                + "	p.nome as 'PRODUTO',\n"
+                + "	p.qtd as 'QTD', \n"
+                + "	g.nome as 'GRUPO'\n"
+                + "FROM tbproduto p\n"
+                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id\n"
+                + "WHERE "+ coluna + " LIKE ?;";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, pesquisa+"%");
+
+            rs = pst.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerProduto.listaEquantidade()" + e);
+        }
+        return rs;
+    }
+
     public ResultSet filtrarProduto(String localizarTexto, String opcao) {
 
         String filtro = "";
@@ -154,7 +181,7 @@ public class ControlerProduto {
         }
 
         String sql = "SELECT \n"
-                + "	p.id as 'ID', \n"
+                + "	p.id as 'CÓDIGO', \n"
                 + "	p.nome as 'PRODUTO',\n"
                 + "	p.qtd as 'QTD', \n"
                 + "	p.valor as 'VALOR',\n"
