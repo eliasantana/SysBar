@@ -8,12 +8,14 @@ package br.com.bar.util;
 
 import br.com.bar.model.DadosEmpresa;
 import br.com.br.controler.ControlerDadosEmpresa;
+import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Image;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.regex.Matcher;
@@ -472,5 +474,77 @@ public class Util {
         return (CNPJ.substring(0, 2) + "." + CNPJ.substring(2, 5) + "."
                 + CNPJ.substring(5, 8) + "/" + CNPJ.substring(8, 12) + "-"
                 + CNPJ.substring(12, 14));
+    }
+    /**
+     * Limita a data de um componente JDateSchooser estipulando
+     * um limite MÍNIMO e MÁXIMO de datas para o componente.
+     * 
+     * @param dtChooser Componente JDateSchooser a ser limitado.
+     * @param limiteMeses Quantidade de Meses anterior ao mês atual que será habilitado para seleção.
+     * 
+     */    
+    public void limitaDataCombo(JDateChooser dtChooser, int limiteMeses) {
+       
+        
+        //Atribui ao componente JDateSchooser uma data mínima selecionável.
+        Calendar cMax = Calendar.getInstance();
+        cMax.set(Calendar.YEAR, cMax.get(Calendar.YEAR)); // Ano máximo Selecionável
+        cMax.set(Calendar.MONTH, cMax.get(Calendar.MONTH)); // MÊs máximo Selecionável
+        cMax.set(Calendar.DATE, cMax.get(Calendar.DATE));
+        dtChooser.setMaxSelectableDate(cMax.getTime());
+        
+        //Atribui ao componente JDateSchooser uma data mínima selecionável.
+        Calendar cMin = Calendar.getInstance();
+        cMin.set(Calendar.YEAR, cMin.get(Calendar.YEAR)); // Ano Atual
+        cMin.set(Calendar.MONTH, cMin.get(Calendar.MONTH)-limiteMeses); // Meses Selecionável
+        
+        // Se o limite de meses informado for iagual a 0 'zero' será setada a data atual
+        // como limite mínimo selecionável. Caso seja diferente liberará do dia 1 ao 
+        // último dia do mês.
+        
+        if (limiteMeses==0){           
+            cMin.set(Calendar.DATE, cMin.get(Calendar.DATE));// Data Atual
+        }else {
+            cMin.set(Calendar.DATE,cMin.get(Calendar.DATE) );// Data Atual            
+        }
+        //Seta a data Mínima no JdateChooser.
+        dtChooser.setMinSelectableDate(cMin.getTime());
+        
+    }
+    /**
+     * Este método limita a data de um componente JDateSchooser estipulando,
+     * um limite MÍNIMO e MÁXIMO para o componente.
+     * 
+     * @param dtChooser Componente JDateSchooser a ser limitado.
+     * @param limiteMeses uantidade de Meses anterior ao mês atual que será habilitado para seleção.
+     * @param dia Dia a partir de onde se poderá selecionar uma data no mês anterior.
+     */
+    public void limitaDataCombo(JDateChooser dtChooser, int limiteMeses, int dia) {
+       
+        
+        //Atribui ao componente JDateSchooser uma data mínima selecionável.
+        Calendar cMax = Calendar.getInstance();
+        cMax.set(Calendar.YEAR, cMax.get(Calendar.YEAR)); // Ano máximo Selecionável
+        cMax.set(Calendar.MONTH, cMax.get(Calendar.MONTH)); // MÊs máximo Selecionável
+        cMax.set(Calendar.DATE, cMax.get(Calendar.DATE));
+        dtChooser.setMaxSelectableDate(cMax.getTime());
+        
+        //Atribui ao componente JDateSchooser uma data mínima selecionável.
+        Calendar cMin = Calendar.getInstance();
+        cMin.set(Calendar.YEAR, cMin.get(Calendar.YEAR)); // Ano Atual
+        cMin.set(Calendar.MONTH, cMin.get(Calendar.MONTH)-limiteMeses); // Meses Selecionável
+        
+        // Se o limite de meses informado for iagual a 0 'zero' será setada a data atual
+        // como limite mínimo selecionável. Caso seja diferente liberará do dia 1 ao 
+        // último dia do mês.
+        
+        if (limiteMeses==0){           
+            cMin.set(Calendar.DATE, cMin.get(Calendar.DATE));// Data Atual
+        }else {
+            cMin.set(Calendar.DATE,dia );// Data Atual            
+        }
+        //Seta a data Mínima no JdateChooser.
+        dtChooser.setMinSelectableDate(cMin.getTime());
+        
     }
 }

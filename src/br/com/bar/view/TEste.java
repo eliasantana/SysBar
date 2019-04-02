@@ -5,11 +5,10 @@
  */
 package br.com.bar.view;
 
+import com.toedter.calendar.JDateChooser;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import org.apache.hadoop.util.Daemon;
-import org.apache.poi.ss.usermodel.ExcelStyleDateFormatter;
 
 /**
  *
@@ -21,7 +20,82 @@ public class TEste extends javax.swing.JFrame {
      * Creates new form TEste
      */
     public TEste() {
-        initComponents();
+        initComponents();        
+
+        limitaDataCombo(jdateExemplo, 1,1);
+    }
+
+    /**
+     * Este método limita a data de um componente JDateSchooser estipulando,
+     * um limite MÍNIMO e MÁXIMO para o componente.
+     * 
+     * @param dtChooser Componente JDateSchooser a ser limitado.
+     * @param limiteMeses Quantidade de Meses a serem abilitado anterior ao mês atual.
+     * 
+     */
+    private void limitaDataCombo(JDateChooser dtChooser, int limiteMeses) {
+       
+        
+        //Atribui ao componente JDateSchooser uma data mínima selecionável.
+        Calendar cMax = Calendar.getInstance();
+        cMax.set(Calendar.YEAR, cMax.get(Calendar.YEAR)); // Ano máximo Selecionável
+        cMax.set(Calendar.MONTH, cMax.get(Calendar.MONTH)); // MÊs máximo Selecionável
+        cMax.set(Calendar.DATE, cMax.get(Calendar.DATE));
+        dtChooser.setMaxSelectableDate(cMax.getTime());
+        
+        //Atribui ao componente JDateSchooser uma data mínima selecionável.
+        Calendar cMin = Calendar.getInstance();
+        cMin.set(Calendar.YEAR, cMin.get(Calendar.YEAR)); // Ano Atual
+        cMin.set(Calendar.MONTH, cMin.get(Calendar.MONTH)-limiteMeses); // Meses Selecionável
+        
+        // Se o limite de meses informado for iagual a 0 'zero' será setada a data atual
+        // como limite mínimo selecionável. Caso seja diferente liberará do dia 1 ao 
+        // último dia do mês.
+        
+        if (limiteMeses==0){           
+            cMin.set(Calendar.DATE, cMin.get(Calendar.DATE));// Data Atual
+        }else {
+            cMin.set(Calendar.DATE,cMin.get(Calendar.DATE) );// Data Atual            
+        }
+        //Seta a data Mínima no JdateChooser.
+        dtChooser.setMinSelectableDate(cMin.getTime());
+        
+    }
+    /**
+     * Este método limita a data de um componente JDateSchooser estipulando,
+     * um limite MÍNIMO e MÁXIMO para o componente.
+     * 
+     * @param dtChooser Componente JDateSchooser a ser limitado.
+     * @param limiteMeses Quantidade de Meses a serem abilitado anterior ao mês atual.
+     * @param dia Dia a partir de onde se pode selecionar no componente.
+     */
+    private void limitaDataCombo(JDateChooser dtChooser, int limiteMeses, int dia) {
+       
+        
+        //Atribui ao componente JDateSchooser uma data mínima selecionável.
+        Calendar cMax = Calendar.getInstance();
+        cMax.set(Calendar.YEAR, cMax.get(Calendar.YEAR)); // Ano máximo Selecionável
+        cMax.set(Calendar.MONTH, cMax.get(Calendar.MONTH)); // MÊs máximo Selecionável
+        cMax.set(Calendar.DATE, cMax.get(Calendar.DATE));
+        dtChooser.setMaxSelectableDate(cMax.getTime());
+        
+        //Atribui ao componente JDateSchooser uma data mínima selecionável.
+        Calendar cMin = Calendar.getInstance();
+        cMin.set(Calendar.YEAR, cMin.get(Calendar.YEAR)); // Ano Atual
+        cMin.set(Calendar.MONTH, cMin.get(Calendar.MONTH)-limiteMeses); // Meses Selecionável
+        
+        // Se o limite de meses informado for iagual a 0 'zero' será setada a data atual
+        // como limite mínimo selecionável. Caso seja diferente liberará do dia 1 ao 
+        // último dia do mês.
+        
+        if (limiteMeses==0){           
+            cMin.set(Calendar.DATE, cMin.get(Calendar.DATE));// Data Atual
+        }else {
+            cMin.set(Calendar.DATE,dia );// Data Atual            
+        }
+        //Seta a data Mínima no JdateChooser.
+        dtChooser.setMinSelectableDate(cMin.getTime());
+        
     }
 
     /**
@@ -40,6 +114,8 @@ public class TEste extends javax.swing.JFrame {
         jdateIni = new com.toedter.calendar.JDateChooser();
         jdateFim = new com.toedter.calendar.JDateChooser();
         jButton2 = new javax.swing.JButton();
+        jdateExemplo = new com.toedter.calendar.JDateChooser();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,17 +139,19 @@ public class TEste extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Horas");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jRadioButton1)
-                        .addGap(44, 44, 44)
-                        .addComponent(jRadioButton2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,53 +164,78 @@ public class TEste extends javax.swing.JFrame {
                             .addComponent(jdateFim, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2)))))
-                .addContainerGap(54, Short.MAX_VALUE))
+                                .addComponent(jButton2)
+                                .addGap(131, 131, 131)
+                                .addComponent(jButton3))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jRadioButton1)
+                        .addGap(44, 44, 44)
+                        .addComponent(jRadioButton2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(jdateExemplo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(218, 218, 218))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(97, 97, 97)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                .addContainerGap()
+                .addComponent(jdateExemplo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(62, 62, 62)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jdateIni, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jdateFim, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(53, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton2)
+                        .addComponent(jButton3)))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-      Date dtInicio = jdateIni.getDate();      
-      Date dtFim = jdateFim.getDate();
+
+        Date dtInicio = jdateIni.getDate();
+        Date dtFim = jdateFim.getDate();
         Calendar cInicio = Calendar.getInstance();
         cInicio.setTime(dtInicio);
         Calendar cFim = Calendar.getInstance();
         cFim.setTime(dtFim);
-        int dias = (cFim.get(Calendar.DAY_OF_YEAR)-cInicio.get(Calendar.DAY_OF_YEAR));
-        System.out.println("Dias: "+dias);
-      
+        int dias = (cFim.get(Calendar.DAY_OF_YEAR) - cInicio.get(Calendar.DAY_OF_YEAR));
+        System.out.println("Dias: " + dias);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int dias =30;
-       
+        int dias = 30;
+
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DATE, dias);
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        
-        System.out.println("Data: "+df.format(c.getTime()));
-       
+
+        System.out.println("Data: " + df.format(c.getTime()));
+
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Calendar c = Calendar.getInstance();
+        int hora = c.get(Calendar.HOUR_OF_DAY);
+        int minutos = c.get(Calendar.MINUTE);
+        int ano = c.get(Calendar.YEAR);
+        System.out.println("Hora do Dia: " + hora);
+        System.out.println("Minutos: "+ minutos);
+        System.out.println("Ano: "+ano);
+        
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,8 +276,10 @@ public class TEste extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
+    private com.toedter.calendar.JDateChooser jdateExemplo;
     private com.toedter.calendar.JDateChooser jdateFim;
     private com.toedter.calendar.JDateChooser jdateIni;
     // End of variables declaration//GEN-END:variables

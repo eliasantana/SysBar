@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class TableModelCadastroProduto extends AbstractTableModel {
 
     private final ArrayList<Produto> listaProduto = new ArrayList<>();
-    String colunas[] = {"CÓDIGO","PRODUTO","QTD","VALOR R$","MAX","MIN","GRUPO"};
+    String colunas[] = {"CÓDIGO","DESCRIÇÃO","QTD","VALOR R$","MIN","MAX","GRUPO"};
     
      
     @Override
@@ -45,9 +45,9 @@ public class TableModelCadastroProduto extends AbstractTableModel {
             case 3:                
                 return listaProduto.get(row).getValor();                       
             case 4:                
-                return listaProduto.get(row).getQtdMax();                       
-            case 5:                
                 return listaProduto.get(row).getQtdMin();                       
+            case 5:                
+                return listaProduto.get(row).getQtdMax();                       
             case 6:                
                 return listaProduto.get(row).getTbGrupoId();
             default:
@@ -62,7 +62,7 @@ public class TableModelCadastroProduto extends AbstractTableModel {
     }
 
      public void redimensionaColunas(JTable tabela) {
-         //{"CÓDIGO","PRODUTO","QTD","VALOR R$","MAX","MIN","GRUPO"
+         //{"CÓDIGO","PRODUTO","QTD","VALOR R$","MIN","MAX","GRUPO"
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(60); 
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(315);
@@ -83,7 +83,7 @@ public class TableModelCadastroProduto extends AbstractTableModel {
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 //A coluna do status é 8
                 Object ref = table.getValueAt(row, 2);//Coluna qtd
-                Object refMin = table.getValueAt(row, 5);//Coluna qtdMin
+                Object refMin = table.getValueAt(row, 4);//Coluna qtdMin
                 //Coloca cor em todas as linhas,COLUNA(8) que tem o valor "Pendente"
                 
                  if (ref.equals(refMin)) {

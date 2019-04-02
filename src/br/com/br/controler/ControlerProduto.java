@@ -35,8 +35,8 @@ public class ControlerProduto {
                 + "	p.nome as 'PRODUTO',\n"
                 + "	p.qtd as 'QTD', \n"
                 + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"
-                + "	p.qtd_max AS 'MAX',\n"
                 + "	p.qtd_min AS 'MIN',\n"
+                + "	p.qtd_max AS 'MAX',\n"
                 + "	g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id;";
@@ -55,12 +55,12 @@ public class ControlerProduto {
     public ResultSet listaProduto(Fornecedor f) {
 
         String sql = "SELECT \n"
-                + "	p.id as 'ID', \n"
+                + "	p.id as 'CÓDIGO', \n"
                 + "	p.nome as 'PRODUTO',\n"
                 + "	p.qtd as 'QTD', \n"
-                + "	p.valor as 'VALOR',\n"
-                + "	p.qtd_max AS 'MAX',\n"
+                + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"
                 + "	p.qtd_min AS 'MIN',\n"
+                + "	p.qtd_max AS 'MAX',\n"
                 + "	g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id WHERE tbFornecedores_id=?";
@@ -184,9 +184,9 @@ public class ControlerProduto {
                 + "	p.id as 'CÓDIGO', \n"
                 + "	p.nome as 'PRODUTO',\n"
                 + "	p.qtd as 'QTD', \n"
-                + "	p.valor as 'VALOR',\n"
-                + "	p.qtd_max AS 'MAX',\n"
+                + "	format(p.valor, 2,'de_DE') as 'VALOR R$',\n"
                 + "	p.qtd_min AS 'MIN',\n"
+                + "	p.qtd_max AS 'MAX',\n"
                 + "	g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id WHERE " + filtro + " LIKE ?";

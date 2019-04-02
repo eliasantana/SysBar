@@ -354,6 +354,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         txtLocalizar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtLocalizarKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtLocalizarKeyReleased(evt);
             }
@@ -366,6 +369,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         radioProduto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 radioProdutoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                radioProdutoMouseEntered(evt);
             }
         });
         radioProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -675,8 +681,8 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         txtDescricao.setText(tblProduto.getModel().getValueAt(linha, 1).toString());
         txtQuantidade.setText(tblProduto.getModel().getValueAt(linha, 2).toString());
         txtValor.setText(tblProduto.getModel().getValueAt(linha, 3).toString());
-        txtQtdMax.setText(tblProduto.getModel().getValueAt(linha, 4).toString());
-        txtQtdMin.setText(tblProduto.getModel().getValueAt(linha, 5).toString());
+        txtQtdMin.setText(tblProduto.getModel().getValueAt(linha, 4).toString());
+        txtQtdMax.setText(tblProduto.getModel().getValueAt(linha, 5).toString());
         comboGrupoProduto.setSelectedItem(tblProduto.getModel().getValueAt(linha, 6).toString());
 
         txtIdGrupo.setText(g.localizaIdGrupoProduto(comboGrupoProduto));
@@ -860,6 +866,14 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private void txtLocalizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtLocalizarMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLocalizarMouseClicked
+
+    private void txtLocalizarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLocalizarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLocalizarKeyPressed
+
+    private void radioProdutoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioProdutoMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioProdutoMouseEntered
     private void limpaForm() {
 
         txtDescricao.setText(null);
