@@ -454,11 +454,12 @@ public class TelaMovimentacao extends JFrame {
     private void jRadioButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton1MouseClicked
         // Chama a tela de cadastro de Produtos
 
-        dispose();
-        TelaCadastroProduto cp = new TelaCadastroProduto();
-        cp.setAlwaysOnTop(true);
-        cp.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        cp.setVisible(true);
+        //dispose();
+        TelaPesquisaProduto pesquisaProduto = new TelaPesquisaProduto();
+        pesquisaProduto.setAlwaysOnTop(true);
+        pesquisaProduto.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        pesquisaProduto.setVisible(true);
+                
     }//GEN-LAST:event_jRadioButton1MouseClicked
 
     private void radioPesquisaNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPesquisaNomeActionPerformed

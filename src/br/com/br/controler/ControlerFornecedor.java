@@ -146,7 +146,8 @@ public class ControlerFornecedor {
         try {
             pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery();
-
+            combo.removeAllItems();
+            combo.addItem("Selecione...");
             while (rs.next()) {
                 combo.addItem(rs.getString("nome"));
             }
