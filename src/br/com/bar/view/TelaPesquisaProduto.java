@@ -5,13 +5,16 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.dao.Log;
 import br.com.bar.model.Fornecedor;
 import br.com.bar.model.Produto;
 import br.com.bar.model.TableModelCadastroProduto;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerFornecedor;
+import br.com.br.controler.ControlerGrupo;
 import br.com.br.controler.ControlerProduto;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -22,9 +25,10 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
 
     ControlerProduto cp = new ControlerProduto();
     ControlerFornecedor cf = new ControlerFornecedor();
+    ControlerGrupo g = new ControlerGrupo();
     Util u = new Util();
     TableModelCadastroProduto modelCadastroProduto = new TableModelCadastroProduto();
-    
+
     /**
      * Creates new form TelaCadastroProduto
      */
@@ -54,10 +58,10 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
 
         txtLocalizar.requestFocus();
     }
-    
-    public void atualizaTabela(){
-            tblProduto.setModel(DbUtils.resultSetToTableModel(cp.listaProduto()));
-            modelCadastroProduto.redimensionaColunas(tblProduto);
+
+    public void atualizaTabela() {
+        tblProduto.setModel(DbUtils.resultSetToTableModel(cp.listaProduto()));
+        modelCadastroProduto.redimensionaColunas(tblProduto);
     }
 
     /**
@@ -70,7 +74,7 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jPanel1 = new javax.swing.JPanel();
+        bordas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProduto = new javax.swing.JTable();
         lblRotulo = new javax.swing.JLabel();
@@ -80,14 +84,6 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         radioGrupo = new javax.swing.JRadioButton();
         comboFornecedor = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        btnExcluir = new javax.swing.JLabel();
-        btnSalvar = new javax.swing.JLabel();
-        btnAlteraProduto = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
         panelSuperior = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -100,10 +96,21 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         lblData = new javax.swing.JLabel();
         txtIdProduto = new javax.swing.JTextField();
         txtIdFor = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        btnExcluir = new javax.swing.JLabel();
+        btnSalvar = new javax.swing.JLabel();
+        btnAlteraProduto = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(null);
+
+        bordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bordas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblProduto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         tblProduto.setModel(new javax.swing.table.DefaultTableModel(
@@ -124,8 +131,11 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblProduto);
 
+        bordas.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 197, 730, 420));
+
         lblRotulo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblRotulo.setText("Pesquisar por Produto");
+        bordas.add(lblRotulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 108, 131, 26));
 
         txtLocalizar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         txtLocalizar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -141,6 +151,7 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
                 txtLocalizarKeyReleased(evt);
             }
         });
+        bordas.add(txtLocalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 142, 256, 36));
 
         jPanel4.setLayout(null);
 
@@ -189,51 +200,79 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
             }
         });
         jPanel4.add(comboFornecedor);
-        comboFornecedor.setBounds(210, 0, 220, 40);
+        comboFornecedor.setBounds(170, 0, 220, 40);
+
+        bordas.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 142, 444, 45));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Fornecedor");
+        bordas.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(446, 106, 170, 30));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtLocalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblRotulo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(87, 87, 87))))))
+        panelSuperior.setBackground(new java.awt.Color(243, 156, 18));
+        panelSuperior.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/estoque.png"))); // NOI18N
+        panelSuperior.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 130, 99));
+
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
+        jLabel2.setText("Cadastro ");
+        panelSuperior.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 330, 40));
+
+        jPanel3.setBackground(new java.awt.Color(38, 53, 61));
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
+        jLabel14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel14MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblRotulo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtLocalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 100, 750, 530);
+        panelSuperior.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 0, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
+        jLabel8.setText("de Produto");
+        panelSuperior.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, -1, -1));
+        panelSuperior.add(txtIdGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, 60, 30));
+
+        lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblOperador.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
+        lblOperador.setText("Operador:");
+        panelSuperior.add(lblOperador, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 120, 30));
+
+        lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblCargo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
+        lblCargo.setText("Cargo:");
+        panelSuperior.add(lblCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 100, 30));
+
+        lblData.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario24x24.png"))); // NOI18N
+        lblData.setText("jLabel8");
+        panelSuperior.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 100, 30));
+        panelSuperior.add(txtIdProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 60, 30));
+        panelSuperior.add(txtIdFor, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 60, 30));
+
+        bordas.add(panelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, 748, -1));
 
         jPanel2.setLayout(null);
 
@@ -310,77 +349,12 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         jPanel2.add(jLabel11);
         jLabel11.setBounds(30, 0, 130, 15);
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(10, 630, 730, 80);
+        bordas.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 630, 730, 70));
 
-        panelSuperior.setBackground(new java.awt.Color(243, 156, 18));
-        panelSuperior.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(bordas);
+        bordas.setBounds(0, 0, 750, 710);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/estoque.png"))); // NOI18N
-        panelSuperior.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 130, 99));
-
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
-        jLabel2.setText("Cadastro ");
-        panelSuperior.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 330, 40));
-
-        jPanel3.setBackground(new java.awt.Color(38, 53, 61));
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
-        jLabel14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel14MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        panelSuperior.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, -1, -1));
-
-        jLabel8.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
-        jLabel8.setText("de Produto");
-        panelSuperior.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, -1, -1));
-        panelSuperior.add(txtIdGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, 60, 30));
-
-        lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        lblOperador.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
-        lblOperador.setText("Operador:");
-        panelSuperior.add(lblOperador, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 120, 30));
-
-        lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        lblCargo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
-        lblCargo.setText("Cargo:");
-        panelSuperior.add(lblCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 100, 30));
-
-        lblData.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario24x24.png"))); // NOI18N
-        lblData.setText("jLabel8");
-        panelSuperior.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 100, 30));
-        panelSuperior.add(txtIdProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 60, 30));
-        panelSuperior.add(txtIdFor, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 60, 30));
-
-        getContentPane().add(panelSuperior);
-        panelSuperior.setBounds(0, 0, 740, 99);
-
-        setSize(new java.awt.Dimension(740, 713));
+        setSize(new java.awt.Dimension(750, 710));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -399,10 +373,11 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
 
     private void tblProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutoMouseClicked
         // Seleciona dados da tabela     
-        
+
         btnAlteraProduto.setEnabled(true);
+        btnExcluir.setEnabled(true);
         int linha = tblProduto.getSelectedRow();
-      
+
 
     }//GEN-LAST:event_tblProdutoMouseClicked
 
@@ -442,10 +417,10 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         txtLocalizar.requestFocus();
         lblRotulo.setText("Pesquisar por Grupo");
     }//GEN-LAST:event_radioGrupoMouseClicked
-    
+
     private void btnAlteraProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlteraProdutoMouseClicked
         int linha = tblProduto.getSelectedRow();
-        if (btnAlteraProduto.isEnabled()){
+        if (btnAlteraProduto.isEnabled()) {
             Produto p = new Produto();
             p.setId(tblProduto.getModel().getValueAt(linha, 0).toString());
             p.setNome(tblProduto.getModel().getValueAt(linha, 1).toString());
@@ -455,6 +430,9 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
             p.setQtdMax(tblProduto.getModel().getValueAt(linha, 5).toString());
             p.setTbGrupoId(tblProduto.getModel().getValueAt(linha, 6).toString());
 
+            Fornecedor f = cf.localizaFornecedor(cf.retornaFornecedor(p));
+            p.setIdFornecedor(f.getId());
+
             TelaCadastroProduto cadastroProduto = new TelaCadastroProduto();
             cadastroProduto.recebeOperador(lblOperador.getText(), lblCargo.getText(), "Alterar");
             cadastroProduto.recebeProduto(this, p);
@@ -462,13 +440,26 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
             cadastroProduto.setVisible(true);
             btnAlteraProduto.setEnabled(false);
         }
-        
+
 
     }//GEN-LAST:event_btnAlteraProdutoMouseClicked
 
     private void btnExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseClicked
+        int linha = tblProduto.getSelectedRow();
 
+        Produto p = new Produto();
+        p.setId(tblProduto.getModel().getValueAt(linha, 0).toString());
 
+        int op = JOptionPane.showConfirmDialog(this, "Confirma a exclusão do produto?", "Atenção!", JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE);
+        if (op == JOptionPane.YES_OPTION) {
+
+            if (cp.excluiProduto(p)){
+                JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!");
+                atualizaTabela();
+                Log l = new Log(lblOperador.getText(), "Excluir", "Excluiu o produto "+p.getNome());
+                l.gravaLog(l);
+            }
+        }
     }//GEN-LAST:event_btnExcluirMouseClicked
 
     private void comboFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFornecedorActionPerformed
@@ -551,6 +542,7 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bordas;
     private javax.swing.JLabel btnAlteraProduto;
     private javax.swing.JLabel btnExcluir;
     private javax.swing.JLabel btnSalvar;
@@ -563,7 +555,6 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

@@ -7,6 +7,7 @@ package br.com.br.controler;
 
 import br.com.bar.dao.ConexaoBd;
 import br.com.bar.model.Fornecedor;
+import br.com.bar.model.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -259,5 +260,32 @@ public class ControlerFornecedor {
             System.out.println("br.com.br.controler.ControlerFornecedor.inativaFornecedor()" + e);
         }
         return resp;
+    }
+    
+    /**
+   * Retorna o nome do Fornecedor para o produto informado no parâmetro.
+   * @param p Produto a ter o Fornecedor localizado.
+   * @return Retorna um fornecedor.
+   */
+    public String retornaFornecedor(Produto p) {
+        String sql = "SELECT f.nome as 'Fornecedor'\n"
+                + "	FROM dbbar.tbproduto p\n"
+                + "INNER JOIN tbfornecedores f on f.id = p.tbFornecedores_id\n"
+                + "WHERE p.id=?";
+        
+        String fornecedor=null;
+        try {
+
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, p.getId());
+            rs=pst.executeQuery();
+            
+            while (rs.next()){
+                fornecedor = rs.getString("Fornecedor");
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerProduto.retornaFornecedor()"+e);
+        }
+        return fornecedor;
     }
 }

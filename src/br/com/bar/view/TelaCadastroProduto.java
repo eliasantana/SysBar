@@ -72,6 +72,8 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         if ("Alterar".equals(titulo)) {
             bloqueiaCampos();
         }
+        
+        
 
     }
 
@@ -85,6 +87,10 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         comboGrupoProduto.setSelectedIndex(0);
         this.telaPesquisa = tela;
         this.produto = p;
+        comboGrupoProduto.setSelectedItem(produto.getTbGrupoId());        
+        comboFornecedor.setSelectedItem(cf.retornaFornecedor(p));
+        
+        
     }
 
     /**
@@ -270,11 +276,11 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(btnSalvar);
-        btnSalvar.setBounds(180, 400, 110, 50);
+        btnSalvar.setBounds(180, 390, 110, 50);
 
         lblMensagem.setForeground(new java.awt.Color(255, 0, 0));
         painelEsquerdo.add(lblMensagem);
-        lblMensagem.setBounds(30, 380, 340, 20);
+        lblMensagem.setBounds(20, 370, 340, 20);
 
         txtQuantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {

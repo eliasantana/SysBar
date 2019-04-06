@@ -201,8 +201,12 @@ public class ControlerGrupo {
 
         return id;
     }
-    //Sobregarcar de método
-
+    //Sobregarca de método
+    /**
+     * Localiza o ID para o grupo informado no parâmetro.
+     * @param nomeGrupo Grupo a ser Localizado.
+     * @return id ID do grupo informado.
+     */
     public String localizaIdGrupoProduto(String nomeGrupo) {
 
         String sql = "SELECT id FROM cad_grupo_produto where nome=?";
@@ -300,4 +304,5 @@ public class ControlerGrupo {
        
         return resp;
     }
+   
 }

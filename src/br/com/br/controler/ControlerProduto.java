@@ -140,10 +140,10 @@ public class ControlerProduto {
     }
 
     public ResultSet listaEquantidade(String coluna, String pesquisa) {
-        if ("nome".equals(coluna)){
-            coluna="p.nome";
-        }else {
-            coluna="p.id";
+        if ("nome".equals(coluna)) {
+            coluna = "p.nome";
+        } else {
+            coluna = "p.id";
         }
         String sql = "SELECT\n"
                 + "	p.id as 'CÓDIGO', \n"
@@ -152,11 +152,11 @@ public class ControlerProduto {
                 + "	g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id\n"
-                + "WHERE "+ coluna + " LIKE ?;";
+                + "WHERE " + coluna + " LIKE ?;";
 
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, pesquisa+"%");
+            pst.setString(1, pesquisa + "%");
 
             rs = pst.executeQuery();
 
@@ -267,7 +267,7 @@ public class ControlerProduto {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerProduto.alteraProduto()"+e);
+            System.out.println("br.com.br.controler.ControlerProduto.alteraProduto()" + e);
         }
         return false;
     }
@@ -488,5 +488,5 @@ public class ControlerProduto {
         }
         return resp;
     }
-
+  
 }
