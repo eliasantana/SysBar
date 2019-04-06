@@ -267,7 +267,7 @@ public class ControlerProduto {
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "alteraProduto " + e);
+            System.out.println("br.com.br.controler.ControlerProduto.alteraProduto()"+e);
         }
         return false;
     }

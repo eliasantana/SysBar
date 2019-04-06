@@ -9,11 +9,13 @@ import br.com.bar.dao.Log;
 import br.com.bar.model.Fornecedor;
 import br.com.bar.model.Produto;
 import br.com.bar.model.TableModelCadastroProduto;
+import br.com.bar.util.FormataValor;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerEstoque;
 import br.com.br.controler.ControlerFornecedor;
 import br.com.br.controler.ControlerGrupo;
 import br.com.br.controler.ControlerProduto;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -31,6 +33,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     TableModelCadastroProduto modelCadastroProduto = new TableModelCadastroProduto();
     Log l = new Log();
     TelaPesquisaProduto telaPesquisa;
+    Produto produto = new Produto();
     /**
      * Creates new form TelaCadastroProduto
      */
@@ -41,14 +44,15 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
         cf.carregaComboFornecedor(comboFornecedor);
         if ("Gerente".equals(lblCargo.getText())) {
-            btnAdicionarFornecedor.setEnabled(true);
+            btnAdicionarFornecedor.setVisible(true);
+            btnAdicionarGrupo.setVisible(true);
         } else {
-            btnAdicionarFornecedor.setEnabled(false);
+            btnAdicionarFornecedor.setVisible(false);
+            btnAdicionarGrupo.setVisible(false);
         }
 
         lblCargo.setVisible(false);
         lblOperador.setVisible(false);
-       
 
     }
 
@@ -64,14 +68,14 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         } else {
             btnAdicionarFornecedor.setVisible(false);
         }
-        
-      if ("Alterar".equals(titulo)){
-          bloqueiaCampos();
-      }
-   
+
+        if ("Alterar".equals(titulo)) {
+            bloqueiaCampos();
+        }
+
     }
-    
-    public void recebeProduto(TelaPesquisaProduto tela, Produto p){
+
+    public void recebeProduto(TelaPesquisaProduto tela, Produto p) {
         txtDescricao.setText(p.getNome());
         txtQtdMin.setText(p.getQtdMin());
         txtQtdMax.setText(p.getQtdMax());
@@ -80,7 +84,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         comboFornecedor.setSelectedIndex(0);
         comboGrupoProduto.setSelectedIndex(0);
         this.telaPesquisa = tela;
-        
+        this.produto = p;
     }
 
     /**
@@ -95,23 +99,24 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         bordas = new javax.swing.JPanel();
         painelEsquerdo = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        lblDescricao = new javax.swing.JLabel();
         txtDescricao = new javax.swing.JTextField();
-        txtQuantidade = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        lblqtd = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        txtQtdMin = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        txtQtdMax = new javax.swing.JTextField();
+        lblValor = new javax.swing.JLabel();
+        lblFornecedor = new javax.swing.JLabel();
+        lblQtdMax = new javax.swing.JLabel();
         comboGrupoProduto = new javax.swing.JComboBox<>();
         btnAdicionarFornecedor = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        lblGrupoProduto = new javax.swing.JLabel();
+        lblQtdMin = new javax.swing.JLabel();
+        lblGrupo = new javax.swing.JLabel();
         comboFornecedor = new javax.swing.JComboBox<>();
-        btnAdicionarGrupo1 = new javax.swing.JLabel();
+        btnAdicionarGrupo = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JLabel();
+        lblMensagem = new javax.swing.JLabel();
+        txtQuantidade = new javax.swing.JFormattedTextField();
+        txtQtdMin = new javax.swing.JFormattedTextField();
+        txtQtdMax = new javax.swing.JFormattedTextField();
         panelSuperior = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
@@ -126,17 +131,15 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         bordas.setBackground(new java.awt.Color(204, 204, 204));
-        bordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        bordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         bordas.setLayout(null);
 
-        painelEsquerdo.setBackground(new java.awt.Color(38, 53, 61));
         painelEsquerdo.setLayout(null);
 
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Descrição");
-        painelEsquerdo.add(jLabel3);
-        jLabel3.setBounds(20, 0, 220, 30);
+        lblDescricao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        lblDescricao.setText("Descrição");
+        painelEsquerdo.add(lblDescricao);
+        lblDescricao.setBounds(20, 0, 220, 30);
 
         txtDescricao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtDescricao.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -155,21 +158,10 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         painelEsquerdo.add(txtDescricao);
         txtDescricao.setBounds(20, 30, 330, 40);
 
-        txtQuantidade.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        txtQuantidade.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtQuantidadeKeyPressed(evt);
-            }
-        });
-        painelEsquerdo.add(txtQuantidade);
-        txtQuantidade.setBounds(20, 110, 130, 40);
-
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Quantidade");
-        painelEsquerdo.add(jLabel4);
-        jLabel4.setBounds(20, 80, 130, 30);
+        lblqtd.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        lblqtd.setText("Quantidade");
+        painelEsquerdo.add(lblqtd);
+        lblqtd.setBounds(20, 80, 130, 30);
 
         txtValor.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtValor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -191,38 +183,20 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         painelEsquerdo.add(txtValor);
         txtValor.setBounds(220, 110, 130, 40);
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Valor R$");
-        painelEsquerdo.add(jLabel5);
-        jLabel5.setBounds(220, 80, 130, 30);
+        lblValor.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        lblValor.setText("Valor R$");
+        painelEsquerdo.add(lblValor);
+        lblValor.setBounds(220, 80, 130, 30);
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Fornecedor");
-        painelEsquerdo.add(jLabel6);
-        jLabel6.setBounds(20, 290, 170, 30);
+        lblFornecedor.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        lblFornecedor.setText("Fornecedor");
+        painelEsquerdo.add(lblFornecedor);
+        lblFornecedor.setBounds(20, 290, 170, 30);
 
-        txtQtdMin.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        txtQtdMin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtQtdMin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtQtdMinKeyPressed(evt);
-            }
-        });
-        painelEsquerdo.add(txtQtdMin);
-        txtQtdMin.setBounds(20, 180, 130, 40);
-
-        jLabel7.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Quantidade Máxima");
-        painelEsquerdo.add(jLabel7);
-        jLabel7.setBounds(220, 150, 170, 30);
-
-        txtQtdMax.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        txtQtdMax.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        painelEsquerdo.add(txtQtdMax);
-        txtQtdMax.setBounds(220, 180, 130, 40);
+        lblQtdMax.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        lblQtdMax.setText("Quantidade Máxima");
+        painelEsquerdo.add(lblQtdMax);
+        lblQtdMax.setBounds(220, 150, 170, 30);
 
         comboGrupoProduto.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         comboGrupoProduto.addItemListener(new java.awt.event.ItemListener() {
@@ -239,7 +213,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         comboGrupoProduto.setBounds(20, 250, 200, 40);
 
         btnAdicionarFornecedor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnAdicionarFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionar.png"))); // NOI18N
+        btnAdicionarFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
         btnAdicionarFornecedor.setToolTipText("Adicionar Novo Grupo");
         btnAdicionarFornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -249,17 +223,15 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         painelEsquerdo.add(btnAdicionarFornecedor);
         btnAdicionarFornecedor.setBounds(230, 320, 50, 40);
 
-        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Quantidade Mínima");
-        painelEsquerdo.add(jLabel9);
-        jLabel9.setBounds(20, 150, 170, 30);
+        lblQtdMin.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        lblQtdMin.setText("Quantidade Mínima");
+        painelEsquerdo.add(lblQtdMin);
+        lblQtdMin.setBounds(20, 150, 170, 30);
 
-        lblGrupoProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        lblGrupoProduto.setForeground(new java.awt.Color(255, 255, 255));
-        lblGrupoProduto.setText("Grupo ");
-        painelEsquerdo.add(lblGrupoProduto);
-        lblGrupoProduto.setBounds(20, 220, 170, 30);
+        lblGrupo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        lblGrupo.setText("Grupo ");
+        painelEsquerdo.add(lblGrupo);
+        lblGrupo.setBounds(20, 220, 170, 30);
 
         comboFornecedor.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         comboFornecedor.addItemListener(new java.awt.event.ItemListener() {
@@ -275,31 +247,66 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         painelEsquerdo.add(comboFornecedor);
         comboFornecedor.setBounds(20, 320, 200, 40);
 
-        btnAdicionarGrupo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnAdicionarGrupo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionar.png"))); // NOI18N
-        btnAdicionarGrupo1.setToolTipText("Adicionar Novo Grupo");
-        btnAdicionarGrupo1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAdicionarGrupo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnAdicionarGrupo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
+        btnAdicionarGrupo.setToolTipText("Adicionar Novo Grupo");
+        btnAdicionarGrupo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAdicionarGrupo1MouseClicked(evt);
+                btnAdicionarGrupoMouseClicked(evt);
             }
         });
-        painelEsquerdo.add(btnAdicionarGrupo1);
-        btnAdicionarGrupo1.setBounds(230, 250, 50, 40);
+        painelEsquerdo.add(btnAdicionarGrupo);
+        btnAdicionarGrupo.setBounds(230, 250, 50, 40);
 
         btnSalvar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvar32x32.png"))); // NOI18N
         btnSalvar.setText("Salvar");
         btnSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSalvarMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSalvarMouseEntered(evt);
+            }
         });
         painelEsquerdo.add(btnSalvar);
-        btnSalvar.setBounds(140, 390, 110, 50);
+        btnSalvar.setBounds(180, 400, 110, 50);
+
+        lblMensagem.setForeground(new java.awt.Color(255, 0, 0));
+        painelEsquerdo.add(lblMensagem);
+        lblMensagem.setBounds(30, 380, 340, 20);
+
+        txtQuantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtQuantidadeKeyPressed(evt);
+            }
+        });
+        painelEsquerdo.add(txtQuantidade);
+        txtQuantidade.setBounds(20, 110, 130, 40);
+
+        txtQtdMin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtQtdMin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtQtdMinKeyPressed(evt);
+            }
+        });
+        painelEsquerdo.add(txtQtdMin);
+        txtQtdMin.setBounds(20, 180, 130, 40);
+
+        txtQtdMax.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtQtdMaxKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtQtdMaxKeyReleased(evt);
+            }
+        });
+        painelEsquerdo.add(txtQtdMax);
+        txtQtdMax.setBounds(220, 180, 130, 40);
 
         bordas.add(painelEsquerdo);
-        painelEsquerdo.setBounds(0, 110, 400, 450);
+        painelEsquerdo.setBounds(2, 110, 398, 448);
 
         panelSuperior.setBackground(new java.awt.Color(243, 156, 18));
         panelSuperior.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -339,10 +346,10 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        panelSuperior.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 40, -1));
+        panelSuperior.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(363, 0, 40, -1));
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
-        jLabel8.setText("de Produto");
+        jLabel8.setText("Produto");
         panelSuperior.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, -1, -1));
 
         lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
@@ -358,17 +365,16 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         panelSuperior.add(lblCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 100, 30));
 
         bordas.add(panelSuperior);
-        panelSuperior.setBounds(0, 0, 400, 110);
+        panelSuperior.setBounds(1, 1, 401, 110);
 
         getContentPane().add(bordas);
-        bordas.setBounds(0, 0, 398, 568);
+        bordas.setBounds(0, 0, 403, 560);
 
-        setSize(new java.awt.Dimension(397, 563));
-        setLocationRelativeTo(null);
+        setBounds(500, 140, 403, 560);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
-        if ("Alterar".equals(lblTitulo.getText())){
+        if ("Alterar".equals(lblTitulo.getText())) {
             telaPesquisa.atualizaTabela();
         }
         dispose();
@@ -386,37 +392,23 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
     private void txtDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyPressed
         // TODO add your handling code here:
+        lblDescricao.setForeground(Color.black);
+        lblMensagem.setText(null);
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             txtQuantidade.requestFocus();
+
         }
     }//GEN-LAST:event_txtDescricaoKeyPressed
 
-    private void txtQuantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyPressed
-        // Vai para o campo valor
-
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            txtValor.requestFocus();
-        }
-    }//GEN-LAST:event_txtQuantidadeKeyPressed
-
     private void txtValorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyPressed
-        // Vai para quantidade mínima
-        String valor = txtValor.getText();
-        String novovalor = valor.replaceAll(",", ".");
-        txtValor.setText(novovalor);
-
+        lblValor.setForeground(Color.BLACK);
+        lblMensagem.setText(null);
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            FormataValor fv = new FormataValor();
+            txtValor.setText(fv.Formata(txtValor.getText()));
             txtQtdMin.requestFocus();
         }
     }//GEN-LAST:event_txtValorKeyPressed
-
-    private void txtQtdMinKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQtdMinKeyPressed
-        // Vai para Quantidade Máxima
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            txtQtdMax.requestFocus();
-            txtQtdMax.setText(txtQuantidade.getText());
-        }
-    }//GEN-LAST:event_txtQtdMinKeyPressed
 
     private void comboGrupoProdutoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboGrupoProdutoItemStateChanged
 
@@ -424,13 +416,14 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_comboGrupoProdutoItemStateChanged
 
     private void comboGrupoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboGrupoProdutoActionPerformed
-
+        lblGrupo.setForeground(Color.BLACK);
+        lblMensagem.setText(null);
 
     }//GEN-LAST:event_comboGrupoProdutoActionPerformed
 
     private void btnSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseClicked
-        // Salva um produto
 
+        // Salva um produto
         Fornecedor f = new Fornecedor();
         f.setNome(comboFornecedor.getSelectedItem().toString());
 
@@ -439,33 +432,63 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         p.setQtd(txtQuantidade.getText());
         p.setQtdMax(txtQtdMax.getText());
         p.setQtdMin(txtQtdMin.getText());
-        p.setValor(txtValor.getText());
-        p.setIdFornecedor(Integer.parseInt(cf.localizaForecedor(f)));
+        p.setValor(txtValor.getText().replace(",","."));
+        if (!"Selecione...".equals(comboFornecedor.getSelectedItem().toString())) {
+            p.setIdFornecedor(Integer.parseInt(cf.localizaForecedor(f)));
+        }
+        if (!"Selecione...".equals(comboGrupoProduto.getSelectedItem().toString())) {
 
-        p.setTbGrupoId(g.localizaIdGrupoProduto(comboGrupoProduto));
+            p.setTbGrupoId(g.localizaIdGrupoProduto(comboGrupoProduto));
+        }
 
-        if (p.getValor() == null) {
-            JOptionPane.showMessageDialog(null, "O produto não pode ser adicionado");
-        } else {
+        if ("Incluir".equals(lblTitulo.getText())) {
+
             if (cp.temProduto(p)) {
-                JOptionPane.showMessageDialog(null, "O produto " + p.getNome() + " já Existe!");
+                JOptionPane.showMessageDialog(this, "O produto " + p.getNome() + " já existe!");
                 limpaForm();
+                comboFornecedor.setSelectedIndex(0);
+                comboGrupoProduto.setSelectedIndex(0);
             } else {
+                if (valida(p)) {
 
-                if (cp.adicionaProduto(p)) {
-                    JOptionPane.showMessageDialog(null, "Produto adicionado com sucesso!");
-                    limpaForm();                    
-                    // Início do Registro de Log
-                    l.setDescricao("Adicionou o produto " + p.getNome() + " ao estoque");
-                    l.setFuncionalidade("Salvar");
-                    l.gravaLog(l);
-                    // Fim do Log
+                    if (cp.adicionaProduto(p)) {
+                        JOptionPane.showMessageDialog(this, "Produto adicionado com sucesso!");
+                        limpaForm();
+                        comboFornecedor.setSelectedIndex(0);
+                        comboGrupoProduto.setSelectedIndex(0);
+                        // Início do Registro de Log
+                        l.setDescricao("Adicionou o produto " + p.getNome() + " ao estoque");
+                        l.setFuncionalidade("Salvar");
+                        l.gravaLog(l);
+                        // Fim do Log
 
-                    // Localiza id do produto adicionado             
-                    String id = e.localizaIdProduto(p.getNome());
-                    // Registra movimentação
-                    e.registraMovimentacao(id, p.getQtd(), e.localizaIdOperacao("Entrada"), "Produto Novo");
+                        // Localiza id do produto adicionado             
+                        String id = e.localizaIdProduto(p.getNome());
+                        // Registra movimentação
+                        e.registraMovimentacao(id, p.getQtd(), e.localizaIdOperacao("Entrada"), "Produto Novo");
 
+                    }
+                }
+            }
+
+        } else {
+
+            if (!"Selecione...".equals(comboFornecedor.getSelectedItem().toString())) {
+                p.setIdFornecedor(Integer.parseInt(cf.localizaForecedor(f)));
+            }
+            if (!"Selecione...".equals(comboGrupoProduto.getSelectedItem().toString())) {
+
+                p.setTbGrupoId(g.localizaIdGrupoProduto(comboGrupoProduto));
+            }
+            
+            p.setId(produto.getId());
+            
+            if (valida(p)) {
+                
+                if (cp.alteraProduto(p)) {
+                    JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
+                    telaPesquisa.atualizaTabela();
+                    dispose();
                 }
             }
 
@@ -482,16 +505,58 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         cadfor.setVisible(true);
     }//GEN-LAST:event_btnAdicionarFornecedorMouseClicked
 
-    private void btnAdicionarGrupo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdicionarGrupo1MouseClicked
+    private void btnAdicionarGrupoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdicionarGrupoMouseClicked
         // Chama o cadastro de Grupos
         TelaGruposProdutos gp = new TelaGruposProdutos();
         gp.setAlwaysOnTop(true);
         gp.recebeOperador(lblOperador.getText());
         gp.setVisible(true);
-    }//GEN-LAST:event_btnAdicionarGrupo1MouseClicked
-
+    }//GEN-LAST:event_btnAdicionarGrupoMouseClicked
+    private boolean valida(Produto p) {
+        boolean resp = true;
+        if ("".equals(p.getNome())) {
+            lblMensagem.setText("*Informe a Descrição do produto para continuar!");
+            txtDescricao.requestFocus();
+            lblDescricao.setForeground(Color.red);
+            resp = false;
+        } else if ("".equals(txtQuantidade.getText()) || Integer.parseInt(txtQuantidade.getText()) <= 0) {
+            lblMensagem.setText("*Informe um Valor válido!");
+            lblqtd.setForeground(Color.red);
+            txtQuantidade.requestFocus();
+            resp = false;
+        } else if ("".equals(p.getValor())
+                || "0,00".equals(p.getValor())
+                || "0".equals(p.getValor())) {
+            lblMensagem.setText("*Informe um Valor válido para continuar!");
+            lblValor.setForeground(Color.red);
+            txtValor.requestFocus();
+            resp = false;
+        } else if ("".equals(p.getQtdMin()) || "0".equals(p.getQtdMin())) {
+            lblMensagem.setText("*Informe uma Quantidade Míninima válida!");
+            lblQtdMin.setForeground(Color.red);
+            txtQtdMin.requestFocus();
+            resp = false;
+        } else if ("".equals(p.getQtdMax()) || "0".equals(p.getQtdMax())) {
+            lblMensagem.setText("*Informe uma Quantidade Máxima válida!");
+            lblQtdMax.setForeground(Color.red);
+            txtQtdMax.requestFocus();
+            resp = false;
+        } else if ("Selecione...".equals(comboGrupoProduto.getSelectedItem().toString())) {
+            lblMensagem.setText("*Informe um Grupo válido para continuar!");
+            lblGrupo.setForeground(Color.red);
+            comboGrupoProduto.requestFocus();
+            resp = false;
+        } else if ("Selecione...".equals(comboFornecedor.getSelectedItem().toString())) {
+            lblMensagem.setText("*Informe um Fornecedor válido para continuar!");
+            lblFornecedor.setForeground(Color.red);
+            comboFornecedor.requestFocus();
+            resp = false;
+        }
+        return resp;
+    }
     private void comboFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFornecedorActionPerformed
-
+        lblFornecedor.setForeground(Color.BLACK);
+        lblMensagem.setText(null);
 
     }//GEN-LAST:event_comboFornecedorActionPerformed
 
@@ -508,6 +573,41 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         // Limpa campo valor ao receber o foco
         txtValor.setText(null);
     }//GEN-LAST:event_txtValorFocusGained
+
+    private void btnSalvarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvarMouseEntered
+
+    private void txtQuantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyPressed
+        // Vai para o campo valor
+        lblqtd.setForeground(Color.black);
+        lblMensagem.setText(null);
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtValor.requestFocus();
+
+        }
+    }//GEN-LAST:event_txtQuantidadeKeyPressed
+
+    private void txtQtdMinKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQtdMinKeyPressed
+        // Vai para quantidade mínima
+        lblQtdMin.setForeground(Color.black);
+        lblMensagem.setText(null);
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtQtdMax.requestFocus();
+            FormataValor fv = new FormataValor();
+            txtValor.setText(fv.Formata(txtValor.getText()));
+        }
+    }//GEN-LAST:event_txtQtdMinKeyPressed
+
+    private void txtQtdMaxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQtdMaxKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQtdMaxKeyPressed
+
+    private void txtQtdMaxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQtdMaxKeyReleased
+        // TODO add your handling code here:
+        lblQtdMax.setForeground(Color.black);
+        lblMensagem.setText(null);
+    }//GEN-LAST:event_txtQtdMaxKeyReleased
     private void limpaForm() {
 
         txtDescricao.setText(null);
@@ -556,31 +656,32 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bordas;
     private javax.swing.JLabel btnAdicionarFornecedor;
-    private javax.swing.JLabel btnAdicionarGrupo1;
+    private javax.swing.JLabel btnAdicionarGrupo;
     private javax.swing.JLabel btnSalvar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> comboFornecedor;
     private javax.swing.JComboBox<String> comboGrupoProduto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblCargo;
-    private javax.swing.JLabel lblGrupoProduto;
+    private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblFornecedor;
+    private javax.swing.JLabel lblGrupo;
+    private javax.swing.JLabel lblMensagem;
     private javax.swing.JLabel lblOperador;
+    private javax.swing.JLabel lblQtdMax;
+    private javax.swing.JLabel lblQtdMin;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblValor;
+    private javax.swing.JLabel lblqtd;
     private javax.swing.JPanel painelEsquerdo;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JTextField txtDescricao;
-    private javax.swing.JTextField txtQtdMax;
-    private javax.swing.JTextField txtQtdMin;
-    private javax.swing.JTextField txtQuantidade;
+    private javax.swing.JFormattedTextField txtQtdMax;
+    private javax.swing.JFormattedTextField txtQtdMin;
+    private javax.swing.JFormattedTextField txtQuantidade;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 

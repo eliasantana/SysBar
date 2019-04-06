@@ -24,7 +24,7 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     ControlerFornecedor cf = new ControlerFornecedor();
     Util u = new Util();
     TableModelCadastroProduto modelCadastroProduto = new TableModelCadastroProduto();
-
+    
     /**
      * Creates new form TelaCadastroProduto
      */
@@ -398,11 +398,11 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarMouseClicked
 
     private void tblProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutoMouseClicked
-        // Seleciona dados da tabela
-        
-        
+        // Seleciona dados da tabela     
         
         btnAlteraProduto.setEnabled(true);
+        int linha = tblProduto.getSelectedRow();
+      
 
     }//GEN-LAST:event_tblProdutoMouseClicked
 
@@ -474,6 +474,7 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     private void comboFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFornecedorActionPerformed
 
         listaProdutoPorFornecedor();
+        txtLocalizar.setText(null);
     }//GEN-LAST:event_comboFornecedorActionPerformed
 
     private void comboFornecedorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboFornecedorItemStateChanged
