@@ -5,6 +5,7 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.dao.Backup;
 import br.com.bar.dao.Log;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.util.Util;
@@ -13,6 +14,7 @@ import br.com.br.controler.ControlerParametro;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -29,6 +31,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     ControlerDadosEmpresa dados = new ControlerDadosEmpresa();
     ControlerParametro p = new ControlerParametro();
     DadosEmpresa d = dados.selecionaDados();
+    TelaAutenticaBackup authBkp = new TelaAutenticaBackup();
     Util u = new Util();
     Log l = new Log();
 
@@ -76,6 +79,16 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         lblPerfil.setVisible(false);
         lblCarregaLogo.setVisible(false);
         labelCarregaLogo.setVisible(false);
+        lblRealizarBackup.setVisible(false);
+        
+        if (d.getBkp_auto() == 0) {
+            radioManual.setSelected(true);
+            lblRealizarBackup.setVisible(true);           
+        } else {
+            radioAutomatico.setSelected(true);            
+        }
+        
+       
     }
 
     // Recebe dados para identificação do operador
@@ -97,6 +110,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
         labelCarregaLogo = new javax.swing.JLabel();
@@ -104,10 +118,10 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         txturlLogo = new javax.swing.JTextField();
         txtIdEmpresa = new javax.swing.JTextField();
         txtUrlBackup = new javax.swing.JFormattedTextField();
+        lblPerfil = new javax.swing.JLabel();
+        lblOperador = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblFechar = new javax.swing.JLabel();
-        lblOperador = new javax.swing.JLabel();
-        lblPerfil = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtNomeEmpresa = new javax.swing.JTextField();
         lblNomeEmpresa = new javax.swing.JLabel();
@@ -142,6 +156,10 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         txtCep = new javax.swing.JFormattedTextField();
         txtNumero = new javax.swing.JFormattedTextField();
         lblMsg = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        radioAutomatico = new javax.swing.JRadioButton();
+        radioManual = new javax.swing.JRadioButton();
+        lblRealizarBackup = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -175,6 +193,12 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
 
         txtUrlBackup.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
 
+        lblPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
+        lblPerfil.setText("Perfil");
+
+        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
+        lblOperador.setText("operador");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -186,16 +210,21 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
                 .addComponent(txtUrlBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(93, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 75, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                            .addComponent(txturlLogo))
-                        .addGap(68, 68, 68))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(labelCarregaLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(86, 86, 86))))
+                        .addGap(86, 86, 86))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11)
+                                .addComponent(lblPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                                .addComponent(txturlLogo)))
+                        .addGap(68, 68, 68))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblCarregaLogo)
@@ -210,7 +239,11 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
                 .addComponent(lblCarregaLogo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelCarregaLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(145, 145, 145)
+                .addGap(43, 43, 43)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblOperador)
+                    .addComponent(lblPerfil))
+                .addGap(70, 70, 70)
                 .addComponent(txturlLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -249,16 +282,6 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         getContentPane().add(jPanel2);
         jPanel2.setBounds(857, 0, 46, 40);
 
-        lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
-        lblOperador.setText("operador");
-        getContentPane().add(lblOperador);
-        lblOperador.setBounds(689, 90, 100, 32);
-
-        lblPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
-        lblPerfil.setText("Perfil");
-        getContentPane().add(lblPerfil);
-        lblPerfil.setBounds(800, 90, 100, 32);
-
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 36)); // NOI18N
         jLabel3.setText("Dados da Empresa");
         getContentPane().add(jLabel3);
@@ -270,12 +293,12 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtNomeEmpresa);
-        txtNomeEmpresa.setBounds(360, 160, 330, 30);
+        txtNomeEmpresa.setBounds(360, 110, 330, 30);
 
         lblNomeEmpresa.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblNomeEmpresa.setText("Nome da Empresa");
         getContentPane().add(lblNomeEmpresa);
-        lblNomeEmpresa.setBounds(360, 140, 180, 16);
+        lblNomeEmpresa.setBounds(360, 90, 180, 16);
 
         txtEndereco.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -283,17 +306,17 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtEndereco);
-        txtEndereco.setBounds(360, 220, 270, 30);
+        txtEndereco.setBounds(360, 170, 270, 30);
 
         lblEndereco.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblEndereco.setText("Endereço");
         getContentPane().add(lblEndereco);
-        lblEndereco.setBounds(360, 200, 180, 16);
+        lblEndereco.setBounds(360, 150, 180, 16);
 
         lblBairro.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblBairro.setText("Bairro");
         getContentPane().add(lblBairro);
-        lblBairro.setBounds(360, 260, 140, 16);
+        lblBairro.setBounds(360, 210, 140, 16);
 
         txtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -301,17 +324,17 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtCidade);
-        txtCidade.setBounds(610, 280, 210, 30);
+        txtCidade.setBounds(610, 230, 210, 30);
 
         lblComplemento.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblComplemento.setText("Complemento");
         getContentPane().add(lblComplemento);
-        lblComplemento.setBounds(700, 200, 110, 16);
+        lblComplemento.setBounds(700, 150, 110, 16);
 
         lblCidade.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblCidade.setText("Cidade");
         getContentPane().add(lblCidade);
-        lblCidade.setBounds(610, 260, 60, 16);
+        lblCidade.setBounds(610, 210, 60, 16);
 
         txtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -319,22 +342,22 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtBairro);
-        txtBairro.setBounds(360, 280, 140, 30);
+        txtBairro.setBounds(360, 230, 140, 30);
 
         lblCEP.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblCEP.setText("CEP");
         getContentPane().add(lblCEP);
-        lblCEP.setBounds(510, 260, 70, 16);
+        lblCEP.setBounds(510, 210, 70, 16);
 
         lblUf.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblUf.setText("UF");
         getContentPane().add(lblUf);
-        lblUf.setBounds(830, 260, 60, 16);
+        lblUf.setBounds(830, 210, 60, 16);
 
         lblEmail.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblEmail.setText("E-mail");
         getContentPane().add(lblEmail);
-        lblEmail.setBounds(640, 320, 60, 16);
+        lblEmail.setBounds(640, 270, 60, 16);
 
         try {
             txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
@@ -347,7 +370,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtTelefone);
-        txtTelefone.setBounds(360, 340, 130, 30);
+        txtTelefone.setBounds(360, 290, 130, 30);
 
         try {
             txtCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
@@ -355,17 +378,17 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         getContentPane().add(txtCelular);
-        txtCelular.setBounds(500, 340, 130, 30);
+        txtCelular.setBounds(500, 290, 130, 30);
 
         lblCelular.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblCelular.setText("Celular");
         getContentPane().add(lblCelular);
-        lblCelular.setBounds(500, 320, 60, 16);
+        lblCelular.setBounds(500, 270, 60, 16);
 
         lblCNPJ.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblCNPJ.setText("CNPJ");
         getContentPane().add(lblCNPJ);
-        lblCNPJ.setBounds(700, 140, 60, 16);
+        lblCNPJ.setBounds(700, 90, 60, 16);
 
         try {
             txtCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
@@ -378,7 +401,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtCnpj);
-        txtCnpj.setBounds(700, 160, 190, 30);
+        txtCnpj.setBounds(700, 110, 190, 30);
 
         lblExcluir.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
@@ -389,7 +412,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblExcluir);
-        lblExcluir.setBounds(800, 520, 90, 50);
+        lblExcluir.setBounds(800, 490, 90, 50);
 
         lblEditar.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvar32x32.png"))); // NOI18N
@@ -400,7 +423,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblEditar);
-        lblEditar.setBounds(710, 520, 80, 50);
+        lblEditar.setBounds(710, 490, 80, 50);
 
         txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -413,12 +436,12 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtEmail);
-        txtEmail.setBounds(640, 340, 250, 30);
+        txtEmail.setBounds(640, 290, 250, 30);
 
         lblTelefone.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblTelefone.setText("Telefone");
         getContentPane().add(lblTelefone);
-        lblTelefone.setBounds(360, 320, 120, 16);
+        lblTelefone.setBounds(360, 270, 120, 16);
 
         jpanelImpressao.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Tipo de Impressão - Recibo")));
 
@@ -455,17 +478,17 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         );
 
         getContentPane().add(jpanelImpressao);
-        jpanelImpressao.setBounds(640, 380, 250, 80);
+        jpanelImpressao.setBounds(640, 330, 250, 80);
 
         lblTextocaminhoBanco.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblTextocaminhoBanco.setText("Local de Backup:");
         getContentPane().add(lblTextocaminhoBanco);
-        lblTextocaminhoBanco.setBounds(360, 470, 210, 16);
+        lblTextocaminhoBanco.setBounds(360, 430, 210, 16);
 
         lblCaminho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/bd.png"))); // NOI18N
         lblCaminho.setText("Caminho");
         getContentPane().add(lblCaminho);
-        lblCaminho.setBounds(360, 490, 340, 40);
+        lblCaminho.setBounds(370, 450, 510, 40);
 
         txtComplemento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -473,12 +496,12 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtComplemento);
-        txtComplemento.setBounds(700, 220, 190, 30);
+        txtComplemento.setBounds(700, 170, 190, 30);
 
         lblNumero.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblNumero.setText("Número");
         getContentPane().add(lblNumero);
-        lblNumero.setBounds(640, 200, 60, 16);
+        lblNumero.setBounds(640, 150, 60, 16);
 
         btnSelecionarArquivo.setText("Selecionar ...");
         btnSelecionarArquivo.addActionListener(new java.awt.event.ActionListener() {
@@ -487,7 +510,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSelecionarArquivo);
-        btnSelecionarArquivo.setBounds(450, 460, 100, 30);
+        btnSelecionarArquivo.setBounds(460, 420, 100, 30);
 
         comboUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE" }));
         comboUf.addActionListener(new java.awt.event.ActionListener() {
@@ -496,7 +519,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(comboUf);
-        comboUf.setBounds(830, 280, 60, 30);
+        comboUf.setBounds(830, 230, 60, 30);
 
         try {
             txtCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -509,7 +532,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtCep);
-        txtCep.setBounds(510, 280, 90, 30);
+        txtCep.setBounds(510, 230, 90, 30);
 
         txtNumero.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
         txtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -518,11 +541,64 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtNumero);
-        txtNumero.setBounds(640, 220, 46, 30);
+        txtNumero.setBounds(640, 170, 46, 30);
 
         lblMsg.setForeground(new java.awt.Color(255, 0, 51));
         getContentPane().add(lblMsg);
-        lblMsg.setBounds(360, 550, 340, 20);
+        lblMsg.setBounds(360, 550, 410, 20);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Tipo de Backup")));
+
+        buttonGroup2.add(radioAutomatico);
+        radioAutomatico.setText("Automático");
+        radioAutomatico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioAutomaticoMouseClicked(evt);
+            }
+        });
+
+        buttonGroup2.add(radioManual);
+        radioManual.setText("Manual");
+        radioManual.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioManualMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(radioManual, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(radioAutomatico, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(104, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(radioAutomatico)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(radioManual)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel3);
+        jPanel3.setBounds(360, 330, 272, 80);
+
+        lblRealizarBackup.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblRealizarBackup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnBackup.png"))); // NOI18N
+        lblRealizarBackup.setText("Realizar Backup Manual");
+        lblRealizarBackup.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRealizarBackupMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblRealizarBackup);
+        lblRealizarBackup.setBounds(360, 490, 270, 48);
 
         setSize(new java.awt.Dimension(903, 585));
         setLocationRelativeTo(null);
@@ -594,7 +670,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             mudaCor(lblNumero);
             txtNumero.requestFocus();
-            
+
         }
         novoDadosEmpesa.setCep(txtCep.getText());
         novoDadosEmpesa.setCidade(txtCidade.getText());
@@ -607,34 +683,33 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         cnpj = cnpjSemPonto.replace("/", "");
         cnpjSemPonto = cnpj.replace("-", "");
         novoDadosEmpesa.setCnpj(cnpjSemPonto);
-        
+
         novoDadosEmpesa.setUrlbackup(txtUrlBackup.getText());
         novoDadosEmpesa.setUf(comboUf.getSelectedItem().toString());
         novoDadosEmpesa.setLogo(txturlLogo.getText());
 
-       
         if ((radioDireto.isSelected())) {
             // 1 - Imprime na Tela 0 - Imprime Direto
             novoDadosEmpesa.setImprimir_na_tela(1); // Direto para impressora
         } else {
             novoDadosEmpesa.setImprimir_na_tela(0); // Na tela
         }
-        
-        if(valida(novoDadosEmpesa)){ 
+
+        if (valida(novoDadosEmpesa)) {
             // Devolve os caracteres especiais removidos durante a validação.
             novoDadosEmpesa.setCnpj(u.imprimeCNPJ(novoDadosEmpesa.getCnpj()));
             //Log
-            Date dtAtual=new Date();
+            Date dtAtual = new Date();
             l.setData(u.formataDataBanco(dtAtual));
             l.setFuncionalidade("Alteração");
-            l.setDescricao("Alterou os dados da empresa->" + d.getNome_empresa() + " para->"+novoDadosEmpesa.getNome_empresa());
+            l.setDescricao("Alterou os dados da empresa->" + d.getNome_empresa() + " para->" + novoDadosEmpesa.getNome_empresa());
             l.gravaLog(l);
-            
+
             int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração dos dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             if (op == JOptionPane.YES_OPTION) {
                 if (dados.alteraDados(novoDadosEmpesa)) {
-                    
                     JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
+                    dispose();
                 } else {
                     lblMsg.setText("Não foi possível alterar os dados! Contate o SUPORTE!");
                 }
@@ -717,6 +792,44 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtTelefoneKeyReleased
 
+    private void radioAutomaticoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioAutomaticoMouseClicked
+
+        authBkp.setAlwaysOnTop(true);
+        authBkp.recebeTela(this, "1");
+        authBkp.setVisible(true);
+    }//GEN-LAST:event_radioAutomaticoMouseClicked
+
+    private void radioManualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioManualMouseClicked
+        authBkp.setAlwaysOnTop(true);
+        authBkp.recebeTela(this, "0");
+        authBkp.setVisible(true);
+    }//GEN-LAST:event_radioManualMouseClicked
+
+    private void lblRealizarBackupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRealizarBackupMouseClicked
+        // Realiza Backup Manualmente
+        Backup bkp = new Backup();
+        try {
+            bkp.realizaBackup();
+        } catch (IOException e) {
+            System.out.println("br.com.bar.view.TelaCadastroEmpresa.lblRealizarBackupMouseClicked()"+e);
+        }
+
+    }//GEN-LAST:event_lblRealizarBackupMouseClicked
+
+    public void ativarBackup(String valor) {
+        dados.ativaBackup(valor);
+        System.out.println(valor);
+
+        if (valor.equals("1")) {
+            radioAutomatico.setSelected(true);
+            lblRealizarBackup.setVisible(false);
+        } else {
+            radioManual.setSelected(true);
+            lblRealizarBackup.setVisible(true);
+        }
+
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -755,11 +868,13 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSelecionarArquivo;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> comboUf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jpanelImpressao;
     private javax.swing.JLabel labelCarregaLogo;
     private javax.swing.JLabel lblBairro;
@@ -781,10 +896,13 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JLabel lblNumero;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblPerfil;
+    private javax.swing.JLabel lblRealizarBackup;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblTextocaminhoBanco;
     private javax.swing.JLabel lblUf;
+    private javax.swing.JRadioButton radioAutomatico;
     private javax.swing.JRadioButton radioDireto;
+    private javax.swing.JRadioButton radioManual;
     private javax.swing.JRadioButton radioVisualizar;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JFormattedTextField txtCelular;

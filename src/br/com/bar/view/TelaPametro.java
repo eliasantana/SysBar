@@ -60,7 +60,6 @@ public class TelaPametro extends javax.swing.JFrame {
         txtNomeBanco = new javax.swing.JTextField();
         txtSenha = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        bnSalvar = new javax.swing.JButton();
         txtUsuario = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -68,8 +67,8 @@ public class TelaPametro extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblFechar = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        bnSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("MasterFood - Parâmetro");
@@ -100,17 +99,6 @@ public class TelaPametro extends javax.swing.JFrame {
         jLabel5.setText("Senha:");
         getContentPane().add(jLabel5);
         jLabel5.setBounds(201, 144, 130, 14);
-
-        bnSalvar.setBackground(new java.awt.Color(30, 139, 195));
-        bnSalvar.setForeground(new java.awt.Color(255, 255, 255));
-        bnSalvar.setText("Salvar");
-        bnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bnSalvarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(bnSalvar);
-        bnSalvar.setBounds(40, 270, 280, 40);
         getContentPane().add(txtUsuario);
         txtUsuario.setBounds(41, 164, 126, 30);
 
@@ -160,17 +148,6 @@ public class TelaPametro extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 370, 70);
 
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnBackup.png"))); // NOI18N
-        jLabel8.setText("Realizar Backup agora!");
-        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel8MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(50, 320, 260, 40);
-
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -178,15 +155,30 @@ public class TelaPametro extends javax.swing.JFrame {
             }
         });
 
+        bnSalvar.setBackground(new java.awt.Color(30, 139, 195));
+        bnSalvar.setForeground(new java.awt.Color(255, 255, 255));
+        bnSalvar.setText("Salvar");
+        bnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnSalvarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 366, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(bnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 368, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(296, Short.MAX_VALUE)
+                .addComponent(bnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
 
         getContentPane().add(jPanel3);
@@ -207,67 +199,6 @@ public class TelaPametro extends javax.swing.JFrame {
         // Fecha janela deconfigurações
         this.dispose();
     }//GEN-LAST:event_lblFecharMouseClicked
-
-    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-
-        //Realiza Backup do Sistema
-        // Instancia a classe backup
-        Backup bkp = new Backup();
-        // Returna true se o backup for realizado com sucesso!
-        boolean bkpCriado = bkp.Backup();
-        
-        if (bkpCriado) {
-            System.out.println("Criando Arquivo de Backup!");
-            
-            try {
-                // Inicia a Thread que aguardará 15 segundos 
-                Thread.sleep(15000);
-                // Localiza o arquivo de backup.
-                File f = new File("C:/SysBar/backup/bkpdumpSYSBAR.sql");
-                
-                // Verifica se o arquivo existe
-                if (f.exists()) {
-                    // Captura a data e a hora        
-                    System.out.println("Preparando o arquivo!...");
-                    String formatoData = "ddMMyyy";
-                    String formatoHora = "hhmmss";
-                    Date data = new Date();
-                    SimpleDateFormat df = new SimpleDateFormat(formatoData);
-                    SimpleDateFormat hf = new SimpleDateFormat(formatoHora);
-                    String dt = df.format(data);
-                    String h = hf.format(data);
-                    DadosEmpresa dados = new DadosEmpresa();
-                    // Carrega dados do cadastro da empresa
-                    dados = empresa.selecionaDados();
-                    // Renomeia o arquivo concatenando a data e a hora em que o arquivo foi criado.
-                    
-                    //File f2 = new File("C:/SysBar/backup/bkpdumpSYSBAR" + dt + h + ".sql");
-                    File f2 = new File("C:/SysBar/backup/bkp-"+dados.getNome_empresa()+"-" + dt +"-"+ h + ".sql");
-                   
-                    // Retor na verdadeiro se o arquivo for renomeado com sucesso.
-                    boolean resp = f.renameTo(f2); 
-                    
-                    if (resp) {
-                        System.out.println("Bakup finalizado com sucesso!"); 
-                        String destino = dados.getUrlbackup()+"\\"+f2.getName();
-                        // Copiar o arquivo de backup para o local de bakup selecionado no cadastro.
-                        copyBakup(f2.getAbsolutePath(), destino);
-                        
-                    } else {
-                        System.out.println("Falha ao renomear o arquivo de backup");
-
-                    }
-                } else {
-                    System.out.println("Arquivo não Existe");
-
-                }
-            } catch (InterruptedException e) {
-                System.out.println("Erro na Thread!");
-            }
-        }
-
-
-    }//GEN-LAST:event_jLabel8MouseClicked
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
         // TODO add your handling code here:
@@ -332,7 +263,6 @@ public class TelaPametro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

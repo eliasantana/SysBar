@@ -29,6 +29,7 @@ public class DadosEmpresa {
     private String licenca;
     private String dts;
     private String complemento;
+    private int bkp_auto;
             
     
     
@@ -179,6 +180,14 @@ public class DadosEmpresa {
 
     public String getComplemento() {
         return complemento;
+    }
+
+    public void setBkp_auto(int bkp_auto) {
+        this.bkp_auto = bkp_auto;
+    }
+
+    public int getBkp_auto() {
+        return bkp_auto;
     }
     
        

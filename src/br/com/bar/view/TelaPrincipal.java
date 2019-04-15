@@ -58,7 +58,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
         if (estoque.estoqueBaixo()){
             if ("".equals(lblAviso.getText())){
-                lblAviso.setText("*Existe produto com Estoque inferior a quantidade desejada!");
+                lblAviso.setText("*Existe(m) produto com Estoque inferior a quantidade desejada!");
             }else {
                 lblAviso2.setText("*Existe produto com Estoque inferior a quantidade desejada!");
             }

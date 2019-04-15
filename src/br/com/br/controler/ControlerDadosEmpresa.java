@@ -97,6 +97,7 @@ public class ControlerDadosEmpresa {
                 d.setImprimir_na_tela(rs.getInt("imprimir_na_tela"));
                 d.setLicenca(rs.getString("chave"));
                 d.setDts(rs.getString("dts"));
+                d.setBkp_auto(rs.getInt("bkp_auto"));
             }
 
         } catch (SQLException e) {
@@ -178,5 +179,39 @@ public class ControlerDadosEmpresa {
             System.out.println("br.com.br.controler.ControlerDadosEmpresa.localizaIdEmpresa()" + e);
         }
         return id;
+    }
+    
+    public boolean ativaBackup(String valor){
+        String sql="UPDATE tb_dados_empresa SET bkp_auto=? WHERE id>0";
+        boolean resp=false;
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, valor);
+            pst.executeUpdate();
+            resp=true;
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerDadosEmpresa.ativaBackup()"+e);
+        }
+        return resp;
+    }
+    
+    // Verifica o tipo de Backup
+    public boolean tipoBAckup(){
+            boolean resp=false;
+            int auto=0;
+         String sql="SELECT bkp_auto FROM tb_dados_empresa";
+         try {
+            pst=conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while (rs.next()){
+               auto = rs.getInt("bkp_auto");
+            }
+            if (auto==1){
+                resp=true;
+            }
+        } catch (SQLException e) {
+             System.out.println("br.com.br.controler.ControlerDadosEmpresa.tipoBAckup()");
+        }
+         return resp;
     }
 }

@@ -65,6 +65,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         lblTitulo.setText(titulo);
         if ("Gerente".equals(lblCargo.getText())) {
             btnAdicionarFornecedor.setVisible(true);
+            btnAdicionarGrupo.setVisible(true);
         } else {
             btnAdicionarFornecedor.setVisible(false);
         }
@@ -239,7 +240,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         painelEsquerdo.add(lblGrupo);
         lblGrupo.setBounds(20, 220, 170, 30);
 
-        comboFornecedor.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        comboFornecedor.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         comboFornecedor.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboFornecedorItemStateChanged(evt);
@@ -283,6 +284,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         lblMensagem.setBounds(20, 370, 340, 20);
 
         txtQuantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtQuantidade.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtQuantidadeKeyPressed(evt);
@@ -292,6 +294,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         txtQuantidade.setBounds(20, 110, 130, 40);
 
         txtQtdMin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtQtdMin.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtQtdMin.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtQtdMinKeyPressed(evt);
@@ -300,6 +303,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         painelEsquerdo.add(txtQtdMin);
         txtQtdMin.setBounds(20, 180, 130, 40);
 
+        txtQtdMax.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtQtdMax.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtQtdMaxKeyPressed(evt);

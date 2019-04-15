@@ -11,6 +11,8 @@ import br.com.br.controler.ControlerDadosEmpresa;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -18,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.Icon;
@@ -151,13 +155,13 @@ public class Util {
         }
 
     }
-    
-    public void geraGraficoPizza(PieDataset data, String titulo){
+
+    public void geraGraficoPizza(PieDataset data, String titulo) {
         JFreeChart chart = ChartFactory.createPieChart3D(titulo, data);
         CategoryPlot plot = chart.getCategoryPlot();
         plot.setRangeGridlinePaint(Color.black);
         ChartFrame f = new ChartFrame("Ranking de Vendas por Garçom", chart);
-        f.setSize(800,600);
+        f.setSize(800, 600);
         f.setAlwaysOnTop(true);
         f.setVisible(true);
     }
@@ -221,10 +225,10 @@ public class Util {
 
         return dias;
     }
-    
+
     public long retornaTotalDeDias(String data, String dataFim) {
-        
-                //Converte para LocalDate
+
+        //Converte para LocalDate
         long dias = 0;
         // Caso o cadastro esteja vazio gera java.lang.NullPointerException
         try {
@@ -234,7 +238,7 @@ public class Util {
 
             dias = ChronoUnit.DAYS.between(dtFinal, dtIncio);
         } catch (Exception e) {
-           
+
         }
 
         return dias;
@@ -475,76 +479,126 @@ public class Util {
                 + CNPJ.substring(5, 8) + "/" + CNPJ.substring(8, 12) + "-"
                 + CNPJ.substring(12, 14));
     }
+
     /**
-     * Limita a data de um componente JDateSchooser estipulando
-     * um limite MÍNIMO e MÁXIMO de datas para o componente.
-     * 
+     * Limita a data de um componente JDateSchooser estipulando um limite MÍNIMO
+     * e MÁXIMO de datas para o componente.
+     *
      * @param dtChooser Componente JDateSchooser a ser limitado.
-     * @param limiteMeses Quantidade de Meses anterior ao mês atual que será habilitado para seleção.
-     * 
-     */    
+     * @param limiteMeses Quantidade de Meses anterior ao mês atual que será
+     * habilitado para seleção.
+     *
+     */
     public void limitaDataCombo(JDateChooser dtChooser, int limiteMeses) {
-       
-        
+
         //Atribui ao componente JDateSchooser uma data mínima selecionável.
         Calendar cMax = Calendar.getInstance();
         cMax.set(Calendar.YEAR, cMax.get(Calendar.YEAR)); // Ano máximo Selecionável
         cMax.set(Calendar.MONTH, cMax.get(Calendar.MONTH)); // MÊs máximo Selecionável
         cMax.set(Calendar.DATE, cMax.get(Calendar.DATE));
         dtChooser.setMaxSelectableDate(cMax.getTime());
-        
+
         //Atribui ao componente JDateSchooser uma data mínima selecionável.
         Calendar cMin = Calendar.getInstance();
         cMin.set(Calendar.YEAR, cMin.get(Calendar.YEAR)); // Ano Atual
-        cMin.set(Calendar.MONTH, cMin.get(Calendar.MONTH)-limiteMeses); // Meses Selecionável
-        
+        cMin.set(Calendar.MONTH, cMin.get(Calendar.MONTH) - limiteMeses); // Meses Selecionável
+
         // Se o limite de meses informado for iagual a 0 'zero' será setada a data atual
         // como limite mínimo selecionável. Caso seja diferente liberará do dia 1 ao 
         // último dia do mês.
-        
-        if (limiteMeses==0){           
+        if (limiteMeses == 0) {
             cMin.set(Calendar.DATE, cMin.get(Calendar.DATE));// Data Atual
-        }else {
-            cMin.set(Calendar.DATE,cMin.get(Calendar.DATE) );// Data Atual            
+        } else {
+            cMin.set(Calendar.DATE, cMin.get(Calendar.DATE));// Data Atual            
         }
         //Seta a data Mínima no JdateChooser.
         dtChooser.setMinSelectableDate(cMin.getTime());
-        
+
     }
+
     /**
-     * Este método limita a data de um componente JDateSchooser estipulando,
-     * um limite MÍNIMO e MÁXIMO para o componente.
-     * 
+     * Este método limita a data de um componente JDateSchooser estipulando, um
+     * limite MÍNIMO e MÁXIMO para o componente.
+     *
      * @param dtChooser Componente JDateSchooser a ser limitado.
-     * @param limiteMeses uantidade de Meses anterior ao mês atual que será habilitado para seleção.
-     * @param dia Dia a partir de onde se poderá selecionar uma data no mês anterior.
+     * @param limiteMeses uantidade de Meses anterior ao mês atual que será
+     * habilitado para seleção.
+     * @param dia Dia a partir de onde se poderá selecionar uma data no mês
+     * anterior.
      */
     public void limitaDataCombo(JDateChooser dtChooser, int limiteMeses, int dia) {
-       
-        
+
         //Atribui ao componente JDateSchooser uma data mínima selecionável.
         Calendar cMax = Calendar.getInstance();
         cMax.set(Calendar.YEAR, cMax.get(Calendar.YEAR)); // Ano máximo Selecionável
         cMax.set(Calendar.MONTH, cMax.get(Calendar.MONTH)); // MÊs máximo Selecionável
         cMax.set(Calendar.DATE, cMax.get(Calendar.DATE));
         dtChooser.setMaxSelectableDate(cMax.getTime());
-        
+
         //Atribui ao componente JDateSchooser uma data mínima selecionável.
         Calendar cMin = Calendar.getInstance();
         cMin.set(Calendar.YEAR, cMin.get(Calendar.YEAR)); // Ano Atual
-        cMin.set(Calendar.MONTH, cMin.get(Calendar.MONTH)-limiteMeses); // Meses Selecionável
-        
+        cMin.set(Calendar.MONTH, cMin.get(Calendar.MONTH) - limiteMeses); // Meses Selecionável
+
         // Se o limite de meses informado for iagual a 0 'zero' será setada a data atual
         // como limite mínimo selecionável. Caso seja diferente liberará do dia 1 ao 
         // último dia do mês.
-        
-        if (limiteMeses==0){           
+        if (limiteMeses == 0) {
             cMin.set(Calendar.DATE, cMin.get(Calendar.DATE));// Data Atual
-        }else {
-            cMin.set(Calendar.DATE,dia );// Data Atual            
+        } else {
+            cMin.set(Calendar.DATE, dia);// Data Atual            
         }
         //Seta a data Mínima no JdateChooser.
         dtChooser.setMinSelectableDate(cMin.getTime());
-        
+
+    }
+    /**
+     * Executa o módulo de backup.
+     */
+    public void executaModuloBackup() {
+
+        try {
+            Runtime.getRuntime().exec("cmd /c start C:/SysBar/BackupSystem.jar");
+
+        } catch (IOException e) {
+            System.out.println("br.com.backupsystem.view.Teste.jButton1ActionPerformed()" + e);
+        }
+    }
+
+    /**
+     * Verifica se o módulo de backup está em execução
+     *
+     * @return boolean TRUE se em execução.
+     */
+    public boolean estaExecutandoModuloBackup() {
+        String caminho = "C:\\SysBar\\bkp_exec.txt";
+        File f = new File(caminho);
+        boolean resp = false;
+        if (f.exists()) {
+            resp = true;
+        }
+        return resp;
+    }
+    
+    /**
+     * Cria o arquivo de Flag que servirá para indicar que a aplicação Backup
+     * System está em Execução.
+     * @param  path Caminho onde o arquivo deverá ser cirado. 
+     * Ex: C:\\diretorio\\subdiretorio.
+     */
+    public void criaArquivoFlag(String path) {
+
+        File f = new File(path);
+        try {
+            if (f.exists()) {
+                System.out.println("O arquivo Existe");
+            } else {
+                f.createNewFile();
+                System.out.println("Arquivo Criado com sucesso!");
+            }
+
+        } catch (IOException ex) {
+            System.out.println("br.com.bar.util.Util.criaArquivoFlag()" + ex);
+        }
     }
 }

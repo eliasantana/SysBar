@@ -6,7 +6,6 @@
 package br.com.bar.dao;
 
 import br.com.bar.model.DadosEmpresa;
-import br.com.bar.view.TelaPametro;
 import br.com.br.controler.ControlerDadosEmpresa;
 import java.io.File;
 import java.io.IOException;
@@ -16,9 +15,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
