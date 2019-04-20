@@ -9,13 +9,10 @@ import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.CriptoGrafa;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.util.Util;
-import br.com.bar.view.TelaGerenciadorDeLicenca;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.Calendar;
 
 /**
  *

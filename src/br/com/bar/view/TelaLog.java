@@ -6,7 +6,6 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.ConexaoBd;
-import br.com.bar.dao.Log;
 import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.model.TableModelLog;
@@ -20,7 +19,6 @@ import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
-import org.apache.hadoop.mapreduce.lib.db.IntegerSplitter;
 
 /**
  *

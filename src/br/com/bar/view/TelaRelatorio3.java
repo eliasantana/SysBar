@@ -13,7 +13,6 @@ import br.com.br.controler.ControlerContasApagar;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerGrupo;
 import java.awt.Color;
-import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;

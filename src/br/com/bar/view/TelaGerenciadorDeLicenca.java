@@ -14,7 +14,6 @@ import br.com.br.controler.ControlerAtivacao;
 import br.com.br.controler.ControlerDadosEmpresa;
 import java.awt.Color;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 
 
 /**

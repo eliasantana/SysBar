@@ -13,9 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -87,10 +85,7 @@ public class ControlerFuncionario extends Funcionario {
 
     public ResultSet carregaFuncionario(String texto) {
 
-        /*String slq = "SELECT id AS 'CÓDIGO', nome AS 'NOME', cpf AS 'CPF', rg AS 'RG',telefone_recado AS 'CELULAR'\n"
-                + "FROM dbbar.tbcadfuncionario\n"
-                + "WHERE nome like ?;";*/
-        
+               
         String sql = "SELECT id AS 'CÓDIGO', \n"
                 + "	nome AS 'NOME', \n"
                 + "	cpf AS 'CPF', rg AS 'RG',\n"
@@ -159,30 +154,7 @@ public class ControlerFuncionario extends Funcionario {
     public boolean alterar(Funcionario f, String id) {
         // Este método altera os dados do funcionário a partir do identificador  
         boolean resp = false;
-        /*
-        String sql = "UPDATE tbcadfuncionario SET "
-            
-                + "endereco=?, "
-                + "bairro=?, "
-                + "cep=?, "
-                + "cidade=?, "
-                + "email=?,"
-                + "foto=?,"
-                + "telefone=?,"              
-                + "cargo=?,"
-                + "senha=?,"
-                + "status=?,"
-                + "bloqueado=?,"                
-                + "observacao=?,"
-                + "numero=?,"
-                + "uf=?,"
-                + "telefone_recado=?,"
-                + "complemento=?,"
-                + "cnh_validade=?,"
-                + "dt_desligamento=?,"
-                + "cnh=?"
-                + "WHERE id=?";
-         */
+       
         String sql = "UPDATE tbcadfuncionario SET\n"
                 + "endereco=?, \n"
                 + "bairro=?, \n"

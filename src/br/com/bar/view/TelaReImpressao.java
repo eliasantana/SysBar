@@ -11,7 +11,6 @@ import br.com.bar.model.TableModelReimpressao;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerPedido;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;

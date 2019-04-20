@@ -21,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -97,6 +98,14 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         lblOperador.setText(operador);
         lblPerfil.setText(perfil);
 
+    }
+    public void selecionaComponente(JRadioButton radio){
+        if ("Manual".equals(radio.getText())){            
+           
+             radioAutomatico.setSelected(true);
+        }else {
+            radioManual.setSelected(true);
+        }
     }
 
     /**
@@ -404,7 +413,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         txtCnpj.setBounds(700, 110, 190, 30);
 
         lblExcluir.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        lblExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
+        lblExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fechar.png"))); // NOI18N
         lblExcluir.setText("Limpar");
         lblExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -554,6 +563,9 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         radioAutomatico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 radioAutomaticoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                radioAutomaticoMouseEntered(evt);
             }
         });
 
@@ -795,13 +807,13 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private void radioAutomaticoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioAutomaticoMouseClicked
 
         authBkp.setAlwaysOnTop(true);
-        authBkp.recebeTela(this, "1");
+        authBkp.recebeTela(this, "1",radioAutomatico);
         authBkp.setVisible(true);
     }//GEN-LAST:event_radioAutomaticoMouseClicked
 
     private void radioManualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioManualMouseClicked
         authBkp.setAlwaysOnTop(true);
-        authBkp.recebeTela(this, "0");
+        authBkp.recebeTela(this, "0",radioManual);
         authBkp.setVisible(true);
     }//GEN-LAST:event_radioManualMouseClicked
 
@@ -815,6 +827,10 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_lblRealizarBackupMouseClicked
+
+    private void radioAutomaticoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioAutomaticoMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioAutomaticoMouseEntered
 
     public void ativarBackup(String valor) {
         dados.ativaBackup(valor);

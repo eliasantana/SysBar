@@ -5,18 +5,14 @@
  */
 package br.com.bar.view;
 
-import br.com.bar.dao.Backup;
 import br.com.bar.dao.Log;
 import br.com.bar.model.DadosEmpresa;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerParametro;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

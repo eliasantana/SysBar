@@ -6,9 +6,7 @@
 package br.com.br.controler;
 
 import br.com.bar.dao.ConexaoBd;
-import br.com.bar.model.Mesa;
 import br.com.bar.model.Pedido;
-import br.com.bar.model.Produto;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,8 +15,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;

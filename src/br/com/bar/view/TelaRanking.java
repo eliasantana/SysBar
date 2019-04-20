@@ -8,21 +8,11 @@ package br.com.bar.view;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCaixa;
 import br.com.br.controler.ControlerContasApagar;
-import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.List;
 import javax.swing.JOptionPane;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DatasetChangeListener;
-import org.jfree.data.general.DatasetGroup;
-import org.jfree.data.general.PieDataset;
 
 /**
  *

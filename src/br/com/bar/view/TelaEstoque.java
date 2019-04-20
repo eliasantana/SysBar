@@ -5,14 +5,12 @@
  */
 package br.com.bar.view;
 
-import br.com.bar.dao.Log;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerProduto;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;

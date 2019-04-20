@@ -24,8 +24,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
-import javax.swing.JTable;
-import net.proteanit.sql.DbUtils;
 
 /**
  *

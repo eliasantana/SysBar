@@ -5,14 +5,6 @@
  */
 package br.com.bar.util;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author Elias Santana

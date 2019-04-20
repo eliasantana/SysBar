@@ -6,20 +6,24 @@
 package br.com.bar.view;
 
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 
 public class TelaAutenticaBackup extends javax.swing.JFrame {
 
     TelaCadastroEmpresa telaCadastroEmpresa;
+    JRadioButton componente;
     String senha1 = "Jan2018@MF";
     String senha2 = "3l14ss4nt4n4";
     String valor;
+
     public TelaAutenticaBackup() {
         initComponents();
     }
 
-    public void recebeTela(TelaCadastroEmpresa ce, String valor) {
+    public void recebeTela(TelaCadastroEmpresa ce, String valor, JRadioButton radioBtn) {
         this.telaCadastroEmpresa = ce;
         this.valor = valor;
+        this.componente = radioBtn;
 
     }
 
@@ -121,10 +125,12 @@ public class TelaAutenticaBackup extends javax.swing.JFrame {
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Senha Inválida!");
+            txtSenha.setText(null);
         }
     }//GEN-LAST:event_btnAutenticaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        telaCadastroEmpresa.selecionaComponente(componente);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

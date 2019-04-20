@@ -7,7 +7,6 @@
 package br.com.br.controler;
 
 import br.com.bar.dao.ConexaoBd;
-import br.com.bar.view.TelaPametro;
 import java.awt.HeadlessException;
 import java.io.BufferedReader;
 import java.io.File;

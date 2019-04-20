@@ -5,12 +5,9 @@
  */
 package br.com.bar.model;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *

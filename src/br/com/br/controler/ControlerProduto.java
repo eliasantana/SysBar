@@ -452,9 +452,7 @@ public class ControlerProduto {
      */
     public ResultSet pesquisarProduto(String nome) {
 
-        /*String sql = "SELECT p.id as 'CÓDIGO', p.nome as 'DESCRIÇÃO', format(p.valor,2,'de_DE') as 'VALOR R$'\n"
-                + "FROM tbproduto p\n"
-                + "WHERE p.nome LIKE ? AND p.qtd > 0 ;";*/
+       
         String sql = "SELECT p.id as 'CÓDIGO', p.nome as 'DESCRIÇÃO', p.qtd as 'ESTOQUE',format(p.valor,2,'de_DE') as 'VALOR R$', g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g on g.id = p.cad_grupo_produto_id\n"

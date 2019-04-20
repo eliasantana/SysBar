@@ -5,8 +5,6 @@
  */
 package br.com.bar.view;
 
-import br.com.bar.dao.Backup;
-import br.com.bar.dao.Log;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerContasApagar;
 import br.com.br.controler.ControlerCozinha;
@@ -58,9 +56,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
         if (estoque.estoqueBaixo()){
             if ("".equals(lblAviso.getText())){
-                lblAviso.setText("*Existe(m) produto com Estoque inferior a quantidade desejada!");
+                lblAviso.setText("*Existe(m) produto(s) com estoque inferior a quantidade desejada!");
             }else {
-                lblAviso2.setText("*Existe produto com Estoque inferior a quantidade desejada!");
+                lblAviso2.setText("*Existe(m) produto(s) com estoque inferior a quantidade desejada!");
             }
             lblGestao.setForeground(Color.red);
         }
