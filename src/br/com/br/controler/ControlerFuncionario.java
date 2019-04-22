@@ -127,7 +127,7 @@ public class ControlerFuncionario extends Funcionario {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro exibeHistorico" + e);
+            System.out.println("br.com.br.controler.ControlerFuncionario.exibeHistorico()"+e);
         }
         return f.getObservacao();
     }
@@ -290,7 +290,7 @@ public class ControlerFuncionario extends Funcionario {
                 }
 
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Erro carregaComboFuncionário" + e);
+                System.out.println("br.com.br.controler.ControlerFuncionario.carregaComboFuncionario2()"+e);
             }
         } else {
 
@@ -305,7 +305,7 @@ public class ControlerFuncionario extends Funcionario {
                 }
 
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Erro carregaComboFuncionário" + e);
+                System.out.println("br.com.br.controler.ControlerFuncionario.carregaComboFuncionario2()+e");
             }
         }
 
@@ -331,7 +331,8 @@ public class ControlerFuncionario extends Funcionario {
                 }
 
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Erro carregaComboFuncionário" + e);
+                System.out.println("br.com.br.controler.ControlerFuncionario.carregaComboFuncionario()"+e);
+                        
             }
         } else {
 
@@ -368,7 +369,7 @@ public class ControlerFuncionario extends Funcionario {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro carregaComboFuncionário" + e);
+            System.out.println("br.com.br.controler.ControlerFuncionario.carregaComboFuncionario()"+e);
         }
     }
     /**
@@ -389,7 +390,7 @@ public class ControlerFuncionario extends Funcionario {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro carregaComboFuncionário" + e);
+            System.out.println("br.com.br.controler.ControlerFuncionario.carregaComboFuncionarioAtivo()"+e);
         }
     }
     /**
@@ -431,7 +432,7 @@ public class ControlerFuncionario extends Funcionario {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro localizaId" + e);
+            System.out.println("br.com.br.controler.ControlerFuncionario.localizaId()");
         }
         return id;
     }
@@ -451,7 +452,7 @@ public class ControlerFuncionario extends Funcionario {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro localizaId" + e);
+            System.out.println("br.com.br.controler.ControlerFuncionario.localizaIdLogin()");
         }
         return id;
     }
@@ -472,7 +473,7 @@ public class ControlerFuncionario extends Funcionario {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro temMesa() " + e);
+            System.out.println("br.com.br.controler.ControlerFuncionario.temMesa()"+e);
         }
 
         return false;
@@ -509,7 +510,7 @@ public class ControlerFuncionario extends Funcionario {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro localizaId" + e);
+            System.out.println("br.com.br.controler.ControlerFuncionario.temFuncionario()"+e);
         }
         return resp;
     }
@@ -525,7 +526,7 @@ public class ControlerFuncionario extends Funcionario {
                 combo.addItem(rs.getString("cargo"));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro carregaComboCarg" + e);
+            System.out.println("br.com.br.controler.ControlerFuncionario.carregaComboCargo()"+e);
         }
 
     }

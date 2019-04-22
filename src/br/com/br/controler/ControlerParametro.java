@@ -69,7 +69,7 @@ public class ControlerParametro {
             gravaARquivo.close();
 
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao gravar o arquivo de parâmetro"+e);
+            System.out.println("br.com.br.controler.ControlerParametro.criarArquivoParametro()"+e);
         }
 
     }
@@ -125,7 +125,7 @@ public class ControlerParametro {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro localizaIdFuncionario" + e);
+            System.out.println("br.com.br.controler.ControlerParametro.localizaIdFuncionario()"+e);
 
         }
         return id;

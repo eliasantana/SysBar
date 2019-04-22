@@ -104,7 +104,7 @@ public class ControlerOcorrencia {
             rs=pst.executeQuery();
                        
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao localiar ocorrencia"+e);
+            System.out.println("br.com.br.controler.ControlerOcorrencia.localizar()"+e);
         }
         
         return rs;

@@ -34,7 +34,7 @@ public class ControlerGrupo {
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro adicionarGrupo" + e);
+            System.out.println("br.com.br.controler.ControlerGrupo.adicionarGrupo()"+e);
 
         }
         return false;
@@ -87,7 +87,7 @@ public class ControlerGrupo {
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro atualizaTabela" + e);
+            System.out.println("br.com.br.controler.ControlerGrupo.atualizaTabela()"+e);
 
         }
         return rs;
@@ -104,7 +104,7 @@ public class ControlerGrupo {
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro atualizaGrupoProduto" + e);
+            System.out.println("br.com.br.controler.ControlerGrupo.atualizaGrupoProduto()"+e);                   
 
         }
         return rs;
@@ -121,7 +121,7 @@ public class ControlerGrupo {
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro adicionarGrupoPrpduto" + e);
+            System.out.println("br.com.br.controler.ControlerGrupo.adicionarGrupoProduto()"+e);
 
         }
         return false;
@@ -178,7 +178,7 @@ public class ControlerGrupo {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro CarregaComboGrupoProduto " + e);
+            System.out.println("br.com.br.controler.ControlerGrupo.carregaComboGrupoProduto()"+e);
         }
     }
 
@@ -196,7 +196,7 @@ public class ControlerGrupo {
                 id = rs.getString("id");
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro localizaIdGrupoProduto " + e);
+            System.out.println("br.com.br.controler.ControlerGrupo.localizaIdGrupoProduto()"+e);
         }
 
         return id;
@@ -220,7 +220,7 @@ public class ControlerGrupo {
                 id = rs.getString("id");
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro localizaIdGrupoProduto " + e);
+            System.out.println("br.com.br.controler.ControlerGrupo.localizaIdGrupoProduto()"+e);
         }
 
         return id;
@@ -240,7 +240,7 @@ public class ControlerGrupo {
                 id = rs.getString("id");
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro localizaIdGrupoProduto " + e);
+            System.out.println("br.com.br.controler.ControlerGrupo.localizaIdGrupo()"+e);
         }
 
         return id;
@@ -255,7 +255,7 @@ public class ControlerGrupo {
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro CarregaComboGrupoProduto " + e);
+            System.out.println("br.com.br.controler.ControlerGrupo.listaGrupoProduto()"+e);
         }
 
         return rs;

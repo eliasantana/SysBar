@@ -197,7 +197,7 @@ public class ControlerContasApagar {
             resp = true;
         } catch (SQLException e) {
 
-            JOptionPane.showMessageDialog(null, "Erro Extorna Conta" + e);
+            System.out.println("br.com.br.controler.ControlerContasApagar.extornaConta()"+e);
         }
 
         return resp;
@@ -262,7 +262,7 @@ public class ControlerContasApagar {
             }
 
         } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro excluiConta!");
+            System.out.println("br.com.br.controler.ControlerContasApagar.excluiConta()"+e);
 
         }
     }

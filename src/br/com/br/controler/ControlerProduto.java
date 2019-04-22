@@ -197,7 +197,7 @@ public class ControlerProduto {
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ErroListarProduto" + e);
+            System.out.println("br.com.br.controler.ControlerProduto.filtrarProduto()"+e);
         }
         return rs;
     }

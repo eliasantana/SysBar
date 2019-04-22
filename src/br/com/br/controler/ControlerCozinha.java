@@ -86,7 +86,7 @@ public class ControlerCozinha {
             resultado.add(liberados);
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro estatiscicas()" + e);
+            System.out.println("br.com.br.controler.ControlerCozinha.estatisticas()"+e);
         }
         return resultado;
     }
@@ -105,7 +105,7 @@ public class ControlerCozinha {
 
         } catch (SQLException e) {
 
-            JOptionPane.showMessageDialog(null, "erro liberaProduto()" + e);
+            System.out.println("br.com.br.controler.ControlerCozinha.liberaProduto()"+e);
         }
 
         return false;
@@ -133,7 +133,7 @@ public class ControlerCozinha {
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "erroStatusCozinha" + e);
+            System.out.println("br.com.br.controler.ControlerCozinha.statusCozinha()"+e);
         }
 
         return rs;

@@ -73,7 +73,7 @@ public class ControlerCaixa {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro totalizaSaída()" + e);
+            System.out.println("br.com.br.controler.ControlerCaixa.totalizaSaida()"+e);
 
         }
         return totalSaidas;
@@ -98,7 +98,7 @@ public class ControlerCaixa {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro totalizaSaída()" + e);
+            System.out.println("br.com.br.controler.ControlerCaixa.totalizaSaida()"+e);
 
         }
         return totalSaidas;
@@ -124,7 +124,7 @@ public class ControlerCaixa {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro totalizaSaída()" + e);
+            System.out.println("br.com.br.controler.ControlerCaixa.totalizaSaida()"+e);
 
         }
         return totalSaidas;
@@ -149,8 +149,7 @@ public class ControlerCaixa {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro totalizaEntradas()" + e);
-
+            System.out.println("br.com.br.controler.ControlerCaixa.totalizaEntradas()"+e);
         }
         return total;
     }
@@ -177,7 +176,7 @@ public class ControlerCaixa {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro totalizaEntradas()" + e);
+            System.out.println("br.com.br.controler.ControlerCaixa.totalizaEntradas()"+e);
 
         }
         return total;
@@ -205,7 +204,7 @@ public class ControlerCaixa {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro totalizaEntradas()" + e);
+            System.out.println("br.com.br.controler.ControlerCaixa.totalizaEntradas()"+e);
 
         }
         return total;
@@ -228,7 +227,7 @@ public class ControlerCaixa {
             pst.executeUpdate();
             resp = true;
         } catch (SQLException e) {
-            System.out.println("Erro ao gravarMovimentação()");
+            System.out.println("br.com.br.controler.ControlerCaixa.gravaMovimentacao()"+e);
         }
 
         return resp;

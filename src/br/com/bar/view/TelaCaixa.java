@@ -1289,7 +1289,6 @@ public class TelaCaixa extends JDialog {
             dados.put("data", df.format(dt));
             dados.put("id_pedido", txtIdPedido.getText());
             dados.put("garcom", lblGarcom.getText());
-            dados.put("titulo", "PARCIAL DE CONSUMO");
             String strTx = percent.getText().replace(".", "");
             strTx = strTx.replace(",", ".");
             dados.put("tx", Double.parseDouble(strTx));
@@ -1297,9 +1296,7 @@ public class TelaCaixa extends JDialog {
             dados.put("total_pessoas", totalPessoas);
             dados.put("mesa", comboMesa.getSelectedItem().toString());
             dados.put("nome_empresa", dadosEmpresa.getNome_empresa());
-            dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro() + " - " + dadosEmpresa.getCep());
-            dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone());
-            dados.put("cnpj", dadosEmpresa.getCnpj());
+           
             String strDesc = txtDesconto.getText().replace(".", "");
             strDesc = strDesc.replace(",", ".");
             dados.put("desc", Double.parseDouble(strDesc));
@@ -1307,11 +1304,11 @@ public class TelaCaixa extends JDialog {
             try {
                 if (dadosEmpresa.getImprimir_na_tela() == 0) {
 
-                    rpu.imprimeRelatorioTela("cupom2.jasper", dados);
+                    rpu.imprimeRelatorioTela("consumo.jasper", dados);
 
                 } else {
 
-                    rpu.impressaoDireta("cupom2.jasper", dados);
+                    rpu.impressaoDireta("consumo.jasper", dados);
                 }
             } catch (JRException e) {
                 System.out.println("br.com.bar.view.TelaCaixa.btnImprimirMouseClicked()" + e);
