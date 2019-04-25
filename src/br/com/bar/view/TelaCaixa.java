@@ -891,7 +891,7 @@ public class TelaCaixa extends JDialog {
             dispose();
             TelaLogin login = new TelaLogin();
             login.setVisible(true);
-            fazBackup();
+      
         }
     }//GEN-LAST:event_btnFecharMouseClicked
 
@@ -1168,7 +1168,7 @@ public class TelaCaixa extends JDialog {
             dispose();
             TelaLogin login = new TelaLogin();
             login.setVisible(true);
-            fazBackup();
+           
         }
 
     }//GEN-LAST:event_jLabel17MouseClicked
@@ -1674,18 +1674,7 @@ public class TelaCaixa extends JDialog {
 
     }
 
-    private void fazBackup() {
-        // Realiza Backup se o usuário tiver como cargo Caixa
-        if ("Caixa".equals(lblCargo.getText())) {
-
-            Backup b = new Backup();
-            try {
-                b.realizaBackup();
-            } catch (IOException ex) {
-                System.out.println("br.com.bar.view.TelaCaixa.<init>()" + ex);
-            }
-        }
-    }
+    
 
     /**
      * @param args the command line arguments

@@ -7,12 +7,18 @@
 package br.com.bar.util;
 
 import br.com.bar.model.DadosEmpresa;
+import br.com.bar.view.TEste;
 import br.com.br.controler.ControlerDadosEmpresa;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Image;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -20,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.Icon;
@@ -549,53 +557,5 @@ public class Util {
         dtChooser.setMinSelectableDate(cMin.getTime());
 
     }
-    /**
-     * Executa o módulo de backup.
-     */
-    public void executaModuloBackup() {
-
-        try {
-            Runtime.getRuntime().exec("cmd /c start C:/SysBar/BackupSystem.jar");
-
-        } catch (IOException e) {
-            System.out.println("br.com.backupsystem.view.Teste.jButton1ActionPerformed()" + e);
-        }
-    }
-
-    /**
-     * Verifica se o módulo de backup está em execução
-     *
-     * @return boolean TRUE se em execução.
-     */
-    public boolean estaExecutandoModuloBackup() {
-        String caminho = "C:\\SysBar\\bkp_exec.txt";
-        File f = new File(caminho);
-        boolean resp = false;
-        if (f.exists()) {
-            resp = true;
-        }
-        return resp;
-    }
-    
-    /**
-     * Cria o arquivo de Flag que servirá para indicar que a aplicação Backup
-     * System está em Execução.
-     * @param  path Caminho onde o arquivo deverá ser cirado. 
-     * Ex: C:\\diretorio\\subdiretorio.
-     */
-    public void criaArquivoFlag(String path) {
-
-        File f = new File(path);
-        try {
-            if (f.exists()) {
-                System.out.println("O arquivo Existe");
-            } else {
-                f.createNewFile();
-                System.out.println("Arquivo Criado com sucesso!");
-            }
-
-        } catch (IOException ex) {
-            System.out.println("br.com.bar.util.Util.criaArquivoFlag()" + ex);
-        }
-    }
+   
 }

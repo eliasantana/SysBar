@@ -301,15 +301,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
             if (autentica.autentica2(comboLogin.getSelectedItem().toString(), txtSenha.getText().toLowerCase())) {
                 // Executa módulo de Backup na inicialização após verificação.
-                if (u.estaExecutandoModuloBackup()){
-                    System.out.println("Está em execução");
-                }else {
-                    //Verifica o tipo de backup
-                    if (d.tipoBAckup()) {
-                        u.executaModuloBackup();                       
-                        u.criaArquivoFlag(caminho);
-                    } 
-                }
+                
                 
                 String cargo = autentica.enviarCargo();
                 System.out.println("Cargo: " + cargo);

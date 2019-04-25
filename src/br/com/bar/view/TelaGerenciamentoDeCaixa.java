@@ -232,7 +232,6 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
         if (cc.liberaCaixa(txtIdCaixa.getText())) {
                 JOptionPane.showMessageDialog(this, "Caixa liberado com sucesso!");
                 tblGerenciamentoCaixa.setModel(DbUtils.resultSetToTableModel(cc.listaCaixa()));
-                modelGerenciarCaixa.redimensionaColunas(tblGerenciamentoCaixa);   
                 //Inicio do Registro de Log
                 btnLiberarCaixa.setEnabled(false);
                 l.setFuncionalidade("Caixa");
@@ -242,6 +241,7 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
                 listarCaixa();
                 //Fim do Registro de Log
             }
+                modelGerenciarCaixa.redimensionaColunas(tblGerenciamentoCaixa);   
 
     }//GEN-LAST:event_btnLiberarCaixaActionPerformed
 

@@ -5,18 +5,30 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.util.Util;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import org.apache.hadoop.hive.ql.parse.HiveParser;
+import org.apache.hadoop.util.Daemon;
 
 /**
  *
@@ -127,8 +139,8 @@ public class TEste extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jdateExemplo = new com.toedter.calendar.JDateChooser();
         jButton3 = new javax.swing.JButton();
-        panel = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        btnCriaArquivo = new javax.swing.JButton();
+        btnCriaArquivo1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -159,13 +171,17 @@ public class TEste extends javax.swing.JFrame {
             }
         });
 
-        panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton4.setText("jButton4");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnCriaArquivo.setText("Cria arquivo");
+        btnCriaArquivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnCriaArquivoActionPerformed(evt);
+            }
+        });
+
+        btnCriaArquivo1.setText("Cria arquivo");
+        btnCriaArquivo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCriaArquivo1ActionPerformed(evt);
             }
         });
 
@@ -199,12 +215,12 @@ public class TEste extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCriaArquivo, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnCriaArquivo1, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(103, 103, 103)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jdateExemplo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(95, 95, 95))
+                .addComponent(jdateExemplo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(218, 218, 218))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,20 +233,19 @@ public class TEste extends javax.swing.JFrame {
                     .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jdateIni, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jdateFim, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)
-                        .addGap(28, 28, 28)
-                        .addComponent(jButton4))
-                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(94, Short.MAX_VALUE))
+                    .addComponent(jdateIni, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jdateFim, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton3)
+                .addGap(28, 28, 28)
+                .addComponent(btnCriaArquivo)
+                .addGap(28, 28, 28)
+                .addComponent(btnCriaArquivo1)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         pack();
@@ -272,15 +287,57 @@ public class TEste extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        panel.setLayout(new GridLayout(0, 3, 5, 5));
-        JLabel label1 = new JLabel();
-        label1.setBorder(BorderFactory.createLineBorder(Color.black));
-        label1.setText("Mesa");
-        label1.setHorizontalAlignment(0);
-        label1.setVerticalAlignment(0);
-        panel.add(label1);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btnCriaArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriaArquivoActionPerformed
+       String caminho = "C:\\SysBar\\teste.txt";
+        File f= new File(caminho);
+        try {
+            FileWriter fw = new FileWriter(f);
+           try (PrintWriter pw = new PrintWriter(fw)) {
+               Date dtAtual = new Date();
+               Util u = new Util();
+               
+               pw.print(u.formataDataBanco(dtAtual));
+               pw.flush();
+               System.out.println("Arquivo criado com sucesso!");
+           }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(TEste.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+               
+            
+    }//GEN-LAST:event_btnCriaArquivoActionPerformed
+
+    private void btnCriaArquivo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriaArquivo1ActionPerformed
+       String caminho = "C:\\SysBar\\teste.txt";
+        File f = new File(caminho);
+        String dados=null;
+        try {
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            
+           try {
+               dados = br.readLine();
+           } catch (IOException ex) {
+               Logger.getLogger(TEste.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TEste.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dados = "2019-04-22";
+        
+        System.out.println("Dados: "+ dados);
+        Date dt = new Date();
+        Util u = new Util();
+        String dataHoje = u.formataDataBanco(dt);
+        if (dataHoje.equals(dados)){
+            System.out.println("O arquivo é de hoje - Programa em Execução");
+        }else {
+            System.out.println("Arquivo  com data diferente: Excluir arquivo");
+                    
+        }
+    }//GEN-LAST:event_btnCriaArquivo1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -318,16 +375,16 @@ public class TEste extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCriaArquivo;
+    private javax.swing.JButton btnCriaArquivo1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private com.toedter.calendar.JDateChooser jdateExemplo;
     private com.toedter.calendar.JDateChooser jdateFim;
     private com.toedter.calendar.JDateChooser jdateIni;
-    private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables
 }
