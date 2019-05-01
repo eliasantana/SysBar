@@ -216,6 +216,7 @@ public class TelaConfirmaCozinheiro extends JDialog {
            this.dispose();
         }else {
             lblMsg.setText("*Informe um código válido!");
+            txtCodigo.setText(null);
         }
     }
 }

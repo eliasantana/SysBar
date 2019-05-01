@@ -637,10 +637,10 @@ public class TelaCadastroFuncionario extends JDialog {
         lblCelular.setBounds(150, 260, 90, 20);
 
         jDateDesligamento.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 jDateDesligamentoInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jDateDesligamento.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -655,8 +655,6 @@ public class TelaCadastroFuncionario extends JDialog {
         lblMsg.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(lblMsg);
         lblMsg.setBounds(370, 370, 340, 20);
-
-        txtSenha.setText("jPasswordField1");
         jPanel1.add(txtSenha);
         txtSenha.setBounds(450, 180, 100, 30);
 

@@ -19,12 +19,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author elias
  */
+//javax.swing.JFrame
 public class TelaPrincipal extends javax.swing.JFrame {
 
     Date data = new Date();

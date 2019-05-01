@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -61,13 +62,22 @@ public class TableModelCaixa extends AbstractTableModel {
     }
 
      public void redimensionaColunas(JTable tabela) {
-
+        // Define alinhamento da coluna.
+        //SwingConstants.RIGHT
+       
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(60); // CÓDIGO
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(290);//PRODUTO
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(50); //QUANTIDADE
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(120); //VALOR UNITÁRIO
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(100); //TOTAL
+        // Aplica alinhamento
+        tabela.getColumnModel().getColumn(2).setCellRenderer(direita);
+        tabela.getColumnModel().getColumn(3).setCellRenderer(direita);
+        tabela.getColumnModel().getColumn(4).setCellRenderer(direita);
         
 
     }

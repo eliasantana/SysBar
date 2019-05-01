@@ -99,6 +99,7 @@ public class TelaContasApagar extends JDialog {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        Bordas = new javax.swing.JPanel();
         painelEsquerdo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtDescricao = new javax.swing.JTextField();
@@ -137,6 +138,9 @@ public class TelaContasApagar extends JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(null);
+
+        Bordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
+        Bordas.setLayout(null);
 
         painelEsquerdo.setBackground(new java.awt.Color(38, 53, 61));
         painelEsquerdo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -325,11 +329,10 @@ public class TelaContasApagar extends JDialog {
         painelEsquerdo.add(txtValorPago);
         txtValorPago.setBounds(190, 390, 150, 40);
 
-        getContentPane().add(painelEsquerdo);
-        painelEsquerdo.setBounds(0, 0, 370, 550);
+        Bordas.add(painelEsquerdo);
+        painelEsquerdo.setBounds(0, 0, 370, 547);
 
         painelDireito.setBackground(new java.awt.Color(204, 204, 204));
-        painelDireito.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         painelDireito.setLayout(null);
 
         tblContas.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
@@ -360,7 +363,7 @@ public class TelaContasApagar extends JDialog {
         jScrollPane1.setViewportView(tblContas);
 
         painelDireito.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 130, 890, 350);
+        jScrollPane1.setBounds(20, 130, 888, 350);
 
         jPanel1.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -390,7 +393,7 @@ public class TelaContasApagar extends JDialog {
         );
 
         painelDireito.add(jPanel1);
-        jPanel1.setBounds(876, 0, 40, 40);
+        jPanel1.setBounds(872, 0, 40, 40);
 
         btnBaixar.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         btnBaixar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnbaixar-48.png"))); // NOI18N
@@ -448,10 +451,13 @@ public class TelaContasApagar extends JDialog {
         painelDireito.add(jLabel2);
         jLabel2.setBounds(270, 10, 350, 64);
 
-        getContentPane().add(painelDireito);
-        painelDireito.setBounds(360, 0, 920, 550);
+        Bordas.add(painelDireito);
+        painelDireito.setBounds(360, 1, 911, 546);
 
-        setSize(new java.awt.Dimension(1274, 548));
+        getContentPane().add(Bordas);
+        Bordas.setBounds(0, 0, 1273, 548);
+
+        setSize(new java.awt.Dimension(1273, 548));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -931,6 +937,7 @@ public class TelaContasApagar extends JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Bordas;
     private javax.swing.JLabel btnBaixar;
     private javax.swing.JLabel btnGraficoDeDespesas;
     private javax.swing.ButtonGroup buttonGroup1;

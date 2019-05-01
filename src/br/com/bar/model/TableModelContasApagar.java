@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -65,9 +66,14 @@ public class TableModelContasApagar extends AbstractTableModel {
 
      public void redimensionaColunas(JTable tabela) {
          //"CÓDIGO", "DESCRIÇÃO", "VALOR", "VENCIMENTO", "PAGAMENTO","PAGO","OPERADOR","GRUPO"
+         //Define alinhamento
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer center = new DefaultTableCellRenderer();
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        center.setHorizontalAlignment(SwingConstants.CENTER);
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(80); 
-        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(230);
+        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(216);
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(80); 
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(90); 
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(90); 
@@ -79,6 +85,11 @@ public class TableModelContasApagar extends AbstractTableModel {
         tabela.getColumnModel().getColumn(0).setPreferredWidth(0);
         tabela.getColumnModel().getColumn(0).setMinWidth(0);
         tabela.getColumnModel().getColumn(0).setMaxWidth(0);
+        // Aplica Alinhamento
+        tabela.getColumnModel().getColumn(2).setCellRenderer(direita);
+        tabela.getColumnModel().getColumn(3).setCellRenderer(center);
+        tabela.getColumnModel().getColumn(4).setCellRenderer(center);
+        tabela.getColumnModel().getColumn(5).setCellRenderer(direita);
         
         
     }

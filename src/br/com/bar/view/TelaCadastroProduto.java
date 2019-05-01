@@ -205,7 +205,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         painelEsquerdo.add(lblQtdMax);
         lblQtdMax.setBounds(220, 150, 170, 30);
 
-        comboGrupoProduto.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        comboGrupoProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         comboGrupoProduto.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboGrupoProdutoItemStateChanged(evt);
