@@ -82,7 +82,7 @@ public class ControlerCaixa {
     // Totaliza saídas por operador
     public double totalizaSaida(String operador) {
 
-        String sql = "SELECT sum(valor_pagto) as 'saidas'FROM dbbar.tbcontas_a_pagar where date_format(data_pagto,'%Y-%m-%d')=curdate() AND operador=?";
+        String sql = "SELECT sum(valor_pagto) as 'saidas' FROM dbbar.tbcontas_a_pagar where date_format(data_pagto,'%Y-%m-%d')=curdate() AND operador=?";
         double totalSaidas = 0;
         try {
             pst = conexao.prepareStatement(sql);
@@ -107,7 +107,7 @@ public class ControlerCaixa {
     // Totaliza saídas por operador na data Informada
     public double totalizaSaida(String operador, String data) {
 
-        String sql = "SELECT sum(valor_pagto) as 'saidas'FROM dbbar.tbcontas_a_pagar where data_pagto=? AND operador=?";
+        String sql = "SELECT sum(valor_pagto) as 'saidas'FROM dbbar.tbcontas_a_pagar where date_format(data_pagto,'%Y-%m-%d')=? AND operador=?";
         double totalSaidas = 0;
         try {
             pst = conexao.prepareStatement(sql);

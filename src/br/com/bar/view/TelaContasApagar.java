@@ -608,7 +608,7 @@ public class TelaContasApagar extends JDialog {
             Timestamp t = new Timestamp(new Date().getTime());
             c.setDataPagto(String.valueOf(t)); // Formata a data de pagamento para o formato yyyy-MM-dd(MySql)
             int linha = tblContas.getSelectedRow();
-
+            c.setOperador(lblOperador.getText());
             // Se a coluna selecionada estiver vazia gera um NullPointException
             try {
 

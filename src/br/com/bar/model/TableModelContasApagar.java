@@ -69,8 +69,12 @@ public class TableModelContasApagar extends AbstractTableModel {
          //Define alinhamento
         DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
         DefaultTableCellRenderer center = new DefaultTableCellRenderer();
+        
+        
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         center.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(80); 
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(216);
@@ -88,7 +92,7 @@ public class TableModelContasApagar extends AbstractTableModel {
         // Aplica Alinhamento
         tabela.getColumnModel().getColumn(2).setCellRenderer(direita);
         tabela.getColumnModel().getColumn(3).setCellRenderer(center);
-        tabela.getColumnModel().getColumn(4).setCellRenderer(center);
+        tabela.getColumnModel().getColumn(4).setCellRenderer(center);       
         tabela.getColumnModel().getColumn(5).setCellRenderer(direita);
         
         

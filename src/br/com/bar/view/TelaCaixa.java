@@ -1397,6 +1397,7 @@ public class TelaCaixa extends JDialog {
                             } else {
                                 JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param), conexao);
                                 JasperPrintManager.printPage(print, 0, false);
+                                
                             }
 
                         } catch (JRException e) {
@@ -1408,6 +1409,14 @@ public class TelaCaixa extends JDialog {
                             // Fecha caixa anterio do operador informado
                             caixa.fechaCaixaAnterior(String.valueOf(lblOperador.getText()), String.valueOf(cx.getIdFuncionario()));
 
+                        }
+                        //Imprime Detalhamento de Vendas
+                                HashMap mapDetalhe = new HashMap();
+                                mapDetalhe.put("operador", lblOperador.getText());
+                        try {
+                            rpu.imprimeRelatorioTela("detalhe.jasper", mapDetalhe);
+                        } catch (JRException ex) {
+                            Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
                     }

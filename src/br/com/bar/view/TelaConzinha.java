@@ -51,11 +51,12 @@ public class TelaConzinha extends javax.swing.JFrame {
         Date dt = new Date();
         lblData.setText(u.formataDataBr(dt));
         txtidProdutoCozinha.setVisible(false);
-
+       // tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
         desabilitaTodosBtns();
         
         // Atualiza a lista de pedidos da cozinha após período de tempo informado
         long minutos = 60000; //milisegundos = 1 minuto
+        
         java.util.Timer timer = new java.util.Timer();
         TimerTask atualizaCozinha = new TimerTask() {
             @Override
@@ -71,7 +72,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                 lblMsg.setText(null);
             }
         };
-
+        
         timer.scheduleAtFixedRate(atualizaCozinha, 0, minutos);
         relogio();
         
@@ -99,12 +100,14 @@ public class TelaConzinha extends javax.swing.JFrame {
 
     private void relogio() {
         long segundos = 1000;
-        Timer timer = new Timer();
+        Timer timer = new Timer();       
+        
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
 
-                Calendar c = Calendar.getInstance();
+                Calendar c = Calendar.getInstance();      
+                
                 SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
                 lblRelogio.setText(df.format(c.getTime()));
             }
