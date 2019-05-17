@@ -157,6 +157,7 @@ public class TelaConfirmaCozinheiro extends JDialog {
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         confirmaCozinheiro();
+        this.dispose();
         
     }//GEN-LAST:event_btnOkActionPerformed
 
@@ -208,12 +209,13 @@ public class TelaConfirmaCozinheiro extends JDialog {
 
     private void confirmaCozinheiro() {
         f = cf.localizaFuncionario(txtCodigo.getText());
-        if (null!=f.getId()){          
+        if (null!=f.getId()){  
+           this.dispose();
            cozinha.recebeCozinheiro(f,idPrato);
            //Log
             Log log = new Log(f.getNome(), "Liberação", "Liberou o prato->"+ idPrato);
             log.gravaLog(log);
-           this.dispose();
+          
         }else {
             lblMsg.setText("*Informe um código válido!");
             txtCodigo.setText(null);

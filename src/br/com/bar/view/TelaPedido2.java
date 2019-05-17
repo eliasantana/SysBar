@@ -31,6 +31,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
@@ -55,6 +57,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
     JFrame tlGerenciarPedido;
     Util u = new Util();
     Funcionario funcLogado;
+
+    TimerTask task;
+    // Limite em segundo para bloquear a tela
+    int limite = 12;
+    // Contador - Segundos
+    int s = 0;
 
     /**
      * Creates new form TelaPedido2
@@ -82,10 +90,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblStatusCozinha.setEnabled(false);
         btnAbrirPedido.setEnabled(false);
         lblCargo.setVisible(false);
+        lblSegundos.setVisible(false);
         //Torna a tela Selecionavel 'Necessário para que o evento de bloqueio ocorra'
         this.setFocusable(true);
         // Adiciona Listner para bloquear tela
         addKeyListener(new LeitorDeTeclas());
+        cronometro();
     }
 
     public void recebeOperador(String operador, String perfil) {
@@ -93,7 +103,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblCargo.setText(perfil);
         lblCargo.setVisible(false);
         modelPedidos.redimensionaColunas(tblPedidosAbertos);
-        
+
         if ("Gerente".equals(lblCargo.getText())) {
 
             lblGerenciarPedido.setVisible(true);
@@ -144,6 +154,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lbllogo = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
+        lblSegundos = new javax.swing.JLabel();
         lblData2 = new javax.swing.JLabel();
         txtNumeroMesa = new javax.swing.JTextField();
         panelFechar = new javax.swing.JPanel();
@@ -222,6 +233,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
+        });
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
@@ -259,6 +275,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario_branco.png"))); // NOI18N
         lblOperador.setText("usuário");
 
+        lblSegundos.setForeground(new java.awt.Color(255, 255, 255));
+        lblSegundos.setText("jLabel5");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -273,13 +292,19 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(105, 105, 105)
+                .addComponent(lblSegundos)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(lbllogo, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 436, Short.MAX_VALUE)
+                .addGap(99, 99, 99)
+                .addComponent(lblSegundos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 323, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -876,6 +901,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
         //Captura exceção gerada no momento do click na tabela pedidos abertos quando
         // a mesma está vazia.
         lblMsgRetorno.setText(null);
+        //Zera contado do cronômetro.
+        
         try {
 
             String numeroMesa = tblPedidosAbertos.getModel().getValueAt(linha, 0).toString();
@@ -901,6 +928,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         } catch (NullPointerException e) {
             System.out.println("br.com.bar.view.TelaPedido2.tblPedidosAbertosMouseClicked()" + e);
         }
+        
     }//GEN-LAST:event_tblPedidosAbertosMouseClicked
 
     private void jTabbedPanePedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPanePedidoMouseClicked
@@ -950,21 +978,21 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 modelProduroEstoque.redimensionaColunas(tblListaProduto);
             }
         } else {
-        bloqueiaCampos();
-        int index = jTabbedPanePedido.getSelectedIndex();                  
-        if ("Lista de Produtos".equals(jTabbedPanePedido.getTitleAt(index))) {
-            lblPesquisa.setVisible(true);
-            txtPesquisa.setVisible(true);
-            txtPesquisa.setText(null);
-            txtQtd.setText(null);
-        }else {
-            lblPesquisa.setVisible(false);
-            txtPesquisa.setVisible(false);
-            limpaform();
+            bloqueiaCampos();
+            int index = jTabbedPanePedido.getSelectedIndex();
+            if ("Lista de Produtos".equals(jTabbedPanePedido.getTitleAt(index))) {
+                lblPesquisa.setVisible(true);
+                txtPesquisa.setVisible(true);
+                txtPesquisa.setText(null);
+                txtQtd.setText(null);
+            } else {
+                lblPesquisa.setVisible(false);
+                txtPesquisa.setVisible(false);
+                limpaform();
+            }
+
         }
-        
-        }
-            
+
 
     }//GEN-LAST:event_jTabbedPanePedidoMouseClicked
 
@@ -1039,6 +1067,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
         txtValorTotal.setText("0,00");
         txtQtd.setEnabled(true);
         lblMsgRetorno.setText(null);
+        //Zera o cronômetro
+        s=0;
 
 
     }//GEN-LAST:event_tblListaProdutoMouseClicked
@@ -1081,10 +1111,13 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Para demais usuário a janela será fechada e chanará a Tela de Login
         if ("Gerente".equals(lblCargo.getText())) {
             this.dispose();
+            task.cancel();//Cancela a contagem do tempo do método conômetro
         } else {
             this.dispose();
             TelaLogin login = new TelaLogin();
             login.setVisible(true);
+            
+            task.cancel();//Cancela a contagem do tempo do método conômetro
         }
     }//GEN-LAST:event_panelFecharMouseClicked
 
@@ -1163,6 +1196,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // Chama a tela de Bloqueio
+        s = 46;
+        comboGarcom.setSelectedIndex(0);
         TelaBloqueio tb = new TelaBloqueio();
         tb.setModal(true);
         tb.setVisible(true);
@@ -1176,12 +1211,41 @@ public class TelaPedido2 extends javax.swing.JFrame {
         alteraSenha.setVisible(true);
     }//GEN-LAST:event_lblAlterarSenhaMouseClicked
 
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+        // zera o contador 
+        s = 0;
+    }//GEN-LAST:event_formMouseMoved
+
     private double calculaPedido() {
         double valor = Double.parseDouble(txtValorUnit.getText().replaceAll(",", "."));
         int qtd = Integer.parseInt(txtQtd.getText());
         double total = valor * qtd;
 
         return total;
+    }
+
+    private void cronometro() {
+        long segundos = 1000;
+        Timer timer = new Timer();
+
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                //Realiza uma contagem a incremento de 1 acadas segundo.
+
+                s = s + 1;
+                lblSegundos.setText(String.valueOf(s));
+                // Verifica se a contagem atingiu o limite informado para bloqueio da tela.
+                if (s == limite) {
+                    comboGarcom.setSelectedIndex(0);
+                    TelaBloqueio tb = new TelaBloqueio();
+                    tb.setModal(true);
+                    tb.setVisible(true);
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, segundos);
+
     }
 
     /**
@@ -1259,6 +1323,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JLabel lblQtd;
     private javax.swing.JLabel lblQtd1;
     private javax.swing.JLabel lblQtd2;
+    private javax.swing.JLabel lblSegundos;
     private javax.swing.JLabel lblStatusCozinha;
     private javax.swing.JLabel lbllogo;
     private javax.swing.JPanel panelAbrirPedido;

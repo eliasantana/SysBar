@@ -7,7 +7,11 @@ package br.com.bar.view;
 
 import br.com.bar.dao.AutenticaUsuario;
 import br.com.br.controler.ControlerFuncionario;
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 
 /**
@@ -27,7 +31,6 @@ public class TelaBloqueio extends JDialog {
         cf.carregaComboFuncionarioGerenteGarcom(comboLogin);
         txtSenha.setEnabled(false);
         btnDesbloquear.setEnabled(false);
-
     }
 
     /**
@@ -124,7 +127,7 @@ public class TelaBloqueio extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDesbloquearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDesbloquearMouseClicked
-        desbloquear();      
+        desbloquear();
 
     }//GEN-LAST:event_btnDesbloquearMouseClicked
 
@@ -139,7 +142,7 @@ public class TelaBloqueio extends JDialog {
     private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
         btnDesbloquear.setEnabled(true);
         lblMsg.setText(null);
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             desbloquear();
         }
     }//GEN-LAST:event_txtSenhaKeyPressed
@@ -194,12 +197,23 @@ public class TelaBloqueio extends JDialog {
     private void desbloquear() {
         if (auth.isExistsSenha(txtSenha.getText())) {
             if (auth.autentica2(comboLogin.getSelectedItem().toString(), txtSenha.getText())) {
-                 dispose();                
+
+                try {
+                    Robot r = new Robot();
+                    r.mouseMove(600, 300);
+                } catch (AWTException ex) {
+                    Logger.getLogger(TelaBloqueio.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                dispose();
+
             } else {
                 lblMsg.setText("*Senha inválida!");
+                txtSenha.setText(null);
             }
         } else {
             lblMsg.setText("*Senha inválida!");
+            txtSenha.setText(null);
         }
     }
+
 }

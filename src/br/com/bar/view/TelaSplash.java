@@ -14,7 +14,7 @@ import static java.lang.Thread.sleep;
  * @author Elias Santana
  */
 public class TelaSplash extends javax.swing.JFrame {
-     ControlerLog cl = new ControlerLog();
+    
      Util u = new Util();
    
     public TelaSplash() {
@@ -48,7 +48,7 @@ public class TelaSplash extends javax.swing.JFrame {
                         System.out.println(".run()" + e);
                     }
                 }
-                // Techa tela Splash
+                // Fecha tela Splash
                 dispose();
                 // Chama proxima tela
                 TelaLogin login = new TelaLogin();

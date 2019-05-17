@@ -21,14 +21,13 @@ public class FormataValor {
             Locale.setDefault(new Locale("pt", "BR"));
             Double valorRecebido = Double.parseDouble(valor.replace(",", "."));
            
-        try {
-            
+        try {           
             
             //df.applyPattern("#,###0.00");
             df.applyPattern("#,##0.00");
 
         } catch (NumberFormatException e) {
-            System.out.println("br.com.bar.util.FormataValor.Formata()");
+            //System.out.println("br.com.bar.util.FormataValor.Formata()");
         }
             return df.format(valorRecebido);
         

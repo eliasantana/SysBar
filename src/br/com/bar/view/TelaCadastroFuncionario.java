@@ -754,18 +754,19 @@ public class TelaCadastroFuncionario extends JDialog {
     private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked
         if ("Alterar".equals(txtOperacao.getText()) || "Detalhe".equals(txtOperacao.getText()) ) {
             this.dispose();
-            
+            setVisible(false);
             TelaPesquisaFuncionario tpf = new TelaPesquisaFuncionario();
             tpf.recebeOperador(lblOperador.getText(), lblPerfil.getText());
             tpf.atualizaTabela("");
             tpf.setVisible(true);
-            dispose();
+            this.dispose();
 
         } else {
             this.dispose();
+            /*
             TelaPesquisaFuncionario tpf = new TelaPesquisaFuncionario();
             tpf.recebeOperador(lblOperador.getText(), lblPerfil.getText());
-            tpf.setVisible(true);
+            tpf.setVisible(true);*/
         }
     }//GEN-LAST:event_lblFecharMouseClicked
 

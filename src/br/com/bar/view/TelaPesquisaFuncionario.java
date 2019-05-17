@@ -231,6 +231,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // Fecha janela
         dispose();
+        
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void lblPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPesquisaMouseClicked

@@ -209,6 +209,35 @@ public class ControlerCaixa {
         }
         return total;
     }
+    /*
+        Totaliza as entradas realizadas em especie do operador locago;.
+     */
+    public double totalizaTipoEntrada(String operador, String formaPagto) {
+        String sql = "SELECT sum(total) as '"+ formaPagto+"' FROM dbbar.cadpedido where date_format(data,'%Y-%m-%d') = curdate() AND operador=? AND formaPagto=?";
+
+        double total = 0;
+        try {
+            pst = conexao.prepareStatement(sql);
+           
+            pst.setString(1, operador);
+            pst.setString(2, formaPagto);
+            
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                if (rs.getString(formaPagto) == null) {
+                    total = 0.0;
+                } else {
+
+                    total = Double.parseDouble(rs.getString(formaPagto));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCaixa.totalizaEntradas()"+e);
+
+        }
+        return total;
+    }
 
     // Grava movimentação 
     public boolean gravaMovimentacao(MovimentacaoCaixa m) {

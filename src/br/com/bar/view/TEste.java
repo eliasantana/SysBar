@@ -10,6 +10,8 @@ import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -39,86 +43,111 @@ public class TEste extends javax.swing.JFrame {
     /**
      * Creates new form TEste
      */
-    public TEste() {
-        initComponents();        
+    // Limite de espera
+    int limite = 30;
+    // Contagem do tempo em segundos
+    int s = 0;
 
-        limitaDataCombo(jdateExemplo, 1,1);
+    public TEste() {
+        initComponents();
+
+        limitaDataCombo(jdateExemplo, 1, 1);
+        cronometro();
         
-            
-       
+
+    }
+
+    private void cronometro() {
+        long segundos = 1000;
+        Timer timer = new Timer();
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                //Realiza uma contagem a incremento de 1 acadas segundo.
+
+                s = s + 1;
+                lblCronometro.setText(String.valueOf(s));
+                // Verifica se a contagem atingiu o limite informado para bloqueio da tela.
+                if (s == limite) {
+                    TelaBloqueio tb = new TelaBloqueio();
+                    tb.setVisible(true);
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, segundos);
     }
 
     /**
-     * Este método limita a data de um componente JDateSchooser estipulando,
-     * um limite MÍNIMO e MÁXIMO para o componente.
-     * 
+     * Este método limita a data de um componente JDateSchooser estipulando, um
+     * limite MÍNIMO e MÁXIMO para o componente.
+     *
      * @param dtChooser Componente JDateSchooser a ser limitado.
-     * @param limiteMeses Quantidade de Meses a serem abilitado anterior ao mês atual.
-     * 
+     * @param limiteMeses Quantidade de Meses a serem abilitado anterior ao mês
+     * atual.
+     *
      */
     private void limitaDataCombo(JDateChooser dtChooser, int limiteMeses) {
-       
-        
+
         //Atribui ao componente JDateSchooser uma data mínima selecionável.
         Calendar cMax = Calendar.getInstance();
         cMax.set(Calendar.YEAR, cMax.get(Calendar.YEAR)); // Ano máximo Selecionável
         cMax.set(Calendar.MONTH, cMax.get(Calendar.MONTH)); // MÊs máximo Selecionável
         cMax.set(Calendar.DATE, cMax.get(Calendar.DATE));
         dtChooser.setMaxSelectableDate(cMax.getTime());
-        
+
         //Atribui ao componente JDateSchooser uma data mínima selecionável.
         Calendar cMin = Calendar.getInstance();
         cMin.set(Calendar.YEAR, cMin.get(Calendar.YEAR)); // Ano Atual
-        cMin.set(Calendar.MONTH, cMin.get(Calendar.MONTH)-limiteMeses); // Meses Selecionável
-        
+        cMin.set(Calendar.MONTH, cMin.get(Calendar.MONTH) - limiteMeses); // Meses Selecionável
+
         // Se o limite de meses informado for iagual a 0 'zero' será setada a data atual
         // como limite mínimo selecionável. Caso seja diferente liberará do dia 1 ao 
         // último dia do mês.
-        
-        if (limiteMeses==0){           
+        if (limiteMeses == 0) {
             cMin.set(Calendar.DATE, cMin.get(Calendar.DATE));// Data Atual
-        }else {
-            cMin.set(Calendar.DATE,cMin.get(Calendar.DATE) );// Data Atual            
+        } else {
+            cMin.set(Calendar.DATE, cMin.get(Calendar.DATE));// Data Atual            
         }
         //Seta a data Mínima no JdateChooser.
         dtChooser.setMinSelectableDate(cMin.getTime());
-        
+
     }
+
     /**
-     * Este método limita a data de um componente JDateSchooser estipulando,
-     * um limite MÍNIMO e MÁXIMO para o componente.
-     * 
+     * Este método limita a data de um componente JDateSchooser estipulando, um
+     * limite MÍNIMO e MÁXIMO para o componente.
+     *
      * @param dtChooser Componente JDateSchooser a ser limitado.
-     * @param limiteMeses Quantidade de Meses a serem abilitado anterior ao mês atual.
+     * @param limiteMeses Quantidade de Meses a serem abilitado anterior ao mês
+     * atual.
      * @param dia Dia a partir de onde se pode selecionar no componente.
      */
     private void limitaDataCombo(JDateChooser dtChooser, int limiteMeses, int dia) {
-       
-        
+
         //Atribui ao componente JDateSchooser uma data mínima selecionável.
         Calendar cMax = Calendar.getInstance();
         cMax.set(Calendar.YEAR, cMax.get(Calendar.YEAR)); // Ano máximo Selecionável
         cMax.set(Calendar.MONTH, cMax.get(Calendar.MONTH)); // MÊs máximo Selecionável
         cMax.set(Calendar.DATE, cMax.get(Calendar.DATE));
         dtChooser.setMaxSelectableDate(cMax.getTime());
-        
+
         //Atribui ao componente JDateSchooser uma data mínima selecionável.
         Calendar cMin = Calendar.getInstance();
         cMin.set(Calendar.YEAR, cMin.get(Calendar.YEAR)); // Ano Atual
-        cMin.set(Calendar.MONTH, cMin.get(Calendar.MONTH)-limiteMeses); // Meses Selecionável
-        
+        cMin.set(Calendar.MONTH, cMin.get(Calendar.MONTH) - limiteMeses); // Meses Selecionável
+
         // Se o limite de meses informado for iagual a 0 'zero' será setada a data atual
         // como limite mínimo selecionável. Caso seja diferente liberará do dia 1 ao 
         // último dia do mês.
-        
-        if (limiteMeses==0){           
+        if (limiteMeses == 0) {
             cMin.set(Calendar.DATE, cMin.get(Calendar.DATE));// Data Atual
-        }else {
-            cMin.set(Calendar.DATE,dia );// Data Atual            
+        } else {
+            cMin.set(Calendar.DATE, dia);// Data Atual            
         }
         //Seta a data Mínima no JdateChooser.
         dtChooser.setMinSelectableDate(cMin.getTime());
-        
+
     }
 
     /**
@@ -141,8 +170,23 @@ public class TEste extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         btnCriaArquivo = new javax.swing.JButton();
         btnCriaArquivo1 = new javax.swing.JButton();
+        lblCronometro = new javax.swing.JLabel();
+        lblResultado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("jRadioButton1");
@@ -161,6 +205,12 @@ public class TEste extends javax.swing.JFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jdateExemplo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jdateExemploFocusGained(evt);
             }
         });
 
@@ -184,6 +234,10 @@ public class TEste extends javax.swing.JFrame {
                 btnCriaArquivo1ActionPerformed(evt);
             }
         });
+
+        lblCronometro.setText("jLabel1");
+
+        lblResultado.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -219,7 +273,13 @@ public class TEste extends javax.swing.JFrame {
                             .addComponent(btnCriaArquivo, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnCriaArquivo1, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(103, 103, 103)))
-                .addComponent(jdateExemplo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jdateExemplo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblResultado)
+                            .addComponent(lblCronometro))))
                 .addGap(218, 218, 218))
         );
         layout.setVerticalGroup(
@@ -234,8 +294,11 @@ public class TEste extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jdateIni, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jdateFim, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                    .addComponent(jdateFim, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCronometro))
+                .addGap(18, 18, 18)
+                .addComponent(lblResultado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -245,7 +308,7 @@ public class TEste extends javax.swing.JFrame {
                 .addComponent(btnCriaArquivo)
                 .addGap(28, 28, 28)
                 .addComponent(btnCriaArquivo1)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
@@ -281,63 +344,79 @@ public class TEste extends javax.swing.JFrame {
         int minutos = c.get(Calendar.MINUTE);
         int ano = c.get(Calendar.YEAR);
         System.out.println("Hora do Dia: " + hora);
-        System.out.println("Minutos: "+ minutos);
-        System.out.println("Ano: "+ano);
-        
-        
+        System.out.println("Minutos: " + minutos);
+        System.out.println("Ano: " + ano);
+
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnCriaArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriaArquivoActionPerformed
-       String caminho = "C:\\SysBar\\teste.txt";
-        File f= new File(caminho);
+        String caminho = "C:\\SysBar\\teste.txt";
+        File f = new File(caminho);
         try {
             FileWriter fw = new FileWriter(f);
-           try (PrintWriter pw = new PrintWriter(fw)) {
-               Date dtAtual = new Date();
-               Util u = new Util();
-               
-               pw.print(u.formataDataBanco(dtAtual));
-               pw.flush();
-               System.out.println("Arquivo criado com sucesso!");
-           }
-            
+            try (PrintWriter pw = new PrintWriter(fw)) {
+                Date dtAtual = new Date();
+                Util u = new Util();
+
+                pw.print(u.formataDataBanco(dtAtual));
+                pw.flush();
+                System.out.println("Arquivo criado com sucesso!");
+            }
+
         } catch (IOException ex) {
             Logger.getLogger(TEste.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-               
-            
+
+
     }//GEN-LAST:event_btnCriaArquivoActionPerformed
 
     private void btnCriaArquivo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriaArquivo1ActionPerformed
-       String caminho = "C:\\SysBar\\teste.txt";
+        String caminho = "C:\\SysBar\\teste.txt";
         File f = new File(caminho);
-        String dados=null;
+        String dados = null;
         try {
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
-            
-           try {
-               dados = br.readLine();
-           } catch (IOException ex) {
-               Logger.getLogger(TEste.class.getName()).log(Level.SEVERE, null, ex);
-           }
+
+            try {
+                dados = br.readLine();
+            } catch (IOException ex) {
+                Logger.getLogger(TEste.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TEste.class.getName()).log(Level.SEVERE, null, ex);
         }
         dados = "2019-04-22";
-        
-        System.out.println("Dados: "+ dados);
+
+        System.out.println("Dados: " + dados);
         Date dt = new Date();
         Util u = new Util();
         String dataHoje = u.formataDataBanco(dt);
-        if (dataHoje.equals(dados)){
+        if (dataHoje.equals(dados)) {
             System.out.println("O arquivo é de hoje - Programa em Execução");
-        }else {
+        } else {
             System.out.println("Arquivo  com data diferente: Excluir arquivo");
-                    
+
         }
     }//GEN-LAST:event_btnCriaArquivo1ActionPerformed
+
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+        s = 0;
+        lblResultado.setText("Desbloqueado!");
+    }//GEN-LAST:event_formMouseMoved
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        s = 0;
+    }//GEN-LAST:event_formKeyPressed
+
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+        s = 0;
+    }//GEN-LAST:event_formKeyReleased
+
+    private void jdateExemploFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jdateExemploFocusGained
+    
+    }//GEN-LAST:event_jdateExemploFocusGained
 
     /**
      * @param args the command line arguments
@@ -386,5 +465,7 @@ public class TEste extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jdateExemplo;
     private com.toedter.calendar.JDateChooser jdateFim;
     private com.toedter.calendar.JDateChooser jdateIni;
+    private javax.swing.JLabel lblCronometro;
+    private javax.swing.JLabel lblResultado;
     // End of variables declaration//GEN-END:variables
 }

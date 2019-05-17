@@ -12,6 +12,7 @@ import br.com.bar.model.Contas;
 import br.com.bar.model.TableModelContasApagar;
 import br.com.bar.util.FormataValor;
 import br.com.bar.util.Util;
+import br.com.br.controler.ControlerCaixa;
 import br.com.br.controler.ControlerContasApagar;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerFuncionario;
@@ -47,11 +48,14 @@ public class TelaContasApagar extends JDialog {
     ControlerContasApagar cc = new ControlerContasApagar();
     ControlerFuncionario cf = new ControlerFuncionario();
     ControlerGrupo grupo = new ControlerGrupo();
+    ControlerCaixa caixa = new ControlerCaixa();
     ReportUtil rpu = new ReportUtil();
     SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     Connection conexao = ConexaoBd.conector();
     ControlerDadosEmpresa de = new ControlerDadosEmpresa();
     TableModelContasApagar modelcontas = new TableModelContasApagar();
+    TelaCaixa tc;
+
     Util u = new Util();
     // Instacia um registro de log
     Log l = new Log();
@@ -89,6 +93,10 @@ public class TelaContasApagar extends JDialog {
         modelcontas.redimensionaColunas(tblContas);
     }
 
+    public void recebeTelaCaixa(TelaCaixa c) {
+        this.tc = c;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,7 +127,7 @@ public class TelaContasApagar extends JDialog {
         lblCargo = new javax.swing.JLabel();
         txtIdFuncionario = new javax.swing.JTextField();
         txtIdGrupo = new javax.swing.JTextField();
-        lblAdicionar = new javax.swing.JLabel();
+        lblsalvar = new javax.swing.JLabel();
         lblLimpar = new javax.swing.JLabel();
         jSpinQtd = new javax.swing.JSpinner();
         txtValorPago = new javax.swing.JFormattedTextField();
@@ -281,22 +289,22 @@ public class TelaContasApagar extends JDialog {
         painelEsquerdo.add(txtIdGrupo);
         txtIdGrupo.setBounds(80, 30, 40, 30);
 
-        lblAdicionar.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        lblAdicionar.setForeground(new java.awt.Color(255, 255, 255));
-        lblAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionar.png"))); // NOI18N
-        lblAdicionar.setText("Adicionar");
-        lblAdicionar.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblsalvar.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        lblsalvar.setForeground(new java.awt.Color(255, 255, 255));
+        lblsalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvar32x32.png"))); // NOI18N
+        lblsalvar.setText("Salvar");
+        lblsalvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblAdicionarMouseClicked(evt);
+                lblsalvarMouseClicked(evt);
             }
         });
-        painelEsquerdo.add(lblAdicionar);
-        lblAdicionar.setBounds(70, 470, 110, 40);
+        painelEsquerdo.add(lblsalvar);
+        lblsalvar.setBounds(70, 470, 110, 40);
 
         lblLimpar.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         lblLimpar.setForeground(new java.awt.Color(255, 255, 255));
-        lblLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/limpar348x48.png"))); // NOI18N
-        lblLimpar.setText("Limpar");
+        lblLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionar.png"))); // NOI18N
+        lblLimpar.setText("Adicionar");
         lblLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblLimparMouseClicked(evt);
@@ -498,12 +506,14 @@ public class TelaContasApagar extends JDialog {
 
     private void tblContasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblContasMouseClicked
         // Habilita Botões
-      
-        if (!"Abertas".equals(comboFiltro.getSelectedItem().toString())) {
 
+        if (!"Abertas".equals(comboFiltro.getSelectedItem().toString())) {
+            lblLimpar.setEnabled(true);
         } else {
 
             habilitaBotoes();
+            lblsalvar.setEnabled(false);
+            lblLimpar.setEnabled(true);
 
             // Data Atual
             Date dataAtual = new Date();
@@ -603,7 +613,8 @@ public class TelaContasApagar extends JDialog {
             Date dtVencimento;
             Contas c = new Contas();
             c.setId(txtIdConta.getText());
-            c.setValoPagto(txtValorPago.getText().replaceAll(",", "."));
+            //c.setValoPagto(txtValorPago.getText().replaceAll(",", "."));
+            c.setValoPagto(txtValorPago.getText().replace(".", "").replace(",", "."));
             //c.setDataPagto(u.formataDataBanco(new Date())); // Formata a data de pagamento para o formato yyyy-MM-dd(MySql)
             Timestamp t = new Timestamp(new Date().getTime());
             c.setDataPagto(String.valueOf(t)); // Formata a data de pagamento para o formato yyyy-MM-dd(MySql)
@@ -628,17 +639,46 @@ public class TelaContasApagar extends JDialog {
                     // Realiza o pagamento.
                     int op = JOptionPane.showConfirmDialog(null, "Confirma o pagamento desta conta?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                     if (op == JOptionPane.YES_OPTION) {
+                        // Total em espécie
+                        double totalEspecie = caixa.totalizaTipoEntrada(lblOperador.getText(), "Dinheiro");
+                        //Valor a ser pago
+                        double valorPg = Double.parseDouble(txtValorPago.getText().replace(".", "").replace(",", "."));
+                        //Total pago - Saidas
+                        double saidas = caixa.totalizaSaida(lblOperador.getText());
+                        
+                        double saldoEspecie = totalEspecie-saidas;
+                        
+                        /*Visualiza cálculo
+                        System.out.println("Total Especie: "+totalEspecie);
+                        System.out.println("Total Saidas: "+saidas);
+                        System.out.println("Saldo Especie Saidas: "+saldoEspecie);
+                        */
+                        
+                        // Verifica se existe saldo em espécie suficiente para o pagamento da conta.
+                        if (saldoEspecie < valorPg) {
+                            JOptionPane.showMessageDialog(this, "Valor em espécie insuficiente!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+                        } else {
 
-                        if (cc.baixarConta(c)) {
-                            JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso!");
-                            comboFiltro.setSelectedItem("Pagas");
-                            btnBaixar.setEnabled(false);
-                            lblExcluir.setEnabled(false);
-                            limpaForm();
-                            l.setFuncionalidade("Contas");
-                            l.setDescricao("Realizou o paramento da conta-> "+c.getDescricao() + " R$ "+c.getValor());
-                            l.gravaLog(l);
+                            if (cc.baixarConta(c)) {
+
+                                JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso!");
+                                comboFiltro.setSelectedItem("Pagas");
+                                btnBaixar.setEnabled(false);
+                                lblExcluir.setEnabled(false);
+                                limpaForm();
+                                l.setFuncionalidade("Contas");
+                                l.setDescricao("Realizou o paramento da conta-> " + c.getDescricao() + " R$ " + c.getValor());
+                                l.gravaLog(l);
+                                // Atualiza o cálculo da movimentação
+                                try {
+                                    tc.atualizaCaixa();
+
+                                } catch (NullPointerException ex) {
+                                    //System.out.println("Erro ao atualizar o caixa -> "+ex);
+                                }
                         }
+                        }
+
                     }
                 }
             }
@@ -693,14 +733,16 @@ public class TelaContasApagar extends JDialog {
         }
     }//GEN-LAST:event_jCheckMultiploMouseClicked
 
-    private void lblAdicionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdicionarMouseClicked
+    private void lblsalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblsalvarMouseClicked
         //Cadastra Conta
 
         Contas c = new Contas();
 
         c.setDescricao(txtDescricao.getText());
         c.setDataVencto(cc.myData(jdateChooserVencimento));
-        c.setValor(txtValor.getText().replaceAll(",", "."));
+        c.setValor(txtValor.getText().replace(".", ""));
+        c.setValor(c.getValor().replace(",", "."));
+
         c.setGrupoId(txtIdGrupo.getText());
         c.setFuncionarioId(txtIdFuncionario.getText());
 
@@ -724,7 +766,7 @@ public class TelaContasApagar extends JDialog {
                     if (cc.adicionaConta(c)) {
                         //Registra operação no log
                         l.setFuncionalidade("Salvar");
-                        l.setDescricao("Adicionou uma nova conta ->" + txtDescricao.getText() + " R$ "+ txtValor.getText());
+                        l.setDescricao("Adicionou uma nova conta ->" + txtDescricao.getText() + " R$ " + txtValor.getText());
                         l.gravaLog(l);
                         // fim do registro de log
                         limpaForm();
@@ -733,11 +775,12 @@ public class TelaContasApagar extends JDialog {
                         tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Abertas")));
                         modelcontas.redimensionaColunas(tblContas);
                     }
+
                 }
             }
         }
 
-    }//GEN-LAST:event_lblAdicionarMouseClicked
+    }//GEN-LAST:event_lblsalvarMouseClicked
 
 
     private void lblLimparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLimparMouseClicked
@@ -814,6 +857,8 @@ public class TelaContasApagar extends JDialog {
 
                             btnBaixar.setEnabled(true);
                             desabilitaCampos();
+                            lblsalvar.setEnabled(false);
+                            lblLimpar.setEnabled(false);
                         } else {
                             btnBaixar.setEnabled(false);
                         }
@@ -838,7 +883,7 @@ public class TelaContasApagar extends JDialog {
                 tblContas.setModel(tbm);
                 desaBilitaBotoes();
                 lblLimpar.setEnabled(true);
-                lblAdicionar.setEnabled(true);
+                lblsalvar.setEnabled(true);
                 limpaForm();
                 btnBaixar.setEnabled(false);
                 txtValorPago.setVisible(false);
@@ -873,12 +918,12 @@ public class TelaContasApagar extends JDialog {
 
     private void txtValorPagoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorPagoFocusLost
         FormataValor fv = new FormataValor();
-        txtValorPago.setText(fv.Formata(txtValorPago.getText()));
+        //txtValorPago.setText(fv.Formata(txtValorPago.getText()));
     }//GEN-LAST:event_txtValorPagoFocusLost
 
     private void txtValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorFocusLost
         FormataValor fv = new FormataValor();
-        txtValor.setText(fv.Formata(txtValor.getText()));
+        //txtValor.setText(fv.Formata(txtValor.getText()));
     }//GEN-LAST:event_txtValorFocusLost
 
     private void lblLimparKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblLimparKeyReleased
@@ -886,20 +931,22 @@ public class TelaContasApagar extends JDialog {
     }//GEN-LAST:event_lblLimparKeyReleased
 
     private void txtValorPagoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorPagoKeyPressed
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-            
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
             FormataValor fv = new FormataValor();
             txtValorPago.setText(fv.Formata(txtValorPago.getText()));
         }
     }//GEN-LAST:event_txtValorPagoKeyPressed
 
     private void txtValorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyPressed
+
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             FormataValor fv = new FormataValor();
             txtValor.setText(fv.Formata(txtValor.getText()));
-        }
+
 
     }//GEN-LAST:event_txtValorKeyPressed
+    }
 
     /**
      * @param args the command line arguments
@@ -956,13 +1003,13 @@ public class TelaContasApagar extends JDialog {
     private javax.swing.JSpinner jSpinQtd;
     private com.toedter.calendar.JDateChooser jdateChooserPagamento;
     private com.toedter.calendar.JDateChooser jdateChooserVencimento;
-    private javax.swing.JLabel lblAdicionar;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblDataDePAgamento;
     private javax.swing.JLabel lblExcluir;
     private javax.swing.JLabel lblLimpar;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblValorPago;
+    private javax.swing.JLabel lblsalvar;
     private javax.swing.JPanel painelDireito;
     private javax.swing.JPanel painelEsquerdo;
     private javax.swing.JTable tblContas;
@@ -987,7 +1034,7 @@ public class TelaContasApagar extends JDialog {
 
     private void habilitaBotoes() {
         lblLimpar.setEnabled(true);
-        lblAdicionar.setEnabled(true);
+        lblsalvar.setEnabled(true);
         lblExcluir.setEnabled(true);
         jCheckMultiplo.setEnabled(true);
     }

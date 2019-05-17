@@ -557,5 +557,14 @@ public class Util {
         dtChooser.setMinSelectableDate(cMin.getTime());
 
     }
+    
+    public void abrirCalculadora(){
+        
+        try {
+            Runtime.getRuntime().exec("cmd /c calc.exe");
+        } catch (IOException ex) {
+            Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
    
 }
