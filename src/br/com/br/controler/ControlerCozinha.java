@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 
 /**
@@ -249,5 +248,32 @@ public class ControlerCozinha {
         } catch (JRException e) {
             System.out.println("br.com.br.controler.ControlerCozinha.imprimeComprovanteCozinha()" + e);
         }
+    }
+    /**
+     * Verifica se o produto já foi enviado para a cozinha;
+     * @param idProduto Produto a ser localizado.
+     * @param nPedido Número do Pedido do produto;
+     * @return Retorna TRUE ou FALSE.
+     * @since TESTE INTEGRADO 15/05/2019 14:27
+    */
+    public boolean temNaCozinha(String idProduto, String nPedido){
+        boolean resp=false;
+        String sql="SELECT * FROM dbbar.tbcozinha where codProduto=? and npedido=?";
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1,idProduto);
+            pst.setString(2, nPedido);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                resp=true;
+            }
+            
+            
+        } catch (SQLException ex) {
+            System.out.println("br.com.br.controler.ControlerCozinha.temNaCozinha()");
+        }         
+        
+        
+        return resp;
     }
 }

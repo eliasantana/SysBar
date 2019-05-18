@@ -13,7 +13,6 @@ import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCozinha;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerFuncionario;
-import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -51,12 +50,12 @@ public class TelaConzinha extends javax.swing.JFrame {
         Date dt = new Date();
         lblData.setText(u.formataDataBr(dt));
         txtidProdutoCozinha.setVisible(false);
-       // tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
+        // tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
         desabilitaTodosBtns();
-        
+
         // Atualiza a lista de pedidos da cozinha após período de tempo informado
         long minutos = 60000; //milisegundos = 1 minuto
-        
+
         java.util.Timer timer = new java.util.Timer();
         TimerTask atualizaCozinha = new TimerTask() {
             @Override
@@ -72,11 +71,10 @@ public class TelaConzinha extends javax.swing.JFrame {
                 lblMsg.setText(null);
             }
         };
-        
+
         timer.scheduleAtFixedRate(atualizaCozinha, 0, minutos);
         relogio();
-        
-        
+
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -85,29 +83,30 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblCargo.setText(cargo);
 
         lblLogo.setIcon(u.carregaLogo());
-        if ("Gerente".equals(lblCargo.getText())){
+        if ("Gerente".equals(lblCargo.getText())) {
             lblAlteraSenha.setVisible(false);
         }
 
     }
+
     // Recebe o código do funcionário retornado da Tela ConfirmaCozinheiro.
-    public void recebeCozinheiro (Funcionario f, String idPrato){
-        this.f =f;
-        this.idProdutoCozinha = idPrato;       
-        preparar(); 
-        
+    public void recebeCozinheiro(Funcionario f, String idPrato) {
+        this.f = f;
+        this.idProdutoCozinha = idPrato;
+        preparar();
+
     }
 
     private void relogio() {
         long segundos = 1000;
-        Timer timer = new Timer();       
-        
+        Timer timer = new Timer();
+
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
 
-                Calendar c = Calendar.getInstance();      
-                
+                Calendar c = Calendar.getInstance();
+
                 SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
                 lblRelogio.setText(df.format(c.getTime()));
             }
@@ -396,7 +395,7 @@ public class TelaConzinha extends javax.swing.JFrame {
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         String cargo = lblCargo.getText();
-        if ("Gerente".equals(cargo)) {           
+        if ("Gerente".equals(cargo)) {
             dispose();
         } else {
 
@@ -450,8 +449,8 @@ public class TelaConzinha extends javax.swing.JFrame {
 
             // Registra liberação do produto e o tempo de espera
             if (cc.liberaProduto(txtidProdutoCozinha.getText(), tempoEspera)) {
-                String prato =  tblCozinha.getModel().getValueAt(0, 1).toString();
-                lblMsg.setText( "*Prato " +"'"+prato +"'"+" liberado com sucesso! ");
+                String prato = tblCozinha.getModel().getValueAt(0, 1).toString();
+                lblMsg.setText("*Prato " + "'" + prato + "'" + " liberado com sucesso! ");
                 Log l = new Log();
                 //Log
                 l.setDescricao("Liberou o prato " + tblCozinha.getModel().getValueAt(0, 1).toString() + " da cozinha");
@@ -474,7 +473,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                 }
 
             }
-           
+
         }
 
     }//GEN-LAST:event_lblLiberaRefeicaoMouseClicked
@@ -485,7 +484,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         } else {
             if (cc.pratoPendente() > 0) {
                 JOptionPane.showMessageDialog(null, "Realize a liberação dos pratos pendentes antes de sair!");
-            } else {               
+            } else {
                 dispose();
                 TelaLogin login = new TelaLogin();
                 login.setVisible(true);
@@ -505,7 +504,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Prato removido com sucesso!");
                         ResultSet result = cc.listaProdutosCozinha();
                         // Log
-                        Log l = new Log(lblOperador.getText(), "Remover", "Removeu o prato->"+ txtidProdutoCozinha);
+                        Log l = new Log(lblOperador.getText(), "Remover", "Removeu o prato->" + txtidProdutoCozinha);
                         l.gravaLog(l);
                         try {
 
@@ -537,12 +536,12 @@ public class TelaConzinha extends javax.swing.JFrame {
 
     private void lblPrepararMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrepararMouseClicked
         if (lblPreparar.isEnabled()) {
-            
-                TelaConfirmaCozinheiro tcc = new TelaConfirmaCozinheiro();
-                tcc.recebeIdPrato(txtidProdutoCozinha.getText(),this);
-                tcc.setModal(true);
-                tcc.setVisible(true);                
-          
+
+            TelaConfirmaCozinheiro tcc = new TelaConfirmaCozinheiro();
+            tcc.recebeIdPrato(txtidProdutoCozinha.getText(), this);
+            tcc.setModal(true);
+            tcc.setVisible(true);
+
         }
 
     }//GEN-LAST:event_lblPrepararMouseClicked
@@ -558,45 +557,46 @@ public class TelaConzinha extends javax.swing.JFrame {
         alteraSenha.receberOperador(lblOperador.getText());
         alteraSenha.setVisible(true);
     }//GEN-LAST:event_lblAlteraSenhaMouseClicked
-    
-    private void preparar(){
-        int linha = tblCozinha.getSelectedRow();
-           // String idProdutoCozinha = idProduto;
-            
-            if ("Cozinheiro".equals(f.getCargo())) {
-                // Registra a solicitação do preparo 
-                cc.registraPreparo(idProdutoCozinha, f.getNome());
-                Log l = new Log(lblOperador.getText(), "Preparo", "Iniciou a preparação do prato-> " + idProdutoCozinha);
-                l.gravaLog(l);
-                lblMsg.setText("*Preparo iniciado com sucesso!");
-                //Habilita botões remover e preparar
-                lblPreparar.setEnabled(false);
-                lblREmovePrato.setEnabled(false);
-                // Atualiza Tabela
-                tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
-                modelCozinha.redimensionaColunas(tblCozinha);
-                modelCozinha.adicionaCoresTabela(tblCozinha);
-                // Possibilita a impressao de 'Solicitacao de Prato' atraves do perfil 'Gerente' (APENAS)
-                // Verifica se o usuário logado é o Gerente
-                
-                if ("Gerente".equals(lblCargo.getText())) {
-                    int op = JOptionPane.showConfirmDialog(this, "Contingência! Deseja imprimir essa Solicitação?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
-                    if (op == JOptionPane.YES_OPTION) {
-                        ReportUtil rpu = new ReportUtil();
-                        HashMap parametro = new HashMap();
-                        parametro.put("id", idProdutoCozinha);
-                        try {
-                            rpu.imprimeRelatorioTela("contigencia_3.jasper", parametro);
-                        } catch (JRException e) {
-                            System.out.println("br.com.bar.view.TelaConzinha.lblPrepararMouseClicked()" + e);
-                            JOptionPane.showMessageDialog(null, "Erro ao tentar imprimir Solicitação - contate o SUPORTE!");
-                        }
+    private void preparar() {
+        int linha = tblCozinha.getSelectedRow();
+        // String idProdutoCozinha = idProduto;
+
+        if ("Cozinheiro".equals(f.getCargo())) {
+            // Registra a solicitação do preparo 
+            cc.registraPreparo(idProdutoCozinha, f.getNome());
+            Log l = new Log(lblOperador.getText(), "Preparo", "Iniciou a preparação do prato-> " + idProdutoCozinha);
+            l.gravaLog(l);
+            lblMsg.setText("*Preparo iniciado com sucesso!");
+            //Habilita botões remover e preparar
+            lblPreparar.setEnabled(false);
+            lblREmovePrato.setEnabled(false);
+            // Atualiza Tabela
+            tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
+            modelCozinha.redimensionaColunas(tblCozinha);
+            modelCozinha.adicionaCoresTabela(tblCozinha);
+            // Possibilita a impressao de 'Solicitacao de Prato' atraves do perfil 'Gerente' (APENAS)
+            // Verifica se o usuário logado é o Gerente
+
+            if ("Gerente".equals(lblCargo.getText())) {
+                int op = JOptionPane.showConfirmDialog(this, "Contingência! Deseja imprimir essa Solicitação?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+
+                if (op == JOptionPane.YES_OPTION) {
+                    ReportUtil rpu = new ReportUtil();
+                    HashMap parametro = new HashMap();
+                    parametro.put("id", idProdutoCozinha);
+                    try {
+                        rpu.imprimeRelatorioTela("contigencia_3.jasper", parametro);
+                    } catch (JRException e) {
+                        System.out.println("br.com.bar.view.TelaConzinha.lblPrepararMouseClicked()" + e);
+                        JOptionPane.showMessageDialog(null, "Erro ao tentar imprimir Solicitação - contate o SUPORTE!");
                     }
                 }
             }
-            
+        }
+
     }
+
     /**
      * @param args the command line arguments
      */

@@ -303,8 +303,8 @@ public class TelaContasApagar extends JDialog {
 
         lblLimpar.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         lblLimpar.setForeground(new java.awt.Color(255, 255, 255));
-        lblLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionar.png"))); // NOI18N
-        lblLimpar.setText("Adicionar");
+        lblLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
+        lblLimpar.setText("Limpar");
         lblLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblLimparMouseClicked(evt);
@@ -643,6 +643,7 @@ public class TelaContasApagar extends JDialog {
                         double totalEspecie = caixa.totalizaTipoEntrada(lblOperador.getText(), "Dinheiro");
                         //Valor a ser pago
                         double valorPg = Double.parseDouble(txtValorPago.getText().replace(".", "").replace(",", "."));
+                        System.out.println("Valor Pagto: " + valorPg);
                         //Total pago - Saidas
                         double saidas = caixa.totalizaSaida(lblOperador.getText());
                         
@@ -653,30 +654,35 @@ public class TelaContasApagar extends JDialog {
                         System.out.println("Total Saidas: "+saidas);
                         System.out.println("Saldo Especie Saidas: "+saldoEspecie);
                         */
-                        
+                        // Não permite pagamento com valor zero
+                        if (valorPg==0){
+                            JOptionPane.showMessageDialog(this, "O valor informado não é válido!","Atenção",JOptionPane.ERROR_MESSAGE);
+                        }else {
+                            
                         // Verifica se existe saldo em espécie suficiente para o pagamento da conta.
-                        if (saldoEspecie < valorPg) {
-                            JOptionPane.showMessageDialog(this, "Valor em espécie insuficiente!", "Atenção!", JOptionPane.ERROR_MESSAGE);
-                        } else {
+                            if (saldoEspecie < valorPg) {
+                                JOptionPane.showMessageDialog(this, "Saldo do Caixa em espécie insuficiente!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+                            } else {
 
-                            if (cc.baixarConta(c)) {
+                                if (cc.baixarConta(c)) {
 
-                                JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso!");
-                                comboFiltro.setSelectedItem("Pagas");
-                                btnBaixar.setEnabled(false);
-                                lblExcluir.setEnabled(false);
-                                limpaForm();
-                                l.setFuncionalidade("Contas");
-                                l.setDescricao("Realizou o paramento da conta-> " + c.getDescricao() + " R$ " + c.getValor());
-                                l.gravaLog(l);
-                                // Atualiza o cálculo da movimentação
-                                try {
-                                    tc.atualizaCaixa();
+                                    JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso!");
+                                    comboFiltro.setSelectedItem("Pagas");
+                                    btnBaixar.setEnabled(false);
+                                    lblExcluir.setEnabled(false);
+                                    limpaForm();
+                                    l.setFuncionalidade("Contas");
+                                    l.setDescricao("Realizou o paramento da conta-> " + c.getDescricao() + " R$ " + c.getValor());
+                                    l.gravaLog(l);
+                                    // Atualiza o cálculo da movimentação
+                                    try {
+                                        tc.atualizaCaixa();
 
-                                } catch (NullPointerException ex) {
-                                    //System.out.println("Erro ao atualizar o caixa -> "+ex);
+                                    } catch (NullPointerException ex) {
+                                        //System.out.println("Erro ao atualizar o caixa -> "+ex);
+                                    }
                                 }
-                        }
+                            }
                         }
 
                     }
@@ -770,6 +776,7 @@ public class TelaContasApagar extends JDialog {
                         l.gravaLog(l);
                         // fim do registro de log
                         limpaForm();
+                        lblLimpar.setEnabled(true);
                         desaBilitaBotoes();
                         comboFiltro.setSelectedItem("Abertas");
                         tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Abertas")));
