@@ -32,6 +32,36 @@ public class ControlerCozinha {
     TableModelCozinha modelTelaCozinha = new TableModelCozinha();
     ReportUtil rpu = new ReportUtil();
 
+//    public ResultSet listaProdutosCozinha() { // Excluir após teste 
+//        /* ******* ATENCAO ********
+//        ANALISAR SE O TIME ZONE PERMANCERA COM -03H00 RELACIONADAS A HORA ATUAL 
+//        SENDO NECESSARIO ALTERAR A INSTRUCAO ABAIXO:
+//        >> TIME_FORMAT(TIME(DATE_ADD(curtime(), INTERVAL +3 HOUR)),'%T')
+//         */
+//        String sql = "SELECT id AS 'SEQ', \n"
+//                + "	produto AS 'PRATO', \n"
+//                + "	qtd AS 'QTD', \n"
+//                + "	funcionario AS 'GARÇOM',\n"
+//                + "	mesa AS 'MESA', \n"
+//                + "CASE WHEN cozinheiro IS NULL THEN 'Não informado'\n"
+//                + "ELSE cozinheiro \n"
+//                + "END AS 'COZINHEIRO', \n"
+//                + " TIME_FORMAT(TIME(hora_solicitacao),'%H:%i') AS 'HORA', \n"
+//                + " TIME_FORMAT(TIMEDIFF(CURRENT_TIMESTAMP(),hora_solicitacao),'%H:%i') AS 'ESPERA', \n"
+//                + " status AS 'STATUS'    \n"
+//                + " FROM dbbar.tbcozinha \n"
+//                + " WHERE status IN ('Pendente', 'Em preparação');";
+//
+//        try {
+//            pst = conexao.prepareStatement(sql);
+//            rs = pst.executeQuery();
+//
+//        } catch (SQLException e) {
+//            System.out.println("br.com.br.controler.ControlerCozinha.listaProdutosCozinha()" + e);
+//        }
+//
+//        return rs;
+//    }
     public ResultSet listaProdutosCozinha() {
         /* ******* ATENCAO ********
         ANALISAR SE O TIME ZONE PERMANCERA COM -03H00 RELACIONADAS A HORA ATUAL 
@@ -47,7 +77,7 @@ public class ControlerCozinha {
                 + "ELSE cozinheiro \n"
                 + "END AS 'COZINHEIRO', \n"
                 + " TIME_FORMAT(TIME(hora_solicitacao),'%H:%i') AS 'HORA', \n"
-                + " TIME_FORMAT(TIMEDIFF(CURRENT_TIMESTAMP(),hora_solicitacao),'%H:%i') AS 'ESPERA', \n"
+                + " TIME_FORMAT(TIMEDIFF(TIME_FORMAT(TIME(CURTIME()),'%H:%i'),TIME_FORMAT(TIME(hora_solicitacao),'%H:%i')),'%H:%i') AS 'ESPERA', \n"
                 + " status AS 'STATUS'    \n"
                 + " FROM dbbar.tbcozinha \n"
                 + " WHERE status IN ('Pendente', 'Em preparação');";

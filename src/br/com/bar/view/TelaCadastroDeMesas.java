@@ -142,9 +142,9 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         jLabel14.setBackground(new java.awt.Color(52, 73, 94));
         jLabel14.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Garçom Atual");
+        jLabel14.setText("Garçom");
         jPanel1.add(jLabel14);
-        jLabel14.setBounds(17, 251, 104, 25);
+        jLabel14.setBounds(17, 251, 60, 25);
 
         jLabel13.setBackground(new java.awt.Color(52, 73, 94));
         jLabel13.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
@@ -297,12 +297,12 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         menuBar.setLayout(menuBarLayout);
         menuBarLayout.setHorizontalGroup(
             menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuBarLayout.createSequentialGroup()
-                .addContainerGap(150, Short.MAX_VALUE)
+            .addGroup(menuBarLayout.createSequentialGroup()
+                .addGap(108, 108, 108)
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLixeira, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(145, 145, 145))
+                .addContainerGap(187, Short.MAX_VALUE))
         );
         menuBarLayout.setVerticalGroup(
             menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -399,8 +399,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     }//GEN-LAST:event_comboGarcomItemStateChanged
 
     private void comboGarcomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboGarcomActionPerformed
-        // tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
-        // modelMesas.redimensionaColunas(tblMesas);
+        
 
         if (!"Selecione...".equals(comboGarcom.getSelectedItem().toString())) {
             //desbloqueiaCampos();
@@ -413,6 +412,8 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
             txtIdGarcom.setText(f.localizaId(comboGarcom.getSelectedItem().toString()));
             estadoInicial();
             txtNumeroMesa.setEnabled(true);
+            radioTrocaMesa.setVisible(true);
+        radioTrocaGeral.setVisible(true);
         } else {
             estadoInicial();
             
@@ -721,6 +722,9 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         //jCheckBoxTroca.setEnabled(false);         
         txtNumeroMesa.setEnabled(false);
         panelTroca.setVisible(false);
+        radioTrocaMesa.setVisible(false);
+        radioTrocaGeral.setVisible(false);
+       
     }
     
     private void desbloqueiaCampos() {

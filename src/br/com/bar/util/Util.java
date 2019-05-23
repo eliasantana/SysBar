@@ -7,18 +7,11 @@
 package br.com.bar.util;
 
 import br.com.bar.model.DadosEmpresa;
-import br.com.bar.view.TEste;
 import br.com.br.controler.ControlerDadosEmpresa;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Image;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;

@@ -304,14 +304,14 @@ public class TelaFornecedores extends javax.swing.JFrame {
 
     private void btnExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseClicked
         // Executa  método de exclusão de fornecedores
-        int op = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este fornecedor?", "Atenção!", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
+        int op = JOptionPane.showConfirmDialog(this, "Confirma a exclusão do fornecedor?", "Atenção!", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
         if (op == JOptionPane.YES_OPTION) {
             //Log
             Log l = new Log(lblOperador.getText(), "Exluir", "Excluiu o fornecedor-> "+fornecedor.getNome());
             l.gravaLog(l);
             
             if (cf.excluirFornecedor(fornecedor)) {
-                JOptionPane.showMessageDialog(null, "Fornecedor excluído com sucesso!");
+                JOptionPane.showMessageDialog(this, "Fornecedor excluído com sucesso!");
                 
             }
             tblFornecedores.setModel(DbUtils.resultSetToTableModel(cf.listaFornecedor("")));

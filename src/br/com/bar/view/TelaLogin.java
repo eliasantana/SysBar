@@ -136,7 +136,7 @@ public class TelaLogin extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(null);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(52, 73, 94));
         jPanel1.setLayout(null);
 
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -144,50 +144,59 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel1.add(lblLogo);
         lblLogo.setBounds(20, 20, 250, 190);
 
+        lblVersao.setForeground(new java.awt.Color(255, 255, 255));
         lblVersao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblVersao.setText("Software licenciado para");
         jPanel1.add(lblVersao);
         lblVersao.setBounds(60, 220, 170, 20);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("(81) 98966-1904 | (81) 99897-8092");
         jPanel1.add(jLabel8);
         jLabel8.setBounds(30, 390, 240, 20);
 
         lblLicenca.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lblLicenca.setForeground(new java.awt.Color(255, 255, 255));
         lblLicenca.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLicenca.setText("xxxxx");
         jPanel1.add(lblLicenca);
         lblLicenca.setBounds(0, 310, 290, 20);
 
         lbllicenca2.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        lbllicenca2.setForeground(new java.awt.Color(255, 255, 255));
         lbllicenca2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbllicenca2.setText("empresa");
         jPanel1.add(lbllicenca2);
         lbllicenca2.setBounds(20, 230, 260, 40);
 
+        lblCnpjEmpresa.setForeground(new java.awt.Color(255, 255, 255));
         lblCnpjEmpresa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCnpjEmpresa.setText("cnpj");
         jPanel1.add(lblCnpjEmpresa);
         lblCnpjEmpresa.setBounds(20, 270, 260, 14);
 
+        lblVersao1.setForeground(new java.awt.Color(255, 255, 255));
         lblVersao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblVersao1.setText(" VERSÃO 1.9.6 - TST Integrado 22-02-2019");
         jPanel1.add(lblVersao1);
         lblVersao1.setBounds(20, 290, 240, 20);
 
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("suporte@rese7.com.br");
         jPanel1.add(jLabel9);
         jLabel9.setBounds(30, 370, 240, 20);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText(" Rese7 Soluções em TI");
         jPanel1.add(jLabel10);
         jLabel10.setBounds(30, 330, 240, 20);
 
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Suporte");
         jPanel1.add(jLabel11);
@@ -196,7 +205,7 @@ public class TelaLogin extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 300, 430);
 
-        jPanel2.setBackground(new java.awt.Color(52, 73, 94));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setLayout(null);
 
         txtSenha.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
@@ -216,9 +225,8 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel2.add(txtSenha);
         txtSenha.setBounds(40, 200, 250, 40);
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/login_1.png"))); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lock.png"))); // NOI18N
         jLabel4.setText("Senha");
         jPanel2.add(jLabel4);
         jLabel4.setBounds(40, 170, 110, 30);
@@ -248,6 +256,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel2.add(btnLogin);
         btnLogin.setBounds(40, 310, 250, 40);
 
+        jPanel3.setBackground(new java.awt.Color(52, 73, 94));
         jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel3MouseClicked(evt);
@@ -255,21 +264,19 @@ public class TelaLogin extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharBlack24x24.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
         jPanel3.add(jLabel5);
 
         jPanel2.add(jPanel3);
         jPanel3.setBounds(280, 0, 40, 40);
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario_branco.png"))); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         jLabel6.setText("Login");
         jPanel2.add(jLabel6);
         jLabel6.setBounds(40, 80, 250, 30);
 
         lblMsg.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
-        lblMsg.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.add(lblMsg);
         lblMsg.setBounds(40, 370, 270, 30);
 
@@ -363,7 +370,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         } else {
             //JOptionPane.showMessageDialog(null, "Restam " + tentavias + " tentativas \n Antes do bloqueio!");
-            lblMsg.setForeground(Color.white);
+            lblMsg.setForeground(Color.black);
             lblMsg.setText("Resta(m) " + tentavias + " tentativa(s) antes do bloqueio!");
         }
     }

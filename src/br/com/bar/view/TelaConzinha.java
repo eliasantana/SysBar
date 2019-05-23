@@ -54,7 +54,8 @@ public class TelaConzinha extends javax.swing.JFrame {
         desabilitaTodosBtns();
 
         // Atualiza a lista de pedidos da cozinha após período de tempo informado
-        long minutos = 60000; //milisegundos = 1 minuto
+        //long minutos = 60000; //milisegundos = 1 minuto
+        long minutos = 15000; //milisegundos = 15 segundos
 
         java.util.Timer timer = new java.util.Timer();
         TimerTask atualizaCozinha = new TimerTask() {
@@ -316,7 +317,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         jPanel1.setBounds(990, 0, 40, 40);
 
         lblREmovePrato.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        lblREmovePrato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fechar48x48.png"))); // NOI18N
+        lblREmovePrato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Lixeira.png"))); // NOI18N
         lblREmovePrato.setText("Remover Prato");
         lblREmovePrato.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -498,7 +499,7 @@ public class TelaConzinha extends javax.swing.JFrame {
             // Remove prato Cozinha se o usuário logado tiver o perfil de Gerente e 
             if ("Gerente".equals(lblCargo.getText()) && !"".equals(txtidProdutoCozinha.getText())) {
 
-                int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente remover este prato?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                int resp = JOptionPane.showConfirmDialog(null, "Confirma a exclusão deste prato?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (resp == JOptionPane.YES_OPTION) {
                     if (cc.removePrato(txtidProdutoCozinha.getText())) {
                         JOptionPane.showMessageDialog(null, "Prato removido com sucesso!");
@@ -527,6 +528,8 @@ public class TelaConzinha extends javax.swing.JFrame {
 
                     }
 
+                } else {
+                    lblREmovePrato.setEnabled(false);
                 }
 
             }
@@ -551,8 +554,7 @@ public class TelaConzinha extends javax.swing.JFrame {
     }//GEN-LAST:event_lblREmovePratoKeyPressed
 
     private void lblAlteraSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlteraSenhaMouseClicked
-        // Chama a tela de alteração de senha
-        TelaAlteraSenha alteraSenha = new TelaAlteraSenha();
+        TelaAlteraSenha2 alteraSenha = new TelaAlteraSenha2();
         alteraSenha.setAlwaysOnTop(true);
         alteraSenha.receberOperador(lblOperador.getText());
         alteraSenha.setVisible(true);

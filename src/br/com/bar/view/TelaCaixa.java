@@ -5,7 +5,6 @@
  */
 package br.com.bar.view;
 
-import br.com.bar.dao.Backup;
 import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.Log;
 import br.com.bar.dao.ReportUtil;
@@ -38,7 +37,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerDadosEmpresa;
 import java.awt.Color;
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -47,7 +45,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -56,7 +53,7 @@ import org.jfree.chart.plot.PlotOrientation;
  *
  * @author elias javax.swing.JFrame
  */
-public class TelaCaixa extends JDialog {
+public class TelaCaixa extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaCaixa
@@ -102,10 +99,10 @@ public class TelaCaixa extends JDialog {
         txtTroco.setText("0,00");
         lblCargo.setVisible(false);
         modelCaixa.redimensionaColunas(tblDetalhePedido);
-        this.setModal(true);
+       // this.setModal(true);
         checkReimpressao.setEnabled(true);
        
-        
+       
 
     }
 
@@ -188,8 +185,8 @@ public class TelaCaixa extends JDialog {
         lblCargo = new javax.swing.JLabel();
         lblNPedido = new javax.swing.JLabel();
         labelPedido = new javax.swing.JLabel();
-        lblAlteraSenha = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        lblAlteraSenha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -776,18 +773,18 @@ public class TelaCaixa extends JDialog {
         labelPedido.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         labelPedido.setText("Pedido:");
 
-        lblAlteraSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/chave48x48.png"))); // NOI18N
-        lblAlteraSenha.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblAlteraSenhaMouseClicked(evt);
-            }
-        });
-
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calculadora48x48.png"))); // NOI18N
         jLabel4.setText("Calculadora");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel4MouseClicked(evt);
+            }
+        });
+
+        lblAlteraSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/chave48x48.png"))); // NOI18N
+        lblAlteraSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAlteraSenhaMouseClicked(evt);
             }
         });
 
@@ -809,11 +806,12 @@ public class TelaCaixa extends JDialog {
                                 .addComponent(labelPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblAlteraSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11)
+                                .addComponent(lblAlteraSenha)
+                                .addGap(29, 29, 29)
+                                .addComponent(lblContasAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblContasAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -879,10 +877,9 @@ public class TelaCaixa extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblContasAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(lblContasAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAlteraSenha))
                 .addGap(24, 24, 24))
         );
@@ -1601,16 +1598,16 @@ public class TelaCaixa extends JDialog {
         }
     }//GEN-LAST:event_radioCartaoMouseClicked
 
-    private void lblAlteraSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlteraSenhaMouseClicked
-        TelaAlteraSenha alteraSenha = new TelaAlteraSenha();
-        alteraSenha.setModal(true);
-        alteraSenha.receberOperador(lblOperador.getText());
-        alteraSenha.setVisible(true);
-    }//GEN-LAST:event_lblAlteraSenhaMouseClicked
-
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         utils.abrirCalculadora();
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void lblAlteraSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlteraSenhaMouseClicked
+        TelaAlteraSenha2 alteraSenha2 = new TelaAlteraSenha2();
+        alteraSenha2.receberOperador(lblOperador.getText());
+       // alteraSenha2.setAlwaysOnTop(true);
+        alteraSenha2.setVisible(true);
+    }//GEN-LAST:event_lblAlteraSenhaMouseClicked
     public void recebeOperador(String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);

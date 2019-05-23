@@ -308,7 +308,7 @@
               <Font name="Yu Gothic UI Light" size="14" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/br/com/bar/imagens/fechar48x48.png"/>
+              <Image iconType="3" name="/br/com/bar/imagens/Lixeira.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Remover Prato"/>
           </Properties>

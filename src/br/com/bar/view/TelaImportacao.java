@@ -6,9 +6,6 @@
 package br.com.bar.view;
 
 import br.com.wsmf.imports.Importacao;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -36,6 +33,12 @@ public class TelaImportacao extends javax.swing.JFrame {
         btnMovimentacao = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         lblMovimentacao = new javax.swing.JLabel();
+        btnImportaPedido = new javax.swing.JButton();
+        lblPedidos = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        btnImportaPedido1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        lblContas = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -52,17 +55,48 @@ public class TelaImportacao extends javax.swing.JFrame {
 
         lblMovimentacao.setText("-");
 
+        btnImportaPedido.setText("Pedidos");
+        btnImportaPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportaPedidoActionPerformed(evt);
+            }
+        });
+
+        lblPedidos.setText("-");
+
+        jLabel3.setText("-");
+
+        btnImportaPedido1.setText("Contas");
+        btnImportaPedido1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportaPedido1ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("-");
+
+        lblContas.setText("-");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnMovimentacao)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnImportaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMovimentacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnImportaPedido1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
-                .addComponent(lblMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblContas, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -73,7 +107,17 @@ public class TelaImportacao extends javax.swing.JFrame {
                     .addComponent(btnMovimentacao)
                     .addComponent(jLabel2)
                     .addComponent(lblMovimentacao))
-                .addContainerGap(251, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(btnImportaPedido)
+                    .addComponent(lblPedidos))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(btnImportaPedido1)
+                    .addComponent(lblContas))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
 
         pack();
@@ -89,6 +133,26 @@ public class TelaImportacao extends javax.swing.JFrame {
             }
       
     }//GEN-LAST:event_btnMovimentacaoActionPerformed
+
+    private void btnImportaPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportaPedidoActionPerformed
+       
+        Importacao i = new Importacao();
+        if (i.importaPedido()){
+            lblPedidos.setText("Importação Realizada com sucesso!");
+        }else {
+            lblPedidos.setText("Erro ao importar os pedidos");
+        }
+        
+    }//GEN-LAST:event_btnImportaPedidoActionPerformed
+
+    private void btnImportaPedido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportaPedido1ActionPerformed
+       Importacao i = new Importacao();
+       if (i.importaContas()){
+           lblContas.setText("Importação Realizada com sucesso!");
+       }else {
+            lblContas.setText("Erro ao importar os pedidos");
+       }
+    }//GEN-LAST:event_btnImportaPedido1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,9 +190,15 @@ public class TelaImportacao extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnImportaPedido;
+    private javax.swing.JButton btnImportaPedido1;
     private javax.swing.JButton btnMovimentacao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel lblContas;
     private javax.swing.JLabel lblMovimentacao;
+    private javax.swing.JLabel lblPedidos;
     // End of variables declaration//GEN-END:variables
 }

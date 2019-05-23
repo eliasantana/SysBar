@@ -16,17 +16,19 @@ import javax.swing.JDialog;
  * @author Elias Santana
  */
 public class TelaConfirmaCozinheiro extends JDialog {
+
     //javax.swing.JFrame
     TelaConzinha cozinha;
     Funcionario f = new Funcionario();
     ControlerFuncionario cf = new ControlerFuncionario();
-    String idPrato=null;
+    String idPrato = null;
+
     public TelaConfirmaCozinheiro() {
         initComponents();
-        
+
     }
-    
-    public void recebeIdPrato(String idPrato, TelaConzinha c){
+
+    public void recebeIdPrato(String idPrato, TelaConzinha c) {
         this.idPrato = idPrato;
         this.cozinha = c;
     }
@@ -93,6 +95,9 @@ public class TelaConfirmaCozinheiro extends JDialog {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCodigoKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyReleased(evt);
+            }
         });
 
         jLabel4.setText("Digite seu código de Funcionário");
@@ -146,20 +151,25 @@ public class TelaConfirmaCozinheiro extends JDialog {
 
     private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
         lblMsg.setText(null);
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-           confirmaCozinheiro();
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            confirmaCozinheiro();
         }
     }//GEN-LAST:event_txtCodigoKeyPressed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-       dispose();
+        dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         confirmaCozinheiro();
         //this.dispose();
-        
+
     }//GEN-LAST:event_btnOkActionPerformed
+
+    private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
+        txtCodigo.setText(txtCodigo.getText().replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_txtCodigoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -209,21 +219,28 @@ public class TelaConfirmaCozinheiro extends JDialog {
 
     private void confirmaCozinheiro() {
         f = cf.localizaFuncionario(txtCodigo.getText());
-            
-            if (null != f.getId()) {
+        System.out.println(f.getId());
+
+        if (null != f.getId()) {
+            if ("Cozinheiro".equals(f.getCargo()) || "Gerente".equals(f.getCargo())) {
+                
                 this.dispose();
                 cozinha.recebeCozinheiro(f, idPrato);
                 //Log
                 Log log = new Log(f.getNome(), "Liberação", "Liberou o prato->" + idPrato);
                 log.gravaLog(log);
-
+                
             } else {
-                lblMsg.setText("*Informe um código válido!");
+                lblMsg.setText("*Usuário não autorizado!");
                 txtCodigo.setText(null);
             }
-//        if ("Cozinheiro".equals(f.getCargo())|| "Gerente".equals(f.getCargo())){
-//        }else {
-//            lblMsg.setText("Usuário não autorizaddo!");
-//        }
+            
+            
+
+        } else {
+            lblMsg.setText("*Informe um código válido!");
+            txtCodigo.setText(null);
+        }
+
     }
 }

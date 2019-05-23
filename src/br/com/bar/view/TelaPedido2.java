@@ -99,14 +99,14 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblStatusCozinha.setEnabled(false);
         btnAbrirPedido.setEnabled(false);
         lblCargo.setVisible(false);
-        lblSegundos.setVisible(true);
+        lblSegundos.setVisible(false);
         lblReenvioCozinha.setEnabled(false);
         lblBtnReenvioCozinha.setEnabled(false);
         //Torna a tela Selecionavel 'Necessário para que o evento de bloqueio ocorra'
         this.setFocusable(true);
         // Adiciona Listner para bloquear tela
         addKeyListener(new LeitorDeTeclas());
-        cronometro();
+        //cronometro();
     }
 
     public void recebeOperador(String operador, String perfil) {
@@ -796,7 +796,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblAlterarSenha.setBounds(310, 610, 90, 50);
 
         lblBtnReenvioCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBtnReenvioCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnEnviar.png"))); // NOI18N
+        lblBtnReenvioCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/enviar32x32_2.png"))); // NOI18N
         lblBtnReenvioCozinha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBtnReenvioCozinhaMouseClicked(evt);
@@ -1151,13 +1151,13 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Para demais usuário a janela será fechada e chanará a Tela de Login
         if ("Gerente".equals(lblCargo.getText())) {
             this.dispose();
-            task.cancel();//Cancela a contagem do tempo do método conômetro
+            //task.cancel();//Cancela a contagem do tempo do método conômetro
         } else {
             this.dispose();
             TelaLogin login = new TelaLogin();
             login.setVisible(true);
 
-            task.cancel();//Cancela a contagem do tempo do método conômetro
+            //task.cancel();//Cancela a contagem do tempo do método conômetro
         }
     }//GEN-LAST:event_panelFecharMouseClicked
 
@@ -1238,19 +1238,18 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // Chama a tela de Bloqueio
-        s = 46;
-        comboGarcom.setSelectedIndex(0);
+        s = 46;        
         TelaBloqueio tb = new TelaBloqueio();
         tb.setModal(true);
         tb.setVisible(true);
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void lblAlterarSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlterarSenhaMouseClicked
-        //Chama a tela de alteração de Senha
-        TelaAlteraSenha alteraSenha = new TelaAlteraSenha();
-        alteraSenha.setModal(true);
-        alteraSenha.receberOperador(lblOperador.getText());
-        alteraSenha.setVisible(true);
+        
+        TelaAlteraSenha2 telap2 = new TelaAlteraSenha2();
+        telap2.setAlwaysOnTop(rootPaneCheckingEnabled);
+        telap2.receberOperador(lblOperador.getText());
+        telap2.setVisible(true);
     }//GEN-LAST:event_lblAlterarSenhaMouseClicked
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
@@ -1278,6 +1277,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
             pCozinha.add(String.valueOf(tms)); // Data Atual   
             // Envia prato para a cozinha
             enviaParaCozinha(pCozinha);
+            lblReenvioCozinha.setEnabled(false);
+            lblBtnReenvioCozinha.setEnabled(false);
         }
     }//GEN-LAST:event_lblBtnReenvioCozinhaMouseClicked
 

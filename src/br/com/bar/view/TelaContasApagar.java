@@ -25,6 +25,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -71,6 +72,8 @@ public class TelaContasApagar extends JDialog {
         lblOperador.setVisible(false);
         lblCargo.setVisible(false);
         btnGraficoDeDespesas.setVisible(false);
+        lblsalvar.setEnabled(false);
+        
         estadoInicial();
 
         try {
@@ -481,7 +484,12 @@ public class TelaContasApagar extends JDialog {
 
     private void txtDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyPressed
         // Foca combo Grupo de Despesas ao pressionar enter
-
+        
+        if (txtDescricao.getText().length()>1){
+            lblsalvar.setEnabled(true);
+        }else {
+            lblsalvar.setEnabled(false);
+        }
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             comboGrupoDespesas.requestFocus();
         }
@@ -741,7 +749,8 @@ public class TelaContasApagar extends JDialog {
 
     private void lblsalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblsalvarMouseClicked
         //Cadastra Conta
-
+    if (lblsalvar.isEnabled()){
+        
         Contas c = new Contas();
 
         c.setDescricao(txtDescricao.getText());
@@ -751,7 +760,8 @@ public class TelaContasApagar extends JDialog {
 
         c.setGrupoId(txtIdGrupo.getText());
         c.setFuncionarioId(txtIdFuncionario.getText());
-
+       
+        
         if ("".equals(c.getDescricao()) || "".equals(c.getValor())) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos para continuar!");
         } else {
@@ -759,33 +769,42 @@ public class TelaContasApagar extends JDialog {
                 JOptionPane.showMessageDialog(null, "Selecione um grupo!");
             } else {
                 if (jCheckMultiplo.isSelected()) {
-
-                    if (cc.lancamentoMultiplo(Integer.parseInt(jSpinQtd.getValue().toString()), jdateChooserVencimento, c)) {
-                        JOptionPane.showMessageDialog(null, "Lançamento múltiplo realiado com sucesso!");
-                        tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
-                        modelcontas.redimensionaColunas(tblContas);
-                        limpaForm();
+                    if ("0.00".equals(c.getValor())){
+                        JOptionPane.showMessageDialog(this, "Valor Inválido!","Atenção",JOptionPane.ERROR_MESSAGE);
+                    }else {
+                        
+                        if (cc.lancamentoMultiplo(Integer.parseInt(jSpinQtd.getValue().toString()), jdateChooserVencimento, c)) {
+                            JOptionPane.showMessageDialog(null, "Lançamento múltiplo realiado com sucesso!");
+                            tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
+                            modelcontas.redimensionaColunas(tblContas);
+                            limpaForm();
+                        }
                     }
                 } else {
                     // Caso o checkList não esteja selecionado executa a parcela de forma padrão
-
-                    if (cc.adicionaConta(c)) {
-                        //Registra operação no log
-                        l.setFuncionalidade("Salvar");
-                        l.setDescricao("Adicionou uma nova conta ->" + txtDescricao.getText() + " R$ " + txtValor.getText());
-                        l.gravaLog(l);
-                        // fim do registro de log
-                        limpaForm();
-                        lblLimpar.setEnabled(true);
-                        desaBilitaBotoes();
-                        comboFiltro.setSelectedItem("Abertas");
-                        tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Abertas")));
-                        modelcontas.redimensionaColunas(tblContas);
+                    if ("0.00".equals(c.getValor())){
+                        JOptionPane.showMessageDialog(this, "Valor Inválido!","Atenção",JOptionPane.ERROR_MESSAGE);
+                    }else {
+                        if (cc.adicionaConta(c)) {
+                            //Registra operação no log
+                            l.setFuncionalidade("Salvar");
+                            l.setDescricao("Adicionou uma nova conta ->" + txtDescricao.getText() + " R$ " + txtValor.getText());
+                            l.gravaLog(l);
+                            // fim do registro de log
+                            limpaForm();
+                            lblLimpar.setEnabled(true);
+                            desaBilitaBotoes();
+                            comboFiltro.setSelectedItem("Abertas");
+                            tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Abertas")));
+                            modelcontas.redimensionaColunas(tblContas);
+                        }
+                        
                     }
 
                 }
             }
         }
+    }
 
     }//GEN-LAST:event_lblsalvarMouseClicked
 
@@ -798,6 +817,8 @@ public class TelaContasApagar extends JDialog {
             estadoInicial();
             habilitaCampos();
             comboFiltro.setSelectedItem("Selecione...");
+            jdateChooserVencimento.setDate(Calendar.getInstance().getTime());
+            
         }
     }//GEN-LAST:event_lblLimparMouseClicked
 

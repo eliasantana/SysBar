@@ -9,17 +9,13 @@ import br.com.bar.dao.AutenticaUsuario;
 import br.com.br.controler.ControlerFuncionario;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Elias Santana
  */
-public class TelaAlteraSenha extends JDialog {
+public class TelaAlteraSenha extends javax.swing.JFrame {
 
     ControlerFuncionario cf = new ControlerFuncionario();
     AutenticaUsuario auth = new AutenticaUsuario();
@@ -44,6 +40,7 @@ public class TelaAlteraSenha extends JDialog {
         txtConfirmaSnh.setEnabled(false);
         txtNovaSnh.setEnabled(false);
         btnAlterar.setEnabled(false);
+        lblError.setVisible(false);
 
     }
 
@@ -84,6 +81,7 @@ public class TelaAlteraSenha extends JDialog {
         lblOkConfirma = new javax.swing.JLabel();
         lblSenhaAtualOK = new javax.swing.JLabel();
         btnAlterar1 = new javax.swing.JButton();
+        lblError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -156,6 +154,9 @@ public class TelaAlteraSenha extends JDialog {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtNovaSnhKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNovaSnhKeyReleased(evt);
+            }
         });
         jPanel2.add(txtNovaSnh, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 110, 30));
 
@@ -173,6 +174,9 @@ public class TelaAlteraSenha extends JDialog {
         });
         jPanel2.add(btnAlterar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 110, 30));
 
+        lblError.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fechar_vermelho.png"))); // NOI18N
+        jPanel2.add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, -1, 30));
+
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 0, 318, 230);
 
@@ -189,15 +193,14 @@ public class TelaAlteraSenha extends JDialog {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (auth.isExistsSenha(txtSenhaAtual.getText().toLowerCase())) {
 
-                if (auth.autentica2(loginOperador, senha)) {
-                   
-                    trocaIcone("aplicar.png", "",lblSenhaAtualOK);
+                if (auth.autentica2(loginOperador, senha)) {                  
+                 
                     lblSenhaAtualOK.setVisible(true);
                     habilitaTroca();
                     txtNovaSnh.requestFocus();
                 }
             } else {
-                trocaIcone("fechar_vermelho.png", "*Senha atual incorreta!",lblSenhaAtualOK);
+               
             }
         }
     }//GEN-LAST:event_txtSenhaAtualKeyPressed
@@ -230,14 +233,22 @@ public class TelaAlteraSenha extends JDialog {
        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
            if (txtNovaSnh.getText().equals(txtConfirmaSnh.getText())){               
                btnAlterar.setEnabled(true);
-               trocaIcone("aplicar.png", "", lblOkConfirma);
-               
+               lblOkConfirma.setVisible(true);
+               lblError.setVisible(false);
+               lblMsg.setForeground(Color.BLUE);
+               lblMsg.setText("*Clique em alterar para proseguir!");
            }else {
-                lblOkConfirma.setVisible(true);
-                trocaIcone("fechar_vermelho.png", "*Nova Senha informada não confere!",lblOkConfirma);
+                lblOkConfirma.setVisible(false);
+                lblError.setVisible(true);
+                lblMsg.setForeground(Color.RED);
+                lblMsg.setText("*As senhas informadas não são iguais!");
            }
         }
     }//GEN-LAST:event_txtConfirmaSnhKeyPressed
+
+    private void txtNovaSnhKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNovaSnhKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNovaSnhKeyReleased
 
     /**
      * @param args the command line arguments
@@ -283,6 +294,7 @@ public class TelaAlteraSenha extends JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblMsg;
     private javax.swing.JLabel lblNovaSenha;
     private javax.swing.JLabel lblOkConfirma;
@@ -306,10 +318,4 @@ public class TelaAlteraSenha extends JDialog {
         }
     }
 
-    private void trocaIcone(String nomeImagem, String msg,JLabel lbl) {
-        lblMsg.setText(msg);
-        ImageIcon icon = new ImageIcon(getClass().getResource("../imagens/" + nomeImagem));
-        lbl.setIcon(icon);
-        lbl.setVisible(true);
-    }
 }
