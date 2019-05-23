@@ -277,6 +277,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel6.setBounds(40, 80, 250, 30);
 
         lblMsg.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
+        lblMsg.setForeground(new java.awt.Color(255, 0, 0));
         jPanel2.add(lblMsg);
         lblMsg.setBounds(40, 370, 270, 30);
 
@@ -303,7 +304,7 @@ public class TelaLogin extends javax.swing.JFrame {
         // Autentica Usuário
         ControlerParametro p = new ControlerParametro();
         if ("Selecione...".equals(comboLogin.getSelectedItem().toString())) {
-            lblMsg.setText("Opção Inválida!");
+            lblMsg.setText("*Opção Inválida!");
         } else if (autentica.isExistsSenha(txtSenha.getText().toLowerCase())) { // Verifica se a senha Existe
 
             if (autentica.autentica2(comboLogin.getSelectedItem().toString(), txtSenha.getText().toLowerCase())) {
@@ -370,8 +371,8 @@ public class TelaLogin extends javax.swing.JFrame {
 
         } else {
             //JOptionPane.showMessageDialog(null, "Restam " + tentavias + " tentativas \n Antes do bloqueio!");
-            lblMsg.setForeground(Color.black);
-            lblMsg.setText("Resta(m) " + tentavias + " tentativa(s) antes do bloqueio!");
+            lblMsg.setForeground(Color.red);
+            lblMsg.setText("*Resta(m) " + tentavias + " tentativa(s) antes do bloqueio!");
         }
     }
     private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed

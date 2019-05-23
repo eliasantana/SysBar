@@ -305,9 +305,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso!");
                 }
                 
-            } else {
-                JOptionPane.showMessageDialog(this, "Exclusão cancelada com sucesso!");
-            }
+            } 
         }
     }//GEN-LAST:event_lblExcluirMouseClicked
 
