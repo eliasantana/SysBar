@@ -60,7 +60,13 @@ public class TelaContasApagar extends JDialog {
     Util u = new Util();
     // Instacia um registro de log
     Log l = new Log();
-
+     /*
+        Instância da tela principal para realizar atualização dos dados 
+        informativos referente a contas em aberto e produtos com com quantidade
+        baixa no estoque.
+    */ 
+    TelaPrincipal telaPrincipal;
+     
     public TelaContasApagar() {
         initComponents();
         Date d = new Date();
@@ -86,7 +92,7 @@ public class TelaContasApagar extends JDialog {
 
     }
 
-    public void recebeOperador(String operador, String cargo) {
+    public void recebeOperador(TelaPrincipal tela, String operador, String cargo) {
 
         lblCargo.setText(cargo);
         lblOperador.setText(operador);
@@ -94,6 +100,7 @@ public class TelaContasApagar extends JDialog {
         l.setUsuario(operador);
 
         modelcontas.redimensionaColunas(tblContas);
+        this.telaPrincipal = tela;
     }
 
     public void recebeTelaCaixa(TelaCaixa c) {
@@ -474,6 +481,7 @@ public class TelaContasApagar extends JDialog {
 
     private void tbnFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbnFecharMouseClicked
         // Fecha tela principal
+        telaPrincipal.atualizaInformativo();
         this.dispose();
     }//GEN-LAST:event_tbnFecharMouseClicked
 
@@ -860,6 +868,7 @@ public class TelaContasApagar extends JDialog {
                     }
                     tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));  // Filtro Aberto | Tudo
                     modelcontas.redimensionaColunas(tblContas);
+                    telaPrincipal.atualizaInformativo();
                     limpaForm();
                     desaBilitaBotoes();
                 } else {

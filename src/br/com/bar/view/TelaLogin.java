@@ -329,7 +329,9 @@ public class TelaLogin extends javax.swing.JFrame {
 
                     case "Estoquista": // Vai para tela Estoque
                         TelaMovimentacao estoque = new TelaMovimentacao();
-                        estoque.recebeOperador(autentica.enviaOperador(), autentica.enviarCargo());
+                        // Instancia a tela principal
+                        TelaPrincipal tela = new TelaPrincipal();
+                        estoque.recebeOperador(tela,autentica.enviaOperador(), autentica.enviarCargo());
                         estoque.setVisible(true);
                         this.dispose();
                         break;
@@ -342,7 +344,8 @@ public class TelaLogin extends javax.swing.JFrame {
                         break;
                     case "Caixa": // Vai para tela Estoque
                         TelaCaixa caixa = new TelaCaixa();
-                        caixa.recebeOperador(autentica.enviaOperador(), autentica.enviarCargo());
+                        TelaPrincipal tp = new TelaPrincipal();
+                        caixa.recebeOperador(tp,autentica.enviaOperador(), autentica.enviarCargo());
                         caixa.setVisible(true);
                         this.dispose();
                         break;

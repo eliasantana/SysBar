@@ -67,7 +67,8 @@ public class TelaCaixa extends javax.swing.JFrame {
     ControlerDadosEmpresa de = new ControlerDadosEmpresa();
     TableModelCaixa modelCaixa = new TableModelCaixa();
     ReportUtil rpu = new ReportUtil();
-
+    // Instância da tela principal usada para atualização após inclusão de contas;
+    TelaPrincipal principal = new TelaPrincipal();
     Util utils = new Util();
 
     Log l = new Log();
@@ -1438,7 +1439,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private void lblContasAPagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblContasAPagarMouseClicked
         // Chama a tela de Cadastro de Contas a pagar
         TelaContasApagar contaApagar = new TelaContasApagar();
-        contaApagar.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        contaApagar.recebeOperador(principal,lblOperador.getText(), lblCargo.getText());
         contaApagar.recebeTelaCaixa(this);
         contaApagar.setModal(true);
         contaApagar.setVisible(true);
@@ -1608,7 +1609,7 @@ public class TelaCaixa extends javax.swing.JFrame {
        // alteraSenha2.setAlwaysOnTop(true);
         alteraSenha2.setVisible(true);
     }//GEN-LAST:event_lblAlteraSenhaMouseClicked
-    public void recebeOperador(String operador, String cargo) {
+    public void recebeOperador(TelaPrincipal tela, String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
@@ -1637,7 +1638,9 @@ public class TelaCaixa extends javax.swing.JFrame {
         if ("Gerente".equals(lblCargo.getText())){
             lblAlteraSenha.setVisible(false);
         }
-
+        
+        // Armazena a instância da tela Principal
+        this.principal=tela;
     }
 
     public void limpaForm() {

@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -39,8 +38,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     ControlerEstoque estoque = new ControlerEstoque();
     Util u = new Util();
 
-   
-
     /**
      * Creates new form TelaPrincipal
      */
@@ -50,23 +47,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblData.setText(df.format(data)); // Exibe data atual
         lblCargo.setVisible(false);
         // Verifica contas vencidas em aberto.
-        if (cc.contasVencidas()) {
-            // Esta msg foi desabilitada porque na tela principal a mensagem já é exibida.
-            //JOptionPane.showMessageDialog(null, "Você possui contas vencidas ou com vencimento para hoje!","Atenção!",JOptionPane.ERROR_MESSAGE);
-            jLabel7.setForeground(Color.red);
-            lblAviso.setText("*Você possui Contas vencidas ou com vencimento para hoje!");
-            
-        }
-        if (estoque.estoqueBaixo()){
-            if ("".equals(lblAviso.getText())){
-                lblAviso.setText("*Existe(m) produto(s) com estoque inferior a quantidade desejada!");
-            }else {
-                lblAviso2.setText("*Existe(m) produto(s) com estoque inferior a quantidade desejada!");
+        atualizaInformativo();
+        /*
+            if (cc.contasVencidas()) {
+
+                jLabel7.setForeground(Color.red);
+                lblAviso.setText("*Você possui Contas vencidas ou com vencimento para hoje!");
+
             }
-            lblGestao.setForeground(Color.red);
-        }
-        lblAviso.setForeground(Color.red);
-        lblAviso2.setForeground(Color.red);
+
+            if (estoque.estoqueBaixo()){
+                if ("".equals(lblAviso.getText())){
+                    lblAviso.setText("*Existe(m) produto(s) com estoque inferior a quantidade desejada!");
+                }else {
+                    lblAviso2.setText("*Existe(m) produto(s) com estoque inferior a quantidade desejada!");
+                }
+                lblGestao.setForeground(Color.red);
+            }
+            lblAviso.setForeground(Color.red);
+            lblAviso2.setForeground(Color.red);
+         */
         // Determina tempo de execução
         long timeMilis = 6000; // milisegundos
         Timer timer = new Timer();
@@ -84,7 +84,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public void recebeOperador(String operador, String cargo) {
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
-       
 
     }
 
@@ -116,7 +115,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnConfiguracao = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         btnConasApagar = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        lblBtnPagamentos = new javax.swing.JLabel();
         btnCaixa = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         btnFuncionarios1 = new javax.swing.JPanel();
@@ -128,10 +127,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnLancarPedido = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        lblAviso = new javax.swing.JLabel();
+        lblmsg1 = new javax.swing.JLabel();
         btnFuncionarios2 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        lblAviso2 = new javax.swing.JLabel();
+        lblmsg2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -295,9 +294,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/contas.png"))); // NOI18N
-        jLabel7.setText("Pagamentos");
+        lblBtnPagamentos.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        lblBtnPagamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/contas.png"))); // NOI18N
+        lblBtnPagamentos.setText("Pagamentos");
 
         javax.swing.GroupLayout btnConasApagarLayout = new javax.swing.GroupLayout(btnConasApagar);
         btnConasApagar.setLayout(btnConasApagarLayout);
@@ -305,14 +304,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             btnConasApagarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnConasApagarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                .addComponent(lblBtnPagamentos, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                 .addContainerGap())
         );
         btnConasApagarLayout.setVerticalGroup(
             btnConasApagarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnConasApagarLayout.createSequentialGroup()
                 .addContainerGap(13, Short.MAX_VALUE)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblBtnPagamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -497,9 +496,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel1.add(jLabel10);
         jLabel10.setBounds(500, 450, 110, 69);
 
-        lblAviso.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
-        jPanel1.add(lblAviso);
-        lblAviso.setBounds(30, 430, 590, 30);
+        lblmsg1.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
+        jPanel1.add(lblmsg1);
+        lblmsg1.setBounds(30, 430, 590, 30);
 
         btnFuncionarios2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnFuncionarios2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -533,9 +532,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel1.add(btnFuncionarios2);
         btnFuncionarios2.setBounds(30, 210, 195, 99);
 
-        lblAviso2.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
-        jPanel1.add(lblAviso2);
-        lblAviso2.setBounds(30, 460, 480, 30);
+        lblmsg2.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
+        jPanel1.add(lblmsg2);
+        lblmsg2.setBounds(30, 460, 480, 30);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(300, 0, 660, 530);
@@ -561,15 +560,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdutoMouseClicked
         // Chama tela de Cadastro de Produto
-        TelaEstoque p = new TelaEstoque();      
-        p.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        TelaEstoque p = new TelaEstoque();
+        p.recebeOperador(this, lblOperador.getText(), lblCargo.getText());
         p.setVisible(true);
-        
+
     }//GEN-LAST:event_btnProdutoMouseClicked
 
     private void btnConfiguracaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracaoMouseClicked
         // Chama a tela de configuração
-        
+
         TelaConfiguracao config = new TelaConfiguracao();
         config.recebeOperador(lblOperador.getText(), lblCargo.getText());
         config.setVisible(true);
@@ -577,9 +576,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnConasApagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConasApagarMouseClicked
 
-       
         TelaContasApagar contas = new TelaContasApagar();
-        contas.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        contas.recebeOperador(this, lblOperador.getText(), lblCargo.getText());
         contas.setModal(true);
         contas.setVisible(true);
 
@@ -614,9 +612,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ArrayList<Double> estatiscas = new ArrayList<>();
         estatiscas = m.estatistica();
 
-       lblLivres.setText(String.format("%9.0f", estatiscas.get(0)) + "%");
-       lblOcupadas.setText(String.format("%9.0f", estatiscas.get(1)) + "%");       
-        
+        lblLivres.setText(String.format("%9.0f", estatiscas.get(0)) + "%");
+        lblOcupadas.setText(String.format("%9.0f", estatiscas.get(1)) + "%");
+
         lblNmesaLivre.setText(String.format("%9.0f", estatiscas.get(2)));
         lblNmesaOcupada.setText(String.format("%9.0f", estatiscas.get(3)));
     }
@@ -632,8 +630,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // Chama tela do Caixa
 
         TelaCaixa caixa = new TelaCaixa();
-        caixa.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        caixa.setVisible(true);    
+        caixa.recebeOperador(this, lblOperador.getText(), lblCargo.getText());
+        caixa.setVisible(true);
 
     }//GEN-LAST:event_jLabel12MouseClicked
 
@@ -653,7 +651,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 dispose();
                 TelaLogin login = new TelaLogin();
                 login.setVisible(true);
-            } 
+            }
 
         } else {
             dispose();
@@ -666,7 +664,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // Vai para tela Cozinha
         TelaConzinha cozinha = new TelaConzinha();
         cozinha.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        
+
         cozinha.setVisible(true);
     }//GEN-LAST:event_jLabel11MouseClicked
 
@@ -738,13 +736,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JLabel lblAviso;
-    private javax.swing.JLabel lblAviso2;
+    private javax.swing.JLabel lblBtnPagamentos;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblFEchar;
@@ -755,6 +751,32 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblNmesaOcupada;
     private javax.swing.JLabel lblOcupadas;
     private javax.swing.JLabel lblOperador;
+    private javax.swing.JLabel lblmsg1;
+    private javax.swing.JLabel lblmsg2;
     private javax.swing.JPanel peinelEsquerdo;
     // End of variables declaration//GEN-END:variables
+
+    public void atualizaInformativo() {
+        
+        if (cc.contasVencidas()) {
+
+            lblBtnPagamentos.setForeground(Color.red);
+            lblmsg1.setText("*Você possui Contas vencidas ou com vencimento para hoje!");
+
+        } else {
+            lblmsg1.setText(null);
+            lblBtnPagamentos.setForeground(Color.black);
+        }
+
+        if (estoque.estoqueBaixo()) {
+            lblmsg2.setText("*Existe(m) produto(s) com estoque inferior a quantidade desejada!");
+            lblGestao.setForeground(Color.red);
+        }else {
+            lblmsg2.setText(null);
+            lblGestao.setForeground(Color.black);
+        }
+        
+        lblmsg1.setForeground(Color.red);
+        lblmsg2.setForeground(Color.red);
+    }
 }

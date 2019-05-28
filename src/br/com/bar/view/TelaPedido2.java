@@ -99,7 +99,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblStatusCozinha.setEnabled(false);
         btnAbrirPedido.setEnabled(false);
         lblCargo.setVisible(false);
-        lblSegundos.setVisible(true);
+        lblSegundos.setVisible(false);
         lblReenvioCozinha.setEnabled(false);
         lblBtnReenvioCozinha.setEnabled(false);
         //Torna a tela Selecionavel 'Necessário para que o evento de bloqueio ocorra'
@@ -1191,10 +1191,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Sai da tela
         if ("Gerente".equals(lblCargo.getText())) {
             this.dispose();
+            task.cancel();
         } else {
             this.dispose();
             TelaLogin login = new TelaLogin();
             login.setVisible(true);
+            task.cancel();
         }
     }//GEN-LAST:event_jLabel9MouseClicked
 
@@ -1245,7 +1247,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void lblAlterarSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlterarSenhaMouseClicked
-        
+        s=0;
         TelaAlteraSenha2 telap2 = new TelaAlteraSenha2();
         telap2.setAlwaysOnTop(rootPaneCheckingEnabled);
         telap2.receberOperador(lblOperador.getText());

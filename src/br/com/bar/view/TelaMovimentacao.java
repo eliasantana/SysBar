@@ -31,6 +31,7 @@ public class TelaMovimentacao extends JFrame {
     Log l = new Log();
     Util u = new Util();
     TableModelmMovimentacao modelMov = new TableModelmMovimentacao();
+    TelaPrincipal principal;
     
     public TelaMovimentacao() {
         initComponents();       
@@ -48,12 +49,12 @@ public class TelaMovimentacao extends JFrame {
         modelMov.redimensionaColunas(tblProduto);
     }
     
-    public void recebeOperador(String operador, String cargo) {
+    public void recebeOperador(TelaPrincipal tela, String operador, String cargo) {
         
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
         
-        
+        this.principal=tela;
     }
     
     private void limpaTela() {
@@ -447,6 +448,8 @@ public class TelaMovimentacao extends JFrame {
     }//GEN-LAST:event_radioExistenteMouseClicked
 
     private void btnFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFecharMouseClicked
+        // Atualiza dados da tela principal
+        principal.atualizaInformativo();
         // Fecha a janela
         dispose();
     }//GEN-LAST:event_btnFecharMouseClicked
@@ -457,7 +460,7 @@ public class TelaMovimentacao extends JFrame {
         //dispose();
         TelaPesquisaProduto pesquisaProduto = new TelaPesquisaProduto();
         pesquisaProduto.setAlwaysOnTop(true);
-        pesquisaProduto.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        pesquisaProduto.recebeOperador(principal,lblOperador.getText(), lblCargo.getText());
         pesquisaProduto.setVisible(true);
                 
     }//GEN-LAST:event_jRadioButton1MouseClicked
@@ -470,6 +473,7 @@ public class TelaMovimentacao extends JFrame {
         // Seleciona dados da tabela
 
         int linha = tblProduto.getSelectedRow();
+        txtIdProduto.setText(tblProduto.getModel().getValueAt(linha, 0).toString());
         if (radioExistente.isSelected()) {
             
             try {

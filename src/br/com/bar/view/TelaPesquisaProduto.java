@@ -28,7 +28,8 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     ControlerGrupo g = new ControlerGrupo();
     Util u = new Util();
     TableModelCadastroProduto modelCadastroProduto = new TableModelCadastroProduto();
-
+    // Armazena um objeto tela principal.
+    TelaPrincipal telaPrincipal;
     /**
      * Creates new form TelaCadastroProduto
      */
@@ -50,13 +51,14 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
 
     }
 
-    public void recebeOperador(String operador, String cargo) {
+    public void recebeOperador(TelaPrincipal tp,String operador, String cargo) {
 
         lblCargo.setText(cargo);
         lblOperador.setText(operador);
         // Adiciona nome do operador ao log
 
         txtLocalizar.requestFocus();
+        this.telaPrincipal=tp;
     }
 
     public void atualizaTabela() {
@@ -359,6 +361,8 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+        // Atualiza dados da tela principal
+        telaPrincipal.atualizaInformativo();
         dispose();
     }//GEN-LAST:event_jLabel14MouseClicked
 

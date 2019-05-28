@@ -27,7 +27,9 @@ public class TelaEstoque extends javax.swing.JFrame {
      */
     ControlerProduto cp = new ControlerProduto();
     Util u = new Util();
-
+    // Instancia e armazena o objeto tela principal.
+    TelaPrincipal principal;
+    
     public TelaEstoque() {
         initComponents();
         // Pega aa Data Atual
@@ -38,10 +40,10 @@ public class TelaEstoque extends javax.swing.JFrame {
         this.setAlwaysOnTop(true);
     }
 
-    public void recebeOperador(String nomeOperador, String cargo) {
+    public void recebeOperador(TelaPrincipal tela, String nomeOperador, String cargo) {
         lblCargo.setText(cargo);
         lblNomeOperador.setText(nomeOperador);
-
+        this.principal=tela;
     }
 
     /**
@@ -367,6 +369,8 @@ public class TelaEstoque extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // Atualiza Tela
+        principal.atualizaInformativo();
         // Sai da tela estoque
         dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
@@ -387,7 +391,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         }*/
         TelaMovimentacao m = new TelaMovimentacao();
         m.setAlwaysOnTop(true);
-        m.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
+        m.recebeOperador(principal,lblNomeOperador.getText(), lblCargo.getText());
         m.setVisible(true);
     }//GEN-LAST:event_lblGerenciarEstoqueMouseClicked
 
