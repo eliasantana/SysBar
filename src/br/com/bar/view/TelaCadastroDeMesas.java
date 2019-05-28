@@ -466,23 +466,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
 
     private void txtNumeroMesaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroMesaKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            // Localiza id do funcionário
-            String nome = comboGarcom.getSelectedItem().toString();
-            txtIdGarcom.setText(f.localizaId(nome));
-
-            m.setId_funcionario(txtIdGarcom.getText());
-            m.setNumeroMesa(txtNumeroMesa.getText());
-            m.setStatus("0");
-
-            if (cm.adicionaMesa(m)) { // Adiciona mesa
-                JOptionPane.showMessageDialog(this, "Mesa adicionada com sucesso!");
-                log.gravaLog(log);
-            } else {
-                JOptionPane.showMessageDialog(this, "Este número de mesa já está sendo utilizado, informe outro!");
-            }
-            tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
-            modelMesas.redimensionaColunas(tblMesas);
-            txtNumeroMesa.setText(null);
+            adicionarMesa();
         }
 
 
@@ -564,7 +548,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
 
-        adiciona();
+        adicionarMesa();
 
     }//GEN-LAST:event_jLabel16MouseClicked
 
@@ -785,7 +769,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         comboGarcom.setSelectedItem("Selecione...");
     }
 
-    private void adiciona() {
+    private void adicionarMesa() {
         // Localiza id do funcionário
         String nome = comboGarcom.getSelectedItem().toString();
         txtIdGarcom.setText(f.localizaId(nome));
@@ -811,7 +795,9 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
 
                     //Fim do registro de log
                     if (cm.adicionaMesa(m)) { // Adiciona mesa
-                        JOptionPane.showMessageDialog(this, "Mesa adicionada com sucesso!");
+                        tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
+                        modelMesas.redimensionaColunas(tblMesas);
+                        JOptionPane.showMessageDialog(this, "Mesa incluída com sucesso!");
                         log.gravaLog(log);
                     } else {
                         JOptionPane.showMessageDialog(this, "Este número de mesa já está sendo utilizado, informe outro!");
@@ -825,8 +811,8 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
 
         }
 
-        tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
-        modelMesas.redimensionaColunas(tblMesas);
+        //tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
+        //modelMesas.redimensionaColunas(tblMesas);
         txtNumeroMesa.setText(null);
     }
 }

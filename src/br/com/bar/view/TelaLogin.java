@@ -130,6 +130,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         lblMsg = new javax.swing.JLabel();
         comboLogin = new javax.swing.JComboBox<>();
+        lblMsg2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(52, 73, 94));
@@ -276,10 +277,10 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel2.add(jLabel6);
         jLabel6.setBounds(40, 80, 250, 30);
 
-        lblMsg.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
+        lblMsg.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblMsg.setForeground(new java.awt.Color(255, 0, 0));
         jPanel2.add(lblMsg);
-        lblMsg.setBounds(40, 370, 270, 30);
+        lblMsg.setBounds(40, 390, 270, 30);
 
         comboLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,6 +289,11 @@ public class TelaLogin extends javax.swing.JFrame {
         });
         jPanel2.add(comboLogin);
         comboLogin.setBounds(40, 110, 250, 40);
+
+        lblMsg2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblMsg2.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel2.add(lblMsg2);
+        lblMsg2.setBounds(40, 240, 250, 30);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(290, 0, 320, 430);
@@ -371,6 +377,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         } else {
             //JOptionPane.showMessageDialog(null, "Restam " + tentavias + " tentativas \n Antes do bloqueio!");
+            lblMsg2.setText("*Senha inválida, digite novamente!");
             lblMsg.setForeground(Color.red);
             lblMsg.setText("*Resta(m) " + tentavias + " tentativa(s) antes do bloqueio!");
         }
@@ -378,6 +385,8 @@ public class TelaLogin extends javax.swing.JFrame {
     private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
         // Realiza login
         lblMsg.setText(null);
+        lblMsg2.setText(null);
+        
         btnLogin.setEnabled(true);
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             realizaLogin();
@@ -468,6 +477,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel lblLicenca;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblMsg;
+    private javax.swing.JLabel lblMsg2;
     private javax.swing.JLabel lblVersao;
     private javax.swing.JLabel lblVersao1;
     private javax.swing.JLabel lbllicenca2;

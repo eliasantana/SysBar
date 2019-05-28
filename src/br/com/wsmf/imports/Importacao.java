@@ -43,7 +43,7 @@ public class Importacao {
     String funcionario;
 
     public boolean importarMovimentacao() {
-
+        arquivo = "movimentacao.csv";
         boolean resp = false;
 
         String sql = "SELECT \n"
@@ -91,28 +91,28 @@ public class Importacao {
             System.out.println("br.com.wsmf.imports.ImportMovimentaco.importarMovimentacao()");
         }
 
-        System.out.println("Dados importados com sucesso! ->" + url);
+        System.out.println("Dados importados com sucesso! ->" + url + arquivo);
         return resp;
     }
-
+    // Importa todos os pedidos pagos
     public boolean importaPedido() {
         arquivo = "pedidos.csv";
         boolean resp = false;
         String sql = "SELECT \n"
-                + "    p.id_pedido as 'pedido',\n"
-                + "    date_format(p.data,'%Y-%m-%d') as 'data',   \n"
-                + "    p.total as 'total',\n"
-                + "    p.comissao as 'comissao',\n"
-                + "    p.formaPagto as 'forma_pagto',\n"
-                + "    m.numero_mesa as 'mesa',\n"
-                + "    f.nome as 'nome',\n"
-                + "    p.operador as 'operador'\n"
-                + "   \n"
+                + "	p.id_pedido as 'pedido',\n"
+                + "	date_format(p.data,'%Y-%m-%d') as 'data',\n"
+                + "	p.total as 'total',\n"
+                + "	p.comissao as 'comissao',\n"
+                + "	p.formaPagto as 'forma_pagto',\n"
+                + "	m.numero_mesa as 'mesa',\n"
+                + "	f.nome as 'nome',\n"
+                + "	p.operador as 'operador'\n"
+                + "\n"
                 + "FROM\n"
-                + "    dbbar.cadpedido p\n"
+                + "	dbbar.cadpedido p\n"
                 + "INNER JOIN cadmesa m on m.id = p.cadmesa_id\n"
                 + "INNER JOIN tbcadfuncionario f on f.id = p.tbcadfuncionario_id\n"
-                + "WHERE date_format(data,'%Y-%m-%d') =curdate();";
+                + "WHERE TOTAL IS NOT NULL";
 
         try {
             pst = conexcao.prepareStatement(sql);
@@ -149,7 +149,8 @@ public class Importacao {
         return resp;
 
     }
-  // Importa todas as contas pagas
+    // Importa todas as contas pagas
+
     public boolean importaContas() {
 
         boolean resp = false;

@@ -62,7 +62,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
     TimerTask task;
     // Limite em segundo para bloquear a tela
-    int limite = 12;
+    int limite = 60;
     // Contador - Segundos
     int s = 0;
     /**
@@ -99,14 +99,14 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblStatusCozinha.setEnabled(false);
         btnAbrirPedido.setEnabled(false);
         lblCargo.setVisible(false);
-        lblSegundos.setVisible(false);
+        lblSegundos.setVisible(true);
         lblReenvioCozinha.setEnabled(false);
         lblBtnReenvioCozinha.setEnabled(false);
         //Torna a tela Selecionavel 'Necessário para que o evento de bloqueio ocorra'
         this.setFocusable(true);
         // Adiciona Listner para bloquear tela
         addKeyListener(new LeitorDeTeclas());
-        //cronometro();
+        cronometro();
     }
 
     public void recebeOperador(String operador, String perfil) {
@@ -1151,13 +1151,13 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Para demais usuário a janela será fechada e chanará a Tela de Login
         if ("Gerente".equals(lblCargo.getText())) {
             this.dispose();
-            //task.cancel();//Cancela a contagem do tempo do método conômetro
+            task.cancel();//Cancela a contagem do tempo do método conômetro
         } else {
             this.dispose();
             TelaLogin login = new TelaLogin();
             login.setVisible(true);
 
-            //task.cancel();//Cancela a contagem do tempo do método conômetro
+            task.cancel();//Cancela a contagem do tempo do método conômetro
         }
     }//GEN-LAST:event_panelFecharMouseClicked
 
@@ -1238,7 +1238,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // Chama a tela de Bloqueio
-        s = 46;        
+        s = 70;        
         TelaBloqueio tb = new TelaBloqueio();
         tb.setModal(true);
         tb.setVisible(true);

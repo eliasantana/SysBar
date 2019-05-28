@@ -251,15 +251,13 @@ public class ControlerContasApagar {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, c.getId());
 
-            int op = JOptionPane.showConfirmDialog(null, "Confirma Exclusão?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(null, "Confirma a exclusão da conta?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             if (op == JOptionPane.YES_OPTION) {
 
                 pst.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Exclusão realizada com sucesso!");
 
-            } else {
-                JOptionPane.showMessageDialog(null, "Exclusão cancelada!");
-            }
+            } 
 
         } catch (HeadlessException | SQLException e) {
             System.out.println("br.com.br.controler.ControlerContasApagar.excluiConta()"+e);

@@ -22,6 +22,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -172,6 +173,8 @@ public class TEste extends javax.swing.JFrame {
         btnCriaArquivo1 = new javax.swing.JButton();
         lblCronometro = new javax.swing.JLabel();
         lblResultado = new javax.swing.JLabel();
+        btnCriaArquivo2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -239,6 +242,20 @@ public class TEste extends javax.swing.JFrame {
 
         lblResultado.setText("jLabel1");
 
+        btnCriaArquivo2.setText("Cria arquivo");
+        btnCriaArquivo2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCriaArquivo2ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Listar itens HashMap");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -266,12 +283,15 @@ public class TEste extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
                                         .addComponent(jButton2)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnCriaArquivo, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnCriaArquivo1, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnCriaArquivo1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCriaArquivo2)))
                         .addGap(103, 103, 103)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jdateExemplo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -279,8 +299,11 @@ public class TEste extends javax.swing.JFrame {
                         .addGap(51, 51, 51)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblResultado)
-                            .addComponent(lblCronometro))))
-                .addGap(218, 218, 218))
+                            .addComponent(lblCronometro)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(jButton4)))
+                .addGap(197, 197, 197))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,12 +325,19 @@ public class TEste extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
-                .addGap(28, 28, 28)
-                .addComponent(btnCriaArquivo)
-                .addGap(28, 28, 28)
-                .addComponent(btnCriaArquivo1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3)
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCriaArquivo)
+                            .addComponent(jButton4))
+                        .addGap(28, 28, 28)
+                        .addComponent(btnCriaArquivo1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(btnCriaArquivo2)))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
 
@@ -418,6 +448,35 @@ public class TEste extends javax.swing.JFrame {
     
     }//GEN-LAST:event_jdateExemploFocusGained
 
+    private void btnCriaArquivo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriaArquivo2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCriaArquivo2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
+        HashMap<String,String>itens = new HashMap<>();
+        itens.put("numero_item", "1");
+        itens.put("unidade_comercial", "PC");
+        itens.put("unidade_tributavel", "PC");
+        itens.put("codigo_ncm", "94019090");
+        itens.put("codigo_produto", "Div.13350000");
+        itens.put("descricao", "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL");
+        itens.put("cfop", "5102");
+        itens.put("valor_unitario_comercial", "1.0000000000");
+        itens.put("valor_unitario_tributavel", "1.0000000000");
+        itens.put("valor_bruto", "1.0000");
+        itens.put("quantidade_comercial", "1.0000");
+        itens.put("quantidade_tributavel", "1.0000");
+        itens.put("quantidade", "1.0000");
+        itens.put("icms_origem", "0");
+        itens.put("icms_base_calculo", "1.00");
+        itens.put("icms_modalidade_base_calculo", "3");
+        itens.put("valor_frete", "0.0");
+        itens.put("valor_outras_despesas", "0.0");
+        itens.put("icms_situacao_tributaria", "102");
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -456,10 +515,12 @@ public class TEste extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCriaArquivo;
     private javax.swing.JButton btnCriaArquivo1;
+    private javax.swing.JButton btnCriaArquivo2;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private com.toedter.calendar.JDateChooser jdateExemplo;

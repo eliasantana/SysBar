@@ -853,6 +853,10 @@ public class TelaContasApagar extends JDialog {
                     } else {
 
                         cc.excluiConta(c);
+                        //Desabilita TextFild 'Valor Pago' e o Botão de Pagamento 
+                        //após exclusão ou cancelamento da confirmação de exclusão
+                        txtValorPago.setEnabled(false);
+                        btnBaixar.setEnabled(false);
                     }
                     tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));  // Filtro Aberto | Tudo
                     modelcontas.redimensionaColunas(tblContas);
