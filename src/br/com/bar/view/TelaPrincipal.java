@@ -776,6 +776,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
             lblGestao.setForeground(Color.black);
         }
         
+        if (estoque.estoqueMinimo()>0){
+            lblmsg2.setText("*Existe(m) produto(s) com quantidade mínima em estoque!");
+            lblGestao.setForeground(Color.red);
+        }
+        
         lblmsg1.setForeground(Color.red);
         lblmsg2.setForeground(Color.red);
     }

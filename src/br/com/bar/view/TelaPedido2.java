@@ -893,11 +893,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 String idFuncLogado = funcLogado.getId();
 
                 if (idFuncLogado.equals(txtIdGarcom.getText())) {
-                    l.setDescricao("Abriu o pedido ->" + idPedidoGErado);
+                    l.setDescricao("Abriu o pedido -> " + idPedidoGErado);
                 } else {
                     Funcionario funcCombo = cFunc.localizaFuncionario(cFunc.localizaId(comboGarcom.getSelectedItem().toString()));
                     l.setUsuario(funcCombo.getLogin());
-                    l.setDescricao("Abriu o pedido -> " + idPedidoGErado + " [USUÁRIO LOGADO: " + funcLogado.getLogin() + "]");
+                    l.setDescricao("Abriu o pedido -> " + idPedidoGErado + " [USUÁRIO LOGADO: " + funcLogado.getLogin() + " ]");
                 }
 
                 l.gravaLog(l);

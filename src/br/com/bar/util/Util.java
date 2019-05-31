@@ -170,6 +170,7 @@ public class Util {
         String paternMySql = "yyyy-MM-dd";
         //String paternHora = "hh:mm:ss";
         String paternHora = "HHmmss";
+        String paternDataHora= "dd-MM-yyy HH:mm";
         // Verifica opção de formatação e aplica o patern
         switch (opcao) {
 
@@ -180,6 +181,10 @@ public class Util {
             case "h":// Formada hora no formato do bando de dados Mysql
                 SimpleDateFormat dfh = new SimpleDateFormat(paternHora);
                 d = dfh.format(data);
+                break;
+            case "dh":// Formada hora no formato do bando de dados Mysql
+                SimpleDateFormat dfDataHora = new SimpleDateFormat(paternDataHora);
+                d = dfDataHora.format(data);
                 break;
         }
 
@@ -482,9 +487,9 @@ public class Util {
      * Limita a data de um componente JDateSchooser estipulando um limite MÍNIMO
      * e MÁXIMO de datas para o componente.
      *
-     * @param dtChooser Componente JDateSchooser a ser limitado.
+     * @param dtChooser  Componente JDateSchooser a ser limitado.
      * @param limiteMeses Quantidade de Meses anterior ao mês atual que será
-     * habilitado para seleção.
+     *           habilitado para seleção.
      *
      */
     public void limitaDataCombo(JDateChooser dtChooser, int limiteMeses) {
@@ -519,7 +524,7 @@ public class Util {
      * limite MÍNIMO e MÁXIMO para o componente.
      *
      * @param dtChooser Componente JDateSchooser a ser limitado.
-     * @param limiteMeses uantidade de Meses anterior ao mês atual que será
+     * @param limiteMeses  quantidade de Meses anterior ao mês atual que será
      * habilitado para seleção.
      * @param dia Dia a partir de onde se poderá selecionar uma data no mês
      * anterior.

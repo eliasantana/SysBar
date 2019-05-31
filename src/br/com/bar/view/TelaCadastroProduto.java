@@ -443,6 +443,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         p.setQtdMax(txtQtdMax.getText());
         p.setQtdMin(txtQtdMin.getText());
         p.setValor(txtValor.getText().replace(",","."));
+        
         if (!"Selecione...".equals(comboFornecedor.getSelectedItem().toString())) {
             p.setIdFornecedor(Integer.parseInt(cf.localizaForecedor(f)));
         }
@@ -460,8 +461,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                 comboGrupoProduto.setSelectedIndex(0);
             } else {
                 if (valida(p)) {
-
-                    if (cp.adicionaProduto(p)) {
+                        if (cp.adicionaProduto(p)) {
                         JOptionPane.showMessageDialog(this, "Produto adicionado com sucesso!");
                         limpaForm();
                         comboFornecedor.setSelectedIndex(0);
@@ -478,6 +478,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                         e.registraMovimentacao(id, p.getQtd(), e.localizaIdOperacao("Entrada"), "Produto Novo");
 
                     }
+                  
                 }
             }
 
@@ -494,12 +495,16 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             p.setId(produto.getId());
             
             if (valida(p)) {
+                  int resp = JOptionPane.showConfirmDialog(this, "Confirma a alteração para o produto selecionado?","Atenção",JOptionPane.ERROR_MESSAGE,JOptionPane.YES_NO_OPTION);
+                    if(resp==JOptionPane.YES_OPTION){
+                        
+                        if (cp.alteraProduto(p)) {
+                            JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
+                            telaPesquisa.atualizaTabela();
+                            dispose();
+                        }
+                    }
                 
-                if (cp.alteraProduto(p)) {
-                    JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
-                    telaPesquisa.atualizaTabela();
-                    dispose();
-                }
             }
 
         }

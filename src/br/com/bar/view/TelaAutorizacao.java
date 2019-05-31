@@ -27,7 +27,7 @@ public class TelaAutorizacao extends JDialog {
     ControlerCaixa cc = new ControlerCaixa();
     Util u = new Util();
     TelaCaixa cx;
-    ArrayList<String> listaDeSValores;
+    ArrayList<String> listaDeValores; // Refatorado de listaDeSValores.
 
     public TelaAutorizacao() {
         initComponents();
@@ -270,12 +270,12 @@ public class TelaAutorizacao extends JDialog {
     public void recebeValor(TelaCaixa telaCaixa, ArrayList<String> listaDadosDoPedido) {
         // Recebe os valores do pedido
         this.cx = telaCaixa;
-        listaDeSValores = listaDadosDoPedido;
-        System.out.println("Valor: " + listaDeSValores.get(0)); // Valor sem tx de Serviço
-        System.out.println("Serviço: " + listaDeSValores.get(1)); // Tx. de Serviço
-        System.out.println("Total Geral: " + listaDeSValores.get(2)); // Total Geral
-        System.out.println("Mesa: " + listaDeSValores.get(3)); // Número da Mesa
-        System.out.println("Id do Pedido: " + listaDeSValores.get(4));
+        listaDeValores = listaDadosDoPedido;
+        System.out.println("Valor: " + listaDeValores.get(0)); // Valor sem tx de Serviço
+        System.out.println("Serviço: " + listaDeValores.get(1)); // Tx. de Serviço
+        System.out.println("Total Geral: " + listaDeValores.get(2)); // Total Geral
+        System.out.println("Mesa: " + listaDeValores.get(3)); // Número da Mesa
+        System.out.println("Id do Pedido: " + listaDeValores.get(4));
 
     }
     private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked
@@ -338,25 +338,25 @@ public class TelaAutorizacao extends JDialog {
         double desconto = Double.parseDouble(desc);
         try {
             // Converte o valor total para Double
-            String tgeral = listaDeSValores.get(2).replace(".", "");
+            String tgeral = listaDeValores.get(2).replace(".", "");
             tgeral = tgeral.replace(",", ".");
             double totalGeral = Double.parseDouble(tgeral);
             if (desconto <= totalGeral && desconto > 0) {
                 totalGeral = totalGeral - desconto;
                                 
-                listaDeSValores.set(2, fv.Formata(String.valueOf(totalGeral)));
-                listaDeSValores.add(fv.Formata(String.valueOf(desconto)));// Adiciona o desconto
-                listaDeSValores.add(cf.localizaIdLogin(comboFuncionario.getSelectedItem().toString()));//ID de quem autorizou o desconto
-                listaDeSValores.add(txtMotivoDesconto.getText());//Motivo
+                listaDeValores.set(2, fv.Formata(String.valueOf(totalGeral)));
+                listaDeValores.add(fv.Formata(String.valueOf(desconto)));// Adiciona o desconto
+                listaDeValores.add(cf.localizaIdLogin(comboFuncionario.getSelectedItem().toString()));//ID de quem autorizou o desconto
+                listaDeValores.add(txtMotivoDesconto.getText());//Motivo
                 
                 // Registra log da operação
                 Log l = new Log();
                 l.setFuncionalidade("Desconto");
                 l.setUsuario(comboFuncionario.getSelectedItem().toString());
-                l.setDescricao("Condedeu desconto ao pedido " + listaDeSValores.get(4) + " Mesa:" + listaDeSValores.get(3));
+                l.setDescricao("Autorizou o desconto para o pedido-> " + listaDeValores.get(4) + " Mesa-> " + listaDeValores.get(3) + " Valor desconto: R$"+listaDeValores.get(6));
                 l.gravaLog(l);
                 
-                cx.recebeDadosComDesconto(listaDeSValores);
+                cx.recebeDadosComDesconto(listaDeValores);
 
                 this.dispose();
             } else {

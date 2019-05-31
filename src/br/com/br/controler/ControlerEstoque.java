@@ -291,7 +291,7 @@ public class ControlerEstoque {
     }
 
     public boolean estoqueBaixo() {
-        String sql = "SELECT * FROM dbbar.tbproduto where qtd<=qtd_min;";
+        String sql = "SELECT * FROM dbbar.tbproduto where qtd<qtd_min;";
         boolean resp = false;
         try {
             pst = conexao.prepareStatement(sql);
@@ -305,6 +305,26 @@ public class ControlerEstoque {
             System.out.println("br.com.br.controler.ControlerEstoque.isBaixo()" + e);
         }
         return resp;
+    }
+    // Retorna a quantidade de produtos que atingiu a quantidade mínima no estoque.
+    
+    public int estoqueMinimo(){
+       
+        String sql="SELECT count(*)as total FROM dbbar.tbproduto where qtd=qtd_min;";
+        int qtd=0;
+        
+        try {
+            pst=conexao.prepareStatement(sql);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                   qtd=rs.getInt("total");
+                          
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerEstoque.estoqueMinimo()");
+        }
+        
+        return qtd;
     }
 
 }

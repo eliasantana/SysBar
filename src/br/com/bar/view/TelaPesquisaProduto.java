@@ -79,11 +79,8 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         bordas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProduto = new javax.swing.JTable();
-        lblRotulo = new javax.swing.JLabel();
         txtLocalizar = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
-        radioProduto = new javax.swing.JRadioButton();
-        radioGrupo = new javax.swing.JRadioButton();
         comboFornecedor = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         panelSuperior = new javax.swing.JPanel();
@@ -106,6 +103,8 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
+        radioProduto = new javax.swing.JRadioButton();
+        radioGrupo = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -135,10 +134,6 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
 
         bordas.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 197, 730, 420));
 
-        lblRotulo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lblRotulo.setText("Pesquisar por Produto");
-        bordas.add(lblRotulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 108, 131, 26));
-
         txtLocalizar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         txtLocalizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -157,39 +152,6 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
 
         jPanel4.setLayout(null);
 
-        buttonGroup1.add(radioProduto);
-        radioProduto.setText("Produto");
-        radioProduto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                radioProdutoMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                radioProdutoMouseEntered(evt);
-            }
-        });
-        radioProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioProdutoActionPerformed(evt);
-            }
-        });
-        jPanel4.add(radioProduto);
-        radioProduto.setBounds(0, 10, 90, 23);
-
-        buttonGroup1.add(radioGrupo);
-        radioGrupo.setText("Grupo");
-        radioGrupo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                radioGrupoMouseClicked(evt);
-            }
-        });
-        radioGrupo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioGrupoActionPerformed(evt);
-            }
-        });
-        jPanel4.add(radioGrupo);
-        radioGrupo.setBounds(90, 10, 80, 23);
-
         comboFornecedor.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         comboFornecedor.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -202,13 +164,13 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
             }
         });
         jPanel4.add(comboFornecedor);
-        comboFornecedor.setBounds(170, 0, 220, 40);
+        comboFornecedor.setBounds(170, 0, 280, 40);
 
-        bordas.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 142, 444, 45));
+        bordas.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 142, 460, 45));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Fornecedor");
-        bordas.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(446, 106, 170, 30));
+        bordas.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(457, 110, 170, 30));
 
         panelSuperior.setBackground(new java.awt.Color(243, 156, 18));
         panelSuperior.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -353,6 +315,37 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
 
         bordas.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 630, 730, 70));
 
+        buttonGroup1.add(radioProduto);
+        radioProduto.setText("Produto");
+        radioProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioProdutoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                radioProdutoMouseEntered(evt);
+            }
+        });
+        radioProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioProdutoActionPerformed(evt);
+            }
+        });
+        bordas.add(radioProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 90, -1));
+
+        buttonGroup1.add(radioGrupo);
+        radioGrupo.setText("Grupo");
+        radioGrupo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioGrupoMouseClicked(evt);
+            }
+        });
+        radioGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioGrupoActionPerformed(evt);
+            }
+        });
+        bordas.add(radioGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 80, -1));
+
         getContentPane().add(bordas);
         bordas.setBounds(0, 0, 750, 710);
 
@@ -412,14 +405,16 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         // Seleciona caixa de texto localizar e adiciona o ponteiro do mouse
         txtLocalizar.setText(null);
         txtLocalizar.requestFocus();
-        lblRotulo.setText("Pesquisar por Produto");
+        comboFornecedor.setSelectedIndex(0);
+      
     }//GEN-LAST:event_radioProdutoMouseClicked
 
     private void radioGrupoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioGrupoMouseClicked
         // Seleciona caixa de texto localizar e adiciona o ponteiro do mouse
         txtLocalizar.setText(null);
         txtLocalizar.requestFocus();
-        lblRotulo.setText("Pesquisar por Grupo");
+        comboFornecedor.setSelectedIndex(0);
+      
     }//GEN-LAST:event_radioGrupoMouseClicked
 
     private void btnAlteraProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlteraProdutoMouseClicked
@@ -462,6 +457,8 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
                 atualizaTabela();
                 Log l = new Log(lblOperador.getText(), "Excluir", "Excluiu o produto "+p.getNome());
                 l.gravaLog(l);
+            }else {
+                 JOptionPane.showMessageDialog(this, "Este produto não pode ser excluído!");
             }
         }
     }//GEN-LAST:event_btnExcluirMouseClicked
@@ -568,7 +565,6 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblOperador;
-    private javax.swing.JLabel lblRotulo;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JRadioButton radioGrupo;
     private javax.swing.JRadioButton radioProduto;

@@ -310,7 +310,7 @@ public class TelaLogin extends javax.swing.JFrame {
         // Autentica Usuário
         ControlerParametro p = new ControlerParametro();
         if ("Selecione...".equals(comboLogin.getSelectedItem().toString())) {
-            lblMsg.setText("*Opção Inválida!");
+            //lblMsg.setText("*Opção Inválida!"); --> Excluir após validação
         } else if (autentica.isExistsSenha(txtSenha.getText().toLowerCase())) { // Verifica se a senha Existe
 
             if (autentica.autentica2(comboLogin.getSelectedItem().toString(), txtSenha.getText().toLowerCase())) {
@@ -371,15 +371,17 @@ public class TelaLogin extends javax.swing.JFrame {
         int contagem = contador();
         int tentavias = 3 - contagem;
 
-        if (contagem > 3) {
+        if (contagem > 2) { // Valor anterior 3
             cp.bloqueiaLogin(cf.localizaIdLogin(comboLogin.getSelectedItem().toString()));
             comboLogin.setSelectedIndex(0);
             acumula = 0;
-            txtSenha.setEnabled(false);
-            //Início do Registro de Log
-
+            txtSenha.setText(null);
+            txtSenha.setEnabled(true);
+            lblMsg2.setText(null);
+            btnLogin.setEnabled(false);
+           
         } else {
-            //JOptionPane.showMessageDialog(null, "Restam " + tentavias + " tentativas \n Antes do bloqueio!");
+           
             lblMsg2.setText("*Senha inválida, digite novamente!");
             lblMsg.setForeground(Color.red);
             lblMsg.setText("*Resta(m) " + tentavias + " tentativa(s) antes do bloqueio!");
@@ -411,14 +413,21 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void comboLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboLoginActionPerformed
         lblMsg.setText(null);
+        
         boolean bloqueado = autentica.taBloqueado(comboLogin.getSelectedItem().toString());
 
         if ("Selecione...".equals(comboLogin.getSelectedItem().toString())) {
             txtSenha.setEnabled(false);
+            lblMsg.setText(null);
+            lblMsg2.setText(null);
+            txtSenha.setText(null);
+            btnLogin.setEnabled(false);
         } else {
             if (!bloqueado) {
                 txtSenha.setEnabled(true);
                 acumula = 0;
+                btnLogin.setEnabled(true);
+                txtSenha.requestFocus();
             } else {
                 lblMsg.setText("*Usuário bloqueado, procure um Administrador!");
                 txtSenha.setEnabled(false);

@@ -94,11 +94,16 @@ public class AutenticaUsuario {
                 usuarioBloqueio = rs.getString("bloqueado");
 
             }
-
-             if (usuarioSenha.equals(senha.toLowerCase())) {
+            // Caso usuário não senha localizado pula a comparação de senha.
+            if (usuarioSenha!=null){
+                   if (usuarioSenha.equals(senha.toLowerCase())) {
 
                     resp = true;
              }
+            }
+           
+
+          
 
         } catch (HeadlessException | SQLException e) {
             System.out.println("br.com.bar.dao.AutenticaUsuario.autentica2()" + e);

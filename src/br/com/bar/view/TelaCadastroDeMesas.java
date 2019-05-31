@@ -532,6 +532,11 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(this, "Troca realizada com sucesso!");
                             tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
                             modelMesas.redimensionaColunas(tblMesas);
+                            // Inicio do Registro de log
+                            log.setFuncionalidade("Alterar");
+                            log.setDescricao("Mudou todas as mesas do garçom -> "+antigo.getNome() + " para o garçom -> " + novo.getNome());
+                            log.gravaLog(log);
+                            //
                             txtNumeroMesa.setText(null);
                             panelTroca.setVisible(false);
                             //ocultaCampos();
@@ -600,8 +605,8 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
 
                 // Inicio do registro de log
                 log.setFuncionalidade("Alterar");
-                log.setDescricao("Alterou dados da mesa -> " + txtNumeroMesa.getText()
-                        + ": " + comboGarcom.getSelectedItem().toString() + " -> " + comboNovoGarcom.getSelectedItem().toString());
+                log.setDescricao("Alterou a mesa -> " + txtNumeroMesa.getText()
+                        + " do garçom -> " + comboGarcom.getSelectedItem().toString() + " para o garçom -> " + comboNovoGarcom.getSelectedItem().toString());
                 log.gravaLog(log);
                 // Fim do registro de LOG
                 if ("".equals(txtIdGarcom.getText())
@@ -791,7 +796,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 if (op == JOptionPane.YES_OPTION) {
                     // Registro de Log
                     log.setFuncionalidade("Adicionar");
-                    log.setDescricao("Adicionou uma mesa -> " + m.getNumeroMesa());
+                    log.setDescricao("Adicionou a mesa -> " + m.getNumeroMesa());
 
                     //Fim do registro de log
                     if (cm.adicionaMesa(m)) { // Adiciona mesa

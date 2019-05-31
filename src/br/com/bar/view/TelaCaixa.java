@@ -41,6 +41,7 @@ import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -1059,7 +1060,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
                     //Início do Registro de log
                     l.setFuncionalidade("Recebimento");
-                    l.setDescricao("Recebeu R$ " + p.getTotalPago().replace(".", ",") + " Pedido: " + txtIdPedido.getText() + " Comissão:" + p.getComissao().replace(".", ","));
+                    l.setDescricao("Recebeu R$ " + p.getTotalPago().replace(".", ",") + " Pedido N.->" + txtIdPedido.getText() + " Comissão: R$ " + p.getComissao().replace(".", ","));
                     l.gravaLog(l);
 
                     // Libera a mesa após o pagamento
@@ -1377,10 +1378,9 @@ public class TelaCaixa extends javax.swing.JFrame {
                         lblReceberPAgamento.setEnabled(false);
 
                         // Inicio do Registro de Log
-                        l.setDescricao("Caixa");
-                        l.setFuncionalidade("Fehamento de Caixa");
-                        l.setUsuario(lblOperador.getText());
-                        l.setDescricao("Fechamento do Caixa. ");
+                        l.setFuncionalidade("Caixa");                        
+                        l.setDescricao("Fechou o caixa -> "+ utils.formataDataHora(new Date(), "dh"));
+                        l.setUsuario(lblOperador.getText());                       
                         l.gravaLog(l);
                         // Fim do Registro de Log
                         //Desabilita o combo Mesa

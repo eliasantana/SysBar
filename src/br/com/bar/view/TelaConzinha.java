@@ -454,7 +454,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                 lblMsg.setText("*Prato " + "'" + prato + "'" + " liberado com sucesso! ");
                 Log l = new Log();
                 //Log
-                l.setDescricao("Liberou o prato " + tblCozinha.getModel().getValueAt(0, 1).toString() + " da cozinha");
+                l.setDescricao("Liberou -> " + tblCozinha.getModel().getValueAt(0, 1).toString() + " da cozinha");
                 l.setFuncionalidade("Liberar Prato");
                 l.setUsuario(lblOperador.getText());
                 l.gravaLog(l);

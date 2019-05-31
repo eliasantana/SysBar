@@ -475,6 +475,9 @@ public class TEste extends javax.swing.JFrame {
         itens.put("valor_outras_despesas", "0.0");
         itens.put("icms_situacao_tributaria", "102");
         
+        System.out.println(Calendar.getInstance().getTime());
+            
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

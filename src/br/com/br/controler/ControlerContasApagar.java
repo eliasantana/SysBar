@@ -39,7 +39,7 @@ public class ControlerContasApagar {
     public ResultSet listaContasApagar(String opcao) {
 
         String filtro = "";
-        String ordenar="";
+        String ordenar = "";
 
         if ("Pagas".equals(opcao)) {
             filtro = "ca.data_pagto IS NOT NULL";
@@ -47,7 +47,7 @@ public class ControlerContasApagar {
         } else {
             filtro = "ca.data_pagto IS NULL";
             ordenar = "ca.data_vencito";
-        } 
+        }
 
         String sql = "SELECT \n"
                 + "	ca.id as 'CÓD. INT.', \n"
@@ -61,11 +61,47 @@ public class ControlerContasApagar {
                 + "FROM tbcontas_a_pagar ca\n"
                 + "INNER JOIN tbcadfuncionario f on f.id=ca.tbcadfuncionario_id\n"
                 + "INNER JOIN tbgrupo gp on gp.id=ca.tbGrupo_id "
-               // + "WHERE " + filtro + " ORDER BY ca.data_vencito DESC";
-                + "WHERE " + filtro + " ORDER BY " +ordenar;
-                
+                + "WHERE " + filtro + " ORDER BY " + ordenar;
+
         try {
             pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerContasApagar.listaContasApagar()" + e);
+        }
+        return rs;
+    }
+
+    /**
+     * Lista todas as contas pagas no período.
+     * @param inicio  Data de Inicio da Pesquisa.
+     * @param fim Data de Fim da Pesquisa.
+     * @return Retorna um ResultSet com o resultado da Query.
+     */ 
+    public ResultSet listaContasApagar(String inicio, String fim) {
+
+        
+
+        String sql = "SELECT\n"
+                + "	ca.id as 'CÓD. INT.', \n"
+                + "	ca.descricao as 'DESCRIÇÃO',\n"
+                + "	format(ca.valor,2,'de_DE') as 'VALOR R$',  \n"
+                + "	date_format(ca.data_vencito,'%d/%m/%Y') AS 'VENCIMENTO', \n"
+                + "	date_format(ca.data_pagto,'%d/%m/%Y') AS 'PAGAMENTO', \n"
+                + "	format(ca.valor_pagto,2,'de_DE') AS 'VLR PAGO R$',\n"
+                + "	f.nome AS 'OPERADOR', \n"
+                + "	gp.grupo AS 'GRUPO'\n"
+                + "FROM tbcontas_a_pagar ca\n"
+                + "	INNER JOIN tbcadfuncionario f on f.id=ca.tbcadfuncionario_id\n"
+                + "	INNER JOIN tbgrupo gp on gp.id=ca.tbGrupo_id               \n"
+                + "	WHERE ca.data_pagto IS NOT NULL AND DATE_FORMAT(data_pagto,'%Y-%m-%d') \n"
+                + "BETWEEN ? AND ? ORDER BY ca.data_pagto DESC";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, inicio);
+            pst.setString(2, fim);
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
@@ -147,9 +183,10 @@ public class ControlerContasApagar {
 
     // Registra Pagamento da Conta
     /**
-     *  Realiza o pagamento da conta atualizado a tabela conta a pagar.
-     *  @param c Objeto do tipo Conta
-     *  @return Retorna um Boolean como resultado da alteração.
+     * Realiza o pagamento da conta atualizado a tabela conta a pagar.
+     *
+     * @param c Objeto do tipo Conta
+     * @return Retorna um Boolean como resultado da alteração.
      */
     public boolean baixarConta(Contas c) {
 
@@ -167,7 +204,7 @@ public class ControlerContasApagar {
 
         } catch (SQLException e) {
 
-            System.out.println("br.com.br.controler.ControlerContasApagar.baixarConta()"+e);
+            System.out.println("br.com.br.controler.ControlerContasApagar.baixarConta()" + e);
         }
         return true;
     }
@@ -197,7 +234,7 @@ public class ControlerContasApagar {
             resp = true;
         } catch (SQLException e) {
 
-            System.out.println("br.com.br.controler.ControlerContasApagar.extornaConta()"+e);
+            System.out.println("br.com.br.controler.ControlerContasApagar.extornaConta()" + e);
         }
 
         return resp;
@@ -257,10 +294,10 @@ public class ControlerContasApagar {
                 pst.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Exclusão realizada com sucesso!");
 
-            } 
+            }
 
         } catch (HeadlessException | SQLException e) {
-            System.out.println("br.com.br.controler.ControlerContasApagar.excluiConta()"+e);
+            System.out.println("br.com.br.controler.ControlerContasApagar.excluiConta()" + e);
 
         }
     }

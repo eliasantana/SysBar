@@ -283,8 +283,8 @@ public class ControlerProduto {
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Este produto não pode ser excluído!");
-
+            System.out.println("br.com.br.controler.ControlerProduto.excluiProduto()");
+              
         }
 
         return false;
