@@ -170,6 +170,8 @@ public class ControlerPedido {
             pst.setString(1, numeroMesa);
             pst.setString(2, numeroPedido);
             rs = pst.executeQuery();
+            
+            
 
         } catch (SQLException ex) {
             System.out.println("br.com.br.controler.ControlerPedido.detalhePorPedido()" + ex);
@@ -258,7 +260,7 @@ public class ControlerPedido {
     // Fecha o pedido armazenando informações do pagamento, da mesa e do pedido,
     // atualizando a data do pedido para a data atual do recebimento
     public boolean fechaPedido(Pedido p) {
-        String sql = "UPDATE cadpedido SET status=?, total=?, comissao=?, formaPagto=?,operador=?, autenticacao=?, data=? WHERE cadmesa_id=? AND id_pedido=?";
+        String sql = "UPDATE cadpedido SET status=?, total=?, comissao=?, formaPagto=?,operador=?, autenticacao=?, data=?, permanencia=? WHERE cadmesa_id=? AND id_pedido=?";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -270,8 +272,9 @@ public class ControlerPedido {
             pst.setString(5, p.getOperador());
             pst.setString(6, p.getAutenticacao());
             pst.setString(7, p.getData());
-            pst.setString(8, p.getCadMesaId());
-            pst.setString(9, p.getId());
+            pst.setString(8, p.getPermanencia());
+            pst.setString(9, p.getCadMesaId());
+            pst.setString(10, p.getId());
 
             pst.executeUpdate();
 
@@ -448,5 +451,31 @@ public class ControlerPedido {
         }
         
         return  id;
+    }
+    /**
+     * Calcula a permanência do cliente no estabelecimento a contar da ocupação da mesa
+     * @param idPedido Número do Pedido.
+     * @return Retorna o tempo de pernencia.
+     */
+    public String calculaPermanencia(String idPedido){
+        String permanencia="";
+        
+        String sql="SELECT id_pedido, timediff(current_timestamp(), data) as 'permanencia' from cadpedido where id_pedido = ?";      
+        
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, idPedido);
+            
+            rs = pst.executeQuery();
+            
+            while (rs.next()){
+                permanencia = rs.getString("permanencia");
+                
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.calculaPermanencia()"+e);
+        }
+        
+        return permanencia;
     }
 }

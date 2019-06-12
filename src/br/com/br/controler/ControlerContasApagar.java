@@ -61,7 +61,8 @@ public class ControlerContasApagar {
                 + "FROM tbcontas_a_pagar ca\n"
                 + "INNER JOIN tbcadfuncionario f on f.id=ca.tbcadfuncionario_id\n"
                 + "INNER JOIN tbgrupo gp on gp.id=ca.tbGrupo_id "
-                + "WHERE " + filtro + " ORDER BY " + ordenar;
+                + "WHERE " + filtro + " ORDER BY " + ordenar;   
+        
 
         try {
             pst = conexao.prepareStatement(sql);

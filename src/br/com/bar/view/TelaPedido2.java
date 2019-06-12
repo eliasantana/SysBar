@@ -72,7 +72,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
     String descricao;
     String qtd;
     String idProduto;
-    
+    // Recebe dados da tela de caixa
+    TelaCaixa tc;
     /**
      * Creates new form TelaPedido2
      */
@@ -112,7 +113,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
     public void recebeOperador(String operador, String perfil) {
         lblOperador.setText(operador);
         lblCargo.setText(perfil);
-        lblCargo.setVisible(false);
+        lblCargo.setVisible(false); // Setar false após teste
+        //lblOperador.setVisible(true);// Excluir após teste
         modelPedidos.redimensionaColunas(tblPedidosAbertos);
 
         if ("Gerente".equals(lblCargo.getText())) {
@@ -128,6 +130,33 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         //Recupera o id do funcionario logado.
         funcLogado = cFunc.localizaFuncionario(cFunc.localizaIdLogin(operador));
+    }
+    // Recebe dados do funcionário referente ao pedido listado, este método é
+    // Utilizado no momento em que o caixa vai adicionar um ítem ao pedido no 
+    // Momento do fehamento da conta.
+    
+    public void recebePedido(TelaCaixa tela, String funcionario, String idGarcom){
+        this.tc = tela;
+        
+        comboGarcom.setEnabled(false);
+        comboGarcom.setSelectedItem(funcionario);
+        tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos(idGarcom)));
+        modelPedidos.redimensionaColunas(tblPedidosAbertos);
+        // Oculta Botões
+        lblAlterarSenha.setVisible(false);
+        lblCadeado.setVisible(false);
+        lblBloquearTela.setVisible(false);
+        lblGerenciarPedido.setVisible(false);
+        textoLblPedido.setVisible(false);
+        lblStatusCozinha.setVisible(false);
+        //jLabel1.setVisible(false);
+        lblReenvioCozinha.setVisible(false);
+        lblBtnReenvioCozinha.setVisible(false);
+        jLabel6.setVisible(false);
+        jLabel9.setVisible(false);
+        lbl_status_cozinha.setVisible(false);
+        btnListar.setEnabled(false);
+        task.cancel();
     }
 
     public void atuDetalheDoPedido(String nMesa, String nPedido) {
@@ -209,11 +238,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
         btnAbrirPedido = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblNumeroMesa = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblCadeado = new javax.swing.JLabel();
+        lblBloquearTela = new javax.swing.JLabel();
         lblAlterarSenha = new javax.swing.JLabel();
         lblBtnReenvioCozinha = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        lbl_status_cozinha = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -772,19 +801,19 @@ public class TelaPedido2 extends javax.swing.JFrame {
         getContentPane().add(jPanel7);
         jPanel7.setBounds(310, 110, 270, 490);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/cadeado.png"))); // NOI18N
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblCadeado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/cadeado.png"))); // NOI18N
+        lblCadeado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                lblCadeadoMouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(390, 610, 60, 50);
+        getContentPane().add(lblCadeado);
+        lblCadeado.setBounds(390, 610, 60, 50);
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        jLabel4.setText("Bloquear Tela (F8)");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(370, 660, 120, 20);
+        lblBloquearTela.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblBloquearTela.setText("Bloquear Tela (F8)");
+        getContentPane().add(lblBloquearTela);
+        lblBloquearTela.setBounds(370, 660, 120, 20);
 
         lblAlterarSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/chave48x48.png"))); // NOI18N
         lblAlterarSenha.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -805,10 +834,10 @@ public class TelaPedido2 extends javax.swing.JFrame {
         getContentPane().add(lblBtnReenvioCozinha);
         lblBtnReenvioCozinha.setBounds(1100, 610, 70, 50);
 
-        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        jLabel11.setText("Status Cozinha");
-        getContentPane().add(jLabel11);
-        jLabel11.setBounds(800, 660, 90, 20);
+        lbl_status_cozinha.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lbl_status_cozinha.setText("Status Cozinha");
+        getContentPane().add(lbl_status_cozinha);
+        lbl_status_cozinha.setBounds(800, 660, 90, 20);
 
         setSize(new java.awt.Dimension(1309, 693));
         setLocationRelativeTo(null);
@@ -1149,7 +1178,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private void panelFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelFecharMouseClicked
         // Fecha a janela atual se o usuário logado for Gerente
         // Para demais usuário a janela será fechada e chanará a Tela de Login
-        if ("Gerente".equals(lblCargo.getText())) {
+        if ("Gerente".equals(lblCargo.getText()) || "Caixa".equals(lblCargo.getText())) {
+            if ("Caixa".equals(lblCargo.getText())){
+                tc.atualizaPedidoNoCaixa();
+                
+            }
             this.dispose();
             task.cancel();//Cancela a contagem do tempo do método conômetro
         } else {
@@ -1238,13 +1271,13 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formKeyPressed
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void lblCadeadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCadeadoMouseClicked
         // Chama a tela de Bloqueio
         s = 70;        
         TelaBloqueio tb = new TelaBloqueio();
         tb.setModal(true);
         tb.setVisible(true);
-    }//GEN-LAST:event_jLabel3MouseClicked
+    }//GEN-LAST:event_lblCadeadoMouseClicked
 
     private void lblAlterarSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlterarSenhaMouseClicked
         s=0;
@@ -1356,10 +1389,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JButton btnListar;
     private javax.swing.JComboBox<String> comboGarcom;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -1377,7 +1407,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblAlterarSenha;
+    private javax.swing.JLabel lblBloquearTela;
     private javax.swing.JLabel lblBtnReenvioCozinha;
+    private javax.swing.JLabel lblCadeado;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCodigo1;
@@ -1395,6 +1427,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JLabel lblReenvioCozinha;
     private javax.swing.JLabel lblSegundos;
     private javax.swing.JLabel lblStatusCozinha;
+    private javax.swing.JLabel lbl_status_cozinha;
     private javax.swing.JLabel lbllogo;
     private javax.swing.JPanel panelAbrirPedido;
     private javax.swing.JPanel panelFechar;

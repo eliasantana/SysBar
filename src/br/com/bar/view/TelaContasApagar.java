@@ -31,6 +31,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import net.proteanit.sql.DbUtils;
+import org.apache.tools.ant.taskdefs.Echo;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
@@ -57,16 +58,17 @@ public class TelaContasApagar extends JDialog {
     TableModelContasApagar modelcontas = new TableModelContasApagar();
     TelaCaixa tc;
 
+    Date ultimaDataFimSelecionada;
     Util u = new Util();
     // Instacia um registro de log
     Log l = new Log();
-     /*
+    /*
         Instância da tela principal para realizar atualização dos dados 
         informativos referente a contas em aberto e produtos com com quantidade
         baixa no estoque.
-    */ 
+     */
     TelaPrincipal telaPrincipal;
-     
+
     public TelaContasApagar() {
         initComponents();
         Date d = new Date();
@@ -79,13 +81,7 @@ public class TelaContasApagar extends JDialog {
         lblCargo.setVisible(false);
         btnGraficoDeDespesas.setVisible(false);
         lblsalvar.setEnabled(false);
-        
         estadoInicial();
-        
-        jDateInicio.setDate(new Date());
-        jDateFim.setDate(new Date());
-        u.limitaDataCombo(jDateInicio, 3);
-        u.limitaDataCombo(jDateFim, 3);
 
         try {
             //Adiciona data ao objeto jdateChooser 
@@ -484,6 +480,12 @@ public class TelaContasApagar extends JDialog {
 
         panelFiltro.setBackground(new java.awt.Color(204, 204, 204));
         panelFiltro.setLayout(null);
+
+        jDateInicio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateInicioPropertyChange(evt);
+            }
+        });
         panelFiltro.add(jDateInicio);
         jDateInicio.setBounds(10, 30, 120, 30);
 
@@ -494,6 +496,12 @@ public class TelaContasApagar extends JDialog {
         jLabel3.setText("Fim");
         panelFiltro.add(jLabel3);
         jLabel3.setBounds(140, 10, 90, 20);
+
+        jDateFim.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateFimPropertyChange(evt);
+            }
+        });
         panelFiltro.add(jDateFim);
         jDateFim.setBounds(140, 30, 120, 30);
 
@@ -533,10 +541,10 @@ public class TelaContasApagar extends JDialog {
 
     private void txtDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyPressed
         // Foca combo Grupo de Despesas ao pressionar enter
-        
-        if (txtDescricao.getText().length()>1){
+
+        if (txtDescricao.getText().length() > 1) {
             lblsalvar.setEnabled(true);
-        }else {
+        } else {
             lblsalvar.setEnabled(false);
         }
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -704,20 +712,20 @@ public class TelaContasApagar extends JDialog {
                         System.out.println("Valor Pagto: " + valorPg);
                         //Total pago - Saidas
                         double saidas = caixa.totalizaSaida(lblOperador.getText());
-                        
-                        double saldoEspecie = totalEspecie-saidas;
-                        
+
+                        double saldoEspecie = totalEspecie - saidas;
+
                         /*Visualiza cálculo
                         System.out.println("Total Especie: "+totalEspecie);
                         System.out.println("Total Saidas: "+saidas);
                         System.out.println("Saldo Especie Saidas: "+saldoEspecie);
-                        */
+                         */
                         // Não permite pagamento com valor zero
-                        if (valorPg==0){
-                            JOptionPane.showMessageDialog(this, "O valor informado não é válido!","Atenção",JOptionPane.ERROR_MESSAGE);
-                        }else {
-                            
-                        // Verifica se existe saldo em espécie suficiente para o pagamento da conta.
+                        if (valorPg == 0) {
+                            JOptionPane.showMessageDialog(this, "O valor informado não é válido!", "Atenção", JOptionPane.ERROR_MESSAGE);
+                        } else {
+
+                            // Verifica se existe saldo em espécie suficiente para o pagamento da conta.
                             if (saldoEspecie < valorPg) {
                                 JOptionPane.showMessageDialog(this, "Saldo do Caixa em espécie insuficiente!", "Atenção!", JOptionPane.ERROR_MESSAGE);
                             } else {
@@ -785,8 +793,8 @@ public class TelaContasApagar extends JDialog {
 
     private void jCheckMultiploMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckMultiploMouseClicked
         // Exibe caixa quantidade
-        if (jCheckMultiplo.isEnabled()){
-            
+        if (jCheckMultiplo.isEnabled()) {
+
             if (jCheckMultiplo.isSelected()) {
                 jSpinQtd.setVisible(true);
                 lblDataDePAgamento.setVisible(true);
@@ -802,62 +810,61 @@ public class TelaContasApagar extends JDialog {
 
     private void lblsalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblsalvarMouseClicked
         //Cadastra Conta
-    if (lblsalvar.isEnabled()){
-        
-        Contas c = new Contas();
+        if (lblsalvar.isEnabled()) {
 
-        c.setDescricao(txtDescricao.getText());
-        c.setDataVencto(cc.myData(jdateChooserVencimento));
-        c.setValor(txtValor.getText().replace(".", ""));
-        c.setValor(c.getValor().replace(",", "."));
+            Contas c = new Contas();
 
-        c.setGrupoId(txtIdGrupo.getText());
-        c.setFuncionarioId(txtIdFuncionario.getText());
-       
-        
-        if ("".equals(c.getDescricao()) || "".equals(c.getValor())) {
-            JOptionPane.showMessageDialog(this, "Preencha todos os campos para continuar!");
-        } else {
-            if ("Selecione...".equals(comboGrupoDespesas.getSelectedItem().toString())) {
-                JOptionPane.showMessageDialog(this, "Selecione um grupo para continuar!");
+            c.setDescricao(txtDescricao.getText());
+            c.setDataVencto(cc.myData(jdateChooserVencimento));
+            c.setValor(txtValor.getText().replace(".", ""));
+            c.setValor(c.getValor().replace(",", "."));
+
+            c.setGrupoId(txtIdGrupo.getText());
+            c.setFuncionarioId(txtIdFuncionario.getText());
+
+            if ("".equals(c.getDescricao()) || "".equals(c.getValor())) {
+                JOptionPane.showMessageDialog(this, "Preencha todos os campos para continuar!");
             } else {
-                if (jCheckMultiplo.isSelected()) {
-                    if ("0.00".equals(c.getValor())){
-                        JOptionPane.showMessageDialog(this, "Valor Inválido!","Atenção",JOptionPane.ERROR_MESSAGE);
-                    }else {
-                        
-                        if (cc.lancamentoMultiplo(Integer.parseInt(jSpinQtd.getValue().toString()), jdateChooserVencimento, c)) {
-                            JOptionPane.showMessageDialog(this, "Lançamento múltiplo realiado com sucesso!");
-                            tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
-                            modelcontas.redimensionaColunas(tblContas);
-                            limpaForm();
-                        }
-                    }
+                if ("Selecione...".equals(comboGrupoDespesas.getSelectedItem().toString())) {
+                    JOptionPane.showMessageDialog(this, "Selecione um grupo para continuar!");
                 } else {
-                    // Caso o checkList não esteja selecionado executa a parcela de forma padrão
-                    if ("0.00".equals(c.getValor())){
-                        JOptionPane.showMessageDialog(this, "Valor Inválido!","Atenção",JOptionPane.ERROR_MESSAGE);
-                    }else {
-                        if (cc.adicionaConta(c)) {
-                            //Registra operação no log
-                            l.setFuncionalidade("Salvar");
-                            l.setDescricao("Salvou uma nova conta -> " + txtDescricao.getText() + " Valor R$ " + txtValor.getText());
-                            l.gravaLog(l);
-                            // fim do registro de log
-                            limpaForm();
-                            lblLimpar.setEnabled(true);
-                            desaBilitaBotoes();
-                            comboFiltro.setSelectedItem("Abertas");
-                            tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Abertas")));
-                            modelcontas.redimensionaColunas(tblContas);
-                        }
-                        
-                    }
+                    if (jCheckMultiplo.isSelected()) {
+                        if ("0.00".equals(c.getValor())) {
+                            JOptionPane.showMessageDialog(this, "Valor Inválido!", "Atenção", JOptionPane.ERROR_MESSAGE);
+                        } else {
 
+                            if (cc.lancamentoMultiplo(Integer.parseInt(jSpinQtd.getValue().toString()), jdateChooserVencimento, c)) {
+                                JOptionPane.showMessageDialog(this, "Lançamento múltiplo realiado com sucesso!");
+                                tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Aberto")));
+                                modelcontas.redimensionaColunas(tblContas);
+                                limpaForm();
+                            }
+                        }
+                    } else {
+                        // Caso o checkList não esteja selecionado executa a parcela de forma padrão
+                        if ("0.00".equals(c.getValor())) {
+                            JOptionPane.showMessageDialog(this, "Valor Inválido!", "Atenção", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            if (cc.adicionaConta(c)) {
+                                //Registra operação no log
+                                l.setFuncionalidade("Salvar");
+                                l.setDescricao("Salvou uma nova conta -> " + txtDescricao.getText() + " Valor R$ " + txtValor.getText());
+                                l.gravaLog(l);
+                                // fim do registro de log
+                                limpaForm();
+                                lblLimpar.setEnabled(true);
+                                desaBilitaBotoes();
+                                comboFiltro.setSelectedItem("Abertas");
+                                tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar("Abertas")));
+                                modelcontas.redimensionaColunas(tblContas);
+                            }
+
+                        }
+
+                    }
                 }
             }
         }
-    }
 
     }//GEN-LAST:event_lblsalvarMouseClicked
 
@@ -898,7 +905,7 @@ public class TelaContasApagar extends JDialog {
                 if (!txtIdConta.getText().isEmpty()) {
                     // Registra operação no log
                     l.setFuncionalidade("Excluir");
-                    l.setDescricao("Excluiu a conta -> " + txtDescricao.getText() + " Vencimento: " + c.getDataVencto() + " Valor R$ "+c.getValor());
+                    l.setDescricao("Excluiu a conta -> " + txtDescricao.getText() + " Vencimento: " + c.getDataVencto() + " Valor R$ " + c.getValor());
                     l.gravaLog(l);
                     // Fim registro de log
                     if (c.getDescricao() == null || "".equals(c.getDescricao())) {
@@ -957,7 +964,9 @@ public class TelaContasApagar extends JDialog {
                 panelFiltro.setVisible(false);
                 break;
             case "Pagas":
-                tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar(op)));
+                String inicio = u.formataDataBanco(new Date());
+                String fim = u.formataDataBanco(new Date());
+                tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar(inicio, fim)));
                 btnBaixar.setEnabled(false);
                 jdateChooserVencimento.setEnabled(false);
                 desabilitaCampos();
@@ -1040,9 +1049,87 @@ public class TelaContasApagar extends JDialog {
         String fim = u.formataDataBanco(jDateFim.getDate());
         tblContas.setModel(DbUtils.resultSetToTableModel(cc.listaContasApagar(inicio, fim)));
         modelcontas.redimensionaColunas(tblContas);
-        
+
     }//GEN-LAST:event_lblPesquisarMouseClicked
-    
+
+    private void jDateInicioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateInicioPropertyChange
+
+        //jDateInicio.setMaxSelectableDate(new Date());
+        Calendar dataAtual = Calendar.getInstance();
+        dataAtual.setTime(new Date());
+        //jDateInicio.setMaxSelectableDate(new Date());
+        if (jDateInicio.getDate() != null) {
+
+            Calendar c = Calendar.getInstance();
+            c.setTime(jDateInicio.getDate());
+            c.add(Calendar.DAY_OF_MONTH, +30);
+
+            if (c.getTime().after(dataAtual.getTime())) {
+                jDateFim.setDate(dataAtual.getTime());
+
+            } else {
+                jDateFim.setDate(c.getTime());
+
+            }
+        }
+
+
+    }//GEN-LAST:event_jDateInicioPropertyChange
+
+    private void jDateFimPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateFimPropertyChange
+
+        Calendar c = Calendar.getInstance();
+        Calendar cAtual = Calendar.getInstance();
+        cAtual.setTime(new Date());
+
+        if (jDateFim.getDate() != null) {
+            try {
+                if (Calendar.MONTH == cAtual.MONTH) {
+//                    String dtInicio = u.formataDataBanco(jDateInicio.getDate());
+//                    String dtFim = u.formataDataBanco(jDateFim.getDate());
+//                    int dias = (int) u.retornaTotalDeDias(dtInicio, dtFim);
+//                    System.out.println("Dias entre as Datas: " + dias);
+//                    c.setTime(jDateFim.getDate());
+//                    c.add(Calendar.DAY_OF_MONTH, -dias);
+//                    jDateInicio.setDate(c.getTime());
+
+                } else {
+
+                    if (jDateFim.getDate().getTime() < jDateInicio.getDate().getTime()) {
+
+                        c.setTime(jDateFim.getDate());
+                        c.add(Calendar.DAY_OF_MONTH, -30);
+                        jDateInicio.setDate(c.getTime());
+
+                    } else {
+
+                    }
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Selecione a data inicial.");
+                //jDateInicio.setDate(new Date());
+            }
+
+        } else {
+
+            try {
+//                   
+                if (jDateFim.getDate().before(jDateInicio.getDate())) {
+
+                    c.setTime(jDateFim.getDate());
+                    c.add(Calendar.DAY_OF_MONTH, -30);
+                    jDateInicio.setDate(c.getTime());
+
+                }
+
+            } catch (Exception e) {
+
+            }
+        }
+        jDateFim.setMaxSelectableDate(new Date());
+
+
+    }//GEN-LAST:event_jDateFimPropertyChange
 
     /**
      * @param args the command line arguments

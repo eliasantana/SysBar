@@ -6,12 +6,9 @@
 package br.com.bar.view;
 
 import br.com.bar.util.Util;
+import br.com.br.controler.ControlerPedido;
+import com.sun.media.sound.UlawCodec;
 import com.toedter.calendar.JDateChooser;
-import java.awt.Color;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,17 +20,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
-import org.apache.hadoop.util.Daemon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -52,9 +43,12 @@ public class TEste extends javax.swing.JFrame {
     public TEste() {
         initComponents();
 
-        limitaDataCombo(jdateExemplo, 1, 1);
-        cronometro();
-        
+        // cronometro();
+        jdateExemplo.setDate(new Date());
+        jdateExemplo2.setDate(new Date());
+
+        jdateExemplo.setMaxSelectableDate(new Date());
+        jdateExemplo2.setMaxSelectableDate(new Date());
 
     }
 
@@ -166,8 +160,8 @@ public class TEste extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jdateIni = new com.toedter.calendar.JDateChooser();
         jdateFim = new com.toedter.calendar.JDateChooser();
-        jButton2 = new javax.swing.JButton();
         jdateExemplo = new com.toedter.calendar.JDateChooser();
+        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         btnCriaArquivo = new javax.swing.JButton();
         btnCriaArquivo1 = new javax.swing.JButton();
@@ -175,6 +169,11 @@ public class TEste extends javax.swing.JFrame {
         lblResultado = new javax.swing.JLabel();
         btnCriaArquivo2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jdateExemplo2 = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -204,16 +203,21 @@ public class TEste extends javax.swing.JFrame {
             }
         });
 
+        jdateExemplo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jdateExemploFocusGained(evt);
+            }
+        });
+        jdateExemplo.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jdateExemploPropertyChange(evt);
+            }
+        });
+
         jButton2.setText("jButton2");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
-            }
-        });
-
-        jdateExemplo.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jdateExemploFocusGained(evt);
             }
         });
 
@@ -256,6 +260,35 @@ public class TEste extends javax.swing.JFrame {
             }
         });
 
+        jdateExemplo2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jdateExemplo2FocusGained(evt);
+            }
+        });
+        jdateExemplo2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jdateExemplo2PropertyChange(evt);
+            }
+        });
+
+        jLabel1.setText("inicio");
+
+        jLabel2.setText("fim");
+
+        jButton5.setText("jButton5");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("jButton5");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -294,7 +327,6 @@ public class TEste extends javax.swing.JFrame {
                                 .addComponent(btnCriaArquivo2)))
                         .addGap(103, 103, 103)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jdateExemplo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -304,13 +336,34 @@ public class TEste extends javax.swing.JFrame {
                         .addGap(72, 72, 72)
                         .addComponent(jButton4)))
                 .addGap(197, 197, 197))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton5)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jdateExemplo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jdateExemplo2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton6))
+                .addGap(128, 128, 128))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jdateExemplo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jdateExemplo2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -338,7 +391,7 @@ public class TEste extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(113, 113, 113)
                         .addComponent(btnCriaArquivo2)))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -445,7 +498,7 @@ public class TEste extends javax.swing.JFrame {
     }//GEN-LAST:event_formKeyReleased
 
     private void jdateExemploFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jdateExemploFocusGained
-    
+
     }//GEN-LAST:event_jdateExemploFocusGained
 
     private void btnCriaArquivo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriaArquivo2ActionPerformed
@@ -453,8 +506,8 @@ public class TEste extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCriaArquivo2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
-        HashMap<String,String>itens = new HashMap<>();
+
+        HashMap<String, String> itens = new HashMap<>();
         itens.put("numero_item", "1");
         itens.put("unidade_comercial", "PC");
         itens.put("unidade_tributavel", "PC");
@@ -474,11 +527,67 @@ public class TEste extends javax.swing.JFrame {
         itens.put("valor_frete", "0.0");
         itens.put("valor_outras_despesas", "0.0");
         itens.put("icms_situacao_tributaria", "102");
-        
+
         System.out.println(Calendar.getInstance().getTime());
-            
-        
+
+
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jdateExemplo2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jdateExemplo2FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jdateExemplo2FocusGained
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+       Util u = new Util();
+        System.out.println(u.retornaTotalDeDias("2019-05-07", "2019-06-07"));
+
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jdateExemploPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdateExemploPropertyChange
+        Date dtAtual = new Date();
+
+        Calendar c = Calendar.getInstance();
+        try {
+            c.setTime(jdateExemplo.getDate());
+            c.set(Calendar.DAY_OF_MONTH, Calendar.DAY_OF_MONTH + 90);
+            if (c.getTime().after(dtAtual)) {
+                jdateExemplo2.setDate(new Date());
+            } else {
+                jdateExemplo2.setDate(c.getTime());
+                jdateExemplo2.setMaxSelectableDate(dtAtual);
+            }
+        } catch (Exception e) {
+        }
+
+
+    }//GEN-LAST:event_jdateExemploPropertyChange
+
+    private void jdateExemplo2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdateExemplo2PropertyChange
+
+        Calendar c = Calendar.getInstance();
+
+        try {
+            if (jdateExemplo.getDate().equals(jdateExemplo2.getDate())) {
+               
+
+            } else {
+                c.setTime(jdateExemplo2.getDate());
+                c.set(Calendar.DAY_OF_MONTH, Calendar.DAY_OF_MONTH - 90);
+                jdateExemplo.setDate(c.getTime());
+            }
+
+        } catch (Exception e) {
+            
+        }
+
+    }//GEN-LAST:event_jdateExemplo2PropertyChange
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        ControlerPedido cp = new ControlerPedido();
+        System.out.println("Permanência: "+cp.calculaPermanencia("446"));
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -524,9 +633,14 @@ public class TEste extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private com.toedter.calendar.JDateChooser jdateExemplo;
+    private com.toedter.calendar.JDateChooser jdateExemplo2;
     private com.toedter.calendar.JDateChooser jdateFim;
     private com.toedter.calendar.JDateChooser jdateIni;
     private javax.swing.JLabel lblCronometro;

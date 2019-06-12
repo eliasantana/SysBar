@@ -55,8 +55,7 @@ public class TelaLog extends javax.swing.JFrame {
         lblCargo.setVisible(false);
         lblOperador.setVisible(false);
         limite = Integer.parseInt(jSpinnerLimite.getValue().toString());
-        //offset = (npagina * limite) - limite;
-        //offset = 0;
+        
         desabilitaPaginacao();
         modelLog.redimensionaColunas(tblLog);
         btnListar.setEnabled(false);

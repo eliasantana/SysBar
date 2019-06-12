@@ -23,6 +23,7 @@ public class Pedido {
     private String id_pedido;
     private String operador;
     private String autenticacao;
+    private String permanencia;
     
 
     public String getId_pedido() {
@@ -120,6 +121,15 @@ public class Pedido {
     public String getAutenticacao() {
         return autenticacao;
     }
+
+    public void setPermanencia(String permanencia) {
+        this.permanencia = permanencia;
+    }
+
+    public String getPermanencia() {
+        return permanencia;
+    }
+    
     
     
 }

@@ -98,6 +98,53 @@ public class ControlerProduto {
         }
         return rs;
     }
+    // Método utilizado exclusivamente na tela de pesquisa de produtos
+    public ResultSet listaProdutoEstoque() {
+
+        String sql = "SELECT \n"
+                + "	p.id as 'CÓDIGO', \n"
+                + "	p.nome as 'DESCRIÇÃO',\n"
+                + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"                
+                + "	p.qtd as 'ESTOQUE' \n"
+                + "FROM tbproduto p\n"
+                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id "
+                + "WHERE p.qtd > 0 ORDER BY g.nome";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+
+            rs = pst.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerProduto.listaProdutoDisponivel()" + e);
+        }
+        return rs;
+    }
+    // Método utilizado exclusivamente na tela de pesquisa de produtos
+    // Localiza produto informado no parâmetro
+    public ResultSet listaProdutoEstoque(String nomeProduto) {
+
+        String sql = "SELECT \n"
+                + "	p.id as 'CÓDIGO', \n"
+                + "	p.nome as 'DESCRIÇÃO',\n"
+                + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"                
+                + "	p.qtd as 'ESTOQUE' \n"
+                + "FROM tbproduto p\n"
+                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id "
+                + "WHERE p.nome LIKE ? AND p.qtd > 0 ORDER BY g.nome";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, nomeProduto+"%");
+            rs = pst.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerProduto.listaProdutoDisponivel()" + e);
+        }
+       
+        return rs;
+        
+    }
 
     public ResultSet rankingProdutosVendidos() {
 
