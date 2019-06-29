@@ -23,7 +23,7 @@ public class ControlerLog {
     Connection conexao = ConexaoBd.conector();
     PreparedStatement pst = null;
     ResultSet rs = null;
-
+    // Checar posteriormente sua utilização. -> Aparentemente sem uso.
     public ResultSet listaLog(JTable tabela) {
 
         String sql = "SELECT \n"

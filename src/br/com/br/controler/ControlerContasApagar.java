@@ -61,8 +61,7 @@ public class ControlerContasApagar {
                 + "FROM tbcontas_a_pagar ca\n"
                 + "INNER JOIN tbcadfuncionario f on f.id=ca.tbcadfuncionario_id\n"
                 + "INNER JOIN tbgrupo gp on gp.id=ca.tbGrupo_id "
-                + "WHERE " + filtro + " ORDER BY " + ordenar;   
-        
+                + "WHERE " + filtro + " ORDER BY " + ordenar;
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -76,13 +75,12 @@ public class ControlerContasApagar {
 
     /**
      * Lista todas as contas pagas no período.
-     * @param inicio  Data de Inicio da Pesquisa.
+     *
+     * @param inicio Data de Inicio da Pesquisa.
      * @param fim Data de Fim da Pesquisa.
      * @return Retorna um ResultSet com o resultado da Query.
-     */ 
+     */
     public ResultSet listaContasApagar(String inicio, String fim) {
-
-        
 
         String sql = "SELECT\n"
                 + "	ca.id as 'CÓD. INT.', \n"
@@ -111,6 +109,7 @@ public class ControlerContasApagar {
         return rs;
     }
 
+    // Seleciona dados para geração do gráfico de contas por caterogia.
     public ResultSet listaContasPorCategoria() {
 
         String sql = "SELECT c.Descricao, sum(c.valor_pagto) as 'valor', g.grupo FROM dbbar.tbcontas_a_pagar c\n"
@@ -119,6 +118,33 @@ public class ControlerContasApagar {
 
         try {
             pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao listarContasPorCategoria" + e);
+        }
+
+        return rs;
+
+    }
+
+    // Seleciona dados para geração do gráfico de contas por caterogia.
+    public ResultSet listaContasPorCategoriaPeriodo(String dataInicio, String DataFim) {
+
+        String sql = "SELECT \n"
+                + "    c.Descricao, c.data_pagto, \n"
+                + "    SUM(c.valor_pagto) AS 'valor', g.grupo\n"
+                + "FROM\n"
+                + "    dbbar.tbcontas_a_pagar c\n"
+                + "INNER JOIN\n"
+                + "    tbgrupo g ON g.id = c.tbGrupo_id\n"
+                + "WHERE date_format(c.data_pagto, '%Y-%m-%d') between ? and ? GROUP BY g.grupo";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, dataInicio);
+            pst.setString(2, DataFim);
+            
             rs = pst.executeQuery();
 
         } catch (SQLException e) {

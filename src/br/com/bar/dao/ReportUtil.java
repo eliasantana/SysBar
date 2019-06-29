@@ -8,6 +8,7 @@ package br.com.bar.dao;
 
 import br.com.bar.model.DadosEmpresa;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -73,6 +74,7 @@ public class ReportUtil {
         } catch (NullPointerException e) {
             System.out.println("br.com.bar.dao.ReportUtil.imprimiRelatorioTela() " + relatorio + " " + e);
         }
+        
 
     }
 

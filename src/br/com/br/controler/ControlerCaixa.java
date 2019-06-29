@@ -58,7 +58,7 @@ public class ControlerCaixa {
 
     public double totalizaSaida() {
 
-        String sql = "SELECT sum(valor_pagto) as 'saidas'FROM dbbar.tbcontas_a_pagar where data_pagto=curdate()";
+        String sql = "SELECT sum(valor_pagto) as 'saidas' FROM dbbar.tbcontas_a_pagar where data_pagto=curdate()";
         double totalSaidas = 0;
         try {
             pst = conexao.prepareStatement(sql);
@@ -450,7 +450,7 @@ public class ControlerCaixa {
         c.add(Calendar.DAY_OF_WEEK, -1);
         // Formata a data
         String dataAnterior = u.formataDataBanco(c.getTime());
-        // Realiza o cáldo das saídas na data anterior
+        // Realiza o cálculo das saídas na data anterior
         Double saida = totalizaSaida(operador,dataAnterior);
         // Realiza o cálculo das entradas na data enterior
         Double entrada = totalizaEntradas(operador,dataAnterior);

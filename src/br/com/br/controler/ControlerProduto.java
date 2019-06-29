@@ -248,7 +248,7 @@ public class ControlerProduto {
         }
         return rs;
     }
-
+    // Métododo sem uso - Verificar sua utilização - Descartar se não utilizado.
     public String localizaIdGrupo(JComboBox combo) {
 
         String sql = "SELECT * FROM tbgrupo";
