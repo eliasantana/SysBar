@@ -26,7 +26,7 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
         modelPesqEstoque.redimensionaColunas(tbProdutosEstoque);
         this.setTitle("Pesquisa de Preço");
         Util u = new Util();
-        u.setIcon(this);
+        //u.setIcon(this);
     }
 
     /**

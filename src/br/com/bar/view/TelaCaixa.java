@@ -41,7 +41,6 @@ import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -81,6 +80,12 @@ public class TelaCaixa extends javax.swing.JFrame {
      */
     String idGarcom = "";
 
+    // Captura os valores para mais de uma forma de pagamento.
+    double dinheiro = 0;
+    double credito = 0;
+    double debito = 0;
+    double voucher = 0;
+
     public TelaCaixa() {
         initComponents();
 
@@ -88,7 +93,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         checkTxServico.setSelected(true);
         txtIdMEsa.setVisible(false);
         txtIdPedido.setVisible(false);
-
+        radioDebito.setEnabled(false);
+        radioVoucher.setEnabled(false);
         //Desabilita o painel de movimentação e o painel de Gráfico
         panelMovimentacao.setVisible(false);
         panelGrafico.setVisible(false);
@@ -138,6 +144,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         btnGrafico = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         painelDireito = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnFechar = new javax.swing.JLabel();
@@ -158,21 +165,34 @@ public class TelaCaixa extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         lblTotal = new javax.swing.JLabel();
         lbl_cifra_total = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        checkTxServico = new javax.swing.JCheckBox();
-        lblPago = new javax.swing.JLabel();
-        txtValorPago = new javax.swing.JTextField();
-        lblTroco = new javax.swing.JLabel();
-        txtTroco = new javax.swing.JTextField();
-        checkConcedeDesconto = new javax.swing.JCheckBox();
-        txtDesconto = new javax.swing.JTextField();
-        lblValorDesc = new javax.swing.JLabel();
-        radioDinheiro = new javax.swing.JRadioButton();
-        radioCartao = new javax.swing.JRadioButton();
         lblNpessoas = new javax.swing.JLabel();
         jSpinFieldPessoas = new javax.swing.JSpinner();
         btnImprimir = new javax.swing.JLabel();
         checkReimpressao = new javax.swing.JCheckBox();
+        jtabedFormaPagto = new javax.swing.JTabbedPane();
+        jPanelFormaPagamento = new javax.swing.JPanel();
+        radioDinheiro = new javax.swing.JRadioButton();
+        radioCartao = new javax.swing.JRadioButton();
+        radioDebito = new javax.swing.JRadioButton();
+        radioVoucher = new javax.swing.JRadioButton();
+        panelPagParcial = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtMistoDinheiro = new javax.swing.JTextField();
+        txtMistoCredito = new javax.swing.JTextField();
+        txtMistoDebito = new javax.swing.JTextField();
+        txtMistoVoucher = new javax.swing.JTextField();
+        checkTxServico = new javax.swing.JCheckBox();
+        checkConcedeDesconto = new javax.swing.JCheckBox();
+        txtDesconto = new javax.swing.JTextField();
+        lblPago = new javax.swing.JLabel();
+        txtValorPago = new javax.swing.JTextField();
+        lblTroco = new javax.swing.JLabel();
+        txtTroco = new javax.swing.JTextField();
+        lblValorDesc = new javax.swing.JLabel();
+        panelValores = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         comboMesa = new javax.swing.JComboBox<>();
@@ -347,6 +367,14 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblData.setText("jLabel5");
         painelEsquerdo.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 630, 120, 40));
 
+        jButton1.setText("Detectar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        painelEsquerdo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 233, -1, 20));
+
         getContentPane().add(painelEsquerdo);
         painelEsquerdo.setBounds(0, 0, 300, 700);
 
@@ -507,22 +535,22 @@ public class TelaCaixa extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnFecharCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblReceber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnFecharCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelFecharCaixa)
                     .addComponent(lblReceberPAgamento)
                     .addComponent(jLabel3))
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         painelDireito.add(jPanel6);
-        jPanel6.setBounds(10, 570, 350, 120);
+        jPanel6.setBounds(10, 590, 350, 110);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Total Geral"));
 
@@ -545,15 +573,219 @@ public class TelaCaixa extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbl_cifra_total)
-            .addComponent(lblTotal)
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(lblTotal)
+                .addComponent(lbl_cifra_total))
         );
 
         painelDireito.add(jPanel7);
-        jPanel7.setBounds(10, 170, 350, 80);
+        jPanel7.setBounds(10, 160, 350, 80);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Forma de Pagamento")));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        lblNpessoas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblNpessoas.setText("N. Pessoas");
+        painelDireito.add(lblNpessoas);
+        lblNpessoas.setBounds(30, 550, 65, 30);
+
+        jSpinFieldPessoas.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        painelDireito.add(jSpinFieldPessoas);
+        jSpinFieldPessoas.setBounds(100, 550, 51, 32);
+
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Impressora32x32.png"))); // NOI18N
+        btnImprimir.setText(" Parcial");
+        btnImprimir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnImprimirMouseClicked(evt);
+            }
+        });
+        painelDireito.add(btnImprimir);
+        btnImprimir.setBounds(170, 550, 80, 40);
+
+        checkReimpressao.setText("Reimprimir");
+        checkReimpressao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkReimpressaoActionPerformed(evt);
+            }
+        });
+        painelDireito.add(checkReimpressao);
+        checkReimpressao.setBounds(260, 560, 90, 23);
+
+        jtabedFormaPagto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtabedFormaPagtoMouseClicked(evt);
+            }
+        });
+
+        jPanelFormaPagamento.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder())));
+        jPanelFormaPagamento.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        buttonGroup2.add(radioDinheiro);
+        radioDinheiro.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        radioDinheiro.setText("Dinheiro");
+        radioDinheiro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioDinheiroMouseClicked(evt);
+            }
+        });
+        jPanelFormaPagamento.add(radioDinheiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 30));
+
+        buttonGroup2.add(radioCartao);
+        radioCartao.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
+        radioCartao.setText("Cartão de Crédito");
+        radioCartao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioCartaoMouseClicked(evt);
+            }
+        });
+        radioCartao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioCartaoActionPerformed(evt);
+            }
+        });
+        jPanelFormaPagamento.add(radioCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, 30));
+
+        buttonGroup2.add(radioDebito);
+        radioDebito.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
+        radioDebito.setText("Cartão de Débito");
+        radioDebito.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioDebitoMouseClicked(evt);
+            }
+        });
+        jPanelFormaPagamento.add(radioDebito, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 130, 30));
+
+        buttonGroup2.add(radioVoucher);
+        radioVoucher.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        radioVoucher.setText("Voucher");
+        radioVoucher.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioVoucherMouseClicked(evt);
+            }
+        });
+        jPanelFormaPagamento.add(radioVoucher, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 110, -1));
+
+        jtabedFormaPagto.addTab("Pagamento Único", jPanelFormaPagamento);
+
+        panelPagParcial.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jLabel5.setText("Dinheiro R$");
+
+        jLabel7.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jLabel7.setText("C. Crédito R$");
+
+        jLabel8.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jLabel8.setText("C . Débito R$");
+
+        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jLabel9.setText("Voucher R$");
+
+        txtMistoDinheiro.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        txtMistoDinheiro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtMistoDinheiro.setText("0,00");
+        txtMistoDinheiro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtMistoDinheiroFocusGained(evt);
+            }
+        });
+        txtMistoDinheiro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMistoDinheiroKeyPressed(evt);
+            }
+        });
+
+        txtMistoCredito.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        txtMistoCredito.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtMistoCredito.setText("0,00");
+        txtMistoCredito.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtMistoCreditoFocusGained(evt);
+            }
+        });
+        txtMistoCredito.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMistoCreditoKeyPressed(evt);
+            }
+        });
+
+        txtMistoDebito.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        txtMistoDebito.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtMistoDebito.setText("0,00");
+        txtMistoDebito.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtMistoDebitoFocusGained(evt);
+            }
+        });
+        txtMistoDebito.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMistoDebitoKeyPressed(evt);
+            }
+        });
+
+        txtMistoVoucher.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        txtMistoVoucher.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtMistoVoucher.setText("0,00");
+        txtMistoVoucher.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtMistoVoucherFocusGained(evt);
+            }
+        });
+        txtMistoVoucher.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMistoVoucherKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelPagParcialLayout = new javax.swing.GroupLayout(panelPagParcial);
+        panelPagParcial.setLayout(panelPagParcialLayout);
+        panelPagParcialLayout.setHorizontalGroup(
+            panelPagParcialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPagParcialLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelPagParcialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelPagParcialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtMistoDinheiro, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                    .addComponent(txtMistoDebito))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelPagParcialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(panelPagParcialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtMistoVoucher, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                    .addComponent(txtMistoCredito))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        panelPagParcialLayout.setVerticalGroup(
+            panelPagParcialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPagParcialLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(panelPagParcialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPagParcialLayout.createSequentialGroup()
+                        .addGroup(panelPagParcialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMistoDinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelPagParcialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMistoDebito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelPagParcialLayout.createSequentialGroup()
+                        .addGroup(panelPagParcialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMistoCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelPagParcialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMistoVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        jtabedFormaPagto.addTab("Pagamento Misto", panelPagParcial);
+
+        painelDireito.add(jtabedFormaPagto);
+        jtabedFormaPagto.setBounds(10, 240, 350, 150);
 
         checkTxServico.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         checkTxServico.setText("Taxa de Serviço");
@@ -567,11 +799,29 @@ public class TelaCaixa extends javax.swing.JFrame {
                 checkTxServicoActionPerformed(evt);
             }
         });
-        jPanel4.add(checkTxServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 27, 150, -1));
+        painelDireito.add(checkTxServico);
+        checkTxServico.setBounds(30, 400, 150, 29);
+
+        checkConcedeDesconto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        checkConcedeDesconto.setText("Conceder Desconto");
+        checkConcedeDesconto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                checkConcedeDescontoMouseClicked(evt);
+            }
+        });
+        painelDireito.add(checkConcedeDesconto);
+        checkConcedeDesconto.setBounds(30, 430, 143, 29);
+
+        txtDesconto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        txtDesconto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtDesconto.setText("0,00");
+        painelDireito.add(txtDesconto);
+        txtDesconto.setBounds(210, 420, 134, 40);
 
         lblPago.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
         lblPago.setText("Valor Pago R$");
-        jPanel4.add(lblPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 133, 110, 30));
+        painelDireito.add(lblPago);
+        lblPago.setBounds(30, 460, 110, 30);
 
         txtValorPago.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtValorPago.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -591,11 +841,13 @@ public class TelaCaixa extends javax.swing.JFrame {
                 txtValorPagoKeyPressed(evt);
             }
         });
-        jPanel4.add(txtValorPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 163, 129, 40));
+        painelDireito.add(txtValorPago);
+        txtValorPago.setBounds(30, 490, 129, 40);
 
         lblTroco.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
         lblTroco.setText("Troco R$");
-        jPanel4.add(lblTroco, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 133, 74, 30));
+        painelDireito.add(lblTroco);
+        lblTroco.setBounds(210, 460, 74, 30);
 
         txtTroco.setEditable(false);
         txtTroco.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
@@ -616,79 +868,32 @@ public class TelaCaixa extends javax.swing.JFrame {
                 txtTrocoKeyPressed(evt);
             }
         });
-        jPanel4.add(txtTroco, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 163, 134, 40));
-
-        checkConcedeDesconto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        checkConcedeDesconto.setText("Conceder Desconto");
-        checkConcedeDesconto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                checkConcedeDescontoMouseClicked(evt);
-            }
-        });
-        jPanel4.add(checkConcedeDesconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 64, -1, -1));
-
-        txtDesconto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        txtDesconto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtDesconto.setText("0,00");
-        jPanel4.add(txtDesconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 90, 134, 40));
+        painelDireito.add(txtTroco);
+        txtTroco.setBounds(210, 490, 134, 40);
 
         lblValorDesc.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 14)); // NOI18N
         lblValorDesc.setText("Valor Desconto R$");
-        jPanel4.add(lblValorDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 60, 141, 30));
+        painelDireito.add(lblValorDesc);
+        lblValorDesc.setBounds(210, 400, 160, 20);
 
-        buttonGroup2.add(radioDinheiro);
-        radioDinheiro.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        radioDinheiro.setText("Dinheiro");
-        radioDinheiro.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                radioDinheiroMouseClicked(evt);
-            }
-        });
-        jPanel4.add(radioDinheiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 23, -1, 30));
+        panelValores.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        buttonGroup2.add(radioCartao);
-        radioCartao.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
-        radioCartao.setText("Cartão");
-        radioCartao.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                radioCartaoMouseClicked(evt);
-            }
-        });
-        jPanel4.add(radioCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 23, -1, 30));
+        javax.swing.GroupLayout panelValoresLayout = new javax.swing.GroupLayout(panelValores);
+        panelValores.setLayout(panelValoresLayout);
+        panelValoresLayout.setHorizontalGroup(
+            panelValoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 346, Short.MAX_VALUE)
+        );
+        panelValoresLayout.setVerticalGroup(
+            panelValoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 196, Short.MAX_VALUE)
+        );
 
-        painelDireito.add(jPanel4);
-        jPanel4.setBounds(10, 260, 350, 220);
-
-        lblNpessoas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblNpessoas.setText("N. Pessoas");
-        painelDireito.add(lblNpessoas);
-        lblNpessoas.setBounds(20, 500, 65, 30);
-
-        jSpinFieldPessoas.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
-        painelDireito.add(jSpinFieldPessoas);
-        jSpinFieldPessoas.setBounds(90, 500, 51, 32);
-
-        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Impressora32x32.png"))); // NOI18N
-        btnImprimir.setText("Imprimir Parcial");
-        btnImprimir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnImprimirMouseClicked(evt);
-            }
-        });
-        painelDireito.add(btnImprimir);
-        btnImprimir.setBounds(220, 490, 125, 55);
-
-        checkReimpressao.setText("Reimprimir");
-        checkReimpressao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkReimpressaoActionPerformed(evt);
-            }
-        });
-        painelDireito.add(checkReimpressao);
-        checkReimpressao.setBounds(230, 550, 120, 23);
+        painelDireito.add(panelValores);
+        panelValores.setBounds(10, 390, 350, 200);
 
         getContentPane().add(painelDireito);
-        painelDireito.setBounds(940, 0, 370, 690);
+        painelDireito.setBounds(940, 0, 370, 700);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -945,6 +1150,8 @@ public class TelaCaixa extends javax.swing.JFrame {
 
             radioCartao.setEnabled(false);
             radioDinheiro.setEnabled(false);
+            radioVoucher.setEnabled(false);
+            radioDebito.setEnabled(false);
 
             btnImprimir.setEnabled(false);
             jSpinFieldPessoas.setEnabled(false);
@@ -962,6 +1169,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             checkConcedeDesconto.setEnabled(false);
             tblDetalhePedido.setModel(modelCaixa);
             modelCaixa.redimensionaColunas(tblDetalhePedido);
+
             desabilitaLabels();
         }
     }//GEN-LAST:event_comboMesaActionPerformed
@@ -1058,12 +1266,17 @@ public class TelaCaixa extends javax.swing.JFrame {
             Date dataPedido = new Date();
             Timestamp datapedidoTms = new Timestamp(dataPedido.getTime());
             p.setData(String.valueOf(datapedidoTms));
-            // Pega forma de pagamento selecionada
+            // Pega forma de pagamento selecionada 
             if (radioCartao.isSelected()) {
-
-                p.setFormaPagto("Cartão");
-            } else {
+                p.setFormaPagto("Crédito");
+            } else if (radioDinheiro.isSelected()) {
                 p.setFormaPagto("Dinheiro");
+            } else if (radioDebito.isSelected()) {
+                p.setFormaPagto("Débito");
+            } else if (radioVoucher.isSelected()){
+                p.setFormaPagto("Voucher");
+            }else {
+                p.setFormaPagto("Misto");
             }
             // Pega id da mesa.
 
@@ -1076,8 +1289,9 @@ public class TelaCaixa extends javax.swing.JFrame {
 
             if (op == JOptionPane.YES_OPTION) {  // Se confirmado fecha o pedido
 
-                if (radioCartao.isSelected() || radioDinheiro.isSelected()) {
+                if (radioCartao.isSelected() || radioDinheiro.isSelected() || radioDebito.isSelected() || radioVoucher.isSelected()) {
                     // Pega a data Atual
+
                     String dtAtual = utils.formataDataBr(data).replaceAll("/", "");
                     // Pega a hora atual
                     String horaAtual = utils.formataDataHora(data, "h");
@@ -1691,6 +1905,124 @@ public class TelaCaixa extends javax.swing.JFrame {
             tpp.setVisible(true);
         }
     }//GEN-LAST:event_lblConsultarPrecosMouseClicked
+
+    private void radioDebitoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioDebitoMouseClicked
+        if (radioDebito.isSelected()) {
+            txtValorPago.setText(lblTotal.getText());
+            txtValorPago.setEnabled(false);
+            txtTroco.setText("0,00");
+            jSpinFieldPessoas.setEnabled(true);
+            btnImprimir.setEnabled(true);
+            checkConcedeDesconto.setEnabled(true);
+            lblReceber.setEnabled(true);
+            lblReceberPAgamento.setEnabled(true);
+        }
+    }//GEN-LAST:event_radioDebitoMouseClicked
+
+    private void radioCartaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioCartaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioCartaoActionPerformed
+
+    private void radioVoucherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioVoucherMouseClicked
+        if (radioVoucher.isSelected()) {
+            txtValorPago.setText(lblTotal.getText());
+            txtValorPago.setEnabled(false);
+            txtTroco.setText("0,00");
+            jSpinFieldPessoas.setEnabled(true);
+            btnImprimir.setEnabled(true);
+            checkConcedeDesconto.setEnabled(true);
+            lblReceber.setEnabled(true);
+            lblReceberPAgamento.setEnabled(true);
+        }
+    }//GEN-LAST:event_radioVoucherMouseClicked
+
+    private void jtabedFormaPagtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabedFormaPagtoMouseClicked
+        desabilitaBtnRadio();
+        lblReceber.setEnabled(false);
+        lblReceberPAgamento.setEnabled(false);
+    }//GEN-LAST:event_jtabedFormaPagtoMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+      String resposta=detectaFormaDePagamento();
+      JOptionPane.showMessageDialog(this, resposta);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtMistoDinheiroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMistoDinheiroKeyPressed
+        // Muda de caixa de texto após pressionar enter
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+
+                double vlrDinheiro = Double.parseDouble(txtMistoDinheiro.getText().replace(",", "."));
+                txtMistoDinheiro.setText(String.format("%9.2f", vlrDinheiro));
+                txtMistoCredito.requestFocus();
+                calculaPagamentoMisto();
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Valor Inválido!");
+            }
+        }
+    }//GEN-LAST:event_txtMistoDinheiroKeyPressed
+
+    private void txtMistoCreditoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMistoCreditoKeyPressed
+        // Muda de caixa de texto após pressionar enter
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                
+                double vlrCredito = Double.parseDouble(txtMistoCredito.getText().replace(",", "."));
+                txtMistoCredito.setText(String.format("%9.2f", vlrCredito));
+                txtMistoDebito.requestFocus();
+                calculaPagamentoMisto();
+            } catch (NumberFormatException e) {
+                 JOptionPane.showMessageDialog(this, "Valor Inválido!");
+            }
+        }
+    }//GEN-LAST:event_txtMistoCreditoKeyPressed
+
+    private void txtMistoDebitoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMistoDebitoKeyPressed
+        // Muda de caixa de texto após pressionar enter
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                
+                double vlrDebito = Double.parseDouble(txtMistoDebito.getText().replace(",", "."));
+                txtMistoDebito.setText(String.format("%9.2f", vlrDebito));
+                txtMistoVoucher.requestFocus();
+                calculaPagamentoMisto();
+            } catch (NumberFormatException e) {
+               JOptionPane.showMessageDialog(this, "Valor Inválido!");
+            }
+        }
+    }//GEN-LAST:event_txtMistoDebitoKeyPressed
+
+    private void txtMistoDinheiroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMistoDinheiroFocusGained
+        txtMistoDinheiro.setText(null);
+    }//GEN-LAST:event_txtMistoDinheiroFocusGained
+
+    private void txtMistoCreditoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMistoCreditoFocusGained
+        txtMistoCredito.setText(null);
+    }//GEN-LAST:event_txtMistoCreditoFocusGained
+
+    private void txtMistoDebitoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMistoDebitoFocusGained
+        txtMistoDebito.setText(null);
+    }//GEN-LAST:event_txtMistoDebitoFocusGained
+
+    private void txtMistoVoucherFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMistoVoucherFocusGained
+        txtMistoVoucher.setText(null);
+    }//GEN-LAST:event_txtMistoVoucherFocusGained
+
+    private void txtMistoVoucherKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMistoVoucherKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                
+                double vlrVoucher = Double.parseDouble(txtMistoVoucher.getText().replace(",", "."));
+                txtMistoVoucher.setText(String.format("%9.2f", vlrVoucher));
+                calculaPagamentoMisto();
+                validaPagamentoMisto();
+            } catch (NumberFormatException e) {
+               JOptionPane.showMessageDialog(this, "Valor Inválido!");
+            }
+        }
+    }//GEN-LAST:event_txtMistoVoucherKeyPressed
     public void recebeOperador(TelaPrincipal tela, String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
@@ -1802,6 +2134,8 @@ public class TelaCaixa extends javax.swing.JFrame {
                 //checkDinheiro.setEnabled(true);  // Excluir
                 radioDinheiro.setEnabled(true);
                 radioCartao.setEnabled(true);
+                radioDebito.setEnabled(true);
+                radioVoucher.setEnabled(true);
                 // Localiza o id da mesa selecionada
                 txtIdMEsa.setText(cm.localizaIdMesa(comboMesa.getSelectedItem().toString()));
                 //Localiza o id do  Pedido
@@ -1847,6 +2181,8 @@ public class TelaCaixa extends javax.swing.JFrame {
                         lblTotal.setEnabled(false);
                         radioDinheiro.setEnabled(false);
                         radioCartao.setEnabled(false);
+                        radioDebito.setEnabled(false);
+                        radioVoucher.setEnabled(false);
                         checkTxServico.setEnabled(false);
                         //Labels
                         desabilitaLabels();
@@ -1943,21 +2279,27 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkTxServico;
     private javax.swing.JComboBox<String> comboMes;
     private javax.swing.JComboBox<String> comboMesa;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanelFormaPagamento;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinFieldPessoas;
+    private javax.swing.JTabbedPane jtabedFormaPagto;
     private javax.swing.JLabel labelEntradas;
     private javax.swing.JLabel labelFecharCaixa;
     private javax.swing.JLabel labelPedido;
@@ -1994,14 +2336,22 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JPanel painelEsquerdo;
     private javax.swing.JPanel panelGrafico;
     private javax.swing.JPanel panelMovimentacao;
+    private javax.swing.JPanel panelPagParcial;
+    private javax.swing.JPanel panelValores;
     private javax.swing.JLabel percent;
     private javax.swing.JRadioButton radioCartao;
+    private javax.swing.JRadioButton radioDebito;
     private javax.swing.JRadioButton radioDinheiro;
+    private javax.swing.JRadioButton radioVoucher;
     private javax.swing.JTable tblDetalhePedido;
     private javax.swing.JLabel tgeral;
     private javax.swing.JTextField txtDesconto;
     private javax.swing.JTextField txtIdMEsa;
     private javax.swing.JTextField txtIdPedido;
+    private javax.swing.JTextField txtMistoCredito;
+    private javax.swing.JTextField txtMistoDebito;
+    private javax.swing.JTextField txtMistoDinheiro;
+    private javax.swing.JTextField txtMistoVoucher;
     private javax.swing.JTextField txtTroco;
     private javax.swing.JTextField txtValorPago;
     // End of variables declaration//GEN-END:variables
@@ -2113,16 +2463,139 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     // Desabilita Labels
     private void desabilitaLabels() {
+
         lbl_valor_servico.setEnabled(false);
         lbl_total_parcial.setEnabled(false);
         lbl_cifra_servico.setEnabled(false);
         lbl_cifra_total.setEnabled(false);
         lbl_cifra_parcial.setEnabled(false);
+
         lblPago.setEnabled(false);
         lblTroco.setEnabled(false);
         lblNpessoas.setEnabled(false);
         lblLancarPedido.setEnabled(false);
         lblConsultarPrecos.setEnabled(false);
+
+    }
+
+    private void desabilitaBtnRadio() {
+        int index = jtabedFormaPagto.getSelectedIndex();
+
+        if ("Pagamento Misto".equals(jtabedFormaPagto.getTitleAt(index))) {
+            buttonGroup2.clearSelection();
+            checkConcedeDesconto.setSelected(false);
+            txtValorPago.setEnabled(false);
+            jSpinFieldPessoas.setEnabled(false);
+            txtValorPago.setText("0,00");
+
+        } else {
+            txtMistoDinheiro.setText("0,00");
+            txtMistoCredito.setText("0,00");
+            txtMistoDebito.setText("0,00");
+            txtMistoVoucher.setText("0,00");
+        }
+
+    }
+
+    private void calculaPagamentoMisto() {
+
+        try {
+
+            dinheiro = Double.parseDouble(txtMistoDinheiro.getText().replace(",", "."));
+            credito = Double.parseDouble(txtMistoCredito.getText().replace(",", "."));
+            debito = Double.parseDouble(txtMistoDebito.getText().replace(",", "."));
+            voucher = Double.parseDouble(txtMistoVoucher.getText().replace(",", "."));
+        } catch (Exception e) {
+            System.out.println("Valor Inválido!");
+        }
+
+        double totalPedido = Double.parseDouble(lblTotal.getText().replace(",", "."));
+
+        double totalCartao = credito + debito + voucher;
+
+        double total = totalCartao + dinheiro;
+        txtValorPago.setText(String.format("%9.2f", total));
+
+    }
+
+    // Realiza a validação dos valores informados para o pagamenot misto
+    private void validaPagamentoMisto() {
+
+        double totalCartao = credito + debito + voucher;
+        double totalMisto = dinheiro + totalCartao; // 
+
+        double totalPedido = Double.parseDouble(lblTotal.getText().replace(",", "."));
+
+        if (totalCartao > totalPedido) {
+            JOptionPane.showMessageDialog(this, "O valor informado excede do total da compra!");
+        } else if (totalCartao < totalPedido) {
+            if ((dinheiro > 0) && (totalMisto > totalPedido)) {
+                double troco = totalMisto - totalPedido;
+                txtTroco.setText(String.format("%9.2f", troco));
+                // Habilita Recebimento
+                lblReceber.setEnabled(true);
+                lblReceberPAgamento.setEnabled(true);
+            } else if ((dinheiro > 0) && (totalMisto == totalPedido)) {
+                // Habilita Recebimento
+                lblReceber.setEnabled(true);
+                lblReceberPAgamento.setEnabled(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "O valor informado é menor que o total da compra!");
+            }
+        } else if (totalCartao == totalPedido) {
+            if (dinheiro > 0) {
+                if (totalMisto > totalPedido) {
+                    double troco = totalMisto - totalPedido;
+                    txtTroco.setText(String.format("%9.2f", troco));
+                    // Habilita Recebimento
+                    lblReceber.setEnabled(true);
+                    lblReceberPAgamento.setEnabled(true);
+
+                } else {
+                    // Habilita Recebimento
+                    lblReceber.setEnabled(true);
+                    lblReceberPAgamento.setEnabled(true);
+                }
+
+            }
+            // habilita recebimento
+            lblReceber.setEnabled(true);
+            lblReceberPAgamento.setEnabled(true);
+
+        }
+
+    }
+    
+    // Detecta a forma de Pagamento
+    private String detectaFormaDePagamento() {
+        // detecta forma de pagamento
+        
+      boolean rCartao = radioCartao.isSelected();
+      boolean rVoucher = radioVoucher.isSelected();
+      boolean rDebito = radioDebito.isSelected();
+      boolean rDinheiro = radioDinheiro.isSelected();
+      
+      String resp="";
+        
+      if (rCartao || rVoucher || rDebito || rDinheiro){
+           resp= "Único";
+      }else {
+            double mDinheiro = Double.parseDouble(txtMistoDinheiro.getText().replace(",","."));
+            double mcredito = Double.parseDouble(txtMistoCredito.getText().replace(",","."));
+            double mVoucher = Double.parseDouble(txtMistoVoucher.getText().replace(",","."));
+            double mDedebito = Double.parseDouble(txtMistoDebito.getText().replace(",","."));
+            
+            double total = mDinheiro + mcredito + mDedebito + mVoucher;
+            
+            if (total > 0){
+               resp= "Misto";
+            }else {
+                resp="Selecione";
+            }
+                    
+      }
+      
+      return resp;
     }
 
 }
