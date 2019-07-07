@@ -478,4 +478,34 @@ public class ControlerPedido {
         
         return permanencia;
     }
+    /**
+     * Grava o detalhe do pagamento
+     * @param idPedido - ID do pedido
+     * @param dinheiro - Valor pago em dinheiro.
+     * @param credito - Valor pago no Cartão de Crédito
+     * @param debito - Valor Pago no Cartão de Débito
+     * @param voucher - Valor pago em Tikets.
+     * @return boolean - Retorna TRUE ou False
+     */ 
+    
+    public boolean gravaPagamentoMisto(String idPedido, double dinheiro, double credito, double debito, double voucher){
+        
+       String sql="INSERT INTO detalhe_pagameto (cadpedido_id_pedido, dinheiro, credito, debito, voucher) VALUES (?,?,?,?,?)";
+       boolean resp=false;
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, idPedido);
+            pst.setDouble(2, dinheiro);
+            pst.setDouble(3, credito);
+            pst.setDouble(4, debito);
+            pst.setDouble(5, voucher);
+            
+            pst.executeUpdate();
+            resp=true;
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.gravaPagamentoMisto()"+e);
+        }
+        
+        return resp;
+    }
 }
