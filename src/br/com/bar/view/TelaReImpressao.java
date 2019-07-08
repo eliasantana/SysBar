@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -35,13 +36,13 @@ public class TelaReImpressao extends JDialog {
     Util u = new Util();
     ControlerDadosEmpresa de = new ControlerDadosEmpresa();
     TableModelReimpressao modelReimpressao = new TableModelReimpressao();
-    
+
     public TelaReImpressao() {
         initComponents();
         lblImprimir.setEnabled(false);
         lblPesquisar.setEnabled(true);
         modelReimpressao.redimensionaColunas(tblPedidos);
-     
+
     }
 
     /**
@@ -192,7 +193,7 @@ public class TelaReImpressao extends JDialog {
         setSize(new java.awt.Dimension(681, 271));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-   
+
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
@@ -200,30 +201,30 @@ public class TelaReImpressao extends JDialog {
     private void lblPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPesquisarMouseClicked
         // Lista todos os pedidos fechados na data atual.
         listar();
-       
+
     }//GEN-LAST:event_lblPesquisarMouseClicked
 
     private void lblImprimirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImprimirMouseClicked
         // Realiza a reimpressão do cupom selecionado.
-        if (lblImprimir.isEnabled()){
-            
+        if (lblImprimir.isEnabled()) {
+
             int linha = tblPedidos.getSelectedRow();
 
             String nMesa = tblPedidos.getModel().getValueAt(linha, 0).toString();
             String idPedido = tblPedidos.getModel().getValueAt(linha, 1).toString();
             //double total = Double.parseDouble(tblPedidos.getModel().getValueAt(linha, 4).toString().replaceAll(",", "."));
-            String totalCompra = tblPedidos.getModel().getValueAt(linha, 4).toString().replace(".","");
+            String totalCompra = tblPedidos.getModel().getValueAt(linha, 4).toString().replace(".", "");
             totalCompra = totalCompra.replace(",", ".");
             double total = Double.parseDouble(totalCompra);
-           
+
             double desc = Double.parseDouble(tblPedidos.getModel().getValueAt(linha, 3).toString().replaceAll(",", "."));
             double tx = (Double.parseDouble(tblPedidos.getModel().getValueAt(linha, 2).toString().replaceAll(",", ".")));
-            
+
             // Imprime cupom de pagamento
             HashMap dados = new HashMap();
             Date dt = new Date();
             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            if (checkDiaAnterior.isSelected()){
+            if (checkDiaAnterior.isSelected()) {
                 Calendar c = Calendar.getInstance();
                 c.add(Calendar.DATE, -1);
                 dt.setTime(c.getTime().getTime());
@@ -243,6 +244,24 @@ public class TelaReImpressao extends JDialog {
             dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone());
             dados.put("cnpj", dadosEmpresa.getCnpj());
             dados.put("desc", desc);
+            dados.put("forma_pag",cp.retornaFormaPagto(idPedido).toUpperCase());
+           // Retorna Dados do pagamento 
+            try {
+                ArrayList<Double> lista = cp.retornaVlrPagamentoMisto(idPedido);
+                
+                dados.put("dinheiro", lista.get(0));
+                dados.put("credito", lista.get(1));
+                dados.put("debito", lista.get(2));
+                dados.put("voucher", lista.get(3));
+
+            } catch (IndexOutOfBoundsException e) {
+                // Caso o pedido seja diferente de Misto retorna zero para todos os valores.
+                
+                dados.put("dinheiro",0.00);
+                dados.put("credito", 0.00);
+                dados.put("debito", 0.00);
+                dados.put("voucher", 0.00);
+            }
 
             try {
                 if (dadosEmpresa.getImprimir_na_tela() == 0) {
@@ -256,7 +275,7 @@ public class TelaReImpressao extends JDialog {
                 System.out.println("br.com.bar.view.TelaReImpressao.lblImprimirMouseClicked()" + ex);
             }
 
-            lblImprimir.setEnabled(false);            
+            lblImprimir.setEnabled(false);
             txtNumeroMesa.setText(null);
             //tblPedidos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidosReimpressao(txtNumeroMesa.getText())));
             modelReimpressao.redimensionaColunas(tblPedidos);
@@ -266,13 +285,13 @@ public class TelaReImpressao extends JDialog {
 
     private void txtNumeroMesaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroMesaKeyPressed
         lblPesquisar.setEnabled(true);
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             listar();
         }
     }//GEN-LAST:event_txtNumeroMesaKeyPressed
 
     private void txtNumeroMesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroMesaKeyReleased
-       
+
     }//GEN-LAST:event_txtNumeroMesaKeyReleased
 
     private void tblPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPedidosMouseClicked
@@ -280,10 +299,10 @@ public class TelaReImpressao extends JDialog {
     }//GEN-LAST:event_tblPedidosMouseClicked
 
     private void checkDiaAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDiaAnteriorActionPerformed
-        
+
         tblPedidos.setModel(modelReimpressao);
         modelReimpressao.redimensionaColunas(tblPedidos);
-        
+
     }//GEN-LAST:event_checkDiaAnteriorActionPerformed
 
     /**
@@ -337,29 +356,28 @@ public class TelaReImpressao extends JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void listar() {
-            // Captura a data atual
-            Calendar c = Calendar.getInstance();
-            // Se o CheckBox "Dia anterior" estiver marcado retorna a data um dia.
-            if (checkDiaAnterior.isSelected()){
-                c.add(Calendar.DATE, -1);
+        // Captura a data atual
+        Calendar c = Calendar.getInstance();
+        // Se o CheckBox "Dia anterior" estiver marcado retorna a data um dia.
+        if (checkDiaAnterior.isSelected()) {
+            c.add(Calendar.DATE, -1);
+        }
+        // Formada a data no Formato 'yyyy-MM-dd' (Mysql).
+        String data = u.formataDataBanco(c.getTime());
+
+        ResultSet rs = cp.listaPedidosReimpressao(txtNumeroMesa.getText(), data);
+        tblPedidos.setModel(DbUtils.resultSetToTableModel(rs));
+        modelReimpressao.redimensionaColunas(tblPedidos);
+
+        try {
+            if (rs.isFirst()) {
+
+            } else {
+                lblImprimir.setEnabled(false);
             }
-            // Formada a data no Formato 'yyyy-MM-dd' (Mysql).
-            String data = u.formataDataBanco(c.getTime());       
-            
-            ResultSet rs = cp.listaPedidosReimpressao(txtNumeroMesa.getText(),data);
-            tblPedidos.setModel(DbUtils.resultSetToTableModel(rs));
-            modelReimpressao.redimensionaColunas(tblPedidos);
-            
-            try {
-                if (rs.isFirst()){
-                   
-                }else {
-                    lblImprimir.setEnabled(false);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(TelaReImpressao.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaReImpressao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-   
 }

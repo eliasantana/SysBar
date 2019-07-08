@@ -144,6 +144,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         btnGrafico = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         painelDireito = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnFechar = new javax.swing.JLabel();
@@ -365,6 +366,14 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendar24x24.png"))); // NOI18N
         lblData.setText("jLabel5");
         painelEsquerdo.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 630, 120, 40));
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        painelEsquerdo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, -1, -1));
 
         getContentPane().add(painelEsquerdo);
         painelEsquerdo.setBounds(0, 0, 300, 700);
@@ -2175,6 +2184,23 @@ public class TelaCaixa extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_txtMistoVoucherKeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            ArrayList<Double> lista = cp.retornaVlrPagamentoMisto("486");
+            System.out.println("Dinheiro: " + lista.get(0));
+            System.out.println("Crédito: " + lista.get(1));
+            System.out.println("Débito: " + lista.get(2));
+            System.out.println("Voucher: " + lista.get(3));
+            
+        } catch (Exception e) {
+           
+            System.out.println("Dinheiro: 0,00" );
+            System.out.println("Crédito: 0,00" );
+            System.out.println("Débito: 0,00" );
+            System.out.println("Voucher: 0,00" );
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
     public void recebeOperador(TelaPrincipal tela, String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
@@ -2431,6 +2457,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkTxServico;
     private javax.swing.JComboBox<String> comboMes;
     private javax.swing.JComboBox<String> comboMesa;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;

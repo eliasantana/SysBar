@@ -170,8 +170,6 @@ public class ControlerPedido {
             pst.setString(1, numeroMesa);
             pst.setString(2, numeroPedido);
             rs = pst.executeQuery();
-            
-            
 
         } catch (SQLException ex) {
             System.out.println("br.com.br.controler.ControlerPedido.detalhePorPedido()" + ex);
@@ -425,87 +423,147 @@ public class ControlerPedido {
     /**
      * Retorna código do pedido aberto pelo operador
      *
-     * @param idOperador  Id do operador que está gerando o pedido.
+     * @param idOperador Id do operador que está gerando o pedido.
      * @return id do pedido gerado.
      *
      */
     public String idUltimoPedido(String idOperador) {
-        String id=null;
+        String id = null;
         String sql = " SELECT MAX("
                 + " id_pedido\n"
                 + "        ) as 'id'\n"
                 + "        FROM dbbar\n"
                 + "        .cadpedido WHERE status = 0 and tbcadfuncionario_id = ?";
-        
-        
+
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, idOperador);
             rs = pst.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 id = rs.getString("id");
             }
-            
+
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerPedido.idUiltimoPedido()"+e);
+            System.out.println("br.com.br.controler.ControlerPedido.idUiltimoPedido()" + e);
         }
-        
-        return  id;
+
+        return id;
     }
+
     /**
-     * Calcula a permanência do cliente no estabelecimento a contar da ocupação da mesa
+     * Calcula a permanência do cliente no estabelecimento a contar da ocupação
+     * da mesa
+     *
      * @param idPedido Número do Pedido.
      * @return Retorna o tempo de pernencia.
      */
-    public String calculaPermanencia(String idPedido){
-        String permanencia="";
-        
-        String sql="SELECT id_pedido, timediff(current_timestamp(), data) as 'permanencia' from cadpedido where id_pedido = ?";      
-        
+    public String calculaPermanencia(String idPedido) {
+        String permanencia = "";
+
+        String sql = "SELECT id_pedido, timediff(current_timestamp(), data) as 'permanencia' from cadpedido where id_pedido = ?";
+
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, idPedido);
-            
+
             rs = pst.executeQuery();
-            
-            while (rs.next()){
+
+            while (rs.next()) {
                 permanencia = rs.getString("permanencia");
-                
+
             }
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerPedido.calculaPermanencia()"+e);
+            System.out.println("br.com.br.controler.ControlerPedido.calculaPermanencia()" + e);
         }
-        
+
         return permanencia;
     }
+
     /**
      * Grava o detalhe do pagamento
+     *
      * @param idPedido - ID do pedido
      * @param dinheiro - Valor pago em dinheiro.
      * @param credito - Valor pago no Cartão de Crédito
      * @param debito - Valor Pago no Cartão de Débito
      * @param voucher - Valor pago em Tikets.
      * @return boolean - Retorna TRUE ou False
-     */ 
-    
-    public boolean gravaPagamentoMisto(String idPedido, double dinheiro, double credito, double debito, double voucher){
-        
-       String sql="INSERT INTO detalhe_pagameto (cadpedido_id_pedido, dinheiro, credito, debito, voucher) VALUES (?,?,?,?,?)";
-       boolean resp=false;
+     */
+
+    public boolean gravaPagamentoMisto(String idPedido, double dinheiro, double credito, double debito, double voucher) {
+
+        String sql = "INSERT INTO detalhe_pagameto (cadpedido_id_pedido, dinheiro, credito, debito, voucher) VALUES (?,?,?,?,?)";
+        boolean resp = false;
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, idPedido);
             pst.setDouble(2, dinheiro);
             pst.setDouble(3, credito);
             pst.setDouble(4, debito);
             pst.setDouble(5, voucher);
-            
+
             pst.executeUpdate();
-            resp=true;
+            resp = true;
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerPedido.gravaPagamentoMisto()"+e);
+            System.out.println("br.com.br.controler.ControlerPedido.gravaPagamentoMisto()" + e);
+        }
+
+        return resp;
+    }
+
+    /**
+     *  Retorna os valores de pagamento para pedidos com forma de pagamento misto.
+     * @param idPedido - id do pedido.
+     * @return Retorna um Array com os valores pagos.
+     */
+   
+    public ArrayList retornaVlrPagamentoMisto(String idPedido) {
+
+        String sql = "  SELECT \n"
+                + "          dinheiro, credito, debito, voucher\n"
+                + "     FROM\n"
+                + "     detalhe_pagameto\n"
+                + "          WHERE\n"
+                + "    cadpedido_id_pedido = ?";
+        ArrayList<Double> listaDeValores = new ArrayList<>();
+        
+        
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, idPedido);
+            rs=pst.executeQuery();
+            
+            while (rs.next()){
+                
+                listaDeValores.add(rs.getDouble("dinheiro"));
+                listaDeValores.add(rs.getDouble("credito"));
+                listaDeValores.add(rs.getDouble("debito"));
+                listaDeValores.add(rs.getDouble("voucher"));
+                
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.retornaVlrPagamentoMisto()"+e);
         }
         
-        return resp;
+        return listaDeValores;
+    }
+    
+    //Retorna a forma de pagamento
+    public String retornaFormaPagto(String idpedido){
+        
+        String sql="SELECT formaPagto FROM cadpedido where id_pedido=?";
+        String formaPagto="";
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, idpedido);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                formaPagto = rs.getString("formaPagto");
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.retornaFormaPagto()"+e);
+        }
+        return formaPagto;
     }
 }
