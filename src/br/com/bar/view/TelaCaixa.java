@@ -1267,7 +1267,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             } else if (radioVoucher.isSelected()) {
                 p.setFormaPagto("Voucher");
             } else {
-                p.setFormaPagto("Misto");
+                p.setFormaPagto("MISTO");
             }
             // Pega id da mesa.
 
@@ -1294,7 +1294,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                     // Fecha o pedido após o recebimento
                     cp.fechaPedido(p);
 
-                    if ("Misto".equals(p.getFormaPagto())) {
+                    if ("MISTO".equals(p.getFormaPagto())) {
                         if (cp.gravaPagamentoMisto(p.getId(), dinheiro, credito, debito, voucher)) {
                             // Zera os campos de pagamento misto após a gravação
                             txtMistoCredito.setText("0,00");
@@ -1365,8 +1365,9 @@ public class TelaCaixa extends javax.swing.JFrame {
                     dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone());
                     dados.put("cnpj", dadosEmpresa.getCnpj());
                     dados.put("desc", Double.parseDouble(txtDesconto.getText().replaceAll(",", ".")));
+                    dados.put("forma_pag",p.getFormaPagto().toUpperCase());
                     // Adiciona os valores pagos ao cupom
-                    if ("Misto".equals(p.getFormaPagto())) {
+                    if ("MISTO".equals(p.getFormaPagto())) {
                         dados.put("dinheiro", dinheiro);
                         dados.put("credito", credito);
                         dados.put("debito", debito);
@@ -2090,6 +2091,9 @@ public class TelaCaixa extends javax.swing.JFrame {
         desabilitaBtnRadio();
         lblReceber.setEnabled(false);
         lblReceberPAgamento.setEnabled(false);
+        btnImprimir.setEnabled(true);
+        jSpinFieldPessoas.setEnabled(true);
+        lblNpessoas.setEnabled(true);
     }//GEN-LAST:event_jtabedFormaPagtoMouseClicked
 
     private void txtMistoDinheiroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMistoDinheiroKeyPressed
@@ -2141,19 +2145,19 @@ public class TelaCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_txtMistoDebitoKeyPressed
 
     private void txtMistoDinheiroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMistoDinheiroFocusGained
-        //txtMistoDinheiro.setText(null);
+        txtMistoDinheiro.selectAll();
     }//GEN-LAST:event_txtMistoDinheiroFocusGained
 
     private void txtMistoCreditoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMistoCreditoFocusGained
-        //txtMistoCredito.setText(null);
+        txtMistoCredito.selectAll();
     }//GEN-LAST:event_txtMistoCreditoFocusGained
 
     private void txtMistoDebitoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMistoDebitoFocusGained
-        //txtMistoDebito.setText(null);
+        txtMistoDebito.selectAll();
     }//GEN-LAST:event_txtMistoDebitoFocusGained
 
     private void txtMistoVoucherFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMistoVoucherFocusGained
-        //txtMistoVoucher.setText(null);
+        txtMistoVoucher.selectAll();
     }//GEN-LAST:event_txtMistoVoucherFocusGained
 
     private void txtMistoVoucherKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMistoVoucherKeyPressed
@@ -2743,7 +2747,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                 double total = mDinheiro + mcredito + mDedebito + mVoucher;
 
                 if (total > 0) {
-                    resp = "Misto";
+                    resp = "MISTO";
                 } else {
                     resp = "Selecione";
                 }
