@@ -2586,8 +2586,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             buttonGroup2.clearSelection();
             checkConcedeDesconto.setSelected(false);
             txtValorPago.setEnabled(false);
-            jSpinFieldPessoas.setEnabled(false);
-            //txtValorPago.setText("0,00");
+            jSpinFieldPessoas.setEnabled(false);           
             lblReceber.setEnabled(false);
 
         } else {
