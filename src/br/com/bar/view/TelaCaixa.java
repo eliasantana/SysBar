@@ -728,6 +728,9 @@ public class TelaCaixa extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtMistoVoucherFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtMistoVoucherFocusLost(evt);
+            }
         });
         txtMistoVoucher.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1602,7 +1605,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel17MouseClicked
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-        atualizaPedidoNoCaixa();        
+        atualizaPedidoNoCaixa();
         mudaEstadoCaposMisto(true);
         lblNpessoas.setEnabled(false);
 
@@ -2014,8 +2017,9 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void jtabedFormaPagtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabedFormaPagtoMouseClicked
         desabilitaBtnRadio();
-        lblReceber.setEnabled(false);
+        //lblReceber.setEnabled(false);
         lblReceberPAgamento.setEnabled(false);
+        
         if (comboMesa.getSelectedIndex() != 0) {
             btnImprimir.setEnabled(true);
             jSpinFieldPessoas.setEnabled(true);
@@ -2027,95 +2031,99 @@ public class TelaCaixa extends javax.swing.JFrame {
     private void txtMistoDinheiroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMistoDinheiroKeyPressed
         // Muda de caixa de texto após pressionar enter
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            try {
-
-                double vlrDinheiro = Double.parseDouble(txtMistoDinheiro.getText().replace(",", "."));
-                txtMistoDinheiro.setText(String.format("%9.2f", vlrDinheiro));
-                txtMistoCredito.requestFocus();
-                calculaPagamentoMisto();
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Valor Inválido!");
-                System.out.println("br.com.bar.view.TelaCaixa.txtMistoDinheiroKeyPressed()" + e);
-            }
+            txtMistoCredito.requestFocus();
         }
     }//GEN-LAST:event_txtMistoDinheiroKeyPressed
 
     private void txtMistoCreditoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMistoCreditoKeyPressed
         // Muda de caixa de texto após pressionar enter
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            try {
-
-                double vlrCredito = Double.parseDouble(txtMistoCredito.getText().replace(",", "."));
-                txtMistoCredito.setText(String.format("%9.2f", vlrCredito));
-                txtMistoDebito.requestFocus();
-                calculaPagamentoMisto();
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Valor Inválido!");
-                System.out.println("br.com.bar.view.TelaCaixa.txtMistoCreditoKeyPressed()" + e);
-            }
+            txtMistoDebito.requestFocus();
         }
     }//GEN-LAST:event_txtMistoCreditoKeyPressed
 
     private void txtMistoDebitoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMistoDebitoKeyPressed
         // Muda de caixa de texto após pressionar enter
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            try {
-
-                double vlrDebito = Double.parseDouble(txtMistoDebito.getText().replace(",", "."));
-                txtMistoDebito.setText(String.format("%9.2f", vlrDebito));
-                txtMistoVoucher.requestFocus();
-                calculaPagamentoMisto();
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Valor Inválido!");
-                System.out.println("br.com.bar.view.TelaCaixa.txtMistoDebitoKeyPressed()" + e);
-            }
+            txtMistoVoucher.requestFocus();
         }
     }//GEN-LAST:event_txtMistoDebitoKeyPressed
 
     private void txtMistoDinheiroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMistoDinheiroFocusGained
-       
 
+        txtMistoDinheiro.selectAll();
     }//GEN-LAST:event_txtMistoDinheiroFocusGained
 
     private void txtMistoCreditoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMistoCreditoFocusGained
-        
+        txtMistoCredito.selectAll();
     }//GEN-LAST:event_txtMistoCreditoFocusGained
 
     private void txtMistoDebitoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMistoDebitoFocusGained
-        
+        txtMistoDebito.selectAll();
     }//GEN-LAST:event_txtMistoDebitoFocusGained
 
     private void txtMistoVoucherFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMistoVoucherFocusGained
-        
+    txtMistoVoucher.selectAll();
     }//GEN-LAST:event_txtMistoVoucherFocusGained
 
     private void txtMistoVoucherKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMistoVoucherKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            try {
-
-                double vlrVoucher = Double.parseDouble(txtMistoVoucher.getText().replace(",", "."));
-                txtMistoVoucher.setText(String.format("%9.2f", vlrVoucher));
-                calculaPagamentoMisto();
-                validaPagamentoMisto();
-            } catch (NumberFormatException e) {
-                System.out.println("br.com.bar.view.TelaCaixa.txtMistoVoucherKeyPressed()" + e);
-                System.out.println(txtMistoVoucher);
-                JOptionPane.showMessageDialog(this, "Valor Inválido!");
-            }
+            txtMistoDinheiro.requestFocus();
         }
     }//GEN-LAST:event_txtMistoVoucherKeyPressed
 
     private void txtMistoDinheiroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMistoDinheiroFocusLost
-            
+        // Formata o valor informado e calcula o total pago
+        try {
+            double vlrDinheiro = Double.parseDouble(txtMistoDinheiro.getText().replace(",", "."));
+            txtMistoDinheiro.setText(String.format("%9.2f", vlrDinheiro));
+            calculaPagamentoMisto();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Valor Inválido!");
+            System.out.println("br.com.bar.view.TelaCaixa.txtMistoDinheiroKeyPressed()" + e);
+        }
     }//GEN-LAST:event_txtMistoDinheiroFocusLost
 
     private void txtMistoDebitoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMistoDebitoFocusLost
-       
+        // Formata o valor informado e calcula o total pago      
+        try {
+            double vlrDebito = Double.parseDouble(txtMistoDebito.getText().replace(",", "."));
+            txtMistoDebito.setText(String.format("%9.2f", vlrDebito));
+            txtMistoVoucher.requestFocus();
+            calculaPagamentoMisto();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Valor Inválido!");
+            System.out.println("br.com.bar.view.TelaCaixa.txtMistoDebitoKeyPressed()" + e);
+        }
     }//GEN-LAST:event_txtMistoDebitoFocusLost
 
     private void txtMistoCreditoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMistoCreditoFocusLost
-       
+        // Formata o valor informado e calcula o total pago
+        try {
+            double vlrCredito = Double.parseDouble(txtMistoCredito.getText().replace(",", "."));
+            txtMistoCredito.setText(String.format("%9.2f", vlrCredito));
+            txtMistoDebito.requestFocus();
+            calculaPagamentoMisto();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Valor Inválido!");
+            System.out.println("br.com.bar.view.TelaCaixa.txtMistoCreditoKeyPressed()" + e);
+        }
     }//GEN-LAST:event_txtMistoCreditoFocusLost
+
+    private void txtMistoVoucherFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMistoVoucherFocusLost
+        // Formata o valor informado e calcula o total pago
+        try {
+
+            double vlrVoucher = Double.parseDouble(txtMistoVoucher.getText().replace(",", "."));
+            txtMistoVoucher.setText(String.format("%9.2f", vlrVoucher));
+            calculaPagamentoMisto();
+            validaPagamentoMisto();
+        } catch (NumberFormatException e) {
+            System.out.println("br.com.bar.view.TelaCaixa.txtMistoVoucherKeyPressed()" + e);
+            System.out.println(txtMistoVoucher);
+            JOptionPane.showMessageDialog(this, "Valor Inválido!");
+        }
+    }//GEN-LAST:event_txtMistoVoucherFocusLost
     public void recebeOperador(TelaPrincipal tela, String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
@@ -2230,7 +2238,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                 // Exibe detalhe do pedido por mesa de acordo com o id do pedido
                 tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(comboMesa.getSelectedItem().toString(), txtIdPedido.getText())));
                 modelCaixa.redimensionaColunas(tblDetalhePedido);
-                
+
                 // Muda Estado dos campos
                 jtabedFormaPagto.setEnabled(true);
                 mudaEstadoCaposMisto(true);
@@ -2579,13 +2587,15 @@ public class TelaCaixa extends javax.swing.JFrame {
             checkConcedeDesconto.setSelected(false);
             txtValorPago.setEnabled(false);
             jSpinFieldPessoas.setEnabled(false);
-            txtValorPago.setText("0,00");
+            //txtValorPago.setText("0,00");
+            lblReceber.setEnabled(false);
 
         } else {
             txtMistoDinheiro.setText("0,00");
             txtMistoCredito.setText("0,00");
             txtMistoDebito.setText("0,00");
             txtMistoVoucher.setText("0,00");
+            lblReceber.setEnabled(false);
         }
 
     }
@@ -2719,13 +2729,13 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         return resp;
     }
-    
-    private void mudaEstadoCaposMisto(boolean estado){
+
+    private void mudaEstadoCaposMisto(boolean estado) {
         txtMistoCredito.setEnabled(estado);
         txtMistoDebito.setEnabled(estado);
         txtMistoDinheiro.setEnabled(estado);
         txtMistoVoucher.setEnabled(estado);
-                
+
     }
 
 }
