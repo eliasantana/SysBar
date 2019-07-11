@@ -7,7 +7,10 @@ package br.com.bar.model;
 
 import java.util.ArrayList;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 /**
  *
@@ -51,13 +54,19 @@ public class TableModelProdutoEstoque extends AbstractTableModel{
     }
     
      public void redimensionaColunas(JTable tabela) {
-
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(60);     
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(342);    
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(80);  
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(80);  
-        tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(115);   
+        tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(115);  
+        
+        // Aoplicando o alinhamento a coluna
+        tabela.getColumnModel().getColumn(2).setCellRenderer(direita);
+        tabela.getColumnModel().getColumn(3).setCellRenderer(direita);
        
        
     }
