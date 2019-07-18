@@ -1146,7 +1146,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         btnListar.setEnabled(false);
         if (!"Selecione...".equals(comboMesa.getSelectedItem())) {
             btnListar.setEnabled(true);
-
+           
         } else {
             lblReceber.setEnabled(false);
             lblReceberPAgamento.setEnabled(false);
@@ -1155,9 +1155,9 @@ public class TelaCaixa extends javax.swing.JFrame {
             radioDinheiro.setEnabled(false);
             radioVoucher.setEnabled(false);
             radioDebito.setEnabled(false);
-
-            btnImprimir.setEnabled(false);
             jSpinFieldPessoas.setEnabled(false);
+            btnImprimir.setEnabled(false);
+            
             lblTotal.setEnabled(false);
             lblTotal.setText("0,00");
             percent.setEnabled(false);
@@ -1216,12 +1216,17 @@ public class TelaCaixa extends javax.swing.JFrame {
             txtValorPago.setText(String.format("%9.2f", totalPago));
             if (totalPago >= totalGeral) {
                 txtTroco.setText(String.format("%9.2f", totalPago - totalGeral));
-
+                
+                if ("     0,00".equals(txtTroco.getText())){
+                    lblTroco.setEnabled(false);
+                }else {
+                    lblTroco.setEnabled(true);
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "O valor pago não pode ser menor que o total da conta!");
+                JOptionPane.showMessageDialog(this, "O valor a ser pago não pode ser menor que o total da conta!");
                 txtTroco.setText("00.00");
                 txtValorPago.setText(lblTotal.getText());
-
+                
             }
         }
 
@@ -1607,7 +1612,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         atualizaPedidoNoCaixa();
         mudaEstadoCaposMisto(true);
-        lblNpessoas.setEnabled(false);
+        checkConcedeDesconto.setEnabled(true);
 
     }//GEN-LAST:event_btnListarActionPerformed
 
@@ -2019,11 +2024,13 @@ public class TelaCaixa extends javax.swing.JFrame {
         desabilitaBtnRadio();
         //lblReceber.setEnabled(false);
         lblReceberPAgamento.setEnabled(false);
-        
+        lblPago.setEnabled(false);
         if (comboMesa.getSelectedIndex() != 0) {
             btnImprimir.setEnabled(true);
             jSpinFieldPessoas.setEnabled(true);
             lblNpessoas.setEnabled(true);
+            //checkConcedeDesconto.setSelected(false);            
+            txtValorPago.setText("0,00");
         }
 
     }//GEN-LAST:event_jtabedFormaPagtoMouseClicked
@@ -2118,6 +2125,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             txtMistoVoucher.setText(String.format("%9.2f", vlrVoucher));
             calculaPagamentoMisto();
             validaPagamentoMisto();
+            checkConcedeDesconto.setEnabled(true);
         } catch (NumberFormatException e) {
             System.out.println("br.com.bar.view.TelaCaixa.txtMistoVoucherKeyPressed()" + e);
             System.out.println(txtMistoVoucher);
@@ -2312,12 +2320,15 @@ public class TelaCaixa extends javax.swing.JFrame {
                     lblReceber.setEnabled(false);
                 } else {
                     //lblReceber.setEnabled(true);
+                    btnImprimir.setEnabled(true);
                 }
 
                 // Formata valores após listagem
                 FormataValor fv = new FormataValor();
                 tgeral.setText(fv.Formata(tgeral.getText()));
                 lblTotal.setText(fv.Formata(lblTotal.getText()));
+                jSpinFieldPessoas.setEnabled(true);
+                
 
             }
         } catch (NumberFormatException e) {
@@ -2539,7 +2550,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         checkTxServico.setEnabled(false);
         jSpinFieldPessoas.setEnabled(false);
         btnImprimir.setEnabled(false);
-        checkConcedeDesconto.setEnabled(false);
+        //checkConcedeDesconto.setEnabled(false);
         lblValorDesc.setEnabled(false);
         txtDesconto.setEnabled(false);
         lblReceber.setEnabled(false);
@@ -2584,7 +2595,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         if ("Pagamento Misto".equals(jtabedFormaPagto.getTitleAt(index))) {
             buttonGroup2.clearSelection();
-            checkConcedeDesconto.setSelected(false);
+            //checkConcedeDesconto.setSelected(false);
             txtValorPago.setEnabled(false);
             jSpinFieldPessoas.setEnabled(false);           
             lblReceber.setEnabled(false);
@@ -2646,7 +2657,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         if (cont > 1) {
 
             if (totalCartao > totalPedido) {
-                JOptionPane.showMessageDialog(this, "O valor informado excede do total da compra!");
+                JOptionPane.showMessageDialog(this, "O valor informado em cartão(ões) excede o total da conta!");
 
             } else if (totalCartao < totalPedido) {
                 if ((dinheiro > 0) && (totalMisto > totalPedido)) {
@@ -2664,7 +2675,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                     lblReceber.setEnabled(true);
                     lblReceberPAgamento.setEnabled(true);
                 } else {
-                    JOptionPane.showMessageDialog(this, "O valor informado é menor que o total da compra!");
+                    JOptionPane.showMessageDialog(this, "O valor informado é menor que o total da conta!");
                 }
             } else if (totalCartao == totalPedido) {
                 if (dinheiro > 0) {
@@ -2685,6 +2696,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                 // habilita recebimento
                 lblReceber.setEnabled(true);
                 lblReceberPAgamento.setEnabled(true);
+                
 
             }
         } else {
