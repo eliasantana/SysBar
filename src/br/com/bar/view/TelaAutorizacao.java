@@ -280,6 +280,9 @@ public class TelaAutorizacao extends JDialog {
     }
     private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked
         // Fecha a Tela
+       if ("".equals(txtValorDesconto.getText())){
+           cx.desabilitaCheckBoxDesconto();
+       }
         dispose();
 
 

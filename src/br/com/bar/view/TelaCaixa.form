@@ -789,7 +789,7 @@
                       <ComponentRef name="buttonGroup2"/>
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Yu Gothic UI Light" size="14" style="0"/>
+                      <Font name="Yu Gothic Light" size="14" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Dinheiro"/>
                   </Properties>
@@ -847,7 +847,7 @@
                       <ComponentRef name="buttonGroup2"/>
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Yu Gothic UI Light" size="14" style="0"/>
+                      <Font name="Yu Gothic Light" size="14" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Voucher"/>
                   </Properties>
