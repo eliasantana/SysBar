@@ -46,27 +46,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblLogo.setIcon(u.carregaLogo());
         lblData.setText(df.format(data)); // Exibe data atual
         lblCargo.setVisible(false);
+        // Desabilita Botão Relatório
+        btnRelatorios.setEnabled(false);
+        jLabel16.setEnabled(false); // Icone do Botão Relatório
         // Verifica contas vencidas em aberto.
         atualizaInformativo();
-        /*
-            if (cc.contasVencidas()) {
-
-                jLabel7.setForeground(Color.red);
-                lblAviso.setText("*Você possui Contas vencidas ou com vencimento para hoje!");
-
-            }
-
-            if (estoque.estoqueBaixo()){
-                if ("".equals(lblAviso.getText())){
-                    lblAviso.setText("*Existe(m) produto(s) com estoque inferior a quantidade desejada!");
-                }else {
-                    lblAviso2.setText("*Existe(m) produto(s) com estoque inferior a quantidade desejada!");
-                }
-                lblGestao.setForeground(Color.red);
-            }
-            lblAviso.setForeground(Color.red);
-            lblAviso2.setForeground(Color.red);
-         */
+        
         // Determina tempo de execução
         long timeMilis = 6000; // milisegundos
         Timer timer = new Timer();
@@ -598,9 +583,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnRelatoriosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRelatoriosMouseClicked
         // Abre tela de Relatórios
-        TelaRelatorio3 tr3 = new TelaRelatorio3();
-        tr3.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        tr3.setVisible(true);
+        if (btnRelatorios.isEnabled()) {
+            TelaRelatorio3 tr3 = new TelaRelatorio3();
+            tr3.recebeOperador(lblOperador.getText(), lblCargo.getText());
+            tr3.setVisible(true);
+        }
+
 
     }//GEN-LAST:event_btnRelatoriosMouseClicked
 
@@ -757,7 +745,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void atualizaInformativo() {
-        
+
         if (cc.contasVencidas()) {
 
             lblBtnPagamentos.setForeground(Color.red);
@@ -771,16 +759,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (estoque.estoqueBaixo()) {
             lblmsg2.setText("*Existe(m) produto(s) com estoque inferior a quantidade desejada!");
             lblGestao.setForeground(Color.red);
-        }else {
+        } else {
             lblmsg2.setText(null);
             lblGestao.setForeground(Color.black);
         }
-        
-        if (estoque.estoqueMinimo()>0){
+
+        if (estoque.estoqueMinimo() > 0) {
             lblmsg2.setText("*Existe(m) produto(s) com quantidade mínima em estoque!");
             lblGestao.setForeground(Color.red);
         }
-        
+
         lblmsg1.setForeground(Color.red);
         lblmsg2.setForeground(Color.red);
     }

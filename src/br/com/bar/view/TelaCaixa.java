@@ -1146,7 +1146,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         btnListar.setEnabled(false);
         if (!"Selecione...".equals(comboMesa.getSelectedItem())) {
             btnListar.setEnabled(true);
-           
+
         } else {
             lblReceber.setEnabled(false);
             lblReceberPAgamento.setEnabled(false);
@@ -1157,7 +1157,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             radioDebito.setEnabled(false);
             jSpinFieldPessoas.setEnabled(false);
             btnImprimir.setEnabled(false);
-            
+
             lblTotal.setEnabled(false);
             lblTotal.setText("0,00");
             percent.setEnabled(false);
@@ -1217,17 +1217,17 @@ public class TelaCaixa extends javax.swing.JFrame {
             txtValorPago.setText(String.format("%9.2f", totalPago));
             if (totalPago >= totalGeral) {
                 txtTroco.setText(String.format("%9.2f", totalPago - totalGeral));
-                
-                if ("     0,00".equals(txtTroco.getText())){
+
+                if ("     0,00".equals(txtTroco.getText())) {
                     lblTroco.setEnabled(false);
-                }else {
+                } else {
                     lblTroco.setEnabled(true);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "O valor a ser pago não pode ser menor que o total da conta!");
                 txtTroco.setText("00.00");
                 txtValorPago.setText(lblTotal.getText());
-                
+
             }
         }
 
@@ -1882,7 +1882,6 @@ public class TelaCaixa extends javax.swing.JFrame {
         // Passa dados do pedido
         if (checkConcedeDesconto.isEnabled()) {
 
-            
             ArrayList<String> dadosDoPedido = new ArrayList<>();
 
             dadosDoPedido.add(tgeral.getText()); // Total da Conta (Sem Tx. de Serviço)
@@ -2032,11 +2031,11 @@ public class TelaCaixa extends javax.swing.JFrame {
         //lblReceber.setEnabled(false);
         //lblReceberPAgamento.setEnabled(false);
         //lblPago.setEnabled(false);
-        
+
         if (comboMesa.getSelectedIndex() != 0) {
             btnImprimir.setEnabled(true);
             jSpinFieldPessoas.setEnabled(true);
-            lblNpessoas.setEnabled(true);               
+            lblNpessoas.setEnabled(true);
             //txtValorPago.setText("0,00");
         }
 
@@ -2077,7 +2076,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_txtMistoDebitoFocusGained
 
     private void txtMistoVoucherFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMistoVoucherFocusGained
-    txtMistoVoucher.selectAll();
+        txtMistoVoucher.selectAll();
     }//GEN-LAST:event_txtMistoVoucherFocusGained
 
     private void txtMistoVoucherKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMistoVoucherKeyPressed
@@ -2338,7 +2337,6 @@ public class TelaCaixa extends javax.swing.JFrame {
                 tgeral.setText(fv.Formata(tgeral.getText()));
                 lblTotal.setText(fv.Formata(lblTotal.getText()));
                 jSpinFieldPessoas.setEnabled(true);
-                
 
             }
         } catch (NumberFormatException e) {
@@ -2506,25 +2504,22 @@ public class TelaCaixa extends javax.swing.JFrame {
 // 
 //
 //        }
-
         if (checkTxServico.isSelected()) {
 
-           double tTotal = (totalConta + totalTxServico) - desconto;
-           lblTotal.setText(fv.Formata(String.valueOf(tTotal)));           
-           percent.setText(fv.Formata(String.valueOf(totalTxServico)));
+            double tTotal = (totalConta + totalTxServico) - desconto;
+            lblTotal.setText(fv.Formata(String.valueOf(tTotal)));
+            percent.setText(fv.Formata(String.valueOf(totalTxServico)));
 
         } else {
-            
-            lblTotal.setText(tgeral.getText());             
-            percent.setText("0,00"); 
-            double totalGeral = Double.parseDouble(lblTotal.getText().replace(",","."));
-            double vlrDesconto = Double.parseDouble(txtDesconto.getText().replace(",","."));
-            lblTotal.setText(String.format("%9.2f",totalGeral-vlrDesconto));
+
+            lblTotal.setText(tgeral.getText());
+            percent.setText("0,00");
+            double totalGeral = Double.parseDouble(lblTotal.getText().replace(",", "."));
+            double vlrDesconto = Double.parseDouble(txtDesconto.getText().replace(",", "."));
+            lblTotal.setText(String.format("%9.2f", totalGeral - vlrDesconto));
             lblPago.setEnabled(true);
         }
-        
-               
-            
+
     }
 
     private void habilitaTextFildPagamento() {
@@ -2620,9 +2615,9 @@ public class TelaCaixa extends javax.swing.JFrame {
         int index = jtabedFormaPagto.getSelectedIndex();
 
         if ("Pagamento Misto".equals(jtabedFormaPagto.getTitleAt(index))) {
-            buttonGroup2.clearSelection();            
+            buttonGroup2.clearSelection();
             txtValorPago.setEnabled(false);
-            jSpinFieldPessoas.setEnabled(false);           
+            jSpinFieldPessoas.setEnabled(false);
             lblReceber.setEnabled(false);
             lblReceberPAgamento.setEnabled(false);
 
@@ -2631,7 +2626,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             txtMistoCredito.setText("0,00");
             txtMistoDebito.setText("0,00");
             txtMistoVoucher.setText("0,00");
-            
+
         }
 
     }
@@ -2689,6 +2684,8 @@ public class TelaCaixa extends javax.swing.JFrame {
                 if ((dinheiro > 0) && (totalMisto > totalPedido)) {
                     double troco = totalMisto - totalPedido;
                     txtTroco.setText(String.format("%9.2f", troco));
+                    // Habilita Troco
+                    lblTroco.setEnabled(true);
                     // Habilita Recebimento
                     lblReceber.setEnabled(true);
                     lblReceberPAgamento.setEnabled(true);
@@ -2700,29 +2697,40 @@ public class TelaCaixa extends javax.swing.JFrame {
                     // Habilita Recebimento
                     lblReceber.setEnabled(true);
                     lblReceberPAgamento.setEnabled(true);
+                    //Desabilita Troco
+                    lblTroco.setEnabled(false);
+                    txtTroco.setText("0,00");
                 } else {
                     JOptionPane.showMessageDialog(this, "O valor informado é menor que o total da conta!");
                 }
             } else if (totalCartao == totalPedido) {
+                
                 if (dinheiro > 0) {
+                    JOptionPane.showMessageDialog(this, "O valor informado em dinheiro excede o total da conta!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+                    //Desabilita Troco
+                    lblTroco.setEnabled(false);
+                    txtTroco.setText("0,00");
+                   
+                } else {
                     if (totalMisto > totalPedido) {
                         double troco = totalMisto - totalPedido;
                         txtTroco.setText(String.format("%9.2f", troco));
+                        lblTroco.setEnabled(true);
                         // Habilita Recebimento
                         lblReceber.setEnabled(true);
                         lblReceberPAgamento.setEnabled(true);
-
                     } else {
                         // Habilita Recebimento
                         lblReceber.setEnabled(true);
                         lblReceberPAgamento.setEnabled(true);
+                        //Desabilita Troco
+                        lblTroco.setEnabled(false);
+                        txtTroco.setText("0,00");
                     }
-
                 }
                 // habilita recebimento
                 lblReceber.setEnabled(true);
                 lblReceberPAgamento.setEnabled(true);
-                
 
             }
         } else {
@@ -2774,8 +2782,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         txtMistoVoucher.setEnabled(estado);
 
     }
-    
-    public void desabilitaCheckBoxDesconto(){
+
+    public void desabilitaCheckBoxDesconto() {
         checkConcedeDesconto.setSelected(false);
     }
 
