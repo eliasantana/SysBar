@@ -2676,7 +2676,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         }
         // Vontinua a validação apenas se houve mais de uma forma de pagamento.
         if (cont > 1) {
-
+            // Habilita label valor pago
+            lblPago.setEnabled(true);
             if (totalCartao > totalPedido) {
                 JOptionPane.showMessageDialog(this, "O valor informado em cartão(ões) excede o total da conta!");
 
