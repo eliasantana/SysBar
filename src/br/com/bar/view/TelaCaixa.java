@@ -546,7 +546,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Total Geral"));
 
         lblTotal.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        lblTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTotal.setText("0,00");
 
         lbl_cifra_total.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
@@ -1358,7 +1358,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                     } else {
 
                         f.setId(func.localizaIdLogin(lblOperador.getText()));
-                        System.out.println("Id do Funcionário:" + f.getId());
+                        //System.out.println("Id do Funcionário:" + f.getId());
                         desconto = 0.0;
                         DescontoPedido descPedido = new DescontoPedido(desconto, "", f, p);
                         caixa.registraDesconto(descPedido);
@@ -1376,7 +1376,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                     strTx = strTx.replace(",", ".");
                     dados.put("tx", Double.parseDouble(strTx));
                     dados.put("id_pedido", p.getId());
-                    System.out.println(p.getId());
+                    //System.out.println(p.getId());
                     dados.put("npessoas", nPesoas); // Não tenho
                     dados.put("total_pessoas", totalPessoas); // Não tenho
                     DadosEmpresa dadosEmpresa = de.selecionaDados();
@@ -1416,7 +1416,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                         percent.setText("0,00");
 
                     } catch (JRException e) {
-                        System.out.println("br.com.bar.view.TelaCaixa.btnImprimirMouseClicked()");
+                        //System.out.println("br.com.bar.view.TelaCaixa.btnImprimirMouseClicked()");
                         lblTotal.setText("0,00");
                         tgeral.setText("0,00");
                         percent.setText("0,00");
@@ -1651,7 +1651,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             String strDesc = txtDesconto.getText().replace(".", "");
             strDesc = strDesc.replace(",", ".");
             dados.put("desc", Double.parseDouble(strDesc));
-            System.out.println(dadosEmpresa.getImprimir_na_tela());
+            //System.out.println(dadosEmpresa.getImprimir_na_tela());
             try {
                 if (dadosEmpresa.getImprimir_na_tela() == 0) {
 
@@ -1662,7 +1662,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                     rpu.impressaoDireta("consumo.jasper", dados);
                 }
             } catch (JRException e) {
-                System.out.println("br.com.bar.view.TelaCaixa.btnImprimirMouseClicked()" + e);
+                //System.out.println("br.com.bar.view.TelaCaixa.btnImprimirMouseClicked()" + e);
             }
             // Fecha conexao com o banco de dados.
             try {
@@ -1758,7 +1758,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                             }
 
                         } catch (JRException e) {
-                            System.out.println("br.com.bar.view.TelaCaixa.btnFecharCaixaMouseClicked()" + e);
+                            //System.out.println("br.com.bar.view.TelaCaixa.btnFecharCaixaMouseClicked()" + e);
                         }
                         //*************************** TESTE FECHAMENTO ANTERIOR ***************************************
                         // Verifica se existe movimentação na data anterior caso existea executa o fechamento retroativo
@@ -1783,7 +1783,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             try {
                 conexao.close();
             } catch (Exception e) {
-                System.out.println("br.com.bar.view.TelaCaixa.btnFecharCaixaMouseClicked()" + e);
+                //System.out.println("br.com.bar.view.TelaCaixa.btnFecharCaixaMouseClicked()" + e);
             }
 
         }
@@ -2031,14 +2031,17 @@ public class TelaCaixa extends javax.swing.JFrame {
         //lblReceber.setEnabled(false);
         //lblReceberPAgamento.setEnabled(false);
         //lblPago.setEnabled(false);
-
+        
         if (comboMesa.getSelectedIndex() != 0) {
             btnImprimir.setEnabled(true);
             jSpinFieldPessoas.setEnabled(true);
-            lblNpessoas.setEnabled(true);
-            //txtValorPago.setText("0,00");
+            lblNpessoas.setEnabled(true); 
+            double valorPpago = Double.parseDouble(txtValorPago.getText().replace(",", "."));
+            double totalmisto = dinheiro+credito+debito+voucher;
+            if ((valorPpago>0 && jtabedFormaPagto.getSelectedIndex()!=0)&&totalmisto==0){
+                txtValorPago.setText("0,00");
+            }
         }
-
     }//GEN-LAST:event_jtabedFormaPagtoMouseClicked
 
     private void txtMistoDinheiroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMistoDinheiroKeyPressed
@@ -2491,19 +2494,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         double totalPago = 0;
         double troco = 0;
 
-//        if (checkTxServico.isSelected()) {
-//
-//           double tTotal = (totalConta + totalTxServico) - desconto;
-//           lblTotal.setText(fv.Formata(String.valueOf(tTotal)));           
-//           percent.setText(fv.Formata(String.valueOf(totalTxServico)));
-//
-//        } else {
-//           
-//            lblTotal.setText(tgeral.getText());
-//            percent.setText("0,00");
-// 
-//
-//        }
+
         if (checkTxServico.isSelected()) {
 
             double tTotal = (totalConta + totalTxServico) - desconto;

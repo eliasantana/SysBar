@@ -79,7 +79,7 @@ public class TableModelCozinha extends AbstractTableModel {
         tabela.getColumn(tabela.getColumnName(6)).setPreferredWidth(45); //SOLICITAÇÃO
         tabela.getColumn(tabela.getColumnName(7)).setPreferredWidth(60); //T.ESPERA
         tabela.getColumn(tabela.getColumnName(8)).setPreferredWidth(115); //ESTATUS
-
+        
     }
 
       public void adicionaCoresTabela(JTable tabela) {
@@ -115,6 +115,9 @@ public class TableModelCozinha extends AbstractTableModel {
                 return this;
             }
         });
-
+        
+         
     }
+      
+    
 }

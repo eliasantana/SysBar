@@ -43,7 +43,7 @@ public class TelaConzinha extends javax.swing.JFrame {
     ControlerDadosEmpresa ce = new ControlerDadosEmpresa();
     //Guarda o id do prato liberado
     String id_pratoLiberado = null;
-
+ 
     public TelaConzinha() {
         initComponents();
         lblCargo.setVisible(false);
@@ -67,15 +67,18 @@ public class TelaConzinha extends javax.swing.JFrame {
                 modelCozinha.redimensionaColunas(tblCozinha);
                 modelCozinha.adicionaCoresTabela(tblCozinha);
 
-                lblPreparar.setEnabled(false);
-                lblLiberaRefeicao.setEnabled(false);
+                //lblPreparar.setEnabled(false);
+                //lblLiberaRefeicao.setEnabled(false);
                 lblMsg.setText(null);
+                
+                
+                
             }
         };
 
         timer.scheduleAtFixedRate(atualizaCozinha, 0, minutos);
         relogio();
-
+       
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -415,6 +418,7 @@ public class TelaConzinha extends javax.swing.JFrame {
 
     private void tblCozinhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCozinhaMouseClicked
         int linha = tblCozinha.getSelectedRow();
+        
         lblMsg.setText(null);
         // Captura o Status do prato
         String status = tblCozinha.getModel().getValueAt(linha, 8).toString();
