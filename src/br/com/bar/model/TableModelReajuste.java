@@ -7,7 +7,10 @@ package br.com.bar.model;
 
 import java.util.ArrayList;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -51,11 +54,21 @@ public class TableModelReajuste extends AbstractTableModel {
     }
 
      public void redimensionaColunas(JTable tabela) {
-         //{"CÓDIGO", "DESCRIÇÃO", "VALOR R$"}
+         
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        JTableHeader header = tabela.getTableHeader();
+        
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(60); 
-        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(225);
-        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(80);        
+        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(228);
+        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(80); 
+        
+        // Centraliza colunas
+        tabela.getColumnModel().getColumn(0).setCellRenderer(direita);        
+        tabela.getColumnModel().getColumn(2).setCellRenderer(direita);
+        // Centraliza cabeçalho da coluna preço
+        header.setDefaultRenderer(direita);
     }
 
 }

@@ -110,7 +110,7 @@ public class ControlerMesa {
 
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerMesa.excluiMesa()"+e);
-            JOptionPane.showMessageDialog(null, "A mesa selecionada está relacionada com vários pedidos e não pode ser excluída!","Atenção",JOptionPane.ERROR_MESSAGE);
+            resp=false;
         }
         return resp;
 

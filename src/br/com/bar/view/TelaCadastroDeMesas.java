@@ -47,7 +47,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         btnTrocaGarcom.setEnabled(false);
 
         f.carregaComboFuncionario(comboGarcom, "Garçom");
-
+        
         if (jCheckBoxTudo.isSelected()) {
             filtro = true;
         }
@@ -408,20 +408,27 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     }//GEN-LAST:event_comboGarcomItemStateChanged
 
     private void comboGarcomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboGarcomActionPerformed
-
+        
         if (!"Selecione...".equals(comboGarcom.getSelectedItem().toString())) {
             //desbloqueiaCampos();
             f.carregaComboFuncionario(comboNovoGarcom, "Garçom", comboGarcom.getSelectedItem().toString());
-            // f.carregaComboFuncionario(comboGarcom, "Garçom");
-
-            tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
-            modelMesas.redimensionaColunas(tblMesas);
+           
+            // Caso o número de garçom listado seja maior que 1 - (Selecione...)
+            if (comboGarcom.getItemCount()>2){               
+            //Excluir após vaidação de Janiel
+            //tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
+            //modelMesas.redimensionaColunas(tblMesas);
+            
             txtNumeroMesa.setText(null);
             txtIdGarcom.setText(f.localizaId(comboGarcom.getSelectedItem().toString()));
             estadoInicial();
             txtNumeroMesa.setEnabled(true);
             radioTrocaMesa.setVisible(true);
             radioTrocaGeral.setVisible(true);
+            }
+            tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), filtro)));
+            txtNumeroMesa.setEnabled(true);
+            modelMesas.redimensionaColunas(tblMesas);
         } else {
             estadoInicial();
 
@@ -581,6 +588,8 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                         modelMesas.redimensionaColunas(tblMesas);
                         limpaForm();
                         btnLixeira.setEnabled(false);
+                    }else {
+                        JOptionPane.showMessageDialog(this, "A mesa selecionada está relacionada com vários pedidos e não pode ser excluída!","Atenção",JOptionPane.ERROR_MESSAGE);
                     }
                 }
 

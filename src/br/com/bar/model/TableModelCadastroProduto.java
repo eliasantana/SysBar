@@ -9,8 +9,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
+import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 /**
  *
@@ -62,7 +64,14 @@ public class TableModelCadastroProduto extends AbstractTableModel {
     }
 
      public void redimensionaColunas(JTable tabela) {
-         //{"CÓDIGO","PRODUTO","QTD","VALOR R$","MIN","MAX","GRUPO"
+        
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        
+        
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(60); 
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(315);
@@ -71,17 +80,26 @@ public class TableModelCadastroProduto extends AbstractTableModel {
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(40);
         tabela.getColumn(tabela.getColumnName(5)).setPreferredWidth(40);
         tabela.getColumn(tabela.getColumnName(6)).setPreferredWidth(133);
-         adicionaCoresTabela(tabela);
-    }
-     
-       public void adicionaCoresTabela(JTable tabela) {
+        // Atribui o alinhamento as colunas
+//        tabela.getColumnModel().getColumn(0).setCellRenderer(direita);
+//        tabela.getColumnModel().getColumn(1).setCellRenderer(esquerda);
+//        tabela.getColumnModel().getColumn(2).setCellRenderer(direita);
+//        tabela.getColumnModel().getColumn(3).setCellRenderer(direita);
+//        tabela.getColumnModel().getColumn(4).setCellRenderer(direita);
+//        tabela.getColumnModel().getColumn(5).setCellRenderer(direita);
+//        tabela.getColumnModel().getColumn(6).setCellRenderer(esquerda);
+        adicionaCoresTabela(tabela);
         
-        tabela.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+    }
+       // trocado tabela -> table
+       public void adicionaCoresTabela(JTable table) {
+        
+        table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value,
                     boolean isSelected, boolean hasFocus, int row, int column) {
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                //A coluna do status é 8
+                
                 Object ref = table.getValueAt(row, 2);//Coluna qtd
                 Object refMin = table.getValueAt(row, 4);//Coluna qtdMin
                 //Coloca cor em todas as linhas,COLUNA(8) que tem o valor "Pendente"
@@ -93,20 +111,22 @@ public class TableModelCadastroProduto extends AbstractTableModel {
                 }  else if (Integer.parseInt(ref.toString()) < Integer.parseInt(refMin.toString())){
                     setBackground(Color.red);//Preenche a linha de vermelho
                     setForeground(Color.WHITE);//E a fonte de branco
-                }
-                    else {
+                }else {
                     boolean sel = isSelected;
                     if (sel == true) {
                         setBackground(getBackground());
                         setForeground(getForeground());                        
-                    } else {//Se Status não for "Pendente" 
+                    } else {
+                         //Se Status não for "Pendente" 
                         setBackground(Color.WHITE);//Preenche a linha de branco
                         setForeground(new Color(51, 51, 51));//E a fonte de preto
+                       
                     }
                 }
                 return this;
             }
         });
+         
 
     }
 

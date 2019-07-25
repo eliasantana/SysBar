@@ -12,6 +12,7 @@ import br.com.bar.model.Produto;
 import br.com.bar.model.ProdutoPedido;
 import br.com.bar.model.TableModelDetalhePedido;
 import br.com.bar.model.TableModelMesaPedido;
+import br.com.bar.model.TableModelNumeroMesas;
 import br.com.bar.model.TableModelPedidosAbertos;
 import br.com.bar.model.TableModelProdutoEstoque;
 import br.com.bar.util.FormataValor;
@@ -55,7 +56,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
     TableModelDetalhePedido modelDetPedido = new TableModelDetalhePedido();
     TableModelProdutoEstoque modelProduroEstoque = new TableModelProdutoEstoque();
     TableModelMesaPedido modelMesa = new TableModelMesaPedido();
-
+    TableModelNumeroMesas modelNmesas = new TableModelNumeroMesas();
+    
     JFrame tlGerenciarPedido;
     Util u = new Util();
     Funcionario funcLogado;
@@ -98,11 +100,13 @@ public class TelaPedido2 extends javax.swing.JFrame {
         txtValorTotal.setEnabled(false);
         lblLupa.setVisible(false);
         lblStatusCozinha.setEnabled(false);
+        lbl_status_cozinha.setEnabled(false);
         btnAbrirPedido.setEnabled(false);
         lblCargo.setVisible(false);
         lblSegundos.setVisible(false);
         lblReenvioCozinha.setEnabled(false);
         lblBtnReenvioCozinha.setEnabled(false);
+        modelNmesas.redimensionaColunas(tblNumeroMesa);
         //Torna a tela Selecionavel 'Necessário para que o evento de bloqueio ocorra'
         this.setFocusable(true);
         // Adiciona Listner para bloquear tela
@@ -882,6 +886,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         String idFunc = cFunc.localizaId(nomeFunc);
         txtIdGarcom.setText(cFunc.localizaId(comboGarcom.getSelectedItem().toString()));
         tblNumeroMesa.setModel(DbUtils.resultSetToTableModel(cm.listaMesaLivre(idFunc)));
+        modelNmesas.redimensionaColunas(tblNumeroMesa);
         modelMesa.redimensionaColunas(tblNumeroMesa);
         tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos(txtIdGarcom.getText())));
         modelPedidos.redimensionaColunas(tblPedidosAbertos);
@@ -1161,6 +1166,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         if (grupo.toLowerCase().equals("cozinha")) {
 
             lblStatusCozinha.setEnabled(true);
+            lbl_status_cozinha.setEnabled(true);
             // Habilita os botões [REEVIO COZINHA] se o prato não existir.
             if (!cc.temNaCozinha(idProduto, txtNumeroPedido.getText())) {
                 lblReenvioCozinha.setEnabled(true);
@@ -1173,6 +1179,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         } else {
 
             lblStatusCozinha.setEnabled(false);
+            lbl_status_cozinha.setEnabled(false);
             lblReenvioCozinha.setEnabled(false);
             lblBtnReenvioCozinha.setEnabled(false);
         }
