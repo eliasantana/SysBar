@@ -1,0 +1,1494 @@
+[33mcommit abee1ba1ce6354998fb2769cc50232cf26e3cad4[m[33m ([m[1;36mHEAD -> [m[1;32mtela_caixa_multiplo[m[33m)[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Jul 25 17:29:13 2019 -0300
+
+    TESTE INTEGRADO 25-07-2019 17h27
+                   - Correção de Bug na Tela de Caixa durante a impressão do cupom
+                   - Correção da gravação do valor real pago
+                   - Adição de comportamento aos jPanel subtotal e total geral.
+
+[33mcommit e9b1f4be33a7809d821855eec8d8fe458ecf28c1[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Jul 25 13:26:12 2019 -0300
+
+    TESTE INTEGRADO 25-07-2019
+                  - Centralizado a coluna e o cabeçado da tabela Numero de Mesas na tela pedido.
+
+[33mcommit cc4953ac98461ac561e4bcc4bd4ea7796c8ae8c4[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Jul 25 08:34:11 2019 -0300
+
+    TESTE INTEGRADO 25/07/2019
+
+[33mcommit 7888da4b452227b384c741ace620077c769aaef3[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Jul 23 23:18:34 2019 -0300
+
+    TESTE INTEGRADO 23-07-2019
+                    - Corrigido comportamento da guia forma de pagamento
+                    - Corrigido a ação de desabilitar os botões da tela cozinha
+                      após refresh da tela.
+
+[33mcommit aa85f77f3f718db21c5da299da9da3d945bd3953[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Jul 19 14:52:49 2019 -0300
+
+    TESTE INTEGRADO 19-07-2019 14:51
+                   - tivação do Label valor rebido pós validação de pagamento.
+
+[33mcommit 3be8028e55a45c33b8619b08fa7556f92db5af49[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Jul 19 12:35:15 2019 -0300
+
+    TESTE INTEGRADO 19-07-2019 12h33
+                   -Adicionado mensagem informativa quando o total cartão for igual a total da conta
+                    e dinheiro for maior que zero.
+                   - Removido da tela de login a mensagem TESTE INTEGRADO.
+                   - Relatório Desabilitado.
+
+[33mcommit 460098ffe9f65e926e5b0c2a6753e5239c5fed21[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Jul 18 23:33:29 2019 -0300
+
+    TESTE INTEGRADO 18-07-2019 23h29
+                   - Correção do comportamento da tela de Caixa.
+                   - inclusão de recalculo ao desmarcar o checkb
+                   - Adiciondo re-calculo subtraindo o desconto ao desmarcar a ta
+                   - Adicionado ré-calculo ao desmarcar o check
+                   - Realizando récalculo após desmarcar tx de serviço.
+
+[33mcommit e7da7a594ad855d344bd2b668eb2f7c58eff2cf7[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Jul 17 22:11:41 2019 -0300
+
+    TESTE INTEGRADO 17-07-2019 22h11
+                   - CORREÇÕES NO COMPORTAMENTO DOS CAMPOS NA TELA DE CAIXA
+
+[33mcommit ba822948c785e1c833f474ae0f8d49f3c5416bcf[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Jul 11 17:36:17 2019 -0300
+
+    TESTE INTEGRADO 11-07-2019 17h35
+                   - CORREÇÕS NO COMPORTAMENTO DOS CAMPOS DO PAGAMENTO MISTO
+                   - AJUSTES NO LAYOUT DO CUPO DE CONSUMO PARCIAL
+
+[33mcommit 8ccd114bd0e0245d190931bde115d2cbe6d58f4b[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Jul 11 16:13:50 2019 -0300
+
+    ATUALIZAÇÃO 11-07-2019
+                   - Correção de Bug na ordem de preechimento no pagamento misto.
+
+[33mcommit 8ed32b023480a1ea2050cb9c0d1ecc303e8c3696[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Jul 11 15:41:20 2019 -0300
+
+    Caixa Estado Anterior a Modificação do comportamento do pagamento misto
+
+[33mcommit 9a1b7a9175739754a88846c46067d57a147e288f[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Jul 8 17:39:40 2019 -0300
+
+    TESTE INTEGRADO 08/07/2019 17h38
+                   - Adicionado recuperação da forma de pagamento na Reimpressão de cupom
+
+[33mcommit e1641e82b44fd8639173225dbfe451a899801ee3[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Jul 8 15:17:32 2019 -0300
+
+    TESTE INTEGRADO 08/07/2019]
+                   - Adicionado ao cupom de pagamento a descrição da forma de pagamento.
+
+[33mcommit d5b5e3190de44aa00aa7562d1d172d466759a50c[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sun Jul 7 10:20:31 2019 -0300
+
+    MELHORIA - INCLUSÃO DAS FORMAS DE PAGAMENTO NO CUPOM DE PAGAMENTO
+                   - Exibição das formas de pagamento múltiplo no cupom de pagamento.
+
+[33mcommit 60542a4ae30236742adb13cd9058a3030d057027[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Jul 6 11:19:24 2019 -0300
+
+    TESTE INTEGRADO 06/07/2019 11h18
+                   - Adicionado método de detecção da forma de pagamento
+                   - Adicionado consistência do pagamento misto.
+
+[33mcommit d0ec0634b0fc915883496a2ef3cd87cbfd63a184[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Jun 29 11:41:55 2019 -0300
+
+    TELA DE CAIXA FINALIZADA
+                   - PERMITE ADICIONAR PRODUTOS PELO USUÁRIO CAIXA
+                   - RECALCULA O PEDIDO PARA O USUÁRIOS CAIXA
+
+[33mcommit 5a8d5fa288a4a4b6f1129d5f02dac4d8afc26915[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Jun 12 11:33:38 2019 -0300
+
+    TESTE INTEGRADO 12-06-2019 11h31
+                  - Adicionado Tela de Perquisa de preço na tela do caixa
+                  - Adicionado funcionalidade que permite o caixa inserir um item ao pedido
+                    antes do fechamento do mesmo.
+                  - Incluído funcionalidade de atualização e recálculo do caixa após inclusão do item no pedido
+
+[33mcommit 2e614077e93f0768eafb7b82bb9a532d54599e19[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri May 31 16:43:40 2019 -0300
+
+    TESTE INTEGRADO 32-05-2019 16h42
+                   - Correção ortográfica nas mensagens de log
+                   - Adicionando filtro de datas em contas a pagar.
+
+[33mcommit 533391eb41050bc9c8135c2a28fbedd1bd3f1063[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue May 28 20:36:26 2019 -0300
+
+    TESTE INTEGRADO 28-05-2019 20h34
+                   - Atualização dos dados informativos de produtos comquantidade
+                     inferior a estabelecida no cadastro.
+                   - Atualização dos dados de contas em aberto sna tela inicial
+                   - Correção da Excessão NulPointException durante a pesquisa do produto
+                     por código.
+
+[33mcommit 5c46c4f5f66ccbd722ee9a55bf5c53582feec024[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue May 28 10:23:01 2019 -0300
+
+    Correções de Layout e comportamento
+                   - Adicionado label para exibição da mensagem de login inválido.
+                   - Correção no comportamento da tela de pagamento de contas
+                   - Ativação do bloqueio cronometrado na tela de pedidos.
+
+[33mcommit 6c84a6fe1c338af8a2b54209ac3ffd01c7c5e5b2[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu May 23 08:20:40 2019 -0300
+
+    TESTE INTEGRADO 23-05-2019 8h20
+                  - Correões simples no layout
+
+[33mcommit bc440d4d5b81601c9d10847048620f9aa0680315[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed May 22 21:36:46 2019 -0300
+
+    TESTE INTEGRADO 22-05-2019 21h34
+                   - Correção na exibição da mensagem de troca de senha.
+                 - Correção nas mensagens de confirmação de exclusão.
+                 - Correção de sobreposição de janelas na exclusão do fornecedor.
+
+[33mcommit 77bfdbb990001016d7e8d52a35b2ec0759aae947[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat May 18 15:51:43 2019 -0300
+
+    TESTE INTEGRADO 18-05-2019
+                  -Correção no cronômetro de bloqueio da tela PEDIDO
+                  - Adição da funcionalide Renvio Cozinha
+                  - Verificação de saldo em espécie antes do pagamento.
+
+[33mcommit 51e239b062cc53b5237839042450304437edc240[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri May 17 15:40:54 2019 -0300
+
+    TESTES INTEGRADO 17-05-2019 15:40
+
+[33mcommit 7752601df9f88f48e58b795bc232fd63c581df6d[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon May 6 08:08:04 2019 -0300
+
+    TESTE INTEGRADO 06-05-2019 08:07
+
+[33mcommit 0df7fe7b0c79f6e9cc249ee3fe9829d4eaa6826c[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Apr 30 21:16:00 2019 -0300
+
+    TESTE INTEGRADO 30-04-2019
+                  - Alteração no alinhamento das colunas da DefaultTableModel nas telas
+                    Contas a Pagar e Caixa.
+    ]             - Alteração na formatação dos relatórios CUPOM.JASPER, CONSUMO.JASPER e CONTIGENCIA_03.JASPER.
+
+[33mcommit d2ac1cb3c9f3e9edf9d60c0f73e923ed001260cd[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Apr 25 14:49:44 2019 -0300
+
+    TESTE INTEGRADO 25-04-2019
+                   - CORREÇÃO
+                   - Formatação do campo data das tabelas contas a pagar e movimentação para o formato 'YYYY-MM-dd'
+                   - Correção da Query de totalização de entradas e saídas.
+                   - Remoção do backup no fechamento do caixa.
+                   - Remoção da inicialização do Módulo de backup pela aplicação.
+
+[33mcommit d6147aa2cad8e4e9dc81736fa9e715be781a0a3f[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Apr 22 15:48:56 2019 -0300
+
+    TESTE INTEGRADO 22-04-2019 15:47
+                  - Adicionado relatório(Cumpom) CONSUMO
+
+[33mcommit 6e7c7a8eee8ede7a0042f922cb4fbcaf23451f5c[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Apr 20 14:50:52 2019 -0300
+
+    TESTE INTEGRADO 20-04-2019 14h50
+
+[33mcommit c896806ab50752dab89833f7c9ac044d18c237e5[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Apr 15 12:45:01 2019 -0300
+
+    TESTE INTEGRADO 14-04-2019-12:44
+                   - Inclusão de execução do módulo de backup pós login.
+
+[33mcommit 5a1c778774ae5473afb9f0d8466e11a7a66d111c[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Apr 6 18:00:13 2019 -0300
+
+    TESTE INTEGRADO 06-06-2019 17h59
+
+[33mcommit 8c71076148e7d9cf206f86486bc9ba1691cad148[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Apr 6 11:11:18 2019 -0300
+
+    TESTE INTEGRADO 06-04-2019 11:11
+
+[33mcommit a7b421a833f7434f28b8a264e03d6d56d0d2ba6f[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Apr 3 22:56:16 2019 -0300
+
+    TESTE INTEGRADO 03-04-2019 22:56
+
+[33mcommit 6c958c798d6d75db46b9eb1e0f11de3120cc71ef[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Apr 2 18:54:46 2019 -0300
+
+    TESTE INTEGRADO 02-04-2019
+
+[33mcommit d0e7cea52dfd5a999d0d443b0ac0337a16dde925[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Apr 1 18:20:36 2019 -0300
+
+    TESTE INTEGRADO 01-04-2019
+
+[33mcommit c6be66111e3ce38dfca76e671dfc0641e40f8429[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Mar 28 18:55:19 2019 -0300
+
+    TESTE INTEGRADO 18:55
+
+[33mcommit 4ad0367cb0ad5ec4525c20e017b1fd96da751744[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Mar 28 12:14:28 2019 -0300
+
+    TESTE INTEGRADO 28/03/2019 - 12:14
+
+[33mcommit 601ef97420a7bf2efc7e9e89e5a486787c47ac74[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Mar 25 17:53:42 2019 -0300
+
+    TESTE INTEGRADO 25-03-2019 17:53
+
+[33mcommit e3bd75488c90c5ee9e3c7f1f1dbd1eb1bc0eea04[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Mar 23 15:04:52 2019 -0300
+
+    TESTE INTEGRADO 23-03-2019 15:03
+                   - Adicionado ao log retorno com o número do pedio
+                     aberto.
+
+[33mcommit 7564d3a58fe75e70c1ec2d483f5b8f21e9b19119[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Mar 22 18:22:41 2019 -0300
+
+    TESTE INTEGRADO 22-03-2019 18:22
+
+[33mcommit 0b9f245205379deddda479b7938feeca4713300c[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Mar 21 17:48:21 2019 -0300
+
+    TESTE INTEGRADO 21-03-2019 17h48
+
+[33mcommit a720964defaec2629af659b2d65973c778048eac[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Mar 20 08:01:30 2019 -0300
+
+    TESTE INTEGRADO 20-03-2019 08:01
+
+[33mcommit a14529685949217ef8f002060ceaf2d67e2eebe4[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Mar 16 17:51:32 2019 -0300
+
+    TESTE INTEGRADO 16-03-2019 17h50
+                  - Troca do componente CheckBox por RadioButton na Tela de Caixa
+
+[33mcommit a8f72d867d6b48695245108842588421d48d4983[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Mar 16 16:41:29 2019 -0300
+
+    TESTE INTEGRADO 16/06/2019 16h40
+                   - Bloqueio do TextFild Senha ao Selecionar a opção Selecione ou se o susuário estiver Bloqueado.
+                   - Ajustes na Tela Cozinha
+                   - Ajustes na Tela Contas a Pagar.
+
+[33mcommit 966dddee2fc3826e9887fbf11e50866a3b5ebd7a[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Mar 15 18:56:09 2019 -0300
+
+    TESTE INTEGRADO 15-03-2019 18:56
+
+[33mcommit 74e3e764662a05ecd08d61d9eb538752f1139e78[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Mar 15 12:24:24 2019 -0300
+
+    TESTE INTEGRADO 15-03-2019 12:23
+                    - Ajustes GErais
+
+[33mcommit 05b7673021cb0a3ea9c2c4279e3fdae95a2bcdb9[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Mar 14 19:44:41 2019 -0300
+
+    TESTE INTEGRADO 14-03-2019 19:44
+                  -Ajustes Gerais.
+
+[33mcommit 5dfb1abd25687e540dabd81ee108a1dbe2ecea2a[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Mar 14 11:28:03 2019 -0300
+
+    TESTE INTEGRADO 14-03-2019 11:26
+                   - Melhorias Tela Pedido
+                     (Finalizada).
+
+[33mcommit a1078225657f410d9e90fe3ddec7973aae53d271[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Mar 13 17:36:50 2019 -0300
+
+    TESTE INTEGRADO 13-03-2019 17:39
+                   - Ajustes Gerais de Layout
+                   - Ajustes e reordenação no Menu Principal
+                   - Correções e Ajustes na Tela do Caixa.
+
+[33mcommit f5ac5a6765e6df2fd3a5e2950833ba19717bd4f1[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Mar 11 18:03:57 2019 -0300
+
+    TESTE INTEGRADO 11-03-2019 18:03
+                   - Ajustes Finais
+
+[33mcommit 18cc439c4134e15e8f681ea0793f9b657f5ad9dc[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Mar 11 16:45:22 2019 -0300
+
+    TESTE INTEGRADO 11-03-2019 16:44
+                   - Adicionado Tela de Bloqueio no Lançamento do Pedido
+
+[33mcommit 665881391a164df744a5fb049c39ea64581389dc[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Mar 11 14:51:51 2019 -0300
+
+    TESTE INTEGRADO 11-03-2019 14:50
+                  - Arredondamento das casas decimais do percentual de mesas ocupadas e  livres.
+                  - Inclusão da Logo Masterfood como padrão
+
+[33mcommit f84b933ac2acb56e42db8b50e67dbfb8034e163c[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Mar 11 11:48:24 2019 -0300
+
+    TESTE INTEGRADO 11-03-2019 11h43m
+                   - Correções e Melhorias na forma de login
+                   - Adição do combo login na Tela Login
+
+[33mcommit 33e3a63a76ee20386cc84a12996918dbc08495dd[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Mar 8 20:39:24 2019 -0300
+
+    TESTE INTEGRADO 08/03/2019 20:39
+
+[33mcommit 3cbac7e0783462b79b4a758fa7e2aef191ceeb08[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Mar 8 08:54:49 2019 -0300
+
+    TESTE_INTEGRADO 07-03-2019
+
+[33mcommit e7999fdebea89cc55d4899f2f48a6fb44f4f3eaf[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Feb 27 18:11:53 2019 -0300
+
+    TESTE INTEGRADO 27-02-2019 18h:10m
+                  - Inclusão da validação adicional para os campos númericos
+                  - Consulta ao WebServices do Correio a partir do campo CEP
+                  - Ajustes Gerais na interface
+
+[33mcommit ee0208246001671465bd95a5fd075999191bc946[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Feb 26 19:28:59 2019 -0300
+
+    TESTE INTEGRADO 26-02-2019 19h27
+                   - Adicionado Consulta de CEP Via WebService no cadastro de Fornecedores.
+                   - Conclusão do método de validação dos campos no formulário de Cadastro de Fornecedores.
+
+[33mcommit b90a0fdf5f3eca44c21bdc11bbae7dbae6c5b4a2[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Feb 25 19:13:00 2019 -0300
+
+    TESTE INTEGRADO 25-02-2019 19:12
+                   - Nova Tela cadastro de fornecedor concluída.
+
+[33mcommit 505b42fa5727588ae7f5d3d28460329dabcd84c5[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Feb 23 19:13:42 2019 -0300
+
+    TESTE INTEGRADO 23-02-2019 19h:08
+
+[33mcommit 00d411a3a79ec12b04dc5613f2190f7de2cf787d[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Feb 23 17:38:46 2019 -0300
+
+    TESTE INTEGRADO 23-02-2019 17h:37
+                   - Ajustes gerais(Tela de Configurações)
+
+[33mcommit 87dc38fa66e8ac77961b7540d464561e5a51f65b[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Feb 22 14:30:26 2019 -0300
+
+    TESTE INTEGRADO 22-02-2019 14:29
+                   - Correção de Bugs
+                   - Adicionado atualização da tabela após remoção de itens do pedido.
+
+[33mcommit c06a044fd0938dc8251cc9a3cf6ba291bcca5ecd[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Feb 21 12:54:34 2019 -0300
+
+    TESTE INTEGRADO 21-02-2019 12h:53
+                  - Correção na formatação dos valores exibidos no caixa
+                    após listagem do pedido.
+
+[33mcommit 0460ff552c36f3c0c4bfbe0281b21ef241adcce1[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Feb 21 09:32:28 2019 -0300
+
+    TESTE INTEGRADO INICIO - 21-0-2019 09h:32m
+
+[33mcommit 4c7fef0c0c45d3df69bd467ca67a24cb80929290[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Feb 20 15:55:18 2019 -0300
+
+    TESTE INTEGRADO 20-02-2019 15:54
+                   - Alteração e aplicação do TableModel na Tela pesquisa Funcionario.
+                   - Ajustes Gerais.
+
+[33mcommit ca8808057289878692fbfa57c97fb61878ff764b[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Feb 19 20:51:58 2019 -0300
+
+    TESTE INTEGRADO 19-02-2019 20:50
+                   - Corrigido estouro de formatação na totalização do Caixa
+                   - Adicionado deteção de conexão de internet.
+                       - Desabilita o botão Enviar caso não haja conexão.
+
+[33mcommit d1bdb9813e9fe6eb3c1cc4d0d74357f75fed5976[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Feb 18 18:58:21 2019 -0300
+
+    TESTE INTEGRADO 18-02-2019
+                   - Correções e Ajustes na tela de cadastro de Mesas.
+
+[33mcommit a220e11ae0f71b1ae4e191cc4155adaf82267e39[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Feb 18 01:27:45 2019 -0300
+
+    TESTE INTEGRADO 18-02-2019 - 01:27
+                   - Ajustes na tela de Cadastro de Mesas.
+
+[33mcommit 17f0a7a9559a1497ddd97767cbefd3e6f9ed377b[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Feb 15 18:33:23 2019 -0300
+
+    VERSÃO TESTE_INTEGRADO 15-02-2019
+                   - Correção no Tela Caixa
+                   - Cadastro de Contas a Pagar (Concluído)
+
+[33mcommit d00222d0609ee4a086041246f303134f32d7c4e5[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Feb 14 21:16:49 2019 -0300
+
+    VERSÃO 1.9.6 - TESTE INTEGRADO 14-02-2019
+                   - Finalização Cadastro de Contas a Pagar
+                   - Remoção do ícone das janelas devido a falha no carregamento após compilação
+
+[33mcommit be62ccea957bcf5ee93ac9ce350845694c8fe7ac[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Feb 12 20:53:32 2019 -0300
+
+    TESTE INTEGRADO 12-02-2019
+                   - Adicionado funcionalidade de reimpressão de recibos
+                   - Ajustes Gerais.
+
+[33mcommit a9da66ed309c05d235ef4392dc748253b763a3cb[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sun Feb 10 13:14:55 2019 -0300
+
+    VERSÃO 1.9.6 - TESTE INTEGRADO - 10-02-2019
+
+[33mcommit 53945ee22f9bf2cdbd0f7c8bb928c8a9c9df5a50[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sun Feb 10 00:05:41 2019 -0300
+
+    TESTES INTEGRADO 10-01-2019
+                   - Melhorias gerais
+
+[33mcommit 129dc977db7cfd2875361735e7879a0bd870b6cf[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Feb 8 22:49:44 2019 -0300
+
+    TESTE INTEGRADO 08-02-2019
+                   - Implementado devolução para itens com quantidade > 1
+                   - Implementado envio automático de prato para a cozinha.
+                   - Ajustes gerais de layout.
+
+[33mcommit 4f00c35a7a20144435c49913be93b890ff0b164e[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Feb 6 20:33:02 2019 -0300
+
+    TESTE INTEGRADO 06-02-2018 20:29
+                   - Adicionado verificação de Tipo de Impressão no Pagamento
+                   - Ajustes gerais no layout da tela principal e pedido
+                   - Adicioando as libs do JasperReport versão 6.6.0
+                   - Novo cupom de pagamento.
+
+[33mcommit f78093ab54f3936740c326887d9a1cb4b9600112[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Feb 5 13:43:16 2019 -0300
+
+    TESTE INTEGRADO 05-02-2019 13:43
+
+[33mcommit f15eb135924580f201317e42ef0fbc8d7692bba9[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Feb 4 21:09:44 2019 -0300
+
+    REVISÃO TESTE INTEGRADO 04-02-2019 21:08
+                   - Ajustes Gerais
+
+[33mcommit 5daa77984dca0874508812e26cec75388517ab5a[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Feb 4 16:26:07 2019 -0300
+
+    REVISÃO TESTE INTEGRADO 04-02-2019 16:25
+
+[33mcommit 92afd03d9ce2dd380bb8c81149641200db539e15[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sun Feb 3 11:45:26 2019 -0300
+
+     REVISÃO TESTE INTEGRADO(Final) 03-02-2019
+                    - Ajustes Finais
+
+[33mcommit a70189eeaf89a6237f3cacfd9c3910543b6f0b49[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sun Feb 3 11:13:05 2019 -0300
+
+    REVISÃO TESTE INTEGRADO(Final) 03-02-2019
+                    - Ajustes finais do cocumento de revisão
+                      Teste Integados 02-02-2019
+
+[33mcommit f099af83ea6312a5093c97052b7a7af5a9a0eee9[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Feb 2 23:20:43 2019 -0300
+
+    REVISÃO TESTE INTEGRADO 02-02-2019
+                   - Correções Gerais
+
+[33mcommit 0db9f1d65a75d780aa8e16f0b9d7488c87a2cbb5[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Feb 1 21:41:16 2019 -0300
+
+    VERSÃO TST_INT_01_02_2019
+                   - Tela Caixa
+                        - Agrup
+                   - Agrupamento de itens repetidos do pedido com totalização de suas
+                     quantidades e valores
+                   - Tela Pagamento - (Conceder Desconto)
+                     - Registro do desconto no banco na p
+                   - Registro do desconto no banco para pagamento > que zero
+
+[33mcommit 7752269ef95e0a58bb2eab300c16f5ffb15db6d4[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Feb 1 18:21:49 2019 -0300
+
+    TESTE_INTEGRADO 31-01-2019
+                   - Tela cozinha
+                     - Correção do Cálculo do Tempo de Epera
+                     - Adicionado funcionalidade de impressão de comprovante na cozinha
+                     - Correção da exibição do status do prato na cozinha para o garçom
+
+[33mcommit 8f554e6ecfa2df92d592a0ed884b2d6d32b25b58[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Jan 31 17:02:22 2019 -0300
+
+    TESTE_INTEGRADO 31-01-2019
+                  - Correção na Tela de Caixa
+                      - Corrgida a passagem de valores entre janelas.
+                  - Tela Lançamento de Pedido
+                      - Coreção após inserção do produto os campos são limpos e valores zerados conforme documentação
+                  - Fechamento de caixa
+                      - Integração de fechamento de caixa diário e caixa anterior automaticamente no fechamento diário.
+
+[33mcommit a7b76e49918d114ddacd8385e5ab6d5ce2712527[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Jan 31 00:25:16 2019 -0300
+
+    TST_31-01-2019 - Correções Gerais
+
+[33mcommit aa47285ed32c64f0b2fb2a4826c9dc021228eb71[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Jan 30 09:52:31 2019 -0300
+
+    VERSÃO: TST_INT_23-01-2019
+                   - Copiado para a classe Controler Caixa o método de verificação
+                     de moviemntação anterior
+
+[33mcommit 6918388fc3f0c6c89d9d9bef2184f53d6a387aca[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Jan 29 15:23:29 2019 -0300
+
+    VERSÃO: TST_INT_29-01-2019
+    - CORREÇÃO NO LOGIN
+       - Foi necessário adicionar ao retorno do banco a conversão para minúscula.
+         Com isso o problema do caractere especial também foi sanado.
+    - CUPOM DE PAGAMENTO
+       - Foi removido da cláusula WHERE o parâmetro de data que limitava a impressão do
+         cupom na data atual. Isto impedia que o cupom fosse impresso para pedidos do dia
+         anterior.
+    - TELA CAIXA - (BOTÃO RECEBER PAGAMENTO)
+       - Adicionado ao UPDATE a coluna data, na tabela CADPEDIDO.
+       - Os pedidos abertos em data anterior terão sua data atualizada para a data atual
+           no momento do recebimento.
+
+[33mcommit 430fe0f54abe69f4e91b5090d6104f310af306f0[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Jan 28 17:07:35 2019 -0300
+
+    VERSÃO 1.9.6_REV_GERAL28-01-2019
+                   - Implementação de TableModel para as tabelas da Tela Cadastro
+                     de Pedido
+                   - Correção do UPDATE - Não estava gravando o tempo total de
+                     preparação do Prato.
+
+[33mcommit dcdaf9f77b0a97880003317eb7b48bd8b553b6d8[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sun Jan 27 08:54:39 2019 -0300
+
+    Ajuste de tamanho do campo valor parcial
+
+[33mcommit f5764a6384b5c0c683bf489767e584ba3a40274a[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Jan 26 14:23:23 2019 -0300
+
+    VERSÃO 1.9.5_REV_GERAL26-01-2019
+                   - Revisão e Criação de novas funcinalidades
+
+[33mcommit 22ecad34984ae83b5b612d56593cfe39f44d3c06[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Jan 24 21:59:36 2019 -0300
+
+    VERSÃO_1.9.4_REVE_01_24-01-2019
+                   - Ajustes de Layout
+                   - Adicionado funcionalidade adicionarLicença
+                   - Correção de exceções na inicialização causadas por
+                     falta de registro na tabela Cadastro de Empresa
+
+[33mcommit 46b1a779ac39af1d42e6dd261de031c3764a3d71[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Jan 23 18:49:58 2019 -0300
+
+    VERSÃO_1.9.3_REVE_01_23-01-2019
+                   - Adicionado Cancelamento de Pedido
+    git commit -m VERSÃO_1.9.3_REVE_01_23-01-2019
+
+[33mcommit ec670bf3c20eed94f2a187f89b68366a142245bd[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Jan 22 18:39:30 2019 -0300
+
+    VERSÃO 1.9.2_REVE_03_22-01-2019
+                  - Correções Gerais
+
+[33mcommit e057a495b5983e7cea7542fc1a764b81d7d99ce2[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Jan 21 22:41:39 2019 -0300
+
+    VERSÃO 1.9.1_CX_REVE02_21-01-2019
+                   - Correções no Layout
+                   - Adicionado tela de Autenticação do usuário ao conceder desconto
+                   Adicionado tabela desconto_pedido ao banco.
+
+[33mcommit 96cf8d7f83bd0938814c9139f1ff0969b5290ca8[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sun Jan 20 14:21:50 2019 -0300
+
+    VERSÃO 1.9.0_CX_REVE02_20-01-2019
+                    - Adicionado formatação de Valor para o campo Valor Pago
+                    - Adicionado funcionalidade de fechamento Retroativo na tela de GERENCIAMENTO DE CAIXA
+
+[33mcommit b7d0440472996192754480ed56a457936d2531ef[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Jan 19 19:31:38 2019 -0300
+
+    projBar_1.9.0_CX_REV01_19-01-2019
+                   - Correção Fucionalidade Caixa
+
+[33mcommit 6a1c3708ca24237307678c4ca5c74728672c325d[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Jan 19 16:37:46 2019 -0300
+
+     VERSÃO 1.9.0 - REVISAO4 19-01-2019
+                    - Correção de Bugs
+                    - Cadastro de Funcionário Concluído
+
+[33mcommit 34b8b932806ab652131037bd5303c334796ae8d8[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Jan 19 13:19:17 2019 -0300
+
+    VERSÃO 1.8.9 - REVISAO3 19-01-2019
+
+[33mcommit b36a47cc2664c45c34bbab6492a86107a64cb922[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Jan 18 21:41:04 2019 -0300
+
+    VERSÃO 1.8.9 - REVISAO3 18-01-2019 - final
+
+[33mcommit 0d1ff928d403f7f43a0072dc1ed1a0b51e27d188[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Jan 18 13:12:33 2019 -0300
+
+    VERSÃO 1.8.9 - REVISAO2 18-01-2019
+                   - Correção de Bugs e Ajustes Gerais
+
+[33mcommit aeb328a0e5b9cc23db1ca1324620e873337ed6ec[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Jan 17 22:10:49 2019 -0300
+
+    VERSÃO 1.8.8 - REVISAO2 17-01-2019
+
+[33mcommit 9de0ee4efde1a2f7ea2a1a2bc4e23ac1df2c8080[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Jan 17 14:51:57 2019 -0300
+
+    VERSÃO 1.8.7 - CORREÇÕES VALIDAÇÃO
+
+[33mcommit 7b077e5403aad85660fa9175b2ebd0b379ef7767[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Jan 16 18:49:05 2019 -0300
+
+     Versão 1.8.5 REV 16-01-2019
+
+[33mcommit 3a09ff1f7c26c683debbacadf24d6dc73fc741ff[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Jan 16 12:42:38 2019 -0300
+
+    Versão 1.8.5 REV 16-01-2019
+                      - Adicionado Validação do Cadastro de Funcionário
+
+[33mcommit e73c974708956dc40ef130071b2c361e2de51092[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Jan 14 18:28:49 2019 -0300
+
+    Versão 1.8.5 REV 14-01-2019
+                   - Ajustes Gerais
+                   - Nova Tela de Cadastro Finalizada
+
+[33mcommit b1ba02168e57e1c4b631f0811259f9c9f594b0d1[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Jan 12 18:56:01 2019 -0300
+
+    Versão 1.8.4 - Rev-12-01-2019 - Ajustes Gerais
+                   Adicionado Nova Tela de Cadastro de Funcionário
+
+[33mcommit d3f2f012da3942f78ed904c759b62f96d028d973[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Jan 11 19:21:48 2019 -0300
+
+    Versão 1.8.3 REV 02 - 11-01-2019 - Correções Gerais
+
+[33mcommit fea1cd6534882bc9de231b859373b2ebc5d9c382[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Jan 11 13:08:07 2019 -0300
+
+    versão 1.8.2 - rev-10-01-2018 - Ajustes de Layout
+
+[33mcommit a52bb08b03b7bd8ea9a50caffd2e84ad32900b54[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Jan 10 11:22:39 2019 -0300
+
+    Versão 1.8.1 - Revisão 08-01-2019 - Correções Gerais
+
+[33mcommit a5a07910dd3e7debc0e66b203437c798d5b0ad54[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Jan 2 09:05:38 2019 -0300
+
+    VERSÃO 1.8.0 - AJUSTES DE LAYOUT
+
+[33mcommit 169a17a9a39b1720a6957fb122226bab6db7b91e[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Dec 27 11:37:54 2018 -0300
+
+    Versão 1.7.9 - ROTINA DE BACKUP
+            - ROTINA DE BACKUP ATUALIZADA E MOVIDA PARA A CLASSE BACKUP
+        - Adicionado método que renomeia e copia o arquivo de bakup para
+              o local indicado no cadastro de empresa.
+            - Adicionado tela de splash na inicialização do Sistema realizando
+              bakup enquanto carrega.
+
+[33mcommit f41a7eb509daa001e44350ce8f7cefc02bc4c099[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Dec 27 10:07:32 2018 -0300
+
+     Versão 1.7.8 -
+                    - Adicionado a classe backup as rotinas necessário para
+                    - A geração e cópia do Arquivo de Bakup para local indicado
+
+[33mcommit 64820458ccd4cfdea17a6f4ba57594ec2fcdac2d[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sun Dec 23 11:48:17 2018 -0300
+
+    Versão 1.7.7- COPIA BAKUP PARA LOCAL INDICADO
+            - TELA CADASTRO EMPRESA
+                    - Habilitado escolha do local de bakup
+            - TELA PARÂMETRO
+                    - Incluído funcionalidade de cópia do arquivo de bakup
+                      para local escolhido no cadastro de Empresa.
+
+[33mcommit 0b3928922128ab33ddc5dcea89ea2e98a58d2545[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sun Dec 23 09:51:37 2018 -0300
+
+     Versão 1.7.6 - CORREÇÃO FINAL - REV_03
+    REV_031
+
+[33mcommit 770f48d7c48044f04361440efad1a2bc9a370f19[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Dec 22 14:20:30 2018 -0300
+
+    Versão 1.7.6 - CORREÇÃO FINAL - REV_03
+
+[33mcommit b4d797b79693b81f3e6cce64db02cb537ebeb891[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Dec 21 13:44:03 2018 -0300
+
+    Commit de SEgurança
+
+[33mcommit af947c25743400418a53403bf4609a1a095c345f[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Dec 21 13:32:00 2018 -0300
+
+    Versão 1.7.6- CORREÇÕES REV_04
+            - Tela cadastro de Mesas
+            - Revisão na Inclusão e Alteração de Garçom
+
+[33mcommit f6e82a84b4de19d17747474321ecd91770d91480[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Dec 21 06:22:43 2018 -0300
+
+    Versão 1.7.5- CORREÇÕES REV_03
+        - Grupo de Produtos
+            - Fornecedores
+            - Cadastro de Mesas
+
+[33mcommit 3654fc06706ea55386abf9f277a65a5f6559448c[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Dec 19 18:21:25 2018 -0300
+
+    Versão 1.7.4- CORREÇÕES REV_02
+        - Tela Login
+            - Tela Principal
+            - Tela Estoque / Gerenciar Estoque
+            - Tela Cadastro de Produto
+
+[33mcommit 13cb5247e46cfc2a74e39acbb9535a56eef01350[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Dec 19 10:08:48 2018 -0300
+
+     Versão 1.7.3 - Correção e Melhorias de Layout
+
+[33mcommit 69f1916405327100a57410d094b303140e0c929d[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Dec 18 20:04:38 2018 -0300
+
+    Versão 1.7.2 - Revisão Final
+
+[33mcommit b5380b42254fc48bb982529bf33fc25be949b256[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Dec 18 19:38:10 2018 -0300
+
+    Versão 1.7.1 - TELA CADASTRO DE FUNCIONARIO - AJUSTE DE LAYOUT
+
+[33mcommit def57472c064cf84fb3a2c61622ca9d9e2b700d1[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Dec 18 16:54:47 2018 -0300
+
+    Versão 1.7.0 - CORREÇÕES
+        - TELA CADASTRO DE MESA
+            - Correção Mensagens ao usuário
+            - Remoção do Botão Limpar
+            - TELA COZINHA
+                    - Correção no nome das colunas.
+
+[33mcommit 2246b4e6e38442ed506e727d975891678261696f[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Dec 17 20:39:35 2018 -0300
+
+    Versão 1.6.9 - Tela Gerenciamento Estoque - Ajuste Layout
+
+[33mcommit 4f76067e1555e614fa6cbf979d6fe7b22132d552[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Dec 17 14:25:44 2018 -0300
+
+    rev-01 - 1.6.8
+
+[33mcommit ac6dfa42ddb187153497a9f010454be82c7b69ea[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Dec 17 11:26:28 2018 -0300
+
+    Versão 1.6.8 - Licenciamento - (Finalizado)
+
+[33mcommit b19abb5ccba9acde13072a8079de24c9de279ee2[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sun Dec 16 20:48:08 2018 -0300
+
+    Versão 1.6.7 - Tela Gerenciamento de Licença
+            - Correção de Bugs
+            - Adicionado a funcionalidade de envio de e-mail Solicitação de
+              Renovação de Licença
+
+[33mcommit 1349d9577016c41d1d61a7b77d195b103643c68a[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Dec 15 11:21:52 2018 -0300
+
+    Versão 1.6.5 - Gerenciador de Licença
+            - Adicionado validção da licença antes do login do sistema
+            - Adicionado Gerenciador de Login
+             - Informa os dias restantes para o cliente a partir
+                       dos 10 últimos dias
+
+[33mcommit b73cbd1f0db2838cbd852fc82e23e915fea9f75a[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Dec 15 01:13:42 2018 -0300
+
+    Versão 1.6.5 - Tela Ativação de Licença
+
+[33mcommit 894d550cc552709fc0fef5c98090b7d03489f4c1[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Dec 12 23:12:45 2018 -0300
+
+    Versão 1.6.4 - Ajustes de Layout(Janiel)
+
+[33mcommit 8d95b4cc2bff205cc900e44e2a917badbbb75525[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Dec 12 20:54:49 2018 -0300
+
+    Fix parcial (Versão 1.5.4)
+            - TELA REAJUSTE DE PREÇOS
+                    - Ajuste de Layout
+                    - Adicionado opção de alteração direta de valor
+                    - Adicionado mensagem (SEM VALOR FISCAL) no cupom
+
+[33mcommit 179dbee674c54e04f687490c609638c9902ddb9f[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Dec 12 10:03:13 2018 -0300
+
+    Fix parcial (Versão 1.5.3)
+            - Adicionado botão de remoção de itens na tela cozinha
+
+[33mcommit a09c41e2c4b3170ca121016ec0febd7c21454005[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Dec 12 09:22:39 2018 -0300
+
+    Fix parcial (Versão 1.5.9)
+            - Modificado a posição do botão Logout para o lado direito
+            - Ajuste  no layout do cadastro empresa(Ordem dos campos)
+            - Adicionado campo Complemento
+            - Adicionado mensagem de confirmação ao usuários antes da exclusão
+            - Adicionado botão enviar para cozinha no lançamento de pedido (Getente)
+
+[33mcommit 4c52bff71a3230d7095ddee74a4c95b073673422[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Dec 11 12:18:29 2018 -0300
+
+    Fix parcial (Versão 1.5.9)
+            - Correção na descrição da movimentação do Estoque
+            - Adicionado operação venda
+            - Correção no Registro de Movimentação do Estoque
+
+[33mcommit 61605ee7949d5546d452b11d58c719f1a3d3e280[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Dec 11 10:14:48 2018 -0300
+
+    Versão 1.5.9 - Correções
+            - Correção na descrição da movimentação do Estoque
+            - Adicionado operação venda
+            - Correção no Registro de Movimentação do Estoque
+
+[33mcommit 42a11728840c2f1c8ef5046da4f8f94d5579c9ff[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Dec 8 18:19:38 2018 -0300
+
+    Versão 1.4.9 - Final
+
+[33mcommit 3a3165226d4746ff21908aeda6e233db291c2386[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Dec 8 17:04:26 2018 -0300
+
+    Teste antes compilação nativa
+
+[33mcommit 8167dd13f0aab0b93101124786a2cba8f0a08fd9[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Dec 8 15:59:50 2018 -0300
+
+    Versão 1.5.8- Teste01 (Fix 1.4.8)
+    - Fix Bug
+
+[33mcommit dffc6ece518eaffa8a8f2dd960f0502cc424fa4c[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Dec 8 15:17:54 2018 -0300
+
+    Versão 1.5.7- Teste01 (Fix 1.4.8)
+    - Correção no registro de movimentação
+            - Tela Pedido - Garçom
+            - Tela Pedido Gerente
+            - Gerenciamento Estoque
+
+[33mcommit 124c29c7987ec308fd4ff763cc9c29b6ca107c28[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Dec 7 19:42:42 2018 -0300
+
+    Versão 1.5.6- Teste01 (Fix 1.4.8)
+    - Correção do parâmetro do Sistema
+
+[33mcommit eed2d5b8c2078497861d69a0b223a59995069f00[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Dec 7 17:34:43 2018 -0300
+
+    Versão 1.5.5 - final
+
+[33mcommit 3cf710d63bff53b097e4b7f2e09ab62c3b6496b8[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Dec 7 13:21:28 2018 -0300
+
+    Versão 1.5.5 - Teste01 (Fix 1.4.8)
+    - Tela de Caixa - Ajuste GEral
+    - Lançamento Pedido
+            - Ajuste no Layout
+    - Gerenciamento de Caixa - Formatação de Valores
+
+[33mcommit 5ae8ec73f8cfbdde9064beab9458daaa7b59a3c3[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Dec 7 08:39:13 2018 -0300
+
+    Versão 1.5.4 - Teste01 (Fix 1.4.8)
+    - Tela Cadastro de Funcionários
+            - Ajustes no Layout
+    - Tela Lançamento Pedido
+            - Ajuste no Layout
+
+[33mcommit 29a18b6dcb6570daf5c57905d19640313de3d245[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Dec 6 22:52:37 2018 -0300
+
+    Versão 1.5.3 - Teste01 (Fix 1.4.8)
+    - Tela Gerenciamento Estoque
+            - Fecha tela de gerenciamento estoque se o operador não for o gerente
+            - Correção dos Botões adicionar Fornededor e Grupo de produto
+            - Adicionado palavra compra na observação da movimentação
+
+[33mcommit 900084245675c0fefb47aabda1cb94e44dda81d1[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Dec 6 21:57:04 2018 -0300
+
+    Versão 1.5.1 - Teste01 (Fix 1.4.8)
+    - Tela Cadastro de Produto
+            - TextFilds com valores foram Centralizados
+            - Adicionado ícones Operador  e Perfil
+            - Formatação de casas decimais da coluna Valor da tabela produto
+            - Checagem do produto antes de ser cadastrado
+    - Tela de Configurações
+            - Removido botão para acesso a tela de Ocorrências
+            - Removido botão HomologaPonto
+
+[33mcommit 402ac600c88bd97fe8ce3ea4e7432bf593edd0b6[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Dec 6 19:38:42 2018 -0300
+
+    Versão 1.5.0 - Teste01 (Fix 1.4.8)
+    - Tela Cadastro Empresa
+            - Itens desabilitados (Caminho do Banco/ Caminho Logo)
+    - Tela de Configurações
+            - Removido botão para acesso a tela de Ocorrências
+            - Removido botão HomologaPonto
+
+[33mcommit 824869c16a4d35f24b4a420cde7bcc19a7481169[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Dec 6 19:13:58 2018 -0300
+
+    Versão 1.4.9 - Teste01 (Fix 1.4.8)
+    - Tela Cadastro de Mesas
+            - Correção no nome dos botões
+
+[33mcommit a1f45c9bc2b0170fc6ee3198ddf1cd1ad2c924e3[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Dec 6 18:51:36 2018 -0300
+
+    Versão 1.4.8 - Teste01 (Fix)
+    - Tela Cadastro de Grupo de Produto e Grupo Financeiro
+            - Altura da linha das tabelas alteradas para 20
+            - Checagem de grupo. Retorna um boolean para o grupo informado.
+
+[33mcommit f535656646e38354915e6c13868662f0c651d001[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Dec 5 17:04:43 2018 -0300
+
+    Versão 1.4.8 - Correção do Cálculo do Reajuste
+
+[33mcommit 7c12e51b1cf20bbd4d36dc5a69478ee874262ce7[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Dec 5 13:45:03 2018 -0300
+
+    Versão 1.4.7 - Ajustes Gerais
+
+[33mcommit 84bbb0562c296d685418f81b81ce41a979a73ef9[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Dec 5 12:15:54 2018 -0300
+
+    Versão 1.4.6 - Melhorias no Cálculo automático da movimentação
+            - O cálculo da movimentação permanecerá desabilitado por padrão até que
+                    CheckBox Exibir Movimentação seja habilitado e o status od caixa
+                    igual a Cdaixa Aberto.
+            - Adicionado combo com os meses do ano. O combo só será carregado com
+              os meses menores que o mês atual.
+
+[33mcommit 44c415b75bb1f5ce7f58e3dc2d3a45dbf973e1be[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Dec 4 14:34:18 2018 -0300
+
+    Versão 1.4.5 - Carregamento Automático da logo do Sistema
+            - Tela de Login
+            - Tela Principal
+            - Adicionado rodapé de dados no comprovante de pagamento
+
+[33mcommit 69ff9255dbab75166d094221c5d9e2150d99a2a4[m
+Merge: 659b42a af26e1f
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Dec 3 18:06:31 2018 -0300
+
+    Correção de Commit2
+
+[33mcommit 659b42a35b2ddbb2eb8bd7ccd99a96d3b604d140[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Dec 3 18:03:07 2018 -0300
+
+    Correção de Commmit Master
+
+[33mcommit af26e1f4066f3645697153bd5743d7b31a0b1d30[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Dec 3 18:00:21 2018 -0300
+
+    Versão 1.4.4 - Correção na gravação da logo no cadastro empresa
+
+[33mcommit 085276c58aa80467a1bd5abf3694b78cd7165657[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Dec 3 17:15:32 2018 -0300
+
+    Versão 1.4.3 - Adição de Rodapé Dinâmico
+            - Relatório de Funcionários Ativos
+            - Relatório de Funcionários Inativos
+            - Reltório Geral de Funcionários
+            - Relatório de Mesas
+
+[33mcommit f6058993687382e964e667d72211507892822cb6[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Dec 3 15:07:06 2018 -0300
+
+    Versão 1.4.2 - Adição de Rodapé Dinâmico
+            - Relatório Grupos Financeiros
+            - Relatório de Comissão Sintético
+            - Relatório de Contas Vencidas
+            - Relatório de Contas a Pagar
+            - RElatório de Entradas
+            - Relatório de Saídas
+            - Relatório de caixa Sintético
+
+[33mcommit 7bcec3336c772d1634eff4363debd8825d936df8[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Dec 3 10:25:34 2018 -0300
+
+    Versão 1.4.1 - Adição de Rodapé Dinâmico
+            - Relatório Grupo de Produtos
+            - Relatório Produtos em Estoque
+            - Relatório de Posição no Estoque
+            - Relatório de Movimentação
+
+[33mcommit 1e67973bcd200a08f637ceb69229136d4f854ae7[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sun Dec 2 21:55:11 2018 -0300
+
+    VERSÃO 1.4.0- Correção Tela Relatório
+            -  Tela reconstruída
+
+[33mcommit 97f3161930e7a36ec2f44b50af0c44577c9e0154[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Dec 1 21:02:56 2018 -0300
+
+    VERSÃO 1.3.9- teste
+
+[33mcommit a23ca615813f5eec52edd95134acf63787d3597b[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Dec 1 18:15:10 2018 -0300
+
+    VERSÃO 1.2.9 - Ajustes no layout
+    - Correções na Tela de Login
+
+[33mcommit 90e5238854e300c7326dc4081849facd1a15ad6e[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Dec 1 15:17:44 2018 -0300
+
+    VERSÃO 1.2.8
+    - Correção no cupom de Pagamento
+             - Adicionado nome do Atendente
+             - Adicionado o número da mesa
+    - Ajustes no Layout da Tela de Caixa
+             - Campos de pagamento na modalidade dinheiro desabilitados por padrão
+               os campos só serão habilitados quando a forma de pagamento DINHEIRO
+           for selecionada.
+    - Tela de Pedido Gerencia
+            - Ajustes de Layout
+
+[33mcommit dc480bb57f6c4bdfd4e1fa3e0565ac0ef7124394[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Nov 29 20:44:22 2018 -0200
+
+    VERSÃO 1.2.7 - Correção da impressão do relatório de Caixa Sintético
+             - Adição dos parâmetros de período de data
+
+[33mcommit 05a8ef6527af012edc87fda2ad1f198939c32165[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Nov 29 18:14:54 2018 -0200
+
+    VERSÃO 1.2.6 - Controle de Exibição de Impressão
+    -Inslusão do campo imprimir_na_tela que controlará se o relatório será exibido primeiro
+    antes da impressão ou se será enviado diretamente para impressora.
+
+[33mcommit a88241b09f1ac52498f7c534b7dc006aa9399219[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Nov 29 14:44:02 2018 -0200
+
+    VERSÃO 1.2.5 - ADICIONADO MÉTODO DE IMPRESSÃO DIRETA
+
+[33mcommit cbc9c298e507f38d10407e7affc15eb1ef3db446[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Nov 29 10:11:24 2018 -0200
+
+    VERSÃO 1.2.4- Alteração de cores nas janelas
+            - TELA DE OCORRÊNCIAS
+            - CADASTRO EMPRESA
+            - TELA DE FORNECEDORES
+            - CADASTRO DE FUNCIONÁRIOS
+            - CADASTRO DE PRODUTOS
+            - TELA DE CAIXA
+            - TELA DE CONFIGURAÇÃO
+            - TELA DE ESTOQUE
+            - GERENCIAMENTO DE CAIXA
+            - GRUPOS FINANCEIRO
+            - HOMOLOGAÇÃO
+            - TELA DE LOG
+            - TELA DE LOGIN
+            - MOVIMETAÇÃO ESTOQUE
+            - TELA DE PEDIDO 1 E 2
+            - TELA RANKING DE VENDAS
+
+[33mcommit 4583a81ea850fec1924d153b12f18c1bb9162e6b[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Wed Nov 28 14:23:07 2018 -0200
+
+    VERSÃO 1.2.3 - Ajustes na Tela Inicial
+
+[33mcommit 7bb3c013e7b5ee39303887cdd58ecd8fabb4e6dd[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Nov 27 23:29:40 2018 -0300
+
+    Versão 1.2.2 - Ajustes no layout da Tela de estoque
+
+[33mcommit bb621d6bb971f9e22206705578c1179d58522ba5[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Nov 26 18:04:50 2018 -0300
+
+    Versão 1.2.1 - Ajustes no Layout da Tela
+    - Tela Cadastro de Mesa
+    - Tela Cadastro de Fornecedores
+
+[33mcommit 068e838c1523c8499a8f724e17a3b4fb1f4a5e60[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Nov 24 19:16:31 2018 -0300
+
+    Versão 1.1.19
+    Ajustes no Layout da Tela de Login
+            - Adicção de icones na tela inicial
+
+[33mcommit e3f18473b389828f956010a13fa06eb05734cc78[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Nov 24 18:03:05 2018 -0300
+
+    Versão 1.1.17
+    TELA DE LOGIN
+            - Adicionado mensagem de licença de software para empresa cadastrada
+
+[33mcommit 47cbe6fe079014361f1dbf1ac8b29e1ee033ef6c[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Nov 24 14:42:45 2018 -0300
+
+    Versão 1.1.16
+    TELA CADASTRO EMPRESA
+            - Adicionado os dados da empresa
+            - Adicionando as funcionalidades ADICIONAR / EXLUCIR / ALTERAR
+
+[33mcommit 9f4cf56307b057d8721177e291f2887feda1564a[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Nov 23 21:27:39 2018 -0300
+
+    Versão 1.1.15
+    Ajustes de Layout
+
+[33mcommit 3484ea4e23e8054a4d0761bb83f50c59daad7b6e[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Nov 23 16:54:09 2018 -0300
+
+    Versão 1.1.14
+    
+    Construção da tela de cadastro de Despesas
+
+[33mcommit e2031d3a4e137827d927837f295468faa2a199a4[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Nov 23 12:43:58 2018 -0300
+
+    Fix do último commit Versão 1.1.13
+
+[33mcommit ea7ae1a2c59d86052c521f790f13cf1f8ddeb12c[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Nov 23 12:33:43 2018 -0300
+
+    Versão 1.1.13
+    
+    Tela Cadastro de Despesas
+            Ajustes
+                    - Ajuste no Layout
+                    - Ajustes na checagem dos campos antes de qualquer CRUD
+            Correções
+                    - Correção no mês ao gerar a parcela
+                    - Remoção dos CheckBox de filtro de contas
+                    - Adição do comboFiltro com as opções anteriores
+
+[33mcommit 545f90505e4c6a465903ea3d3b210e047702d649[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Nov 23 08:44:41 2018 -0300
+
+    Versão 1.1.12
+    
+    Tela Cadastro de Despesas
+            Ajustes
+                    - Ajuste no Layout
+                    - Adição Verificação de contas já existentes
+            Correções
+                    - Registro do operador no log contas a pagar na opção Extorno
+                    - Aterações no local da ação click co o botão do mouse.
+                      Ação Movida do componente PANEL para o LABEL(botões).
+
+[33mcommit 2825bbbeca1a9f59e8779bee52663791e0ad9ff5[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Nov 22 18:15:00 2018 -0300
+
+    Versão 1.1.11
+            - Correção de Bug na liberação de produtos com quantidade maior que a
+              quatidade em estoque.
+            - Adição de label com a versão do sistema
+
+[33mcommit ac6955ab17870119cf5d01d3a65320ccdad1b285[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Nov 22 16:31:03 2018 -0300
+
+    Versão 1.1.10
+    - ADICIONADO AVISO SOBRE FALTA DE MOVIMENTAÇÃO DE CAIXA NA
+      EXCESSÃO GERADA PELA ABERTURA O RELATÓRIO DE CAIXA.
+
+[33mcommit ee9d2a6ca167252834514fe86e4729fe100bca09[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Thu Nov 22 14:55:20 2018 -0300
+
+    - ADICIONADO OS RELATÓRIOS DE ENTRADA E SAÍDA
+    - CORREÇÃO RELATÓRIO DE CAIXA
+
+[33mcommit 9eca5543196b5fc51cd5869ccffc51426629bf56[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Nov 20 09:59:37 2018 -0300
+
+    Versão 1.0.9.0 Ajustes na tela Inicial
+            - Adicionado icones ao usuário logado, perfil e data
+
+[33mcommit 842073217ba0f74d7011ee4a94c3db03a07ded33[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sun Nov 18 20:51:42 2018 -0300
+
+    TELA CAIXA
+            Verificação de caixa Fechado.
+            Se fechado desabilita o botão receber
+
+[33mcommit 9546fdf02bc48e47d6087480e80ce66953155783[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Nov 17 15:29:36 2018 -0300
+
+    TELA STATUS COZINHA
+            - Alteração na exibição do status do prato enviado a cozinha
+           - Exibe todos os produtos enviados a cozinha pelo garçom na data atual
+             ordenados pelo id do produto
+            - Adicionado acesso a tela de lançamento de produtos no pedido na tela inicial
+        - Ajustes na tela  principal
+            - adicionado acesso a tela de pedidos
+
+[33mcommit d77f3e73ec2e613ea2268c2499fef4c1055c9f98[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Nov 17 11:06:00 2018 -0300
+
+    VERSÃO 1.2 - TELA PEDIDO 2
+            - Correção no Layout
+    TELA CAIXA
+            - Adicionado componente (Jspinner) Número de pessoas
+            - Alteração no Cupom (PARCIAL / COMPROVANTE DE PAGAMENTO)
+          Adicionado parâmetros que recebe o valor do pedido e divide pelo
+              numero de participantes.
+
+[33mcommit 054c1c28ff77e2ea3269d4fcb82425f3de082b56[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Nov 17 12:18:17 2018 -0300
+
+    VERSÃO 1.1 - TELA PEDIDO 2
+            - Correção no Lançamento de Pedido Gerencia
+            - Desbloqueio dos campos quantidade e codigo só após seleçãodo pedido
+            - Pesquisa por iniciais do nome do produto
+            - Atualização da tabela detalhe do pedido
+            - Adicionado exibição de mensagem de erro ou valor inválido
+            - Totalização do produto localizado
+
+[33mcommit 98a4e21f06ca84f6863de3f9d1e4f41f573ae965[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Sat Nov 17 07:30:43 2018 -0300
+
+    Cadastro de Pedidos - Gerencia 1.0 - Localização de Produto e totalização da venda
+
+[33mcommit 715c3d40d76c46ba4d188b87b2c92e5748478c5a[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Fri Nov 16 12:45:45 2018 -0300
+
+    CORREÇÃO DE BUGS
+
+[33mcommit f753e2d80b7357465aaee6111e249045541a8ef0[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Tue Nov 13 13:50:00 2018 -0300
+
+    CORREÇÃO NA CONEXÃO DO BANCO DE DADOS COMPATÍVEL MYSQL8
+
+[33mcommit 46a17fb555332c0b8e6c73857dcc869538033586[m
+Author: Elias Santana <eliasantanasilva@gmail.com>
+Date:   Mon Nov 5 18:00:26 2018 -0300
+
+    ProjBar  Versão 1.0.8.0 - CORREÇÃO DE BUGS REL. PARCIAL

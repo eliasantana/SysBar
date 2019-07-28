@@ -318,7 +318,7 @@ public class ControlerPedido {
     // Envia um produto para a cozinha
     public boolean enviaProdutoCozinha(ArrayList<String> produtoCozinha) {
         boolean resp = false;
-        String sql = "INSERT INTO tbcozinha (codProduto, produto, qtd, funcionario, mesa, status, npedido,hora_solicitacao) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO tbcozinha (codProduto, produto, qtd, funcionario, mesa, status, npedido,hora_solicitacao,observacao) VALUES (?,?,?,?,?,?,?,?,?)";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -331,7 +331,8 @@ public class ControlerPedido {
             pst.setString(6, produtoCozinha.get(5));
             pst.setString(7, produtoCozinha.get(6));
             pst.setString(8, produtoCozinha.get(7));
-
+            pst.setString(9, produtoCozinha.get(8));
+            
             pst.executeUpdate();
             resp = true;
 

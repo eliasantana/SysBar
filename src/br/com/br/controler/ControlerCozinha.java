@@ -282,4 +282,22 @@ public class ControlerCozinha {
         
         return resp;
     }
+    // Verifica se o prato possui obsrvação
+    public String temObs(String idPrato){
+        String sql="SELECT observacao FROM tbcozinha where id=?;";
+        String obs=null;
+        
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, idPrato);
+            rs=pst.executeQuery();
+            while (rs.next()){
+              obs=rs.getString("observacao");              
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCozinha.temObs()"+e);
+        }
+        
+         return obs;
+    }
 }

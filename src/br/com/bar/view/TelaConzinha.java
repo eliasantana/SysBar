@@ -43,13 +43,15 @@ public class TelaConzinha extends javax.swing.JFrame {
     ControlerDadosEmpresa ce = new ControlerDadosEmpresa();
     //Guarda o id do prato liberado
     String id_pratoLiberado = null;
- 
+
     public TelaConzinha() {
         initComponents();
         lblCargo.setVisible(false);
         Date dt = new Date();
         lblData.setText(u.formataDataBr(dt));
         txtidProdutoCozinha.setVisible(false);
+        jTextAreaObservacao.setVisible(false);
+        lblObservacao.setVisible(false);
         // tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
         desabilitaTodosBtns();
 
@@ -70,15 +72,13 @@ public class TelaConzinha extends javax.swing.JFrame {
                 //lblPreparar.setEnabled(false);
                 //lblLiberaRefeicao.setEnabled(false);
                 lblMsg.setText(null);
-                
-                
-                
+
             }
         };
 
         timer.scheduleAtFixedRate(atualizaCozinha, 0, minutos);
         relogio();
-       
+
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -133,6 +133,8 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblOperador = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
         lblRelogio = new javax.swing.JLabel();
+        lblObservacao = new javax.swing.JLabel();
+        jTextAreaObservacao = new javax.swing.JTextArea();
         paineldireito = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCozinha = new javax.swing.JTable();
@@ -173,6 +175,15 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblRelogio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRelogio.setText("00:00:00");
 
+        lblObservacao.setForeground(new java.awt.Color(255, 255, 255));
+        lblObservacao.setText("Observação");
+
+        jTextAreaObservacao.setEditable(false);
+        jTextAreaObservacao.setColumns(20);
+        jTextAreaObservacao.setLineWrap(true);
+        jTextAreaObservacao.setRows(5);
+        jTextAreaObservacao.setFocusable(false);
+
         javax.swing.GroupLayout painelEsquerdoLayout = new javax.swing.GroupLayout(painelEsquerdo);
         painelEsquerdo.setLayout(painelEsquerdoLayout);
         painelEsquerdoLayout.setHorizontalGroup(
@@ -181,19 +192,28 @@ public class TelaConzinha extends javax.swing.JFrame {
             .addGroup(painelEsquerdoLayout.createSequentialGroup()
                 .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelEsquerdoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblRelogio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(painelEsquerdoLayout.createSequentialGroup()
                         .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                                .addGap(80, 80, 80)
+                                .addGap(83, 83, 83)
                                 .addComponent(txtidProdutoCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                                .addGap(40, 40, 40)
+                                .addGap(48, 48, 48)
                                 .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 12, Short.MAX_VALUE))
+                        .addGap(0, 4, Short.MAX_VALUE))
                     .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblRelogio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(29, 29, 29)
+                        .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelEsquerdoLayout.createSequentialGroup()
+                                .addComponent(jTextAreaObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(painelEsquerdoLayout.createSequentialGroup()
+                                .addComponent(lblObservacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(108, 108, 108)))))
                 .addContainerGap())
         );
         painelEsquerdoLayout.setVerticalGroup(
@@ -201,11 +221,15 @@ public class TelaConzinha extends javax.swing.JFrame {
             .addGroup(painelEsquerdoLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(lblLogo)
-                .addGap(74, 74, 74)
+                .addGap(18, 18, 18)
                 .addComponent(txtidProdutoCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblRelogio, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
+                .addComponent(lblObservacao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextAreaObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -418,10 +442,12 @@ public class TelaConzinha extends javax.swing.JFrame {
 
     private void tblCozinhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCozinhaMouseClicked
         int linha = tblCozinha.getSelectedRow();
-        
+
         lblMsg.setText(null);
         // Captura o Status do prato
         String status = tblCozinha.getModel().getValueAt(linha, 8).toString();
+        String observacao = cc.temObs(tblCozinha.getModel().getValueAt(linha, 0).toString());
+
         switch (status) {
 
             case "Em preparação":
@@ -442,6 +468,15 @@ public class TelaConzinha extends javax.swing.JFrame {
 
         // Captura o Id do prato
         txtidProdutoCozinha.setText(tblCozinha.getModel().getValueAt(linha, 0).toString());
+
+        if (observacao != null) {
+            lblObservacao.setVisible(true);
+            jTextAreaObservacao.setText(observacao);
+            jTextAreaObservacao.setVisible(true);
+        } else {
+            lblObservacao.setVisible(false);
+            jTextAreaObservacao.setVisible(false);
+        }
 
     }//GEN-LAST:event_tblCozinhaMouseClicked
 
@@ -644,12 +679,14 @@ public class TelaConzinha extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextAreaObservacao;
     private javax.swing.JLabel lblAlteraSenha;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblLiberaRefeicao;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblMsg;
+    private javax.swing.JLabel lblObservacao;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblPreparar;
     private javax.swing.JLabel lblREmovePrato;

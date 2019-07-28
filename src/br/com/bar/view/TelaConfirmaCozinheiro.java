@@ -233,8 +233,7 @@ public class TelaConfirmaCozinheiro extends JDialog {
             } else {
                 lblMsg.setText("*Usuário não autorizado!");
                 txtCodigo.setText(null);
-            }
-            
+            }            
             
 
         } else {
