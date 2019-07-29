@@ -98,6 +98,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         this.f = f;
         this.idProdutoCozinha = idPrato;
         preparar();
+        ocultaObservacao();
 
     }
 
@@ -511,7 +512,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                 if (confirma == JOptionPane.YES_OPTION) {
                     cc.imprimeComprovanteCozinha(id_pratoLiberado);
                 }
-
+                ocultaObservacao(); // Oculta observação do Prato
             }
 
         }
@@ -703,6 +704,12 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblREmovePrato.setEnabled(false);
         lblPreparar.setEnabled(false);
 
+    }
+    
+    // Oculta campos de observação do prato.
+    private void ocultaObservacao() {
+        lblObservacao.setVisible(false);
+        jTextAreaObservacao.setVisible(false);
     }
 
 }

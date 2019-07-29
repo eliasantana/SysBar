@@ -18,6 +18,7 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
     
     public TelaObservacaoProduto() {
         initComponents();
+        jTextAreaObservacao.requestFocus();
     }
 
     /**

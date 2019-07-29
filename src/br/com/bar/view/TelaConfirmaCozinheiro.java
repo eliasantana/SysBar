@@ -31,6 +31,8 @@ public class TelaConfirmaCozinheiro extends JDialog {
     public void recebeIdPrato(String idPrato, TelaConzinha c) {
         this.idPrato = idPrato;
         this.cozinha = c;
+        
+        
     }
 
     /**
@@ -242,4 +244,6 @@ public class TelaConfirmaCozinheiro extends JDialog {
         }
 
     }
+
+   
 }

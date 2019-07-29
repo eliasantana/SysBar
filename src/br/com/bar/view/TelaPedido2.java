@@ -201,7 +201,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblData = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblSegundos = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         lblData2 = new javax.swing.JLabel();
         txtNumeroMesa = new javax.swing.JTextField();
         panelFechar = new javax.swing.JPanel();
@@ -250,6 +249,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblAlterarSenha = new javax.swing.JLabel();
         lblBtnReenvioCozinha = new javax.swing.JLabel();
         lbl_status_cozinha = new javax.swing.JLabel();
+        lblCozinha = new javax.swing.JLabel();
+        lblTextocozinha = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -327,13 +328,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblSegundos.setForeground(new java.awt.Color(255, 255, 255));
         lblSegundos.setText("jLabel5");
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -350,10 +344,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 .addGap(33, 33, 33))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(105, 105, 105)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(lblSegundos))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblSegundos)
+                .addContainerGap(161, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,9 +354,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 .addComponent(lbllogo, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(99, 99, 99)
                 .addComponent(lblSegundos)
-                .addGap(124, 124, 124)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 323, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -863,6 +853,21 @@ public class TelaPedido2 extends javax.swing.JFrame {
         getContentPane().add(lbl_status_cozinha);
         lbl_status_cozinha.setBounds(800, 660, 90, 20);
 
+        lblCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/cozinha32x32.png"))); // NOI18N
+        lblCozinha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCozinhaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblCozinha);
+        lblCozinha.setBounds(900, 610, 70, 50);
+
+        lblTextocozinha.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblTextocozinha.setText("Cozinha");
+        getContentPane().add(lblTextocozinha);
+        lblTextocozinha.setBounds(910, 660, 80, 20);
+
         setSize(new java.awt.Dimension(1309, 693));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -1300,14 +1305,15 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Chama a tela de Bloqueio
         s = 70;
         TelaBloqueio tb = new TelaBloqueio();
-        tb.setModal(true);
+        //tb.setModal(true);
+        tb.setAlwaysOnTop(true);
         tb.setVisible(true);
     }//GEN-LAST:event_lblCadeadoMouseClicked
 
     private void lblAlterarSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlterarSenhaMouseClicked
         s = 0;
         TelaAlteraSenha2 telap2 = new TelaAlteraSenha2();
-        telap2.setAlwaysOnTop(rootPaneCheckingEnabled);
+        telap2.setAlwaysOnTop(true);
         telap2.receberOperador(lblOperador.getText());
         telap2.setVisible(true);
     }//GEN-LAST:event_lblAlterarSenhaMouseClicked
@@ -1342,10 +1348,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lblBtnReenvioCozinhaMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void lblCozinhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCozinhaMouseClicked
+        TelaConzinha telaCozinha = new TelaConzinha();
+        telaCozinha.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        telaCozinha.setVisible(true);
+    }//GEN-LAST:event_lblCozinhaMouseClicked
 
     private double calculaPedido() {
         double valor = Double.parseDouble(txtValorUnit.getText().replaceAll(",", "."));
@@ -1370,7 +1377,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 if (s == limite) {
 
                     TelaBloqueio tb = new TelaBloqueio();
-                    tb.setModal(true);
+                    //tb.setModal(true);
+                    tb.setAlwaysOnTop(true);
                     tb.setVisible(true);
                 }
             }
@@ -1418,7 +1426,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JButton btnAbrirPedido;
     private javax.swing.JButton btnListar;
     private javax.swing.JComboBox<String> comboGarcom;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
@@ -1444,6 +1451,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCodigo1;
+    private javax.swing.JLabel lblCozinha;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblData2;
     private javax.swing.JLabel lblGerenciarPedido;
@@ -1458,6 +1466,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JLabel lblReenvioCozinha;
     private javax.swing.JLabel lblSegundos;
     private javax.swing.JLabel lblStatusCozinha;
+    private javax.swing.JLabel lblTextocozinha;
     private javax.swing.JLabel lbl_status_cozinha;
     private javax.swing.JLabel lbllogo;
     private javax.swing.JPanel panelAbrirPedido;
@@ -1575,9 +1584,10 @@ public class TelaPedido2 extends javax.swing.JFrame {
                             int op = JOptionPane.showConfirmDialog(this, "Deseja adicionar uma observação?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
                             // Chama a tela de observação
                             if (op == JOptionPane.YES_OPTION) {
-                                s=0;
+                                s=0; // Zera Cronômetro de Bloqueio
                                 TelaObservacaoProduto telaObs = new TelaObservacaoProduto();
                                 telaObs.recebeTela(this,pCozinha); // Envia dados do produto
+                                telaObs.setAlwaysOnTop(true);
                                 telaObs.setVisible(true); 
                                 
                             } else {
@@ -1613,7 +1623,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                     // Atualiza os produtos disponível no Estoque
                     tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
                     modelProduroEstoque.redimensionaColunas(tblListaProduto);
-
+                    s=0; // Zera Cronômetro de Bloqueio
                 }
 
             }

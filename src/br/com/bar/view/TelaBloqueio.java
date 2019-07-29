@@ -17,6 +17,7 @@ import javax.swing.JDialog;
 /**
  *
  * @author Elias Santana
+ * Tipo de Janela modificado de Jdialog (JDialog)para Jframe
  */
 public class TelaBloqueio extends JDialog {
 
