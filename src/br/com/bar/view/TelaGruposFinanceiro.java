@@ -277,7 +277,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
                     l.gravaLog(l);
                     limpaForm();
                     tblGruposFinanceiro.setModel(DbUtils.resultSetToTableModel(cg.atualizaTabela(tblGruposFinanceiro)));
-
+                    modelGrupo.redimensionaColunas(tblGruposFinanceiro);
                 }
             }
 

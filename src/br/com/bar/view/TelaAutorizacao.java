@@ -16,6 +16,7 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -280,9 +281,9 @@ public class TelaAutorizacao extends JDialog {
     }
     private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked
         // Fecha a Tela
-       if ("".equals(txtValorDesconto.getText())){
-           cx.desabilitaCheckBoxDesconto();
-       }
+        if ("".equals(txtValorDesconto.getText())) {
+            cx.desabilitaCheckBoxDesconto();
+        }
         dispose();
 
 
@@ -305,7 +306,7 @@ public class TelaAutorizacao extends JDialog {
             AutenticaUsuario autentica = new AutenticaUsuario();
             String funcionario = comboFuncionario.getSelectedItem().toString().toLowerCase();
             String senha = txtSenha.getText().toLowerCase();
-            System.out.println("Usuario: "+funcionario+" Senha "+senha);
+            System.out.println("Usuario: " + funcionario + " Senha " + senha);
             if (autentica.autentica(funcionario, senha)) {
                 habilitaDesconto();
                 txtValorDesconto.requestFocus();
@@ -314,6 +315,7 @@ public class TelaAutorizacao extends JDialog {
             } else {
                 lblMensagem.setForeground(Color.RED);
                 lblMensagem.setText("Senha inválida!");
+                txtSenha.setText(null);
             }
         }
     }//GEN-LAST:event_txtSenhaKeyPressed
@@ -324,9 +326,15 @@ public class TelaAutorizacao extends JDialog {
 
     private void txtValorDescontoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorDescontoKeyPressed
         // Formata o valor informado
+        double valor=0;
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
 
-            double valor = (Double.parseDouble(txtValorDesconto.getText().replace(",", ".")));
+                 valor = (Double.parseDouble(txtValorDesconto.getText().replace(",", ".")));
+            } catch (NumberFormatException e) {
+                System.out.println("br.com.bar.view.TelaAutorizacao.txtValorDescontoKeyPressed()"+e);
+                JOptionPane.showMessageDialog(this, "Valor Inválido, tente novamente!","Atenção",JOptionPane.ERROR_MESSAGE);
+            }
             txtValorDesconto.setText(String.format("%9.2f", valor));
             txtMotivoDesconto.requestFocus();
             lblMensagem.setText("Tamanho (Caracteres): Min: 20 - Max: 255");
@@ -346,19 +354,19 @@ public class TelaAutorizacao extends JDialog {
             double totalGeral = Double.parseDouble(tgeral);
             if (desconto <= totalGeral && desconto > 0) {
                 totalGeral = totalGeral - desconto;
-                                
+
                 listaDeValores.set(2, fv.Formata(String.valueOf(totalGeral)));
                 listaDeValores.add(fv.Formata(String.valueOf(desconto)));// Adiciona o desconto
                 listaDeValores.add(cf.localizaIdLogin(comboFuncionario.getSelectedItem().toString()));//ID de quem autorizou o desconto
                 listaDeValores.add(txtMotivoDesconto.getText());//Motivo
-                
+
                 // Registra log da operação
                 Log l = new Log();
                 l.setFuncionalidade("Desconto");
                 l.setUsuario(comboFuncionario.getSelectedItem().toString());
-                l.setDescricao("Autorizou o desconto para o pedido-> " + listaDeValores.get(4) + " Mesa-> " + listaDeValores.get(3) + " Valor desconto: R$"+listaDeValores.get(6));
+                l.setDescricao("Autorizou o desconto para o pedido-> " + listaDeValores.get(4) + " Mesa-> " + listaDeValores.get(3) + " Valor desconto: R$" + listaDeValores.get(6));
                 l.gravaLog(l);
-                
+
                 cx.recebeDadosComDesconto(listaDeValores);
 
                 this.dispose();
@@ -382,8 +390,8 @@ public class TelaAutorizacao extends JDialog {
         texto = u.tamanhoMaximo(texto, 255);
         txtMotivoDesconto.setText(texto);
         int tamanho = texto.length();
-        
-        int restam = 255-tamanho;
+
+        int restam = 255 - tamanho;
         if (tamanho > 20) {
             btnAutorizar.setEnabled(true);
             lblMensagem.setText(null);
@@ -392,12 +400,12 @@ public class TelaAutorizacao extends JDialog {
             btnAutorizar.setEnabled(false);
 
         }
-        lblMensagem.setText("Caracteres: "+String.valueOf(tamanho) + "   Restam: "+restam);
-        if (tamanho<20 || tamanho>240){
+        lblMensagem.setText("Caracteres: " + String.valueOf(tamanho) + "   Restam: " + restam);
+        if (tamanho < 20 || tamanho > 240) {
             lblMensagem.setForeground(Color.red);
-            
-        }else {
-             lblMensagem.setForeground(Color.blue);
+
+        } else {
+            lblMensagem.setForeground(Color.blue);
         }
     }//GEN-LAST:event_txtMotivoDescontoKeyPressed
 

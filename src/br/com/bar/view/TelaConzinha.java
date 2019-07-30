@@ -428,7 +428,7 @@ public class TelaConzinha extends javax.swing.JFrame {
             }
         });
         paineldireito.add(lblImprimirSolicitacoes);
-        lblImprimirSolicitacoes.setBounds(720, 624, 140, 50);
+        lblImprimirSolicitacoes.setBounds(720, 630, 140, 50);
 
         getContentPane().add(paineldireito);
         paineldireito.setBounds(280, 0, 1030, 690);
@@ -632,6 +632,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                     System.out.println("br.com.bar.view.TelaConzinha.lblImprimirSolicitacoesMouseClicked()" + e);
                 }
                 nMesa = 0;
+                lblImprimirSolicitacoes.setEnabled(false);
             } else {
                 JOptionPane.showMessageDialog(this, "Selecione um prato continuar!", "Atenção", JOptionPane.ERROR_MESSAGE);
             }

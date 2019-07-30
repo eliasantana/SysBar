@@ -422,6 +422,7 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Grupo adicionado com sucesso!");
                     limpaForm();
                     tblGrupos.setModel(DbUtils.resultSetToTableModel(cg.atualizaGrupoProduto(tblGrupos)));
+                    modelGrupo.redimensionaColunas(tblGrupos);
                     //Regisra log
                     l.setUsuario(lblOperador.getText());
                     l.setFuncionalidade("Salvar");

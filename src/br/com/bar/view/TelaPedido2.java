@@ -64,7 +64,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
     TimerTask task;
     // Limite em segundo para bloquear a tela
-    int limite = 60;
+    int limite = 120;
     // Contador - Segundos
     int s = 0;
     /**
@@ -414,7 +414,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         lblStatusCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblStatusCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCozinha.png"))); // NOI18N
-        lblStatusCozinha.setToolTipText("Status Cozinha");
+        lblStatusCozinha.setToolTipText("");
         lblStatusCozinha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblStatusCozinhaMouseClicked(evt);
@@ -437,7 +437,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         lblGerenciarPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblGerenciarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/relatorios32x32.png"))); // NOI18N
-        lblGerenciarPedido.setToolTipText("Gestão de Pedidos");
+        lblGerenciarPedido.setToolTipText("");
         lblGerenciarPedido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblGerenciarPedidoMouseClicked(evt);
@@ -820,7 +820,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jPanel7.setBounds(310, 110, 270, 490);
 
         lblCadeado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/cadeado.png"))); // NOI18N
-        lblCadeado.setToolTipText("Bloquear Tela");
+        lblCadeado.setToolTipText("");
         lblCadeado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblCadeadoMouseClicked(evt);
@@ -846,7 +846,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         lblBtnReenvioCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBtnReenvioCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/enviar32x32_2.png"))); // NOI18N
-        lblBtnReenvioCozinha.setToolTipText("Reenvio Cozinha");
+        lblBtnReenvioCozinha.setToolTipText("");
         lblBtnReenvioCozinha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBtnReenvioCozinhaMouseClicked(evt);
