@@ -104,11 +104,15 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblStatusCozinha.setEnabled(false);
         lbl_status_cozinha.setEnabled(false);
         btnAbrirPedido.setEnabled(false);
-        lblCargo.setVisible(false);
+        lblCargo.setVisible(true);
         lblSegundos.setVisible(false);
         lblReenvioCozinha.setEnabled(false);
         lblBtnReenvioCozinha.setEnabled(false);
         modelNmesas.redimensionaColunas(tblNumeroMesa);
+        lblTextocozinha.setVisible(false);
+        lblCozinha.setVisible(false);
+        
+       
         //Torna a tela Selecionavel 'Necessário para que o evento de bloqueio ocorra'
         this.setFocusable(true);
         // Adiciona Listner para bloquear tela
@@ -128,6 +132,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
             lblGerenciarPedido.setVisible(true);
             textoLblPedido.setVisible(true);
             lblAlterarSenha.setVisible(false);
+            lblTextocozinha.setVisible(true);
+            lblCozinha.setVisible(true);
         } else {
 
             lblGerenciarPedido.setVisible(false);
@@ -136,6 +142,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         //Recupera o id do funcionario logado.
         funcLogado = cFunc.localizaFuncionario(cFunc.localizaIdLogin(operador));
+        
     }
     // Recebe dados do funcionário referente ao pedido listado, este método é
     // Utilizado no momento em que o caixa vai adicionar um ítem ao pedido no 
@@ -906,7 +913,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         txtIdGarcom.setText(cFunc.localizaId(comboGarcom.getSelectedItem().toString()));
         tblNumeroMesa.setModel(DbUtils.resultSetToTableModel(cm.listaMesaLivre(idFunc)));
         modelNmesas.redimensionaColunas(tblNumeroMesa);
-        modelMesa.redimensionaColunas(tblNumeroMesa);
+        //modelMesa.redimensionaColunas(tblNumeroMesa);
         tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos(txtIdGarcom.getText())));
         modelPedidos.redimensionaColunas(tblPedidosAbertos);
 
@@ -935,12 +942,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
             if (cp.geraPedido(p)) {
                 int linha = tblNumeroMesa.getSelectedRow();
                 String numero_mesa = tblNumeroMesa.getModel().getValueAt(linha, 0).toString();
-
                 tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos(txtIdGarcom.getText())));
                 modelPedidos.redimensionaColunas(tblPedidosAbertos);
                 cm.trocaStatusMesa(numero_mesa, "1");
                 tblNumeroMesa.setModel(DbUtils.resultSetToTableModel(cm.listaMesaLivre(txtIdGarcom.getText())));
-                modelMesa.redimensionaColunas(tblNumeroMesa);
+                //modelMesa.redimensionaColunas(tblNumeroMesa);
+                modelNmesas.redimensionaColunas(tblNumeroMesa);
                 txtNumeroMesa.setText(null);
                 lblMsgRetorno.setText("*Pedido gerado com sucesso!");
                 btnAbrirPedido.setEnabled(false);
@@ -962,6 +969,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 l.gravaLog(l);
 
             }
+            
+            jTabbedPanePedido.setSelectedIndex(0);
 
         }
     }//GEN-LAST:event_btnAbrirPedidoActionPerformed
@@ -1349,9 +1358,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
     }//GEN-LAST:event_lblBtnReenvioCozinhaMouseClicked
 
     private void lblCozinhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCozinhaMouseClicked
+        task.cancel();
         TelaConzinha telaCozinha = new TelaConzinha();
         telaCozinha.recebeOperador(lblOperador.getText(), lblCargo.getText());
         telaCozinha.setVisible(true);
+        //Cancela Cronometro ao abrir a tela de cozinha
     }//GEN-LAST:event_lblCozinhaMouseClicked
 
     private double calculaPedido() {

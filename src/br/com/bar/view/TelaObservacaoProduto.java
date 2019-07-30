@@ -5,6 +5,7 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.util.Util;
 import java.util.ArrayList;
 
 /**
@@ -74,6 +75,11 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
         jTextAreaObservacao.setColumns(20);
         jTextAreaObservacao.setLineWrap(true);
         jTextAreaObservacao.setRows(5);
+        jTextAreaObservacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextAreaObservacaoKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextAreaObservacao);
 
         bordas.add(jScrollPane1);
@@ -116,15 +122,27 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // Fecha janela
-           dispose();
+           
+           listaAtualizada.add(null);
+           telaPedido.recebeObsPrato(listaAtualizada,this);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-            listaAtualizada.add(jTextAreaObservacao.getText());
-            telaPedido.recebeObsPrato(listaAtualizada,this);
+            if (jTextAreaObservacao.getText().isEmpty()){
+                listaAtualizada.add(null);                
+                telaPedido.recebeObsPrato(listaAtualizada,this);
+            }else {                
+                listaAtualizada.add(jTextAreaObservacao.getText());
+                telaPedido.recebeObsPrato(listaAtualizada,this);               
+            }
            
             
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void jTextAreaObservacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextAreaObservacaoKeyPressed
+        Util u = new Util();
+        jTextAreaObservacao.setText(u.tamanhoMaximo(jTextAreaObservacao.getText(), 200));
+    }//GEN-LAST:event_jTextAreaObservacaoKeyPressed
     // Recebe tela de pedido
     public void recebeTela(TelaPedido2 tl, ArrayList<String>lista){
          

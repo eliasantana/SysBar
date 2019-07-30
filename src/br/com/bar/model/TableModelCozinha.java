@@ -20,7 +20,7 @@ public class TableModelCozinha extends AbstractTableModel {
 
     private final ArrayList<ModelPedidoCozinha> listaPratosCozinha = new ArrayList<>();
    
-    String colunas[] = {"SEQ", "PRATO", "QTD", "GARÇOM", "MESA", "COZINHEIRO", "HORÁRIO", "ESPERA", "STATUS"};
+    String colunas[] = {"SEQ", "PRATO", "QTD", "GARÇOM", "MESA", "COZINHEIRO", "HORA", "ESPERA", "STATUS"};
     public void adicionaPratoCozinha (ModelPedidoCozinha pc){
         listaPratosCozinha.add(pc);
     }

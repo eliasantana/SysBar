@@ -60,7 +60,7 @@ public class TableModelNumeroMesas extends AbstractTableModel {
         DefaultTableCellRenderer center = new DefaultTableCellRenderer();
         center.setHorizontalAlignment(SwingConstants.CENTER);
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(160); // CÓDIGO
+        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(170); // CÓDIGO
 
         // Centraliza conteúdo da coluna
         tabela.getColumnModel().getColumn(0).setCellRenderer(center);

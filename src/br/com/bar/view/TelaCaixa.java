@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JTabbedPane;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -85,7 +86,8 @@ public class TelaCaixa extends javax.swing.JFrame {
     double credito = 0;
     double debito = 0;
     double voucher = 0;
-    double dinheiroPago=0;
+    double dinheiroPago = 0;
+
     public TelaCaixa() {
         initComponents();
 
@@ -1152,7 +1154,6 @@ public class TelaCaixa extends javax.swing.JFrame {
         btnListar.setEnabled(false);
         if (!"Selecione...".equals(comboMesa.getSelectedItem())) {
             btnListar.setEnabled(true);
-            
 
         } else {
             lblReceber.setEnabled(false);
@@ -1196,11 +1197,25 @@ public class TelaCaixa extends javax.swing.JFrame {
             txtTroco.setText("0,00");
             calculaTaxa();
             txtValorPago.setText(lblTotal.getText());
-            if (checkTxServico.isSelected()){
+
+            if (checkTxServico.isSelected()) {
                 lbl_valor_servico.setEnabled(true);
                 lbl_cifra_servico.setEnabled(true);
                 percent.setEnabled(true);
-            }else {
+                // 29/07/2019 Inicio da alteração Excluir após validação
+                double total = dinheiro + credito + debito + voucher;
+                if (jtabedFormaPagto.getSelectedIndex() == 1 && total > 0) {
+                    calculaPagamentoMisto();
+                    validaPagamentoMisto();
+                }
+            } else {
+                // 29/07/2019 Inicio da alteração Excluir após validação
+                double total = dinheiro + credito + debito + voucher;
+                if (jtabedFormaPagto.getSelectedIndex() == 1 && total > 0) {
+                    calculaPagamentoMisto();
+                    validaPagamentoMisto();
+                }
+                // 29/07/2019 Fim da alteração 
                 lbl_valor_servico.setEnabled(false);
                 lbl_cifra_servico.setEnabled(false);
                 percent.setEnabled(false);
@@ -1334,12 +1349,8 @@ public class TelaCaixa extends javax.swing.JFrame {
 
                     if ("MISTO".equals(p.getFormaPagto())) {
                         //dinheiro -> dinheiro pago
-                        if (cp.gravaPagamentoMisto(p.getId(),dinheiroPago, credito, debito, voucher)) {
-                            // Zera os campos de pagamento misto após a gravação
-                            txtMistoCredito.setText("0,00");
-                            txtMistoDebito.setText("0,00");
-                            txtMistoVoucher.setText("0,00");
-                            txtMistoDinheiro.setText("0,00");
+                        if (cp.gravaPagamentoMisto(p.getId(), dinheiroPago, credito, debito, voucher)) {
+
                             jtabedFormaPagto.setSelectedIndex(0);
 
                         } else {
@@ -1412,7 +1423,6 @@ public class TelaCaixa extends javax.swing.JFrame {
                         dados.put("debito", debito);
                         dados.put("voucher", voucher);
                     } else {
-
                         dados.put("dinheiro", dinheiro);
                         dados.put("credito", credito);
                         dados.put("debito", debito);
@@ -1458,7 +1468,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                     lblGarcom.setText(null);
                     jpanelSubTotal.setEnabled(false);
                     jpanelTotalGeral.setEnabled(false);
-                    
+
                     atualizaCaixa();
                     bloqueiaControlePagamento();
                     // Desabilita ComboBox caso não exista mesa a serem listadas.
@@ -1478,134 +1488,15 @@ public class TelaCaixa extends javax.swing.JFrame {
                     credito = 0;
                     debito = 0;
                     voucher = 0;
+                    // Zera textFilds pagameto Misto
+                    txtMistoCredito.setText("0,00");
+                    txtMistoDebito.setText("0,00");
+                    txtMistoVoucher.setText("0,00");
+                    txtMistoDinheiro.setText("0,00");
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Selecione uma forma de pagameto!");
                 }
-//                if (radioCartao.isSelected() || radioDinheiro.isSelected() || radioDebito.isSelected() || radioVoucher.isSelected()) {
-//                    // Pega a data Atual
-//
-//                    String dtAtual = utils.formataDataBr(data).replaceAll("/", "");
-//                    // Pega a hora atual
-//                    String horaAtual = utils.formataDataHora(data, "h");
-//                    //Gera Autenticacao
-//                    String autentica = cp.autentica(func.localizaId(lblGarcom.getText()), comboMesa.getSelectedItem().toString(), txtIdPedido.getText(), dtAtual + "." + horaAtual);
-//                    p.setAutenticacao(autentica);
-//
-//                    // Fecha o pedido após o recebimento
-//                    cp.fechaPedido(p);
-//
-//                    //Início do Registro de log
-//                    l.setFuncionalidade("Recebimento");
-//                    l.setDescricao("Recebeu R$ " + p.getTotalPago().replace(".", ",") + " Pedido N.->" + txtIdPedido.getText() + " Comissão: R$ " + p.getComissao().replace(".", ","));
-//                    l.gravaLog(l);
-//
-//                    // Libera a mesa após o pagamento
-//                    cm.trocaStatusMesa(comboMesa.getSelectedItem().toString(), "0");
-//                    JOptionPane.showMessageDialog(null, "Pedido fechado com sucesso!");
-//                    // ===============================================================//
-//
-//                    jSpinFieldPessoas.setValue(1);
-//                    // Registra desconto se o valor for > que 0
-//                    Funcionario f = new Funcionario();
-//                    Double desconto;
-//                    if (!"0,00".equals(txtDesconto.getText())) {
-//
-//                        f.setId(listAutoDesconto.get(7));
-//                        String strDesc = txtDesconto.getText().replace(".", "");
-//                        strDesc = strDesc.replace(",", ".");
-//                        desconto = Double.parseDouble(strDesc);
-//                        // Instacia o objeto desconto e adiciona como parâmetro o motivo, o do idPedido e 
-//                        // o id do Funcionário eque concedeu o desconto
-//                        DescontoPedido descPedido = new DescontoPedido(desconto, listAutoDesconto.get(8), f, p);
-//                        //Registra desconto informado
-//                        caixa.registraDesconto(descPedido);
-//                    } else {
-//
-//                        f.setId(func.localizaIdLogin(lblOperador.getText()));
-//                        System.out.println("Id do Funcionário:" + f.getId());
-//                        desconto = 0.0;
-//                        DescontoPedido descPedido = new DescontoPedido(desconto, "", f, p);
-//                        caixa.registraDesconto(descPedido);
-//                    }
-//
-//                    // Imprime cupom de pagamento
-//                    HashMap dados = new HashMap();
-//                    Date dt = new Date();
-//                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-//
-//                    dados.put("data", df.format(dt));
-//                    dados.put("garcom", lblGarcom.getText());
-//                    dados.put("titulo", "COMPROVANTE DE PAGAMENTO");
-//                    String strTx = percent.getText().replace(".", "");
-//                    strTx = strTx.replace(",", ".");
-//                    dados.put("tx", Double.parseDouble(strTx));
-//                    dados.put("id_pedido", p.getId());
-//                    System.out.println(p.getId());
-//                    dados.put("npessoas", nPesoas); // Não tenho
-//                    dados.put("total_pessoas", totalPessoas); // Não tenho
-//                    DadosEmpresa dadosEmpresa = de.selecionaDados();
-//                    dados.put("mesa", comboMesa.getSelectedItem().toString());
-//                    dados.put("nome_empresa", dadosEmpresa.getNome_empresa());
-//                    dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro() + " - " + dadosEmpresa.getCep());
-//                    dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone());
-//                    dados.put("cnpj", dadosEmpresa.getCnpj());
-//                    dados.put("desc", Double.parseDouble(txtDesconto.getText().replaceAll(",", ".")));
-//
-//                    try {
-//                        // Verifica o método de impressão 0 -> Impressção em tela 1 - Impressão direta
-//                        if (dadosEmpresa.getImprimir_na_tela() == 0) {
-//                            //rpu.imprimeRelatorioTela("cupom2.jasper", dados);
-//                            rpu.imprimeRelatorioTela("cupom2_7.jasper", dados);
-//                        } else {
-//                            // rpu.impressaoDireta("cupom2.jasper", dados);
-//                            rpu.impressaoDireta("cupom2_7.jasper", dados);
-//                        }
-//
-//                        lblTotal.setText("0,00");
-//                        tgeral.setText("0,00");
-//                        percent.setText("0,00");
-//
-//                    } catch (JRException e) {
-//                        System.out.println("br.com.bar.view.TelaCaixa.btnImprimirMouseClicked()");
-//                        lblTotal.setText("0,00");
-//                        tgeral.setText("0,00");
-//                        percent.setText("0,00");
-//                    }
-//                    // Fim da impressão de cupom
-//                    checkReimpressao.setEnabled(true);
-//                    cp.limpaTabela(tblDetalhePedido);
-//                    limpaForm();
-//                    lblTotal.setText("0,00");
-//                    tgeral.setText("0,00");
-//                    percent.setText("0,00");
-//                    txtValorPago.setText("0,00");
-//                    txtDesconto.setText("0,00");
-//                    lblReceber.setEnabled(false);
-//                    txtTroco.setText("0,00");
-//
-//                    buttonGroup2.clearSelection();
-//
-//                    lblNPedido.setText(null);
-//                    lblEntradas.setText(String.format("%9.2f", caixa.totalizaEntradas()));
-//                    lblGarcom.setText(null);
-//                    atualizaCaixa();
-//                    bloqueiaControlePagamento();
-//                    // Desabilita ComboBox caso não exista mesa a serem listadas.
-//                    if (comboMesa.getItemCount() > 1) {
-//                        btnListar.setEnabled(false);
-//                    }
-//                    try {
-//
-//                        caixa.listaMesaOcupada(comboMesa);
-//
-//                    } catch (NullPointerException e) {
-//
-//                    }
-//
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "Selecione uma forma de pagameto!");
-//                }
 
             }
             try {
@@ -2049,35 +1940,69 @@ public class TelaCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_radioVoucherMouseClicked
 
     private void jtabedFormaPagtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabedFormaPagtoMouseClicked
-        desabilitaBtnRadio();
-        //lblReceber.setEnabled(false);
-        //lblReceberPAgamento.setEnabled(false);
-        //lblPago.setEnabled(false);
-        
-        if (comboMesa.getSelectedIndex() != 0) {
+        //desabilitaBtnRadio();  // Excluir após validação
+
+//        if (comboMesa.getSelectedIndex() != 0) {
+//            desabilitaBtnRadio();
+//            lblPago.setEnabled(false);
+//            lblTroco.setEnabled(false);
+//            btnImprimir.setEnabled(true);
+//            jSpinFieldPessoas.setEnabled(true);
+//            lblNpessoas.setEnabled(true);
+//            //txtTroco.setText("0,00");
+//            double valorPpago = Double.parseDouble(txtValorPago.getText().replace(",", "."));
+//            double totalmisto = dinheiro+credito+debito+voucher;
+//            if ((valorPpago>0 && jtabedFormaPagto.getSelectedIndex()!=0)&&totalmisto==0){
+//                txtValorPago.setText("0,00");
+//            }else {
+//                if (radioCartao.isSelected()||radioDebito.isSelected()||radioDinheiro.isSelected()||radioVoucher.isSelected()){
+//                    
+//                }else {
+//                     txtValorPago.setText("0,00");
+//                     txtTroco.setText("0,00");
+//                     
+//
+//                }
+//                
+//            }
+//        }else {
+//            txtValorPago.setText("0,00");
+//            
+//        }
+        if (jtabedFormaPagto.getSelectedIndex() != 0) {
+            desabilitaBtnRadio();
+            lblPago.setEnabled(false);
+            lblTroco.setEnabled(false);
             btnImprimir.setEnabled(true);
             jSpinFieldPessoas.setEnabled(true);
-            lblNpessoas.setEnabled(true); 
+            lblNpessoas.setEnabled(true);
+            
             double valorPpago = Double.parseDouble(txtValorPago.getText().replace(",", "."));
-            double totalmisto = dinheiro+credito+debito+voucher;
-            if ((valorPpago>0 && jtabedFormaPagto.getSelectedIndex()!=0)&&totalmisto==0){
+            double totalmisto = dinheiro + credito + debito + voucher;
+            if ((valorPpago > 0 && jtabedFormaPagto.getSelectedIndex() != 0) && totalmisto == 0) {
                 txtValorPago.setText("0,00");
-            }else {
-                if (radioCartao.isSelected()||radioDebito.isSelected()||radioDinheiro.isSelected()||radioVoucher.isSelected()){
-                    
-                }else {
-                     txtValorPago.setText("0,00");
-                     txtTroco.setText("0,00");
-                     
-//                     dinheiro=0;
-//                     debito=0;
-//                     credito=0;
-//                     voucher=0;
+            } else {
+                if (radioCartao.isSelected() || radioDebito.isSelected() || radioDinheiro.isSelected() || radioVoucher.isSelected()) {
+
+                } else {
+                    txtValorPago.setText("0,00");
+                    txtTroco.setText("0,00");
+                    txtDesconto.setText("0,00");
                 }
+
+            }
+        } else {
+            if (radioCartao.isSelected() || radioDebito.isSelected() || radioDinheiro.isSelected() || radioVoucher.isSelected()) {
+
+            } else {
+                txtValorPago.setText("0,00");
+                txtTroco.setText("0,00");
+                txtMistoDinheiro.setText("0,00");
+                txtMistoDebito.setText("0,00");
+                txtMistoCredito.setText("0,00");
+                txtMistoVoucher.setText("0,00");
                 
             }
-        }else {
-            txtValorPago.setText("0,00");
         }
     }//GEN-LAST:event_jtabedFormaPagtoMouseClicked
 
@@ -2535,7 +2460,6 @@ public class TelaCaixa extends javax.swing.JFrame {
         double totalPago = 0;
         double troco = 0;
 
-
         if (checkTxServico.isSelected()) {
 
             double tTotal = (totalConta + totalTxServico) - desconto;
@@ -2726,7 +2650,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                     String vlrDrinheiroPago = String.format("%9.2f", dinheiro - troco).replace(",", ".");
                     dinheiro = Double.parseDouble(vlrDrinheiroPago);
                     dinheiroPago = Double.parseDouble(vlrDrinheiroPago);
-                    
+
                     System.out.println("Valor Real Dinheiro" + dinheiro);
                 } else if ((dinheiro > 0) && (totalMisto == totalPedido)) {
                     // Habilita Recebimento
@@ -2739,13 +2663,13 @@ public class TelaCaixa extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "O valor informado é menor que o total da conta!");
                 }
             } else if (totalCartao == totalPedido) {
-                
+
                 if (dinheiro > 0) {
                     JOptionPane.showMessageDialog(this, "O valor informado em dinheiro excede o total da conta!", "Atenção!", JOptionPane.ERROR_MESSAGE);
                     //Desabilita Troco
                     lblTroco.setEnabled(false);
                     txtTroco.setText("0,00");
-                   
+
                 } else {
                     if (totalMisto > totalPedido) {
                         double troco = totalMisto - totalPedido;

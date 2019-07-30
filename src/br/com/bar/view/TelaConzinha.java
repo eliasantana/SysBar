@@ -43,7 +43,10 @@ public class TelaConzinha extends javax.swing.JFrame {
     ControlerDadosEmpresa ce = new ControlerDadosEmpresa();
     //Guarda o id do prato liberado
     String id_pratoLiberado = null;
-
+    // Armazena o número da mesa selecionada
+    int nMesa = 0;
+    String status="";
+    
     public TelaConzinha() {
         initComponents();
         lblCargo.setVisible(false);
@@ -52,6 +55,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         txtidProdutoCozinha.setVisible(false);
         jTextAreaObservacao.setVisible(false);
         lblObservacao.setVisible(false);
+        lblImprimirSolicitacoes.setEnabled(false);
         // tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
         desabilitaTodosBtns();
 
@@ -150,6 +154,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblPreparar = new javax.swing.JLabel();
         lblMsg = new javax.swing.JLabel();
         lblAlteraSenha = new javax.swing.JLabel();
+        lblImprimirSolicitacoes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -177,7 +182,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblRelogio.setText("00:00:00");
 
         lblObservacao.setForeground(new java.awt.Color(255, 255, 255));
-        lblObservacao.setText("Observação");
+        lblObservacao.setText("Observação do Prato");
 
         jTextAreaObservacao.setEditable(false);
         jTextAreaObservacao.setColumns(20);
@@ -415,6 +420,16 @@ public class TelaConzinha extends javax.swing.JFrame {
         paineldireito.add(lblAlteraSenha);
         lblAlteraSenha.setBounds(20, 630, 100, 50);
 
+        lblImprimirSolicitacoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/Impressora32x32.png"))); // NOI18N
+        lblImprimirSolicitacoes.setText("Solicitações");
+        lblImprimirSolicitacoes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblImprimirSolicitacoesMouseClicked(evt);
+            }
+        });
+        paineldireito.add(lblImprimirSolicitacoes);
+        lblImprimirSolicitacoes.setBounds(720, 624, 140, 50);
+
         getContentPane().add(paineldireito);
         paineldireito.setBounds(280, 0, 1030, 690);
 
@@ -446,18 +461,21 @@ public class TelaConzinha extends javax.swing.JFrame {
 
         lblMsg.setText(null);
         // Captura o Status do prato
-        String status = tblCozinha.getModel().getValueAt(linha, 8).toString();
+        status = tblCozinha.getModel().getValueAt(linha, 8).toString();
         String observacao = cc.temObs(tblCozinha.getModel().getValueAt(linha, 0).toString());
-
+        nMesa = Integer.parseInt(tblCozinha.getModel().getValueAt(linha, 4).toString()); //Número da mesa
+        
         switch (status) {
 
             case "Em preparação":
                 lblLiberaRefeicao.setEnabled(true);
                 lblPreparar.setEnabled(false);
+                lblImprimirSolicitacoes.setEnabled(false);
                 break;
             case "Pendente":
                 lblPreparar.setEnabled(true);
                 lblLiberaRefeicao.setEnabled(false);
+                lblImprimirSolicitacoes.setEnabled(true);
                 break;
         }
         if ("Gerente".equals(lblCargo.getText())) {
@@ -600,6 +618,26 @@ public class TelaConzinha extends javax.swing.JFrame {
         alteraSenha.setVisible(true);
     }//GEN-LAST:event_lblAlteraSenhaMouseClicked
 
+    private void lblImprimirSolicitacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImprimirSolicitacoesMouseClicked
+        // Imprime solicitações para a mesa informada.
+        if (lblImprimirSolicitacoes.isEnabled()){
+            
+            if (nMesa > 0) {
+                ReportUtil report = new ReportUtil();
+                HashMap map = new HashMap();
+                map.put("mesa", nMesa);
+                try {
+                    report.imprimeRelatorioTela("solicitacoes.jasper", map);
+                } catch (JRException e) {
+                    System.out.println("br.com.bar.view.TelaConzinha.lblImprimirSolicitacoesMouseClicked()" + e);
+                }
+                nMesa = 0;
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecione um prato continuar!", "Atenção", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_lblImprimirSolicitacoesMouseClicked
+
     private void preparar() {
         int linha = tblCozinha.getSelectedRow();
         // String idProdutoCozinha = idProduto;
@@ -684,6 +722,7 @@ public class TelaConzinha extends javax.swing.JFrame {
     private javax.swing.JLabel lblAlteraSenha;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblData;
+    private javax.swing.JLabel lblImprimirSolicitacoes;
     private javax.swing.JLabel lblLiberaRefeicao;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblMsg;
@@ -705,7 +744,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblPreparar.setEnabled(false);
 
     }
-    
+
     // Oculta campos de observação do prato.
     private void ocultaObservacao() {
         lblObservacao.setVisible(false);
