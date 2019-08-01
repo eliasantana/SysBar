@@ -117,7 +117,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         this.setFocusable(true);
         // Adiciona Listner para bloquear tela
         addKeyListener(new LeitorDeTeclas());
-        cronometro();
+        //cronometro();
     }
 
     public void recebeOperador(String operador, String perfil) {
@@ -1223,14 +1223,15 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
             }
             this.dispose();
-            task.cancel();//Cancela a contagem do tempo do método conômetro
+            //task.cancel();//Cancela a contagem do tempo do método conômetro
         } else {
             this.dispose();
             TelaLogin login = new TelaLogin();
             login.setVisible(true);
 
-            task.cancel();//Cancela a contagem do tempo do método conômetro
+            
         }
+        //task.cancel();//Cancela a contagem do tempo do método conômetro
     }//GEN-LAST:event_panelFecharMouseClicked
 
     private void txtQtdMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtQtdMouseEntered
@@ -1263,12 +1264,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Sai da tela
         if ("Gerente".equals(lblCargo.getText())) {
             this.dispose();
-            task.cancel();
+            //task.cancel();
         } else {
             this.dispose();
             TelaLogin login = new TelaLogin();
             login.setVisible(true);
-            task.cancel();
+            //task.cancel();
         }
     }//GEN-LAST:event_jLabel9MouseClicked
 
@@ -1358,7 +1359,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     }//GEN-LAST:event_lblBtnReenvioCozinhaMouseClicked
 
     private void lblCozinhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCozinhaMouseClicked
-        task.cancel();
+        //task.cancel();
         TelaConzinha telaCozinha = new TelaConzinha();
         telaCozinha.recebeOperador(lblOperador.getText(), lblCargo.getText());
         telaCozinha.setVisible(true);

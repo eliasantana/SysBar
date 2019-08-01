@@ -441,6 +441,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         String cargo = lblCargo.getText();
         if ("Gerente".equals(cargo)) {
             dispose();
+           
         } else {
 
             if (cc.pratoPendente() > 0) { // Verifica se existem pratos pendentes na cozinha.
@@ -453,7 +454,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                 login.setVisible(true);
             }
         }
-
+        
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void tblCozinhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCozinhaMouseClicked

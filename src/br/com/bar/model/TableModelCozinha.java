@@ -86,11 +86,11 @@ public class TableModelCozinha extends AbstractTableModel {
         
         tabela.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
-            public Component getTableCellRendererComponent(JTable table, Object value,
+            public Component getTableCellRendererComponent(JTable tabela, Object value,
                     boolean isSelected, boolean hasFocus, int row, int column) {
-                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                super.getTableCellRendererComponent(tabela, value, isSelected, hasFocus, row, column);
                 //A coluna do status é 8
-                Object ref = table.getValueAt(row, 8);//Coluna Status
+                Object ref = tabela.getValueAt(row, 8);//Coluna Status
                 //Coloca cor em todas as linhas,COLUNA(8) que tem o valor "Pendente"
                 
                  if (ref != null && ref.equals("Em preparação")) {//Se Status for igual a "Pendente"
