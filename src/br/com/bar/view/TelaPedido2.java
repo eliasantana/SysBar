@@ -1546,8 +1546,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                     pp.setTbproduto_id(txtCodigoProduto.getText());
                     pp.setQtd(txtQtd.getText());
                     pp.setValorUnit(txtValorUnit.getText().replaceAll(",", "."));
-                    pp.setTotal(txtValorTotal.getText().replaceAll(",", "."));
-                    pp.setData(cp.myDataAtual());
+                    pp.setTotal(txtValorTotal.getText().replaceAll(",", "."));                    
                     pp.setCadmesa_id(txtIdMesa.getText());
                     pp.setCadpedido_id_pedido(txtNumeroPedido.getText());
                     pp.setTbcadfuncionario_id(txtIdGarcom.getText());

@@ -75,6 +75,7 @@ public class TableModelCaixa extends AbstractTableModel {
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(120); //VALOR UNITÁRIO
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(100); //TOTAL
         // Aplica alinhamento
+        tabela.getColumnModel().getColumn(0).setCellRenderer(direita);
         tabela.getColumnModel().getColumn(2).setCellRenderer(direita);
         tabela.getColumnModel().getColumn(3).setCellRenderer(direita);
         tabela.getColumnModel().getColumn(4).setCellRenderer(direita);

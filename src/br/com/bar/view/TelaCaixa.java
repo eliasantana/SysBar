@@ -1945,7 +1945,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void jtabedFormaPagtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabedFormaPagtoMouseClicked
         
-        if (jtabedFormaPagto.getSelectedIndex() != 0) { // Pagamento Misto
+        if (jtabedFormaPagto.getSelectedIndex() != 0) { // Guia Pagamento Misto
             desabilitaBtnRadio();
             lblPago.setEnabled(false);
             lblTroco.setEnabled(false);
@@ -1965,11 +1965,11 @@ public class TelaCaixa extends javax.swing.JFrame {
                     txtValorPago.setText("0,00");
                     txtTroco.setText("0,00");
                     txtDesconto.setText("0,00");
-                   
                 }
 
             }
         } else {
+                // Se Primeira aba for selecionada
                 txtValorPago.setText("0,00");
                 txtTroco.setText("0,00");
                 lblReceber.setEnabled(false);            
@@ -1977,11 +1977,14 @@ public class TelaCaixa extends javax.swing.JFrame {
                 txtMistoDebito.setText("0,00");
                 txtMistoCredito.setText("0,00");
                 txtMistoVoucher.setText("0,00");
+                lblPago.setEnabled(false);
+                lblTroco.setEnabled(false);
                 buttonGroup2.clearSelection();   
-                
+           
             if (radioCartao.isSelected() || radioDebito.isSelected() || radioDinheiro.isSelected() || radioVoucher.isSelected()) {
-
+                
             } else {
+                 // Zera os campos de pagamento misto se senhum RadioButton estiver sido selecionado.    
                 txtValorPago.setText("0,00");
                 txtTroco.setText("0,00");
                 lblReceber.setEnabled(false);            
@@ -2578,6 +2581,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             txtMistoVoucher.setText("0,00");
             lblReceber.setEnabled(false);
             lblReceberPAgamento.setEnabled(false);
+            
 
         }
 
@@ -2611,7 +2615,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         String arreTotalCartao = String.format("%9.2f", totalCartao).replace(",", ".");
         totalCartao = Double.parseDouble(arreTotalCartao);
         double totalMisto = dinheiro + totalCartao; // 
-
+        String arredTotalMisto = String.format("%9.2f", totalMisto).replace(",", ".");
+        totalMisto=Double.parseDouble(arredTotalMisto);
         double totalPedido = Double.parseDouble(lblTotal.getText().replace(",", "."));
         int cont = 0;
         if (dinheiro > 0) {
@@ -2635,6 +2640,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             } else if (totalCartao < totalPedido) {
                 if ((dinheiro > 0) && (totalMisto > totalPedido)) {
                     double troco = totalMisto - totalPedido;
+                    //Reduz para duas casas decimal o total misto
                     txtTroco.setText(String.format("%9.2f", troco));
                     // Habilita Troco
                     lblTroco.setEnabled(true);
@@ -2647,7 +2653,8 @@ public class TelaCaixa extends javax.swing.JFrame {
                     dinheiroPago = Double.parseDouble(vlrDrinheiroPago);
                     dinheiro = dinheiroPago;
                     System.out.println("Valor Real Dinheiro" + dinheiro);
-                } else if ((dinheiro > 0) && (totalMisto == totalPedido)) {
+                    //else if ((dinheiro > 0) && (totalMisto == totalPedido)) // Excluir após validação
+                } else if (totalMisto == totalPedido) {
                     // Habilita Recebimento
                     lblReceber.setEnabled(true);
                     lblReceberPAgamento.setEnabled(true);
@@ -2655,7 +2662,8 @@ public class TelaCaixa extends javax.swing.JFrame {
                     lblTroco.setEnabled(false);
                     txtTroco.setText("0,00");
                     dinheiroPago=dinheiro;
-                } else {
+                
+                }else {
                     JOptionPane.showMessageDialog(this, "O valor informado é menor que o total da conta!");
                 }
             } else if (totalCartao == totalPedido) {

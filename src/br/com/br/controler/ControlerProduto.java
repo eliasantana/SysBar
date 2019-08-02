@@ -382,18 +382,17 @@ public class ControlerProduto {
     // Adiciona um produto ao pedido
     public boolean adicionaProdutoAoPedido(ProdutoPedido pp) {
 
-        String sql = "INSERT INTO detalhe_mesa (tbproduto_id, qtd, valorUnit, Total, data, cadmesa_id, cadpedido_id_pedido, cadpedido_tbcadfuncionario_id) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO detalhe_mesa (tbproduto_id, qtd, valorUnit, Total, data, cadmesa_id, cadpedido_id_pedido, cadpedido_tbcadfuncionario_id) VALUES (?,?,?,?,current_timestamp(),?,?,?)";
 
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, pp.getTbproduto_id());
             pst.setString(2, pp.getQtd());
             pst.setString(3, pp.getValorUnit());
-            pst.setString(4, pp.getTotal());
-            pst.setString(5, pp.getData());
-            pst.setString(6, pp.getCadmesa_id());
-            pst.setString(7, pp.getCadpedido_id_pedido());
-            pst.setString(8, pp.getTbcadfuncionario_id());
+            pst.setString(4, pp.getTotal());           
+            pst.setString(5, pp.getCadmesa_id());
+            pst.setString(6, pp.getCadpedido_id_pedido());
+            pst.setString(7, pp.getTbcadfuncionario_id());
 
             pst.executeUpdate();
 

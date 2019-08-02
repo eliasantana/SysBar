@@ -283,7 +283,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         painelEsquerdo.add(lblMensagem);
         lblMensagem.setBounds(20, 370, 340, 20);
 
-        txtQuantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtQuantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         txtQuantidade.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -293,7 +293,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         painelEsquerdo.add(txtQuantidade);
         txtQuantidade.setBounds(20, 110, 130, 40);
 
-        txtQtdMin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtQtdMin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         txtQtdMin.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtQtdMin.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -414,9 +414,15 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         lblValor.setForeground(Color.BLACK);
         lblMensagem.setText(null);
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            FormataValor fv = new FormataValor();
+            try {
+            FormataValor fv = new FormataValor();             
+            
             txtValor.setText(fv.Formata(txtValor.getText()));
             txtQtdMin.requestFocus();
+            } catch (NumberFormatException ex) {
+                System.out.println("br.com.bar.view.TelaCadastroProduto.txtValorKeyPressed()"+e);
+                JOptionPane.showMessageDialog(this, "Valor Inválido!","Atenção",JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_txtValorKeyPressed
 
@@ -580,13 +586,11 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_comboFornecedorItemStateChanged
 
     private void txtValorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtValorMouseClicked
-        // Limpa campo valor
-        txtValor.setText(null);
+        
     }//GEN-LAST:event_txtValorMouseClicked
 
     private void txtValorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorFocusGained
-        // Limpa campo valor ao receber o foco
-        txtValor.setText(null);
+        
     }//GEN-LAST:event_txtValorFocusGained
 
     private void btnSalvarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseEntered
@@ -609,8 +613,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         lblMensagem.setText(null);
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             txtQtdMax.requestFocus();
-            FormataValor fv = new FormataValor();
-            txtValor.setText(fv.Formata(txtValor.getText()));
+           
         }
     }//GEN-LAST:event_txtQtdMinKeyPressed
 

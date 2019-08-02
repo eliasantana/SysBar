@@ -65,8 +65,7 @@ public class TableModelCadastroProduto extends AbstractTableModel {
      public void redimensionaColunas(JTable tabela) {
         
         DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
-        
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();        
         
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         esquerda.setHorizontalAlignment(SwingConstants.LEFT);
