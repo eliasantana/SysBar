@@ -450,7 +450,7 @@ public class TelaLog extends javax.swing.JFrame {
             param.put("logo", dados.getLogo());
 
             try {
-                rpu.imprimeRelatorioTela("relatorioDeLog.jasper", param);
+                rpu.imprimeRelatorioTela("relatorioDeLog.jasper", param,"Relatório de Log");
 
             } catch (JRException e) {
                 System.out.println("br.com.bar.view.TelaLog.jLabel5MouseClicked() e" + e);

@@ -7,7 +7,10 @@ package br.com.bar.model;
 
 import java.util.ArrayList;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import org.jdesktop.swingx.renderer.DefaultTableRenderer;
 
 /**
  *
@@ -55,13 +58,19 @@ public class TableModelPedidosAbertos extends AbstractTableModel{
     }
     
      public void redimensionaColunas(JTable tabela) {
-
+         //Alinha conteúdo da coluna a direita.
+         DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+         direita.setHorizontalAlignment(SwingConstants.RIGHT);
+         
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(80);     //N.MESA
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(80);    //N. PEDIDO
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(120);   //DATA
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(130);   //STATUS
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(270);    //GARÇOM
+        
+        tabela.getColumnModel().getColumn(0).setCellRenderer(direita);
+        tabela.getColumnModel().getColumn(1).setCellRenderer(direita);
        
        
     }

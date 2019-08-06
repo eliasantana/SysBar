@@ -52,8 +52,7 @@ public class ControlerGrupo {
             return true;
 
         } catch (SQLException e) {
-
-            JOptionPane.showMessageDialog(null, "Este grupo possui contas cadastradas e não pode ser excluído!");
+            
             System.out.println("br.com.br.controler.ControlerGrupo.excluirGrupo()"+e);
         }
         return false;
@@ -140,7 +139,7 @@ public class ControlerGrupo {
         } catch (SQLException e) {
             
             System.out.println("br.com.br.controler.ControlerGrupo.excluirGrupoProduto()"+e);
-            JOptionPane.showMessageDialog(null,"Este grupo possui produtos cadastrados e não pode ser excluído! ");
+            
         }
         return false;
     }

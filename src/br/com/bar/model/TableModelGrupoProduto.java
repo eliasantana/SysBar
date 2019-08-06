@@ -53,6 +53,7 @@ public class TableModelGrupoProduto extends AbstractTableModel {
         DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(60);
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(315);
@@ -63,7 +64,7 @@ public class TableModelGrupoProduto extends AbstractTableModel {
         tabela.getColumnModel().getColumn(1).setCellRenderer(esquerda);
         
         // Alinha a esquerda o cabeçalho da coluna
-        tabela.getColumnModel().getColumn(1).setHeaderRenderer(esquerda);
+        //tabela.getColumnModel().getColumn(1).setHeaderRenderer(esquerda);
 
     }
 

@@ -421,7 +421,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblStatusCozinha);
-        lblStatusCozinha.setBounds(810, 610, 70, 48);
+        lblStatusCozinha.setBounds(880, 610, 70, 48);
 
         textoLblPedido.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
         textoLblPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -467,7 +467,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblReenvioCozinha.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblReenvioCozinha.setText("Reenvio Cozinha");
         getContentPane().add(lblReenvioCozinha);
-        lblReenvioCozinha.setBounds(1080, 660, 130, 20);
+        lblReenvioCozinha.setBounds(980, 660, 130, 20);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel6.setLayout(null);
@@ -853,12 +853,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblBtnReenvioCozinha);
-        lblBtnReenvioCozinha.setBounds(1100, 610, 70, 50);
+        lblBtnReenvioCozinha.setBounds(990, 610, 70, 50);
 
         lbl_status_cozinha.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lbl_status_cozinha.setText("Status Cozinha");
         getContentPane().add(lbl_status_cozinha);
-        lbl_status_cozinha.setBounds(800, 660, 90, 20);
+        lbl_status_cozinha.setBounds(870, 660, 90, 20);
 
         lblCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/cozinha32x32.png"))); // NOI18N
@@ -868,12 +868,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblCozinha);
-        lblCozinha.setBounds(900, 610, 70, 50);
+        lblCozinha.setBounds(790, 610, 70, 50);
 
         lblTextocozinha.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblTextocozinha.setText("Cozinha");
         getContentPane().add(lblTextocozinha);
-        lblTextocozinha.setBounds(910, 660, 80, 20);
+        lblTextocozinha.setBounds(800, 660, 80, 20);
 
         setSize(new java.awt.Dimension(1309, 693));
         setLocationRelativeTo(null);
@@ -884,10 +884,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
         if ("Selecione...".equals(comboGarcom.getSelectedItem().toString())) {
             btnListar.setEnabled(false);
             btnAbrirPedido.setEnabled(false);
-
+            lblStatusCozinha.setEnabled(false);
+            lbl_status_cozinha.setEnabled(false);
         } else {
             btnListar.setEnabled(true);
-
+            lblStatusCozinha.setEnabled(true);
+            lbl_status_cozinha.setEnabled(true);
         }
         limpaform();
         bloqueiaCampos();
@@ -1051,7 +1053,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 // Desabilita botões Enviar para a Cozinha e Status Cozinha após clique 
                 // em outra aba.
 
-                lblStatusCozinha.setEnabled(false);
+                
                 tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(txtNumeroMesa.getText(), txtNumeroPedido.getText())));
                 modelDetPedido.redimensionaColunas(tblDetalhePedido);
                 limpaform();
@@ -1065,7 +1067,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 // Desabilita botões Enviar para a Cozinha e Status Cozinha após clique 
                 // em outra aba.
 
-                lblStatusCozinha.setEnabled(false);
+                
                 tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
                 modelProduroEstoque.redimensionaColunas(tblListaProduto);
             }
@@ -1191,8 +1193,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         if (grupo.toLowerCase().equals("cozinha")) {
 
-            lblStatusCozinha.setEnabled(true);
-            lbl_status_cozinha.setEnabled(true);
+            
             // Habilita os botões [REEVIO COZINHA] se o prato não existir.
             if (!cc.temNaCozinha(idProduto, txtNumeroPedido.getText())) {
                 lblReenvioCozinha.setEnabled(true);
@@ -1204,8 +1205,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         } else {
 
-            lblStatusCozinha.setEnabled(false);
-            lbl_status_cozinha.setEnabled(false);
+            
             lblReenvioCozinha.setEnabled(false);
             lblBtnReenvioCozinha.setEnabled(false);
         }

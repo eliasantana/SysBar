@@ -315,6 +315,9 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Grupo excluído com sucesso!");
                     limpaForm();
                     tblGruposFinanceiro.setModel(DbUtils.resultSetToTableModel(cg.atualizaTabela(tblGruposFinanceiro)));
+                    modelGrupo.redimensionaColunas(tblGruposFinanceiro);
+                }else {
+                    JOptionPane.showMessageDialog(this, "Este grupo possui contas cadastradas e não pode ser excluído!");
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Exclusão cancelada com sucesso!");
@@ -339,11 +342,10 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
                     limpaForm();
                     tblGruposFinanceiro.setModel(DbUtils.resultSetToTableModel(cg.atualizaTabela(tblGruposFinanceiro)));
+                    modelGrupo.redimensionaColunas(tblGruposFinanceiro);
                 }
 
-            } else {
-                JOptionPane.showMessageDialog(this, "Alteração cancelada com sucesso!");
-            }
+            } 
         }
 
     }//GEN-LAST:event_lblAlterarMouseClicked

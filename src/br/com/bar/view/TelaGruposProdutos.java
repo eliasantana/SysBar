@@ -386,12 +386,15 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
                    
                     limpaForm();
                     tblGrupos.setModel(DbUtils.resultSetToTableModel(cg.atualizaGrupoProduto(tblGrupos)));
+                    modelGrupo.redimensionaColunas(tblGrupos);
                     // Registro de log
                     l.setUsuario(lblOperador.getText());
                     l.setFuncionalidade("Excluir");
                     l.setDescricao(l.getUsuario() + " excluiu o grupo -> " + g.getNomeGrupo());
                     l.gravaLog(l);
                     JOptionPane.showMessageDialog(this, "Grupo excluído com sucesso!");
+                }else {
+                    JOptionPane.showMessageDialog(this,"Este grupo possui produtos cadastrados e não pode ser excluído! ");
                 }
                 
             }else {
@@ -466,14 +469,13 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
                     limpaForm();
                     tblGrupos.setModel(DbUtils.resultSetToTableModel(cg.atualizaGrupoProduto(tblGrupos)));
+                    modelGrupo.redimensionaColunas(tblGrupos);
                     // regisra log
                     l.setUsuario(lblOperador.getText());
                     l.setFuncionalidade("Alterar");
                     l.setDescricao(l.getUsuario() + " alterou o grupo " + g.getNomeGrupo());
                     l.gravaLog(l);
                 }
-            }else {
-                 JOptionPane.showMessageDialog(this, "Alteração cancelada com sucesso!");
             }
         }
         

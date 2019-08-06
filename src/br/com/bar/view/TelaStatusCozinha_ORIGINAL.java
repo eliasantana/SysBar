@@ -13,10 +13,10 @@ import net.proteanit.sql.DbUtils;
  *
  * @author elias
  */
-public class TelaStatusCozinha extends javax.swing.JFrame {
+public class TelaStatusCozinha_ORIGINAL extends javax.swing.JFrame {
     TableModelStatusCozinha modelStatusCozinha = new TableModelStatusCozinha();
     
-    public TelaStatusCozinha() {
+    public TelaStatusCozinha_ORIGINAL() {
         initComponents();
          //Lista pratos enviados pelo garçom que estão com status pendente
         
@@ -24,9 +24,11 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
 
     public void recebeOperador(String operador, String nPedido, String nmesa) {     
          
-        lblGarcom.setText(operador);       
+        lblGarcom.setText(operador);
+        lblMesa.setText(nmesa);
+        lblNPedido.setText(nPedido);
         ControlerCozinha status = new ControlerCozinha();
-        tblStatus.setModel(DbUtils.resultSetToTableModel(status.statusCozinha(operador)));
+        tblStatus.setModel(DbUtils.resultSetToTableModel(status.statusCozinha(nPedido)));
         modelStatusCozinha.redimensionaColunas(tblStatus);
         
         
@@ -49,8 +51,12 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         lblGarcom = new javax.swing.JLabel();
+        lblMesa = new javax.swing.JLabel();
+        lblNPedido = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblStatus = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
         btnFechar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -109,7 +115,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 355, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -126,7 +132,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 710, 100);
+        jPanel1.setBounds(0, 0, 620, 100);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setLayout(null);
@@ -135,6 +141,16 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         lblGarcom.setText("jLabel2");
         jPanel3.add(lblGarcom);
         lblGarcom.setBounds(90, 10, 460, 30);
+
+        lblMesa.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        lblMesa.setText("jLabel3");
+        jPanel3.add(lblMesa);
+        lblMesa.setBounds(70, 40, 100, 25);
+
+        lblNPedido.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        lblNPedido.setText("jLabel3");
+        jPanel3.add(lblNPedido);
+        lblNPedido.setBounds(290, 40, 100, 25);
 
         tblStatus.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         tblStatus.setModel(new javax.swing.table.DefaultTableModel(
@@ -157,7 +173,17 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblStatus);
 
         jPanel3.add(jScrollPane1);
-        jScrollPane1.setBounds(5, 70, 700, 310);
+        jScrollPane1.setBounds(5, 70, 608, 310);
+
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        jLabel3.setText("Pedido:");
+        jPanel3.add(jLabel3);
+        jLabel3.setBounds(210, 40, 80, 25);
+
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        jLabel4.setText("Mesa:");
+        jPanel3.add(jLabel4);
+        jLabel4.setBounds(10, 40, 70, 25);
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel5.setText("Garçom:");
@@ -165,9 +191,9 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         jLabel5.setBounds(10, 10, 90, 30);
 
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(0, 100, 710, 388);
+        jPanel3.setBounds(0, 100, 618, 388);
 
-        setBounds(0, 0, 713, 487);
+        setBounds(0, 0, 618, 487);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFecharMouseClicked
@@ -201,20 +227,21 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaStatusCozinha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaStatusCozinha_ORIGINAL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaStatusCozinha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaStatusCozinha_ORIGINAL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaStatusCozinha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaStatusCozinha_ORIGINAL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaStatusCozinha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaStatusCozinha_ORIGINAL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaStatusCozinha().setVisible(true);
+                new TelaStatusCozinha_ORIGINAL().setVisible(true);
             }
         });
     }
@@ -224,12 +251,16 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
     private javax.swing.JLabel btnFechar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblGarcom;
+    private javax.swing.JLabel lblMesa;
+    private javax.swing.JLabel lblNPedido;
     private javax.swing.JTable tblStatus;
     // End of variables declaration//GEN-END:variables
 }

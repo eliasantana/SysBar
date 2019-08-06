@@ -71,6 +71,7 @@ public class TableModelDetalhePedido extends AbstractTableModel {
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(100); 
         
         // Aplica o alinhamento a coluna
+        tabela.getColumnModel().getColumn(0).setCellRenderer(direita);
         tabela.getColumnModel().getColumn(2).setCellRenderer(direita);
         tabela.getColumnModel().getColumn(3).setCellRenderer(direita);
         tabela.getColumnModel().getColumn(4).setCellRenderer(direita);

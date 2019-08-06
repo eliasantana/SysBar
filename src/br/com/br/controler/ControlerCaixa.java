@@ -498,7 +498,7 @@ public class ControlerCaixa {
                             if (dadosEmpresa.getImprimir_na_tela() == 0) {
 
                                // Já existe acima DadosEmpresa dados_empresa = de.selecionaDados();// Retorna dadados da empresa
-                                rpu.imprimeRelatorioTela("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param));
+                                rpu.imprimeRelatorioTela("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param),"Movimentação de Caixa");
 
                             } else {
                                 rpu.impressaoDireta("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param));

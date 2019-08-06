@@ -628,7 +628,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                 HashMap map = new HashMap();
                 map.put("mesa", nMesa);
                 try {
-                    report.imprimeRelatorioTela("solicitacoes.jasper", map);
+                    report.imprimeRelatorioTela("solicitacoes.jasper", map,"Solicitações");
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaConzinha.lblImprimirSolicitacoesMouseClicked()" + e);
                 }
@@ -668,7 +668,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                     HashMap parametro = new HashMap();
                     parametro.put("id", idProdutoCozinha);
                     try {
-                        rpu.imprimeRelatorioTela("contigencia_3.jasper", parametro);
+                        rpu.imprimeRelatorioTela("contigencia_3.jasper", parametro,"Solicitação");
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaConzinha.lblPrepararMouseClicked()" + e);
                         JOptionPane.showMessageDialog(null, "Erro ao tentar imprimir Solicitação - contate o SUPORTE!");

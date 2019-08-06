@@ -64,6 +64,7 @@ public class TableModelProdutoEstoque extends AbstractTableModel{
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(115);  
         
         // Aoplicando o alinhamento a coluna
+        tabela.getColumnModel().getColumn(0).setCellRenderer(direita);
         tabela.getColumnModel().getColumn(2).setCellRenderer(direita);
         tabela.getColumnModel().getColumn(3).setCellRenderer(direita);
        

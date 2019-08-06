@@ -32,7 +32,6 @@ public class ControlerCozinha {
     TableModelCozinha modelTelaCozinha = new TableModelCozinha();
     ReportUtil rpu = new ReportUtil();
 
-
     public ResultSet listaProdutosCozinha() {
         /* ******* ATENCAO ********
         ANALISAR SE O TIME ZONE PERMANCERA COM -03H00 RELACIONADAS A HORA ATUAL 
@@ -86,7 +85,7 @@ public class ControlerCozinha {
             resultado.add(liberados);
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerCozinha.estatisticas()"+e);
+            System.out.println("br.com.br.controler.ControlerCozinha.estatisticas()" + e);
         }
         return resultado;
     }
@@ -105,7 +104,7 @@ public class ControlerCozinha {
 
         } catch (SQLException e) {
 
-            System.out.println("br.com.br.controler.ControlerCozinha.liberaProduto()"+e);
+            System.out.println("br.com.br.controler.ControlerCozinha.liberaProduto()" + e);
         }
 
         return false;
@@ -133,37 +132,77 @@ public class ControlerCozinha {
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerCozinha.statusCozinha()"+e);
+            System.out.println("br.com.br.controler.ControlerCozinha.statusCozinha()" + e);
         }
 
         return rs;
     }
 
     // Retorna a lista dos produtos enviados para a cozinha pelo operador garçom
-    public ResultSet statusCozinha(String npedido) {
+    // Ecluir após validação do método que exibe todos os pratos de uma garçom
+//    public ResultSet statusCozinha(String npedido) {
+//
+//        // Listas os pratos enviados a cozinha pelo garçom
+//        String sql = "SELECT "
+//                + " produto    as PRATO\n"
+//                + "     , qtd  as QTD\n"
+//                + "     , CASE    \n"
+//                + "	      WHEN cozinheiro IS NULL THEN 'Não informado'    \n"
+//                + "		  ELSE cozinheiro \n"
+//                + "	   END   as COZINHEIRO\n"
+//                + "     , status as STATUS\n"
+//                + "  FROM dbbar.tbcozinha\n"
+//                + " WHERE npedido =?\n"
+//                + "   AND status IN ('Pendente', 'Em preparação', 'Liberado')\n"
+//                + " Order by \n"
+//                + "      (CASE status\n"
+//                + "          WHEN 'Pendente'      THEN '1'\n"
+//                + "          WHEN 'Em preparação' THEN '2'\n"
+//                + "          WHEN 'Liberado'      THEN '3'\n"
+//                + "	   END)";
+//
+//        try {
+//            pst = conexao.prepareStatement(sql);
+//            pst.setString(1, npedido);
+//            rs = pst.executeQuery();
+//
+//        } catch (SQLException e) {
+//            System.out.println("br.com.br.controler.ControlerCozinha.statusCozinha()");
+//        }
+//
+//        return rs;
+//    }
+    /*
+        - Verifica se há pratos pendentes na cozinha. Este métodos e chamado nas telas:
+            - Tela Cozinha e Tela Principal
+    
+     */
+    public ResultSet statusCozinha(String garcom) {
 
         // Listas os pratos enviados a cozinha pelo garçom
-        String sql = "SELECT "
-                + " produto    as PRATO\n"
-                + "     , qtd  as QTD\n"
-                + "     , CASE    \n"
-                + "	      WHEN cozinheiro IS NULL THEN 'Não informado'    \n"
-                + "		  ELSE cozinheiro \n"
-                + "	   END   as COZINHEIRO\n"
-                + "     , status as STATUS\n"
-                + "  FROM dbbar.tbcozinha\n"
-                + " WHERE npedido =?\n"
-                + "   AND status IN ('Pendente', 'Em preparação', 'Liberado')\n"
+        String sql = "SELECT \n"
+                + "mesa AS 'MESA'\n"
+                + ",npedido as 'PEDIDO'\n"
+                + ",produto as PRATO\n"
+                + ", qtd  as QTD\n"
+                + ", CASE  \n"
+                + "WHEN cozinheiro IS NULL THEN 'Não informado'\n"
+                + "ELSE cozinheiro \n"
+                + "END   as COZINHEIRO\n"
+                + ", status as STATUS\n"
+                + "FROM dbbar.tbcozinha\n"
+                + "WHERE funcionario =? AND date_format(hora_solicitacao,'%Y-%m-%d')  >= date_sub(curdate(),INTERVAL 1 day)\n"
+                + "AND status IN ('Pendente', 'Em preparação', 'Liberado')\n"
                 + " Order by \n"
-                + "      (CASE status\n"
-                + "          WHEN 'Pendente'      THEN '1'\n"
-                + "          WHEN 'Em preparação' THEN '2'\n"
-                + "          WHEN 'Liberado'      THEN '3'\n"
-                + "	   END)";
+                + "(CASE status\n"
+                + "WHEN 'Pendente'      THEN '1'\n"
+                + "WHEN 'Em preparação' THEN '2'\n"
+                + "WHEN 'Liberado'      THEN '3'\n"
+                + "END)";
 
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, npedido);
+            pst.setString(1, garcom);
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
@@ -172,12 +211,13 @@ public class ControlerCozinha {
 
         return rs;
     }
-   /*
+
+    /*
         - Verifica se há pratos pendentes na cozinha. Este métodos e chamado nas telas:
             - Tela Cozinha e Tela Principal
     
-    */ 
-   
+     */
+
     public int pratoPendente() {
 
         int qtd = 0;
@@ -218,7 +258,7 @@ public class ControlerCozinha {
         return resp;
     }
 
-     /*
+    /*
      * Registra a hora em que foi iniciada a preparação do prato pelo cozinheiro
      */
     public void registraPreparo(String idTbCozinha, String nomeCozinheiro) {
@@ -249,55 +289,56 @@ public class ControlerCozinha {
         map.put("id", id);
 
         try {
-            rpu.imprimeRelatorioTela("cozinha.jasper", map);
+            rpu.imprimeRelatorioTela("cozinha.jasper", map,"Comprovante Cozinha");
 
         } catch (JRException e) {
             System.out.println("br.com.br.controler.ControlerCozinha.imprimeComprovanteCozinha()" + e);
         }
     }
+
     /**
      * Verifica se o produto já foi enviado para a cozinha;
+     *
      * @param idProduto Produto a ser localizado.
      * @param nPedido Número do Pedido do produto;
      * @return Retorna TRUE ou FALSE.
      * @since TESTE INTEGRADO 15/05/2019 14:27
-    */
-    public boolean temNaCozinha(String idProduto, String nPedido){
-        boolean resp=false;
-        String sql="SELECT * FROM dbbar.tbcozinha where codProduto=? and npedido=?";
+     */
+    public boolean temNaCozinha(String idProduto, String nPedido) {
+        boolean resp = false;
+        String sql = "SELECT * FROM dbbar.tbcozinha where codProduto=? and npedido=?";
         try {
-            pst=conexao.prepareStatement(sql);
-            pst.setString(1,idProduto);
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, idProduto);
             pst.setString(2, nPedido);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                resp=true;
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                resp = true;
             }
-            
-            
+
         } catch (SQLException ex) {
             System.out.println("br.com.br.controler.ControlerCozinha.temNaCozinha()");
-        }         
-        
-        
+        }
+
         return resp;
     }
+
     // Verifica se o prato possui obsrvação
-    public String temObs(String idPrato){
-        String sql="SELECT observacao FROM tbcozinha where id=?;";
-        String obs=null;
-        
+    public String temObs(String idPrato) {
+        String sql = "SELECT observacao FROM tbcozinha where id=?;";
+        String obs = null;
+
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, idPrato);
-            rs=pst.executeQuery();
-            while (rs.next()){
-              obs=rs.getString("observacao");              
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                obs = rs.getString("observacao");
             }
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerCozinha.temObs()"+e);
+            System.out.println("br.com.br.controler.ControlerCozinha.temObs()" + e);
         }
-        
-         return obs;
+
+        return obs;
     }
 }

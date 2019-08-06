@@ -45,7 +45,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
-import javax.swing.JTabbedPane;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -1366,6 +1365,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
                     // Libera a mesa após o pagamento
                     cm.trocaStatusMesa(comboMesa.getSelectedItem().toString(), "0");
+                     txtValorPago.setText("0,00");
                     JOptionPane.showMessageDialog(null, "Pedido fechado com sucesso!");
                     // ===============================================================//
 
@@ -1435,7 +1435,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                         // Verifica o método de impressão 0 -> Impressção em tela 1 - Impressão direta
                         if (dadosEmpresa.getImprimir_na_tela() == 0) {
                             //rpu.imprimeRelatorioTela("cupom2.jasper", dados);
-                            rpu.imprimeRelatorioTela("cupom2_7.jasper", dados);
+                            rpu.imprimeRelatorioTela("cupom2_7.jasper", dados,"Comprovante de Pagamento");
                         } else {
                             // rpu.impressaoDireta("cupom2.jasper", dados);
                             rpu.impressaoDireta("cupom2_7.jasper", dados);
@@ -1572,7 +1572,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             try {
                 if (dadosEmpresa.getImprimir_na_tela() == 0) {
 
-                    rpu.imprimeRelatorioTela("consumo.jasper", dados);
+                    rpu.imprimeRelatorioTela("consumo.jasper", dados,"Consumo");
 
                 } else {
 
@@ -1666,7 +1666,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                             ReportUtil rpu = new ReportUtil();
                             if (dadosEmpresa.getImprimir_na_tela() == 0) {
 
-                                rpu.imprimeRelatorioTela("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param));
+                                rpu.imprimeRelatorioTela("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param),"Relátorio de Movimentações");
 
                             } else {
                                 JasperPrint print = JasperFillManager.fillReport(cparam.getRELATORIOS() + "relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param), conexao);
@@ -1688,7 +1688,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                         HashMap mapDetalhe = new HashMap();
                         mapDetalhe.put("operador", lblOperador.getText());
                         try {
-                            rpu.imprimeRelatorioTela("detalhe.jasper", mapDetalhe);
+                            rpu.imprimeRelatorioTela("detalhe.jasper", mapDetalhe,"Detalhamento de Vendas");
                         } catch (JRException ex) {
                             Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
                         }

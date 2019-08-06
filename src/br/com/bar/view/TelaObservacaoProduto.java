@@ -6,6 +6,7 @@
 package br.com.bar.view;
 
 import br.com.bar.util.Util;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 /**
@@ -16,10 +17,12 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
 
     TelaPedido2 telaPedido = new TelaPedido2();
     ArrayList<String> listaAtualizada = new ArrayList<>();
-    
+
     public TelaObservacaoProduto() {
         initComponents();
         jTextAreaObservacao.requestFocus();
+        btnSalvar.setEnabled(false);
+
     }
 
     /**
@@ -38,6 +41,7 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
         jTextAreaObservacao = new javax.swing.JTextArea();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        lblcaractere = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -93,17 +97,22 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
             }
         });
         bordas.add(btnSalvar);
-        btnSalvar.setBounds(86, 167, 117, 33);
+        btnSalvar.setBounds(90, 190, 117, 33);
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fechar32x32.png"))); // NOI18N
-        btnCancelar.setText("Fechar");
+        btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
         });
         bordas.add(btnCancelar);
-        btnCancelar.setBounds(209, 167, 117, 33);
+        btnCancelar.setBounds(210, 190, 117, 33);
+
+        lblcaractere.setForeground(new java.awt.Color(255, 0, 0));
+        lblcaractere.setText("Deve conter no mínimo de 10 caracteres.");
+        bordas.add(lblcaractere);
+        lblcaractere.setBounds(10, 160, 380, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,42 +122,76 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bordas, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(bordas, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(400, 212));
+        setSize(new java.awt.Dimension(400, 240));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // Fecha janela
-           
-           listaAtualizada.add(null);
-           telaPedido.recebeObsPrato(listaAtualizada,this);
+
+        listaAtualizada.add(null);
+        telaPedido.recebeObsPrato(listaAtualizada, this);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-            if (jTextAreaObservacao.getText().isEmpty()){
-                listaAtualizada.add(null);                
-                telaPedido.recebeObsPrato(listaAtualizada,this);
-            }else {                
-                listaAtualizada.add(jTextAreaObservacao.getText());
-                telaPedido.recebeObsPrato(listaAtualizada,this);               
-            }
-           
-            
+        if (jTextAreaObservacao.getText().isEmpty()) {
+            listaAtualizada.add(null);
+            telaPedido.recebeObsPrato(listaAtualizada, this);
+        } else {
+            listaAtualizada.add(jTextAreaObservacao.getText());
+            telaPedido.recebeObsPrato(listaAtualizada, this);
+        }
+
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void jTextAreaObservacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextAreaObservacaoKeyPressed
         Util u = new Util();
-        jTextAreaObservacao.setText(u.tamanhoMaximo(jTextAreaObservacao.getText(), 200));
+
+        jTextAreaObservacao.setText(u.tamanhoMaximo(jTextAreaObservacao.getText(), 199));
+        String textoDigitado = jTextAreaObservacao.getText();
+
+        int tamanho = textoDigitado.length();
+        
+
+        if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+            tamanho = tamanho - 1;
+            lblcaractere.setText("Caractere(s) "+String.valueOf(tamanho));
+            if (tamanho<=10){
+                btnSalvar.setEnabled(false);
+            }
+            if (tamanho<=0){
+                 lblcaractere.setText("Deve conter no mínimo de 10 caracteres.");
+            }
+        } else {
+
+            if (tamanho >= 0) {
+                tamanho = tamanho + 1;
+                lblcaractere.setText("Caractere(s) "+String.valueOf(tamanho));
+            }
+            if (tamanho<10){
+                btnSalvar.setEnabled(false);
+            }else {
+                 btnSalvar.setEnabled(true);
+            }
+            
+
+        }
+
+
     }//GEN-LAST:event_jTextAreaObservacaoKeyPressed
     // Recebe tela de pedido
-    public void recebeTela(TelaPedido2 tl, ArrayList<String>lista){
-         
-       this.telaPedido=tl;
-       this.listaAtualizada = lista;
+    public void recebeTela(TelaPedido2 tl, ArrayList<String> lista) {
+
+        this.telaPedido = tl;
+        this.listaAtualizada = lista;
     }
+
     /**
      * @param args the command line arguments
      */
@@ -191,6 +234,7 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaObservacao;
+    private javax.swing.JLabel lblcaractere;
     private javax.swing.JPanel panelTitulo;
     // End of variables declaration//GEN-END:variables
 }

@@ -47,8 +47,13 @@ public class ReportUtil {
 
     }
 
-    // Este método abre na tela um relatório passado como parâmetro
-    public void imprimeRelatorioTela(String relatorio, HashMap map) throws JRException {
+    /**
+     * Este método abre o relatório passado como parâmetro
+     * @param relatorio Nome do relatório a ser aberto.
+     * @param map Mapa de parâmetro necessário para execução do relatório.
+     * @param titulo Titulo do Relatório
+     */ 
+    public void imprimeRelatorioTela(String relatorio, HashMap map, String titulo) throws JRException {
         // Instancia o objeto 
         /*
             Este métodos imprime um cumpom em tela, aqui foi necessário realizar as seguintes modificações
@@ -58,7 +63,7 @@ public class ReportUtil {
             
         try {
             // Instancia um JDialog
-            JDialog viewer = new JDialog(new javax.swing.JFrame(), "Comprovante", true);
+            JDialog viewer = new JDialog(new javax.swing.JFrame(), titulo, true);
             viewer.setSize(800, 600);
             viewer.setLocationRelativeTo(null);
             

@@ -301,7 +301,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     if ("Selecione...".equals(jcomboGrupo.getSelectedItem().toString())) {
 
                         try {
-                            rpu.imprimeRelatorioTela("relProdutos.jasper", rodape(dados));
+                            rpu.imprimeRelatorioTela("relProdutos.jasper", rodape(dados),"Relatório de Produtos");
                         } catch (JRException e) {
                             System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Produto em Estoque" + e);
                         }
@@ -310,7 +310,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
 
                             HashMap map = new HashMap();
                             map.put("grupo", jcomboGrupo.getSelectedItem().toString());
-                            rpu.imprimeRelatorioTela("relProdutos_x_grupo.jasper", rodape(dados, map));
+                            rpu.imprimeRelatorioTela("relProdutos_x_grupo.jasper", rodape(dados, map),"Produtos e Grupos");
 
                         } catch (JRException e) {
                             System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Produto em Estoque" + e);
@@ -320,7 +320,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
 
                 case "Posição do Estoque - Compras":
                     try {
-                        rpu.imprimeRelatorioTela("relPosicaoEstoque.jasper", rodape(dados));
+                        rpu.imprimeRelatorioTela("relPosicaoEstoque.jasper", rodape(dados),"Prosição do Estoque");
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() Posição do Estoque" + e);
                     }
@@ -336,7 +336,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                         map.put("dtInicio", dataInicio);
                         map.put("dtFim", dataFim);
 
-                        rpu.imprimeRelatorioTela("relSintComissao.jasper", rodape(dados, map));
+                        rpu.imprimeRelatorioTela("relSintComissao.jasper", rodape(dados, map),"Relatório de Comissão");
 
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Sintético" + e);
@@ -352,7 +352,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                         map.put("dataInicio", dataInicio);
                         map.put("dataFim", dataFim);
 
-                        rpu.imprimeRelatorioTela("comissaoGeral.jasper", rodape(dados, map));
+                        rpu.imprimeRelatorioTela("comissaoGeral.jasper", rodape(dados, map),"Relatório de Comissão - Geral");
 
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Comissão Análítico" + e);
@@ -368,7 +368,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                         map.put("dt_inicio", dataInicio);
                         map.put("dt_fim", dataFim);
 
-                        rpu.imprimeRelatorioTela("Saidas.jasper", rodape(dados, map));
+                        rpu.imprimeRelatorioTela("Saidas.jasper", rodape(dados, map),"Saídas de Caixa");
 
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Saída de Caixa" + e);
@@ -384,7 +384,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                         map.put("inicio", dataInicio);
                         map.put("fim", dataFim);
 
-                        rpu.imprimeRelatorioTela("relCaixa.jasper", rodape(dados, map));
+                        rpu.imprimeRelatorioTela("relCaixa.jasper", rodape(dados, map),"Entradas de Caixa");
 
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Entrada de Caixa" + e);
@@ -399,7 +399,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                         map.put("inicio", dataInicio);
                         map.put("fim", dataFim);
 
-                        rpu.imprimeRelatorioTela("caixaSintetico.jasper", rodape(dados, map));
+                        rpu.imprimeRelatorioTela("caixaSintetico.jasper", rodape(dados, map),"Caixa Sintético");
 
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Caixa Sintético" + e);
@@ -409,7 +409,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                 case "Funcionários Geral":
                     try {
 
-                        rpu.imprimeRelatorioTela("relGeralDeFuncionarios.jasper", rodape(dados));
+                        rpu.imprimeRelatorioTela("relGeralDeFuncionarios.jasper", rodape(dados),"Funcionários");
 
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Entrada de Caixa" + e);
