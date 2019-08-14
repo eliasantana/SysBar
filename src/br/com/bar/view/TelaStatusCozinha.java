@@ -157,7 +157,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblStatus);
 
         jPanel3.add(jScrollPane1);
-        jScrollPane1.setBounds(5, 70, 700, 310);
+        jScrollPane1.setBounds(5, 50, 700, 330);
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel5.setText("Garçom:");

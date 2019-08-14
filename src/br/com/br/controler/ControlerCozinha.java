@@ -179,7 +179,8 @@ public class ControlerCozinha {
      */
     public ResultSet statusCozinha(String garcom) {
 
-        // Listas os pratos enviados a cozinha pelo garçom
+        // Listas os pratos enviados a cozinha pelo garçom na data Atual e nada data Anterior
+        /*
         String sql = "SELECT \n"
                 + "mesa AS 'MESA'\n"
                 + ",npedido as 'PEDIDO'\n"
@@ -195,6 +196,27 @@ public class ControlerCozinha {
                 + "AND status IN ('Pendente', 'Em preparação', 'Liberado')\n"
                 + " Order by \n"
                 + "(CASE status\n"
+                + "WHEN 'Pendente'      THEN '1'\n"
+                + "WHEN 'Em preparação' THEN '2'\n"
+                + "WHEN 'Liberado'      THEN '3'\n"
+                + "END)";*/
+        // Listas os pratos enviados a cozinha pelo garçom na data Atual
+        
+        String sql = "SELECT \n"
+                + "mesa AS 'MESA'\n"
+                + ",npedido as 'PEDIDO'\n"
+                + ",produto as PRATO\n"
+                + ", qtd  as QTD\n"
+                + ", CASE  \n"
+                + "WHEN cozinheiro IS NULL THEN 'Não informado'\n"
+                + "ELSE cozinheiro \n"
+                + "END   as COZINHEIRO\n"
+                + ", status as STATUS\n"
+                + "FROM dbbar.tbcozinha\n"
+                + "WHERE funcionario =? AND date_format(hora_solicitacao,'%Y-%m-%d')=curdate()\n"
+                + "AND status IN ('Pendente', 'Em preparação', 'Liberado')\n"
+                + " Order by \n"
+                + "mesa, pedido desc,(CASE status\n"
                 + "WHEN 'Pendente'      THEN '1'\n"
                 + "WHEN 'Em preparação' THEN '2'\n"
                 + "WHEN 'Liberado'      THEN '3'\n"

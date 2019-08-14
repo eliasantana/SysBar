@@ -319,10 +319,7 @@ public class TelaGruposFinanceiro extends javax.swing.JFrame {
                 }else {
                     JOptionPane.showMessageDialog(this, "Este grupo possui contas cadastradas e não pode ser excluído!");
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Exclusão cancelada com sucesso!");
-
-            }
+            } 
         }
     }//GEN-LAST:event_lblExcluirMouseClicked
 

@@ -8,7 +8,6 @@ package br.com.bar.view;
 import br.com.bar.dao.Log;
 import br.com.bar.model.Grupo;
 import br.com.bar.model.TableModelGrupoProduto;
-import br.com.bar.util.Util;
 import br.com.br.controler.ControlerGrupo;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
@@ -20,9 +19,8 @@ import net.proteanit.sql.DbUtils;
 public class TelaGruposProdutos extends javax.swing.JFrame {
 
     ControlerGrupo cg = new ControlerGrupo();
-    Log l = new Log();
-    Util u = new Util();
     TableModelGrupoProduto modelGrupo = new TableModelGrupoProduto();
+    Log l = new Log();
     /**
      * Creates new form TelaPaametro
      */
@@ -34,13 +32,12 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
         lblOperador.setVisible(false);
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
-       
+        
 
     }
     
     public void recebeOperador(String operador){
-        lblOperador.setText(operador);
-       
+        lblOperador.setText(operador);       
     }
 
     /**
@@ -74,7 +71,7 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
         panelExcluir = new javax.swing.JPanel();
         panelTabela = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblGrupos = new javax.swing.JTable();
+        tblGrupoProduto = new javax.swing.JTable();
         txtIdGrupo = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
 
@@ -307,8 +304,8 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
         panelTabela.setBackground(new java.awt.Color(44, 62, 80));
         panelTabela.setLayout(null);
 
-        tblGrupos.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        tblGrupos.setModel(new javax.swing.table.DefaultTableModel(
+        tblGrupoProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        tblGrupoProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -316,13 +313,13 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
                 "CÓDIGO", "DESCRIÇÃO"
             }
         ));
-        tblGrupos.setRowHeight(20);
-        tblGrupos.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblGrupoProduto.setRowHeight(20);
+        tblGrupoProduto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblGruposMouseClicked(evt);
+                tblGrupoProdutoMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tblGrupos);
+        jScrollPane2.setViewportView(tblGrupoProduto);
 
         panelTabela.add(jScrollPane2);
         jScrollPane2.setBounds(20, 0, 390, 170);
@@ -358,17 +355,17 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_panelConsultarMouseClicked
 
-    private void tblGruposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGruposMouseClicked
+    private void tblGrupoProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGrupoProdutoMouseClicked
         // Seleciona Grupo
 
-        int linha = tblGrupos.getSelectedRow();
-        txtIdGrupo.setText(tblGrupos.getModel().getValueAt(linha, 0).toString());
-        txtNome.setText(tblGrupos.getModel().getValueAt(linha, 1).toString());
-        txtNomeGrupo.setText(tblGrupos.getModel().getValueAt(linha, 1).toString());
+        int linha = tblGrupoProduto.getSelectedRow();
+        txtIdGrupo.setText(tblGrupoProduto.getModel().getValueAt(linha, 0).toString());
+        txtNome.setText(tblGrupoProduto.getModel().getValueAt(linha, 1).toString());
+        txtNomeGrupo.setText(tblGrupoProduto.getModel().getValueAt(linha, 1).toString());
         btnAlterar.setEnabled(true);
         btnExcluir.setEnabled(true);
 
-    }//GEN-LAST:event_tblGruposMouseClicked
+    }//GEN-LAST:event_tblGrupoProdutoMouseClicked
 
     private void btnExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseClicked
        
@@ -385,8 +382,8 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
                 if (cg.excluirGrupoProduto(g)) {
                    
                     limpaForm();
-                    tblGrupos.setModel(DbUtils.resultSetToTableModel(cg.atualizaGrupoProduto(tblGrupos)));
-                    modelGrupo.redimensionaColunas(tblGrupos);
+                    tblGrupoProduto.setModel(DbUtils.resultSetToTableModel(cg.atualizaGrupoProduto(tblGrupoProduto)));
+                    modelGrupo.redimensionaColunas(tblGrupoProduto);
                     // Registro de log
                     l.setUsuario(lblOperador.getText());
                     l.setFuncionalidade("Excluir");
@@ -397,8 +394,6 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this,"Este grupo possui produtos cadastrados e não pode ser excluído! ");
                 }
                 
-            }else {
-                    JOptionPane.showMessageDialog(this, "Exclusão cancelada com sucesso!");               
             }
         }
     }//GEN-LAST:event_btnExcluirMouseClicked
@@ -424,8 +419,8 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
                 if (cg.adicionarGrupoProduto(g)) {
                     JOptionPane.showMessageDialog(this, "Grupo adicionado com sucesso!");
                     limpaForm();
-                    tblGrupos.setModel(DbUtils.resultSetToTableModel(cg.atualizaGrupoProduto(tblGrupos)));
-                    modelGrupo.redimensionaColunas(tblGrupos);
+                    tblGrupoProduto.setModel(DbUtils.resultSetToTableModel(cg.atualizaGrupoProduto(tblGrupoProduto)));
+                    modelGrupo.redimensionaColunas(tblGrupoProduto);
                     //Regisra log
                     l.setUsuario(lblOperador.getText());
                     l.setFuncionalidade("Salvar");
@@ -444,8 +439,8 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
         if (nomeBotao.equals("Consultar")) {
             panelTabela.setVisible(true);
             lblConsultar.setText("Ocultar");
-            tblGrupos.setModel(DbUtils.resultSetToTableModel(cg.atualizaGrupoProduto(tblGrupos)));
-            modelGrupo.redimensionaColunas(tblGrupos);
+            tblGrupoProduto.setModel(DbUtils.resultSetToTableModel(cg.atualizaGrupoProduto(tblGrupoProduto)));
+            modelGrupo.redimensionaColunas(tblGrupoProduto);
         } else {
             panelTabela.setVisible(false);
             lblConsultar.setText("Consultar");
@@ -468,8 +463,8 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
                 if (cg.alteraGrupoProduto(g)) {
                     JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
                     limpaForm();
-                    tblGrupos.setModel(DbUtils.resultSetToTableModel(cg.atualizaGrupoProduto(tblGrupos)));
-                    modelGrupo.redimensionaColunas(tblGrupos);
+                    tblGrupoProduto.setModel(DbUtils.resultSetToTableModel(cg.atualizaGrupoProduto(tblGrupoProduto)));
+                    modelGrupo.redimensionaColunas(tblGrupoProduto);
                     // regisra log
                     l.setUsuario(lblOperador.getText());
                     l.setFuncionalidade("Alterar");
@@ -559,7 +554,7 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
     private javax.swing.JPanel panelConsultar;
     private javax.swing.JPanel panelExcluir;
     private javax.swing.JPanel panelTabela;
-    private javax.swing.JTable tblGrupos;
+    private javax.swing.JTable tblGrupoProduto;
     private javax.swing.JTextField txtIdGrupo;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNomeGrupo;

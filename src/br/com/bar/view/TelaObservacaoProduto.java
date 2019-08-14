@@ -42,6 +42,7 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         lblcaractere = new javax.swing.JLabel();
+        lblPrato = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -87,7 +88,7 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextAreaObservacao);
 
         bordas.add(jScrollPane1);
-        jScrollPane1.setBounds(11, 56, 378, 100);
+        jScrollPane1.setBounds(10, 90, 378, 100);
 
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvar.png"))); // NOI18N
         btnSalvar.setText("Salvar");
@@ -97,7 +98,7 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
             }
         });
         bordas.add(btnSalvar);
-        btnSalvar.setBounds(90, 190, 117, 33);
+        btnSalvar.setBounds(90, 220, 117, 33);
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fechar32x32.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
@@ -107,12 +108,17 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
             }
         });
         bordas.add(btnCancelar);
-        btnCancelar.setBounds(210, 190, 117, 33);
+        btnCancelar.setBounds(210, 220, 117, 33);
 
         lblcaractere.setForeground(new java.awt.Color(255, 0, 0));
         lblcaractere.setText("Deve conter no mínimo de 10 caracteres.");
         bordas.add(lblcaractere);
-        lblcaractere.setBounds(10, 160, 380, 20);
+        lblcaractere.setBounds(10, 190, 380, 20);
+
+        lblPrato.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
+        lblPrato.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        bordas.add(lblPrato);
+        lblPrato.setBounds(10, 60, 380, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -122,12 +128,10 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(bordas, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(bordas, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(400, 240));
+        setSize(new java.awt.Dimension(400, 268));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -190,6 +194,7 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
 
         this.telaPedido = tl;
         this.listaAtualizada = lista;
+        lblPrato.setText(lista.get(0));
     }
 
     /**
@@ -234,6 +239,7 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaObservacao;
+    private javax.swing.JLabel lblPrato;
     private javax.swing.JLabel lblcaractere;
     private javax.swing.JPanel panelTitulo;
     // End of variables declaration//GEN-END:variables

@@ -1044,7 +1044,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 // Desabilita botões Enviar para a Cozinha e Status Cozinha após clique 
                 // em outra aba.
 
-                lblStatusCozinha.setEnabled(false);
+               
             } else if ("Detalhe Pedido".equals(jTabbedPanePedido.getTitleAt(index))) {
                 txtQtd.setEnabled(false);
                 txtCodigoProduto.setEnabled(true);
@@ -1350,9 +1350,25 @@ public class TelaPedido2 extends javax.swing.JFrame {
             pCozinha.add(txtNumeroPedido.getText());
             Date dtAtual = new Date();
             Timestamp tms = new Timestamp(dtAtual.getTime());
-            pCozinha.add(String.valueOf(tms)); // Data Atual   
+            pCozinha.add(String.valueOf(tms)); // Data Atual 
+            int op = JOptionPane.showConfirmDialog(this, "Deseja adicionar uma observação?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            
+            // Chama a tela de observação
+            if (op == JOptionPane.YES_OPTION) {
+                
+                TelaObservacaoProduto telaObs = new TelaObservacaoProduto();
+                telaObs.recebeTela(this, pCozinha); // Envia dados do produto
+                telaObs.setAlwaysOnTop(true);
+                telaObs.setVisible(true);
+
+            } else {
+
+                pCozinha.add(null);//Obsrevação do prato                               
+                // Envia prato para cozinha
+                enviaParaCozinha(pCozinha);
+            }
             // Envia prato para a cozinha
-            enviaParaCozinha(pCozinha);
+            //enviaParaCozinha(pCozinha);
             lblReenvioCozinha.setEnabled(false);
             lblBtnReenvioCozinha.setEnabled(false);
         }
