@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -187,6 +188,7 @@ public class TelaPametro extends javax.swing.JFrame {
     private void bnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnSalvarActionPerformed
         ControlerParametro parametro = new ControlerParametro();
         parametro.criarArquivoParametro(txtIpServidor.getText(), txtUsuario.getText(), txtSenha.getText(), txtNomeBanco.getText(), txtPorta.getText());
+        JOptionPane.showMessageDialog(this, "Confirgurações Salvas com sucesso! \n O sistema será fechado para refletir as alterações!","Atenção!",JOptionPane.ERROR_MESSAGE);
         System.exit(0);
         
     }//GEN-LAST:event_bnSalvarActionPerformed
