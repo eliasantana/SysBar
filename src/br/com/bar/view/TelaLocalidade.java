@@ -49,6 +49,7 @@ public class TelaLocalidade extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        bordas = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -60,7 +61,6 @@ public class TelaLocalidade extends javax.swing.JFrame {
         panelAlterar = new javax.swing.JPanel();
         btnAlterar = new javax.swing.JLabel();
         btnExcluir = new javax.swing.JLabel();
-        panelExcluir = new javax.swing.JPanel();
         panelTabela = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblLodalidade = new javax.swing.JTable();
@@ -88,6 +88,9 @@ public class TelaLocalidade extends javax.swing.JFrame {
         setBackground(new java.awt.Color(44, 62, 80));
         setUndecorated(true);
         getContentPane().setLayout(null);
+
+        bordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        bordas.setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(243, 156, 18));
         jPanel1.setLayout(null);
@@ -131,10 +134,10 @@ public class TelaLocalidade extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(390, 0, 40, 40);
+        jPanel3.setBounds(391, 0, 40, 40);
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 430, 120);
+        bordas.add(jPanel1);
+        jPanel1.setBounds(1, 1, 429, 120);
 
         jPanel2.setBackground(new java.awt.Color(44, 62, 80));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -201,26 +204,6 @@ public class TelaLocalidade extends javax.swing.JFrame {
 
         jPanel2.add(panelAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 250, -1));
 
-        panelExcluir.setBackground(new java.awt.Color(44, 62, 80));
-        panelExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelExcluirMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelExcluirLayout = new javax.swing.GroupLayout(panelExcluir);
-        panelExcluir.setLayout(panelExcluirLayout);
-        panelExcluirLayout.setHorizontalGroup(
-            panelExcluirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 109, Short.MAX_VALUE)
-        );
-        panelExcluirLayout.setVerticalGroup(
-            panelExcluirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 54, Short.MAX_VALUE)
-        );
-
-        jPanel2.add(panelExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 110, -1, -1));
-
         panelTabela.setBackground(new java.awt.Color(44, 62, 80));
         panelTabela.setLayout(null);
 
@@ -275,10 +258,13 @@ public class TelaLocalidade extends javax.swing.JFrame {
         });
         jPanel2.add(txtTaxa, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 70, 39));
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 120, 430, 350);
+        bordas.add(jPanel2);
+        jPanel2.setBounds(1, 120, 430, 360);
 
-        setSize(new java.awt.Dimension(429, 468));
+        getContentPane().add(bordas);
+        bordas.setBounds(0, 0, 431, 481);
+
+        setSize(new java.awt.Dimension(431, 483));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -286,11 +272,6 @@ public class TelaLocalidade extends javax.swing.JFrame {
         // Fecha janela deconfigurações
         this.dispose();
     }//GEN-LAST:event_lblFecharMouseClicked
-
-    private void panelExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelExcluirMouseClicked
-
-
-    }//GEN-LAST:event_panelExcluirMouseClicked
 
     private void tblLodalidadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLodalidadeMouseClicked
         int linha = tblLodalidade.getSelectedRow();
@@ -489,6 +470,7 @@ public class TelaLocalidade extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bordas;
     private javax.swing.JLabel btnAdicionar;
     private javax.swing.JLabel btnAlterar;
     private javax.swing.JLabel btnExcluir;
@@ -505,7 +487,6 @@ public class TelaLocalidade extends javax.swing.JFrame {
     private javax.swing.JLabel lblFechar;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JPanel panelAlterar;
-    private javax.swing.JPanel panelExcluir;
     private javax.swing.JPanel panelTabela;
     private javax.swing.JTable tblLodalidade;
     private javax.swing.JTextField txtIdLocalidade;
