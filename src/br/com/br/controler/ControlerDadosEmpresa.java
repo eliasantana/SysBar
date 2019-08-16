@@ -103,9 +103,8 @@ public class ControlerDadosEmpresa {
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerDadosEmpresa.selecionaDados()" + e);
         }
-
+        
         return d;
-
     }
 
     public boolean excluiEmpresa(DadosEmpresa empresa) {

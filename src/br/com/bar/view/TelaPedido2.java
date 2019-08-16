@@ -169,7 +169,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jLabel9.setVisible(false);
         lbl_status_cozinha.setVisible(false);
         btnListar.setEnabled(false);
-        task.cancel();
+        //task.cancel();
     }
 
     public void atuDetalheDoPedido(String nMesa, String nPedido) {

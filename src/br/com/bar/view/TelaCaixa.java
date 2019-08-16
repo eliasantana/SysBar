@@ -1201,6 +1201,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                 lbl_valor_servico.setEnabled(true);
                 lbl_cifra_servico.setEnabled(true);
                 percent.setEnabled(true);
+                lblPago.setEnabled(true);
                 // 29/07/2019 Inicio da alteração Excluir após validação
                 double total = dinheiro + credito + debito + voucher;
                 if (jtabedFormaPagto.getSelectedIndex() == 1 && total > 0) {
