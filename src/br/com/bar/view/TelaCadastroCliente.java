@@ -271,11 +271,11 @@ public class TelaCadastroCliente extends JDialog {
         jPanel1.add(txtNumero);
         txtNumero.setBounds(520, 90, 60, 30);
 
-        lblEndereco.setText("Endereço");
+        lblEndereco.setText("Endereço*");
         jPanel1.add(lblEndereco);
         lblEndereco.setBounds(150, 70, 90, 20);
 
-        lblNumero.setText("Número");
+        lblNumero.setText("Número*");
         jPanel1.add(lblNumero);
         lblNumero.setBounds(520, 70, 60, 20);
 
@@ -292,7 +292,7 @@ public class TelaCadastroCliente extends JDialog {
         jPanel1.add(txtCelular);
         txtCelular.setBounds(10, 30, 130, 30);
 
-        lblTelefone.setText("Telefone Fixo");
+        lblTelefone.setText("Telefone Fixo*");
         jPanel1.add(lblTelefone);
         lblTelefone.setBounds(440, 10, 90, 20);
 
@@ -317,10 +317,11 @@ public class TelaCadastroCliente extends JDialog {
         jPanel1.add(comboUf);
         comboUf.setBounds(10, 190, 80, 30);
 
-        lblCelular.setText("Celular");
+        lblCelular.setText("Celular*");
         jPanel1.add(lblCelular);
         lblCelular.setBounds(10, 10, 90, 20);
 
+        lblMsg.setForeground(new java.awt.Color(255, 0, 0));
         lblMsg.setText("jLabel1");
         jPanel1.add(lblMsg);
         lblMsg.setBounds(10, 230, 570, 14);
@@ -336,7 +337,7 @@ public class TelaCadastroCliente extends JDialog {
         lblTiulo.setBounds(30, 0, 270, 78);
 
         lblSubTitulo.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 24)); // NOI18N
-        lblSubTitulo.setText("de Funcionários");
+        lblSubTitulo.setText("de Clientes");
         jPanel4.add(lblSubTitulo);
         lblSubTitulo.setBounds(130, 50, 200, 40);
         jPanel4.add(txtId);

@@ -263,7 +263,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblEndereco">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Endere&#xe7;o"/>
+                <Property name="text" type="java.lang.String" value="Endere&#xe7;o*"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -273,7 +273,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblNumero">
               <Properties>
-                <Property name="text" type="java.lang.String" value="N&#xfa;mero"/>
+                <Property name="text" type="java.lang.String" value="N&#xfa;mero*"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -298,7 +298,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblTelefone">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Telefone Fixo"/>
+                <Property name="text" type="java.lang.String" value="Telefone Fixo*"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -373,7 +373,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblCelular">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Celular"/>
+                <Property name="text" type="java.lang.String" value="Celular*"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -383,6 +383,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblMsg">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="jLabel1"/>
               </Properties>
               <Constraints>
@@ -427,7 +430,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semilight" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="de Funcion&#xe1;rios"/>
+                <Property name="text" type="java.lang.String" value="de Clientes"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

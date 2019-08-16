@@ -29,7 +29,7 @@ public class TelaAutorizacao extends JDialog {
     Util u = new Util();
     TelaCaixa cx;
     ArrayList<String> listaDeValores; // Refatorado de listaDeSValores.
-
+    int guia;
     public TelaAutorizacao() {
         initComponents();
         desabilitaDesconto();
@@ -268,9 +268,11 @@ public class TelaAutorizacao extends JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void recebeValor(TelaCaixa telaCaixa, ArrayList<String> listaDadosDoPedido) {
-        // Recebe os valores do pedido
+    public void recebeValor(TelaCaixa telaCaixa, ArrayList<String> listaDadosDoPedido,int index) {
+        // Recebe os valores do pedido e o indice da guia selecionada
         this.cx = telaCaixa;
+        //Guia selecionada no momento do desconto
+        this.guia=index;
         listaDeValores = listaDadosDoPedido;
         System.out.println("Valor: " + listaDeValores.get(0)); // Valor sem tx de Serviço
         System.out.println("Serviço: " + listaDeValores.get(1)); // Tx. de Serviço
@@ -366,8 +368,9 @@ public class TelaAutorizacao extends JDialog {
                 l.setUsuario(comboFuncionario.getSelectedItem().toString());
                 l.setDescricao("Autorizou o desconto para o pedido-> " + listaDeValores.get(4) + " Mesa-> " + listaDeValores.get(3) + " Valor desconto: R$" + listaDeValores.get(6));
                 l.gravaLog(l);
-
-                cx.recebeDadosComDesconto(listaDeValores);
+                // Devolve valores e guia selecionada
+                System.out.println("Devolvendo guia selecionada: ->"+guia);
+                cx.recebeDadosComDesconto(listaDeValores,guia);
 
                 this.dispose();
             } else {

@@ -46,6 +46,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import net.sf.jasperreports.engine.JasperPrintManager;
+import org.apache.batik.ext.swing.GridBagConstants;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 
@@ -1366,7 +1367,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
                     // Libera a mesa após o pagamento
                     cm.trocaStatusMesa(comboMesa.getSelectedItem().toString(), "0");
-                     txtValorPago.setText("0,00");
+                   
                     JOptionPane.showMessageDialog(null, "Pedido fechado com sucesso!");
                     // ===============================================================//
 
@@ -1818,7 +1819,10 @@ public class TelaCaixa extends javax.swing.JFrame {
             dadosDoPedido.add(formaPagto);
 
             TelaAutorizacao ta = new TelaAutorizacao();
-            ta.recebeValor(this, dadosDoPedido);
+            // Envia dados do pedido e guia selecionada
+            int index=jtabedFormaPagto.getSelectedIndex();
+            System.out.println("Guia Selecionada no momento do desconto: "+index);
+            ta.recebeValor(this, dadosDoPedido,index);
             ta.setModal(true);
             ta.setVisible(true);
         }
@@ -2167,7 +2171,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     }
 
-    public void recebeDadosComDesconto(ArrayList<String> dados) {
+    public void recebeDadosComDesconto(ArrayList<String> dados, int index) {
         listAutoDesconto = dados;
         // total - tx de servico - total geral - Desconto - Mesa
         tgeral.setText(dados.get(0));
@@ -2179,7 +2183,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             radioCartao.setSelected(true);
         } else {
             //checkDinheiro.setSelected(true); // Excluir
-            radioDinheiro.setSelected(rootPaneCheckingEnabled);
+            //radioDinheiro.setSelected(rootPaneCheckingEnabled);
         }
         txtDesconto.setText(dados.get(6));
         comboMesa.setSelectedItem(dados.get(3));
@@ -2194,9 +2198,21 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblPago.setEnabled(true);
         lblValorDesc.setEnabled(true);
         checkConcedeDesconto.setSelected(false);
+        
+        //****************************************** TESTE ********************/// APAGAR APÓS VALIDAÇÃO
+         System.out.println("Selecionando a guia: "+index);
+         //Remove a seleção dos botões de rádio se a aguia for 1=Pagamento Misto
+         if (index==1){
+             buttonGroup2.clearSelection();
+         }
+         jtabedFormaPagto.setSelectedIndex(index);
+        
+        //**** FIM DO TESTE
         if (jtabedFormaPagto.getSelectedIndex()==1){
             calculaPagamentoMisto();
             validaPagamentoMisto();
+            /// ************* Teste ******************////
+            
         }
 
     }

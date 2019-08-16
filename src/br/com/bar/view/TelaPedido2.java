@@ -705,7 +705,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblMensagem.setForeground(new java.awt.Color(153, 153, 153));
         lblMensagem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel6.add(lblMensagem);
-        lblMensagem.setBounds(310, 140, 380, 20);
+        lblMensagem.setBounds(270, 140, 430, 20);
 
         lblMsgRetorno.setForeground(new java.awt.Color(0, 0, 255));
         lblMsgRetorno.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
