@@ -146,7 +146,8 @@ public class ControlerFuncionario extends Funcionario {
             resposta = true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Este funcionário possui mesas e não pode ser excluído!");
+            System.out.println("br.com.br.controler.ControlerFuncionario.excluirFuncionario()");
+            resposta=false;
         }
         return resposta;
     }

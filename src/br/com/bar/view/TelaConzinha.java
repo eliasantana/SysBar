@@ -182,7 +182,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblRelogio.setText("00:00:00");
 
         lblObservacao.setForeground(new java.awt.Color(255, 255, 255));
-        lblObservacao.setText("Observação do Prato");
+        lblObservacao.setText("Observações do Prato");
 
         jTextAreaObservacao.setEditable(false);
         jTextAreaObservacao.setColumns(20);
@@ -194,33 +194,28 @@ public class TelaConzinha extends javax.swing.JFrame {
         painelEsquerdo.setLayout(painelEsquerdoLayout);
         painelEsquerdoLayout.setHorizontalGroup(
             painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(painelEsquerdoLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblObservacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(painelEsquerdoLayout.createSequentialGroup()
+                        .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelEsquerdoLayout.createSequentialGroup()
+                                .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextAreaObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(painelEsquerdoLayout.createSequentialGroup()
                 .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelEsquerdoLayout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(txtidProdutoCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelEsquerdoLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblRelogio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                        .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                                .addGap(83, 83, 83)
-                                .addComponent(txtidProdutoCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 4, Short.MAX_VALUE))
-                    .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                                .addComponent(jTextAreaObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                                .addComponent(lblObservacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(108, 108, 108)))))
-                .addContainerGap())
+                        .addComponent(lblRelogio, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelEsquerdoLayout.setVerticalGroup(
             painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,8 +229,8 @@ public class TelaConzinha extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(lblObservacao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextAreaObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+                .addComponent(jTextAreaObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
                 .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -243,7 +238,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         );
 
         getContentPane().add(painelEsquerdo);
-        painelEsquerdo.setBounds(0, 0, 280, 690);
+        painelEsquerdo.setBounds(0, 0, 235, 690);
 
         paineldireito.setLayout(null);
 
@@ -431,9 +426,9 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblImprimirSolicitacoes.setBounds(720, 630, 140, 50);
 
         getContentPane().add(paineldireito);
-        paineldireito.setBounds(280, 0, 1030, 690);
+        paineldireito.setBounds(240, 0, 1030, 690);
 
-        setSize(new java.awt.Dimension(1309, 690));
+        setSize(new java.awt.Dimension(1269, 690));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

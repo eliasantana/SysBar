@@ -230,7 +230,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         painelEsquerdo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblLLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        painelEsquerdo.add(lblLLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 22, 252, 180));
+        painelEsquerdo.add(lblLLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 22, 240, 180));
 
         panelMovimentacao.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -341,7 +341,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                     .addComponent(btnGrafico)
                     .addComponent(comboMes, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         panelGraficoLayout.setVerticalGroup(
             panelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,22 +355,22 @@ public class TelaCaixa extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        painelEsquerdo.add(panelGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 480, -1, -1));
+        painelEsquerdo.add(panelGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 480, 200, -1));
 
         lblOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblOperador.setForeground(new java.awt.Color(255, 255, 255));
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario_branco.png"))); // NOI18N
         lblOperador.setText("jLabel2");
-        painelEsquerdo.add(lblOperador, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 630, 100, 40));
+        painelEsquerdo.add(lblOperador, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 630, 100, 40));
 
         lblData.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblData.setForeground(new java.awt.Color(255, 255, 255));
         lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendar24x24.png"))); // NOI18N
         lblData.setText("jLabel5");
-        painelEsquerdo.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 630, 120, 40));
+        painelEsquerdo.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 630, 120, 40));
 
         getContentPane().add(painelEsquerdo);
-        painelEsquerdo.setBounds(0, 0, 300, 700);
+        painelEsquerdo.setBounds(0, 0, 260, 700);
 
         painelDireito.setLayout(null);
 
@@ -904,7 +904,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         panelValores.setBounds(10, 390, 350, 200);
 
         getContentPane().add(painelDireito);
-        painelDireito.setBounds(940, 0, 370, 700);
+        painelDireito.setBounds(900, 0, 370, 700);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -1132,9 +1132,9 @@ public class TelaCaixa extends javax.swing.JFrame {
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtIdMEsa, txtIdPedido});
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(300, 0, 640, 700);
+        jPanel1.setBounds(260, 0, 640, 700);
 
-        setSize(new java.awt.Dimension(1309, 699));
+        setSize(new java.awt.Dimension(1269, 699));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

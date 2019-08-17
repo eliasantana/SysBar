@@ -303,6 +303,8 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
                     tblFuncionario.setModel(DbUtils.resultSetToTableModel(cf.carregaFuncionario("")));
                     modelPesqFunc.redimensionaColunas(tblFuncionario);
                     JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso!");
+                }else {
+                    JOptionPane.showMessageDialog(this, "Este funcionário não pode ser excluído pois já realizou pedidos!");
                 }
                 
             } 

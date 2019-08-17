@@ -55,7 +55,7 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Obervação do Prato");
+        jLabel1.setText("Obervações do Prato");
 
         javax.swing.GroupLayout panelTituloLayout = new javax.swing.GroupLayout(panelTitulo);
         panelTitulo.setLayout(panelTituloLayout);
@@ -195,6 +195,7 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
         this.telaPedido = tl;
         this.listaAtualizada = lista;
         lblPrato.setText(lista.get(0));
+        jTextAreaObservacao.requestFocus();
     }
 
     /**

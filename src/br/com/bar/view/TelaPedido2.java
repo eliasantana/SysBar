@@ -340,19 +340,18 @@ public class TelaPedido2 extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addComponent(lbllogo, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
-            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(105, 105, 105)
                 .addComponent(lblSegundos)
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbllogo, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(33, 33, 33))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,7 +368,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel4);
-        jPanel4.setBounds(0, 0, 300, 700);
+        jPanel4.setBounds(0, 0, 250, 700);
 
         lblData2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 48)); // NOI18N
         lblData2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -410,7 +409,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         );
 
         getContentPane().add(panelFechar);
-        panelFechar.setBounds(1270, 0, 40, 40);
+        panelFechar.setBounds(1210, 0, 40, 40);
 
         lblStatusCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblStatusCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCozinha.png"))); // NOI18N
@@ -421,19 +420,19 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblStatusCozinha);
-        lblStatusCozinha.setBounds(880, 610, 70, 48);
+        lblStatusCozinha.setBounds(800, 610, 70, 48);
 
         textoLblPedido.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
         textoLblPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoLblPedido.setText("Gestão de Pedidos");
         getContentPane().add(textoLblPedido);
-        textoLblPedido.setBounds(650, 660, 150, 23);
+        textoLblPedido.setBounds(490, 660, 150, 23);
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Sair");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(1200, 660, 70, 20);
+        jLabel6.setBounds(1180, 660, 70, 20);
 
         lblGerenciarPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblGerenciarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/relatorios32x32.png"))); // NOI18N
@@ -444,7 +443,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblGerenciarPedido);
-        lblGerenciarPedido.setBounds(690, 610, 80, 50);
+        lblGerenciarPedido.setBounds(530, 610, 80, 50);
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblCargo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -462,12 +461,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(1200, 610, 70, 50);
+        jLabel9.setBounds(1180, 610, 70, 50);
 
         lblReenvioCozinha.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblReenvioCozinha.setText("Reenvio Cozinha");
         getContentPane().add(lblReenvioCozinha);
-        lblReenvioCozinha.setBounds(980, 660, 130, 20);
+        lblReenvioCozinha.setBounds(900, 660, 130, 20);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel6.setLayout(null);
@@ -713,7 +712,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblMsgRetorno.setBounds(330, 160, 360, 30);
 
         getContentPane().add(jPanel6);
-        jPanel6.setBounds(590, 110, 710, 490);
+        jPanel6.setBounds(530, 110, 710, 490);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -804,7 +803,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelAbrirPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -817,7 +816,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel7);
-        jPanel7.setBounds(310, 110, 270, 490);
+        jPanel7.setBounds(260, 110, 260, 490);
 
         lblCadeado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/cadeado.png"))); // NOI18N
         lblCadeado.setToolTipText("");
@@ -827,12 +826,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblCadeado);
-        lblCadeado.setBounds(390, 610, 60, 50);
+        lblCadeado.setBounds(380, 610, 60, 50);
 
         lblBloquearTela.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblBloquearTela.setText("Bloquear Tela (F8)");
         getContentPane().add(lblBloquearTela);
-        lblBloquearTela.setBounds(370, 660, 120, 20);
+        lblBloquearTela.setBounds(360, 660, 120, 20);
 
         lblAlterarSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/chave48x48.png"))); // NOI18N
         lblAlterarSenha.setToolTipText("Alterar Senha");
@@ -842,7 +841,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblAlterarSenha);
-        lblAlterarSenha.setBounds(310, 610, 90, 50);
+        lblAlterarSenha.setBounds(300, 610, 90, 50);
 
         lblBtnReenvioCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBtnReenvioCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/enviar32x32_2.png"))); // NOI18N
@@ -853,12 +852,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblBtnReenvioCozinha);
-        lblBtnReenvioCozinha.setBounds(990, 610, 70, 50);
+        lblBtnReenvioCozinha.setBounds(910, 610, 70, 50);
 
         lbl_status_cozinha.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lbl_status_cozinha.setText("Status Cozinha");
         getContentPane().add(lbl_status_cozinha);
-        lbl_status_cozinha.setBounds(870, 660, 90, 20);
+        lbl_status_cozinha.setBounds(790, 660, 90, 20);
 
         lblCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/cozinha32x32.png"))); // NOI18N
@@ -868,14 +867,14 @@ public class TelaPedido2 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblCozinha);
-        lblCozinha.setBounds(790, 610, 70, 50);
+        lblCozinha.setBounds(710, 610, 70, 50);
 
         lblTextocozinha.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblTextocozinha.setText("Cozinha");
         getContentPane().add(lblTextocozinha);
-        lblTextocozinha.setBounds(800, 660, 80, 20);
+        lblTextocozinha.setBounds(720, 660, 80, 20);
 
-        setSize(new java.awt.Dimension(1309, 693));
+        setSize(new java.awt.Dimension(1251, 693));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1359,8 +1358,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 TelaObservacaoProduto telaObs = new TelaObservacaoProduto();
                 telaObs.recebeTela(this, pCozinha); // Envia dados do produto
                 telaObs.setAlwaysOnTop(true);
-                telaObs.setVisible(true);
-
+               
             } else {
 
                 pCozinha.add(null);//Obsrevação do prato                               
