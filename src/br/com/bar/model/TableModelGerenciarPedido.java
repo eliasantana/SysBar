@@ -9,8 +9,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
+import sun.swing.SwingAccessor;
 
 /**
  *
@@ -63,9 +65,12 @@ public class TableModelGerenciarPedido extends AbstractTableModel {
 
      public void redimensionaColunas(JTable tabela) {
          //"CÓDIGO", "PRODUTO", "QTD", "VLR UNITÁRIO R$", "VLR TOTAL R$", "CÓD. INTERNO"
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(80); 
-        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(348);
+        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(50); 
+        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(378);
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(50); 
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(115); 
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(110); 
@@ -75,6 +80,15 @@ public class TableModelGerenciarPedido extends AbstractTableModel {
         tabela.getColumnModel().getColumn(5).setPreferredWidth(0);
         tabela.getColumnModel().getColumn(5).setMinWidth(0);
         tabela.getColumnModel().getColumn(5).setMaxWidth(0);
+        
+        // Aplica alinhamento as colunas
+        tabela.getColumnModel().getColumn(0).setCellRenderer(direita);
+        tabela.getColumnModel().getColumn(2).setCellRenderer(direita);
+        tabela.getColumnModel().getColumn(3).setCellRenderer(direita);
+        tabela.getColumnModel().getColumn(4).setCellRenderer(direita);
+        tabela.getColumnModel().getColumn(5).setCellRenderer(direita);
+        
+        
     }
 
     
