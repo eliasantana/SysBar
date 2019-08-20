@@ -20,9 +20,10 @@ public class Pessoa {
     private String telefone;
     private String numero;
     private String uf;
-    private String telefone_recado;
+    //private String telefone_recado;
+    private String telefone_fixo;
     private String complemento;
-
+   
     public String getNome() {
         return nome;
     }
@@ -96,11 +97,11 @@ public class Pessoa {
     }
 
     public String getTelefone_recado() {
-        return telefone_recado;
+        return telefone_fixo;
     }
 
     public void setTelefone_recado(String telefone_recado) {
-        this.telefone_recado = telefone_recado;
+        this.telefone_fixo = telefone_recado;
     }
 
     public String getComplemento() {
@@ -110,7 +111,7 @@ public class Pessoa {
     public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
-    
+
     
     
 }

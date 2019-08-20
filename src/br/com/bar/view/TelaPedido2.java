@@ -57,6 +57,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
     TableModelProdutoEstoque modelProduroEstoque = new TableModelProdutoEstoque();
     TableModelMesaPedido modelMesa = new TableModelMesaPedido();
     TableModelNumeroMesas modelNmesas = new TableModelNumeroMesas();
+    // Telas
+    TelaStatusCozinha status;
+    TelaGerenciarPedido gp;
+    TelaBloqueio tb;
+    TelaAlteraSenha2 telap2;
 
     JFrame tlGerenciarPedido;
     Util u = new Util();
@@ -111,8 +116,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         modelNmesas.redimensionaColunas(tblNumeroMesa);
         lblTextocozinha.setVisible(false);
         lblCozinha.setVisible(false);
-        
-       
+
         //Torna a tela Selecionavel 'Necessário para que o evento de bloqueio ocorra'
         this.setFocusable(true);
         // Adiciona Listner para bloquear tela
@@ -142,7 +146,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         //Recupera o id do funcionario logado.
         funcLogado = cFunc.localizaFuncionario(cFunc.localizaIdLogin(operador));
-        
+
     }
     // Recebe dados do funcionário referente ao pedido listado, este método é
     // Utilizado no momento em que o caixa vai adicionar um ítem ao pedido no 
@@ -374,7 +378,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblData2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblData2.setText("Pedidos");
         getContentPane().add(lblData2);
-        lblData2.setBounds(400, 20, 840, 80);
+        lblData2.setBounds(260, 20, 980, 80);
 
         txtNumeroMesa.setText("nMesa");
         getContentPane().add(txtNumeroMesa);
@@ -861,6 +865,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         lblCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/cozinha32x32.png"))); // NOI18N
+        lblCozinha.setToolTipText("");
         lblCozinha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblCozinhaMouseClicked(evt);
@@ -871,6 +876,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         lblTextocozinha.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblTextocozinha.setText("Cozinha");
+        lblTextocozinha.setToolTipText("");
         getContentPane().add(lblTextocozinha);
         lblTextocozinha.setBounds(720, 660, 80, 20);
 
@@ -970,7 +976,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 l.gravaLog(l);
 
             }
-            
+
             jTabbedPanePedido.setSelectedIndex(0);
 
         }
@@ -1043,7 +1049,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 // Desabilita botões Enviar para a Cozinha e Status Cozinha após clique 
                 // em outra aba.
 
-               
             } else if ("Detalhe Pedido".equals(jTabbedPanePedido.getTitleAt(index))) {
                 txtQtd.setEnabled(false);
                 txtCodigoProduto.setEnabled(true);
@@ -1052,7 +1057,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 // Desabilita botões Enviar para a Cozinha e Status Cozinha após clique 
                 // em outra aba.
 
-                
                 tblDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(txtNumeroMesa.getText(), txtNumeroPedido.getText())));
                 modelDetPedido.redimensionaColunas(tblDetalhePedido);
                 limpaform();
@@ -1066,7 +1070,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 // Desabilita botões Enviar para a Cozinha e Status Cozinha após clique 
                 // em outra aba.
 
-                
                 tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
                 modelProduroEstoque.redimensionaColunas(tblListaProduto);
             }
@@ -1192,7 +1195,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         if (grupo.toLowerCase().equals("cozinha")) {
 
-            
             // Habilita os botões [REEVIO COZINHA] se o prato não existir.
             if (!cc.temNaCozinha(idProduto, txtNumeroPedido.getText())) {
                 lblReenvioCozinha.setEnabled(true);
@@ -1204,7 +1206,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         } else {
 
-            
             lblReenvioCozinha.setEnabled(false);
             lblBtnReenvioCozinha.setEnabled(false);
         }
@@ -1228,7 +1229,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
             TelaLogin login = new TelaLogin();
             login.setVisible(true);
 
-            
         }
         //task.cancel();//Cancela a contagem do tempo do método conômetro
     }//GEN-LAST:event_panelFecharMouseClicked
@@ -1241,9 +1241,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Chama Tela Cozinha
         s = 0;
         if (lblStatusCozinha.isEnabled()) {
-
-            TelaStatusCozinha status = new TelaStatusCozinha();
-            status.recebeOperador(comboGarcom.getSelectedItem().toString(), txtNumeroPedido.getText(), txtNumeroMesa.getText());
+            // Se tela Status não estiver instanciada. Instancia e abre a tela.
+            if (status == null) {
+                status = new TelaStatusCozinha();
+                status.setAlwaysOnTop(true);
+                status.recebeOperador(comboGarcom.getSelectedItem().toString(), txtNumeroPedido.getText(), txtNumeroMesa.getText());
+            }
             status.setVisible(true);
 
         }
@@ -1252,10 +1255,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private void lblGerenciarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGerenciarPedidoMouseClicked
         s = 0;
         if (lblGerenciarPedido.isEnabled()) {
-
-            TelaGerenciarPedido gp = new TelaGerenciarPedido();
-            gp.recebeOperador(this, lblOperador.getText(), lblCargo.getText());
-            gp.setVisible(true);
+            if (gp==null){
+                
+                gp = new TelaGerenciarPedido();
+                gp.recebeOperador(this, lblOperador.getText(), lblCargo.getText());
+            }
+               gp.setVisible(true);
         }
     }//GEN-LAST:event_lblGerenciarPedidoMouseClicked
 
@@ -1313,17 +1318,20 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private void lblCadeadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCadeadoMouseClicked
         // Chama a tela de Bloqueio
         s = 70;
-        TelaBloqueio tb = new TelaBloqueio();
-        //tb.setModal(true);
-        tb.setAlwaysOnTop(true);
+        if (tb==null){            
+            tb = new TelaBloqueio();
+            tb.setAlwaysOnTop(true);
+        }
         tb.setVisible(true);
     }//GEN-LAST:event_lblCadeadoMouseClicked
 
     private void lblAlterarSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlterarSenhaMouseClicked
         s = 0;
-        TelaAlteraSenha2 telap2 = new TelaAlteraSenha2();
-        telap2.setAlwaysOnTop(true);
-        telap2.receberOperador(lblOperador.getText());
+        if (telap2==null){
+            telap2 = new TelaAlteraSenha2();
+            telap2.setAlwaysOnTop(true);
+            telap2.receberOperador(lblOperador.getText());
+        }
         telap2.setVisible(true);
     }//GEN-LAST:event_lblAlterarSenhaMouseClicked
 
@@ -1351,14 +1359,14 @@ public class TelaPedido2 extends javax.swing.JFrame {
             Timestamp tms = new Timestamp(dtAtual.getTime());
             pCozinha.add(String.valueOf(tms)); // Data Atual 
             int op = JOptionPane.showConfirmDialog(this, "Deseja adicionar uma observação?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-            
+
             // Chama a tela de observação
             if (op == JOptionPane.YES_OPTION) {
-                
+
                 TelaObservacaoProduto telaObs = new TelaObservacaoProduto();
                 telaObs.recebeTela(this, pCozinha); // Envia dados do produto
                 telaObs.setAlwaysOnTop(true);
-               
+
             } else {
 
                 pCozinha.add(null);//Obsrevação do prato                               
@@ -1560,7 +1568,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                     pp.setTbproduto_id(txtCodigoProduto.getText());
                     pp.setQtd(txtQtd.getText());
                     pp.setValorUnit(txtValorUnit.getText().replaceAll(",", "."));
-                    pp.setTotal(txtValorTotal.getText().replaceAll(",", "."));                    
+                    pp.setTotal(txtValorTotal.getText().replaceAll(",", "."));
                     pp.setCadmesa_id(txtIdMesa.getText());
                     pp.setCadpedido_id_pedido(txtNumeroPedido.getText());
                     pp.setTbcadfuncionario_id(txtIdGarcom.getText());
@@ -1609,12 +1617,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
                             int op = JOptionPane.showConfirmDialog(this, "Deseja adicionar uma observação?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
                             // Chama a tela de observação
                             if (op == JOptionPane.YES_OPTION) {
-                                s=0; // Zera Cronômetro de Bloqueio
+                                s = 0; // Zera Cronômetro de Bloqueio
                                 TelaObservacaoProduto telaObs = new TelaObservacaoProduto();
-                                telaObs.recebeTela(this,pCozinha); // Envia dados do produto
+                                telaObs.recebeTela(this, pCozinha); // Envia dados do produto
                                 telaObs.setAlwaysOnTop(true);
-                                telaObs.setVisible(true); 
-                                
+                                telaObs.setVisible(true);
+
                             } else {
 
                                 pCozinha.add(null);//Obsrevação do prato                               
@@ -1622,7 +1630,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
                                 enviaParaCozinha(pCozinha);
                             }
 
-                            
                         }
 
                         // Limpa label de mensagem de produto indisponível 
@@ -1648,7 +1655,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                     // Atualiza os produtos disponível no Estoque
                     tblListaProduto.setModel(DbUtils.resultSetToTableModel(cproduto.listaProdutoDisponivel()));
                     modelProduroEstoque.redimensionaColunas(tblListaProduto);
-                    s=0; // Zera Cronômetro de Bloqueio
+                    s = 0; // Zera Cronômetro de Bloqueio
                 }
 
             }
@@ -1681,7 +1688,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
      *
      * @param listaAtualizada - Listagem
      */
-    public void recebeObsPrato(ArrayList <String> listaAtualizada,TelaObservacaoProduto obs) {
+    public void recebeObsPrato(ArrayList<String> listaAtualizada, TelaObservacaoProduto obs) {
         this.obsevacaoPrato = listaAtualizada;
         obs.dispose();
         enviaParaCozinha(listaAtualizada);

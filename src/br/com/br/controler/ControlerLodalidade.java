@@ -11,6 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -29,7 +32,7 @@ public class ControlerLodalidade {
      */
     public ResultSet listaLocalidade() {
 
-        String sql = "SELECT localidade as 'Localidade', format(taxa,2,'de_DE') as 'Taxa R$' FROM tblocalidade;";
+        String sql = "SELECT localidade, format(taxa,2,'de_DE') as 'Taxa R$' FROM tblocalidade;";
         try {
             pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery();
@@ -46,7 +49,6 @@ public class ControlerLodalidade {
      * @param l Localidade
      * @return id Id da lodalidade Informada
      */
-
     public String retornaIdLocalidade(Localidade l) {
 
         String sql = "SELECT id FROM tblocalidade where localidade=?;";
@@ -69,113 +71,154 @@ public class ControlerLodalidade {
     }
 
     /**
-     * Adiciona uma lodalidede
-     * Data:14/08/2019
+     * Adiciona uma lodalidede Data:14/08/2019
+     *
      * @param l Localidade
      * @return boolean
      */
-    
     public boolean adicionaLocalidade(Localidade l) {
 
         boolean resp = false;
-        
+
         String sql = "INSERT INTO `dbbar`.`tblocalidade`\n"
                 + "(\n"
                 + "`localidade`,\n"
                 + "`taxa`)\n"
                 + "VALUES(?,?)";
-        
+
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, l.getNome());
             pst.setDouble(2, l.getTaxa());
-            pst.executeUpdate();      
-            
-            resp=true;
-            
+            pst.executeUpdate();
+
+            resp = true;
+
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerLodalidade.adicionaLocalidade()"+e);
+            System.out.println("br.com.br.controler.ControlerLodalidade.adicionaLocalidade()" + e);
         }
-        
+
         return resp;
     }
+
     /**
-     * Verifica se a localidade existe
-     * Data:14/08/2019
+     * Verifica se a localidade existe Data:14/08/2019
+     *
      * @param l Localidade
      * @return boolean
      */
-    
+
     public boolean temLocalidade(Localidade l) {
 
         boolean resp = false;
-        
+
         String sql = "SELECT id FROM tblocalidade WHERE lower(localidade)=?;";
-        
+
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, l.getNome().toLowerCase());
-            rs=pst.executeQuery();
-            
-            while (rs.next()){
-                resp=true;
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                resp = true;
             }
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerLodalidade.adicionaLocalidade()"+e);
+            System.out.println("br.com.br.controler.ControlerLodalidade.adicionaLocalidade()" + e);
         }
-        
+
         return resp;
     }
-    
-      /**
-     * Exclui uma localidade
-     * Data:14/08/2019
+
+    /**
+     * Exclui uma localidade Data:14/08/2019
+     *
      * @param id Id da localidade
      * @return Boolean Retorna TRUE OU FALSE
      */
-    
-     public boolean excluiLocalidade(String id){
-         
-         boolean resp=false;
-         
-         String sql="DELETE FROM tblocalidade WHERE id=?";
-         
-         try {
-             pst=conexao.prepareStatement(sql);
-             pst.setString(1, id);
-             pst.executeUpdate();
-             
-             resp=true;
-             
-         } catch (SQLException e) {
-             System.out.println("br.com.br.controler.ControlerLodalidade.excluiLocalidade()"+e);
-         }
-         
-         return resp;
-     }
-     
-     /**
-      * Altera uma localidade
-      * @param l Localidade
-      * @return Boolean Retorna TRUE OU FALSE
-      */
-     public boolean alteraLocalidade(Localidade l){
-         boolean resp=false;
-         String sql="UPDATE tblocalidade SET localidade=?, taxa=? WHERE id=?";
-         
-         try {
-             pst=conexao.prepareStatement(sql);
-             pst.setString(1, l.getNome());
-             pst.setDouble(2, l.getTaxa());
-             pst.setInt(3, l.getId());
-             
-             pst.executeUpdate();
-             resp=true;
-             
-         } catch (SQLException e) {
-             System.out.println("br.com.br.controler.ControlerLodalidade.alteraLocalidade()"+e);
-         }
-         
-         return  resp;
-     }
+    public boolean excluiLocalidade(String id) {
+
+        boolean resp = false;
+
+        String sql = "DELETE FROM tblocalidade WHERE id=?";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, id);
+            pst.executeUpdate();
+
+            resp = true;
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerLodalidade.excluiLocalidade()" + e);
+        }
+
+        return resp;
+    }
+
+    /**
+     * Altera uma localidade
+     *
+     * @param l Localidade
+     * @return Boolean Retorna TRUE OU FALSE
+     */
+    public boolean alteraLocalidade(Localidade l) {
+        boolean resp = false;
+        String sql = "UPDATE tblocalidade SET localidade=?, taxa=? WHERE id=?";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, l.getNome());
+            pst.setDouble(2, l.getTaxa());
+            pst.setInt(3, l.getId());
+
+            pst.executeUpdate();
+            resp = true;
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerLodalidade.alteraLocalidade()" + e);
+        }
+
+        return resp;
+    }
+
+    public void carregaComboLocalidade(JComboBox combo) {
+
+        String sql = "SELECT * FROM tblocalidade";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+            combo.removeAll();
+            combo.addItem("Selecione...");
+            while (rs.next()){
+                combo.addItem(rs.getString("localidade"));
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println("br.com.br.controler.ControlerLodalidade.carregaComboLocalidade()" + ex);
+        }
+
+    }
+    /**
+     * Retorna a taxa da localidade informada
+     * Data: 19/08/2019
+     * @param l Objeto do tipo Localidade
+     * @return Retorna um boolean
+     */
+    public double retornaTaxa(Localidade l){
+        double tx=0;
+        String sql="SELECT taxa FROM tblocalidade WHERE localidade=?";
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, l.getNome());
+            rs=pst.executeQuery();
+            while (rs.next()){
+                 tx= rs.getDouble("taxa");                      
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerLodalidade.retornaTaxa()");
+        }
+        return tx;
+    }
 }

@@ -19,6 +19,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
     public TelaStatusCozinha() {
         initComponents();
          //Lista pratos enviados pelo garçom que estão com status pendente
+       
         
     }
 

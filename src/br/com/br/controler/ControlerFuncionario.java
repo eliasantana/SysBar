@@ -359,7 +359,7 @@ public class ControlerFuncionario extends Funcionario {
     public void carregaComboFuncionario(JComboBox combo) {
 
         // Recurso utilizado na tela de log
-        String sql = "SELECT * FROM tbcadfuncionario";
+        String sql = "SELECT * FROM tbcadfuncionario ORDER BY login asc";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -380,7 +380,7 @@ public class ControlerFuncionario extends Funcionario {
     public void carregaComboFuncionarioAtivo(JComboBox combo) {
 
         // Recurso utilizado na tela de log
-        String sql = "SELECT login FROM tbcadfuncionario WHERE status=0";
+        String sql = "SELECT login FROM tbcadfuncionario WHERE status=0 ORDER BY login ASC";
 
         try {
             pst = conexao.prepareStatement(sql);
