@@ -64,15 +64,15 @@ public class TelaCadastroCliente extends JDialog {
         
         if ("Adicionar".equals(txtOperacao.getText())) {
             lblTiulo.setText("Incluir");
-            lblSubTitulo.setText("Funcionário");
+            lblSubTitulo.setText("Cliente");
             
         } else if ("Alterar".equals(txtOperacao.getText())) {
             lblTiulo.setText("Alterar");
-            lblSubTitulo.setText("Funcionário");
+            lblSubTitulo.setText("Cliente");
             
         } else {
             lblTiulo.setText("Consultar");
-            lblSubTitulo.setText("Funcionário");
+            lblSubTitulo.setText("Cliente");
             bloqueiaTudo();
         }
         l.setUsuario(operador);
@@ -188,7 +188,7 @@ public class TelaCadastroCliente extends JDialog {
 
         lblUf.setText("UF");
         jPanel1.add(lblUf);
-        lblUf.setBounds(10, 170, 60, 20);
+        lblUf.setBounds(150, 120, 60, 20);
 
         lblCep.setText("CEP");
         jPanel1.add(lblCep);
@@ -240,11 +240,11 @@ public class TelaCadastroCliente extends JDialog {
             }
         });
         jPanel1.add(txtEmail);
-        txtEmail.setBounds(100, 190, 260, 30);
+        txtEmail.setBounds(10, 190, 260, 30);
 
         lblEmail.setText("Ponto de Referênica");
         jPanel1.add(lblEmail);
-        lblEmail.setBounds(10, 220, 100, 20);
+        lblEmail.setBounds(280, 170, 100, 20);
 
         try {
             txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
@@ -268,11 +268,11 @@ public class TelaCadastroCliente extends JDialog {
             }
         });
         jPanel1.add(comboLocalidade);
-        comboLocalidade.setBounds(370, 190, 210, 30);
+        comboLocalidade.setBounds(10, 240, 210, 30);
 
         lblLocalidade.setText("Localidade");
         jPanel1.add(lblLocalidade);
-        lblLocalidade.setBounds(370, 170, 110, 20);
+        lblLocalidade.setBounds(10, 220, 110, 20);
 
         lbltemMesa.setFont(new java.awt.Font("Yu Gothic Light", 0, 12)); // NOI18N
         jPanel1.add(lbltemMesa);
@@ -317,7 +317,7 @@ public class TelaCadastroCliente extends JDialog {
             }
         });
         jPanel1.add(txtComplemento);
-        txtComplemento.setBounds(10, 140, 230, 30);
+        txtComplemento.setBounds(10, 140, 130, 30);
 
         lblBairro.setText("Bairro");
         jPanel1.add(lblBairro);
@@ -330,7 +330,7 @@ public class TelaCadastroCliente extends JDialog {
             }
         });
         jPanel1.add(comboUf);
-        comboUf.setBounds(10, 190, 80, 30);
+        comboUf.setBounds(150, 140, 90, 30);
 
         lblCelular.setText("Celular*");
         jPanel1.add(lblCelular);
@@ -350,11 +350,11 @@ public class TelaCadastroCliente extends JDialog {
             }
         });
         jPanel1.add(txtPontoReferencia);
-        txtPontoReferencia.setBounds(10, 240, 350, 30);
+        txtPontoReferencia.setBounds(280, 190, 300, 30);
 
         lblEmail1.setText("E-mail");
         jPanel1.add(lblEmail1);
-        lblEmail1.setBounds(100, 170, 100, 20);
+        lblEmail1.setBounds(10, 170, 100, 20);
 
         lblTaxa.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblTaxa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -480,7 +480,7 @@ public class TelaCadastroCliente extends JDialog {
         getContentPane().add(bordas);
         bordas.setBounds(0, 0, 587, 567);
 
-        setSize(new java.awt.Dimension(589, 567));
+        setSize(new java.awt.Dimension(587, 567));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

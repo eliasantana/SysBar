@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Elias Santana
  */
-public class TableModelCaixa extends AbstractTableModel {
+public class TableModelItensDelivery extends AbstractTableModel {
 
     private final ArrayList<ModelCaixa> listaPratosCozinha = new ArrayList<>();
    
@@ -70,7 +70,7 @@ public class TableModelCaixa extends AbstractTableModel {
         
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(60); // CÓDIGO
-        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(290);//PRODUTO
+        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(180);//PRODUTO
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(50); //QUANTIDADE
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(120); //VALOR UNITÁRIO
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(100); //TOTAL
@@ -83,36 +83,7 @@ public class TableModelCaixa extends AbstractTableModel {
 
     }
 
-      public void adicionaCoresTabela(JTable tabela) {
-        
-        tabela.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value,
-                    boolean isSelected, boolean hasFocus, int row, int column) {
-                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                //A coluna do status é 8
-                Object ref = table.getValueAt(row, 8);//Coluna Status
-                //Coloca cor em todas as linhas,COLUNA(8) que tem o valor "Pendente"
-                if (ref != null && ref.equals("Pendente")) {//Se Status for igual a "Pendente"
-                    setBackground(Color.YELLOW);//Preenche a linha de vermelho
-                    setForeground(Color.BLACK);//E a fonte de branco
-                } else if (ref != null && ref.equals("Em preparação")) {//Se Status for igual a "Em Preparação"
-                        setBackground(Color.GREEN);//Preenche a linha de verde
-                        setForeground(Color.black);//E a fonte de branco
-                }else {
-                    boolean sel = isSelected;
-                    if (sel == true) {
-                        setBackground(getBackground());
-                        setForeground(getForeground());                    
-                } else {//Se Status não for "Pendente" 
-                        setBackground(Color.WHITE);//Preenche a linha de branco
-                        setForeground(new Color(51, 51, 51));//E a fonte de preto
-                    }
-                }  
-                
-                return this;
-            }
-        });
+     
 
-    }
+    
 }

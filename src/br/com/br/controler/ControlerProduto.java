@@ -505,7 +505,7 @@ public class ControlerProduto {
                 + "WHERE p.nome LIKE ? AND p.qtd > 0 ";
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, nome + "%");
+            pst.setString(1, "%"+nome + "%");
             rs = pst.executeQuery();
 
         } catch (SQLException e) {

@@ -37,6 +37,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     ControlerCozinha cz = new ControlerCozinha();
     ControlerEstoque estoque = new ControlerEstoque();
     Util u = new Util();
+    TelaDelivery d;
 
     /**
      * Creates new form TelaPrincipal
@@ -50,6 +51,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnRelatorios.setEnabled(false);
         jLabel16.setEnabled(false); // Icone do Botão Relatório
         // Verifica contas vencidas em aberto.
+        btnDelivery.setVisible(false);
+        
         atualizaInformativo();
         
         // Determina tempo de execução
@@ -116,6 +119,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnFuncionarios2 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         lblmsg2 = new javax.swing.JLabel();
+        btnDelivery = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -521,6 +526,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel1.add(lblmsg2);
         lblmsg2.setBounds(30, 460, 480, 30);
 
+        btnDelivery.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        btnDelivery.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeliveryMouseClicked(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/delivery64x64.png"))); // NOI18N
+        jLabel2.setText("Delivery");
+
+        javax.swing.GroupLayout btnDeliveryLayout = new javax.swing.GroupLayout(btnDelivery);
+        btnDelivery.setLayout(btnDeliveryLayout);
+        btnDeliveryLayout.setHorizontalGroup(
+            btnDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnDeliveryLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        btnDeliveryLayout.setVerticalGroup(
+            btnDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnDeliveryLayout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(btnDelivery);
+        btnDelivery.setBounds(430, 320, 195, 99);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(300, 0, 660, 530);
 
@@ -671,6 +706,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnFuncionarios2MouseClicked
 
+    private void btnDeliveryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeliveryMouseClicked
+        // Chama tela de Delivery
+        if (d==null){
+            d = new TelaDelivery();
+            d.setTitle("MasterFood - Delivery");
+            d.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        }
+        d.setVisible(true);
+    }//GEN-LAST:event_btnDeliveryMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -710,6 +755,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel btnCaixa;
     private javax.swing.JPanel btnConasApagar;
     private javax.swing.JPanel btnConfiguracao;
+    private javax.swing.JPanel btnDelivery;
     private javax.swing.JPanel btnFuncionarios1;
     private javax.swing.JPanel btnFuncionarios2;
     private javax.swing.JPanel btnLancarPedido;
@@ -722,6 +768,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;

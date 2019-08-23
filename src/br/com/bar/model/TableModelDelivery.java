@@ -7,24 +7,27 @@ package br.com.bar.model;
 
 import java.util.ArrayList;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
  * @author Elias Santana
  */
-public class TableModelMesas extends AbstractTableModel {
+public class TableModelDelivery extends AbstractTableModel {
 
-    private final ArrayList<Mesa> listaMesas = new ArrayList<>();
+    private final ArrayList<Delivery> modelDelivery = new ArrayList<>();
    
-    String colunas[] = {"CÓD. INT.", "GARÇOM", "MESA"};
-    public void adicionaPratoCozinha (Mesa m){
-        listaMesas.add(m);
+    String colunas[] = {"PEDIDO","CLIENTE","ENTREG.","SAÍDA"};
+    public void adicionaPratoCozinha (Delivery d){
+        modelDelivery.add(d);
     }
     
     @Override
     public int getRowCount() {
-        return listaMesas.size();
+        return modelDelivery.size();
     }
 
     @Override
@@ -37,13 +40,16 @@ public class TableModelMesas extends AbstractTableModel {
     public Object getValueAt(int row, int col) {
         switch (col) {
             case 0:
-                return listaMesas.get(row).getId();
+                return modelDelivery.get(row).getIdPedido();
             case 1:
-                return listaMesas.get(row).getId_funcionario();
+                return modelDelivery.get(row).getData();
             case 2:
-                return listaMesas.get(row).getNumeroMesa();     
+                return modelDelivery.get(row).getIdEntregador();     
+            case 3:
+                return modelDelivery.get(row).getIdCliente();     
+               
             default:
-                return listaMesas.get(row);
+                return modelDelivery.get(row);
         }
     }
 
@@ -53,16 +59,21 @@ public class TableModelMesas extends AbstractTableModel {
     }
 
      public void redimensionaColunas(JTable tabela) {
-
+         DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+         direita.setHorizontalAlignment(SwingConstants.RIGHT);
+         
+        //"PEDIDO","MESA","ENTREGADOR", "CLIENTE","SAÍDA"
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(70); // CÓDIGO
-        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(60);//NÚMERO DA MESA
-        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(360); //FUNCIONÁRIO 
+        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(60); 
+        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(60); 
+        tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(210);
+        tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(100); 
+        tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(80); 
         
-        // Oculta a primeira colunas
-        tabela.getColumnModel().getColumn(0).setPreferredWidth(0);
-        tabela.getColumnModel().getColumn(0).setMinWidth(0);
-        tabela.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabela.getColumnModel().getColumn(0).setCellRenderer(direita);
+        tabela.getColumnModel().getColumn(1).setCellRenderer(direita);
+        tabela.getColumnModel().getColumn(4).setCellRenderer(direita);
+       
     }
 
     

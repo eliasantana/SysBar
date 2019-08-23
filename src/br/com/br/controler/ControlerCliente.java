@@ -24,6 +24,7 @@ public class ControlerCliente {
 
     /**
      * Adiciona um Cliente na Base de Dados
+     *
      * @param c Recebe um Cliente
      * @return Retorna TRUE ou FALSE
      */
@@ -63,13 +64,67 @@ public class ControlerCliente {
             pst.setString(12, c.getReferencia());
             pst.setInt(13, c.getLocalidade().getId());
             pst.executeUpdate();
-            resp=true;
-            
+            resp = true;
+
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerCliente.adicionaCliente()"+e);            
+            System.out.println("br.com.br.controler.ControlerCliente.adicionaCliente()" + e);
         }
 
         return resp;
     }
 
+    /**
+     * Lista todos os clientes Data: 20/08/2019
+     * @param nome Nome do Cliente
+     * @return ResultSet 
+     */
+    public ResultSet listaCliente(String nome) {
+
+        String sql = "SELECT \n"
+                + "    c.nome AS 'NOME',\n"
+                + "    c.email AS 'E-MAIL',\n"
+                + "    l.localidade AS 'LOCALIDADE',\n"
+                + "    format(l.taxa,2,'de_DE') AS 'TAXA'\n"
+                + "FROM\n"
+                + "    dbbar.tbcliente c\n"
+                + "        INNER JOIN\n"
+                + "    tblocalidade l ON l.id = c.id_localidade\n"
+                + "WHERE c.nome LIKE ?;";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, "%"+nome+"%");
+            rs = pst.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCliente.listaTodosOsClientes()" + e);
+        }
+
+        return rs;
+    }
+    /**
+     * Retorna um o id do Cliente infomrado
+     * @param nomeCliente Nome do Cliente
+     * @return id ID do Cliente informado
+     * 
+     */
+    public String retornaIdCliente(String nomeCliente){
+        String sql="SELECT id FROM tbcliente WHERE nome=?";
+        boolean resp=false;
+        String id=null;
+        try {
+            conexao=ConexaoBd.conector();
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, nomeCliente);
+            rs = pst.executeQuery();
+            
+            while (rs.next()){
+                id=rs.getString("id");
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCliente.retornaIdCiente()"+e);
+        }
+        
+        return id;
+    }
 }

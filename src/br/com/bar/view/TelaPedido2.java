@@ -18,7 +18,9 @@ import br.com.bar.model.TableModelProdutoEstoque;
 import br.com.bar.util.FormataValor;
 import br.com.bar.util.LeitorDeTeclas;
 import br.com.bar.util.Util;
+import br.com.br.controler.ControlerCliente;
 import br.com.br.controler.ControlerCozinha;
+import br.com.br.controler.ControlerDelivery;
 import br.com.br.controler.ControlerEstoque;
 import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerGrupo;
@@ -51,6 +53,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     ControlerEstoque est = new ControlerEstoque();
     ControlerGrupo cg = new ControlerGrupo();
     ControlerCozinha cc = new ControlerCozinha();
+    ControlerDelivery cd = new ControlerDelivery();
 
     TableModelPedidosAbertos modelPedidos = new TableModelPedidosAbertos();
     TableModelDetalhePedido modelDetPedido = new TableModelDetalhePedido();
@@ -62,6 +65,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     TelaGerenciarPedido gp;
     TelaBloqueio tb;
     TelaAlteraSenha2 telap2;
+    TelaDelivery td;
 
     JFrame tlGerenciarPedido;
     Util u = new Util();
@@ -85,6 +89,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
      * Creates new form TelaPedido2
      */
     ArrayList<String> obsevacaoPrato; // Recebe a observação do prato
+
+    String cliente;
+    String tipoPedido;
 
     public TelaPedido2() {
 
@@ -116,7 +123,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
         modelNmesas.redimensionaColunas(tblNumeroMesa);
         lblTextocozinha.setVisible(false);
         lblCozinha.setVisible(false);
-
+        lblBtnAnexar.setEnabled(false);
+        labelAnexar.setEnabled(false);
         //Torna a tela Selecionavel 'Necessário para que o evento de bloqueio ocorra'
         this.setFocusable(true);
         // Adiciona Listner para bloquear tela
@@ -247,6 +255,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblLupa = new javax.swing.JLabel();
         lblMensagem = new javax.swing.JLabel();
         lblMsgRetorno = new javax.swing.JLabel();
+        lblCliente = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         comboGarcom = new javax.swing.JComboBox<>();
@@ -262,6 +271,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lbl_status_cozinha = new javax.swing.JLabel();
         lblCozinha = new javax.swing.JLabel();
         lblTextocozinha = new javax.swing.JLabel();
+        lblBtnAnexar = new javax.swing.JLabel();
+        labelAnexar = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -713,7 +724,13 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblMsgRetorno.setForeground(new java.awt.Color(0, 0, 255));
         lblMsgRetorno.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jPanel6.add(lblMsgRetorno);
-        lblMsgRetorno.setBounds(330, 160, 360, 30);
+        lblMsgRetorno.setBounds(280, 160, 420, 20);
+
+        lblCliente.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 12)); // NOI18N
+        lblCliente.setForeground(new java.awt.Color(153, 153, 153));
+        lblCliente.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jPanel6.add(lblCliente);
+        lblCliente.setBounds(280, 180, 420, 20);
 
         getContentPane().add(jPanel6);
         jPanel6.setBounds(530, 110, 710, 490);
@@ -880,6 +897,21 @@ public class TelaPedido2 extends javax.swing.JFrame {
         getContentPane().add(lblTextocozinha);
         lblTextocozinha.setBounds(720, 660, 80, 20);
 
+        lblBtnAnexar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBtnAnexar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/anexar.png"))); // NOI18N
+        lblBtnAnexar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBtnAnexarMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblBtnAnexar);
+        lblBtnAnexar.setBounds(1040, 610, 70, 50);
+
+        labelAnexar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        labelAnexar.setText("Anexar ao Delivery");
+        getContentPane().add(labelAnexar);
+        labelAnexar.setBounds(1020, 660, 130, 20);
+
         setSize(new java.awt.Dimension(1251, 693));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -1028,6 +1060,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
             if ("Gerente".equals(lblCargo.getText())) {
                 lblGerenciarPedido.setEnabled(true);
             }
+
+            if (!"".equals(lblCliente.getText()) && !"nPedido".equals(txtNumeroPedido.getText())) {
+                labelAnexar.setEnabled(true);
+                lblBtnAnexar.setEnabled(true);
+            }
+
         } catch (NullPointerException e) {
             System.out.println("br.com.bar.view.TelaPedido2.tblPedidosAbertosMouseClicked()" + e);
         }
@@ -1255,12 +1293,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private void lblGerenciarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGerenciarPedidoMouseClicked
         s = 0;
         if (lblGerenciarPedido.isEnabled()) {
-            if (gp==null){
-                
+            if (gp == null) {
+
                 gp = new TelaGerenciarPedido();
                 gp.recebeOperador(this, lblOperador.getText(), lblCargo.getText());
             }
-               gp.setVisible(true);
+            gp.setVisible(true);
         }
     }//GEN-LAST:event_lblGerenciarPedidoMouseClicked
 
@@ -1318,7 +1356,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private void lblCadeadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCadeadoMouseClicked
         // Chama a tela de Bloqueio
         s = 70;
-        if (tb==null){            
+        if (tb == null) {
             tb = new TelaBloqueio();
             tb.setAlwaysOnTop(true);
         }
@@ -1327,7 +1365,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
     private void lblAlterarSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlterarSenhaMouseClicked
         s = 0;
-        if (telap2==null){
+        if (telap2 == null) {
             telap2 = new TelaAlteraSenha2();
             telap2.setAlwaysOnTop(true);
             telap2.receberOperador(lblOperador.getText());
@@ -1387,6 +1425,28 @@ public class TelaPedido2 extends javax.swing.JFrame {
         telaCozinha.setVisible(true);
         //Cancela Cronometro ao abrir a tela de cozinha
     }//GEN-LAST:event_lblCozinhaMouseClicked
+
+    private void lblBtnAnexarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBtnAnexarMouseClicked
+        if (lblBtnAnexar.isEnabled()) {
+            // Anexa Pedido ao Delivery
+            if (td == null) {
+                td = new TelaDelivery();
+            }
+            // Verfica se o pedido selecionado já existe no delivery
+            if (cd.temNoDelivery(txtNumeroPedido.getText())) {
+
+            } else {
+                ControlerCliente controlCliente = new ControlerCliente();
+                String idCliente = controlCliente.retornaIdCliente(cliente);
+                if (cd.anexaPedido(txtNumeroPedido.getText(), idCliente, txtIdGarcom.getText(), txtNumeroMesa.getText())) {
+                    JOptionPane.showMessageDialog(this, "Pedido anexado ao Delivery com sucesso!", "Atenção!", JOptionPane.INFORMATION_MESSAGE);
+                    td.recebePedido(txtNumeroPedido.getText(), txtNumeroMesa.getText());
+                }
+            }
+            this.dispose();
+            td.setVisible(true);
+        }
+    }//GEN-LAST:event_lblBtnAnexarMouseClicked
 
     private double calculaPedido() {
         double valor = Double.parseDouble(txtValorUnit.getText().replaceAll(",", "."));
@@ -1478,11 +1538,14 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPanePedido;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JLabel labelAnexar;
     private javax.swing.JLabel lblAlterarSenha;
     private javax.swing.JLabel lblBloquearTela;
+    private javax.swing.JLabel lblBtnAnexar;
     private javax.swing.JLabel lblBtnReenvioCozinha;
     private javax.swing.JLabel lblCadeado;
     private javax.swing.JLabel lblCargo;
+    private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCodigo1;
     private javax.swing.JLabel lblCozinha;
@@ -1692,6 +1755,31 @@ public class TelaPedido2 extends javax.swing.JFrame {
         this.obsevacaoPrato = listaAtualizada;
         obs.dispose();
         enviaParaCozinha(listaAtualizada);
+    }
+
+    //Recebe o nome do Cliente do Delivery
+    public void recebeCliente(TelaDelivery tela, String tipoPedido, String nomeCliente) {
+        this.cliente = nomeCliente;
+        this.tipoPedido = tipoPedido;
+        this.td = tela;
+        lblCliente.setText("Cliente: " + nomeCliente);
+        comboGarcom.setSelectedItem("delivery");
+
+        // Lista mesas 
+        String nomeFunc = comboGarcom.getSelectedItem().toString();
+        String idFunc = cFunc.localizaId(nomeFunc);
+        txtIdGarcom.setText(cFunc.localizaId(comboGarcom.getSelectedItem().toString()));
+        tblNumeroMesa.setModel(DbUtils.resultSetToTableModel(cm.listaMesaLivre(idFunc)));
+        modelNmesas.redimensionaColunas(tblNumeroMesa);
+        //modelMesa.redimensionaColunas(tblNumeroMesa);
+        tblPedidosAbertos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos(txtIdGarcom.getText())));
+        modelPedidos.redimensionaColunas(tblPedidosAbertos);
+
+        btnAbrirPedido.setEnabled(false);
+        // Vai para a primeira guia
+        jTabbedPanePedido.setSelectedIndex(0);
+        bloqueiaCampos();
+
     }
 
 }
