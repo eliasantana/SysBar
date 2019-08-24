@@ -103,7 +103,7 @@ public class ControlerCliente {
         return rs;
     }
     /**
-     * Retorna um o id do Cliente infomrado
+     * Retorna um o id do Cliente informado
      * @param nomeCliente Nome do Cliente
      * @return id ID do Cliente informado
      * 
@@ -127,4 +127,32 @@ public class ControlerCliente {
         
         return id;
     }
+   
+    /**
+     * Retorna Nome do Cliente
+     * @param idCliente  Nome do Cliente
+     * @return id Nome do cliente.
+     * 
+     */
+    public String retornaNomeCliente(String idCliente){
+        String sql="SELECT nome FROM tbcliente WHERE id=?";
+       
+        String nomeCliente=null;
+        try {
+            conexao=ConexaoBd.conector();
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, idCliente);
+            rs = pst.executeQuery();
+            
+            while (rs.next()){
+                nomeCliente=rs.getString("nome");
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCliente.retornaIdCiente()"+e);
+        }
+        
+        return nomeCliente;
+    }
+    
+    
 }

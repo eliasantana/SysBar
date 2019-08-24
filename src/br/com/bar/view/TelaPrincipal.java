@@ -51,7 +51,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnRelatorios.setEnabled(false);
         jLabel16.setEnabled(false); // Icone do Botão Relatório
         // Verifica contas vencidas em aberto.
-        btnDelivery.setVisible(false);
+        btnDelivery.setVisible(true);
         
         atualizaInformativo();
         

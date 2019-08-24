@@ -101,6 +101,7 @@ public class TelaDelivery extends javax.swing.JFrame {
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(null);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -232,7 +233,7 @@ public class TelaDelivery extends javax.swing.JFrame {
 
         lblNomeCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jPanel3.add(lblNomeCliente);
-        lblNomeCliente.setBounds(12, 53, 243, 22);
+        lblNomeCliente.setBounds(12, 53, 300, 22);
 
         lblNpedido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblNpedido.setText(" ");
@@ -261,34 +262,33 @@ public class TelaDelivery extends javax.swing.JFrame {
         lblTotalGeral.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblTotalGeral.setText("0,00");
         jPanel3.add(lblTotalGeral);
-        lblTotalGeral.setBounds(30, 440, 260, 40);
+        lblTotalGeral.setBounds(20, 300, 260, 60);
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel17.setText("Total Geral R$");
         jPanel3.add(jLabel17);
-        jLabel17.setBounds(30, 420, 130, 22);
+        jLabel17.setBounds(20, 280, 130, 22);
 
         labelTaxaDeEntrega.setText("Tx. Entrega");
         jPanel3.add(labelTaxaDeEntrega);
-        labelTaxaDeEntrega.setBounds(230, 140, 90, 14);
+        labelTaxaDeEntrega.setBounds(230, 210, 90, 14);
 
         lblTxEntrega.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblTxEntrega.setText("0,00");
         jPanel3.add(lblTxEntrega);
-        lblTxEntrega.setBounds(230, 170, 70, 22);
+        lblTxEntrega.setBounds(230, 230, 70, 22);
 
         jLabel20.setText("Local de Entrega");
         jPanel3.add(jLabel20);
-        jLabel20.setBounds(20, 240, 130, 14);
+        jLabel20.setBounds(20, 210, 130, 14);
 
         lblLocalDeEntrega.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblLocalDeEntrega.setText("   ");
         jPanel3.add(lblLocalDeEntrega);
-        lblLocalDeEntrega.setBounds(20, 260, 250, 22);
+        lblLocalDeEntrega.setBounds(20, 230, 290, 30);
 
         labelEntregador.setText("Entregador");
         jPanel3.add(labelEntregador);
-        labelEntregador.setBounds(20, 300, 100, 14);
+        labelEntregador.setBounds(20, 370, 100, 14);
 
         comboEntregador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,7 +296,7 @@ public class TelaDelivery extends javax.swing.JFrame {
             }
         });
         jPanel3.add(comboEntregador);
-        comboEntregador.setBounds(20, 320, 170, 40);
+        comboEntregador.setBounds(20, 390, 170, 40);
 
         lblPedido1.setText("Pedido");
         jPanel3.add(lblPedido1);
@@ -312,7 +312,7 @@ public class TelaDelivery extends javax.swing.JFrame {
         lblEntregar.setText("Entregar");
         lblEntregar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.add(lblEntregar);
-        lblEntregar.setBounds(200, 320, 100, 40);
+        lblEntregar.setBounds(90, 450, 100, 40);
 
         getContentPane().add(jPanel3);
         jPanel3.setBounds(770, 60, 320, 510);
@@ -365,6 +365,7 @@ public class TelaDelivery extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(470, 0, 196, 50);
 
+        menuCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/funcionario (2).png"))); // NOI18N
         menuCliente.setText("Cliente");
 
         menuNovo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
@@ -393,7 +394,8 @@ public class TelaDelivery extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setBounds(0, 0, 1116, 638);
+        setSize(new java.awt.Dimension(1116, 650));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboEntregadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEntregadorActionPerformed
@@ -430,17 +432,11 @@ public class TelaDelivery extends javax.swing.JFrame {
 
             lblNomeCliente.setText(c.getNome());
             if (c.getNome() != null) {
-                lblLocalDeEntrega.setText(tbcliente.getModel().getValueAt(linha, 2).toString());
+                lblLocalDeEntrega.setText(tbcliente.getModel().getValueAt(linha, 2).toString());               
                 lblTxEntrega.setText(tbcliente.getModel().getValueAt(linha, 3).toString());
                 menuEditar.setEnabled(true);
                 menuExcluir.setEnabled(true);
-                lblAbrirPedido.setEnabled(true);
-                /*
-            if (!"".equals(lblNpedido.getText())){
-                tbDelivery.setModel(DbUtils.resultSetToTableModel(cd.listaDelivery(lblNpedido.getText())));
-                modelDelivey.redimensionaColunas(tbDelivery);
-                
-            }*/
+                lblAbrirPedido.setEnabled(true);          
 
                 String nomeCliente = tbcliente.getModel().getValueAt(linha, 0).toString();
                 tbDelivery.setModel(DbUtils.resultSetToTableModel(cd.listaDeliveryCliente(nomeCliente)));
@@ -518,12 +514,27 @@ public class TelaDelivery extends javax.swing.JFrame {
      */
     public void recebePedido(String idPedido, String numeroMesa) {
         lblNpedido.setText(idPedido);
+        lblnMesa.setText(numeroMesa);
         comboEntregador.setEnabled(true);
         lblEntregar.setEnabled(true);
+        // Lista delivery pelo número do pedido
         tbDelivery.setModel(DbUtils.resultSetToTableModel(cd.listaDelivery(idPedido)));
         modelDelivey.redimensionaColunas(tbDelivery);
+        // Lista todos os deliverys do cliente
+        tbDelivery.setModel(DbUtils.resultSetToTableModel(cd.listaDeliveryCliente(lblNomeCliente.getText())));
+        modelDelivey.redimensionaColunas(tbDelivery);
+        // Lista os itens do pedido
         ControlerPedido cp = new ControlerPedido();
         tbDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(numeroMesa, idPedido)));
+        modelItens.redimensionaColunas(tbDetalhePedido);
+        //Totalizar pedido
+        calcula_pedido();
+        double tpedido = Double.parseDouble(lblTotalPedido.getText().replace(",", "."));
+        double txEnt= Double.parseDouble(lblTxEntrega.getText().replace(",", "."));
+        double servico= Double.parseDouble(lblValorTxServico.getText().replace(",", "."));
+        double tgeral= Double.parseDouble(lblTotalGeral.getText().replace(",", "."));
+        
+        boolean result = cd.AtualizaVlrDelivery(tpedido, txEnt, servico, tgeral, idPedido);
     }
 
     /**

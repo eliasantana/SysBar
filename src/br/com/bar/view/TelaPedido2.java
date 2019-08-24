@@ -959,6 +959,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
         btnAbrirPedido.setEnabled(false);
         // Vai para a primeira guia
         jTabbedPanePedido.setSelectedIndex(0);
+        // Desabilita botão Anexar Delivery
+        labelAnexar.setEnabled(false);
+        lblBtnAnexar.setEnabled(false);
         bloqueiaCampos();
     }//GEN-LAST:event_btnListarActionPerformed
 
@@ -1061,9 +1064,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 lblGerenciarPedido.setEnabled(true);
             }
 
-            if (!"".equals(lblCliente.getText()) && !"nPedido".equals(txtNumeroPedido.getText())) {
-                labelAnexar.setEnabled(true);
+            if (cd.temNoDelivery(numPedido)) {
                 lblBtnAnexar.setEnabled(true);
+                labelAnexar.setEnabled(true);
             }
 
         } catch (NullPointerException e) {
@@ -1429,22 +1432,35 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private void lblBtnAnexarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBtnAnexarMouseClicked
         if (lblBtnAnexar.isEnabled()) {
             // Anexa Pedido ao Delivery
-            if (td == null) {
-                td = new TelaDelivery();
-            }
+            //if (td == null) {
+            //     td = new TelaDelivery();
+            //  }
+
             // Verfica se o pedido selecionado já existe no delivery
             if (cd.temNoDelivery(txtNumeroPedido.getText())) {
-
+                ControlerCliente controlCli = new ControlerCliente();
+                String idClienteDelivery = cd.retornaIdCliente(txtNumeroPedido.getText());
+                String nomeCliente = controlCli.retornaNomeCliente(idClienteDelivery);
+                JOptionPane.showMessageDialog(this, "O pedido selecionado pertence ao cliente: " + nomeCliente, "Atenação!", JOptionPane.ERROR_MESSAGE);
             } else {
+                if (td == null) {
+                    td = new TelaDelivery();
+                }
+                this.dispose();
+                td.setVisible(true);
+               
+
                 ControlerCliente controlCliente = new ControlerCliente();
                 String idCliente = controlCliente.retornaIdCliente(cliente);
                 if (cd.anexaPedido(txtNumeroPedido.getText(), idCliente, txtIdGarcom.getText(), txtNumeroMesa.getText())) {
                     JOptionPane.showMessageDialog(this, "Pedido anexado ao Delivery com sucesso!", "Atenção!", JOptionPane.INFORMATION_MESSAGE);
                     td.recebePedido(txtNumeroPedido.getText(), txtNumeroMesa.getText());
                 }
+                 
             }
-            this.dispose();
-            td.setVisible(true);
+            // td.setVisible(true);
+            //this.dispose();
+
         }
     }//GEN-LAST:event_lblBtnAnexarMouseClicked
 
