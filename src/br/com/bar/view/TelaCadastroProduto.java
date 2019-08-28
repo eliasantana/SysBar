@@ -124,6 +124,8 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         txtQuantidade = new javax.swing.JFormattedTextField();
         txtQtdMin = new javax.swing.JFormattedTextField();
         txtQtdMax = new javax.swing.JFormattedTextField();
+        txtQuantidade1 = new javax.swing.JFormattedTextField();
+        lblDescricao1 = new javax.swing.JLabel();
         panelSuperior = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
@@ -144,9 +146,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         painelEsquerdo.setLayout(null);
 
         lblDescricao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        lblDescricao.setText("Descrição");
+        lblDescricao.setText("Código");
         painelEsquerdo.add(lblDescricao);
-        lblDescricao.setBounds(20, 0, 220, 30);
+        lblDescricao.setBounds(20, 0, 70, 30);
 
         txtDescricao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtDescricao.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -163,7 +165,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(txtDescricao);
-        txtDescricao.setBounds(20, 30, 330, 40);
+        txtDescricao.setBounds(100, 30, 290, 40);
 
         lblqtd.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblqtd.setText("Quantidade");
@@ -315,6 +317,21 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         painelEsquerdo.add(txtQtdMax);
         txtQtdMax.setBounds(220, 180, 130, 40);
 
+        txtQuantidade1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txtQuantidade1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        txtQuantidade1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtQuantidade1KeyPressed(evt);
+            }
+        });
+        painelEsquerdo.add(txtQuantidade1);
+        txtQuantidade1.setBounds(20, 30, 70, 40);
+
+        lblDescricao1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        lblDescricao1.setText("Descrição");
+        painelEsquerdo.add(lblDescricao1);
+        lblDescricao1.setBounds(100, 0, 220, 30);
+
         bordas.add(painelEsquerdo);
         painelEsquerdo.setBounds(2, 110, 398, 448);
 
@@ -454,7 +471,6 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             p.setIdFornecedor(Integer.parseInt(cf.localizaForecedor(f)));
         }
         if (!"Selecione...".equals(comboGrupoProduto.getSelectedItem().toString())) {
-
             p.setTbGrupoId(g.localizaIdGrupoProduto(comboGrupoProduto));
         }
 
@@ -626,6 +642,10 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         lblQtdMax.setForeground(Color.black);
         lblMensagem.setText(null);
     }//GEN-LAST:event_txtQtdMaxKeyReleased
+
+    private void txtQuantidade1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidade1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQuantidade1KeyPressed
     private void limpaForm() {
 
         txtDescricao.setText(null);
@@ -685,6 +705,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblDescricao1;
     private javax.swing.JLabel lblFornecedor;
     private javax.swing.JLabel lblGrupo;
     private javax.swing.JLabel lblMensagem;
@@ -700,11 +721,12 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtQtdMax;
     private javax.swing.JFormattedTextField txtQtdMin;
     private javax.swing.JFormattedTextField txtQuantidade;
+    private javax.swing.JFormattedTextField txtQuantidade1;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 
     private void bloqueiaCampos() {
-        txtDescricao.setEnabled(false);
+       //txtDescricao.setEnabled(false);
         txtQuantidade.setEnabled(false);
         txtValor.setEnabled(false);
     }

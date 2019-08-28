@@ -74,6 +74,7 @@ public class TelaMovimentacao extends JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         bordas = new javax.swing.JPanel();
         panelProdutos = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -133,7 +134,7 @@ public class TelaMovimentacao extends JFrame {
                 radioPesquisaNomeActionPerformed(evt);
             }
         });
-        jPanel3.add(radioPesquisaNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 31, 57, -1));
+        jPanel3.add(radioPesquisaNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 25, 57, -1));
 
         buttonGroup2.add(radioPesquisaCodigo);
         radioPesquisaCodigo.setText("Código");
@@ -142,7 +143,7 @@ public class TelaMovimentacao extends JFrame {
                 radioPesquisaCodigoMouseClicked(evt);
             }
         });
-        jPanel3.add(radioPesquisaCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 31, -1, -1));
+        jPanel3.add(radioPesquisaCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 25, -1, -1));
 
         txtPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -157,12 +158,12 @@ public class TelaMovimentacao extends JFrame {
                 txtPesquisarKeyReleased(evt);
             }
         });
-        jPanel3.add(txtPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 86, 242, 31));
+        jPanel3.add(txtPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 320, 31));
 
         lblPesquisa.setText("Pesquisar");
-        jPanel3.add(lblPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 66, -1, -1));
-        jPanel3.add(txtIdProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(259, 27, 36, 31));
-        jPanel3.add(txtIdOperacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 27, 36, 31));
+        jPanel3.add(lblPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+        jPanel3.add(txtIdProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(259, 20, 36, 31));
+        jPanel3.add(txtIdOperacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 20, 36, 31));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Operação")));
 
@@ -186,10 +187,10 @@ public class TelaMovimentacao extends JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblDica, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(comboOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(lblDica, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -198,8 +199,7 @@ public class TelaMovimentacao extends JFrame {
                 .addContainerGap()
                 .addComponent(comboOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblDica, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblDica, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Tipo de Produto")));
@@ -217,7 +217,7 @@ public class TelaMovimentacao extends JFrame {
                 jRadioButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 31, -1, -1));
+        jPanel2.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 25, -1, -1));
 
         buttonGroup1.add(radioExistente);
         radioExistente.setText("Existente");
@@ -226,7 +226,7 @@ public class TelaMovimentacao extends JFrame {
                 radioExistenteMouseClicked(evt);
             }
         });
-        jPanel2.add(radioExistente, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, -1, -1));
+        jPanel2.add(radioExistente, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 25, -1, -1));
 
         javax.swing.GroupLayout panelProdutosLayout = new javax.swing.GroupLayout(panelProdutos);
         panelProdutos.setLayout(panelProdutosLayout);
@@ -244,16 +244,16 @@ public class TelaMovimentacao extends JFrame {
             panelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProdutosLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         bordas.add(panelProdutos);
-        panelProdutos.setBounds(10, 150, 410, 370);
+        panelProdutos.setBounds(10, 110, 410, 300);
 
         painelTopo.setBackground(new java.awt.Color(243, 156, 18));
         painelTopo.setLayout(null);
@@ -261,7 +261,7 @@ public class TelaMovimentacao extends JFrame {
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
         jLabel4.setText("de Estoque");
         painelTopo.add(jLabel4);
-        jLabel4.setBounds(180, 50, 200, 64);
+        jLabel4.setBounds(180, 50, 200, 50);
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/produto.png"))); // NOI18N
@@ -272,13 +272,13 @@ public class TelaMovimentacao extends JFrame {
         lblOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblOperador.setText("Operador");
         painelTopo.add(lblOperador);
-        lblOperador.setBounds(390, 90, 90, 30);
+        lblOperador.setBounds(360, 60, 90, 30);
 
         lblCargo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("Cargo");
         painelTopo.add(lblCargo);
-        lblCargo.setBounds(510, 90, 110, 30);
+        lblCargo.setBounds(480, 60, 110, 30);
 
         jPanel4.setBackground(new java.awt.Color(38, 53, 91));
 
@@ -315,7 +315,7 @@ public class TelaMovimentacao extends JFrame {
         lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendario24x24.png"))); // NOI18N
         lblData.setText("jLabel9");
         painelTopo.add(lblData);
-        lblData.setBounds(610, 90, 140, 30);
+        lblData.setBounds(580, 60, 140, 30);
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         jLabel5.setText("Gestão");
@@ -323,7 +323,7 @@ public class TelaMovimentacao extends JFrame {
         jLabel5.setBounds(100, 10, 200, 64);
 
         bordas.add(painelTopo);
-        painelTopo.setBounds(0, 0, 750, 130);
+        painelTopo.setBounds(0, 0, 750, 100);
 
         panelQtd.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -350,17 +350,17 @@ public class TelaMovimentacao extends JFrame {
         panelQtd.setLayout(panelQtdLayout);
         panelQtdLayout.setHorizontalGroup(
             panelQtdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelQtdLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelQtdLayout.createSequentialGroup()
+                .addContainerGap(11, Short.MAX_VALUE)
                 .addGroup(panelQtdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel6)
                     .addGroup(panelQtdLayout.createSequentialGroup()
                         .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)
-                        .addComponent(blbIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                        .addComponent(blbIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         panelQtdLayout.setVerticalGroup(
             panelQtdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,17 +374,23 @@ public class TelaMovimentacao extends JFrame {
                 .addGap(8, 8, 8)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         bordas.add(panelQtd);
-        panelQtd.setBounds(420, 150, 320, 370);
+        panelQtd.setBounds(430, 110, 310, 300);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         tblProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -417,12 +423,12 @@ public class TelaMovimentacao extends JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         bordas.add(jPanel5);
-        jPanel5.setBounds(10, 540, 730, 150);
+        jPanel5.setBounds(10, 420, 730, 270);
 
         getContentPane().add(bordas);
         bordas.setBounds(0, 0, 748, 698);
@@ -502,15 +508,11 @@ public class TelaMovimentacao extends JFrame {
     private void txtPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyPressed
         
         if (radioPesquisaNome.isSelected()) {
-            
-            //tblProduto.setModel(DbUtils.resultSetToTableModel(est.pesquisarProduto("nome", txtPesquisar.getText())));
-            tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade("nome", txtPesquisar.getText())));
+            tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade2("nome", txtPesquisar.getText())));
             modelMov.redimensionaColunas(tblProduto);
         } else {
-            //tblProduto.setModel(DbUtils.resultSetToTableModel(est.pesquisarProduto("id", txtPesquisar.getText())));
-            tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade("id", txtPesquisar.getText())));
-            modelMov.redimensionaColunas(tblProduto);
-            
+            tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade2("id", txtPesquisar.getText())));
+            modelMov.redimensionaColunas(tblProduto);            
         }
 
     }//GEN-LAST:event_txtPesquisarKeyPressed
@@ -737,6 +739,7 @@ public class TelaMovimentacao extends JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> comboOperacao;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

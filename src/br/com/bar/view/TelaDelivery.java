@@ -6,6 +6,7 @@
 package br.com.bar.view;
 
 import br.com.bar.model.Cliente;
+import br.com.bar.model.Entregador;
 import br.com.bar.model.TableModelCliente;
 import br.com.bar.model.TableModelDelivery;
 import br.com.bar.model.TableModelItensDelivery;
@@ -15,6 +16,7 @@ import br.com.br.controler.ControlerDelivery;
 import br.com.br.controler.ControlerEntregador;
 import br.com.br.controler.ControlerPedido;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -37,11 +39,19 @@ public class TelaDelivery extends javax.swing.JFrame {
 
     public TelaDelivery() {
         initComponents();
-        modelCliente.redimensionaColunas(tbcliente);
+        tbDelivery.setModel(modelDelivey);
         modelDelivey.redimensionaColunas(tbDelivery);
+        
+        tbcliente.setModel(modelCliente);
+        modelCliente.redimensionaColunas(tbcliente);
+        
+        tbDetalhePedido.setModel(modelItens);
         modelItens.redimensionaColunas(tbDetalhePedido);
+        
         estadoinicial();
         ce.listaEntregador(comboEntregador);
+        lblCargo.setVisible(false);
+        lblOperador.setVisible(false);
     }
 
     /**
@@ -67,6 +77,7 @@ public class TelaDelivery extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tbDetalhePedido = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         lblCliente = new javax.swing.JLabel();
         lblPedido = new javax.swing.JLabel();
@@ -113,11 +124,11 @@ public class TelaDelivery extends javax.swing.JFrame {
 
         tbcliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {}
             },
             new String [] {
-                "NOME", "E-MAIL", "LOCALIDADE", "TAXA"
+
             }
         ));
         tbcliente.setRowHeight(22);
@@ -217,6 +228,15 @@ public class TelaDelivery extends javax.swing.JFrame {
         jPanel2.add(jLabel6);
         jLabel6.setBounds(10, 330, 150, 30);
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lopa32x32.png"))); // NOI18N
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel3);
+        jLabel3.setBounds(270, 30, 32, 30);
+
         getContentPane().add(jPanel2);
         jPanel2.setBounds(220, 60, 540, 510);
 
@@ -225,7 +245,7 @@ public class TelaDelivery extends javax.swing.JFrame {
 
         lblCliente.setText("Cliente");
         jPanel3.add(lblCliente);
-        lblCliente.setBounds(12, 28, 93, 14);
+        lblCliente.setBounds(12, 13, 93, 14);
 
         lblPedido.setText("Mesa");
         jPanel3.add(lblPedido);
@@ -233,7 +253,7 @@ public class TelaDelivery extends javax.swing.JFrame {
 
         lblNomeCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jPanel3.add(lblNomeCliente);
-        lblNomeCliente.setBounds(12, 53, 300, 22);
+        lblNomeCliente.setBounds(12, 33, 300, 22);
 
         lblNpedido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblNpedido.setText(" ");
@@ -276,7 +296,7 @@ public class TelaDelivery extends javax.swing.JFrame {
         lblTxEntrega.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblTxEntrega.setText("0,00");
         jPanel3.add(lblTxEntrega);
-        lblTxEntrega.setBounds(230, 230, 70, 22);
+        lblTxEntrega.setBounds(230, 230, 80, 22);
 
         jLabel20.setText("Local de Entrega");
         jPanel3.add(jLabel20);
@@ -311,6 +331,11 @@ public class TelaDelivery extends javax.swing.JFrame {
         lblEntregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/entrega.png"))); // NOI18N
         lblEntregar.setText("Entregar");
         lblEntregar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lblEntregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblEntregarMouseClicked(evt);
+            }
+        });
         jPanel3.add(lblEntregar);
         lblEntregar.setBounds(90, 450, 100, 40);
 
@@ -400,9 +425,9 @@ public class TelaDelivery extends javax.swing.JFrame {
 
     private void comboEntregadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEntregadorActionPerformed
         // Habilita o combo se ouver um número de pedido
-        if ("Selecione...".equals(comboEntregador.getSelectedItem().toString())){
+        if ("Selecione...".equals(comboEntregador.getSelectedItem().toString())) {
             lblEntregar.setEnabled(false);
-        }else {
+        } else {
             lblEntregar.setEnabled(true);
         }
     }//GEN-LAST:event_comboEntregadorActionPerformed
@@ -413,8 +438,7 @@ public class TelaDelivery extends javax.swing.JFrame {
             tbcliente.setModel(DbUtils.resultSetToTableModel(cl.listaCliente(txtNomeCliente.getText())));
             modelCliente.redimensionaColunas(tbcliente);
         }
-        tbcliente.setModel(DbUtils.resultSetToTableModel(cl.listaCliente(txtNomeCliente.getText())));
-        modelCliente.redimensionaColunas(tbcliente);
+
     }//GEN-LAST:event_txtNomeClienteKeyPressed
 
     private void txtNomeClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeClienteKeyReleased
@@ -422,38 +446,38 @@ public class TelaDelivery extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeClienteKeyReleased
 
     private void tbclienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbclienteMouseClicked
-        // Captura dados do Cliente
-        // Captura excessão NullPointerException
-        try {
-            
-            int linha = tbcliente.getSelectedRow();
-            c = new Cliente();
-            c.setNome(tbcliente.getModel().getValueAt(linha, 0).toString());
-
-            lblNomeCliente.setText(c.getNome());
-            if (c.getNome() != null) {
-                lblLocalDeEntrega.setText(tbcliente.getModel().getValueAt(linha, 2).toString());               
-                lblTxEntrega.setText(tbcliente.getModel().getValueAt(linha, 3).toString());
-                menuEditar.setEnabled(true);
-                menuExcluir.setEnabled(true);
-                lblAbrirPedido.setEnabled(true);          
-
-                String nomeCliente = tbcliente.getModel().getValueAt(linha, 0).toString();
-                tbDelivery.setModel(DbUtils.resultSetToTableModel(cd.listaDeliveryCliente(nomeCliente)));
-                modelDelivey.redimensionaColunas(tbDelivery);
-            }
-        } catch (Exception e) {
+        int linhaTabela = tbcliente.getSelectedRow();
+        lblNomeCliente.setText(tbcliente.getModel().getValueAt(linhaTabela, 0).toString());
+        lblLocalDeEntrega.setText(tbcliente.getModel().getValueAt(linhaTabela, 2).toString());
+        lblTxEntrega.setText(tbcliente.getModel().getValueAt(linhaTabela, 3).toString());
+        lblAbrirPedido.setEnabled(true);
+        // Lista os pedidos do cliente selecionado
+        tbDelivery.setModel(DbUtils.resultSetToTableModel(cd.listaDeliveryCliente(lblNomeCliente.getText())));
+        modelDelivey.redimensionaColunas(tbDelivery);
+        
+        int linhasTbDelivery = tbDelivery.getRowCount();
+        if (linhasTbDelivery==0){
+            tbDetalhePedido.setModel(modelItens);
+            modelItens.redimensionaColunas(tbDetalhePedido);
+            lblNpedido.setText("0,00");
+            lblnMesa.setText("0,00");
+            lblTotalPedido.setText("0,00");
+            lblValorTxServico.setText("0,00");
+            lblTotalGeral.setText("0,00");
+            comboEntregador.setSelectedIndex(0);
+            comboEntregador.setEnabled(false);
+            labelEntregador.setEnabled(false);
         }
-
 
     }//GEN-LAST:event_tbclienteMouseClicked
 
     private void lblAbrirPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAbrirPedidoMouseClicked
+
         if (lblAbrirPedido.isEnabled()) {
 
             if (telaPEdido == null) {
                 telaPEdido = new TelaPedido2();
-                telaPEdido.recebeCliente(this, "delivery", c.getNome());
+                telaPEdido.recebeCliente(this, "delivery", lblNomeCliente.getText());
                 telaPEdido.recebeOperador(lblOperador.getText(), lblCargo.getText());
             }
 
@@ -477,15 +501,16 @@ public class TelaDelivery extends javax.swing.JFrame {
     }//GEN-LAST:event_menuEditarActionPerformed
 
     private void tbDeliveryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDeliveryMouseClicked
-        
+
         /*
            Captura excessão NullPointerException gerada caso a tabela
            detalheDelivery esteja Vazia.
-        */
+         */
         try {
             int linha = tbDelivery.getSelectedRow();
             lblNpedido.setText(tbDelivery.getModel().getValueAt(linha, 0).toString());
             String numeroMesa = tbDelivery.getModel().getValueAt(linha, 1).toString();
+
             lblnMesa.setText(numeroMesa);
             ControlerPedido cp = new ControlerPedido();
             // Lista itens do pedido
@@ -494,12 +519,50 @@ public class TelaDelivery extends javax.swing.JFrame {
 
             if (!"".equals(tbDetalhePedido.getValueAt(0, 0).toString())) {
                 calcula_pedido();
+                // Libera combo entregador se o pedido ainda não saiu para entrega.               
+
             }
-            
+
         } catch (Exception e) {
-            System.out.println("br.com.bar.view.TelaDelivery.tbDeliveryMouseClicked()"+e);
+            System.out.println("br.com.bar.view.TelaDelivery.tbDeliveryMouseClicked()" + e);
         }
     }//GEN-LAST:event_tbDeliveryMouseClicked
+
+    private void lblEntregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEntregarMouseClicked
+        if (lblEntregar.isEnabled()) {
+
+            if (comboEntregador.getSelectedIndex() != 0) {
+                Entregador e = ce.localizaEntregador(comboEntregador.getSelectedItem().toString());
+                e.setStatus(1);
+
+                if (ce.atualizaStatusEntregador(e)) {
+                    cd.atualizaHoraSaida(lblNpedido.getText(), e.getNome());
+                    JOptionPane.showMessageDialog(this, "Pedido entregue!");
+                    // Desabilita combo 
+                    comboEntregador.setSelectedIndex(0);
+                    comboEntregador.setEnabled(false);
+                    labelEntregador.setEnabled(false);
+                    //Limpa as tabelas delivery e itens
+                    tbDelivery.setModel(DbUtils.resultSetToTableModel(cd.listaDeliveryCliente("")));
+                    modelDelivey.redimensionaColunas(tbDelivery);
+                    ControlerPedido cp = new ControlerPedido();
+                    tbDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido("", "")));
+                    modelItens.redimensionaColunas(tbDetalhePedido);
+                    limpaCampos();
+                    lblAbrirPedido.setEnabled(false);
+                    comboEntregador.removeAll();
+                    ce.listaEntregador(comboEntregador);
+                    txtNomeCliente.setText(null);
+                }
+
+            }
+        }
+    }//GEN-LAST:event_lblEntregarMouseClicked
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+            tbcliente.setModel(DbUtils.resultSetToTableModel(cl.listaCliente(txtNomeCliente.getText())));
+            modelCliente.redimensionaColunas(tbcliente);
+    }//GEN-LAST:event_jLabel3MouseClicked
 
     public void recebeOperador(String operador, String cargo) {
         lblOperador.setText(operador);
@@ -530,10 +593,10 @@ public class TelaDelivery extends javax.swing.JFrame {
         //Totalizar pedido
         calcula_pedido();
         double tpedido = Double.parseDouble(lblTotalPedido.getText().replace(",", "."));
-        double txEnt= Double.parseDouble(lblTxEntrega.getText().replace(",", "."));
-        double servico= Double.parseDouble(lblValorTxServico.getText().replace(",", "."));
-        double tgeral= Double.parseDouble(lblTotalGeral.getText().replace(",", "."));
-        
+        double txEnt = Double.parseDouble(lblTxEntrega.getText().replace(",", "."));
+        double servico = Double.parseDouble(lblValorTxServico.getText().replace(",", "."));
+        double tgeral = Double.parseDouble(lblTotalGeral.getText().replace(",", "."));
+
         boolean result = cd.AtualizaVlrDelivery(tpedido, txEnt, servico, tgeral, idPedido);
     }
 
@@ -580,6 +643,7 @@ public class TelaDelivery extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
@@ -651,14 +715,26 @@ public class TelaDelivery extends javax.swing.JFrame {
             lblValorTxServico.setText(fv.Formata(String.valueOf(txServico)));
             totalGeral = totalPedido + txServico + txEntrega;
             lblTotalGeral.setText(fv.Formata(String.valueOf(totalGeral)));
-            
+
         } catch (NumberFormatException e) {
             System.out.println("br.com.bar.view.TelaDelivery.calcula_pedido()" + e);
         }
-       
+        int linha = tbDelivery.getSelectedRow();
+
         labelEntregador.setEnabled(true);
         comboEntregador.setEnabled(true);
-        
 
+    }
+    //  Limpa todos os valores
+
+    private void limpaCampos() {
+        lblNomeCliente.setText(null);
+        lblNpedido.setText(null);
+        lblnMesa.setText(null);
+        lblTotalPedido.setText("0,00");
+        lblValorTxServico.setText("0,00");
+        lblTotalGeral.setText("0,00");
+        lblLocalDeEntrega.setText(null);
+        lblTxEntrega.setText("0,00");
     }
 }

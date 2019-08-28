@@ -1064,9 +1064,15 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 lblGerenciarPedido.setEnabled(true);
             }
 
-            if (cd.temNoDelivery(numPedido)) {
+            if (cd.temNoDelivery(numPedido)&&!"".equals(lblCliente.getText())) {
                 lblBtnAnexar.setEnabled(true);
                 labelAnexar.setEnabled(true);
+            } else {
+                String garcom = tblPedidosAbertos.getModel().getValueAt(linha, 4).toString();
+                if ("delivery".equals(garcom.toLowerCase()) && !"".equals(lblCliente.getText())) {
+                    lblBtnAnexar.setEnabled(true);
+                    labelAnexar.setEnabled(true);
+                }
             }
 
         } catch (NullPointerException e) {
@@ -1286,8 +1292,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
             if (status == null) {
                 status = new TelaStatusCozinha();
                 status.setAlwaysOnTop(true);
-                status.recebeOperador(comboGarcom.getSelectedItem().toString(), txtNumeroPedido.getText(), txtNumeroMesa.getText());
-            }
+            } 
+            status.recebeOperador(comboGarcom.getSelectedItem().toString(), txtNumeroPedido.getText(), txtNumeroMesa.getText());
             status.setVisible(true);
 
         }
@@ -1448,7 +1454,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 }
                 this.dispose();
                 td.setVisible(true);
-               
 
                 ControlerCliente controlCliente = new ControlerCliente();
                 String idCliente = controlCliente.retornaIdCliente(cliente);
@@ -1456,7 +1461,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Pedido anexado ao Delivery com sucesso!", "Atenção!", JOptionPane.INFORMATION_MESSAGE);
                     td.recebePedido(txtNumeroPedido.getText(), txtNumeroMesa.getText());
                 }
-                 
+
             }
             // td.setVisible(true);
             //this.dispose();
@@ -1779,8 +1784,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         this.tipoPedido = tipoPedido;
         this.td = tela;
         lblCliente.setText("Cliente: " + nomeCliente);
-        comboGarcom.setSelectedItem("delivery");
-
+        comboGarcom.setSelectedItem("Delivery");
         // Lista mesas 
         String nomeFunc = comboGarcom.getSelectedItem().toString();
         String idFunc = cFunc.localizaId(nomeFunc);

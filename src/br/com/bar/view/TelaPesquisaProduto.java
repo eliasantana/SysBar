@@ -384,14 +384,12 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
 
         if (radioProduto.isSelected()) {
             opcao = "Nome";
-
         } else if (radioGrupo.isSelected()) {
             opcao = "Grupo";
-
         } else {
             opcao = "Nome";
-
         }
+        
         tblProduto.setModel(DbUtils.resultSetToTableModel(cp.filtrarProduto(txtLocalizar.getText(), opcao)));
         modelCadastroProduto.redimensionaColunas(tblProduto);
 

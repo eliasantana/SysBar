@@ -10,6 +10,7 @@ import br.com.bar.dao.Log;
 import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.model.DescontoPedido;
+import br.com.bar.model.Entregador;
 import br.com.bar.model.Funcionario;
 import br.com.bar.model.MovimentacaoCaixa;
 import br.com.bar.model.Pedido;
@@ -36,6 +37,8 @@ import org.jfree.chart.*;
 import org.jfree.data.category.DefaultCategoryDataset;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerDadosEmpresa;
+import br.com.br.controler.ControlerDelivery;
+import br.com.br.controler.ControlerEntregador;
 import java.awt.Color;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
@@ -46,7 +49,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import net.sf.jasperreports.engine.JasperPrintManager;
-import org.apache.batik.ext.swing.GridBagConstants;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 
@@ -66,7 +68,10 @@ public class TelaCaixa extends javax.swing.JFrame {
     ControlerParametro cparam = new ControlerParametro();
     Connection conexao = ConexaoBd.conector();
     ControlerDadosEmpresa de = new ControlerDadosEmpresa();
+    ControlerDelivery dl = new ControlerDelivery();
     TableModelCaixa modelCaixa = new TableModelCaixa();
+    ControlerEntregador ce = new ControlerEntregador();
+    
     ReportUtil rpu = new ReportUtil();
     // Instância da tela principal usada para atualização após inclusão de contas;
     TelaPrincipal principal = new TelaPrincipal();
@@ -80,13 +85,15 @@ public class TelaCaixa extends javax.swing.JFrame {
         e é necessária quando o caixa vai incluir algum produto de última hora.
      */
     String idGarcom = "";
-
+    Entregador entregador;
     // Captura os valores para mais de uma forma de pagamento.
     double dinheiro = 0;
     double credito = 0;
     double debito = 0;
     double voucher = 0;
     double dinheiroPago = 0;
+    String idDelivery;
+   
 
     public TelaCaixa() {
         initComponents();
@@ -1513,6 +1520,28 @@ public class TelaCaixa extends javax.swing.JFrame {
                     voucher = 0;
 
         }
+        
+        // Atualiza o status do entregador 
+        if (entregador.getNome()!=null){
+            // Muda o status atual do entregador para 0 (zero) = Livre
+            entregador.setStatus(0);
+           if (ce.atualizaStatusEntregador(entregador)){
+               System.out.println("Status do Entregador atualizado com Sucesso...");
+               // Remove o pedido da tabela Delivery para tbHistoricoDelivery
+               if (dl.movePedidoParaHistoricoDelivery(idDelivery)){
+                   System.out.println("Pedido movido com sucesso!");
+                   if (dl.excluiPedidoDoDelivery(idDelivery)){
+                        System.out.println("Pedido excluído da tabela delivery com sucesso!");
+                   }
+               }else {
+                   System.out.println("Não foi possível mover o pedido!");                          
+               }
+           }else {
+               System.out.println("Erro ao atualizar o status do entregador");
+               
+           }
+        }
+        
     }//GEN-LAST:event_lblReceberMouseClicked
 
     private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
@@ -1535,6 +1564,16 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblValorDesc.setEnabled(false);
         jpanelSubTotal.setEnabled(true);
         jpanelTotalGeral.setEnabled(true);
+        
+        if ("delivery".equals(lblGarcom.getText().toLowerCase())){          
+            String nome = dl.localizaEntregador(lblNPedido.getText());            
+            entregador = ce.localizaEntregador(nome);
+           
+            idDelivery=txtIdPedido.getText();
+        }else {
+            entregador = new Entregador();
+        }
+        
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void btnImprimirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMouseClicked

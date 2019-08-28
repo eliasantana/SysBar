@@ -10,7 +10,6 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -20,7 +19,7 @@ public class TableModelDelivery extends AbstractTableModel {
 
     private final ArrayList<Delivery> modelDelivery = new ArrayList<>();
    
-    String colunas[] = {"PEDIDO","CLIENTE","ENTREG.","SAÍDA"};
+    String colunas[] = {"PEDIDO","MESA","CLIENTE","ENTREGADOR","SAÍDA"};
     public void adicionaPratoCozinha (Delivery d){
         modelDelivery.add(d);
     }

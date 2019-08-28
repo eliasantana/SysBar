@@ -224,7 +224,8 @@ public class TelaConfirmaCozinheiro extends JDialog {
         System.out.println(f.getId());
 
         if (null != f.getId()) {
-            if ("Cozinheiro".equals(f.getCargo()) || "Gerente".equals(f.getCargo())) {
+            //"Cozinheiro".equals(f.getCargo()) || "Gerente".equals(f.getCargo()) - Excluir após teste
+            if ("Cozinheiro".equals(f.getCargo())) {
                 
                 this.dispose();
                 cozinha.recebeCozinheiro(f, idPrato);

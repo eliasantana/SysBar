@@ -98,13 +98,14 @@ public class ControlerProduto {
         }
         return rs;
     }
+
     // Método utilizado exclusivamente na tela de pesquisa de produtos
     public ResultSet listaProdutoEstoque() {
 
         String sql = "SELECT \n"
                 + "	p.id as 'CÓDIGO', \n"
                 + "	p.nome as 'DESCRIÇÃO',\n"
-                + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"                
+                + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"
                 + "	p.qtd as 'ESTOQUE' \n"
                 + "FROM tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id "
@@ -120,6 +121,7 @@ public class ControlerProduto {
         }
         return rs;
     }
+
     // Método utilizado exclusivamente na tela de pesquisa de produtos
     // Localiza produto informado no parâmetro
     public ResultSet listaProdutoEstoque(String nomeProduto) {
@@ -127,7 +129,7 @@ public class ControlerProduto {
         String sql = "SELECT \n"
                 + "	p.id as 'CÓDIGO', \n"
                 + "	p.nome as 'DESCRIÇÃO',\n"
-                + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"                
+                + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"
                 + "	p.qtd as 'ESTOQUE' \n"
                 + "FROM tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id "
@@ -135,15 +137,15 @@ public class ControlerProduto {
 
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, nomeProduto+"%");
+            pst.setString(1, nomeProduto + "%");
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerProduto.listaProdutoDisponivel()" + e);
         }
-       
+
         return rs;
-        
+
     }
 
     public ResultSet rankingProdutosVendidos() {
@@ -186,13 +188,12 @@ public class ControlerProduto {
         return rs;
     }
 
-    public ResultSet listaEquantidade(String coluna, String pesquisa) {
+
+    public ResultSet listaEquantidade2(String coluna, String pesquisa) {
+        String sql="";
         if ("nome".equals(coluna)) {
             coluna = "p.nome";
-        } else {
-            coluna = "p.id";
-        }
-        String sql = "SELECT\n"
+                sql = "SELECT\n"
                 + "	p.id as 'CÓDIGO', \n"
                 + "	p.nome as 'PRODUTO',\n"
                 + "	p.qtd as 'QTD', \n"
@@ -202,17 +203,38 @@ public class ControlerProduto {
                 + "WHERE " + coluna + " LIKE ?;";
 
         try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, pesquisa + "%");
+            pst = conexao.prepareStatement(sql);            
+            pst.setString(1, "%" + pesquisa + "%");   
 
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerProduto.listaEquantidade()" + e);
+            System.out.println("br.com.br.controler.ControlerProduto.listaEquantidade() - NOME" + e);
         }
+        } else {
+             coluna = "p.id";             
+                sql = "SELECT\n"
+                + "	p.id as 'CÓDIGO', \n"
+                + "	p.nome as 'PRODUTO',\n"
+                + "	p.qtd as 'QTD', \n"
+                + "	g.nome as 'GRUPO'\n"
+                + "FROM tbproduto p\n"
+                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id\n"
+                + "WHERE " + coluna + " LIKE ?;";
+
+        try {
+            pst = conexao.prepareStatement(sql);            
+            pst.setString(1, pesquisa );   
+
+            rs = pst.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerProduto.listaEquantidade() - LIKE" + e);
+        }
+        }
+
         return rs;
     }
-
     public ResultSet filtrarProduto(String localizarTexto, String opcao) {
 
         String filtro = "";
@@ -240,14 +262,15 @@ public class ControlerProduto {
 
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, localizarTexto + '%');
+            pst.setString(1, "%"+localizarTexto + "%");
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerProduto.filtrarProduto()"+e);
+            System.out.println("br.com.br.controler.ControlerProduto.filtrarProduto()" + e);
         }
         return rs;
     }
+
     // Métododo sem uso - Verificar sua utilização - Descartar se não utilizado.
     public String localizaIdGrupo(JComboBox combo) {
 
@@ -331,7 +354,7 @@ public class ControlerProduto {
 
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerProduto.excluiProduto()");
-              
+
         }
 
         return false;
@@ -389,7 +412,7 @@ public class ControlerProduto {
             pst.setString(1, pp.getTbproduto_id());
             pst.setString(2, pp.getQtd());
             pst.setString(3, pp.getValorUnit());
-            pst.setString(4, pp.getTotal());           
+            pst.setString(4, pp.getTotal());
             pst.setString(5, pp.getCadmesa_id());
             pst.setString(6, pp.getCadpedido_id_pedido());
             pst.setString(7, pp.getTbcadfuncionario_id());
@@ -498,14 +521,13 @@ public class ControlerProduto {
      */
     public ResultSet pesquisarProduto(String nome) {
 
-       
         String sql = "SELECT p.id as 'CÓDIGO', p.nome as 'DESCRIÇÃO', p.qtd as 'ESTOQUE',format(p.valor,2,'de_DE') as 'VALOR R$', g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g on g.id = p.cad_grupo_produto_id\n"
                 + "WHERE p.nome LIKE ? AND p.qtd > 0 ";
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, "%"+nome + "%");
+            pst.setString(1, "%" + nome + "%");
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
@@ -532,5 +554,5 @@ public class ControlerProduto {
         }
         return resp;
     }
-  
+
 }

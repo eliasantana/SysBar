@@ -66,6 +66,9 @@ public class TableModelCliente extends AbstractTableModel {
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(58); //LOCALIDADE - TAXA
         
         tabela.getColumnModel().getColumn(3).setCellRenderer(direita);
+        
+       
+       
     }
 
     
