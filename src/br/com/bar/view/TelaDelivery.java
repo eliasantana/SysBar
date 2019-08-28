@@ -480,7 +480,7 @@ public class TelaDelivery extends javax.swing.JFrame {
                 telaPEdido.recebeCliente(this, "delivery", lblNomeCliente.getText());
                 telaPEdido.recebeOperador(lblOperador.getText(), lblCargo.getText());
             }
-
+              
             telaPEdido.setVisible(true);
         }
     }//GEN-LAST:event_lblAbrirPedidoMouseClicked
@@ -538,6 +538,15 @@ public class TelaDelivery extends javax.swing.JFrame {
                 if (ce.atualizaStatusEntregador(e)) {
                     cd.atualizaHoraSaida(lblNpedido.getText(), e.getNome());
                     JOptionPane.showMessageDialog(this, "Pedido entregue!");
+                    
+                    // Atualiza Valores no Delivery
+                    //Totalizar pedido                    
+                    double tpedido = Double.parseDouble(lblTotalPedido.getText().replace(",", "."));
+                    double txEnt = Double.parseDouble(lblTxEntrega.getText().replace(",", "."));
+                    double servico = Double.parseDouble(lblValorTxServico.getText().replace(",", "."));
+                    double tgeral = Double.parseDouble(lblTotalGeral.getText().replace(",", "."));
+                    boolean result = cd.AtualizaVlrDelivery(tpedido, txEnt, servico, tgeral, lblNpedido.getText());
+                    
                     // Desabilita combo 
                     comboEntregador.setSelectedIndex(0);
                     comboEntregador.setEnabled(false);
@@ -553,6 +562,7 @@ public class TelaDelivery extends javax.swing.JFrame {
                     comboEntregador.removeAll();
                     ce.listaEntregador(comboEntregador);
                     txtNomeCliente.setText(null);
+                    
                 }
 
             }
@@ -596,8 +606,8 @@ public class TelaDelivery extends javax.swing.JFrame {
         double txEnt = Double.parseDouble(lblTxEntrega.getText().replace(",", "."));
         double servico = Double.parseDouble(lblValorTxServico.getText().replace(",", "."));
         double tgeral = Double.parseDouble(lblTotalGeral.getText().replace(",", "."));
-
-        boolean result = cd.AtualizaVlrDelivery(tpedido, txEnt, servico, tgeral, idPedido);
+      
+        
     }
 
     /**

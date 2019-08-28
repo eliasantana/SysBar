@@ -1437,10 +1437,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
     private void lblBtnAnexarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBtnAnexarMouseClicked
         if (lblBtnAnexar.isEnabled()) {
-            // Anexa Pedido ao Delivery
-            //if (td == null) {
-            //     td = new TelaDelivery();
-            //  }
+         
 
             // Verfica se o pedido selecionado já existe no delivery
             if (cd.temNoDelivery(txtNumeroPedido.getText())) {
@@ -1463,9 +1460,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 }
 
             }
-            // td.setVisible(true);
-            //this.dispose();
-
+          
         }
     }//GEN-LAST:event_lblBtnAnexarMouseClicked
 
