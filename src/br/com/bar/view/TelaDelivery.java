@@ -49,7 +49,7 @@ public class TelaDelivery extends javax.swing.JFrame {
         modelItens.redimensionaColunas(tbDetalhePedido);
         
         estadoinicial();
-        ce.listaEntregador(comboEntregador);
+        //ce.listaEntregador(comboEntregador);
         lblCargo.setVisible(false);
         lblOperador.setVisible(false);
     }
@@ -310,6 +310,7 @@ public class TelaDelivery extends javax.swing.JFrame {
         jPanel3.add(labelEntregador);
         labelEntregador.setBounds(20, 370, 100, 14);
 
+        comboEntregador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
         comboEntregador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboEntregadorActionPerformed(evt);
@@ -477,9 +478,9 @@ public class TelaDelivery extends javax.swing.JFrame {
 
             if (telaPEdido == null) {
                 telaPEdido = new TelaPedido2();
-                telaPEdido.recebeCliente(this, "delivery", lblNomeCliente.getText());
                 telaPEdido.recebeOperador(lblOperador.getText(), lblCargo.getText());
             }
+                telaPEdido.recebeCliente(this, "delivery", lblNomeCliente.getText());
               
             telaPEdido.setVisible(true);
         }
@@ -520,11 +521,15 @@ public class TelaDelivery extends javax.swing.JFrame {
             if (!"".equals(tbDetalhePedido.getValueAt(0, 0).toString())) {
                 calcula_pedido();
                 // Libera combo entregador se o pedido ainda não saiu para entrega.               
-
+                lblEntregar.setEnabled(true);
             }
+            
+             ce.listaEntregador(comboEntregador);
+           
 
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             System.out.println("br.com.bar.view.TelaDelivery.tbDeliveryMouseClicked()" + e);
+             ce.listaEntregador(comboEntregador);
         }
     }//GEN-LAST:event_tbDeliveryMouseClicked
 
@@ -558,9 +563,7 @@ public class TelaDelivery extends javax.swing.JFrame {
                     tbDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido("", "")));
                     modelItens.redimensionaColunas(tbDetalhePedido);
                     limpaCampos();
-                    lblAbrirPedido.setEnabled(false);
-                    comboEntregador.removeAll();
-                    ce.listaEntregador(comboEntregador);
+                    lblAbrirPedido.setEnabled(false);                  
                     txtNomeCliente.setText(null);
                     
                 }
@@ -721,7 +724,8 @@ public class TelaDelivery extends javax.swing.JFrame {
             lblTotalPedido.setText(fv.Formata(String.valueOf(totalPedido)));
             txEntrega = Double.parseDouble(lblTxEntrega.getText().replace(",", "."));
             // Calcula a taxa de serviço em 10%
-            txServico = totalPedido * 0.10;
+            //txServico = totalPedido * 0.10; // Desabilitado
+            txServico = totalPedido * 0; // Não Cobrar Taxa de Serviço para o delivery
             lblValorTxServico.setText(fv.Formata(String.valueOf(txServico)));
             totalGeral = totalPedido + txServico + txEntrega;
             lblTotalGeral.setText(fv.Formata(String.valueOf(totalGeral)));

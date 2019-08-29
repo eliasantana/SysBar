@@ -37,7 +37,7 @@ public class ControlerEntregador {
            pst = conexao.prepareStatement(sql);
            rs = pst.executeQuery();
            
-           combo.removeAll();
+           combo.removeAllItems();
            combo.addItem("Selecione...");
            while (rs.next()){
                combo.addItem(rs.getString("nome"));

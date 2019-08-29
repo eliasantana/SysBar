@@ -1794,6 +1794,8 @@ public class TelaPedido2 extends javax.swing.JFrame {
         // Vai para a primeira guia
         jTabbedPanePedido.setSelectedIndex(0);
         bloqueiaCampos();
+        comboGarcom.setEnabled(false);
+        btnListar.setEnabled(false);
 
     }
 
