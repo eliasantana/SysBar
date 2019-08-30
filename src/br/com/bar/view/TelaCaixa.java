@@ -1293,7 +1293,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void lblReceberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReceberMouseClicked
         if (lblReceber.isEnabled()) {
-
+            
             // Fecha pedido
             // Calcula valor
             int nPesoas = Integer.parseInt(jSpinFieldPessoas.getValue().toString());

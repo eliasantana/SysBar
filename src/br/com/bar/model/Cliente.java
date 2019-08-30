@@ -13,10 +13,10 @@ package br.com.bar.model;
  */
 public class Cliente extends Pessoa {
 
-    private  Localidade localidade;
+    private String id;
+    private Localidade localidade;
     private String historico;
     private String referencia;
-    
 
     public Cliente() {
 
@@ -48,6 +48,14 @@ public class Cliente extends Pessoa {
 
     public String getReferencia() {
         return referencia;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
     }
 
     

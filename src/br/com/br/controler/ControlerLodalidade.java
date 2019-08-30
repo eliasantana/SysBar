@@ -6,13 +6,12 @@
 package br.com.br.controler;
 
 import br.com.bar.dao.ConexaoBd;
+import br.com.bar.model.Cliente;
 import br.com.bar.model.Localidade;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComboBox;
 
 /**
@@ -221,4 +220,62 @@ public class ControlerLodalidade {
         }
         return tx;
     }
+    /**
+     *  Retorna a localidade do ID informado
+     *  Data: 30/08/2019
+     *  Versão: 1.0.2d
+     *  @param idLocalidade ID a ser localizado
+     *  @return localide Retorna o nome da localidade
+     */
+    public String retornaNomeLocalidade(String idLocalidade){
+        String sql="SELECT * localidade WHERE id =?";
+        String localidade= null;
+        try {
+            conexao = ConexaoBd.conector();
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, idLocalidade);            
+            rs=pst.executeQuery();
+            
+            while (rs.next()){
+                localidade = rs.getString("localidade");
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerLodalidade.retornaNomeLocalidade()"+e);
+        }
+        
+        return localidade;
+    }
+    
+    public boolean alteraCliente (Cliente c){
+        boolean resp=false;
+        String sql="UPDATE tbcliente "
+                + "SET nome=?, endereco=?, bairro=?, cep=?, cidade=?, email=?, telefone=?, "
+                + "numero=?, uf=?, telefone_fixo=?, complemento=?, referencia=?, id_localidade=? WHERE id=?";
+        try {
+            conexao = ConexaoBd.conector();
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, c.getNome());
+            pst.setString(2, c.getEndereco());
+            pst.setString(3, c.getBairro());
+            pst.setString(4, c.getCep());
+            pst.setString(5, c.getCidade());
+            pst.setString(6, c.getEmail());
+            pst.setString(7, c.getTelefone());
+            pst.setString(8, c.getNumero());
+            pst.setString(9, c.getUf());
+            pst.setString(10, c.getTelefone_recado());
+            pst.setString(11, c.getComplemento());
+            pst.setString(12, c.getReferencia());
+            pst.setInt(13, c.getLocalidade().getId());
+            pst.setString(14, c.getId());
+            
+            pst.executeUpdate();
+            resp=true;
+            
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerLodalidade.alteraCliente()"+e);
+        }
+        return resp;
+    }
 }
+

@@ -6,7 +6,9 @@
 package br.com.br.controler;
 
 import br.com.bar.dao.ConexaoBd;
+import br.com.bar.dao.Email;
 import br.com.bar.model.Cliente;
+import br.com.bar.model.Localidade;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,7 +50,7 @@ public class ControlerCliente {
                 + "VALUES\n"
                 + "(?,?,?,?,?,?,?,?,?,?,?,?,?);";
         try {
-
+            
             pst = conexao.prepareStatement(sql);
             pst.setString(1, c.getNome());
             pst.setString(2, c.getEndereco());
@@ -153,6 +155,67 @@ public class ControlerCliente {
         
         return nomeCliente;
     }
-    
-    
+    /**
+     * Excluir um cliente
+     * DATA: 11/08/2019
+     * Versão: 1.0.2D
+     * @param c Obj Cliente
+     * @return Boolean Retorna TRUE ou FALSE
+     */
+    public boolean excluiCliente(Cliente c){
+        
+        String sql="DELETE FROM tbcliente WHERE id=?";
+        boolean resp=false;
+        
+        try {
+            conexao = ConexaoBd.conector();
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, c.getId());
+            pst.executeUpdate();
+            
+            resp=true;
+           
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCliente.excluiCliente()"+e);
+        }
+        
+        return resp;    
+    }
+    // Retorna um Oj Cliente 
+    public Cliente localizaCliente (String idCliente){
+        
+        String sql="SELECT * FROM tbcliente WHERE id =?";
+        Cliente c = new Cliente();
+        
+        try {
+            conexao = ConexaoBd.conector();
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, idCliente);
+            rs=pst.executeQuery();
+           
+            while (rs.next()){
+                c.setId(rs.getString("id"));
+                c.setNome(rs.getString("nome"));
+                c.setEndereco(rs.getString("endereco"));
+                c.setBairro(rs.getString("bairro"));
+                c.setCep(rs.getString("cep"));
+                c.setCidade(rs.getString("cidade"));
+                c.setEmail(rs.getString("email"));
+                c.setTelefone(rs.getString("telefone"));
+                c.setNumero(rs.getString("numero"));
+                c.setUf(rs.getString("uf"));
+                c.setTelefone_recado("telefone_fixo");
+                c.setComplemento("complemento");
+                c.setReferencia(rs.getString("referencia"));
+                Localidade localidade = new Localidade();
+                localidade.setId(rs.getInt("id_localidade"));
+                c.setLocalidade(localidade);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCliente.localizaCliente()"+e);
+        }
+        
+        return c;
+    }
 }

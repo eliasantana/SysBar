@@ -13,7 +13,6 @@ import br.com.bar.util.ClienteViaCepWS;
 import br.com.bar.util.FormataValor;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCliente;
-import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerLodalidade;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -31,15 +30,15 @@ import javax.swing.JOptionPane;
     - Teste de Alteração de herança da janela de jFrame para JDialog
  */
 public class TelaCadastroCliente extends JDialog {
-    
+
     ControlerCliente controlCliente = new ControlerCliente();
-    ControlerLodalidade cl = new ControlerLodalidade();   
-    
+    ControlerLodalidade cl = new ControlerLodalidade();
+
     Util u = new Util();
     // Inicia Instância de log
     Log l = new Log();
     String nome = null;
-    
+
     public TelaCadastroCliente() {
         initComponents();
         txtCaminho.setVisible(false);
@@ -51,43 +50,43 @@ public class TelaCadastroCliente extends JDialog {
         lblData.setVisible(false);
         lblOperador.setVisible(false);
         cl.carregaComboLocalidade(comboLocalidade);
-        
+
     }
-    
+
     public void recebeOperador(String operador, String cargo, String operacao) {
         Date data = new Date();
         lblData.setText(u.formataDataBr(data));
-        
+
         lblPerfil.setText(cargo);
         lblOperador.setText(operador);
         txtOperacao.setText(operacao);
-        
+
         if ("Adicionar".equals(txtOperacao.getText())) {
             lblTiulo.setText("Incluir");
             lblSubTitulo.setText("Cliente");
-            
+
         } else if ("Alterar".equals(txtOperacao.getText())) {
             lblTiulo.setText("Alterar");
             lblSubTitulo.setText("Cliente");
-            
+
         } else {
             lblTiulo.setText("Consultar");
             lblSubTitulo.setText("Cliente");
             bloqueiaTudo();
         }
         l.setUsuario(operador);
-        
+
         if ("Adicionar".equals(operacao)) {
-            
+
         } else {
-            
+
             bloqueiaCampos();
         }
-        
+
     }
-    
+
     public void recebeFuncionario(Funcionario f) {
-        
+
     }
 
     /**
@@ -485,19 +484,8 @@ public class TelaCadastroCliente extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked
-        if ("Alterar".equals(txtOperacao.getText()) || "Detalhe".equals(txtOperacao.getText())) {
-            this.dispose();
-            setVisible(false);
-            TelaPesquisaFuncionario tpf = new TelaPesquisaFuncionario();
-            tpf.recebeOperador(lblOperador.getText(), lblPerfil.getText());
-            tpf.atualizaTabela("");
-            tpf.setVisible(true);
-            this.dispose();
-            
-        } else {
-            this.dispose();
-            
-        }
+        
+        dispose();
     }//GEN-LAST:event_lblFecharMouseClicked
 
     private void jtableGuiasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableGuiasMouseEntered
@@ -584,10 +572,10 @@ public class TelaCadastroCliente extends JDialog {
         lblMsg.setText(null);
         Localidade localidade = new Localidade();
         localidade.setNome(comboLocalidade.getSelectedItem().toString());
-        if (!"Selecione...".equals(localidade.getNome())){
-            FormataValor fv = new FormataValor();           
+        if (!"Selecione...".equals(localidade.getNome())) {
+            FormataValor fv = new FormataValor();
             lblTaxa.setText(fv.Formata(String.valueOf(cl.retornaTaxa(localidade))));
-        }else {
+        } else {
             lblTaxa.setText("0,00");
         }
     }//GEN-LAST:event_comboLocalidadeActionPerformed
@@ -595,7 +583,7 @@ public class TelaCadastroCliente extends JDialog {
     private void txtCepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyPressed
         // Busca o CEP informado
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            
+
             if (evt.getKeyCode() == com.sun.glass.events.KeyEvent.VK_ENTER) {
                 String cep = txtCep.getText().replace("-", "");
                 String json = ClienteViaCepWS.buscarCep(cep);
@@ -608,7 +596,7 @@ public class TelaCadastroCliente extends JDialog {
                     comboUf.setSelectedItem(mapa.get("uf"));
                     txtEmail.requestFocus();
                 } catch (NullPointerException e) {
-                    
+
                 }
             }
         }
@@ -626,27 +614,41 @@ public class TelaCadastroCliente extends JDialog {
             localidade.setNome(comboLocalidade.getSelectedItem().toString());
             localidade.setId(Integer.parseInt(cl.retornaIdLocalidade(localidade)));
             // Seta dados do cliente
-            c.setCep(txtCep.getText());
+            c.setTelefone(txtCelular.getText());
             c.setNome(txtNome.getText());
-            c.setTelefone(txtTelefone.getText());
+            c.setTelefone_recado(txtTelefone.getText());
             c.setCep(txtCep.getText());
             c.setEndereco(txtEndereco.getText());
             c.setNumero(txtNumero.getText());
             c.setComplemento(txtComplemento.getText());
+            c.setUf(comboUf.getSelectedItem().toString());
             c.setBairro(txtBairro.getText());
             c.setCidade(txtCidade.getText());
-            c.setUf(comboUf.getSelectedItem().toString());
             c.setEmail(txtEmail.getText());
+            c.setReferencia(txtPontoReferencia.getText());
+
             // Informa  dados da lodalidade
             c.setLocalidade(localidade);
-            c.setHistorico(txtHistorico.getText());            
-            c.setReferencia(txtPontoReferencia.getText());
-            
-            if (controlCliente.adicionaCliente(c)){
-                JOptionPane.showMessageDialog(this, "Cliente adicionado com sucesso!","Atenção!",JOptionPane.INFORMATION_MESSAGE);
-                limpaForm();
+            c.setHistorico(txtHistorico.getText());
+            // Altera dados do cliente
+            if ("Alterar".equals(lblTiulo.getText())) {
+                int op = JOptionPane.showConfirmDialog(this,"Deseja mesmo alterar os dados do cliente?","Atenção!",JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE);
+                if (op==JOptionPane.YES_OPTION){
+                    
+                    if (cl.alteraCliente(c)) {
+                        JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!", "Atenção!", JOptionPane.INFORMATION_MESSAGE);
+                        this.dispose();
+                    }
+                }
+            } else {
+                // Adiciona Cliente
+                if (controlCliente.adicionaCliente(c)) {
+                    JOptionPane.showMessageDialog(this, "Cliente adicionado com sucesso!", "Atenção!", JOptionPane.INFORMATION_MESSAGE);
+                    limpaForm();
+                    this.dispose();
+                }
             }
-            
+
         }
     }//GEN-LAST:event_btnSalvar3ActionPerformed
 
@@ -681,7 +683,7 @@ public class TelaCadastroCliente extends JDialog {
     private void txtPontoReferenciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPontoReferenciaKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPontoReferenciaKeyReleased
-    
+
     public void limpaForm() {
         // Limpa formulário
         txtId.setText(null);
@@ -702,7 +704,7 @@ public class TelaCadastroCliente extends JDialog {
         txtHistorico.setText(null);
         txtPontoReferencia.setText(null);
     }
-    
+
     private void bloqueiaTudo() {
         // Limpa formulário
         txtId.setEnabled(false);
@@ -721,9 +723,9 @@ public class TelaCadastroCliente extends JDialog {
         comboLocalidade.setEnabled(false);
         comboLocalidade.setEnabled(false);
         txtComplemento.setEnabled(false);
-        
+
         jtableGuias.setVisible(true);
-        
+
     }
 
     /**
@@ -816,9 +818,9 @@ public class TelaCadastroCliente extends JDialog {
     private void bloqueiaCampos() {
         if ("Alterar".equals(txtOperacao.getText())) {
             txtNome.setEnabled(false);
-            
+
         }
-        
+
     }
 
     /* 
@@ -861,13 +863,30 @@ public class TelaCadastroCliente extends JDialog {
             lblMsg.setText("*Informe o NÚMERO para continuar!");
             txtNumero.requestFocus();
             lblNumero.setForeground(Color.red);
-            resp = false;            
+            resp = false;
         } else if ("Selecione...".equals(comboLocalidade.getSelectedItem().toString())) {
             lblMsg.setText("*Informe uma LOCALIDADE para continuar!");
             lblLocalidade.setForeground(Color.red);
             comboLocalidade.requestFocus();
             resp = false;
-        }        
+        }
         return resp;
+    }
+
+    public void recebeCliente(Cliente c) {
+        txtCelular.setText(c.getTelefone());
+        txtNome.setText(c.getNome());
+        txtTelefone.setText(c.getTelefone_recado());
+        txtCep.setText(c.getCep());
+        txtEndereco.setText(c.getEndereco());
+        txtNumero.setText(c.getNumero());
+        txtComplemento.setText(c.getComplemento());
+        comboUf.setSelectedItem(c.getUf());
+        txtBairro.setText(c.getBairro());
+        txtCidade.setText(c.getCidade());
+        txtEmail.setText(c.getEmail());
+        txtPontoReferencia.setText(c.getReferencia());
+        txtHistorico.setText(c.getHistorico());
+
     }
 }
