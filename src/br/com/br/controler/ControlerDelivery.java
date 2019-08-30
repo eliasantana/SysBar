@@ -9,6 +9,7 @@ import br.com.bar.dao.ConexaoBd;
 import br.com.bar.model.Cliente;
 import br.com.bar.model.Entregador;
 import br.com.bar.model.Localidade;
+import br.com.bar.util.FormataValor;
 import br.com.bar.util.Util;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -329,8 +330,10 @@ public class ControlerDelivery {
             System.out.println("br.com.br.controler.ControlerDelivery.atualizaHoraSaida()" + e);
         }
     }
+
     /**
      * Retorna a localidade e a taxa de entrega do Cliente informado
+     *
      * @param nomeCliente Nome do Cliente.
      * @return Localidade Retorna um Obj do tipo Localidade
      */
@@ -342,91 +345,127 @@ public class ControlerDelivery {
                 + "    dbbar.tbcliente c\n"
                 + "INNER JOIN tblocalidade l on l.id = c.id_localidade \n"
                 + "WHERE c.nome = ?";
-        
+
         try {
-            conexao=ConexaoBd.conector();
-            pst=conexao.prepareStatement(sql);
+            conexao = ConexaoBd.conector();
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, nomeCliente);
-            rs=pst.executeQuery();
-            while (rs.next()){
+            rs = pst.executeQuery();
+            while (rs.next()) {
                 l.setNome(rs.getString("localidade"));
                 l.setTaxa(rs.getDouble("taxa"));
             }
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerDelivery.retornaLocalidadeEtaxa()"+e);
+            System.out.println("br.com.br.controler.ControlerDelivery.retornaLocalidadeEtaxa()" + e);
         }
-        
+
         return l;
     }
+
     /**
      * Localiza um entregador na tabela Delivery
-     * @param idPEdido Número do Pedido 
+     *
+     * @param idPEdido Número do Pedido
      * @return entregador Nome do Entregador
      */
-    public String localizaEntregador(String idPEdido){
-        String sql="SELECT entregador  FROM tbdelivery WHERE cadpedido_id_pedido = ?";
-        String entregador=null;
+    public String localizaEntregador(String idPEdido) {
+        String sql = "SELECT entregador  FROM tbdelivery WHERE cadpedido_id_pedido = ?";
+        String entregador = null;
         try {
             conexao = ConexaoBd.conector();
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, idPEdido);
-            rs=pst.executeQuery();
-            
-            while (rs.next()){
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
                 entregador = rs.getString("entregador");
             }
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerDelivery.localizaEntregador()"+e);
+            System.out.println("br.com.br.controler.ControlerDelivery.localizaEntregador()" + e);
         }
-        
+
         return entregador;
     }
+
     /**
-     *  Move pedido para tabela histórica
+     * Move pedido para tabela histórica
+     *
      * @param idPedido Número do pedido
      * @return Boolean Retorna TRUE ou FALSE
      */
-    
-    public boolean movePedidoParaHistoricoDelivery(String idPedido){
-        boolean resp=false;
-        String sql="INSERT INTO tbhistoricodelivery SELECT * from tbdelivery where cadpedido_id_pedido = ?";
+    public boolean movePedidoParaHistoricoDelivery(String idPedido) {
+        boolean resp = false;
+        String sql = "INSERT INTO tbhistoricodelivery SELECT * from tbdelivery where cadpedido_id_pedido = ?";
         try {
             conexao = ConexaoBd.conector();
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, idPedido);
             pst.executeUpdate();
-            
-            resp=true;
-                    
+
+            resp = true;
+
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerDelivery.movePedidoParaHistoricoDelivery()"+e);
-            
+            System.out.println("br.com.br.controler.ControlerDelivery.movePedidoParaHistoricoDelivery()" + e);
+
         }
-       
+
         return resp;
     }
-   /**
-    * Exclui o pedido da tabela Delivery
-    * @param idPedido Número do Pedido
-    * @return Boolean Retorna TRUE OU FALSE
-    */ 
-    
-   public boolean excluiPedidoDoDelivery(String idPedido){
-       
-       boolean  resp = false;
+
+    /**
+     * Exclui o pedido da tabela Delivery
+     *
+     * @param idPedido Número do Pedido
+     * @return Boolean Retorna TRUE OU FALSE
+     */
+    public boolean excluiPedidoDoDelivery(String idPedido) {
+
+        boolean resp = false;
         String sql2 = "DELETE FROM tbdelivery WHERE cadpedido_id_pedido = ?";
         // Remove o pedido da tabela delivery
         try {
             conexao = ConexaoBd.conector();
-            pst=conexao.prepareStatement(sql2);
+            pst = conexao.prepareStatement(sql2);
             pst.setString(1, idPedido);
             pst.executeUpdate();
-            
-            resp=true;
+
+            resp = true;
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerDelivery.movePedidoParaHistoricoDelivery()"+e);
+            System.out.println("br.com.br.controler.ControlerDelivery.movePedidoParaHistoricoDelivery()" + e);
         }
-        
+
         return resp;
-   }
+    }
+
+    /**
+     * @param nPedido Número do Pedido
+     * @return String Valor de Entrega formatado.
+     */
+    public String retornaTaxaEntrega(String nPedido) {
+        String sql = "SELECT  tx_entrega FROM tbdelivery WHERE cadpedido_id_pedido=?";
+        FormataValor fv = new FormataValor();
+        String valor = null;
+
+        try {
+            conexao = ConexaoBd.conector();
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, nPedido);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                valor = rs.getString("tx_entrega");
+            }
+            try {
+
+                valor = fv.Formata(valor);
+            } catch (Exception e) {
+                
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerDelivery.retornaTaxaEntrega()" + e);
+        }
+
+        return valor;
+
+    }
 }

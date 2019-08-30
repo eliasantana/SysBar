@@ -105,7 +105,7 @@
     </target> -->
     
     <target name="-post-jar">  
-        <property name="store.jar.name" value="MasterFood"/>  
+        <property name="store.jar.name" value="projBar"/>  
         <property name="store.dir" value="store"/>  
         <property name="store.jar" value="${store.dir}/${store.jar.name}.jar"/>  
         <echo message="Packaging ${store.jar.name} into a single JAR at ${store.jar}"/>  

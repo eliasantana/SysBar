@@ -281,7 +281,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/br/com/bar/imagens/btnGr&#xe1;fico.png"/>
+                  <Image iconType="3" name="/br/com/bar/imagens/btnGrfico.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Gerar Gr&#xe1;fico do Per&#xed;odo"/>
               </Properties>
@@ -735,6 +735,7 @@
             <Property name="text" type="java.lang.String" value="Reimprimir"/>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="checkReimpressaoMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkReimpressaoActionPerformed"/>
           </Events>
           <Constraints>
