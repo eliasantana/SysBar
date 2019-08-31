@@ -459,10 +459,11 @@ public class ControlerDelivery {
 
                 valor = fv.Formata(valor);
             } catch (Exception e) {
-                
+                valor = "0,00";
             }
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerDelivery.retornaTaxaEntrega()" + e);
+            valor="0,00";
         }
 
         return valor;

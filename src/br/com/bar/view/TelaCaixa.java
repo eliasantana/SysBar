@@ -1293,235 +1293,239 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void lblReceberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReceberMouseClicked
         if (lblReceber.isEnabled()) {
-            
-            // Fecha pedido
-            // Calcula valor
-            int nPesoas = Integer.parseInt(jSpinFieldPessoas.getValue().toString());
-            String tGeral = lblTotal.getText().replace(".", "");
-            tGeral = tGeral.replace(",", ".");
-            Double totalGeral = Double.parseDouble(tGeral);
-            Double totalPessoas = totalGeral / nPesoas;
-
-            // Instancia um produto
-            Pedido p = new Pedido();
-
-            //p.setTotal(lblTotal.getText().replaceAll(",", "."));
-            p.setTotal(tGeral);
-            String comissao = percent.getText().replace(".", "");
-            comissao = comissao.replace(",", ".");
-            p.setComissao(comissao);
-
-            String vlrPago = txtValorPago.getText().replace(".", "");
-            vlrPago = vlrPago.replace(",", ".");
-            p.setTotalPago(vlrPago);
-
-            p.setStatus("1");
-            p.setOperador(lblOperador.getText());
-            p.setId(txtIdPedido.getText());
-            // Data de Fechamento do Pedido
-            Date dataPedido = new Date();
-            Timestamp datapedidoTms = new Timestamp(dataPedido.getTime());
-            p.setData(String.valueOf(datapedidoTms));
-            // Pega forma de pagamento selecionada 
-            if (radioCartao.isSelected()) {
-                p.setFormaPagto("Crédito");
-            } else if (radioDinheiro.isSelected()) {
-                p.setFormaPagto("Dinheiro");
-            } else if (radioDebito.isSelected()) {
-                p.setFormaPagto("Débito");
-            } else if (radioVoucher.isSelected()) {
-                p.setFormaPagto("Voucher");
+            if ("delivery".equals(lblGarcom.getText().toLowerCase()) && "0,00".equals(percent.getText())) {
+                JOptionPane.showMessageDialog(this, "É necessário realizar a entrega do pedido antes do fechamento da conta!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+                lblReceber.setEnabled(false);
             } else {
-                p.setFormaPagto("MISTO");
-            }
-            // Pega id da mesa.
 
-            p.setCadMesaId(txtIdMEsa.getText());
-            // Calcula e retorna a permanência do cliente no estabelecimento.
-            p.setPermanencia(cp.calculaPermanencia(txtIdPedido.getText()));
+                // Fecha pedido
+                // Calcula valor
+                int nPesoas = Integer.parseInt(jSpinFieldPessoas.getValue().toString());
+                String tGeral = lblTotal.getText().replace(".", "");
+                tGeral = tGeral.replace(",", ".");
+                Double totalGeral = Double.parseDouble(tGeral);
+                Double totalPessoas = totalGeral / nPesoas;
 
-            // Solicita confirmação do usuário
-            int op = JOptionPane.showConfirmDialog(this, "Deseja realmente fechar este Pedido?", "Atenção!", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
+                // Instancia um produto
+                Pedido p = new Pedido();
 
-            if (op == JOptionPane.YES_OPTION) {  // Se confirmado fecha o pedido
-                // Retorna a forma de pagamento 
-                String formaPagto = detectaFormaDePagamento();
-                if (!"Selecione".equals(formaPagto)) {
-                    // Pega a data Atual
+                //p.setTotal(lblTotal.getText().replaceAll(",", "."));
+                p.setTotal(tGeral);
+                String comissao = percent.getText().replace(".", "");
+                comissao = comissao.replace(",", ".");
+                p.setComissao(comissao);
 
-                    String dtAtual = utils.formataDataBr(data).replaceAll("/", "");
-                    // Pega a hora atual
-                    String horaAtual = utils.formataDataHora(data, "h");
-                    //Gera Autenticacao
-                    String autentica = cp.autentica(func.localizaId(lblGarcom.getText()), comboMesa.getSelectedItem().toString(), txtIdPedido.getText(), dtAtual + "." + horaAtual);
-                    p.setAutenticacao(autentica);
+                String vlrPago = txtValorPago.getText().replace(".", "");
+                vlrPago = vlrPago.replace(",", ".");
+                p.setTotalPago(vlrPago);
 
-                    // Fecha o pedido após o recebimento
-                    cp.fechaPedido(p);
-
-                    if ("MISTO".equals(p.getFormaPagto())) {
-                        //dinheiro -> dinheiro pago
-                        if (cp.gravaPagamentoMisto(p.getId(), dinheiroPago, credito, debito, voucher)) {
-
-                            jtabedFormaPagto.setSelectedIndex(0);
-
-                        } else {
-                            System.out.println("Erro ao gravar pagamento misto");
-                        }
-                    }
-                    //Se a forma de pagamento for Mista (M) grava no banco a forma de pagamento.
-
-                    //Início do Registro de log
-                    l.setFuncionalidade("Recebimento");
-                    l.setDescricao("Recebeu R$ " + p.getTotalPago().replace(".", ",") + " Pedido N.->" + txtIdPedido.getText() + " Comissão: R$ " + p.getComissao().replace(".", ","));
-                    l.gravaLog(l);
-
-                    // Libera a mesa após o pagamento
-                    cm.trocaStatusMesa(comboMesa.getSelectedItem().toString(), "0");
-
-                    JOptionPane.showMessageDialog(null, "Pedido fechado com sucesso!");
-                    // ===============================================================//
-
-                    jSpinFieldPessoas.setValue(1);
-                    // Registra desconto se o valor for > que 0
-                    Funcionario f = new Funcionario();
-                    Double desconto;
-                    if (!"0,00".equals(txtDesconto.getText())) {
-
-                        f.setId(listAutoDesconto.get(7));
-                        String strDesc = txtDesconto.getText().replace(".", "");
-                        strDesc = strDesc.replace(",", ".");
-                        desconto = Double.parseDouble(strDesc);
-                        // Instacia o objeto desconto e adiciona como parâmetro o motivo, o do idPedido e 
-                        // o id do Funcionário eque concedeu o desconto
-                        DescontoPedido descPedido = new DescontoPedido(desconto, listAutoDesconto.get(8), f, p);
-                        //Registra desconto informado
-                        caixa.registraDesconto(descPedido);
-                    } else {
-
-                        f.setId(func.localizaIdLogin(lblOperador.getText()));
-                        //System.out.println("Id do Funcionário:" + f.getId());
-                        desconto = 0.0;
-                        DescontoPedido descPedido = new DescontoPedido(desconto, "", f, p);
-                        caixa.registraDesconto(descPedido);
-                    }
-
-                    // Imprime cupom de pagamento
-                    HashMap dados = new HashMap();
-                    Date dt = new Date();
-                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-
-                    dados.put("data", df.format(dt));
-                    dados.put("garcom", lblGarcom.getText());
-                    dados.put("titulo", "COMPROVANTE DE PAGAMENTO");
-                    String strTx = percent.getText().replace(".", "");
-                    strTx = strTx.replace(",", ".");
-                    dados.put("tx", Double.parseDouble(strTx));
-                    dados.put("id_pedido", p.getId());
-                    //System.out.println(p.getId());
-                    dados.put("npessoas", nPesoas); // Não tenho
-                    dados.put("total_pessoas", totalPessoas); // Não tenho
-                    DadosEmpresa dadosEmpresa = de.selecionaDados();
-                    dados.put("mesa", comboMesa.getSelectedItem().toString());
-                    dados.put("nome_empresa", dadosEmpresa.getNome_empresa());
-                    dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro() + " - " + dadosEmpresa.getCep());
-                    dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone());
-                    dados.put("cnpj", dadosEmpresa.getCnpj());
-                    dados.put("desc", Double.parseDouble(txtDesconto.getText().replaceAll(",", ".")));
-                    dados.put("forma_pag", p.getFormaPagto().toUpperCase());
-                    // Adiciona os valores pagos ao cupom. Para pagament na forma Mista
-                    if ("MISTO".equals(p.getFormaPagto())) {
-
-                        dados.put("dinheiro", dinheiroPago);
-                        dados.put("credito", credito);
-                        dados.put("debito", debito);
-                        dados.put("voucher", voucher);
-                    } else {
-                        // Zera variáveis do pagamento Misto
-                        dados.put("dinheiro", 0.0);
-                        dados.put("credito", 0.0);
-                        dados.put("debito", 0.0);
-                        dados.put("voucher", 0.0);
-                    }
-
-                    try {
-                        // Verifica o método de impressão 0 -> Impressção em tela 1 - Impressão direta
-                        if (dadosEmpresa.getImprimir_na_tela() == 0) {
-                            //rpu.imprimeRelatorioTela("cupom2.jasper", dados);
-                            rpu.imprimeRelatorioTela("cupom2_7.jasper", dados, "Comprovante de Pagamento");
-                        } else {
-                            // rpu.impressaoDireta("cupom2.jasper", dados);
-                            rpu.impressaoDireta("cupom2_7.jasper", dados);
-                        }
-
-                        lblTotal.setText("0,00");
-                        tgeral.setText("0,00");
-                        percent.setText("0,00");
-
-                    } catch (JRException e) {
-                        //System.out.println("br.com.bar.view.TelaCaixa.btnImprimirMouseClicked()");
-                        lblTotal.setText("0,00");
-                        tgeral.setText("0,00");
-                        percent.setText("0,00");
-                    }
-                    // Fim da impressão de cupom
-                    checkReimpressao.setEnabled(true);
-                    cp.limpaTabela(tblDetalhePedido);
-                    limpaForm();
-                    lblTotal.setText("0,00");
-                    tgeral.setText("0,00");
-                    percent.setText("0,00");
-                    txtValorPago.setText("0,00");
-                    txtDesconto.setText("0,00");
-                    lblReceber.setEnabled(false);
-                    txtTroco.setText("0,00");
-
-                    buttonGroup2.clearSelection();
-
-                    lblNPedido.setText(null);
-                    lblEntradas.setText(String.format("%9.2f", caixa.totalizaEntradas()));
-                    lblGarcom.setText(null);
-                    jpanelSubTotal.setEnabled(false);
-                    jpanelTotalGeral.setEnabled(false);
-
-                    atualizaCaixa();
-                    bloqueiaControlePagamento();
-                    // Desabilita ComboBox caso não exista mesa a serem listadas.
-                    if (comboMesa.getItemCount() > 1) {
-                        btnListar.setEnabled(false);
-                    }
-                    try {
-
-                        caixa.listaMesaOcupada(comboMesa);
-
-                    } catch (NullPointerException e) {
-
-                    }
-
-                    // Zera textFilds pagameto Misto
-                    txtMistoCredito.setText("0,00");
-                    txtMistoDebito.setText("0,00");
-                    txtMistoVoucher.setText("0,00");
-                    txtMistoDinheiro.setText("0,00");
-
+                p.setStatus("1");
+                p.setOperador(lblOperador.getText());
+                p.setId(txtIdPedido.getText());
+                // Data de Fechamento do Pedido
+                Date dataPedido = new Date();
+                Timestamp datapedidoTms = new Timestamp(dataPedido.getTime());
+                p.setData(String.valueOf(datapedidoTms));
+                // Pega forma de pagamento selecionada 
+                if (radioCartao.isSelected()) {
+                    p.setFormaPagto("Crédito");
+                } else if (radioDinheiro.isSelected()) {
+                    p.setFormaPagto("Dinheiro");
+                } else if (radioDebito.isSelected()) {
+                    p.setFormaPagto("Débito");
+                } else if (radioVoucher.isSelected()) {
+                    p.setFormaPagto("Voucher");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Selecione uma forma de pagameto!");
+                    p.setFormaPagto("MISTO");
+                }
+                // Pega id da mesa.
+
+                p.setCadMesaId(txtIdMEsa.getText());
+                // Calcula e retorna a permanência do cliente no estabelecimento.
+                p.setPermanencia(cp.calculaPermanencia(txtIdPedido.getText()));
+
+                // Solicita confirmação do usuário
+                int op = JOptionPane.showConfirmDialog(this, "Deseja realmente fechar este Pedido?", "Atenção!", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
+
+                if (op == JOptionPane.YES_OPTION) {  // Se confirmado fecha o pedido
+                    // Retorna a forma de pagamento 
+                    String formaPagto = detectaFormaDePagamento();
+                    if (!"Selecione".equals(formaPagto)) {
+                        // Pega a data Atual
+
+                        String dtAtual = utils.formataDataBr(data).replaceAll("/", "");
+                        // Pega a hora atual
+                        String horaAtual = utils.formataDataHora(data, "h");
+                        //Gera Autenticacao
+                        String autentica = cp.autentica(func.localizaId(lblGarcom.getText()), comboMesa.getSelectedItem().toString(), txtIdPedido.getText(), dtAtual + "." + horaAtual);
+                        p.setAutenticacao(autentica);
+
+                        // Fecha o pedido após o recebimento
+                        cp.fechaPedido(p);
+
+                        if ("MISTO".equals(p.getFormaPagto())) {
+                            //dinheiro -> dinheiro pago
+                            if (cp.gravaPagamentoMisto(p.getId(), dinheiroPago, credito, debito, voucher)) {
+
+                                jtabedFormaPagto.setSelectedIndex(0);
+
+                            } else {
+                                System.out.println("Erro ao gravar pagamento misto");
+                            }
+                        }
+                        //Se a forma de pagamento for Mista (M) grava no banco a forma de pagamento.
+
+                        //Início do Registro de log
+                        l.setFuncionalidade("Recebimento");
+                        l.setDescricao("Recebeu R$ " + p.getTotalPago().replace(".", ",") + " Pedido N.->" + txtIdPedido.getText() + " Comissão: R$ " + p.getComissao().replace(".", ","));
+                        l.gravaLog(l);
+
+                        // Libera a mesa após o pagamento
+                        cm.trocaStatusMesa(comboMesa.getSelectedItem().toString(), "0");
+
+                        JOptionPane.showMessageDialog(null, "Pedido fechado com sucesso!");
+                        // ===============================================================//
+
+                        jSpinFieldPessoas.setValue(1);
+                        // Registra desconto se o valor for > que 0
+                        Funcionario f = new Funcionario();
+                        Double desconto;
+                        if (!"0,00".equals(txtDesconto.getText())) {
+
+                            f.setId(listAutoDesconto.get(7));
+                            String strDesc = txtDesconto.getText().replace(".", "");
+                            strDesc = strDesc.replace(",", ".");
+                            desconto = Double.parseDouble(strDesc);
+                            // Instacia o objeto desconto e adiciona como parâmetro o motivo, o do idPedido e 
+                            // o id do Funcionário eque concedeu o desconto
+                            DescontoPedido descPedido = new DescontoPedido(desconto, listAutoDesconto.get(8), f, p);
+                            //Registra desconto informado
+                            caixa.registraDesconto(descPedido);
+                        } else {
+
+                            f.setId(func.localizaIdLogin(lblOperador.getText()));
+                            //System.out.println("Id do Funcionário:" + f.getId());
+                            desconto = 0.0;
+                            DescontoPedido descPedido = new DescontoPedido(desconto, "", f, p);
+                            caixa.registraDesconto(descPedido);
+                        }
+
+                        // Imprime cupom de pagamento
+                        HashMap dados = new HashMap();
+                        Date dt = new Date();
+                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+                        dados.put("data", df.format(dt));
+                        dados.put("garcom", lblGarcom.getText());
+                        dados.put("titulo", "COMPROVANTE DE PAGAMENTO");
+                        String strTx = percent.getText().replace(".", "");
+                        strTx = strTx.replace(",", ".");
+                        dados.put("tx", Double.parseDouble(strTx));
+                        dados.put("id_pedido", p.getId());
+                        //System.out.println(p.getId());
+                        dados.put("npessoas", nPesoas); // Não tenho
+                        dados.put("total_pessoas", totalPessoas); // Não tenho
+                        DadosEmpresa dadosEmpresa = de.selecionaDados();
+                        dados.put("mesa", comboMesa.getSelectedItem().toString());
+                        dados.put("nome_empresa", dadosEmpresa.getNome_empresa());
+                        dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro() + " - " + dadosEmpresa.getCep());
+                        dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone());
+                        dados.put("cnpj", dadosEmpresa.getCnpj());
+                        dados.put("desc", Double.parseDouble(txtDesconto.getText().replaceAll(",", ".")));
+                        dados.put("forma_pag", p.getFormaPagto().toUpperCase());
+                        // Adiciona os valores pagos ao cupom. Para pagament na forma Mista
+                        if ("MISTO".equals(p.getFormaPagto())) {
+
+                            dados.put("dinheiro", dinheiroPago);
+                            dados.put("credito", credito);
+                            dados.put("debito", debito);
+                            dados.put("voucher", voucher);
+                        } else {
+                            // Zera variáveis do pagamento Misto
+                            dados.put("dinheiro", 0.0);
+                            dados.put("credito", 0.0);
+                            dados.put("debito", 0.0);
+                            dados.put("voucher", 0.0);
+                        }
+
+                        try {
+                            // Verifica o método de impressão 0 -> Impressção em tela 1 - Impressão direta
+                            if (dadosEmpresa.getImprimir_na_tela() == 0) {
+                                //rpu.imprimeRelatorioTela("cupom2.jasper", dados);
+                                rpu.imprimeRelatorioTela("cupom2_7.jasper", dados, "Comprovante de Pagamento");
+                            } else {
+                                // rpu.impressaoDireta("cupom2.jasper", dados);
+                                rpu.impressaoDireta("cupom2_7.jasper", dados);
+                            }
+
+                            lblTotal.setText("0,00");
+                            tgeral.setText("0,00");
+                            percent.setText("0,00");
+
+                        } catch (JRException e) {
+                            //System.out.println("br.com.bar.view.TelaCaixa.btnImprimirMouseClicked()");
+                            lblTotal.setText("0,00");
+                            tgeral.setText("0,00");
+                            percent.setText("0,00");
+                        }
+                        // Fim da impressão de cupom
+                        checkReimpressao.setEnabled(true);
+                        cp.limpaTabela(tblDetalhePedido);
+                        limpaForm();
+                        lblTotal.setText("0,00");
+                        tgeral.setText("0,00");
+                        percent.setText("0,00");
+                        txtValorPago.setText("0,00");
+                        txtDesconto.setText("0,00");
+                        lblReceber.setEnabled(false);
+                        txtTroco.setText("0,00");
+
+                        buttonGroup2.clearSelection();
+
+                        lblNPedido.setText(null);
+                        lblEntradas.setText(String.format("%9.2f", caixa.totalizaEntradas()));
+                        lblGarcom.setText(null);
+                        jpanelSubTotal.setEnabled(false);
+                        jpanelTotalGeral.setEnabled(false);
+
+                        atualizaCaixa();
+                        bloqueiaControlePagamento();
+                        // Desabilita ComboBox caso não exista mesa a serem listadas.
+                        if (comboMesa.getItemCount() > 1) {
+                            btnListar.setEnabled(false);
+                        }
+                        try {
+
+                            caixa.listaMesaOcupada(comboMesa);
+
+                        } catch (NullPointerException e) {
+
+                        }
+
+                        // Zera textFilds pagameto Misto
+                        txtMistoCredito.setText("0,00");
+                        txtMistoDebito.setText("0,00");
+                        txtMistoVoucher.setText("0,00");
+                        txtMistoDinheiro.setText("0,00");
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Selecione uma forma de pagameto!");
+                    }
+
+                }
+                try {
+                    // Fecha a conexão após impressão dos cupons.
+                    conexao.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-            }
-            try {
-                // Fecha a conexão após impressão dos cupons.
-                conexao.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            // Zera as variáveis
-            dinheiro = 0;
-            credito = 0;
-            debito = 0;
-            voucher = 0;
-
+                // Zera as variáveis
+                dinheiro = 0;
+                credito = 0;
+                debito = 0;
+                voucher = 0;
+            } // fim da verificação delivery
         }
 
         // Atualiza o status do entregador 
@@ -1572,6 +1576,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             String nome = dl.localizaEntregador(lblNPedido.getText());
             entregador = ce.localizaEntregador(nome);
             // Desabilita checkBox
+            checkTxServico.setSelected(false);
             checkTxServico.setEnabled(false);
             idDelivery = txtIdPedido.getText();
             // Zera taxa de Delivery e recalcula o valor a ser pago.
@@ -1580,6 +1585,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             calculaTaxa(txEnt); //0,00
             percent.setText(txEnt);
             lbl_valor_servico.setText("Valor da Entrega");
+            //percent.setText("0,00");
 
         } else {
             entregador = new Entregador();
@@ -2246,7 +2252,14 @@ public class TelaCaixa extends javax.swing.JFrame {
         modelCaixa.redimensionaColunas(tblDetalhePedido);
         // checkCartao.setEnabled(true); // Excluir
         radioCartao.setEnabled(true);
-        checkTxServico.setEnabled(true);
+        // Se o pedido for um Delivery ele desabilitará o check desconto.
+        if ("delivery".equals(lblGarcom.getText().toLowerCase())) {
+            checkTxServico.setSelected(false);
+            checkTxServico.setEnabled(false);
+        } else {
+
+            checkTxServico.setEnabled(true);
+        }
         //checkDinheiro.setEnabled(true); // Excluir
         radioDinheiro.setEnabled(true);
         txtValorPago.setText(dados.get(2));
@@ -2561,7 +2574,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         //double txServico = 0.10; // 10%
         double txServico = 0;
-          double entrega =0;
+        double entrega = 0;
         try {
             entrega = Double.parseDouble(txDeEntrega.replace(",", "."));
         } catch (NumberFormatException | NullPointerException e) {

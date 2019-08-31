@@ -5,7 +5,10 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.dao.Email;
+import br.com.bar.util.ConexaoInternet;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -77,7 +80,16 @@ public class TelaTesteTab extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelecionarActionPerformed
-       jTable1.addRowSelectionInterval(1, 1);
+        Email e = new Email();
+        String mensagem = "Teste de Envio de mensagem";
+        ConexaoInternet ci = new ConexaoInternet();
+        if (ci.temConexao()) {
+
+            //e.enviaEmail("smtp.gmail.com", "kauanmrs2016@gmail.com", "k4u4n2016@", "eliasantana@hotmail.com", "Teste de Envio", mensagem);
+            e.emailSimples();
+        }else {
+            JOptionPane.showMessageDialog(this, "Não detectamos nenhuma conexao!, por favor tente mais tarde!");
+        }
     }//GEN-LAST:event_SelecionarActionPerformed
 
     /**
