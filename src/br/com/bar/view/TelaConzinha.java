@@ -157,6 +157,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblImprimirSolicitacoes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(null);
 
         painelEsquerdo.setBackground(new java.awt.Color(38, 53, 61));
@@ -427,7 +428,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         getContentPane().add(paineldireito);
         paineldireito.setBounds(240, 0, 1030, 690);
 
-        setSize(new java.awt.Dimension(1285, 729));
+        setSize(new java.awt.Dimension(1269, 690));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

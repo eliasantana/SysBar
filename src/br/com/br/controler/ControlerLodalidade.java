@@ -182,9 +182,10 @@ public class ControlerLodalidade {
 
     public void carregaComboLocalidade(JComboBox combo) {
 
-        String sql = "SELECT * FROM tblocalidade";
+        String sql = "SELECT localidade FROM tblocalidade";
 
         try {
+            conexao = ConexaoBd.conector();            
             pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery();
             
@@ -228,7 +229,7 @@ public class ControlerLodalidade {
      *  @return localide Retorna o nome da localidade
      */
     public String retornaNomeLocalidade(String idLocalidade){
-        String sql="SELECT * localidade WHERE id =?";
+        String sql="SELECT  localidade FROM tblocalidade WHERE id =?";
         String localidade= null;
         try {
             conexao = ConexaoBd.conector();

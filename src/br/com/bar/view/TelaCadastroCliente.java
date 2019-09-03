@@ -484,7 +484,7 @@ public class TelaCadastroCliente extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked
-        
+
         dispose();
     }//GEN-LAST:event_lblFecharMouseClicked
 
@@ -570,14 +570,19 @@ public class TelaCadastroCliente extends JDialog {
     private void comboLocalidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboLocalidadeActionPerformed
         lblLocalidade.setForeground(Color.BLACK);
         lblMsg.setText(null);
-        Localidade localidade = new Localidade();
-        localidade.setNome(comboLocalidade.getSelectedItem().toString());
-        if (!"Selecione...".equals(localidade.getNome())) {
-            FormataValor fv = new FormataValor();
-            lblTaxa.setText(fv.Formata(String.valueOf(cl.retornaTaxa(localidade))));
-        } else {
-            lblTaxa.setText("0,00");
-        }
+
+//        if (comboLocalidade.getSelectedIndex()!=0) {
+//            FormataValor fv = new FormataValor();
+//            
+//            Localidade localidade= new Localidade();
+//            localidade.setNome(comboLocalidade.getSelectedItem().toString());                    
+//            lblTaxa.setText(fv.Formata(String.valueOf(cl.retornaTaxa(localidade))));
+//        } else {
+//            lblTaxa.setText("0,00");
+//        }
+  valorEnrega();
+       
+
     }//GEN-LAST:event_comboLocalidadeActionPerformed
 
     private void txtCepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyPressed
@@ -632,9 +637,9 @@ public class TelaCadastroCliente extends JDialog {
             c.setHistorico(txtHistorico.getText());
             // Altera dados do cliente
             if ("Alterar".equals(lblTiulo.getText())) {
-                int op = JOptionPane.showConfirmDialog(this,"Deseja mesmo alterar os dados do cliente?","Atenção!",JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE);
-                if (op==JOptionPane.YES_OPTION){
-                    
+                int op = JOptionPane.showConfirmDialog(this, "Deseja mesmo alterar os dados do cliente?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (op == JOptionPane.YES_OPTION) {
+
                     if (cl.alteraCliente(c)) {
                         JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!", "Atenção!", JOptionPane.INFORMATION_MESSAGE);
                         this.dispose();
@@ -888,5 +893,23 @@ public class TelaCadastroCliente extends JDialog {
         txtPontoReferencia.setText(c.getReferencia());
         txtHistorico.setText(c.getHistorico());
 
+        //String nomeLocalidade = cl.retornaNomeLocalidade(c.getLocalidade().getNome());
+       // comboLocalidade.setSelectedItem(nomeLocalidade);
+
     }
+
+    private void valorEnrega() {
+        
+        String localidade = comboLocalidade.getSelectedItem().toString();
+        Localidade loca = new Localidade();
+        loca.setNome(localidade);
+        
+        if (comboLocalidade.getSelectedIndex() != 0) {
+            FormataValor fv = new FormataValor();
+            lblTaxa.setText(fv.Formata(String.valueOf(cl.retornaTaxa(loca))));
+        } else {
+            lblTaxa.setText("0,00");
+        }
+    }
+    
 }

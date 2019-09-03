@@ -170,7 +170,7 @@ public class Util {
         String paternMySql = "yyyy-MM-dd";
         //String paternHora = "hh:mm:ss";
         String paternHora = "HHmmss";
-        String paternDataHora= "dd-MM-yyy HH:mm";
+        String paternDataHora = "dd-MM-yyy HH:mm";
         // Verifica opção de formatação e aplica o patern
         switch (opcao) {
 
@@ -487,9 +487,9 @@ public class Util {
      * Limita a data de um componente JDateSchooser estipulando um limite MÍNIMO
      * e MÁXIMO de datas para o componente.
      *
-     * @param dtChooser  Componente JDateSchooser a ser limitado.
+     * @param dtChooser Componente JDateSchooser a ser limitado.
      * @param limiteMeses Quantidade de Meses anterior ao mês atual que será
-     *           habilitado para seleção.
+     * habilitado para seleção.
      *
      */
     public void limitaDataCombo(JDateChooser dtChooser, int limiteMeses) {
@@ -524,7 +524,7 @@ public class Util {
      * limite MÍNIMO e MÁXIMO para o componente.
      *
      * @param dtChooser Componente JDateSchooser a ser limitado.
-     * @param limiteMeses  quantidade de Meses anterior ao mês atual que será
+     * @param limiteMeses quantidade de Meses anterior ao mês atual que será
      * habilitado para seleção.
      * @param dia Dia a partir de onde se poderá selecionar uma data no mês
      * anterior.
@@ -555,14 +555,37 @@ public class Util {
         dtChooser.setMinSelectableDate(cMin.getTime());
 
     }
-    
-    public void abrirCalculadora(){
-        
+
+    public void abrirCalculadora() {
+
         try {
             Runtime.getRuntime().exec("cmd /c calc.exe");
         } catch (IOException ex) {
             Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   
+
+    public boolean validaPlaca(String placa, String tipo) {
+        Pattern pattern;
+        Matcher matcher;
+        boolean resp=false;
+        switch (tipo.toUpperCase()) {
+             
+            case "M":
+                // Padrão Mercosul
+                pattern = Pattern.compile("[A-Z]{3}[0-9]{1}[A-Z]{1}[0-9]{2}");   //RIO2A18
+                matcher = pattern.matcher(tipo.toUpperCase());
+                resp = matcher.matches();
+                break;
+
+            case "N":
+                pattern = Pattern.compile("[A-Z]{3}-[0-9]{4}");
+                matcher = pattern.matcher(tipo.toUpperCase());
+                resp = matcher.matches();
+                break;
+        }
+
+        return resp;
+    }
+
 }

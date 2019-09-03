@@ -12,9 +12,17 @@ package br.com.bar.model;
  * Adicionado: Após versão 1.0
  */
 public class Entregador extends Pessoa{
+    //id, veiculo, status, endereco, numero, bairro, cep, cidade, uf, telefone, celular, historico, email, cpf, rg, cnh, validade, complemento
     private int id;
     private String veiculo;
     private int status;
+    private String cpf;
+    private String rg;
+    private String historico;
+    private String cnh;
+    private String validade;
+    private String placa;
+    
     
 
     public Entregador() {
@@ -54,8 +62,55 @@ public class Entregador extends Pessoa{
     public void setStatus(int status) {
         this.status = status;
     }
-    
-    
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
+    public String getHistorico() {
+        return historico;
+    }
+
+    public void setHistorico(String historico) {
+        this.historico = historico;
+    }
+
+    public String getCnh() {
+        return cnh;
+    }
+
+    public void setCnh(String cnh) {
+        this.cnh = cnh;
+    }
+
+    public String getValidade() {
+        return validade;
+    }
+
+    public void setValidade(String validade) {
+        this.validade = validade;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+
+    public String getPlaca() {
+        return placa;
+    }
+
     
     
 }
