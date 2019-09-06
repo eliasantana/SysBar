@@ -180,7 +180,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         lblVersao1.setForeground(new java.awt.Color(255, 255, 255));
         lblVersao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersao1.setText(" VERSÃO 1.0.2D");
+        lblVersao1.setText(" VERSÃO 1.0.3");
         jPanel1.add(lblVersao1);
         lblVersao1.setBounds(20, 290, 240, 20);
 
@@ -236,12 +236,12 @@ public class TelaLogin extends javax.swing.JFrame {
         btnLogin.setText("Entrar");
         btnLogin.setBorder(null);
         btnLogin.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 btnLoginAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {

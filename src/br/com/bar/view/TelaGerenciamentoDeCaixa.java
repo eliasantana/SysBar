@@ -139,6 +139,11 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
         jPanel1.add(jLabel17);
         jLabel17.setBounds(0, 10, 130, 70);
 
+        tblGerenciamentoCaixa = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblGerenciamentoCaixa.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         tblGerenciamentoCaixa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

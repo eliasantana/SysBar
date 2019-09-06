@@ -132,6 +132,11 @@ public class TelaDelivery extends javax.swing.JFrame {
         jPanel2.add(jLabel2);
         jLabel2.setBounds(12, 13, 120, 14);
 
+        tbcliente = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tbcliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -167,6 +172,11 @@ public class TelaDelivery extends javax.swing.JFrame {
         jPanel2.add(jLabel22);
         jLabel22.setBounds(10, 210, 500, 30);
 
+        tbDelivery = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tbDelivery.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -216,6 +226,11 @@ public class TelaDelivery extends javax.swing.JFrame {
         jPanel2.add(jPanel4);
         jPanel4.setBounds(230, 180, 130, 40);
 
+        tbDetalhePedido = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tbDetalhePedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},

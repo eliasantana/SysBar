@@ -305,6 +305,13 @@ public class TelaReajuste extends javax.swing.JFrame {
 
         panelProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder()));
 
+        tblProdutos = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+
+                return false;
+            }
+
+        };
         tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

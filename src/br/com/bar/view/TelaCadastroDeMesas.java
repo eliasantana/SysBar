@@ -319,6 +319,11 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         bordas.add(menuBar);
         menuBar.setBounds(380, 460, 430, 58);
 
+        tblMesas = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int  colIndex){
+                return false;
+            }
+        };
         tblMesas.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         tblMesas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

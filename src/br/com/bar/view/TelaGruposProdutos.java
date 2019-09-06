@@ -304,6 +304,11 @@ public class TelaGruposProdutos extends javax.swing.JFrame {
         panelTabela.setBackground(new java.awt.Color(44, 62, 80));
         panelTabela.setLayout(null);
 
+        tblGrupoProduto = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblGrupoProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         tblGrupoProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

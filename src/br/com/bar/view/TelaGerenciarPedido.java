@@ -191,6 +191,11 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         });
         bordas.add(jcomboPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 139, 121, 37));
 
+        tblDetalhe = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblDetalhe.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         tblDetalhe.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

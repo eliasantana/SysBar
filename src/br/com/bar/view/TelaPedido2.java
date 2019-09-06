@@ -661,6 +661,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         jTabbedPanePedido.addTab("Pedidos Abertos", jScrollPane2);
 
+        tblDetalhePedido = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblDetalhePedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -682,6 +687,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
         jTabbedPanePedido.addTab("Detalhe Pedido", jScrollPane3);
 
+        tblListaProduto = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblListaProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -788,6 +798,11 @@ public class TelaPedido2 extends javax.swing.JFrame {
         panelAbrirPedido.add(btnAbrirPedido);
         btnAbrirPedido.setBounds(20, 260, 187, 50);
 
+        tblNumeroMesa = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblNumeroMesa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblNumeroMesa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

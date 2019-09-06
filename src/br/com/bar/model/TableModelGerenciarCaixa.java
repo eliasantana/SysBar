@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -57,7 +58,10 @@ public class TableModelGerenciarCaixa extends AbstractTableModel {
     }
     //{"CÓD. INTERNO", "DATA", "SALDO R$, OPERADOR"}
      public void redimensionaColunas(JTable tabela) {
-
+        
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(100); 
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(90);
@@ -68,6 +72,9 @@ public class TableModelGerenciarCaixa extends AbstractTableModel {
         tabela.getColumnModel().getColumn(0).setPreferredWidth(0);
         tabela.getColumnModel().getColumn(0).setMinWidth(0);
         tabela.getColumnModel().getColumn(0).setMaxWidth(0);
+        
+        // Alinha a direita a coluna valor
+        tabela.getColumnModel().getColumn(2).setCellRenderer(direita);
     }
 
     

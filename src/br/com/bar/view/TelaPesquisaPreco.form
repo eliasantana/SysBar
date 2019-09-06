@@ -83,6 +83,9 @@
             </Property>
             <Property name="rowHeight" type="int" value="20"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tbProdutosEstoque = new javax.swing.JTable(){&#xa;&#xa;    public boolean isCellEditable(int rowIndex, int colIndex ){&#xa;        return false;&#xa;    }&#xa;};"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

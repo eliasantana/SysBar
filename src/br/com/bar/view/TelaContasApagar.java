@@ -360,6 +360,12 @@ public class TelaContasApagar extends JDialog {
         painelDireito.setBackground(new java.awt.Color(204, 204, 204));
         painelDireito.setLayout(null);
 
+        tblContas = new javax.swing.JTable(){
+
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblContas.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         tblContas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

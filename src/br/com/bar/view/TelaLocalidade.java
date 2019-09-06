@@ -207,6 +207,11 @@ public class TelaLocalidade extends javax.swing.JFrame {
         panelTabela.setBackground(new java.awt.Color(44, 62, 80));
         panelTabela.setLayout(null);
 
+        tblLodalidade = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblLodalidade.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         tblLodalidade.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

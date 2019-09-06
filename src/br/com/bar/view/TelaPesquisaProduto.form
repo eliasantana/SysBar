@@ -87,6 +87,9 @@
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblProdutoMouseClicked"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tblProduto = new javax.swing.JTable(){&#xa;    public boolean isCellEditable(int colIndex, int rowIndex){&#xa;        return false;&#xa;    }&#xa;&#xa;};"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

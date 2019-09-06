@@ -928,6 +928,11 @@ public class TelaCaixa extends javax.swing.JFrame {
             }
         });
 
+        tblDetalhePedido = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblDetalhePedido.setFont(new java.awt.Font("MingLiU_HKSCS-ExtB", 0, 12)); // NOI18N
         tblDetalhePedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

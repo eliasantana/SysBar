@@ -73,6 +73,11 @@ public class TelaFornecedores extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
+        tblFornecedores = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblFornecedores.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tblFornecedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

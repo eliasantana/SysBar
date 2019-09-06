@@ -176,10 +176,10 @@ public class TelaLog extends javax.swing.JFrame {
         painelCentral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jDateChooserInicio.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 jDateChooserInicioInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jDateChooserInicio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -190,10 +190,10 @@ public class TelaLog extends javax.swing.JFrame {
         painelCentral.add(jDateChooserInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 69, 148, 40));
 
         jDateChooserFim.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 jDateChooserFimInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jDateChooserFim.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -211,6 +211,11 @@ public class TelaLog extends javax.swing.JFrame {
         jLabel3.setText("Fim");
         painelCentral.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 48, 70, -1));
 
+        tblLog = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblLog.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

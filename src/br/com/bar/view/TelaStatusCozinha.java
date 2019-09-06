@@ -137,6 +137,11 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         jPanel3.add(lblGarcom);
         lblGarcom.setBounds(90, 10, 460, 30);
 
+        tblStatus = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblStatus.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
         tblStatus.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

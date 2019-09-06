@@ -130,6 +130,11 @@ public class TelaPesquisaEntregador extends javax.swing.JFrame {
         jPanel1.add(jLabel5);
         jLabel5.setBounds(20, 140, 100, 14);
 
+        tbEntregador = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tbEntregador.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tbEntregador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

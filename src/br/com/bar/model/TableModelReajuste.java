@@ -68,7 +68,7 @@ public class TableModelReajuste extends AbstractTableModel {
         tabela.getColumnModel().getColumn(0).setCellRenderer(direita);        
         tabela.getColumnModel().getColumn(2).setCellRenderer(direita);
         // Centraliza cabeçalho da coluna preço
-        header.setDefaultRenderer(direita);
+        //header.setDefaultRenderer(direita);
     }
 
 }

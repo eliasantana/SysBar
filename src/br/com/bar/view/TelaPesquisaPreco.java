@@ -47,6 +47,12 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
+        tbProdutosEstoque = new javax.swing.JTable(){
+
+            public boolean isCellEditable(int rowIndex, int colIndex ){
+                return false;
+            }
+        };
         tbProdutosEstoque.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

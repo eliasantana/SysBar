@@ -156,6 +156,11 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         });
         bordas.add(lblPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 155, 120, -1));
 
+        tblFuncionario = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblFuncionario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tblFuncionario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

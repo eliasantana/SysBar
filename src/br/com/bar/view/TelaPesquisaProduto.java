@@ -113,6 +113,12 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         bordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         bordas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tblProduto = new javax.swing.JTable(){
+            public boolean isCellEditable(int colIndex, int rowIndex){
+                return false;
+            }
+
+        };
         tblProduto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         tblProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

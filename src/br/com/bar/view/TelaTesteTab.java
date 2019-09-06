@@ -6,9 +6,11 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.Email;
+import br.com.bar.model.TableModelTeste;
 import br.com.bar.util.ConexaoInternet;
-import java.awt.event.KeyEvent;
+import br.com.br.controler.ControlerLodalidade;
 import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -16,11 +18,18 @@ import javax.swing.JOptionPane;
  */
 public class TelaTesteTab extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaTesteTab
-     */
+     TableModelTeste tbmTeste;
+     
     public TelaTesteTab() {
         initComponents();
+        
+        tbmTeste = new TableModelTeste();
+       
+        ControlerLodalidade cl = new ControlerLodalidade();
+        tbLocalidade.setModel(DbUtils.resultSetToTableModel(cl.listaLocalidade()));
+        tbmTeste.redimensionaColunas(tbLocalidade);
+       
+        
     }
 
     /**
@@ -33,13 +42,18 @@ public class TelaTesteTab extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbLocalidade = new javax.swing.JTable();
         Selecionar = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbLocalidade = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
+        tbLocalidade.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -50,7 +64,12 @@ public class TelaTesteTab extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tbLocalidade.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbLocalidadeMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbLocalidade);
 
         Selecionar.setText("Selecionar");
         Selecionar.addActionListener(new java.awt.event.ActionListener() {
@@ -85,17 +104,16 @@ public class TelaTesteTab extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelecionarActionPerformed
-        Email e = new Email();
-        String mensagem = "Teste de Envio de mensagem";
-        ConexaoInternet ci = new ConexaoInternet();
-        if (ci.temConexao()) {
-
-            //e.enviaEmail("smtp.gmail.com", "kauanmrs2016@gmail.com", "k4u4n2016@", "eliasantana@hotmail.com", "Teste de Envio", mensagem);
-            e.emailSimples();
-        }else {
-            JOptionPane.showMessageDialog(this, "Não detectamos nenhuma conexao!, por favor tente mais tarde!");
-        }
+   
     }//GEN-LAST:event_SelecionarActionPerformed
+
+    private void tbLocalidadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbLocalidadeMouseClicked
+        int linha = tbLocalidade.getSelectedRow();
+        int coluna = tbLocalidade.getSelectedColumn();
+       
+       
+       
+    }//GEN-LAST:event_tbLocalidadeMouseClicked
 
     /**
      * @param args the command line arguments
@@ -136,6 +154,6 @@ public class TelaTesteTab extends javax.swing.JFrame {
     private javax.swing.JButton Selecionar;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbLocalidade;
     // End of variables declaration//GEN-END:variables
 }

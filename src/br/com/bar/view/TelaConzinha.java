@@ -242,6 +242,11 @@ public class TelaConzinha extends javax.swing.JFrame {
 
         paineldireito.setLayout(null);
 
+        tblCozinha = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblCozinha.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         tblCozinha.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -385,10 +385,7 @@ public class TelaEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGraficoRankingMouseClicked
 
     private void lblGerenciarEstoqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGerenciarEstoqueMouseClicked
-        // Chama a tela de Gereciamento de Estoque
-        /*if ("Gerente".equals(lblCargo.getText())) {
-            dispose();
-        }*/
+       
         TelaMovimentacao m = new TelaMovimentacao();
         m.setAlwaysOnTop(true);
         m.recebeOperador(principal,lblNomeOperador.getText(), lblCargo.getText());
