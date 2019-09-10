@@ -1433,11 +1433,12 @@ public class TelaCaixa extends javax.swing.JFrame {
                         DadosEmpresa dadosEmpresa = de.selecionaDados();
                         dados.put("mesa", comboMesa.getSelectedItem().toString());
                         dados.put("nome_empresa", dadosEmpresa.getNome_empresa());
-                        dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro() + " - " + dadosEmpresa.getCep());
-                        dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone());
+                        dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro());
+                        dados.put("end2",dadosEmpresa.getCep() +"-"+dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + "-" + dadosEmpresa.getTelefone());
                         dados.put("cnpj", dadosEmpresa.getCnpj());
                         dados.put("desc", Double.parseDouble(txtDesconto.getText().replaceAll(",", ".")));
-                        dados.put("forma_pag", p.getFormaPagto().toUpperCase());
+                        dados.put("desc", Double.parseDouble(txtDesconto.getText().replaceAll(",", ".")));
+                        dados.put("forma_pag", p.getFormaPagto());
                         // Adiciona os valores pagos ao cupom. Para pagament na forma Mista
                         if ("MISTO".equals(p.getFormaPagto())) {
 
