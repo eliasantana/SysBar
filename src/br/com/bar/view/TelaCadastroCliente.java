@@ -243,7 +243,7 @@ public class TelaCadastroCliente extends JDialog {
 
         lblEmail.setText("Ponto de Referênica");
         jPanel1.add(lblEmail);
-        lblEmail.setBounds(280, 170, 100, 20);
+        lblEmail.setBounds(280, 170, 210, 20);
 
         try {
             txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));

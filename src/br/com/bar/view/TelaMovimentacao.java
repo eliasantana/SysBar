@@ -47,13 +47,15 @@ public class TelaMovimentacao extends JFrame {
         radioExistente.setSelected(true);
         tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
         modelMov.redimensionaColunas(tblProduto);
+        
     }
     
     public void recebeOperador(TelaPrincipal tela, String operador, String cargo) {
         
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
-        
+        radioPesquisaNome.setSelected(true);
+        txtPesquisar.requestFocus();
         this.principal=tela;
     }
     
@@ -512,12 +514,14 @@ public class TelaMovimentacao extends JFrame {
 
     private void txtPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyPressed
         
-        if (radioPesquisaNome.isSelected()) {
-            tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade2("nome", txtPesquisar.getText())));
-            modelMov.redimensionaColunas(tblProduto);
-        } else {
+        if (radioPesquisaCodigo.isSelected()) {
             tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade2("id", txtPesquisar.getText())));
             modelMov.redimensionaColunas(tblProduto);            
+        } else {
+            radioPesquisaNome.setSelected(true);
+            txtPesquisar.requestFocus();
+            tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade2("nome", txtPesquisar.getText())));
+            modelMov.redimensionaColunas(tblProduto);
         }
 
     }//GEN-LAST:event_txtPesquisarKeyPressed
@@ -564,8 +568,9 @@ public class TelaMovimentacao extends JFrame {
         Produto p = new Produto();
         if ("".equals(txtQuantidade.getText())|| Integer.parseInt(txtQuantidade.getText())<=0){
             JOptionPane.showMessageDialog(this, "Quantidade Inválida!");
-        }else {
-            
+        }else if ("".equals(txtIdProduto.getText())){
+            JOptionPane.showMessageDialog(this,"Selecione um produto para continuar!");
+        }else{            
             switch (operacao) {
                 // Realiza a entrada de um produto já cadastrado
                 case "Entrada":

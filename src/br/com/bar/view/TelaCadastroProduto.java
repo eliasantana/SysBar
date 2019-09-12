@@ -39,7 +39,8 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
      */
     public TelaCadastroProduto() {
         initComponents();
-
+        lblCodigoNcm.setVisible(false);
+        txtCodigoNcm.setVisible(false);
         g.carregaComboGrupoProduto(comboGrupoProduto);
 
         cf.carregaComboFornecedor(comboFornecedor);
@@ -106,7 +107,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         bordas = new javax.swing.JPanel();
         painelEsquerdo = new javax.swing.JPanel();
-        lblDescricao = new javax.swing.JLabel();
+        lblCodigoNcm = new javax.swing.JLabel();
         txtDescricao = new javax.swing.JTextField();
         lblqtd = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
@@ -124,7 +125,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         txtQuantidade = new javax.swing.JFormattedTextField();
         txtQtdMin = new javax.swing.JFormattedTextField();
         txtQtdMax = new javax.swing.JFormattedTextField();
-        txtQuantidade1 = new javax.swing.JFormattedTextField();
+        txtCodigoNcm = new javax.swing.JFormattedTextField();
         lblDescricao1 = new javax.swing.JLabel();
         panelSuperior = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -145,10 +146,10 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
         painelEsquerdo.setLayout(null);
 
-        lblDescricao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        lblDescricao.setText("Código");
-        painelEsquerdo.add(lblDescricao);
-        lblDescricao.setBounds(20, 0, 70, 30);
+        lblCodigoNcm.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        lblCodigoNcm.setText("Código");
+        painelEsquerdo.add(lblCodigoNcm);
+        lblCodigoNcm.setBounds(300, 240, 70, 30);
 
         txtDescricao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtDescricao.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -165,7 +166,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(txtDescricao);
-        txtDescricao.setBounds(100, 30, 290, 40);
+        txtDescricao.setBounds(20, 30, 290, 40);
 
         lblqtd.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblqtd.setText("Quantidade");
@@ -317,20 +318,20 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         painelEsquerdo.add(txtQtdMax);
         txtQtdMax.setBounds(220, 180, 130, 40);
 
-        txtQuantidade1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        txtQuantidade1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        txtQuantidade1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtCodigoNcm.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txtCodigoNcm.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        txtCodigoNcm.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtQuantidade1KeyPressed(evt);
+                txtCodigoNcmKeyPressed(evt);
             }
         });
-        painelEsquerdo.add(txtQuantidade1);
-        txtQuantidade1.setBounds(20, 30, 70, 40);
+        painelEsquerdo.add(txtCodigoNcm);
+        txtCodigoNcm.setBounds(300, 270, 70, 40);
 
         lblDescricao1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblDescricao1.setText("Descrição");
         painelEsquerdo.add(lblDescricao1);
-        lblDescricao1.setBounds(100, 0, 220, 30);
+        lblDescricao1.setBounds(20, 0, 220, 30);
 
         bordas.add(painelEsquerdo);
         painelEsquerdo.setBounds(2, 110, 398, 448);
@@ -419,7 +420,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
     private void txtDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyPressed
         // TODO add your handling code here:
-        lblDescricao.setForeground(Color.black);
+        lblCodigoNcm.setForeground(Color.black);
         lblMensagem.setText(null);
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             txtQuantidade.requestFocus();
@@ -554,7 +555,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         if ("".equals(p.getNome())) {
             lblMensagem.setText("*Informe a Descrição do produto para continuar!");
             txtDescricao.requestFocus();
-            lblDescricao.setForeground(Color.red);
+            lblCodigoNcm.setForeground(Color.red);
             resp = false;
         } else if ("".equals(txtQuantidade.getText()) || Integer.parseInt(txtQuantidade.getText()) <= 0) {
             lblMensagem.setText("*Informe um Valor válido!");
@@ -643,9 +644,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         lblMensagem.setText(null);
     }//GEN-LAST:event_txtQtdMaxKeyReleased
 
-    private void txtQuantidade1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidade1KeyPressed
+    private void txtCodigoNcmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoNcmKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtQuantidade1KeyPressed
+    }//GEN-LAST:event_txtCodigoNcmKeyPressed
     private void limpaForm() {
 
         txtDescricao.setText(null);
@@ -704,7 +705,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblCargo;
-    private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblCodigoNcm;
     private javax.swing.JLabel lblDescricao1;
     private javax.swing.JLabel lblFornecedor;
     private javax.swing.JLabel lblGrupo;
@@ -717,11 +718,11 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private javax.swing.JLabel lblqtd;
     private javax.swing.JPanel painelEsquerdo;
     private javax.swing.JPanel panelSuperior;
+    private javax.swing.JFormattedTextField txtCodigoNcm;
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JFormattedTextField txtQtdMax;
     private javax.swing.JFormattedTextField txtQtdMin;
     private javax.swing.JFormattedTextField txtQuantidade;
-    private javax.swing.JFormattedTextField txtQuantidade1;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 
