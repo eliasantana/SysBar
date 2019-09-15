@@ -35,6 +35,7 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.PieDataset;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -587,5 +588,18 @@ public class Util {
 
         return resp;
     }
-
+    
+    /**
+     * Formata um obj do tipo java.util.Date em java.joda.DateTime
+     * @param d Data a ser formatada 
+     * @return retorna uma string no formato DateTime 2019-09-13T17:24:12.167-03:00
+     */
+    public String formataDateTime(Date d){
+        
+        Date data = d;
+        DateTime dtTime = new DateTime(data);
+        
+        return dtTime.toString();
+        
+    }
 }

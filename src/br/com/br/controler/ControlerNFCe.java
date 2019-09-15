@@ -28,10 +28,10 @@ public class ControlerNFCe {
 
     public void nfcEAutorizar(HashMap<String, String> nfce, HashMap<String, String> intens, HashMap<String, String> formasPagamento) throws JSONException {
 
-        String login = "Token_enviado_pelo_suporte";
+        String login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
 
         /* Substituir pela sua identificação interna da nota. */
-        String ref = "12345";
+        String ref = "1";  // Rererência ao número idPedido
 
         /* Para ambiente de produção use a variável abaixo:
         String server = "https://api.focusnfe.com.br/"; */
@@ -106,12 +106,12 @@ public class ControlerNFCe {
         JSONObject jsonItens = new JSONObject(this.itens);
         JSONObject jsonPagamento = new JSONObject(this.formasPagamento);
 
-        /* Aqui adicionamos os objetos JSON nos campos da API como array no JSON principal. */
+        /* Aqui adicionamos os objetos JSON nos campos da API como array no JSON principal. 
         json.append("items", jsonItens);
         json.append("formas_pagamento", jsonPagamento);
 
         /* É recomendado verificar como os dados foram gerados em JSON e se ele está seguindo a estrutura especificada em nossa documentação.
-        System.out.print(json); */
+        System.out.print(json); 
         WebResource request = client.resource(url);
 
         ClientResponse resposta = request.post(ClientResponse.class, json);
@@ -121,10 +121,12 @@ public class ControlerNFCe {
         String body = resposta.getEntity(String.class);
 
         /* As três linhas a seguir exibem as informações retornadas pela nossa API. 
-         * Aqui o seu sistema deverá interpretar e lidar com o retorno. */
+         * Aqui o seu sistema deverá interpretar e lidar com o retorno. 
         System.out.print("HTTP Code: ");
         System.out.print(httpCode);
-        System.out.printf(body);
+        System.out.printf(body);*/
+        
+        
 
     }
 

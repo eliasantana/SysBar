@@ -6,9 +6,25 @@
 package br.com.bar.view;
 
 
+import br.com.bar.model.ProdutoNota;
+import br.com.bar.util.Util;
+import br.com.br.controler.ControlerNFCe;
+import br.com.br.controler.ControlerPedido;
 import br.com.br.controler.ControlerProduto;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.proteanit.sql.DbUtils;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 /**
  *
@@ -17,12 +33,17 @@ import net.proteanit.sql.DbUtils;
 public class TesteNFCe extends javax.swing.JFrame {
 
     ControlerProduto cp = new ControlerProduto();
-    HashMap<String, String> itens = new HashMap<>();
+    ControlerPedido cpedido = new ControlerPedido();
+    ControlerNFCe nfceControler = new ControlerNFCe();
+     Util u = new Util();
+    /* Aqui são criados as hash's que receberão os dados da nota. */
+    HashMap<String, String> nfce = new HashMap();
+    HashMap<String, String> itens = new HashMap<>();   
+    HashMap<String, String> formasPagamento = new HashMap();
     
     public TesteNFCe() {
         initComponents();
-        tabelaProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoDisponivel()));
-        
+        tbDetalhePedido.setModel(DbUtils.resultSetToTableModel(cpedido.detalhePorPedido("10","705")));     
     }
 
     /**
@@ -37,7 +58,7 @@ public class TesteNFCe extends javax.swing.JFrame {
         adicionar = new javax.swing.JButton();
         listar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaProdutos = new javax.swing.JTable();
+        tbDetalhePedido = new javax.swing.JTable();
         jSpinnerQtd = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -49,14 +70,14 @@ public class TesteNFCe extends javax.swing.JFrame {
             }
         });
 
-        listar.setText("Listar");
+        listar.setText("NfCe");
         listar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listarActionPerformed(evt);
             }
         });
 
-        tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        tbDetalhePedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -67,7 +88,7 @@ public class TesteNFCe extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tabelaProdutos);
+        jScrollPane1.setViewportView(tbDetalhePedido);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,75 +96,190 @@ public class TesteNFCe extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSpinnerQtd)
-                    .addComponent(listar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(adicionar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jSpinnerQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(116, 116, 116)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(adicionar)
+                        .addComponent(listar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(60, 60, 60)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(adicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSpinnerQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(listar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(adicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(235, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarActionPerformed
-        int linha=tabelaProdutos.getSelectedRow();
-        System.out.println("Linha Selecionada: "+linha);
-        
-        String codigo = tabelaProdutos.getModel().getValueAt(linha, 0).toString();
-        String produto = tabelaProdutos.getModel().getValueAt(linha, 1).toString(); 
-        String qtd = jSpinnerQtd.getValue().toString();        
-        String valor = tabelaProdutos.getModel().getValueAt(linha, 3).toString();
+        Date dt = new Date();
        
-        int nItem = 0;
-        nItem = nItem++;
-                
-        itens.put("numero_item", String.valueOf(nItem));
-        itens.put("unidade_comercial", "UN");
-        itens.put("unidade_tributavel", "UN");
-        itens.put("codigo_ncm", "94019090");
-        itens.put("codigo_produto", codigo);
-        itens.put("descricao", "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL");
-        itens.put("cfop", "5102");
-        itens.put("valor_unitario_comercial", valor);
-        itens.put("valor_unitario_tributavel", valor);
-        itens.put("valor_bruto", "1.0000");
-        itens.put("quantidade_comercial", qtd);
-        itens.put("quantidade_tributavel", qtd);
-        itens.put("quantidade", qtd);
-        itens.put("icms_origem", "0");
-        itens.put("icms_base_calculo", "1.00");
-        itens.put("icms_modalidade_base_calculo", "3");
-        itens.put("valor_frete", "0.0");
-        itens.put("valor_outras_despesas", "0.0");
-        itens.put("icms_situacao_tributaria", "102");
-        
+        String data =u.formataDateTime(dt);
+        System.out.println("Data: "+ data);
         
     }//GEN-LAST:event_adicionarActionPerformed
 
     private void listarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarActionPerformed
-      int linhas = tabelaProdutos.getRowCount();
-        System.out.println("Total de Itens da Tabela: "+linhas);
+        int linhas = tbDetalhePedido.getRowCount();
+       
+        // Ler produtos do pedido e adiciona na lista
+        ArrayList <ProdutoNota> listaProduto = new ArrayList<>();
         
-      for (int i=0; i<linhas;i++){
-           int item = i+1;
-           String descricao = tabelaProdutos.getValueAt(i, 1).toString();
-           System.out.println("N. Item: "+item + " - " + descricao);
+        JSONObject json;
+        JSONObject jsonItens;
+        
+        String login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
+
+        /* Substituir pela sua identificação interna da nota. */
+        String ref = "1";  // Rererência ao número idPedido
+
+        /* Para ambiente de produção use a variável abaixo:
+        String server = "https://api.focusnfe.com.br/"; */
+        //String server = "https://homologacao.focusnfe.com.br/";
+        String server = "http://homologacao.acrasnfe.acras.com.br/";
+
+        String url = server.concat("v2/nfce?ref=" + ref + "&completa=1");
+
+        /* Configuração para realizar o HTTP BasicAuth. */
+        Object config = new DefaultClientConfig();        
+        Client client = Client.create((ClientConfig) config);
+        client.addFilter(new HTTPBasicAuthFilter(login, ""));
+
+        for (int i=0; i<linhas ; i++){
+            ProdutoNota p = new ProdutoNota();
+            p.setCodProduto(tbDetalhePedido.getValueAt(i,0).toString());
+            p.setDescricao(tbDetalhePedido.getValueAt(i,1).toString());
+            p.setQtd(tbDetalhePedido.getValueAt(i,2).toString());
+            p.setvUnit(tbDetalhePedido.getValueAt(i,3).toString().replace(",", "."));
+            p.setVlrTotal(tbDetalhePedido.getValueAt(i,4).toString().replace(",", "."));
+            
+            listaProduto.add(p);
+        }
+        
+        // Clacular e Adicionar total da compra
+          
+        /* Depois de fazer o input dos dados, são criados os objetos JSON já com os valores das hash's. */
+        //-=--=--=-=-=-= CAMPOS DA NFCe =-==-=-=-==-=- 
+        Date dataAtual = new Date();
+        String data = u.formataDateTime(dataAtual);
+        
+        nfce.put("data_emissao", data);
+        nfce.put("consumidor_final", "1");
+        nfce.put("modalidade_frete", "9");// 0 – Por conta do emitente; 1 – Por conta do destinatário; 2 – Por conta de terceiros; 9 – Sem frete;
+        nfce.put("natureza_operacao", "Venda ao Consumidor");
+        nfce.put("tipo_documento", "1"); // 1 - Nota Fiscal de Saída
+        nfce.put("finalidade_emissao", "1"); // 1 – Normal; 2 – Complementar; 3 – Nota de ajuste; 4 – Devolução.
+        nfce.put("presenca_comprador", "1");
+        nfce.put("indicador_inscricao_estadual_destinatario", "1");
+        nfce.put("cnpj_emitente", "34257575000106");
+        nfce.put("cpf_destinatario", "");
+        //nfce.put("id_estrangeiro_destinatario", "1234567");
+        nfce.put("nome_destinatario", "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL");
+        nfce.put("informacoes_adicionais_contribuinte", "Documento emitido por ME ou EPP optante pelo Simples Nacional nao gera direito a credito fiscal de ICMS lei 123/2006.");
+        //nfce.put("valor_produtos", ""); // Calculado automaticamente se não informado
+        //nfce.put("valor_desconto", "0.0000");
+        //nfce.put("valor_total", "1.0000");
+        nfce.put("forma_pagamento", "01");
+        nfce.put("icms_base_calculo", "0.0000");
+        nfce.put("icms_valor_total", "0.0000");
+        nfce.put("icms_base_calculo_st", "0.0000");
+        nfce.put("icms_valor_total_st", "0.0");
+        nfce.put("icms_modalidade_base_calculo", "3");
+        nfce.put("valor_frete", "0.0");
+        
+        json = new JSONObject(this.nfce);
+        
+        for (int i=0; i< listaProduto.size(); i++){
            
-      }
+            /*CAMPOS  ITENS*/
+            itens.put("numero_item", String.valueOf(i));
+            itens.put("unidade_comercial", "UN");
+            itens.put("unidade_tributavel", "UN");
+            itens.put("codigo_ncm", "94019090");
+            itens.put("codigo_produto", listaProduto.get(i).getCodProduto());
+            itens.put("descricao", listaProduto.get(i).getDescricao());
+            itens.put("cfop", "5102");
+            itens.put("valor_unitario_comercial", listaProduto.get(i).getvUnit());
+            itens.put("valor_unitario_tributavel", listaProduto.get(i).getvUnit());
+            itens.put("valor_bruto", listaProduto.get(i).getVlrTotal());
+            itens.put("quantidade_comercial",listaProduto.get(i).getQtd());
+            itens.put("quantidade_tributavel", listaProduto.get(i).getQtd());
+            itens.put("quantidade", listaProduto.get(i).getQtd());
+            itens.put("icms_origem", "0");
+            itens.put("icms_base_calculo", "1.00");
+            itens.put("icms_modalidade_base_calculo", "3");
+            itens.put("valor_frete", "0.0");
+            itens.put("valor_outras_despesas", "0.0");
+            itens.put("icms_situacao_tributaria", "102");//?
+            
+            jsonItens = new JSONObject(this.itens);
+            
+            try {
+                json.append("items", jsonItens);
+            } catch (JSONException ex) {
+                Logger.getLogger(TesteNFCe.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Erro ao Adicionar Itens no Obj. Json");
+            }
+            
+        }
+       
+ /*     CAMPOS DA FORMA DE PAGAMENTO 
+        - Forma do recebimento. Valores possíveis:
+            01: Dinheiro.
+            02: Cheque.
+            03: Cartão de Crédito.
+            04: Cartão de Débito.
+            05: Crédito Loja.
+            10: Vale Alimentação.
+            11: Vale Refeição.
+            12: Vale Presente.
+            13: Vale Combustível.
+            99: Outros */
+ 
+        formasPagamento.put("forma_pagamento", "99");
+        formasPagamento.put("valor_pagamento", "93.65");
+        
+        JSONObject jsonPagamento = new JSONObject(this.formasPagamento);
+        
+        try {
+            json.append("formas_pagamento", jsonPagamento);   
+        } catch (JSONException ex) {
+            Logger.getLogger(TesteNFCe.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro ao Adicionar Forma de Pagamento no Obj. Json");
+        }
+        
+        
+        // Verifica dados gerados no array de Json
+        //System.out.print(json); 
+        
+        /* É recomendado verificar como os dados foram gerados em JSON e se ele está seguindo a estrutura especificada em nossa documentação. */
+        
+        WebResource request = client.resource(url);
+
+       
+        ClientResponse resposta = request.post(ClientResponse.class, json);
+
+        int httpCode = resposta.getStatus();
+
+        String body = resposta.getEntity(String.class);
+
+        /* As três linhas a seguir exibem as informações retornadas pela nossa API. 
+         * Aqui o seu sistema deverá interpretar e lidar com o retorno. */
+        System.out.print("HTTP Code: ");
+        System.out.print(httpCode);
+        System.out.printf(body);
+          
     }//GEN-LAST:event_listarActionPerformed
 
     /**
@@ -186,6 +322,6 @@ public class TesteNFCe extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinnerQtd;
     private javax.swing.JButton listar;
-    private javax.swing.JTable tabelaProdutos;
+    private javax.swing.JTable tbDetalhePedido;
     // End of variables declaration//GEN-END:variables
 }

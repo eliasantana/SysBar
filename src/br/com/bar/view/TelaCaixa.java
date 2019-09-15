@@ -1299,7 +1299,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private void lblReceberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReceberMouseClicked
         if (lblReceber.isEnabled()) {
             if ("delivery".equals(lblGarcom.getText().toLowerCase()) && "0,00".equals(percent.getText())) {
-                JOptionPane.showMessageDialog(this, "É necessário realizar a entrega do pedido antes do fechamento da conta!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "É necessário realizar a entrega do pedido antes do seu fechamento!", "Atenção!", JOptionPane.ERROR_MESSAGE);
                 lblReceber.setEnabled(false);
             } else {
 
@@ -1969,11 +1969,9 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void lblConsultarPrecosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultarPrecosMouseClicked
         // Chama tela de Pesquisa de Preços
-        if (lblConsultarPrecos.isEnabled()) {
-
             TelaPesquisaPreco tpp = new TelaPesquisaPreco();
             tpp.setVisible(true);
-        }
+      
     }//GEN-LAST:event_lblConsultarPrecosMouseClicked
 
     private void radioDebitoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioDebitoMouseClicked
@@ -2703,7 +2701,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblTroco.setEnabled(false);
         lblNpessoas.setEnabled(false);
         lblLancarPedido.setEnabled(false);
-        lblConsultarPrecos.setEnabled(false);
+        //lblConsultarPrecos.setEnabled(false);
 
     }
 
