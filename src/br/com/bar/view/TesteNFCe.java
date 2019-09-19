@@ -5,7 +5,7 @@
  */
 package br.com.bar.view;
 
-
+import br.com.bar.model.Autorizar;
 import br.com.bar.model.ProdutoNota;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerNFCe;
@@ -17,6 +17,9 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -35,15 +38,16 @@ public class TesteNFCe extends javax.swing.JFrame {
     ControlerProduto cp = new ControlerProduto();
     ControlerPedido cpedido = new ControlerPedido();
     ControlerNFCe nfceControler = new ControlerNFCe();
-     Util u = new Util();
+    Util u = new Util();
     /* Aqui são criados as hash's que receberão os dados da nota. */
     HashMap<String, String> nfce = new HashMap();
-    HashMap<String, String> itens = new HashMap<>();   
+    HashMap<String, String> itens = new HashMap<>();
     HashMap<String, String> formasPagamento = new HashMap();
     
+
     public TesteNFCe() {
         initComponents();
-        tbDetalhePedido.setModel(DbUtils.resultSetToTableModel(cpedido.detalhePorPedido("10","705")));     
+        tbDetalhePedido.setModel(DbUtils.resultSetToTableModel(cpedido.detalhePorPedido("10", "705")));
     }
 
     /**
@@ -124,56 +128,55 @@ public class TesteNFCe extends javax.swing.JFrame {
 
     private void adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarActionPerformed
         Date dt = new Date();
-       
-        String data =u.formataDateTime(dt);
-        System.out.println("Data: "+ data);
-        
+
+        String data = u.formataDateTime(dt);
+        System.out.println("Data: " + data);
+
     }//GEN-LAST:event_adicionarActionPerformed
 
     private void listarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarActionPerformed
         int linhas = tbDetalhePedido.getRowCount();
-       
+
         // Ler produtos do pedido e adiciona na lista
-        ArrayList <ProdutoNota> listaProduto = new ArrayList<>();
+        ArrayList<ProdutoNota> listaProduto = new ArrayList<>();
+        for (int i = 0; i < linhas; i++) {
+            ProdutoNota p = new ProdutoNota();
+            p.setCodProduto(tbDetalhePedido.getValueAt(i, 0).toString());
+            p.setDescricao(tbDetalhePedido.getValueAt(i, 1).toString());
+            p.setQtd(tbDetalhePedido.getValueAt(i, 2).toString());
+            p.setvUnit(tbDetalhePedido.getValueAt(i, 3).toString().replace(",", "."));
+            p.setVlrTotal(tbDetalhePedido.getValueAt(i, 4).toString().replace(",", "."));
+
+            listaProduto.add(p);
+        }
+        
         
         JSONObject json;
         JSONObject jsonItens;
-        
+
         String login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
 
         /* Substituir pela sua identificação interna da nota. */
-        String ref = "1";  // Rererência ao número idPedido
+        String ref = "705";  // Rererência ao número idPedido
 
         /* Para ambiente de produção use a variável abaixo:
         String server = "https://api.focusnfe.com.br/"; */
-        //String server = "https://homologacao.focusnfe.com.br/";
-        String server = "http://homologacao.acrasnfe.acras.com.br/";
+        String server = "https://homologacao.focusnfe.com.br/";
+        //String server = "http://homologacao.acrasnfe.acras.com.br/";
 
         String url = server.concat("v2/nfce?ref=" + ref + "&completa=1");
 
         /* Configuração para realizar o HTTP BasicAuth. */
-        Object config = new DefaultClientConfig();        
+        Object config = new DefaultClientConfig();
         Client client = Client.create((ClientConfig) config);
         client.addFilter(new HTTPBasicAuthFilter(login, ""));
 
-        for (int i=0; i<linhas ; i++){
-            ProdutoNota p = new ProdutoNota();
-            p.setCodProduto(tbDetalhePedido.getValueAt(i,0).toString());
-            p.setDescricao(tbDetalhePedido.getValueAt(i,1).toString());
-            p.setQtd(tbDetalhePedido.getValueAt(i,2).toString());
-            p.setvUnit(tbDetalhePedido.getValueAt(i,3).toString().replace(",", "."));
-            p.setVlrTotal(tbDetalhePedido.getValueAt(i,4).toString().replace(",", "."));
-            
-            listaProduto.add(p);
-        }
-        
         // Clacular e Adicionar total da compra
-          
         /* Depois de fazer o input dos dados, são criados os objetos JSON já com os valores das hash's. */
         //-=--=--=-=-=-= CAMPOS DA NFCe =-==-=-=-==-=- 
         Date dataAtual = new Date();
         String data = u.formataDateTime(dataAtual);
-        
+
         nfce.put("data_emissao", data);
         nfce.put("consumidor_final", "1");
         nfce.put("modalidade_frete", "9");// 0 – Por conta do emitente; 1 – Por conta do destinatário; 2 – Por conta de terceiros; 9 – Sem frete;
@@ -184,7 +187,7 @@ public class TesteNFCe extends javax.swing.JFrame {
         nfce.put("indicador_inscricao_estadual_destinatario", "1");
         nfce.put("cnpj_emitente", "34257575000106");
         nfce.put("cpf_destinatario", "");
-        //nfce.put("id_estrangeiro_destinatario", "1234567");
+        nfce.put("id_estrangeiro_destinatario", "1234567");
         nfce.put("nome_destinatario", "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL");
         nfce.put("informacoes_adicionais_contribuinte", "Documento emitido por ME ou EPP optante pelo Simples Nacional nao gera direito a credito fiscal de ICMS lei 123/2006.");
         //nfce.put("valor_produtos", ""); // Calculado automaticamente se não informado
@@ -197,11 +200,11 @@ public class TesteNFCe extends javax.swing.JFrame {
         nfce.put("icms_valor_total_st", "0.0");
         nfce.put("icms_modalidade_base_calculo", "3");
         nfce.put("valor_frete", "0.0");
-        
+
         json = new JSONObject(this.nfce);
-        
-        for (int i=0; i< listaProduto.size(); i++){
-           
+
+        for (int i = 0; i < listaProduto.size(); i++) {
+
             /*CAMPOS  ITENS*/
             itens.put("numero_item", String.valueOf(i));
             itens.put("unidade_comercial", "UN");
@@ -213,7 +216,7 @@ public class TesteNFCe extends javax.swing.JFrame {
             itens.put("valor_unitario_comercial", listaProduto.get(i).getvUnit());
             itens.put("valor_unitario_tributavel", listaProduto.get(i).getvUnit());
             itens.put("valor_bruto", listaProduto.get(i).getVlrTotal());
-            itens.put("quantidade_comercial",listaProduto.get(i).getQtd());
+            itens.put("quantidade_comercial", listaProduto.get(i).getQtd());
             itens.put("quantidade_tributavel", listaProduto.get(i).getQtd());
             itens.put("quantidade", listaProduto.get(i).getQtd());
             itens.put("icms_origem", "0");
@@ -222,52 +225,49 @@ public class TesteNFCe extends javax.swing.JFrame {
             itens.put("valor_frete", "0.0");
             itens.put("valor_outras_despesas", "0.0");
             itens.put("icms_situacao_tributaria", "102");//?
-            
+
             jsonItens = new JSONObject(this.itens);
-            
+            System.out.println("Produto: " + listaProduto.get(i).getDescricao());
             try {
                 json.append("items", jsonItens);
             } catch (JSONException ex) {
                 Logger.getLogger(TesteNFCe.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("Erro ao Adicionar Itens no Obj. Json");
             }
-            
+
         }
-       
- /*     CAMPOS DA FORMA DE PAGAMENTO 
-        - Forma do recebimento. Valores possíveis:
-            01: Dinheiro.
-            02: Cheque.
-            03: Cartão de Crédito.
-            04: Cartão de Débito.
-            05: Crédito Loja.
-            10: Vale Alimentação.
-            11: Vale Refeição.
-            12: Vale Presente.
-            13: Vale Combustível.
-            99: Outros */
- 
+
         formasPagamento.put("forma_pagamento", "99");
         formasPagamento.put("valor_pagamento", "93.65");
-        
+
         JSONObject jsonPagamento = new JSONObject(this.formasPagamento);
-        
+
         try {
-            json.append("formas_pagamento", jsonPagamento);   
+            json.append("formas_pagamento", jsonPagamento);
         } catch (JSONException ex) {
             Logger.getLogger(TesteNFCe.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Erro ao Adicionar Forma de Pagamento no Obj. Json");
         }
         
+        System.out.println("Tamnho da lista:" + listaProduto.size());
         
+        // Imprime dados do Json
+         try {
+            FileOutputStream out = new FileOutputStream("c://sysbar/saida.json");
+            PrintStream ps = new PrintStream(out);
+            System.setOut(ps);
+
+            System.out.print(json);
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Autorizar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        /* 
         // Verifica dados gerados no array de Json
         //System.out.print(json); 
-        
-        /* É recomendado verificar como os dados foram gerados em JSON e se ele está seguindo a estrutura especificada em nossa documentação. */
-        
+        /* É recomendado verificar como os dados foram gerados em JSON e se ele está seguindo a estrutura especificada em nossa documentação. 
         WebResource request = client.resource(url);
 
-       
         ClientResponse resposta = request.post(ClientResponse.class, json);
 
         int httpCode = resposta.getStatus();
@@ -275,11 +275,13 @@ public class TesteNFCe extends javax.swing.JFrame {
         String body = resposta.getEntity(String.class);
 
         /* As três linhas a seguir exibem as informações retornadas pela nossa API. 
-         * Aqui o seu sistema deverá interpretar e lidar com o retorno. */
+         * Aqui o seu sistema deverá interpretar e lidar com o retorno. 
         System.out.print("HTTP Code: ");
         System.out.print(httpCode);
-        System.out.printf(body);
-          
+        System.out.println(body);
+        */
+       
+
     }//GEN-LAST:event_listarActionPerformed
 
     /**

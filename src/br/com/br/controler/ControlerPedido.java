@@ -153,7 +153,7 @@ public class ControlerPedido {
 
         String sql = "SELECT "
                 + "      dbbar.detalhe_mesa.tbproduto_id AS 'CÓDIGO',\n"
-                + "dbbar.tbproduto.nome AS 'PRODUTO',\n"
+                + "upper(dbbar.tbproduto.nome) AS 'PRODUTO',\n"
                 + "      dbbar.detalhe_mesa.qtd AS 'QTD',\n"
                 + "      format(dbbar.detalhe_mesa.`valorUnit`,2,'de_DE') AS 'VLR UNITÁRIO R$',\n"
                 + "      format(dbbar.detalhe_mesa.`Total`,2,'de_DE') AS 'VLR TOTAL R$'\n"

@@ -62,6 +62,7 @@ public class TableModelPesquisaEstoque extends AbstractTableModel{
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(100);  
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(100);
         
+        tabela.getColumnModel().getColumn(0).setCellRenderer(render);
         tabela.getColumnModel().getColumn(2).setCellRenderer(render);
         tabela.getColumnModel().getColumn(3).setCellRenderer(render);
        

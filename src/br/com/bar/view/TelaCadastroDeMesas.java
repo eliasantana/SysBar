@@ -654,6 +654,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     private void txtNumeroMesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroMesaKeyReleased
         // Aceita apenas número
         txtNumeroMesa.setText(txtNumeroMesa.getText().replaceAll("[^0-9]", ""));
+        
     }//GEN-LAST:event_txtNumeroMesaKeyReleased
 
     private void comboNovoGarcomFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboNovoGarcomFocusGained

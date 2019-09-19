@@ -12,13 +12,14 @@ package br.com.bar.model;
 public class Produto {
     
    private String id;
+   private String codNCM; // Código NCM do produto
    private String nome;
    private String qtd;
    private String qtdMax;
    private String qtdMin;
    private String cad_grupo_produto;
    private int idFornecedor;
-   
+   private String valor;
    
     public String getTbGrupoId() {
         return cad_grupo_produto;
@@ -75,7 +76,7 @@ public class Produto {
     public void setValor(String valor) {
         this.valor = valor;
     }
-   private String valor;
+   
 
     public int getIdFornecedor() {
         return idFornecedor;
@@ -83,6 +84,14 @@ public class Produto {
 
     public void setIdFornecedor(int idFornecedor) {
         this.idFornecedor = idFornecedor;
+    }
+
+    public String getCodNCM() {
+        return codNCM;
+    }
+
+    public void setCodNCM(String codNCM) {
+        this.codNCM = codNCM;
     }
    
    

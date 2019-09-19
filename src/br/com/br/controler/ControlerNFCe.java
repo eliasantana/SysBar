@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package br.com.br.controler;
+import br.com.bar.util.Util;
 import java.util.HashMap;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -13,6 +14,7 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
+import java.util.Date;
 import org.codehaus.jettison.json.JSONArray;
 
 /**
@@ -22,16 +24,17 @@ import org.codehaus.jettison.json.JSONArray;
 public class ControlerNFCe {
 
     /* Aqui são criados as hash's que receberão os dados da nota. */
-    HashMap<String, String> nfce = new HashMap();
-    HashMap<String, String> itens = new HashMap();
-    HashMap<String, String> formasPagamento = new HashMap();
-
-    public void nfcEAutorizar(HashMap<String, String> nfce, HashMap<String, String> intens, HashMap<String, String> formasPagamento) throws JSONException {
+    HashMap<String, String> nfce = new HashMap<>();
+    HashMap<String, String> itens = null;
+    HashMap<String, String> formasPagamento = null;
+    Util u = new Util();
+    
+    public void nfcEAutorizar(String nPedido, HashMap<String, String> intens, HashMap<String, String> formasPagamento) throws JSONException {
 
         String login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
 
         /* Substituir pela sua identificação interna da nota. */
-        String ref = "1";  // Rererência ao número idPedido
+        String ref = nPedido;  // Rererência ao número idPedido
 
         /* Para ambiente de produção use a variável abaixo:
         String server = "https://api.focusnfe.com.br/"; */
@@ -44,74 +47,48 @@ public class ControlerNFCe {
         Client client = Client.create((ClientConfig) config);
         client.addFilter(new HTTPBasicAuthFilter(login, ""));
 
-        this.nfce = nfce;
-        this.itens = intens;
-        this.formasPagamento = formasPagamento;
-
-        /*  -=--=--=-=-=-= CAMPOS DA NFCe =-==-=-=-==-=- 
-        nfce.put("data_emissao", "2018-01-15T16:25:00");
+        Date dataAtual = new Date();
+        String data = u.formataDateTime(dataAtual);
+        
+        nfce.put("data_emissao", data);
         nfce.put("consumidor_final", "1");
-        nfce.put("modalidade_frete", "9");
+        nfce.put("modalidade_frete", "9");// 0 – Por conta do emitente; 1 – Por conta do destinatário; 2 – Por conta de terceiros; 9 – Sem frete;
         nfce.put("natureza_operacao", "Venda ao Consumidor");
-        nfce.put("tipo_documento", "1");
-        nfce.put("finalidade_emissao", "1");
+        nfce.put("tipo_documento", "1"); // 1 - Nota Fiscal de Saída
+        nfce.put("finalidade_emissao", "1"); // 1 – Normal; 2 – Complementar; 3 – Nota de ajuste; 4 – Devolução.
         nfce.put("presenca_comprador", "1");
-        nfce.put("indicador_inscricao_estadual_destinatario", "9");
-        nfce.put("cnpj_emitente", "51916585000125");
+        nfce.put("indicador_inscricao_estadual_destinatario", "1");
+        nfce.put("cnpj_emitente", "34257575000106");
         nfce.put("cpf_destinatario", "");
         nfce.put("id_estrangeiro_destinatario", "1234567");
         nfce.put("nome_destinatario", "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL");
         nfce.put("informacoes_adicionais_contribuinte", "Documento emitido por ME ou EPP optante pelo Simples Nacional nao gera direito a credito fiscal de ICMS lei 123/2006.");
-        nfce.put("valor_produtos", "1.0000");
-        nfce.put("valor_desconto", "0.0000");
-        nfce.put("valor_total", "1.0000");
-        nfce.put("forma_pagamento", "0");
+        //nfce.put("valor_produtos", ""); // Calculado automaticamente se não informado
+        //nfce.put("valor_desconto", "0.0000");
+        //nfce.put("valor_total", "1.0000");
+        nfce.put("forma_pagamento", "01");
         nfce.put("icms_base_calculo", "0.0000");
         nfce.put("icms_valor_total", "0.0000");
         nfce.put("icms_base_calculo_st", "0.0000");
         nfce.put("icms_valor_total_st", "0.0");
         nfce.put("icms_modalidade_base_calculo", "3");
         nfce.put("valor_frete", "0.0");
-         */
-    /*CAMPOS  ITENS
-        itens.put("numero_item", "1");
-        itens.put("unidade_comercial", "PC");
-        itens.put("unidade_tributavel", "PC");
-        itens.put("codigo_ncm", "94019090");
-        itens.put("codigo_produto", "Div.13350000");
-        itens.put("descricao", "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL");
-        itens.put("cfop", "5102");
-        itens.put("valor_unitario_comercial", "1.0000000000");
-        itens.put("valor_unitario_tributavel", "1.0000000000");
-        itens.put("valor_bruto", "1.0000");
-        itens.put("quantidade_comercial", "1.0000");
-        itens.put("quantidade_tributavel", "1.0000");
-        itens.put("quantidade", "1.0000");
-        itens.put("icms_origem", "0");
-        itens.put("icms_base_calculo", "1.00");
-        itens.put("icms_modalidade_base_calculo", "3");
-        itens.put("valor_frete", "0.0");
-        itens.put("valor_outras_despesas", "0.0");
-        itens.put("icms_situacao_tributaria", "102");
-*/
- 
- /*     CAMPOS DA FORMA DE PAGAMENTO
-        formasPagamento.put("forma_pagamento", "99");
-        formasPagamento.put("valor_pagamento", "1.0000");
- */
+        
+        this.itens = intens;
+        this.formasPagamento = formasPagamento;  
          
 
- /* Depois de fazer o input dos dados, são criados os objetos JSON já com os valores das hash's. */
+        /* Depois de fazer o input dos dados, são criados os objetos JSON já com os valores das hash's. */
         JSONObject json = new JSONObject(this.nfce);
         JSONObject jsonItens = new JSONObject(this.itens);
         JSONObject jsonPagamento = new JSONObject(this.formasPagamento);
 
-        /* Aqui adicionamos os objetos JSON nos campos da API como array no JSON principal. 
+        /* Aqui adicionamos os objetos JSON nos campos da API como array no JSON principal. */
         json.append("items", jsonItens);
         json.append("formas_pagamento", jsonPagamento);
 
         /* É recomendado verificar como os dados foram gerados em JSON e se ele está seguindo a estrutura especificada em nossa documentação.
-        System.out.print(json); 
+        System.out.print(json); */
         WebResource request = client.resource(url);
 
         ClientResponse resposta = request.post(ClientResponse.class, json);
@@ -121,13 +98,12 @@ public class ControlerNFCe {
         String body = resposta.getEntity(String.class);
 
         /* As três linhas a seguir exibem as informações retornadas pela nossa API. 
-         * Aqui o seu sistema deverá interpretar e lidar com o retorno. 
+         * Aqui o seu sistema deverá interpretar e lidar com o retorno. */
         System.out.print("HTTP Code: ");
         System.out.print(httpCode);
-        System.out.printf(body);*/
+        System.out.printf(body);
         
         
-
     }
 
     public void consultarNFCE() {

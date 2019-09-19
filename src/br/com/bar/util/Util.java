@@ -12,6 +12,7 @@ import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.IOException;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -601,5 +602,11 @@ public class Util {
         
         return dtTime.toString();
         
+    }
+    
+    public String retiraAcento(String str) {
+        String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD); 
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(nfdNormalizedString).replaceAll("");
     }
 }

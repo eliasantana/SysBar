@@ -137,7 +137,7 @@ public class ControlerProduto {
 
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, nomeProduto + "%");
+            pst.setString(1, "%"+nomeProduto + "%");
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
@@ -293,7 +293,7 @@ public class ControlerProduto {
 
     public boolean adicionaProduto(Produto p) {
 
-        String sql = "INSERT INTO tbproduto (nome, qtd, qtd_min,qtd_max,valor,cad_grupo_produto_id, tbFornecedores_id) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO tbproduto (nome, qtd, qtd_min,qtd_max,valor,cad_grupo_produto_id, tbFornecedores_id,cod_ncm) VALUES (?,?,?,?,?,?,?,?)";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -304,6 +304,7 @@ public class ControlerProduto {
             pst.setString(5, p.getValor());
             pst.setString(6, p.getTbGrupoId());
             pst.setInt(7, p.getIdFornecedor());
+            pst.setString(8, p.getCodNCM());
 
             pst.executeUpdate();
 
@@ -318,7 +319,7 @@ public class ControlerProduto {
 
     public boolean alteraProduto(Produto p) {
 
-        String sql = "UPDATE tbproduto SET nome=?, qtd=?, qtd_min=?, qtd_max=?, valor=?, cad_grupo_produto_id=?, tbFornecedores_id=?  WHERE id=?";
+        String sql = "UPDATE tbproduto SET nome=?, qtd=?, qtd_min=?, qtd_max=?, valor=?, cad_grupo_produto_id=?, tbFornecedores_id=?, cod_ncm=?  WHERE id=?";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -330,7 +331,8 @@ public class ControlerProduto {
             pst.setString(5, p.getValor());
             pst.setString(6, p.getTbGrupoId());
             pst.setInt(7, p.getIdFornecedor());
-            pst.setString(8, p.getId());
+            pst.setString(8, p.getCodNCM());
+            pst.setString(9, p.getId());
 
             pst.executeUpdate();
 
@@ -554,5 +556,22 @@ public class ControlerProduto {
         }
         return resp;
     }
-
+    
+    
+    //Retorna o ncm do produto cadastrado
+    public String localizaNCM(Produto p){
+        String sql="SELECT cod_ncm FROM dbbar.tbproduto where id=?";
+        String codigo_ncm=null;
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, p.getId());
+            rs=pst.executeQuery();
+            while (rs.next()){
+                codigo_ncm = rs.getString("cod_ncm");
+            }
+        } catch (SQLException e) {
+        }
+        
+        return codigo_ncm;
+    }
 }

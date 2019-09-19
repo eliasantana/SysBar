@@ -432,7 +432,8 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
             p.setQtdMin(tblProduto.getModel().getValueAt(linha, 4).toString());
             p.setQtdMax(tblProduto.getModel().getValueAt(linha, 5).toString());
             p.setTbGrupoId(tblProduto.getModel().getValueAt(linha, 6).toString());
-
+            //Localiza código ncm do produto
+            p.setCodNCM(cp.localizaNCM(p));
             Fornecedor f = cf.localizaFornecedor(cf.retornaFornecedor(p));
             p.setIdFornecedor(f.getId());
 

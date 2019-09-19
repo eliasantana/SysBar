@@ -39,8 +39,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
      */
     public TelaCadastroProduto() {
         initComponents();
-        lblCodigoNcm.setVisible(false);
-        txtCodigoNcm.setVisible(false);
+        
         g.carregaComboGrupoProduto(comboGrupoProduto);
 
         cf.carregaComboFornecedor(comboFornecedor);
@@ -87,6 +86,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         txtValor.setText(p.getValor());
         comboFornecedor.setSelectedIndex(0);
         comboGrupoProduto.setSelectedIndex(0);
+        txtCodigoNcm.setText(p.getCodNCM());
         this.telaPesquisa = tela;
         this.produto = p;
         comboGrupoProduto.setSelectedItem(produto.getTbGrupoId());        
@@ -147,9 +147,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         painelEsquerdo.setLayout(null);
 
         lblCodigoNcm.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        lblCodigoNcm.setText("Código");
+        lblCodigoNcm.setText("Cód. NCM");
         painelEsquerdo.add(lblCodigoNcm);
-        lblCodigoNcm.setBounds(300, 240, 70, 30);
+        lblCodigoNcm.setBounds(20, 0, 110, 30);
 
         txtDescricao.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtDescricao.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -166,7 +166,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(txtDescricao);
-        txtDescricao.setBounds(20, 30, 290, 40);
+        txtDescricao.setBounds(140, 30, 290, 40);
 
         lblqtd.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblqtd.setText("Quantidade");
@@ -324,17 +324,20 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCodigoNcmKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoNcmKeyReleased(evt);
+            }
         });
         painelEsquerdo.add(txtCodigoNcm);
-        txtCodigoNcm.setBounds(300, 270, 70, 40);
+        txtCodigoNcm.setBounds(20, 30, 110, 40);
 
         lblDescricao1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblDescricao1.setText("Descrição");
         painelEsquerdo.add(lblDescricao1);
-        lblDescricao1.setBounds(20, 0, 220, 30);
+        lblDescricao1.setBounds(140, 0, 220, 30);
 
         bordas.add(painelEsquerdo);
-        painelEsquerdo.setBounds(2, 110, 398, 448);
+        painelEsquerdo.setBounds(2, 110, 435, 448);
 
         panelSuperior.setBackground(new java.awt.Color(243, 156, 18));
         panelSuperior.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -374,7 +377,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        panelSuperior.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(363, 0, 40, -1));
+        panelSuperior.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 40, -1));
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
         jLabel8.setText("Produto");
@@ -393,12 +396,12 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         panelSuperior.add(lblCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 100, 30));
 
         bordas.add(panelSuperior);
-        panelSuperior.setBounds(1, 1, 401, 110);
+        panelSuperior.setBounds(1, 1, 440, 110);
 
         getContentPane().add(bordas);
-        bordas.setBounds(0, 0, 403, 560);
+        bordas.setBounds(0, 0, 440, 560);
 
-        setBounds(500, 140, 403, 560);
+        setBounds(500, 140, 440, 560);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
@@ -467,6 +470,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         p.setQtdMax(txtQtdMax.getText());
         p.setQtdMin(txtQtdMin.getText());
         p.setValor(txtValor.getText().replace(",","."));
+        p.setCodNCM(txtCodigoNcm.getText());
         
         if (!"Selecione...".equals(comboFornecedor.getSelectedItem().toString())) {
             p.setIdFornecedor(Integer.parseInt(cf.localizaForecedor(f)));
@@ -647,6 +651,11 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private void txtCodigoNcmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoNcmKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoNcmKeyPressed
+
+    private void txtCodigoNcmKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoNcmKeyReleased
+       txtCodigoNcm.setText(txtCodigoNcm.getText().replaceAll("[^0-9]",""));
+       txtCodigoNcm.setText(u.tamanhoMaximo(txtCodigoNcm.getText(), 8));       
+    }//GEN-LAST:event_txtCodigoNcmKeyReleased
     private void limpaForm() {
 
         txtDescricao.setText(null);
