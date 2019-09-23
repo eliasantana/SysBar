@@ -12,7 +12,8 @@ package br.com.bar.model;
 
 
 public class ProdutoNota {
-
+    
+    private String item;
     private String codProduto;
     private String codNcm;
     private String descricao;
@@ -81,6 +82,15 @@ public class ProdutoNota {
     public void setVlrTotalGeral(String vlrTotalGeral) {
         this.vlrTotalGeral = vlrTotalGeral;
     }
+
+    public void setItem(String item) {
+        this.item = item;
+    }
+
+    public String getItem() {
+        return item;
+    }
+    
     
     
     

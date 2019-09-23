@@ -5,20 +5,13 @@
  */
 package br.com.bar.model;
 
-import com.google.gson.Gson;
-import com.mongodb.util.JSON;
-import java.io.BufferedReader;
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import org.codehaus.jettison.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -27,29 +20,30 @@ import org.json.JSONObject;
 public class TesteJesonString {
     
     
-    public static void main(String[] args) throws org.codehaus.jettison.json.JSONException {
+    
+    public static void main(String[] args) throws org.codehaus.jettison.json.JSONException, ParseException, IOException {
+    
+        org.json.simple.JSONObject jo;
+        JSONParser parser = new JSONParser();
+        Nfce nota = new Nfce();
         
-        File retornoJeson = new File("C:\\Sysbar\\retorno.json");
-        Gson gson = new Gson();
-        Nfce nfce;
         try {
-            FileReader fr = new FileReader(retornoJeson);
-            String linha;
-            BufferedReader bw = new BufferedReader(fr);
-            nfce = gson.fromJson(bw, Nfce.class);
+           jo = (org.json.simple.JSONObject) parser.parse(new FileReader("C:\\Sysbar\\retorno.json"));
+           nota.setChave_nfe((String) jo.get("chave_nfe"));
+           nota.setUrl_consulta_nf((String) jo.get("url_consulta_nf"));
+           nota.setSerie((String) jo.get("serie"));
+           nota.setNumero((String) jo.get("numero"));
+           nota.setQrcode_url((String) jo.get("qrcode_url"));
+           nota.setNumero_protocolo((String) jo.get("numero_protocolo"));
+           nota.setData_emissao((String) jo.get("data_emissao"));
+           nota.setInformacoes_adicionais_contribuinte((String) jo.get("informacoes_adicionais_contribuinte"));
+                      
+          System.out.println(nota.toString());
+           
+           
             
-            System.out.println(nfce.getDescricao());
-            
-//            while ((linha = bw.readLine())!=null){
-//                System.out.println(linha);
-//            }
-        } catch (IOException ex) {
+        } catch (FileNotFoundException ex) {
             Logger.getLogger(TesteJesonString.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-       
-        
-        
-       
     }
 }

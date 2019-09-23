@@ -24,8 +24,7 @@ public class Nfce {
         private String modalidade_frete;
         private String icms_base_calculo;
         private String data_emissao;
-        private String cnpj_emitente;
-        
+        private String cnpj_emitente;        
         private String numero_item;
         private String codigo_produto;
         private String valor_desconto;
@@ -46,6 +45,64 @@ public class Nfce {
         private String valor_frete;
         private String forma_pagamento;
         private String valor_pagamento;
+        private String chave_nfe;
+        private String serie;
+        private String numero;        
+        private String qrcode_url;
+        private String url_consulta_nf;
+        private String numero_protocolo;
+        private String informacoes_adicionais_contribuinte;
+
+    public String getChave_nfe() {
+        return chave_nfe;
+    }
+
+    public void setChave_nfe(String chave_nfe) {
+        this.chave_nfe = chave_nfe;
+    }
+
+    public String getSerie() {
+        return serie;
+    }
+
+    public void setSerie(String serie) {
+        this.serie = serie;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getQrcode_url() {
+        return qrcode_url;
+    }
+
+    public void setQrcode_url(String qrcode_url) {
+        this.qrcode_url = qrcode_url;
+    }
+
+    public String getUrl_consulta_nf() {
+        return url_consulta_nf;
+    }
+
+    public void setUrl_consulta_nf(String url_consulta_nf) {
+        this.url_consulta_nf = url_consulta_nf;
+    }
+
+    public String getNumero_protocolo() {
+        return numero_protocolo;
+    }
+
+    public void setNumero_protocolo(String numero_protocolo) {
+        this.numero_protocolo = numero_protocolo;
+    }
+        
+        
+        
 
     public Nfce() {
     }
@@ -313,6 +370,24 @@ public class Nfce {
     public void setValor_pagamento(String valor_pagamento) {
         this.valor_pagamento = valor_pagamento;
     }
+
+    public String getInformacoes_adicionais_contribuinte() {
+        return informacoes_adicionais_contribuinte;
+    }
+
+    public void setInformacoes_adicionais_contribuinte(String informacoes_adicionais_contribuinte) {
+        this.informacoes_adicionais_contribuinte = informacoes_adicionais_contribuinte;
+    }
+
+    @Override
+    public String toString() {
+        return "Nfce{" + "data_emissao=" + data_emissao + ", chave_nfe=" + chave_nfe + ", serie=" + serie + ", numero=" + numero + ", qrcode_url=" + qrcode_url + ", url_consulta_nf=" + url_consulta_nf + ", numero_protocolo=" + numero_protocolo + ", informacoes_adicionais_contribuinte=" + informacoes_adicionais_contribuinte + '}';
+    }
+
+    
+
+   
+    
         
         
     

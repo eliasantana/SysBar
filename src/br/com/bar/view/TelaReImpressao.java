@@ -7,11 +7,14 @@ package br.com.bar.view;
 
 import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.DadosEmpresa;
+import br.com.bar.model.Nfce;
 import br.com.bar.model.TableModelReimpressao;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerDadosEmpresa;
+import br.com.br.controler.ControlerNFCe;
 import br.com.br.controler.ControlerPedido;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -24,6 +27,7 @@ import java.util.logging.Logger;
 import javax.swing.JDialog;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JRException;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -212,7 +216,7 @@ public class TelaReImpressao extends JDialog {
     private void lblImprimirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImprimirMouseClicked
         // Realiza a reimpressão do cupom selecionado.
         if (lblImprimir.isEnabled()) {
-
+            Nfce nota=new Nfce();
             int linha = tblPedidos.getSelectedRow();
 
             String nMesa = tblPedidos.getModel().getValueAt(linha, 0).toString();
@@ -224,7 +228,17 @@ public class TelaReImpressao extends JDialog {
 
             double desc = Double.parseDouble(tblPedidos.getModel().getValueAt(linha, 3).toString().replaceAll(",", "."));
             double tx = (Double.parseDouble(tblPedidos.getModel().getValueAt(linha, 2).toString().replaceAll(",", ".")));
-
+            
+            ControlerNFCe controlerNFCe = new ControlerNFCe();
+            controlerNFCe.consultarNFCE(idPedido, "consulta.json"); // Realiza a consulta e gera o arquivo de retorno
+            
+            try {
+                // Ler o arquivo de retorno e devolve um obj do tipo NFCe com os dados lidos
+                nota = controlerNFCe.lerRetorno("consulta.json");
+            } catch (ParseException | IOException ex) {
+                Logger.getLogger(TelaReImpressao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             // Imprime cupom de pagamento
             HashMap dados = new HashMap();
             Date dt = new Date();
@@ -249,11 +263,16 @@ public class TelaReImpressao extends JDialog {
             dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone());
             dados.put("cnpj", dadosEmpresa.getCnpj());
             dados.put("desc", desc);
-            dados.put("forma_pag",cp.retornaFormaPagto(idPedido).toUpperCase());
-           // Retorna Dados do pagamento 
+            dados.put("forma_pag", cp.retornaFormaPagto(idPedido).toUpperCase());
+            // Adiciona os dados fiscais lidos no arquivo de retorno de autorizacao.
+            dados.put("chave_nfe", nota.getChave_nfe());
+            dados.put("url_consulta_nf", nota.getUrl_consulta_nf());
+            dados.put("serie", nota.getSerie());
+            dados.put("numero", nota.getNumero());
+            // Retorna Dados do pagamento 
             try {
                 ArrayList<Double> lista = cp.retornaVlrPagamentoMisto(idPedido);
-                
+
                 dados.put("dinheiro", lista.get(0));
                 dados.put("credito", lista.get(1));
                 dados.put("debito", lista.get(2));
@@ -261,8 +280,8 @@ public class TelaReImpressao extends JDialog {
 
             } catch (IndexOutOfBoundsException e) {
                 // Caso o pedido seja diferente de Misto retorna zero para todos os valores.
-                
-                dados.put("dinheiro",0.00);
+
+                dados.put("dinheiro", 0.00);
                 dados.put("credito", 0.00);
                 dados.put("debito", 0.00);
                 dados.put("voucher", 0.00);
@@ -271,7 +290,7 @@ public class TelaReImpressao extends JDialog {
             try {
                 if (dadosEmpresa.getImprimir_na_tela() == 0) {
                     //rsp.imprimeRelatorioTela("cupom2.jasper", dados);
-                    rsp.imprimeRelatorioTela("cupom2_7.jasper", dados,"Comprovante de Pagamento");
+                    rsp.imprimeRelatorioTela("cupom2_7.jasper", dados, "Comprovante de Pagamento");
                 } else {
                     //rsp.impressaoDireta("cupom2.jasper", dados);
                     rsp.impressaoDireta("cupom2_7.jasper", dados);

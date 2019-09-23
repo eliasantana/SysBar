@@ -8,12 +8,15 @@ package br.com.bar.view;
 import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.Log;
 import br.com.bar.dao.ReportUtil;
+import br.com.bar.model.Autorizar;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.model.DescontoPedido;
 import br.com.bar.model.Entregador;
 import br.com.bar.model.Funcionario;
 import br.com.bar.model.MovimentacaoCaixa;
+import br.com.bar.model.Nfce;
 import br.com.bar.model.Pedido;
+import br.com.bar.model.ProdutoNota;
 import br.com.bar.model.TableModelCaixa;
 import br.com.bar.util.FormataValor;
 import br.com.br.controler.ControlerCaixa;
@@ -39,7 +42,19 @@ import br.com.bar.util.Util;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerDelivery;
 import br.com.br.controler.ControlerEntregador;
+import br.com.br.controler.ControlerNFCe;
+import br.com.br.controler.ControlerProduto;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import java.awt.Color;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -49,6 +64,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import net.sf.jasperreports.engine.JasperPrintManager;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 
@@ -71,7 +88,19 @@ public class TelaCaixa extends javax.swing.JFrame {
     ControlerDelivery dl = new ControlerDelivery();
     TableModelCaixa modelCaixa = new TableModelCaixa();
     ControlerEntregador ce = new ControlerEntregador();
+    ControlerNFCe cNFCe = new ControlerNFCe();
+    // Dados da NFC-e
+    Nfce nota = new Nfce();
+    // HashMap para armazenamento os itens da NFC-e
 
+    HashMap<String, String> nfce = new HashMap<>();
+    HashMap<String, String> formasPagamento = new HashMap<>();
+
+    JSONObject json;// JSON Principal
+    JSONObject jSonItens; // Json de Itens
+    JSONObject jsonPagamento; // Json de forma de pagameto e valor total do pedido
+
+    // Fim dados NFC-e
     ReportUtil rpu = new ReportUtil();
     // Instância da tela principal usada para atualização após inclusão de contas;
     TelaPrincipal principal = new TelaPrincipal();
@@ -124,6 +153,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         checkReimpressao.setEnabled(true);
         jpanelSubTotal.setEnabled(false);
         jpanelTotalGeral.setEnabled(false);
+
     }
 
     /**
@@ -153,6 +183,10 @@ public class TelaCaixa extends javax.swing.JFrame {
         btnGrafico = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        btnLerRetorno = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         painelDireito = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnFechar = new javax.swing.JLabel();
@@ -374,6 +408,38 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendar24x24.png"))); // NOI18N
         lblData.setText("jLabel5");
         painelEsquerdo.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 630, 120, 40));
+
+        jButton1.setText("Autoriza");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        painelEsquerdo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 100, -1));
+
+        jButton2.setText("Cancela Nota");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        painelEsquerdo.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, -1, -1));
+
+        btnLerRetorno.setText("Ler Retorno");
+        btnLerRetorno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLerRetornoActionPerformed(evt);
+            }
+        });
+        painelEsquerdo.add(btnLerRetorno, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 100, -1));
+
+        jButton4.setText("Consulta");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        painelEsquerdo.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 100, -1));
 
         getContentPane().add(painelEsquerdo);
         painelEsquerdo.setBounds(0, 0, 260, 700);
@@ -1355,6 +1421,51 @@ public class TelaCaixa extends javax.swing.JFrame {
                 if (op == JOptionPane.YES_OPTION) {  // Se confirmado fecha o pedido
                     // Retorna a forma de pagamento 
                     String formaPagto = detectaFormaDePagamento();
+                    /*  Utilize o valor 1 para a flagFiscal para realizar a autorização
+                        e a leitura do retorno do SEFAZ*/
+                    //------------------ Autoriza NFCe ----------------------------------------------
+                    int flagFiscal = 1; // 1 - Para autorizar e ler retorno SEFAZ 
+                    String codPagto; // Código de pagamento Da API
+                    /*
+                    Valores possíveis:
+                    01: Dinheiro.      02: Cheque.           03: Cartão de Crédito. 04: Cartão de Débito.
+                    05: Crédito Loja.  10: Vale Alimentação. 11: Vale Refeição.
+                    12: Vale Presente. 13: Vale Combustível. 99: Outros
+                     */
+                    if (flagFiscal == 1) {
+                        try {
+
+                            switch (formaPagto) {
+
+                                case "Dinheiro":
+                                    codPagto = "01";
+                                    break;
+                                case "Crédito":
+                                    codPagto = "03";
+                                    break;
+                                case "Débito":
+                                    codPagto = "04";
+                                    break;
+                                case "Voucher":
+                                    codPagto = "11";
+                                    break;
+                                default:
+                                    codPagto = "99";
+                            }
+
+                            autorizarNfCe2(codPagto, tgeral.getText().replace(",", "."), lblNPedido.getText());
+                        } catch (JSONException ex) {
+                            Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        //------------------ Ler Retorno da Autorização ------------------//
+                        try {
+                            nota = cNFCe.lerRetorno("retorno.json");
+                        } catch (org.json.simple.parser.ParseException | IOException ex) {
+                            Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+
                     if (!"Selecione".equals(formaPagto)) {
                         // Pega a data Atual
 
@@ -1434,11 +1545,17 @@ public class TelaCaixa extends javax.swing.JFrame {
                         dados.put("mesa", comboMesa.getSelectedItem().toString());
                         dados.put("nome_empresa", dadosEmpresa.getNome_empresa());
                         dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro());
-                        dados.put("end2",dadosEmpresa.getCep() +"-"+dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + "-" + dadosEmpresa.getTelefone());
+                        dados.put("end2", dadosEmpresa.getCep() + "-" + dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + "-" + dadosEmpresa.getTelefone());
                         dados.put("cnpj", dadosEmpresa.getCnpj());
                         dados.put("desc", Double.parseDouble(txtDesconto.getText().replaceAll(",", ".")));
                         dados.put("desc", Double.parseDouble(txtDesconto.getText().replaceAll(",", ".")));
                         dados.put("forma_pag", p.getFormaPagto());
+                        // Parametros Fiscais
+                        dados.put("chave_nfe", nota.getChave_nfe());
+                        dados.put("url_consulta_nf", nota.getUrl_consulta_nf());
+                        dados.put("serie", nota.getSerie());
+                        dados.put("numero", nota.getNumero());
+
                         // Adiciona os valores pagos ao cupom. Para pagament na forma Mista
                         if ("MISTO".equals(p.getFormaPagto())) {
 
@@ -1969,9 +2086,9 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void lblConsultarPrecosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultarPrecosMouseClicked
         // Chama tela de Pesquisa de Preços
-            TelaPesquisaPreco tpp = new TelaPesquisaPreco();
-            tpp.setVisible(true);
-      
+        TelaPesquisaPreco tpp = new TelaPesquisaPreco();
+        tpp.setVisible(true);
+
     }//GEN-LAST:event_lblConsultarPrecosMouseClicked
 
     private void radioDebitoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioDebitoMouseClicked
@@ -2170,6 +2287,44 @@ public class TelaCaixa extends javax.swing.JFrame {
     private void checkReimpressaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkReimpressaoMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_checkReimpressaoMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Autoriza NFC-e
+
+        try {
+            //autorizarNfCe("99", tgeral.getText().replace(",", "."), lblNPedido.getText());
+            autorizarNfCe2("99", tgeral.getText().replace(",","."), lblNPedido.getText());
+        } catch (JSONException ex) {
+            Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        ControlerNFCe cNfce = new ControlerNFCe();
+        cNfce.nfcCancelamento("NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL", "708");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnLerRetornoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLerRetornoActionPerformed
+      
+        
+         ControlerNFCe cNfce = new ControlerNFCe();
+        try {
+            Nfce n = cNfce.lerRetorno("consulta.json");
+            System.out.println(n.toString());
+        } catch (org.json.simple.parser.ParseException | IOException ex) {
+            Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                 
+        
+    }//GEN-LAST:event_btnLerRetornoActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        ControlerNFCe cNfce = new ControlerNFCe();
+        cNfce.consultarNFCE("715", "consulta.json");
+            
+
+    }//GEN-LAST:event_jButton4ActionPerformed
     public void recebeOperador(TelaPrincipal tela, String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
@@ -2451,6 +2606,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel btnFecharCaixa;
     private javax.swing.JLabel btnGrafico;
     private javax.swing.JLabel btnImprimir;
+    private javax.swing.JButton btnLerRetorno;
     private javax.swing.JButton btnListar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -2460,6 +2616,9 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkTxServico;
     private javax.swing.JComboBox<String> comboMes;
     private javax.swing.JComboBox<String> comboMesa;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
@@ -2887,6 +3046,269 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     public void desabilitaCheckBoxDesconto() {
         checkConcedeDesconto.setSelected(false);
+    }
+
+    private void autorizarNfCe(String codFormaPagamento, String valorPedido, String nPedido) throws JSONException {
+        ControlerProduto controlProduto = new ControlerProduto();
+
+        // Dados de Conexao com a API - FocusNFe
+        String login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
+
+        /* Substituir pela sua identificação interna da nota. */
+        String ref = nPedido; // Código do pedido
+
+        /* Para ambiente de produção use a variável abaixo:
+         String server = "https://api.focusnfe.com.br/"; */
+        String server = "https://homologacao.focusnfe.com.br/";
+        String url = server.concat("v2/nfce?ref=" + ref + "&completa=1");
+
+        /* Configuração para realizar o HTTP BasicAuth. */
+        Object config = new DefaultClientConfig();
+        Client client = Client.create((ClientConfig) config);
+        client.addFilter(new HTTPBasicAuthFilter(login, ""));
+
+        // AdicIona itens do pedido no HashMap Itens
+        int linhas = tblDetalhePedido.getRowCount();
+        ArrayList<ProdutoNota> listaProdutosNota = new ArrayList<>();
+        for (int i = 0; i < linhas; i++) {
+            int item = i + 1;
+            ProdutoNota pnota = new ProdutoNota();
+            pnota.setItem(String.valueOf(item));
+            String idProduto = tblDetalhePedido.getModel().getValueAt(i, 0).toString();
+            String ncm = controlProduto.localizaNCM(idProduto);
+            pnota.setCodProduto(idProduto);
+            pnota.setCodNcm(ncm);
+            pnota.setDescricao(tblDetalhePedido.getModel().getValueAt(i, 1).toString());
+            pnota.setQtd(tblDetalhePedido.getModel().getValueAt(i, 2).toString());
+            pnota.setvUnit(tblDetalhePedido.getModel().getValueAt(i, 3).toString().replace(",", "."));
+            pnota.setVlrTotal(tblDetalhePedido.getModel().getValueAt(i, 4).toString().replace(",", "."));
+//            // Exibe os itens da nota
+//            System.out.println("Item: " + item);
+//            System.out.println("Código: " + pnota.getCodProduto());
+//            System.out.println("Cod. NCM: " + pnota.getCodNcm());
+//            System.out.println("Descrição: " + pnota.getDescricao());
+//            System.out.println("Qtd: " + pnota.getQtd());
+//            System.out.println("Valor Unitário: " + pnota.getvUnit());
+//            System.out.println("Valor Total: " + pnota.getVlrTotal());
+
+            listaProdutosNota.add(pnota);
+
+        }
+        // Campos da NFc-e
+
+        //-=--=--=-=-=-= CAMPOS DA NFCe =-==-=-=-==-=- 
+        Date dataAtual = new Date();
+        String hoje = utils.formataDateTime(dataAtual);
+
+        nfce.put("consumidor_final", "1");
+        nfce.put("presenca_comprador", "1");
+        //nfce.put("forma_pagamento", "01");
+        nfce.put("forma_pagamento", codFormaPagamento);
+        nfce.put("natureza_operacao", "Venda ao Consumidor");
+        nfce.put("tipo_documento", "1"); // 1 - Nota Fiscal de Saída
+        nfce.put("cpf_destinatario", "");
+        nfce.put("icms_valor_total", "0.0000");
+        nfce.put("icms_modalidade_base_calculo", "3");
+        nfce.put("valor_frete", "0.0");
+        nfce.put("modalidade_frete", "9");// 0 – Por conta do emitente; 1 – Por conta do destinatário; 2 – Por conta de terceiros; 9 – Sem frete;
+        nfce.put("icms_base_calculo", "0.0000");
+        nfce.put("data_emissao", hoje);
+        nfce.put("cnpj_emitente", "34257575000106");
+
+        json = new JSONObject(this.nfce);
+
+        for (int i = 0; i < listaProdutosNota.size(); i++) {
+
+//            itens.put("numero_item", listaProdutosNota.get(i).getItem());
+//            itens.put("codigo_produto", listaProdutosNota.get(i).getCodProduto());
+//            itens.put("valor_desconto", "0.00");
+//            itens.put("quantidade_comercial", listaProdutosNota.get(i).getQtd());
+//            itens.put("cfop", "5102"); // Venda de mercadoria adquirida ou recebida de terceiros
+//            itens.put("icms_situacao_tributaria", "103");
+//            itens.put("unidade_comercial", "un");
+//            itens.put("descricao", "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"); //Substituir pela descrição do produto no ambiente de produção
+//            itens.put("pis_situacao_tributaria", "07");
+//            itens.put("codigo_ncm", listaProdutosNota.get(i).getCodNcm());
+//            itens.put("quantidade_tributavel", listaProdutosNota.get(i).getQtd());
+//            itens.put("unidade_tributavel", "un");
+//            itens.put("cofins_situacao_tributaria", "07");
+//            itens.put("valor_unitario_comercial", listaProdutosNota.get(i).getvUnit());
+//            itens.put("icms_origem", "0");
+//            itens.put("valor_bruto", listaProdutosNota.get(i).getVlrTotal());
+//            itens.put("valor_unitario_tributavel", listaProdutosNota.get(i).getvUnit());
+//            itens.put("valor_frete", "0");
+//
+//            jSonItens = new JSONObject(this.itens);
+        }
+        json.append("items", jSonItens);
+
+        formasPagamento.put("forma_pagamento", codFormaPagamento);
+        formasPagamento.put("valor_pagamento", valorPedido);
+        jsonPagamento = new JSONObject(this.formasPagamento);
+
+        json.append("formas_pagamento", jsonPagamento);
+        // Visualiza contúdo do objeto Json Principal
+        //System.out.println(json);
+
+        // Prepara Conexao a API
+        /*Envia arquivo para Autorização */
+        WebResource request = client.resource(url);
+
+        ClientResponse resposta = request.post(ClientResponse.class, json);
+
+        int httpCode = resposta.getStatus();
+
+        String body = resposta.getEntity(String.class);
+
+
+        /* As três linhas a seguir exibem as informações retornadas pela nossa API. 
+		 * Aqui o seu sistema deverá interpretar e lidar com o retorno. */
+        System.out.print("HTTP Code: ");
+        System.out.print(httpCode);
+        System.out.print(body);
+
+        // Grava saída no arquivo
+        try {
+            FileOutputStream out = new FileOutputStream("c://sysbar/retorno.json");
+            PrintStream ps = new PrintStream(out);
+            System.setOut(ps);
+            //System.out.println("[" + body + "]");
+            System.out.println(body);
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Autorizar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void autorizarNfCe2(String codFormaPagamento, String valorPedido, String nPedido) throws JSONException {
+        ControlerProduto controlProduto = new ControlerProduto();
+
+        // Dados de Conexao com a API - FocusNFe
+        String login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
+
+        /* Substituir pela sua identificação interna da nota. */
+        String ref = nPedido; // Código do pedido
+
+        /* Para ambiente de produção use a variável abaixo:
+         String server = "https://api.focusnfe.com.br/"; */
+        String server = "https://homologacao.focusnfe.com.br/";
+        String url = server.concat("v2/nfce?ref=" + ref + "&completa=0"); // 0 - para retorno simples  / 1- Retorno completo
+
+        /* Configuração para realizar o HTTP BasicAuth. */
+        Object config = new DefaultClientConfig();
+        Client client = Client.create((ClientConfig) config);
+        client.addFilter(new HTTPBasicAuthFilter(login, ""));
+
+        // AdicIona itens do pedido no HashMap Itens
+        int linhas = tblDetalhePedido.getRowCount();
+        ArrayList<ProdutoNota> listaProdutosNota = new ArrayList<>();
+        for (int i = 0; i < linhas; i++) {
+
+            int item = i + 1;
+            ProdutoNota pnota = new ProdutoNota();
+            pnota.setItem(String.valueOf(item));
+            String idProduto = tblDetalhePedido.getModel().getValueAt(i, 0).toString();
+            String ncm = controlProduto.localizaNCM(idProduto);
+            pnota.setCodProduto(idProduto);
+            pnota.setCodNcm(ncm);
+            pnota.setDescricao(tblDetalhePedido.getModel().getValueAt(i, 1).toString());
+            pnota.setQtd(tblDetalhePedido.getModel().getValueAt(i, 2).toString());
+            pnota.setvUnit(tblDetalhePedido.getModel().getValueAt(i, 3).toString().replace(",", "."));
+            pnota.setVlrTotal(tblDetalhePedido.getModel().getValueAt(i, 4).toString().replace(",", "."));
+
+            listaProdutosNota.add(pnota);
+
+        }
+        // Campos da NFc-e
+
+        //-=--=--=-=-=-= CAMPOS DA NFCe =-==-=-=-==-=- 
+        Date dataAtual = new Date();
+        String hoje = utils.formataDateTime(dataAtual);
+
+        nfce.put("consumidor_final", "1");
+        nfce.put("presenca_comprador", "1");
+        //nfce.put("forma_pagamento", "01");
+        nfce.put("forma_pagamento", codFormaPagamento);
+        nfce.put("natureza_operacao", "Venda ao Consumidor");
+        nfce.put("tipo_documento", "1"); // 1 - Nota Fiscal de Saída
+        nfce.put("cpf_destinatario", "");
+        nfce.put("icms_valor_total", "0.0000");
+        nfce.put("icms_modalidade_base_calculo", "3");
+        nfce.put("valor_frete", "0.0");
+        nfce.put("modalidade_frete", "9");// 0 – Por conta do emitente; 1 – Por conta do destinatário; 2 – Por conta de terceiros; 9 – Sem frete;
+        nfce.put("icms_base_calculo", "0.0000");
+        nfce.put("data_emissao", hoje);
+        nfce.put("cnpj_emitente", "34257575000106");
+
+        json = new JSONObject(this.nfce);
+        
+        HashMap<String, String> itens;
+        
+        for (int i = 0; i < listaProdutosNota.size(); i++) {
+            itens = new HashMap<>();
+            itens.put("numero_item", listaProdutosNota.get(i).getItem());
+            itens.put("codigo_produto", listaProdutosNota.get(i).getCodProduto());
+            itens.put("valor_desconto", "0.00");
+            itens.put("quantidade_comercial", listaProdutosNota.get(i).getQtd());
+            itens.put("cfop", "5102"); // Venda de mercadoria adquirida ou recebida de terceiros
+            itens.put("icms_situacao_tributaria", "103");
+            itens.put("unidade_comercial", "un");
+            itens.put("descricao", "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"); //Substituir pela descrição do produto no ambiente de produção
+            itens.put("pis_situacao_tributaria", "07");
+            itens.put("codigo_ncm", listaProdutosNota.get(i).getCodNcm());
+            itens.put("quantidade_tributavel", listaProdutosNota.get(i).getQtd());
+            itens.put("unidade_tributavel", "un");
+            itens.put("cofins_situacao_tributaria", "07");
+            itens.put("valor_unitario_comercial", listaProdutosNota.get(i).getvUnit());
+            itens.put("icms_origem", "0");
+            itens.put("valor_bruto", listaProdutosNota.get(i).getVlrTotal());
+            itens.put("valor_unitario_tributavel", listaProdutosNota.get(i).getvUnit());
+            itens.put("valor_frete", "0"); 
+           
+            JSONObject obj = new JSONObject(itens);
+            
+            json.accumulate("items", obj);
+           
+        }
+        
+        formasPagamento.put("forma_pagamento", codFormaPagamento);
+        formasPagamento.put("valor_pagamento", valorPedido);
+        jsonPagamento = new JSONObject(this.formasPagamento);
+
+        json.append("formas_pagamento", jsonPagamento);
+
+        // Visualiza contúdo do objeto Json Principal
+        //System.out.println(json);
+        // Prepara Conexao a API
+        /*Envia arquivo para Autorização */
+        WebResource request = client.resource(url);
+
+        ClientResponse resposta = request.post(ClientResponse.class, json);
+
+        int httpCode = resposta.getStatus();
+
+        String body = resposta.getEntity(String.class);
+        
+
+        /* As três linhas a seguir exibem as informações retornadas pela nossa API. 
+        /* Aqui o seu sistema deverá interpretar e lidar com o retorno. */
+        System.out.print("HTTP Code: ");
+        System.out.print(httpCode);
+        System.out.print(body);
+         //Grava saída no arquivo
+        try {
+            FileOutputStream out = new FileOutputStream("c://sysbar/retorno.json");
+            PrintStream ps = new PrintStream(out);
+            System.setOut(ps);
+
+            //System.out.println(body);
+            System.out.println(body);
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Autorizar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
 }

@@ -574,4 +574,21 @@ public class ControlerProduto {
         
         return codigo_ncm;
     }
+    
+    //Retorna o ncm do produto cadastrado
+    public String localizaNCM(String idProduto){
+        String sql="SELECT cod_ncm FROM dbbar.tbproduto where id=?";
+        String codigo_ncm=null;
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, idProduto);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                codigo_ncm = rs.getString("cod_ncm");
+            }
+        } catch (SQLException e) {
+        }
+        
+        return codigo_ncm;
+    }
 }
