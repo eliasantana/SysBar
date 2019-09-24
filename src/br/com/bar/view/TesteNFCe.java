@@ -5,12 +5,14 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.Autorizar;
 import br.com.bar.model.ProdutoNota;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerNFCe;
 import br.com.br.controler.ControlerPedido;
 import br.com.br.controler.ControlerProduto;
+import com.google.zxing.WriterException;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -19,6 +21,7 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +29,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.proteanit.sql.DbUtils;
+import net.sf.jasperreports.engine.JRException;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
@@ -64,6 +68,7 @@ public class TesteNFCe extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDetalhePedido = new javax.swing.JTable();
         jSpinnerQtd = new javax.swing.JSpinner();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,6 +99,13 @@ public class TesteNFCe extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tbDetalhePedido);
 
+        jButton1.setText("Abrir Relatório QR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,9 +116,12 @@ public class TesteNFCe extends javax.swing.JFrame {
                 .addGap(116, 116, 116)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(adicionar)
-                        .addComponent(listar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(adicionar)
+                            .addComponent(listar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addComponent(jButton1)))
                 .addContainerGap(161, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -117,7 +132,9 @@ public class TesteNFCe extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSpinnerQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(listar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(listar)
+                    .addComponent(jButton1))
                 .addGap(26, 26, 26)
                 .addComponent(adicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(235, Short.MAX_VALUE))
@@ -284,6 +301,30 @@ public class TesteNFCe extends javax.swing.JFrame {
 
     }//GEN-LAST:event_listarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        ReportUtil ru = new ReportUtil();
+        HashMap<String,String> map = new HashMap<>();
+        map.put("chave_nfe", "NFe26190934257575000106650010000000091397401706");
+        map.put("url_consulta_nf", "nfce.sefaz.pe.gov.br/nfce/consulta");
+        map.put("serie", "1");
+        map.put("numero", "1");
+        map.put("qrcode_url", "http://nfcehomolog.sefaz.pe.gov.br/nfce/consulta?p=26190934257575000106650010000000091397401706|2|2|1|7FD968E4418F6BBBB92880FC356E1DF194AD9516");
+        String qr = "http://nfcehomolog.sefaz.pe.gov.br/nfce/consulta?p=26190934257575000106650010000000091397401706|2|2|1|7FD968E4418F6BBBB92880FC356E1DF194AD9516";        
+       Util util = new Util();
+       String caminho = "C:/Sysbar/qr.jpg";
+        try {
+            util.generateQRCodeImage(qr, 120, 120, caminho);
+        } catch (WriterException | IOException ex) {
+            Logger.getLogger(TesteNFCe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            ru.imprimeRelatorioTela("cancelamento.jasper", map, "COMPROVANTE DE CANCELAMENTO");
+        } catch (JRException ex) {
+            Logger.getLogger(TesteNFCe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -321,6 +362,7 @@ public class TesteNFCe extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinnerQtd;
     private javax.swing.JButton listar;

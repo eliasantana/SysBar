@@ -13,6 +13,7 @@ import br.com.bar.util.Util;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerNFCe;
 import br.com.br.controler.ControlerPedido;
+import com.google.zxing.WriterException;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -216,7 +217,7 @@ public class TelaReImpressao extends JDialog {
     private void lblImprimirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImprimirMouseClicked
         // Realiza a reimpressão do cupom selecionado.
         if (lblImprimir.isEnabled()) {
-            Nfce nota=new Nfce();
+            Nfce nota = new Nfce();
             int linha = tblPedidos.getSelectedRow();
 
             String nMesa = tblPedidos.getModel().getValueAt(linha, 0).toString();
@@ -228,17 +229,27 @@ public class TelaReImpressao extends JDialog {
 
             double desc = Double.parseDouble(tblPedidos.getModel().getValueAt(linha, 3).toString().replaceAll(",", "."));
             double tx = (Double.parseDouble(tblPedidos.getModel().getValueAt(linha, 2).toString().replaceAll(",", ".")));
-            
+
             ControlerNFCe controlerNFCe = new ControlerNFCe();
             controlerNFCe.consultarNFCE(idPedido, "consulta.json"); // Realiza a consulta e gera o arquivo de retorno
-            
+
             try {
                 // Ler o arquivo de retorno e devolve um obj do tipo NFCe com os dados lidos
                 nota = controlerNFCe.lerRetorno("consulta.json");
             } catch (ParseException | IOException ex) {
                 Logger.getLogger(TelaReImpressao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
+            try {
+                // Gera QRcod
+                if (nota.getQrcode_url() != null) {
+
+                    u.generateQRCodeImage(nota.getQrcode_url(), 120, 120, "C:/Sysbar/qr.jpg");
+                }
+            } catch (WriterException | IOException ex) {
+                Logger.getLogger(TelaReImpressao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             // Imprime cupom de pagamento
             HashMap dados = new HashMap();
             Date dt = new Date();
