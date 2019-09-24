@@ -274,7 +274,7 @@ public class TelaReImpressao extends JDialog {
             dados.put("end2", dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + " - " + dadosEmpresa.getTelefone());
             dados.put("cnpj", dadosEmpresa.getCnpj());
             dados.put("desc", desc);
-            dados.put("forma_pag", cp.retornaFormaPagto(idPedido).toUpperCase());
+            dados.put("forma_pag", cp.retornaFormaPagto(idPedido));
             // Adiciona os dados fiscais lidos no arquivo de retorno de autorizacao.
             dados.put("chave_nfe", nota.getChave_nfe());
             dados.put("url_consulta_nf", nota.getUrl_consulta_nf());

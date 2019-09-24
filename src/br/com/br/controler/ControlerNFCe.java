@@ -282,7 +282,7 @@ public class ControlerNFCe {
            
            
             
-        } catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException | ParseException ex) {
             Logger.getLogger(TesteJesonString.class.getName()).log(Level.SEVERE, null, ex);
         }
         
