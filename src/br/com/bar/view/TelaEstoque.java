@@ -55,7 +55,6 @@ public class TelaEstoque extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
         borda = new javax.swing.JPanel();
         btnProduto1 = new javax.swing.JPanel();
         lblGerenciarEstoque = new javax.swing.JLabel();
@@ -67,7 +66,6 @@ public class TelaEstoque extends javax.swing.JFrame {
         btnPrecos = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         btnLog = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
@@ -85,14 +83,17 @@ public class TelaEstoque extends javax.swing.JFrame {
         lblCargo = new javax.swing.JLabel();
         lblNomeOperador = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnCancelamento = new javax.swing.JPanel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(null);
 
         borda.setBackground(new java.awt.Color(204, 204, 204));
-        borda.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        borda.setForeground(new java.awt.Color(153, 153, 153));
+        borda.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         borda.setLayout(null);
 
         btnProduto1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -190,14 +191,6 @@ public class TelaEstoque extends javax.swing.JFrame {
         borda.add(btnPrecos);
         btnPrecos.setBounds(220, 120, 190, 100);
 
-        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel13MouseClicked(evt);
-            }
-        });
-        borda.add(jLabel13);
-        jLabel13.setBounds(450, 400, 190, 100);
-
         btnLog.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnLog.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -209,7 +202,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/log64x64.png"))); // NOI18N
         btnLog.add(jLabel16);
-        jLabel16.setBounds(0, 0, 190, 100);
+        jLabel16.setBounds(0, 0, 170, 100);
 
         jLabel21.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(52, 73, 94));
@@ -340,31 +333,42 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel2.setBounds(40, 10, 90, 80);
 
         borda.add(painelEsquerdo);
-        painelEsquerdo.setBounds(0, 0, 628, 90);
+        painelEsquerdo.setBounds(1, 1, 625, 90);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 630, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addComponent(borda, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 360, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addComponent(borda, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        btnCancelamento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        btnCancelamento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelamentoMouseClicked(evt);
+            }
+        });
+        btnCancelamento.setLayout(null);
 
-        getContentPane().add(jPanel3);
-        jPanel3.setBounds(0, 0, 630, 360);
+        jLabel26.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(52, 73, 94));
+        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel26.setText("Cupom Fiscal");
+        btnCancelamento.add(jLabel26);
+        jLabel26.setBounds(70, 50, 120, 20);
 
-        setSize(new java.awt.Dimension(628, 359));
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/cancelar2.png"))); // NOI18N
+        btnCancelamento.add(jLabel19);
+        jLabel19.setBounds(10, 0, 80, 100);
+
+        jLabel27.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(52, 73, 94));
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel27.setText("Cancelamento de");
+        btnCancelamento.add(jLabel27);
+        jLabel27.setBounds(70, 30, 120, 20);
+
+        borda.add(btnCancelamento);
+        btnCancelamento.setBounds(20, 340, 190, 100);
+
+        getContentPane().add(borda);
+        borda.setBounds(0, 0, 627, 460);
+
+        setSize(new java.awt.Dimension(628, 460));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -391,11 +395,6 @@ public class TelaEstoque extends javax.swing.JFrame {
         m.recebeOperador(principal,lblNomeOperador.getText(), lblCargo.getText());
         m.setVisible(true);
     }//GEN-LAST:event_lblGerenciarEstoqueMouseClicked
-
-    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
-
-
-    }//GEN-LAST:event_jLabel13MouseClicked
 
     private void btnPrecosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrecosMouseClicked
 
@@ -472,6 +471,14 @@ public class TelaEstoque extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblGerenciarEstoqueKeyPressed
 
+    private void btnCancelamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelamentoMouseClicked
+        // Chama tela de Cancelamento
+        TelaCancelamentoNFCe cancelamento = new TelaCancelamentoNFCe();
+        cancelamento.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
+        cancelamento.setAlwaysOnTop(true);
+        cancelamento.setVisible(true);
+    }//GEN-LAST:event_btnCancelamentoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -510,6 +517,7 @@ public class TelaEstoque extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel borda;
     private javax.swing.JPanel btnCaixa;
+    private javax.swing.JPanel btnCancelamento;
     private javax.swing.JPanel btnGraficoRanking;
     private javax.swing.JPanel btnLog;
     private javax.swing.JPanel btnPrecos;
@@ -517,22 +525,23 @@ public class TelaEstoque extends javax.swing.JFrame {
     private javax.swing.JPanel btnRAnking;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblFornecedores5;
     private javax.swing.JLabel lblGerenciarEstoque;

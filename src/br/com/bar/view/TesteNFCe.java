@@ -14,8 +14,6 @@ import br.com.br.controler.ControlerPedido;
 import br.com.br.controler.ControlerProduto;
 import com.google.zxing.WriterException;
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
@@ -28,6 +26,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JRException;
 import org.codehaus.jettison.json.JSONException;
@@ -69,6 +68,13 @@ public class TesteNFCe extends javax.swing.JFrame {
         tbDetalhePedido = new javax.swing.JTable();
         jSpinnerQtd = new javax.swing.JSpinner();
         jButton1 = new javax.swing.JButton();
+        btnValidaEmail = new javax.swing.JButton();
+        txtEmail1 = new javax.swing.JTextField();
+        txtEmail2 = new javax.swing.JTextField();
+        txtEmail3 = new javax.swing.JTextField();
+        lblEmail1 = new javax.swing.JLabel();
+        lblEmail2 = new javax.swing.JLabel();
+        lblEmail3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,6 +112,19 @@ public class TesteNFCe extends javax.swing.JFrame {
             }
         });
 
+        btnValidaEmail.setText("Validar");
+        btnValidaEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnValidaEmailActionPerformed(evt);
+            }
+        });
+
+        lblEmail1.setText("jLabel1");
+
+        lblEmail2.setText("jLabel1");
+
+        lblEmail3.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -116,13 +135,30 @@ public class TesteNFCe extends javax.swing.JFrame {
                 .addGap(116, 116, 116)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(adicionar)
-                            .addComponent(listar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
-                        .addComponent(jButton1)))
-                .addContainerGap(161, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(listar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(adicionar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(117, 117, 117)
+                                .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtEmail2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnValidaEmail)
+                                .addComponent(txtEmail3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblEmail1)
+                    .addComponent(lblEmail2)
+                    .addComponent(lblEmail3))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,10 +170,29 @@ public class TesteNFCe extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(listar)
-                    .addComponent(jButton1))
-                .addGap(26, 26, 26)
-                .addComponent(adicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(235, Short.MAX_VALUE))
+                    .addComponent(jButton1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblEmail1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblEmail2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblEmail3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtEmail2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtEmail3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(adicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnValidaEmail)))
+                .addContainerGap(181, Short.MAX_VALUE))
         );
 
         pack();
@@ -325,6 +380,48 @@ public class TesteNFCe extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnValidaEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidaEmailActionPerformed
+     
+     ArrayList<String> listaEmail = new ArrayList<>();
+     
+     if (u.validaEmail(txtEmail1.getText())){
+         listaEmail.add(txtEmail1.getText());
+         lblEmail1.setText("Válido");
+     }else {
+         lblEmail1.setText("inválido");
+     }
+     
+     if (u.validaEmail(txtEmail2.getText())){
+         listaEmail.add(txtEmail2.getText());
+         lblEmail2.setText("Válido");
+     }else {
+          lblEmail1.setText("inválido");
+     }
+     
+     if (u.validaEmail(txtEmail3.getText())){
+         listaEmail.add(txtEmail1.getText());
+         lblEmail3.setText("Válido");
+     }else {
+          lblEmail3.setText("Inválido");
+     }
+     
+        System.out.println("Tamnho da Lista: "+ listaEmail.toString());
+        System.out.println("Tamnho: "+listaEmail.size());
+     
+      if(listaEmail.size()>0){
+          ControlerNFCe cNfce = new ControlerNFCe();
+         try {
+             if (cNfce.enviaEmail("718", listaEmail)){
+                 JOptionPane.showMessageDialog(this, "Mensagem enviad com sucesso!");
+             }
+         } catch (JSONException ex) {
+             Logger.getLogger(TesteNFCe.class.getName()).log(Level.SEVERE, null, ex);
+         }
+          
+      }
+       
+    }//GEN-LAST:event_btnValidaEmailActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -362,10 +459,17 @@ public class TesteNFCe extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionar;
+    private javax.swing.JButton btnValidaEmail;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinnerQtd;
+    private javax.swing.JLabel lblEmail1;
+    private javax.swing.JLabel lblEmail2;
+    private javax.swing.JLabel lblEmail3;
     private javax.swing.JButton listar;
     private javax.swing.JTable tbDetalhePedido;
+    private javax.swing.JTextField txtEmail1;
+    private javax.swing.JTextField txtEmail2;
+    private javax.swing.JTextField txtEmail3;
     // End of variables declaration//GEN-END:variables
 }

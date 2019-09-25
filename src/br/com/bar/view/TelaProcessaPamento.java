@@ -25,6 +25,7 @@ public class TelaProcessaPamento extends javax.swing.JFrame {
     public TelaProcessaPamento() {
         initComponents();    
         setAlwaysOnTop(true);
+        cronometro();
     }
 
     public void recebeCodAutorizacao(int codAutorizacao) {
