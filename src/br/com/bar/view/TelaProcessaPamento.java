@@ -20,12 +20,12 @@ public class TelaProcessaPamento extends javax.swing.JFrame {
      */
     TimerTask task;
     int s;
-    int limite = 6;
+    int limite;
   
     public TelaProcessaPamento() {
         initComponents();    
         setAlwaysOnTop(true);
-        cronometro();
+        cronometro(limite);
     }
 
     public void recebeCodAutorizacao(int codAutorizacao) {
@@ -70,10 +70,11 @@ public class TelaProcessaPamento extends javax.swing.JFrame {
         }
         // Atualiza tela 
         SwingUtilities.updateComponentTreeUI(this);
-        cronometro();
+        
     }
 
-    private void cronometro() {
+    public final void cronometro(int limite) {
+        this.limite = limite;
         long segundos = 1000;
         Timer timer = new Timer();
 

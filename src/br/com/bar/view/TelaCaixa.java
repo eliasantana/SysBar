@@ -1437,6 +1437,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
                     if (op == JOptionPane.YES_OPTION) {  // Se confirmado fecha o pedido
                         TelaProcessaPamento tpp = new TelaProcessaPamento();
+                        tpp.cronometro(10);
                         tpp.setVisible(true);
 
                         // Retorna a forma de pagamento 
@@ -2343,8 +2344,8 @@ public class TelaCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ControlerNFCe cNfce = new ControlerNFCe();
-        cNfce.nfcCancelamento("NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL", "708");
+//        ControlerNFCe cNfce = new ControlerNFCe();
+//        cNfce.cancelaNFCe("NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL", "708");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnLerRetornoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLerRetornoActionPerformed

@@ -6,11 +6,19 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.Log;
-import br.com.bar.model.Nfce;
+import br.com.bar.dao.ReportUtil;
+import br.com.bar.model.NFCeCancelamento;
+import br.com.bar.util.ConexaoInternet;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerNFCe;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -18,9 +26,10 @@ import javax.swing.JOptionPane;
  */
 public class TelaCancelamentoNFCe extends javax.swing.JFrame {
 
-    String operador=null;
-    String cargo=null;
-    
+    Util u = new Util();
+    String operador = null;
+    String cargo = null;
+
     public TelaCancelamentoNFCe() {
         initComponents();
         lblBtnCancelar.setEnabled(false);
@@ -157,80 +166,109 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void txtNumeroNotaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroNotaKeyPressed
-         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-             txtAreaMensagem.setEnabled(true);
-             txtAreaMensagem.requestFocus();
-             
-         }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtAreaMensagem.setEnabled(true);
+            txtAreaMensagem.requestFocus();
+
+        }
     }//GEN-LAST:event_txtNumeroNotaKeyPressed
 
     private void txtAreaMensagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAreaMensagemMouseClicked
-        
+
     }//GEN-LAST:event_txtAreaMensagemMouseClicked
 
     private void txtAreaMensagemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAreaMensagemKeyPressed
-       Util u = new Util();
-       
-        String textoDigitado = u.retiraAcento(txtAreaMensagem.getText());
-        
-        txtAreaMensagem.setText(u.tamanhoMaximo(textoDigitado,30).toUpperCase());
 
-        int tamanho = textoDigitado.length();       
+        String textoDigitado = u.retiraAcento(txtAreaMensagem.getText());
+
+        txtAreaMensagem.setText(u.tamanhoMaximo(textoDigitado, 60).toUpperCase());
+       
+        int tamanho = textoDigitado.length();
 
         if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
             tamanho = tamanho - 1;
-            lblMensagem.setText("Caractere(s) "+String.valueOf(tamanho));
-            if (tamanho<=14){
+            lblMensagem.setText("Caractere(s) " + String.valueOf(tamanho));
+            if (tamanho <= 15) {
                 lblBtnCancelar.setEnabled(false);
             }
-            if (tamanho<=0){
-                 lblMensagem.setText("Deve conter no mínimo de 15 caracteres.");
+            if (tamanho <= 0) {
+                lblMensagem.setText("Deve conter no mínimo de 15 caracteres.");
             }
         } else {
 
             if (tamanho >= 0) {
                 tamanho = tamanho + 1;
-                lblMensagem.setText("Caractere(s) "+String.valueOf(tamanho));
+                lblMensagem.setText("Caractere(s) " + String.valueOf(tamanho));
             }
-            if (tamanho<10){
+            if (tamanho < 15) {
                 lblBtnCancelar.setEnabled(false);
-            }else {
-                 lblBtnCancelar.setEnabled(true);
+            } else {
+                lblBtnCancelar.setEnabled(true);
             }
-            
 
         }
     }//GEN-LAST:event_txtAreaMensagemKeyPressed
 
     private void lblBtnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBtnCancelarMouseClicked
         // Cancela nota
-        ControlerNFCe cnfec = new ControlerNFCe(); 
-        Log l = new Log();
-        int op = JOptionPane.showConfirmDialog(this, "Confirma o cancelamento da nota N."+ txtNumeroNota.getText()+"?","Atenção",JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-        if (op ==JOptionPane.YES_OPTION){
-            
-            int codRetorno = cnfec.nfcCancelamento(txtAreaMensagem.getText(), txtNumeroNota.getText());
+        ConexaoInternet i = new ConexaoInternet();
+        // Avisa ao usuário se existe conexao com a internet
+        if (i.temConexao()) {
 
-            switch (codRetorno) {
-                case 200:
-                    JOptionPane.showMessageDialog(this, "A nota " + txtNumeroNota.getText() + " foi cancelada com sucesso!");
-                    break;
-                case 201:
-                    JOptionPane.showMessageDialog(this, "A nota " + txtNumeroNota.getText() + " foi cancelada com sucesso!");
-                    break;
+            ControlerNFCe cnfec = new ControlerNFCe();
+            NFCeCancelamento c;
+            Log l = new Log();
+            int op = JOptionPane.showConfirmDialog(this, "Confirma o cancelamento da nota N." + txtNumeroNota.getText() + "?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            if (op == JOptionPane.YES_OPTION) {
+
+                int codCancelamento = cnfec.cancelaNFCe(txtAreaMensagem.getText(), txtNumeroNota.getText(), "cancelamento.json");
+                if (codCancelamento == 404) {
+                    JOptionPane.showMessageDialog(this, "A nota de N. " + txtNumeroNota.getText() + " não foi localizada! Verifique o número da nota.");
+                } else {
+
+                    try {
+                        c = cnfec.lerRetornoCancelamento("cancelamento.json");
+                        ReportUtil rpu = new ReportUtil();
+                        HashMap map = new HashMap();
+
+                        // Imprime nota de Cancelamento se o caminho da nota for diferente de NULL
+                        if (c.getCaminho_xml_cancelamento() != null) {
+                            map.put("status_sefaz", c.getStatus_sefaz());
+                            map.put("mensagem_sefaz", c.getMensagem_sefaz());
+                            map.put("status", c.getStatus());
+                            map.put("caminho_xml_cancelamento", c.getCaminho_xml_cancelamento());
+                            map.put("numero_nota", txtNumeroNota.getText());
+                            map.put("justificativa", txtAreaMensagem.getText());
+                            try {
+                                rpu.imprimeRelatorioTela("cancelamento.jasper", map, "Cancelamento de Cupom Fiscal - NFCe");
+                            } catch (JRException ex) {
+                                Logger.getLogger(TelaCancelamentoNFCe.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+
+                        }
+                    } catch (ParseException | IOException ex) {
+                        Logger.getLogger(TelaCancelamentoNFCe.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    // Registra o cancelamento no Log
+                    l.setDescricao(operador + " - Cancelou a Nota " + txtNumeroNota.getText() + " Cód. Retorno: ");
+                    l.setFuncionalidade("Cancelamento NFCe");
+                    l.setUsuario(operador);
+                    l.gravaLog(l);
+                    
+                    this.dispose();
+                }
             }
-            
-            // Registra o cancelamento no Log
-            l.setDescricao(operador + " - Cancelou a Nota "+ txtNumeroNota.getText() + "Cód. Retorno: "+codRetorno);
-            l.setFuncionalidade("Cancelamento NFCe");
-            l.gravaLog(l);
+        } else {
+            JOptionPane.showMessageDialog(this, "Sem conexao com a internet! Não foi possível cancela a nota!", "Atenção", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_lblBtnCancelarMouseClicked
 
-    public void recebeOperador(String operador, String cargo){
+    public void recebeOperador(String operador, String cargo) {
         this.operador = operador;
         this.cargo = cargo;
     }
+
     /**
      * @param args the command line arguments
      */

@@ -6,9 +6,11 @@
 package br.com.br.controler;
 
 import br.com.bar.model.Autorizar;
+import br.com.bar.model.NFCeCancelamento;
 import br.com.bar.model.Nfce;
 import br.com.bar.model.TesteJesonString;
 import br.com.bar.util.Util;
+import com.google.gson.Gson;
 import java.util.HashMap;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -28,6 +30,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONArray;
+import org.json.simple.JsonObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -160,9 +163,10 @@ public class ControlerNFCe {
 
     }
 
-    public int nfcCancelamento(String motivo, String nPedido) {
+    public int  cancelaNFCe(String motivo, String nPedido, String arquivoRetorno) {
         String login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
-
+        NFCeCancelamento cancelamento = new NFCeCancelamento();
+        
         /* Substituir pela sua identificação interna da nota. */
         String ref = nPedido;
 
@@ -192,14 +196,26 @@ public class ControlerNFCe {
         int httpCode = resposta.getStatus();
 
         String body = resposta.getEntity(String.class);
-
+                
         /* As três linhas abaixo imprimem as informações retornadas pela API. 
         * Aqui o seu sistema deverá interpretar e lidar com o retorno. */
         System.out.print("HTTP Code: ");
         System.out.print(httpCode);
         System.out.printf(body);
+        
+        try {
+            FileOutputStream out = new FileOutputStream("c://sysbar/" + arquivoRetorno);
+            PrintStream ps = new PrintStream(out);
+            System.setOut(ps);
 
-        return httpCode;
+            System.out.println(body);
+            //System.out.println(json);
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Autorizar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+       return httpCode;
     }
 
     public boolean enviaEmail(String refNPedido, ArrayList<String> listaDeEmail) throws JSONException {
@@ -291,5 +307,39 @@ public class ControlerNFCe {
         }
 
         return nota;
+    }
+    /**
+     * Converte um arquivo de retorno String no formato JSon e converte em
+     * JSONObjet utilizando a biblioteca org.json.simple
+     *
+     * @param nomeArquivo Nome do arquivo a ser lido
+     * @return Retorna um Objeto NFCeCancelamento contendo:
+     *
+     * Status Sefaz
+     * Mensagem Sefaz
+     * Status
+     * Caminho XML do Cancelamento
+     * @throws org.json.simple.parser.ParseException
+     * @throws java.io.IOException
+     */
+    public NFCeCancelamento lerRetornoCancelamento(String nomeArquivo) throws ParseException, IOException {
+        org.json.simple.JSONObject jo;
+        JSONParser parser = new JSONParser();
+        NFCeCancelamento cancelamento = new NFCeCancelamento();
+
+        try {
+            
+            jo = (org.json.simple.JSONObject) parser.parse(new FileReader("C:\\Sysbar\\" + nomeArquivo));
+            cancelamento.setStatus_sefaz((String)jo.get("status_sefaz"));
+            cancelamento.setMensagem_sefaz((String)jo.get("mensagem_sefaz"));
+            cancelamento.setStatus((String)jo.get("status"));
+            cancelamento.setCaminho_xml_cancelamento((String)jo.get("caminho_xml_cancelamento"));
+
+            //System.out.println(nota.toString());
+        } catch (FileNotFoundException | ParseException ex) {
+            Logger.getLogger(TesteJesonString.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return cancelamento;
     }
 }
