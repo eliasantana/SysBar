@@ -8,9 +8,11 @@ package br.com.bar.view;
 import br.com.bar.dao.Log;
 import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.NFCeCancelamento;
+import br.com.bar.model.Nfce;
 import br.com.bar.util.ConexaoInternet;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerNFCe;
+import br.com.br.controler.ControlerPedido;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.HashMap;
@@ -56,9 +58,9 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
         lblMensagem = new javax.swing.JLabel();
         lblBtnCancelar = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 0, 0));
@@ -73,7 +75,7 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Cancelamento de Nota (NFC-e)");
+        jLabel2.setText("Cancelamento de Cumpom Fiscal (NFC-e)");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -101,9 +103,9 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
         jPanel2.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("N. da Nota");
+        jLabel1.setText("N. do Cupom");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(20, 55, 90, 30);
+        jLabel1.setBounds(20, 50, 90, 30);
 
         txtNumeroNota.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -111,7 +113,7 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
             }
         });
         jPanel2.add(txtNumeroNota);
-        txtNumeroNota.setBounds(90, 55, 100, 30);
+        txtNumeroNota.setBounds(110, 50, 100, 30);
 
         txtAreaMensagem.setColumns(20);
         txtAreaMensagem.setLineWrap(true);
@@ -146,17 +148,26 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
             }
         });
         jPanel2.add(lblBtnCancelar);
-        lblBtnCancelar.setBounds(210, 55, 140, 30);
+        lblBtnCancelar.setBounds(210, 50, 140, 30);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Justificativa:");
         jPanel2.add(jLabel4);
         jLabel4.setBounds(20, 90, 130, 20);
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1);
+        jButton1.setBounds(250, 80, 73, 23);
+
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 0, 348, 238);
 
-        setSize(new java.awt.Dimension(348, 238));
+        setSize(new java.awt.Dimension(364, 277));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -181,8 +192,8 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
 
         String textoDigitado = u.retiraAcento(txtAreaMensagem.getText());
 
-        txtAreaMensagem.setText(u.tamanhoMaximo(textoDigitado, 60).toUpperCase());
-       
+        txtAreaMensagem.setText(u.tamanhoMaximo(textoDigitado, 60));
+
         int tamanho = textoDigitado.length();
 
         if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
@@ -216,7 +227,7 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
         if (i.temConexao()) {
 
             ControlerNFCe cnfec = new ControlerNFCe();
-            NFCeCancelamento c;
+            NFCeCancelamento c = new NFCeCancelamento();
             Log l = new Log();
             int op = JOptionPane.showConfirmDialog(this, "Confirma o cancelamento da nota N." + txtNumeroNota.getText() + "?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             if (op == JOptionPane.YES_OPTION) {
@@ -255,14 +266,38 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
                     l.setFuncionalidade("Cancelamento NFCe");
                     l.setUsuario(operador);
                     l.gravaLog(l);
-                    
+
+                    // Confirma se a nota foi cancelada no SEFAZ realiza o extorno do pedido
+                    if ("cancelado".equals(c.getStatus())) {
+                        ControlerPedido cp = new ControlerPedido();
+                        System.out.println(cp.extornaPedido(txtNumeroNota.getText(),operador));
+                        // Registra cancelamento na base local
+                        cnfec.registraCancelamento(txtNumeroNota.getText(),operador );
+                    }
+                    txtAreaMensagem.setText(null);
+                    txtAreaMensagem.setEnabled(false);
+                    lblBtnCancelar.setEnabled(false);
+                    txtNumeroNota.setText(null);
                     this.dispose();
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Sem conexao com a internet! Não foi possível cancela a nota!", "Atenção", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sem conexao com a internet!\nNão foi possível cancelar a nota! Tente novamente mais tarde.", "Atenção!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_lblBtnCancelarMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String confirmacaoSEFAZ = "Cancelado";
+        if ("Cancelado".equals(confirmacaoSEFAZ)) {
+            ControlerPedido cp = new ControlerPedido();
+             cp.extornaPedido(txtNumeroNota.getText(),"admin");
+             ControlerNFCe n = new ControlerNFCe();
+             n.registraCancelamento(txtNumeroNota.getText(), "admin");
+             
+                     
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void recebeOperador(String operador, String cargo) {
         this.operador = operador;
@@ -305,6 +340,7 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

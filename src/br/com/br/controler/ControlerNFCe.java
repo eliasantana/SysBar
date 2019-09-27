@@ -5,12 +5,14 @@
  */
 package br.com.br.controler;
 
+import br.com.bar.dao.ConexaoBd;
 import br.com.bar.model.Autorizar;
 import br.com.bar.model.NFCeCancelamento;
 import br.com.bar.model.Nfce;
 import br.com.bar.model.TesteJesonString;
 import br.com.bar.util.Util;
 import com.google.gson.Gson;
+import com.mysql.cj.protocol.Resultset;
 import java.util.HashMap;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -25,6 +27,11 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -341,5 +348,22 @@ public class ControlerNFCe {
         }
         
         return cancelamento;
+    }
+    // Registra o cancelamento do cupom na base local
+    public void registraCancelamento(String nCupom,String operador){
+       
+        String sql="INSERT INTO tbhistorico_cancelamento (numero_cupom,data, operador) VALUES (?,current_timestamp(),?)";
+        
+        try {
+            Connection conexao = ConexaoBd.conector();
+            PreparedStatement pst;            
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, nCupom);
+            pst.setString(2, operador);
+            pst.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerNFCe.gravaCancelamento()"+e);
+        }
     }
 }

@@ -7,13 +7,15 @@ package br.com.bar.view;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
 /**
  *
  * @author Elias Santana
  */
-public class TelaProcessaPamento extends javax.swing.JFrame {
+//javax.swing.JFrame
+public class TelaProcessaPamento extends JDialog {
 
     /**
      * Creates new form TelaProcessaPgamento
@@ -23,9 +25,9 @@ public class TelaProcessaPamento extends javax.swing.JFrame {
     int limite;
   
     public TelaProcessaPamento() {
-        initComponents();    
-        setAlwaysOnTop(true);
-        cronometro(limite);
+        initComponents(); 
+        cronometro(3);
+       
     }
 
     public void recebeCodAutorizacao(int codAutorizacao) {
@@ -95,6 +97,18 @@ public class TelaProcessaPamento extends javax.swing.JFrame {
         timer.scheduleAtFixedRate(task, 0, segundos);
 
     }
+    
+    
+    public void mensagem(String msg){
+        
+        lblMensagem.setText(msg);
+        // Atualiza tela 
+        SwingUtilities.updateComponentTreeUI(this);
+    }
+    
+    public void fechaTela(){
+        this.dispose();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -109,7 +123,7 @@ public class TelaProcessaPamento extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lblMensagem = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(null);
 
@@ -118,18 +132,18 @@ public class TelaProcessaPamento extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/rese7_64x64.png"))); // NOI18N
 
-        lblMensagem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblMensagem.setText("Aguarde..... Autorizando -  NFCe");
+        lblMensagem.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblMensagem.setText("Processando...");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(2, 2, 2)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblMensagem, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -139,9 +153,9 @@ public class TelaProcessaPamento extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 375, 102);
+        jPanel1.setBounds(0, 0, 553, 102);
 
-        setSize(new java.awt.Dimension(375, 103));
+        setSize(new java.awt.Dimension(553, 103));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

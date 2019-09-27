@@ -5,17 +5,20 @@
  */
 package br.com.br.controler;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 /**
  *
  * @author Elias Santana
  */
 public class ControlerDescontoPedido {
 
-    public ControlerDescontoPedido() {
-    }
+    Connection conexao=null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
     
     
-    
-    
-    
+   
 }

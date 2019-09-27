@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -333,7 +335,7 @@ public class ControlerPedido {
             pst.setString(7, produtoCozinha.get(6));
             pst.setString(8, produtoCozinha.get(7));
             pst.setString(9, produtoCozinha.get(8));
-            
+
             pst.executeUpdate();
             resp = true;
 
@@ -491,7 +493,6 @@ public class ControlerPedido {
      * @param voucher - Valor pago em Tikets.
      * @return boolean - Retorna TRUE ou False
      */
-
     public boolean gravaPagamentoMisto(String idPedido, double dinheiro, double credito, double debito, double voucher) {
 
         String sql = "INSERT INTO detalhe_pagameto (cadpedido_id_pedido, dinheiro, credito, debito, voucher) VALUES (?,?,?,?,?)";
@@ -514,11 +515,12 @@ public class ControlerPedido {
     }
 
     /**
-     *  Retorna os valores de pagamento para pedidos com forma de pagamento misto.
+     * Retorna os valores de pagamento para pedidos com forma de pagamento
+     * misto.
+     *
      * @param idPedido - id do pedido.
      * @return Retorna um Array com os valores pagos.
      */
-   
     public ArrayList retornaVlrPagamentoMisto(String idPedido) {
 
         String sql = "  SELECT \n"
@@ -528,44 +530,250 @@ public class ControlerPedido {
                 + "          WHERE\n"
                 + "    cadpedido_id_pedido = ?";
         ArrayList<Double> listaDeValores = new ArrayList<>();
-        
-        
+
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, idPedido);
-            rs=pst.executeQuery();
-            
-            while (rs.next()){
-                
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+
                 listaDeValores.add(rs.getDouble("dinheiro"));
                 listaDeValores.add(rs.getDouble("credito"));
                 listaDeValores.add(rs.getDouble("debito"));
                 listaDeValores.add(rs.getDouble("voucher"));
-                
+
             }
-            
+
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerPedido.retornaVlrPagamentoMisto()"+e);
+            System.out.println("br.com.br.controler.ControlerPedido.retornaVlrPagamentoMisto()" + e);
         }
-        
+
         return listaDeValores;
     }
-    
+
     //Retorna a forma de pagamento
-    public String retornaFormaPagto(String idpedido){
-        
-        String sql="SELECT formaPagto FROM cadpedido where id_pedido=?";
-        String formaPagto="";
+    public String retornaFormaPagto(String idpedido) {
+
+        String sql = "SELECT formaPagto FROM cadpedido where id_pedido=?";
+        String formaPagto = "";
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, idpedido);
-            rs=pst.executeQuery();
-            while (rs.next()){
+            rs = pst.executeQuery();
+            while (rs.next()) {
                 formaPagto = rs.getString("formaPagto");
             }
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerPedido.retornaFormaPagto()"+e);
+            System.out.println("br.com.br.controler.ControlerPedido.retornaFormaPagto()" + e);
         }
         return formaPagto;
+    }
+
+    /**
+     * Localiza um pedido pelo id informado
+     *
+     * @param idPedido Número do Pedido
+     * @return Retorna um objeti do tipo Pedido
+     */
+    public Pedido localizaPedido(String idPedido) {
+        String sql = "SELECT * FROM cadpedido where id_pedido=?";
+        Pedido p = new Pedido();
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, idPedido);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                p.setId(rs.getString("id_pedido"));
+                p.setData(rs.getString("data"));
+                p.setStatus(rs.getString("status"));
+                p.setTotal(rs.getString("total"));
+                p.setComissao(rs.getString("comissao"));
+                p.setFormaPagto(rs.getString("formaPagto"));
+                p.setCadMesaId(rs.getString("cadmesa_id"));
+                p.setIdFuncionario(rs.getString("tbcadfuncionario_id"));
+                p.setOperador(rs.getString("operador"));
+                p.setAutenticacao(rs.getString("autenticacao"));
+                p.setPermanencia(rs.getString("permanencia"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.localizaPedido()");
+        }
+        return p;
+
+    }
+
+    // Verifica se o pedido possui desconto
+    public String temDesconto(String idPedido) {
+
+        String sql = "SELECT id FROM tbdesconto_pedido WHERE cadpedido_id_pedido=?";
+        String idDesconto = null;
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, idPedido);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                idDesconto = rs.getString("id");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.temDesconto()");
+        }
+        return idDesconto;
+    }
+
+    // Exclui o detalhamento de pagamento do pedido informado.
+    public boolean excluiDetalhePagamento(String idPedido) {
+        // Localiza o identificador do detalhe do pagamento
+        String sql = "SELECT id FROM detalhe_pagameto WHERE cadpedido_id_pedido=?";
+        boolean resp = false;
+        String id = null;
+        try {
+
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, idPedido);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                // recupera o id do pedido
+                id = rs.getString("id");
+                resp = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.excluiDetalhePagamento()");
+
+        }
+        // Deleta o detalhe do pagamento do pedido informado
+        String deleta = "DELETE FROM detalhe_pagameto WHERE id=" + id;
+        try {
+            pst = conexao.prepareStatement(deleta);
+            pst.executeUpdate();
+            resp = true;
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.excluiDetalhePagamento()");
+
+        }
+
+        return resp;
+
+    }
+
+    //Exclui desconto para o pedido informado
+    public boolean excluiDesconto(String id) {
+        boolean resp = false;
+        String sql = "DELETE FROM tbdesconto_pedido WHERE id=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, id);
+            pst.executeUpdate();
+            resp = true;
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.excluiDesconto()" + e);
+
+        }
+        return resp;
+    }
+
+    /**
+     * Verifica se o pedido possui cancelamento
+     *
+     * @param nPedido Número do pedido
+     * @return Boolean Retorna TRUE ou FALSE
+     */
+
+    public boolean foiCancelado(String nPedido) {
+        String sql = "SELECT id FROM tbhistorico_cancelamento WHERE numero_cupom=?";
+        boolean resp = false;
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, nPedido);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                resp = true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.foiCancelado()" + e);
+        }
+
+        return resp;
+    }
+
+    /**
+     * Localiza o id do detalhe pagamento para o pedido informado
+     *
+     * @param idPedido Número do Pedido
+     * @return String Retorna o id od pedido
+     */
+    public String localizaIdDetalheDesconto(String idPedido) {
+        String sql = "SELECT id FROM detalhe_pagameto WHERE cadpedido_id_pedido=?";
+        String resp = null;
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, idPedido);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                resp = rs.getString("id");
+            }
+        } catch (SQLException e) {
+
+        }
+        return resp;
+    }
+
+    /**
+     * Extorna um pedido excluindo seu desconto e se houver também as formas de
+     * pagamento.
+     *
+     * @param idPedido Número do Pedido
+     * @param operador Nome do operador
+     * @return String Retorna uma String com a mesagem de erro
+     */
+    public String extornaPedido(String idPedido, String operador) {
+        String msg = null;
+
+        Pedido p = localizaPedido(idPedido);
+        // Retorna desconto do pedido
+        String idDesconto = temDesconto(p.getId());
+        // Localiza id o número da mesa
+        String nMesa = cm.localizaNumeroMesa(p.getId());
+        // Verifica se o pedido está vazio (Null)
+        if (cm.estaLivre(nMesa)) {
+
+            if (p.getId() != null && !"".equals(nMesa)) {
+                if (idDesconto != null) {
+                    if (excluiDesconto(idDesconto)) {
+                        System.out.println("Desconto Excluído com sucesso!");
+                    }
+                }
+                if ("MISTO".equals(p.getFormaPagto())) {
+                    if (excluiDetalhePagamento(p.getId())) {
+                        System.out.println("Excluindo o detalhamento do pagamento!");
+                    }
+                }
+                // Muda o status  do pedido para 0 (zero) = Aberto e limpa valores
+                try {
+                    String sql = "UPDATE cadpedido SET status='0', total=null, comissao=null, formaPagto=null, operador=null, autenticacao=null, permanencia=null WHERE id_pedido=?";
+                    pst = conexao.prepareStatement(sql);
+                    pst.setString(1, p.getId());
+                    pst.executeUpdate();
+                    System.out.println("Pedido Extornado!");
+                } catch (SQLException e) {
+                    System.out.println("br.com.br.controler.ControlerPedido.extornaPedidio()" + e);
+                }
+                // Muda status da mesa
+                if (cm.trocaStatusMesa(nMesa, "1")) {
+                    System.out.println("Mesa retornada ao estado anterior (Ocupada)");
+                }
+                
+            } else {
+                msg = "O número do Pedido ou o Número da mesa são inválidos!";
+            }
+        } else {
+            msg = "A Mesa " + nMesa + " está ocupada e por isso não é possível extornar este pedido!\nPorfavor aguarde a mesa " + nMesa + " finalizar o seu pedido para continuar!";
+        }
+        return msg;
     }
 }

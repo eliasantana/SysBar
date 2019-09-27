@@ -325,5 +325,24 @@ public class ControlerMesa {
 
         return numeroMEsa;
     }
-
+    // Verifica se a mesa está livre
+    public boolean estaLivre(String nMesa){
+        boolean resp=false;
+        String sql="SELECT status FROM cadmesa WHERE numero_mesa=?";
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, nMesa);
+            rs=pst.executeQuery();
+            
+            while (rs.next()){
+                if (rs.getInt("status")==0){
+                    resp=true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerMesa.estaLivre()");
+        }
+        
+        return resp;
+    }
 }

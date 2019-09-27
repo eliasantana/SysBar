@@ -80,6 +80,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     /**
      * Creates new form TelaCaixa
      */
+    TelaProcessaPamento tpp;
     ControlerMesa cm = new ControlerMesa();
     ControlerPedido cp = new ControlerPedido();
     ControlerCaixa caixa = new ControlerCaixa();
@@ -91,6 +92,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     TableModelCaixa modelCaixa = new TableModelCaixa();
     ControlerEntregador ce = new ControlerEntregador();
     ControlerNFCe cNFCe = new ControlerNFCe();
+    boolean foiCancelada;
     // Dados da NFC-e
     Nfce nota = new Nfce();
     // HashMap para armazenamento os itens da NFC-e
@@ -185,11 +187,6 @@ public class TelaCaixa extends javax.swing.JFrame {
         btnGrafico = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        btnLerRetorno = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         painelDireito = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnFechar = new javax.swing.JLabel();
@@ -411,46 +408,6 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendar24x24.png"))); // NOI18N
         lblData.setText("jLabel5");
         painelEsquerdo.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 630, 120, 40));
-
-        jButton1.setText("Autoriza");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        painelEsquerdo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 100, -1));
-
-        jButton2.setText("Cancela Nota");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        painelEsquerdo.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
-
-        btnLerRetorno.setText("Ler Retorno");
-        btnLerRetorno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLerRetornoActionPerformed(evt);
-            }
-        });
-        painelEsquerdo.add(btnLerRetorno, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 100, -1));
-
-        jButton4.setText("Consulta");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        painelEsquerdo.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 100, -1));
-
-        jButton3.setText("Processa");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        painelEsquerdo.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 110, -1));
 
         getContentPane().add(painelEsquerdo);
         painelEsquerdo.setBounds(0, 0, 260, 700);
@@ -1378,14 +1335,12 @@ public class TelaCaixa extends javax.swing.JFrame {
         // Verifica se Existe conexao com a internet
         // Caso não haja será emitido um cupom não fiscal
         boolean internet = ci.temConexao();
-        if (internet) {
-
+        if (internet) {            
             if (lblReceber.isEnabled()) {
                 if ("delivery".equals(lblGarcom.getText().toLowerCase()) && "0,00".equals(percent.getText())) {
                     JOptionPane.showMessageDialog(this, "É necessário realizar a entrega do pedido antes do seu fechamento!", "Atenção!", JOptionPane.ERROR_MESSAGE);
                     lblReceber.setEnabled(false);
                 } else {
-
                     // Fecha pedido
                     // Calcula valor
                     int nPesoas = Integer.parseInt(jSpinFieldPessoas.getValue().toString());
@@ -1393,20 +1348,16 @@ public class TelaCaixa extends javax.swing.JFrame {
                     tGeral = tGeral.replace(",", ".");
                     Double totalGeral = Double.parseDouble(tGeral);
                     Double totalPessoas = totalGeral / nPesoas;
-
                     // Instancia um produto
                     Pedido p = new Pedido();
-
                     //p.setTotal(lblTotal.getText().replaceAll(",", "."));
                     p.setTotal(tGeral);
                     String comissao = percent.getText().replace(".", "");
                     comissao = comissao.replace(",", ".");
                     p.setComissao(comissao);
-
                     String vlrPago = txtValorPago.getText().replace(".", "");
                     vlrPago = vlrPago.replace(",", ".");
                     p.setTotalPago(vlrPago);
-
                     p.setStatus("1");
                     p.setOperador(lblOperador.getText());
                     p.setId(txtIdPedido.getText());
@@ -1431,15 +1382,14 @@ public class TelaCaixa extends javax.swing.JFrame {
                     p.setCadMesaId(txtIdMEsa.getText());
                     // Calcula e retorna a permanência do cliente no estabelecimento.
                     p.setPermanencia(cp.calculaPermanencia(txtIdPedido.getText()));
-
                     // Solicita confirmação do usuário
                     int op = JOptionPane.showConfirmDialog(this, "Deseja realmente fechar este Pedido?", "Atenção!", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
 
                     if (op == JOptionPane.YES_OPTION) {  // Se confirmado fecha o pedido
-                        TelaProcessaPamento tpp = new TelaProcessaPamento();
-                        tpp.cronometro(10);
+                        // Exibe tela de processamento
+                        tpp = new TelaProcessaPamento();
+                        tpp.setModal(true);
                         tpp.setVisible(true);
-
                         // Retorna a forma de pagamento 
                         String formaPagto = detectaFormaDePagamento();
                         /*  Utilize o valor 1 para a flagFiscal para realizar a autorização
@@ -1453,7 +1403,6 @@ public class TelaCaixa extends javax.swing.JFrame {
                                 05: Crédito Loja.  10: Vale Alimentação. 11: Vale Refeição.
                                 12: Vale Presente. 13: Vale Combustível. 99: Outros
                          */
-
                         if (flagFiscal == 1) {
                             try {
 
@@ -1475,13 +1424,23 @@ public class TelaCaixa extends javax.swing.JFrame {
                                         codPagto = "99";
                                 }
                                 // Autoriza pedido com apenas 1 item
+                                    tpp = new TelaProcessaPamento();
+                                    tpp.setModal(true);
+                                    tpp.mensagem("Iniciando autorização.....");
+                                    tpp.setVisible(true);
                                 if (tblDetalhePedido.getRowCount() == 1) {
                                     autorizarNfCe(codPagto, tgeral.getText().replace(",", "."), lblNPedido.getText());
+                                    tpp = new TelaProcessaPamento();
+                                    tpp.setModal(true);
+                                    tpp.mensagem("Autorizando.....");
+                                    tpp.setVisible(true);
                                 } else {
                                     // autoriza pedido com mais de 1 item   
                                     int codPgto = autorizarNfCe2(codPagto, tgeral.getText().replace(",", "."), lblNPedido.getText());
-                                    // Chama a tela de processamento do Pedido
-                                    tpp.recebeCodAutorizacao(codPgto);
+                                    tpp = new TelaProcessaPamento();
+                                    tpp.setModal(true);
+                                    tpp.mensagem("Autorizando.....");
+                                    tpp.setVisible(true);
                                 }
                             } catch (JSONException ex) {
                                 Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
@@ -1490,6 +1449,10 @@ public class TelaCaixa extends javax.swing.JFrame {
                             //------------------ Ler Retorno da Autorização ------------------//
                             try {
                                 nota = cNFCe.lerRetorno("retorno.json");
+                                tpp = new TelaProcessaPamento();
+                                tpp.setModal(true);
+                                tpp.mensagem("Autorizado:" + nota.getChave_nfe());
+                                tpp.setVisible(true);
                             } catch (org.json.simple.parser.ParseException | IOException ex) {
                                 Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
                             }
@@ -1537,10 +1500,15 @@ public class TelaCaixa extends javax.swing.JFrame {
 
                             // Libera a mesa após o pagamento
                             cm.trocaStatusMesa(comboMesa.getSelectedItem().toString(), "0");
-
+                            //Fecha Tela de processamento
+                            tpp.fechaTela();
                             JOptionPane.showMessageDialog(this, "Pedido fechado com sucesso!");
                             // ===============================================================//
-
+                                tpp = new TelaProcessaPamento();
+                                tpp.setModal(true);
+                                tpp.mensagem("Preparando impressão do Cumpom Fiscal");
+                                tpp.setVisible(true);
+                                
                             jSpinFieldPessoas.setValue(1);
                             // Registra desconto se o valor for > que 0
                             Funcionario f = new Funcionario();
@@ -1757,7 +1725,10 @@ public class TelaCaixa extends javax.swing.JFrame {
             entregador = new Entregador();
             lbl_valor_servico.setText("Valor do Serviço");
         }
-
+        
+        if (foiCancelada = cp.foiCancelado(lblNPedido.getText())){
+            lblNPedido.setText("R".concat(lblNPedido.getText()));
+        }
 
     }//GEN-LAST:event_btnListarActionPerformed
 
@@ -2330,58 +2301,6 @@ public class TelaCaixa extends javax.swing.JFrame {
     private void checkReimpressaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkReimpressaoMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_checkReimpressaoMouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Autoriza NFC-e
-
-        try {
-            //autorizarNfCe("99", tgeral.getText().replace(",", "."), lblNPedido.getText());
-            autorizarNfCe("99", tgeral.getText().replace(",", "."), lblNPedido.getText());
-        } catch (JSONException ex) {
-            Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-//        ControlerNFCe cNfce = new ControlerNFCe();
-//        cNfce.cancelaNFCe("NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL", "708");
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void btnLerRetornoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLerRetornoActionPerformed
-
-        ControlerNFCe cNfce = new ControlerNFCe();
-        try {
-            Nfce n = cNfce.lerRetorno("consulta.json");
-            System.out.println(n.toString());
-        } catch (org.json.simple.parser.ParseException | IOException ex) {
-            Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
-    }//GEN-LAST:event_btnLerRetornoActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-//        ControlerNFCe cNfce = new ControlerNFCe();
-//        cNfce.consultarNFCE("715", "consulta.json");
-//
-//            ConexaoInternet ci= new ConexaoInternet();
-//            if (ci.temConexao()){
-//                 JOptionPane.showMessageDialog(this, "Você está conectado");
-//            }else {
-//                JOptionPane.showMessageDialog(this, "Offline");
-//            }
-
-
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        TelaProcessaPamento tp = new TelaProcessaPamento();
-        tp.setAlwaysOnTop(true);
-        tp.setVisible(true);
-
-
-    }//GEN-LAST:event_jButton3ActionPerformed
     public void recebeOperador(TelaPrincipal tela, String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
@@ -2663,7 +2582,6 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel btnFecharCaixa;
     private javax.swing.JLabel btnGrafico;
     private javax.swing.JLabel btnImprimir;
-    private javax.swing.JButton btnLerRetorno;
     private javax.swing.JButton btnListar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -2673,10 +2591,6 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkTxServico;
     private javax.swing.JComboBox<String> comboMes;
     private javax.swing.JComboBox<String> comboMesa;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
@@ -3164,7 +3078,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         nfce.put("icms_base_calculo", "0.0000");
         nfce.put("data_emissao", hoje);
         nfce.put("cnpj_emitente", "34257575000106");
-
+        //nfce.put("valor_desconto", txtDesconto.getText().replace(",", "."));
         json = new JSONObject(this.nfce);
         HashMap<String, String> itens = new HashMap<>();
         for (int i = 0; i < listaProdutosNota.size(); i++) {
@@ -3290,7 +3204,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         nfce.put("icms_base_calculo", "0.0000");
         nfce.put("data_emissao", hoje);
         nfce.put("cnpj_emitente", "34257575000106");
-
+        //nfce.put("valor_desconto", txtDesconto.getText().replace(",", "."));
         json = new JSONObject(this.nfce);
 
         HashMap<String, String> itens;

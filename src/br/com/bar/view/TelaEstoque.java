@@ -89,7 +89,6 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
         getContentPane().setLayout(null);
 
         borda.setBackground(new java.awt.Color(204, 204, 204));
@@ -368,7 +367,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         getContentPane().add(borda);
         borda.setBounds(0, 0, 627, 460);
 
-        setSize(new java.awt.Dimension(628, 460));
+        setSize(new java.awt.Dimension(644, 499));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -474,7 +473,7 @@ public class TelaEstoque extends javax.swing.JFrame {
     private void btnCancelamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelamentoMouseClicked
         // Chama tela de Cancelamento
         TelaCancelamentoNFCe cancelamento = new TelaCancelamentoNFCe();
-        cancelamento.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
+        cancelamento.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());  
         cancelamento.setAlwaysOnTop(true);
         cancelamento.setVisible(true);
     }//GEN-LAST:event_btnCancelamentoMouseClicked
