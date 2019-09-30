@@ -46,7 +46,7 @@ public class TesteNFCe extends javax.swing.JFrame {
     HashMap<String, String> nfce = new HashMap();
     HashMap<String, String> itens = new HashMap<>();
     HashMap<String, String> formasPagamento = new HashMap();
-    
+      int linhas=0;
 
     public TesteNFCe() {
         initComponents();
@@ -79,6 +79,11 @@ public class TesteNFCe extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         adicionar.setText("Adicionar");
+        adicionar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adicionarMouseClicked(evt);
+            }
+        });
         adicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 adicionarActionPerformed(evt);
@@ -103,6 +108,11 @@ public class TesteNFCe extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbDetalhePedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbDetalhePedidoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbDetalhePedido);
 
         jButton1.setText("Abrir Relatório QR");
@@ -199,10 +209,9 @@ public class TesteNFCe extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarActionPerformed
-        Date dt = new Date();
-
-        String data = u.formataDateTime(dt);
-        System.out.println("Data: " + data);
+      
+      
+        tbDetalhePedido.setValueAt("1,00",linhas, 3);
 
     }//GEN-LAST:event_adicionarActionPerformed
 
@@ -421,6 +430,14 @@ public class TesteNFCe extends javax.swing.JFrame {
       }
        
     }//GEN-LAST:event_btnValidaEmailActionPerformed
+
+    private void adicionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adicionarMouseClicked
+
+    private void tbDetalhePedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDetalhePedidoMouseClicked
+        linhas=tbDetalhePedido.getSelectedRow();
+    }//GEN-LAST:event_tbDetalhePedidoMouseClicked
 
     /**
      * @param args the command line arguments

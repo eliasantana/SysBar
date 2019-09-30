@@ -118,6 +118,7 @@
         <Property name="text" type="java.lang.String" value="Adicionar"/>
       </Properties>
       <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="adicionarMouseClicked"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adicionarActionPerformed"/>
       </Events>
     </Component>
@@ -174,6 +175,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbDetalhePedidoMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

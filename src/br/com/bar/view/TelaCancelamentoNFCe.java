@@ -8,7 +8,6 @@ package br.com.bar.view;
 import br.com.bar.dao.Log;
 import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.NFCeCancelamento;
-import br.com.bar.model.Nfce;
 import br.com.bar.util.ConexaoInternet;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerNFCe;
@@ -61,6 +60,7 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 0, 0));
@@ -167,7 +167,7 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 0, 348, 238);
 
-        setSize(new java.awt.Dimension(364, 277));
+        setSize(new java.awt.Dimension(348, 238));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
