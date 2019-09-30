@@ -187,7 +187,6 @@ public class TelaCaixa extends javax.swing.JFrame {
         btnGrafico = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         painelDireito = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnFechar = new javax.swing.JLabel();
@@ -409,14 +408,6 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendar24x24.png"))); // NOI18N
         lblData.setText("jLabel5");
         painelEsquerdo.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 630, 120, 40));
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        painelEsquerdo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, -1, -1));
 
         getContentPane().add(painelEsquerdo);
         painelEsquerdo.setBounds(0, 0, 260, 700);
@@ -2314,11 +2305,6 @@ public class TelaCaixa extends javax.swing.JFrame {
     private void checkReimpressaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkReimpressaoMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_checkReimpressaoMouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        aplicaDescontoTela();
-
-    }//GEN-LAST:event_jButton1ActionPerformed
     public void recebeOperador(TelaPrincipal tela, String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
@@ -2436,7 +2422,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             /// ************* Teste ******************////
 
         }
-       
+        aplicaDescontoTela(Double.parseDouble(txtDesconto.getText().replace(",", ".")));
 
     }
     // Atualiza o pedido no caixa pós inclusão de item de última hora
@@ -2611,7 +2597,6 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkTxServico;
     private javax.swing.JComboBox<String> comboMes;
     private javax.swing.JComboBox<String> comboMesa;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
@@ -3299,10 +3284,10 @@ public class TelaCaixa extends javax.swing.JFrame {
     // Aplica o desconto no valor dos produtos da na tela
     // Atenção o vlaor do desconto não incide sobre o valor do serviço
 
-    private void aplicaDescontoTela() {
+    private void aplicaDescontoTela(double vlrDesconto) {
         int linhas = tblDetalhePedido.getRowCount();
         double descontoItem;
-        double desconto = Double.parseDouble(txtDesconto.getText().replace(",", "."));
+        double desconto = vlrDesconto;
         int qtdItens=0;
         int somaQtd=0;
         for (int i=0; i < linhas ; i++){
@@ -3316,7 +3301,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             for (int i = 0; i < linhas; i++) {
                 double valorItem = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 3).toString().replace(",", "."));
                 double qtd = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 2).toString().replace(",", "."));
-                valorItem = valorItem - (descontoItem*qtd);
+                valorItem = valorItem - (descontoItem);
                 double totalItem = (qtd * valorItem);                
                 tblDetalhePedido.setValueAt(String.format("%9.2f", valorItem), i, 3);
                 tblDetalhePedido.setValueAt(String.format("%9.2f", totalItem), i, 4);
@@ -3326,6 +3311,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
             }
             System.out.println("Total Geral ->" + String.format("%9.2f", tg));
+            tgeral.setText(String.format("%9.2f", tg));
         }
         
        
