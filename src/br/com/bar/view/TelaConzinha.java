@@ -45,8 +45,8 @@ public class TelaConzinha extends javax.swing.JFrame {
     String id_pratoLiberado = null;
     // Armazena o número da mesa selecionada
     int nMesa = 0;
-    String status="";
-    
+    String status = "";
+
     public TelaConzinha() {
         initComponents();
         lblCargo.setVisible(false);
@@ -441,7 +441,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         String cargo = lblCargo.getText();
         if ("Gerente".equals(cargo)) {
             dispose();
-           
+
         } else {
 
             if (cc.pratoPendente() > 0) { // Verifica se existem pratos pendentes na cozinha.
@@ -454,7 +454,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                 login.setVisible(true);
             }
         }
-        
+
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void tblCozinhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCozinhaMouseClicked
@@ -465,7 +465,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         status = tblCozinha.getModel().getValueAt(linha, 8).toString();
         String observacao = cc.temObs(tblCozinha.getModel().getValueAt(linha, 0).toString());
         nMesa = Integer.parseInt(tblCozinha.getModel().getValueAt(linha, 4).toString()); //Número da mesa
-        
+
         switch (status) {
 
             case "Em preparação":
@@ -621,14 +621,14 @@ public class TelaConzinha extends javax.swing.JFrame {
 
     private void lblImprimirSolicitacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImprimirSolicitacoesMouseClicked
         // Imprime solicitações para a mesa informada.
-        if (lblImprimirSolicitacoes.isEnabled()){
-            
+        if (lblImprimirSolicitacoes.isEnabled()) {
+
             if (nMesa > 0) {
                 ReportUtil report = new ReportUtil();
                 HashMap map = new HashMap();
                 map.put("mesa", nMesa);
                 try {
-                    report.imprimeRelatorioTela("solicitacoes.jasper", map,"Solicitações");
+                    report.imprimeRelatorioTela("solicitacoes.jasper", map, "Solicitações");
                 } catch (JRException e) {
                     System.out.println("br.com.bar.view.TelaConzinha.lblImprimirSolicitacoesMouseClicked()" + e);
                 }
@@ -668,12 +668,13 @@ public class TelaConzinha extends javax.swing.JFrame {
                     HashMap parametro = new HashMap();
                     parametro.put("id", idProdutoCozinha);
                     try {
-                        rpu.imprimeRelatorioTela("contigencia_3.jasper", parametro,"Solicitação");
+                        rpu.imprimeRelatorioTela("contigencia_3.jasper", parametro, "Solicitação");
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaConzinha.lblPrepararMouseClicked()" + e);
                         JOptionPane.showMessageDialog(null, "Erro ao tentar imprimir Solicitação - contate o SUPORTE!");
                     }
                 }
+                lblImprimirSolicitacoes.setEnabled(false);
             }
         }
 

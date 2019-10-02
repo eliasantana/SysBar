@@ -130,7 +130,7 @@ public class TelaProcessaPamento extends JDialog {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/rese7_64x64.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/nfelogo.png"))); // NOI18N
 
         lblMensagem.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblMensagem.setText("Processando...");
@@ -155,8 +155,7 @@ public class TelaProcessaPamento extends JDialog {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 553, 102);
 
-        setSize(new java.awt.Dimension(553, 103));
-        setLocationRelativeTo(null);
+        setBounds(360, 340, 553, 103);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

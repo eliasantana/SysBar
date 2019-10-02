@@ -475,7 +475,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         // Chama tela de Cancelamento
         TelaCancelamentoNFCe cancelamento = new TelaCancelamentoNFCe();
         cancelamento.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());  
-        cancelamento.setAlwaysOnTop(true);
+        //cancelamento.setAlwaysOnTop(true);
         cancelamento.setVisible(true);
     }//GEN-LAST:event_btnCancelamentoMouseClicked
 

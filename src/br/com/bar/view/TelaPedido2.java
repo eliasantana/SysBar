@@ -1383,6 +1383,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         if (tb == null) {
             tb = new TelaBloqueio();
             tb.setAlwaysOnTop(true);
+            tb.setModal(true);
         }
         tb.setVisible(true);
     }//GEN-LAST:event_lblCadeadoMouseClicked

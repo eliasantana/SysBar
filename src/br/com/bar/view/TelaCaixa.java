@@ -1424,25 +1424,17 @@ public class TelaCaixa extends javax.swing.JFrame {
                                         codPagto = "99";
                                 }
                                 // Autoriza pedido com apenas 1 item
-                                tpp = new TelaProcessaPamento();
-                                tpp.setModal(true);
-                                tpp.mensagem("Iniciando autorização.....");
-                                tpp.setVisible(true);
+                                telaProcessamento("Iniciando autorização....");
+
                                 if (tblDetalhePedido.getRowCount() == 1) {
+                                    telaProcessamento("Solicitando autorização.....");
                                     autorizarNfCe(codPagto, tgeral.getText().replace(",", "."), lblNPedido.getText());
-                                    
-                                    tpp = new TelaProcessaPamento();
-                                    tpp.setModal(true);
-                                    tpp.mensagem("Autorizando.....");
-                                    tpp.setVisible(true);
+                                    telaProcessamento("Autorizando.....");
                                 } else {
-                                    // autoriza pedido com mais de 1 item   
+                                    // autoriza pedido com mais de 1 item
+                                    telaProcessamento("Solicitando autorização.....");
                                     int codPgto = autorizarNfCe2(codPagto, tgeral.getText().replace(",", "."), lblNPedido.getText());
-                                   
-                                    tpp = new TelaProcessaPamento();
-                                    tpp.setModal(true);
-                                    tpp.mensagem("Autorizando.....");
-                                    tpp.setVisible(true);
+                                    telaProcessamento("Autorizando autorização.....");
                                 }
                             } catch (JSONException ex) {
                                 Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
@@ -1451,10 +1443,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                             //------------------ Ler Retorno da Autorização ------------------//
                             try {
                                 nota = cNFCe.lerRetorno("retorno.json");
-                                tpp = new TelaProcessaPamento();
-                                tpp.setModal(true);
-                                tpp.mensagem("Autorizado:" + nota.getChave_nfe());
-                                tpp.setVisible(true);
+                                telaProcessamento("Autorizado:" + nota.getChave_nfe());
                             } catch (org.json.simple.parser.ParseException | IOException ex) {
                                 Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
                             }
@@ -1462,7 +1451,6 @@ public class TelaCaixa extends javax.swing.JFrame {
                             try {
                                 // Gera QRcod
                                 if (nota.getQrcode_url() != null) {
-
                                     utils.generateQRCodeImage(nota.getQrcode_url(), 120, 120, "C:/Sysbar/qr.jpg");
                                 }
                             } catch (WriterException | IOException ex) {
@@ -1506,11 +1494,8 @@ public class TelaCaixa extends javax.swing.JFrame {
                             tpp.fechaTela();
                             //JOptionPane.showMessageDialog(this, "Pedido fechado com sucesso!");
                             // ===============================================================//
-                            tpp = new TelaProcessaPamento();
-                            tpp.setModal(true);
-                            tpp.mensagem("Preparando impressão do Cumpom Fiscal");
-                            tpp.setVisible(true);
-
+                            telaProcessamento("Preparando impressão do Cumpom Fiscal");
+                            
                             jSpinFieldPessoas.setValue(1);
                             // Registra desconto se o valor for > que 0
                             Funcionario f = new Funcionario();
@@ -1643,7 +1628,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                         } else {
                             JOptionPane.showMessageDialog(this, "Selecione uma forma de pagameto!");
                         }
-
+                        JOptionPane.showMessageDialog(this, "Pedido fechado com sucesso!");
                     }
                     try {
                         // Fecha a conexão após impressão dos cupons.
@@ -1659,7 +1644,6 @@ public class TelaCaixa extends javax.swing.JFrame {
                     voucher = 0;
                 } // fim da verificação delivery
 
-                JOptionPane.showMessageDialog(this, "Pedido fechado com sucesso!");
             }
 
             // Atualiza o status do entregador 
@@ -3073,7 +3057,6 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         nfce.put("consumidor_final", "1");
         nfce.put("presenca_comprador", "1");
-        //nfce.put("forma_pagamento", "01");
         nfce.put("forma_pagamento", codFormaPagamento);
         nfce.put("natureza_operacao", "Venda ao Consumidor");
         nfce.put("tipo_documento", "1"); // 1 - Nota Fiscal de Saída
@@ -3199,7 +3182,6 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         nfce.put("consumidor_final", "1");
         nfce.put("presenca_comprador", "1");
-        //nfce.put("forma_pagamento", "01");
         nfce.put("forma_pagamento", codFormaPagamento);
         nfce.put("natureza_operacao", "Venda ao Consumidor");
         nfce.put("tipo_documento", "1"); // 1 - Nota Fiscal de Saída
@@ -3288,21 +3270,21 @@ public class TelaCaixa extends javax.swing.JFrame {
         int linhas = tblDetalhePedido.getRowCount();
         double descontoItem;
         double desconto = vlrDesconto;
-        int qtdItens=0;
-        int somaQtd=0;
-        for (int i=0; i < linhas ; i++){
+        int qtdItens = 0;
+        int somaQtd = 0;
+        for (int i = 0; i < linhas; i++) {
             qtdItens = Integer.parseInt(tblDetalhePedido.getValueAt(i, 2).toString());
-            somaQtd = somaQtd+qtdItens;
+            somaQtd = somaQtd + qtdItens;
         }
-        System.out.println("Total Itens: "+somaQtd);
-        descontoItem = (desconto /somaQtd);
+        System.out.println("Total Itens: " + somaQtd);
+        descontoItem = (desconto / somaQtd);
         if (desconto != 0) {
             double tg = 0;
             for (int i = 0; i < linhas; i++) {
                 double valorItem = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 3).toString().replace(",", "."));
                 double qtd = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 2).toString().replace(",", "."));
                 valorItem = valorItem - (descontoItem);
-                double totalItem = (qtd * valorItem);                
+                double totalItem = (qtd * valorItem);
                 tblDetalhePedido.setValueAt(String.format("%9.2f", valorItem), i, 3);
                 tblDetalhePedido.setValueAt(String.format("%9.2f", totalItem), i, 4);
                 //// Apagar linhas abaixo após teste
@@ -3313,7 +3295,13 @@ public class TelaCaixa extends javax.swing.JFrame {
             System.out.println("Total Geral ->" + String.format("%9.2f", tg));
             tgeral.setText(String.format("%9.2f", tg));
         }
-        
-       
+
+    }
+
+    private void telaProcessamento(String msg) {
+        tpp = new TelaProcessaPamento();
+        tpp.setModal(true);
+        tpp.mensagem(msg);
+        tpp.setVisible(true);
     }
 }

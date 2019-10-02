@@ -9,8 +9,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
+import org.mozilla.javascript.tools.debugger.SwingGui;
 
 /**
  *
@@ -65,6 +67,9 @@ public class TableModelReimpressao extends AbstractTableModel {
     
     // // MESA, PEDIDO, TX. SERVIÇO R$, DESCONTO R$, TOTAL R$, GARÇOM
      public void redimensionaColunas(JTable tabela) {
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(50); 
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(70);
@@ -75,6 +80,11 @@ public class TableModelReimpressao extends AbstractTableModel {
         //tabela.getColumnModel().getColumn(5).setMaxWidth(0);
         //tabela.getColumnModel().getColumn(5).setMaxWidth(0);
         
+        tabela.getColumnModel().getColumn(0).setCellRenderer(direita);
+        tabela.getColumnModel().getColumn(1).setCellRenderer(direita);
+        tabela.getColumnModel().getColumn(2).setCellRenderer(direita);
+        tabela.getColumnModel().getColumn(3).setCellRenderer(direita);
+        tabela.getColumnModel().getColumn(3).setCellRenderer(direita);
 
     }
 

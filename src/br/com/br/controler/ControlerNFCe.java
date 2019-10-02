@@ -170,10 +170,10 @@ public class ControlerNFCe {
 
     }
 
-    public int  cancelaNFCe(String motivo, String nPedido, String arquivoRetorno) {
+    public int cancelaNFCe(String motivo, String nPedido, String arquivoRetorno) {
         String login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
         NFCeCancelamento cancelamento = new NFCeCancelamento();
-        
+
         /* Substituir pela sua identificação interna da nota. */
         String ref = nPedido;
 
@@ -203,13 +203,13 @@ public class ControlerNFCe {
         int httpCode = resposta.getStatus();
 
         String body = resposta.getEntity(String.class);
-                
+
         /* As três linhas abaixo imprimem as informações retornadas pela API. 
         * Aqui o seu sistema deverá interpretar e lidar com o retorno. */
         System.out.print("HTTP Code: ");
         System.out.print(httpCode);
         System.out.printf(body);
-        
+
         try {
             FileOutputStream out = new FileOutputStream("c://sysbar/" + arquivoRetorno);
             PrintStream ps = new PrintStream(out);
@@ -222,12 +222,12 @@ public class ControlerNFCe {
             Logger.getLogger(Autorizar.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-       return httpCode;
+        return httpCode;
     }
 
     public boolean enviaEmail(String refNPedido, ArrayList<String> listaDeEmail) throws JSONException {
         String login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
-       boolean resp=false;
+        boolean resp = false;
         /* Substituir pela sua identificação interna da nota. */
         String ref = refNPedido;
 
@@ -240,20 +240,19 @@ public class ControlerNFCe {
         /* Criamos o um objeto JSON que receberá um JSON Array com a lista de e-mails. */
         JSONObject json = new JSONObject();
         JSONArray listaEmails = new JSONArray();
-        if (listaDeEmail.size() >1){
-            
+        if (listaDeEmail.size() > 1) {
+
             for (int i = 0; i < listaDeEmail.size(); i++) {
-               json.accumulate("emails", listaDeEmail.get(i));
+                json.accumulate("emails", listaDeEmail.get(i));
             }
-            
-           
+
         }
 
 
         /* Testar se o JSON gerado está dentro do formato esperado.*/
-        System.out.print(json); 
+        System.out.print(json);
 
- /* Configuração para realizar o HTTP BasicAuth. */
+        /* Configuração para realizar o HTTP BasicAuth. */
         Object config = new DefaultClientConfig();
         Client client = Client.create((ClientConfig) config);
         client.addFilter(new HTTPBasicAuthFilter(login, ""));
@@ -271,11 +270,11 @@ public class ControlerNFCe {
         System.out.print("HTTP Code: ");
         System.out.print(httpCode);
         System.out.printf(body);
-        
-        if (httpCode==200){
-            resp =true;
+
+        if (httpCode == 200) {
+            resp = true;
         }
-        
+
         return resp;
     }
 
@@ -315,6 +314,7 @@ public class ControlerNFCe {
 
         return nota;
     }
+
     /**
      * Converte um arquivo de retorno String no formato JSon e converte em
      * JSONObjet utilizando a biblioteca org.json.simple
@@ -322,10 +322,7 @@ public class ControlerNFCe {
      * @param nomeArquivo Nome do arquivo a ser lido
      * @return Retorna um Objeto NFCeCancelamento contendo:
      *
-     * Status Sefaz
-     * Mensagem Sefaz
-     * Status
-     * Caminho XML do Cancelamento
+     * Status Sefaz Mensagem Sefaz Status Caminho XML do Cancelamento
      * @throws org.json.simple.parser.ParseException
      * @throws java.io.IOException
      */
@@ -335,35 +332,62 @@ public class ControlerNFCe {
         NFCeCancelamento cancelamento = new NFCeCancelamento();
 
         try {
-            
+
             jo = (org.json.simple.JSONObject) parser.parse(new FileReader("C:\\Sysbar\\" + nomeArquivo));
-            cancelamento.setStatus_sefaz((String)jo.get("status_sefaz"));
-            cancelamento.setMensagem_sefaz((String)jo.get("mensagem_sefaz"));
-            cancelamento.setStatus((String)jo.get("status"));
-            cancelamento.setCaminho_xml_cancelamento((String)jo.get("caminho_xml_cancelamento"));
+            cancelamento.setStatus_sefaz((String) jo.get("status_sefaz"));
+            cancelamento.setMensagem_sefaz((String) jo.get("mensagem_sefaz"));
+            cancelamento.setStatus((String) jo.get("status"));
+            cancelamento.setCaminho_xml_cancelamento((String) jo.get("caminho_xml_cancelamento"));
 
             //System.out.println(nota.toString());
         } catch (FileNotFoundException | ParseException ex) {
             Logger.getLogger(TesteJesonString.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return cancelamento;
     }
+
     // Registra o cancelamento do cupom na base local
-    public void registraCancelamento(String nCupom,String operador){
-       
-        String sql="INSERT INTO tbhistorico_cancelamento (numero_cupom,data, operador) VALUES (?,current_timestamp(),?)";
-        
+    public void registraCancelamento(String nCupom, String operador) {
+
+        String sql = "INSERT INTO tbhistorico_cancelamento (numero_cupom,data, operador) VALUES (?,current_timestamp(),?)";
+
         try {
             Connection conexao = ConexaoBd.conector();
-            PreparedStatement pst;            
-            pst=conexao.prepareStatement(sql);
+            PreparedStatement pst;
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, nCupom);
             pst.setString(2, operador);
             pst.executeUpdate();
-            
+
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerNFCe.gravaCancelamento()"+e);
+            System.out.println("br.com.br.controler.ControlerNFCe.gravaCancelamento()" + e);
         }
+    }
+    // Verificana base local se o cupom já foi cancelado
+    public boolean estaCancelada(String nCupom) {
+
+        boolean resp = false;
+        Connection conexao;
+        PreparedStatement pst;
+        ResultSet rs;
+
+        String sql = "SELECT * FROM tbhistorico_cancelamento WHERE numero_cupom=?";
+
+        try {
+            conexao = ConexaoBd.conector();
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, nCupom);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                resp = true;
+            }
+
+            conexao.close();
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerNFCe.foiCancelada()");
+        }
+
+        return resp;
     }
 }

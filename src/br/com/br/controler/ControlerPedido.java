@@ -745,12 +745,12 @@ public class ControlerPedido {
             if (p.getId() != null && !"".equals(nMesa)) {
                 if (idDesconto != null) {
                     if (excluiDesconto(idDesconto)) {
-                        System.out.println("Desconto Excluído com sucesso!");
+                       
                     }
                 }
                 if ("MISTO".equals(p.getFormaPagto())) {
                     if (excluiDetalhePagamento(p.getId())) {
-                        System.out.println("Excluindo o detalhamento do pagamento!");
+                       
                     }
                 }
                 // Muda o status  do pedido para 0 (zero) = Aberto e limpa valores
@@ -761,11 +761,11 @@ public class ControlerPedido {
                     pst.executeUpdate();
                     System.out.println("Pedido Extornado!");
                 } catch (SQLException e) {
-                    System.out.println("br.com.br.controler.ControlerPedido.extornaPedidio()" + e);
+                   
                 }
                 // Muda status da mesa
                 if (cm.trocaStatusMesa(nMesa, "1")) {
-                    System.out.println("Mesa retornada ao estado anterior (Ocupada)");
+                   // System.out.println("Mesa retornada ao estado anterior (Ocupada)");
                 }
                 
             } else {
