@@ -196,7 +196,6 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
                 lblMensagem.setText("Deve conter no mínimo de 15 caracteres.");
             }
         } else {
-
             if (tamanho >= 0) {
                 tamanho = tamanho + 1;
                 lblMensagem.setText("Caractere(s) " + String.valueOf(tamanho));
@@ -204,7 +203,11 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
             if (tamanho < 15) {
                 lblBtnCancelar.setEnabled(false);
             } else {
-                lblBtnCancelar.setEnabled(true);
+                if (!txtNumeroNota.getText().isEmpty()) {
+                    lblBtnCancelar.setEnabled(true);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Informe o número  do compom!","Atenção!",JOptionPane.ERROR_MESSAGE);
+                }
             }
 
         }
@@ -212,8 +215,7 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
 
     private void lblBtnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBtnCancelarMouseClicked
         // Cancela nota
-        
-        
+
         ControlerNFCe cnfec = new ControlerNFCe();
         if (lblBtnCancelar.isEnabled()) {
             // Verifica localmente se a nota está cancelada, se estiver exibe mensagem ao usuário
@@ -223,7 +225,7 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
                 if (i.temConexao()) {
                     NFCeCancelamento c = new NFCeCancelamento();
                     Log l = new Log();
-                    int op = JOptionPane.showConfirmDialog(this, "Confirma o cancelamento da nota N." + txtNumeroNota.getText() + "?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    int op = JOptionPane.showConfirmDialog(this, "Confirma o cancelamento do cupom N.° " + txtNumeroNota.getText() + "?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                     if (op == JOptionPane.YES_OPTION) {
                         this.setVisible(false);
                         processamento("Calancelando cupom N." + txtNumeroNota.getText());
@@ -265,7 +267,7 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
                                 System.out.println(cp.extornaPedido(txtNumeroNota.getText(), operador));
                                 // Registra cancelamento na base local
                                 cnfec.registraCancelamento(txtNumeroNota.getText(), operador);
-                                processamento("A nota "+txtNumeroNota.getText() + "foi cancelada!");
+                                processamento("A nota " + txtNumeroNota.getText() + " foi cancelada!");
                             }
                             txtAreaMensagem.setText(null);
                             txtAreaMensagem.setEnabled(false);
@@ -292,12 +294,12 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
         this.operador = operador;
         this.cargo = cargo;
     }
-    
+
     private void processamento(String msg) {
-       
+
         TelaProcessaPamento p = new TelaProcessaPamento();
         p.setModal(true);
-        p.mensagem(msg);        
+        p.mensagem(msg);
         p.setVisible(true);
     }
 
