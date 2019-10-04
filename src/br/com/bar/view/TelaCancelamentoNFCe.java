@@ -30,7 +30,7 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
     Util u = new Util();
     String operador = null;
     String cargo = null;
-
+    ControlerNFCe cnfec = new ControlerNFCe();
     public TelaCancelamentoNFCe() {
         initComponents();
         lblBtnCancelar.setEnabled(false);
@@ -57,7 +57,6 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
         lblMensagem = new javax.swing.JLabel();
         lblBtnCancelar = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -155,15 +154,6 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
         jPanel2.add(jLabel4);
         jLabel4.setBounds(20, 90, 130, 20);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton1);
-        jButton1.setBounds(240, 80, 73, 23);
-
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 0, 348, 238);
 
@@ -177,9 +167,20 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void txtNumeroNotaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroNotaKeyPressed
+       
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            txtAreaMensagem.setEnabled(true);
-            txtAreaMensagem.requestFocus();
+            // Verifica antes de proseguir se o cupom informado está cancelado
+            if (!cnfec.estaCancelada(txtNumeroNota.getText())) {
+                txtAreaMensagem.setEnabled(true);
+                txtAreaMensagem.requestFocus();
+            } else {
+                JOptionPane.showMessageDialog(this, "O Cupom informado já está cancelado!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+                txtNumeroNota.setText(null);
+                txtAreaMensagem.setText(null);
+                txtAreaMensagem.setEnabled(false);
+                lblBtnCancelar.setEnabled(false);
+
+            }
 
         }
     }//GEN-LAST:event_txtNumeroNotaKeyPressed
@@ -226,105 +227,74 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
     private void lblBtnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBtnCancelarMouseClicked
         // Cancela nota
 
-        ControlerNFCe cnfec = new ControlerNFCe();
+        
         if (lblBtnCancelar.isEnabled()) {
             // Verifica localmente se a nota está cancelada, se estiver exibe mensagem ao usuário
-            if (!cnfec.estaCancelada(txtNumeroNota.getText())) {
-                ConexaoInternet i = new ConexaoInternet();
-                // Avisa ao usuário se existe conexao com a internet
-                if (i.temConexao()) {
-                    NFCeCancelamento c = new NFCeCancelamento();
-                    Log l = new Log();
-                    int op = JOptionPane.showConfirmDialog(this, "Confirma o cancelamento do Cupom N.° " + txtNumeroNota.getText() + "?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-                    if (op == JOptionPane.YES_OPTION) {
-                        this.setVisible(false);
-                        processamento("Calancelando Cupom N." + txtNumeroNota.getText());
-                        int codCancelamento = cnfec.cancelaNFCe(txtAreaMensagem.getText(), txtNumeroNota.getText(), "cancelamento.json");
-                        if (codCancelamento == 404) {
-                            processamento("Cupom não localizado!");
-                            JOptionPane.showMessageDialog(this, "O Cupom de cod. " + txtNumeroNota.getText() + " não foi localizado! Verifique o código informado.");
-                        } else {
-                            try {
-                                c = cnfec.lerRetornoCancelamento("cancelamento.json");
-                                System.out.println(c.toString());
-                                ReportUtil rpu = new ReportUtil();
-                                HashMap map = new HashMap();
-                                // Imprime nota de Cancelamento se o caminho da nota for diferente de NULL
-                                if (c.getCaminho_xml_cancelamento() != null) {
-                                    map.put("status_sefaz", c.getStatus_sefaz());
-                                    map.put("mensagem_sefaz", c.getMensagem_sefaz());
-                                    map.put("status", c.getStatus());
-                                    map.put("caminho_xml_cancelamento", c.getCaminho_xml_cancelamento());
-                                    map.put("numero_nota", txtNumeroNota.getText());
-                                    map.put("justificativa", txtAreaMensagem.getText());
-                                    // Desabilitado temporariamente até que seja descoberta a causa da excessão na exibição do relatorio de cancelamento
-                                    //processamento("Preparando Impressão....");
+            ConexaoInternet i = new ConexaoInternet();
+            // Avisa ao usuário se existe conexao com a internet
+            if (i.temConexao()) {
+                NFCeCancelamento c = new NFCeCancelamento();
+                Log l = new Log();
+                int op = JOptionPane.showConfirmDialog(this, "Confirma o cancelamento do Cupom N.° " + txtNumeroNota.getText() + "?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (op == JOptionPane.YES_OPTION) {
+                    this.setVisible(false);
+                    processamento("Calancelando Cupom N." + txtNumeroNota.getText());
+                    int codCancelamento = cnfec.cancelaNFCe(txtAreaMensagem.getText(), txtNumeroNota.getText(), "cancelamento.json");
+                    if (codCancelamento == 404) {
+                        processamento("Cupom não localizado!");
+                        JOptionPane.showMessageDialog(this, "O Cupom de cod. " + txtNumeroNota.getText() + " não foi localizado! Verifique o código informado.");
+                    } else {
+                        try {
+                            c = cnfec.lerRetornoCancelamento("cancelamento.json");
+                            System.out.println(c.toString());
+                            ReportUtil rpu = new ReportUtil();
+                            HashMap map = new HashMap();
+                            // Imprime nota de Cancelamento se o caminho da nota for diferente de NULL
+                            if (c.getCaminho_xml_cancelamento() != null) {
+                                map.put("status_sefaz", c.getStatus_sefaz());
+                                map.put("mensagem_sefaz", c.getMensagem_sefaz());
+                                map.put("status", c.getStatus());
+                                map.put("caminho_xml_cancelamento", c.getCaminho_xml_cancelamento());
+                                map.put("numero_nota", txtNumeroNota.getText());
+                                map.put("justificativa", txtAreaMensagem.getText());
+                                // Desabilitado temporariamente até que seja descoberta a causa da excessão na exibição do relatorio de cancelamento
+                                //processamento("Preparando Impressão....");
 //                                    try {
 //                                        rpu.imprimeRelatorioTela("cancelamento.jasper", map, "Cancelamento de Cupom Fiscal - NFCe");
 //                                    } catch (JRException ex) {
 //                                        Logger.getLogger(TelaCancelamentoNFCe.class.getName()).log(Level.SEVERE, null, ex);
 //                                    }
-                                }
-                            } catch (ParseException | IOException ex) {
-                                Logger.getLogger(TelaCancelamentoNFCe.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                            // Registra o cancelamento no Log
-                            l.setDescricao(operador + " - Cancelou o Cupom " + txtNumeroNota.getText() + " Cód. Retorno: ");
-                            l.setFuncionalidade("Cancelamento NFCe");
-                            l.setUsuario(operador);
-                            l.gravaLog(l);
-                            // Confirma se a nota foi cancelada no SEFAZ realiza o extorno do pedido
-                            if ("cancelado".equals(c.getStatus())) {
-                                ControlerPedido cp = new ControlerPedido();
-                                //Extorna o pedido cujo o cupom foi cancelado
-                                cp.extornaPedido(txtNumeroNota.getText(), operador);
-                                // Registra cancelamento na base local
-                                cnfec.registraCancelamento(txtNumeroNota.getText(), operador);
-                                processamento("O Cupom N.° " + txtNumeroNota.getText() + " foi cancelado com sucesso!");
-                            }
-                            txtAreaMensagem.setText(null);
-                            txtAreaMensagem.setEnabled(false);
-                            lblBtnCancelar.setEnabled(false);
-                            txtNumeroNota.setText(null);
-                            this.dispose();
+                        } catch (ParseException | IOException ex) {
+                            Logger.getLogger(TelaCancelamentoNFCe.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                        // Registra o cancelamento no Log
+                        l.setDescricao(operador + " - Cancelou o Cupom " + txtNumeroNota.getText() + " Cód. Retorno: ");
+                        l.setFuncionalidade("Cancelamento NFCe");
+                        l.setUsuario(operador);
+                        l.gravaLog(l);
+                        // Confirma se a nota foi cancelada no SEFAZ realiza o extorno do pedido
+                        if ("cancelado".equals(c.getStatus())) {
+                            ControlerPedido cp = new ControlerPedido();
+                            //Extorna o pedido cujo o cupom foi cancelado
+                            cp.extornaPedido(txtNumeroNota.getText(), operador);
+                            // Registra cancelamento na base local
+                            cnfec.registraCancelamento(txtNumeroNota.getText(), operador);
+                            processamento("O Cupom N.° " + txtNumeroNota.getText() + " foi cancelado com sucesso!");
+                        }
+                        txtAreaMensagem.setText(null);
+                        txtAreaMensagem.setEnabled(false);
+                        lblBtnCancelar.setEnabled(false);
+                        txtNumeroNota.setText(null);
+                        this.dispose();
                     }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Sem conexao com a internet!\nNão foi possível cancelar o Cupom! Tente novamente mais tarde.", "Atenção!", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "O Cupom informado já está cancelado!", "Atenção!", JOptionPane.ERROR_MESSAGE);
-                txtNumeroNota.setText(null);
-                txtAreaMensagem.setText(null);
-                txtAreaMensagem.setEnabled(false);
-                lblBtnCancelar.setEnabled(false);
-
+                JOptionPane.showMessageDialog(this, "Sem conexao com a internet!\nNão foi possível cancelar o Cupom! Tente novamente mais tarde.", "Atenção!", JOptionPane.ERROR_MESSAGE);
             }
+
         }
     }//GEN-LAST:event_lblBtnCancelarMouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ControlerPedido controlPedido = new ControlerPedido();
-        String idPedido = txtNumeroNota.getText();
-         
-                // Verifica se o pedido é um delivery e armazena seu ID
-                String idPedidoDelivery = controlPedido.estaNoDelivery(idPedido);
-                // Verifica se o pedido está na tabela histórica e devolve seu ID
-                String idHistoricoDelivery = controlPedido.estaNoHistoricoDelivery(idPedido);
-
-                if (idHistoricoDelivery != null) {
-                    if (controlPedido.moveHistoricoParaDelivery(idPedido)) {
-                        // Deleta o registro após remoção 
-                        if (controlPedido.deletaRegistro("tbhistoricodelivery", idHistoricoDelivery)) {
-                            idPedidoDelivery = controlPedido.estaNoDelivery(idPedido);
-                            //Extorna pedido Delivery
-                            if (controlPedido.extornaDelivery(idPedidoDelivery)){
-                                System.out.println("Pedido Extornado com sucesso!");
-                            }
-                        }
-                    }
-                }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void recebeOperador(String operador, String cargo) {
         this.operador = operador;
@@ -375,7 +345,6 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
