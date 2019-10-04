@@ -663,6 +663,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         txtQtdMax.setText(null);
         txtQtdMin.setText(null);
         txtValor.setText(null);
+        txtCodigoNcm.setText(null);
 
     }
 

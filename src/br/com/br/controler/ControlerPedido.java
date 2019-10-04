@@ -759,7 +759,7 @@ public class ControlerPedido {
                     pst = conexao.prepareStatement(sql);
                     pst.setString(1, p.getId());
                     pst.executeUpdate();
-                    System.out.println("Pedido Extornado!");
+                   // System.out.println("Pedido Extornado!");
                 } catch (SQLException e) {
                    
                 }

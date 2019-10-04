@@ -322,7 +322,7 @@ public class ControlerNFCe {
      * @throws org.json.simple.parser.ParseException
      * @throws java.io.IOException
      */
-    public NFCeCancelamento lerRetornoCancelamento(String nomeArquivo) throws ParseException, IOException {
+        public NFCeCancelamento lerRetornoCancelamento(String nomeArquivo) throws ParseException, IOException {
         org.json.simple.JSONObject jo;
         JSONParser parser = new JSONParser();
         NFCeCancelamento cancelamento = new NFCeCancelamento();
@@ -338,6 +338,7 @@ public class ControlerNFCe {
             //System.out.println(nota.toString());
         } catch (FileNotFoundException | ParseException ex) {
             Logger.getLogger(TesteJesonString.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("br.com.br.controler.ControlerNFCe.lerRetornoCancelamento()"+ex);
         }
 
         return cancelamento;

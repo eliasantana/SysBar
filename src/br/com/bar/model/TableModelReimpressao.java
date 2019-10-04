@@ -84,7 +84,7 @@ public class TableModelReimpressao extends AbstractTableModel {
         tabela.getColumnModel().getColumn(1).setCellRenderer(direita);
         tabela.getColumnModel().getColumn(2).setCellRenderer(direita);
         tabela.getColumnModel().getColumn(3).setCellRenderer(direita);
-        tabela.getColumnModel().getColumn(3).setCellRenderer(direita);
+        tabela.getColumnModel().getColumn(4).setCellRenderer(direita);
 
     }
 
