@@ -413,7 +413,7 @@ public class ControlerDelivery {
     }
 
     /**
-     * Exclui o pedido da tabela Delivery
+     * Exclui o pedido da tabela Delivery depois que o pedido e movido para o histórico
      *
      * @param idPedido Número do Pedido
      * @return Boolean Retorna TRUE OU FALSE

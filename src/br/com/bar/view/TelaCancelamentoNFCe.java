@@ -57,6 +57,7 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
         lblMensagem = new javax.swing.JLabel();
         lblBtnCancelar = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -153,6 +154,15 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
         jLabel4.setText("Justificativa:");
         jPanel2.add(jLabel4);
         jLabel4.setBounds(20, 90, 130, 20);
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1);
+        jButton1.setBounds(240, 80, 73, 23);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 0, 348, 238);
@@ -266,6 +276,7 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
                             // Confirma se a nota foi cancelada no SEFAZ realiza o extorno do pedido
                             if ("cancelado".equals(c.getStatus())) {
                                 ControlerPedido cp = new ControlerPedido();
+                                //Extorna o pedido cujo o cupom foi cancelado
                                 cp.extornaPedido(txtNumeroNota.getText(), operador);
                                 // Registra cancelamento na base local
                                 cnfec.registraCancelamento(txtNumeroNota.getText(), operador);
@@ -291,6 +302,29 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_lblBtnCancelarMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ControlerPedido controlPedido = new ControlerPedido();
+        String idPedido = txtNumeroNota.getText();
+         
+                // Verifica se o pedido é um delivery e armazena seu ID
+                String idPedidoDelivery = controlPedido.estaNoDelivery(idPedido);
+                // Verifica se o pedido está na tabela histórica e devolve seu ID
+                String idHistoricoDelivery = controlPedido.estaNoHistoricoDelivery(idPedido);
+
+                if (idHistoricoDelivery != null) {
+                    if (controlPedido.moveHistoricoParaDelivery(idPedido)) {
+                        // Deleta o registro após remoção 
+                        if (controlPedido.deletaRegistro("tbhistoricodelivery", idHistoricoDelivery)) {
+                            idPedidoDelivery = controlPedido.estaNoDelivery(idPedido);
+                            //Extorna pedido Delivery
+                            if (controlPedido.extornaDelivery(idPedidoDelivery)){
+                                System.out.println("Pedido Extornado com sucesso!");
+                            }
+                        }
+                    }
+                }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void recebeOperador(String operador, String cargo) {
         this.operador = operador;
@@ -341,6 +375,7 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -682,7 +682,6 @@ public class ControlerPedido {
      * @param nPedido Número do pedido
      * @return Boolean Retorna TRUE ou FALSE
      */
-
     public boolean foiCancelado(String nPedido) {
         String sql = "SELECT id FROM tbhistorico_cancelamento WHERE numero_cupom=?";
         boolean resp = false;
@@ -724,6 +723,143 @@ public class ControlerPedido {
     }
 
     /**
+     * Verifica se o pedido informado está no Delivery e devolve o ID do pedido
+     * na tabela Delivery
+     *
+     * @param idPedido Número do Pedido
+     * @return idDelivery Retorna o id do pedido na tabela develivery
+     */
+    public String estaNoDelivery(String idPedido) {
+
+        String sql = "SELECT id FROM tbdelivery WHERE cadpedido_id_pedido=?";
+        String idDelivery = null;
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, idPedido);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                idDelivery = rs.getString("id");
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.estaNoDelivery()" + e);
+        }
+        return idDelivery;
+    }
+
+    /**
+     * Verifica se o pedido informado esta na Tabela Histórico de Delivery
+     *
+     * @param idPedido Número do Pedido
+     * @return Retorna TRUE ou FALSE
+     */
+    public String estaNoHistoricoDelivery(String idPedido) {
+
+        String sql = "SELECT id FROM tbhistoricodelivery WHERE cadpedido_id_pedido=?";
+        String idPedidoHistorico = null;
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, idPedido);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                idPedidoHistorico = rs.getString("id");
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.estaNoHistoricoDelivery()" + e);
+        }
+        return idPedidoHistorico;
+    }
+
+    /**
+     * Move o pedido da tabela histórico para a tabela Delivery e em sequencia
+     * apaga-o da tabela histórica Este método é utilizado quando um peido é
+     * extornado
+     *
+     * @param idPedido Número do Pedido
+     * @return boolean Retorna TRUE ou FALSE
+     */
+    public boolean moveHistoricoParaDelivery(String idPedido) {
+        boolean resp = false;
+        String sql = "INSERT INTO tbdelivery (SELECT * FROM tbhistoricodelivery WHERE cadpedido_id_pedido=?)";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, idPedido);
+            pst.executeUpdate();
+            resp = true;
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.moveHistoricoParaDelivery()" + e);
+        }
+        // Se o pedido for movido com sucesso ele será excluído da Tabela Histórica
+        if (resp) {
+            String sqlDelete = "DELETE FROM tbdelivery WHERE id=?";
+            try {
+                pst = conexao.prepareStatement(sqlDelete);
+                pst.setString(1, idPedido);
+                pst.executeUpdate();
+
+            } catch (SQLException e) {
+                System.out.println("br.com.br.controler.ControlerPedido.moveHistoricoParaDelivery()" + e);
+            }
+
+        }
+        return resp;
+    }
+
+    /**
+     * Deleta um registro informando a tabelae o id do registro a ser excluída
+     *
+     * @param tabela Nome da Tabela onde o registro será excluído
+     * @param id Id do Registro a ser excluído
+     * @return Retorna TRUE ou FALSE
+     */
+    public boolean deletaRegistro(String tabela, String id) {
+        boolean resp = false;
+        String sql = "DELETE FROM " + tabela + " WHERE id=?";
+        System.out.println(sql);
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, id);
+            pst.executeUpdate();
+            resp = true;
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerPedido.deletaRegistro()" + e);
+        }
+
+        return resp;
+    }
+
+    /**
+     * Extorna o pedino Delivery
+     *
+     * @param idDelivery ID do pedido Delivery a ser Extornado
+     * @return Retorna TRUE ou FALSE
+     */
+    public boolean extornaDelivery(String idDelivery) {
+        boolean resp=false;
+        String sql = "UPDATE tbdelivery \n"
+                + "SET \n"
+                + "    total_pedido = NULL,\n"
+                + "    tx_servico = NULL,\n"
+                + "    tx_entrega = NULL,\n"
+                + "    total_geral = NULL,\n"
+                + "    hora_saida = NULL,\n"
+                + "    entregador = NULL\n"
+                + "WHERE\n"
+                + "    id = ?";
+        
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, idDelivery);
+            pst.executeUpdate();
+            resp=true;
+            
+        } catch (SQLException e) {
+            //System.out.println("br.com.br.controler.ControlerPedido.extornaDelivery()"+e);            
+        }
+        return resp;
+    }
+
+    /**
      * Extorna um pedido excluindo seu desconto e se houver também as formas de
      * pagamento.
      *
@@ -745,12 +881,12 @@ public class ControlerPedido {
             if (p.getId() != null && !"".equals(nMesa)) {
                 if (idDesconto != null) {
                     if (excluiDesconto(idDesconto)) {
-                       
+
                     }
                 }
                 if ("MISTO".equals(p.getFormaPagto())) {
                     if (excluiDetalhePagamento(p.getId())) {
-                       
+
                     }
                 }
                 // Muda o status  do pedido para 0 (zero) = Aberto e limpa valores
@@ -759,15 +895,33 @@ public class ControlerPedido {
                     pst = conexao.prepareStatement(sql);
                     pst.setString(1, p.getId());
                     pst.executeUpdate();
-                   // System.out.println("Pedido Extornado!");
+                    // System.out.println("Pedido Extornado!");
                 } catch (SQLException e) {
-                   
+
                 }
                 // Muda status da mesa
                 if (cm.trocaStatusMesa(nMesa, "1")) {
-                   // System.out.println("Mesa retornada ao estado anterior (Ocupada)");
+                    // System.out.println("Mesa retornada ao estado anterior (Ocupada)");
                 }
-                
+                String idPedidoDelivery;
+                // Verifica se o pedido é um delivery e armazena seu ID
+                idPedidoDelivery = estaNoDelivery(idPedido);
+                // Verifica se o pedido está na tabela histórica e devolve seu ID
+                String idHistoricoDelivery = estaNoHistoricoDelivery(idPedido);
+
+                if (idHistoricoDelivery != null) {
+                    if (moveHistoricoParaDelivery(idPedido)) {
+                        // Deleta o registro após remoção 
+                        if (deletaRegistro("tbhistoricodelivery", idHistoricoDelivery)) {
+                            idPedidoDelivery = estaNoDelivery(idPedido);
+                            //Extorna pedido no Delivery
+                            if (extornaDelivery(idPedidoDelivery)){
+                                
+                            }
+                        }
+                    }
+                }
+
             } else {
                 msg = "O número do Pedido ou o Número da mesa são inválidos!";
             }
@@ -776,4 +930,5 @@ public class ControlerPedido {
         }
         return msg;
     }
+
 }
