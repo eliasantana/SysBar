@@ -279,8 +279,8 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
                             //Extorna o pedido cujo o cupom foi cancelado
                             cp.extornaPedido(txtNumeroNota.getText(), operador);
                             // Registra cancelamento na base local
-                            cnfec.registraCancelamento(txtNumeroNota.getText(), operador);
-                            processamento("O Cupom N.° " + txtNumeroNota.getText() + " foi cancelado com sucesso!");
+                            cnfec.registraCancelamento(txtNumeroNota.getText(), operador);                            
+                            JOptionPane.showMessageDialog(this, "O Cupom N.° " + txtNumeroNota.getText() + " foi cancelado com sucesso!");
                         }
                         txtAreaMensagem.setText(null);
                         txtAreaMensagem.setEnabled(false);
