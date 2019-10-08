@@ -25,6 +25,14 @@ public class CriptoGrafa {
         return licenca;
     }
     
+    public String encripta(String mensagem) {
+        
+        String msgCodificada;
+        msgCodificada = Base64.encodeBase64String(mensagem.getBytes());
+        mensagem = msgCodificada;
+        return  mensagem;
+    }
+    
     public String decripta(String mensagemEncriptada){
             String msg=null;
         try {

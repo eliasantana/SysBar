@@ -92,6 +92,8 @@ public class TelaCaixa extends javax.swing.JFrame {
     TableModelCaixa modelCaixa = new TableModelCaixa();
     ControlerEntregador ce = new ControlerEntregador();
     ControlerNFCe cNFCe = new ControlerNFCe();
+    DadosEmpresa dadosEmpresa = de.selecionaDados();
+    int flagFiscal = 1; // 1 - Para autorizar e ler retorno SEFAZ 
     boolean foiCancelada;
     // Dados da NFC-e
     Nfce nota = new Nfce();
@@ -1387,15 +1389,17 @@ public class TelaCaixa extends javax.swing.JFrame {
 
                     if (op == JOptionPane.YES_OPTION) {  // Se confirmado fecha o pedido
                         // Exibe tela de processamento
-                        tpp = new TelaProcessaPamento();
-                        tpp.setModal(true);
-                        tpp.setVisible(true);
+                        if (flagFiscal == 1) {
+                            tpp = new TelaProcessaPamento();
+                            tpp.setModal(true);
+                            tpp.setVisible(true);
+                        }
                         // Retorna a forma de pagamento 
                         String formaPagto = detectaFormaDePagamento();
                         /*  Utilize o valor 1 para a flagFiscal para realizar a autorização
                         e a leitura do retorno do SEFAZ*/
                         //------------------ Autoriza NFCe ----------------------------------------------
-                        int flagFiscal = 1; // 1 - Para autorizar e ler retorno SEFAZ 
+
                         String codPagto; // Código de pagamento Da API
                         /*
                                 Valores possíveis:
@@ -1405,7 +1409,6 @@ public class TelaCaixa extends javax.swing.JFrame {
                          */
                         if (flagFiscal == 1) {
                             try {
-
                                 switch (formaPagto) {
 
                                     case "Dinheiro":
@@ -1423,38 +1426,43 @@ public class TelaCaixa extends javax.swing.JFrame {
                                     default:
                                         codPagto = "99";
                                 }
-                                // Autoriza pedido com apenas 1 item
-                                telaProcessamento("Iniciando autorização....");
+                                if (flagFiscal == 1) {
 
-                                if (tblDetalhePedido.getRowCount() == 1) {
-                                    telaProcessamento("Solicitando autorização.....");
-                                    autorizarNfCe(codPagto, tgeral.getText().replace(",", "."), lblNPedido.getText());
-                                    telaProcessamento("Autorizando.....");
-                                } else {
-                                    // autoriza pedido com mais de 1 item
-                                    telaProcessamento("Solicitando autorização.....");
-                                    int codPgto = autorizarNfCe2(codPagto, tgeral.getText().replace(",", "."), lblNPedido.getText());
-                                    telaProcessamento("Autorizando autorização.....");
+                                    // Autoriza pedido com apenas 1 item
+                                    telaProcessamento("Iniciando autorização....");
+
+                                    if (tblDetalhePedido.getRowCount() == 1) {
+                                        telaProcessamento("Solicitando autorização.....");
+                                        autorizarNfCe(codPagto, tgeral.getText().replace(",", "."), lblNPedido.getText());
+                                        telaProcessamento("Autorizando.....");
+                                    } else {
+                                        // autoriza pedido com mais de 1 item                                    
+                                        telaProcessamento("Solicitando autorização.....");
+                                        int codPgto = autorizarNfCe2(codPagto, tgeral.getText().replace(",", "."), lblNPedido.getText());
+                                        telaProcessamento("Autorizando autorização.....");
+                                    }
                                 }
                             } catch (JSONException ex) {
                                 Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                            if (flagFiscal == 1) {
 
-                            //------------------ Ler Retorno da Autorização ------------------//
-                            try {
-                                nota = cNFCe.lerRetorno("retorno.json");
-                                telaProcessamento("Autorizado:" + nota.getChave_nfe());
-                            } catch (org.json.simple.parser.ParseException | IOException ex) {
-                                Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                            //------------------ Gera QRCode ---------------------------------------//
-                            try {
-                                // Gera QRcod
-                                if (nota.getQrcode_url() != null) {
-                                    utils.generateQRCodeImage(nota.getQrcode_url(), 120, 120, "C:/Sysbar/qr.jpg");
+                                //------------------ Ler Retorno da Autorização ------------------//
+                                try {
+                                    nota = cNFCe.lerRetorno("retorno.json");
+                                    telaProcessamento("Autorizado:" + nota.getChave_nfe());
+                                } catch (org.json.simple.parser.ParseException | IOException ex) {
+                                    Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
                                 }
-                            } catch (WriterException | IOException ex) {
-                                Logger.getLogger(TelaReImpressao.class.getName()).log(Level.SEVERE, null, ex);
+                                //------------------ Gera QRCode ---------------------------------------//
+                                try {
+                                    // Gera QRcod
+                                    if (nota.getQrcode_url() != null) {
+                                        utils.generateQRCodeImage(nota.getQrcode_url(), 120, 120, "C:/Sysbar/qr.jpg");
+                                    }
+                                } catch (WriterException | IOException ex) {
+                                    Logger.getLogger(TelaReImpressao.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
                         }
 
@@ -1491,11 +1499,16 @@ public class TelaCaixa extends javax.swing.JFrame {
                             // Libera a mesa após o pagamento
                             cm.trocaStatusMesa(comboMesa.getSelectedItem().toString(), "0");
                             //Fecha Tela de processamento
-                            tpp.fechaTela();
+                            if (flagFiscal==1) {
+
+                                tpp.fechaTela();
+                            }
                             //JOptionPane.showMessageDialog(this, "Pedido fechado com sucesso!");
                             // ===============================================================//
-                            telaProcessamento("Preparando impressão do Cumpom Fiscal");
-                            
+                            if (flagFiscal == 1) {
+                                telaProcessamento("Preparando impressão do Cumpom Fiscal");
+                            }
+
                             jSpinFieldPessoas.setValue(1);
                             // Registra desconto se o valor for > que 0
                             Funcionario f = new Funcionario();
@@ -1535,11 +1548,11 @@ public class TelaCaixa extends javax.swing.JFrame {
                             //System.out.println(p.getId());
                             dados.put("npessoas", nPesoas); // Não tenho
                             dados.put("total_pessoas", totalPessoas); // Não tenho
-                            DadosEmpresa dadosEmpresa = de.selecionaDados();
+                            //DadosEmpresa dadosEmpresa = de.selecionaDados();
                             dados.put("mesa", comboMesa.getSelectedItem().toString());
                             dados.put("nome_empresa", dadosEmpresa.getNome_empresa());
-                            dados.put("end", dadosEmpresa.getEndereco() + ", " + dadosEmpresa.getNumero() + ", " + dadosEmpresa.getBairro());
-                            dados.put("end2", dadosEmpresa.getCep() + "-" + dadosEmpresa.getCidade() + " - " + dadosEmpresa.getUf() + "-" + dadosEmpresa.getTelefone());
+                            dados.put("end", dadosEmpresa.getEndereco() + "," + dadosEmpresa.getNumero() + " - " + dadosEmpresa.getBairro());
+                            dados.put("end2", dadosEmpresa.getCep() + " " + dadosEmpresa.getCidade() + "-" + dadosEmpresa.getUf() + " " + dadosEmpresa.getTelefone());
                             dados.put("cnpj", dadosEmpresa.getCnpj());
                             dados.put("desc", Double.parseDouble(txtDesconto.getText().replaceAll(",", ".")));
                             dados.put("desc", Double.parseDouble(txtDesconto.getText().replaceAll(",", ".")));

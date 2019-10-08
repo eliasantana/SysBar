@@ -5,10 +5,13 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.dao.CriptoGrafa;
 import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.Autorizar;
+import br.com.bar.model.DadosEmpresa;
 import br.com.bar.model.ProdutoNota;
 import br.com.bar.util.Util;
+import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerNFCe;
 import br.com.br.controler.ControlerPedido;
 import br.com.br.controler.ControlerProduto;
@@ -46,7 +49,7 @@ public class TesteNFCe extends javax.swing.JFrame {
     HashMap<String, String> nfce = new HashMap();
     HashMap<String, String> itens = new HashMap<>();
     HashMap<String, String> formasPagamento = new HashMap();
-      int linhas=0;
+    int linhas = 0;
 
     public TesteNFCe() {
         initComponents();
@@ -78,7 +81,7 @@ public class TesteNFCe extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        adicionar.setText("Adicionar");
+        adicionar.setText("Criptografa");
         adicionar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 adicionarMouseClicked(evt);
@@ -209,10 +212,32 @@ public class TesteNFCe extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarActionPerformed
-      
-      
-        tbDetalhePedido.setValueAt("1,00",linhas, 3);
 
+        ControlerDadosEmpresa dados = new ControlerDadosEmpresa();
+        DadosEmpresa d = dados.selecionaDados();
+        CriptoGrafa cripto = new CriptoGrafa();
+        // -----------------------------------------------------------
+        //Coluna do Banco de Dados responsável pela ativação fiscal
+        //String fiscal = null;
+        //String fiscal ="Elias25252525";
+        String fiscal ="MzQuMjU3LjU3NS8wMDAxLTA2";
+        String nomeEmpresa = d.getNome_empresa();
+        System.out.println(nomeEmpresa);
+        int retorno = 0;
+        if (fiscal != null) {
+            // Encript CNPJ
+            String cnpjEncriptado = cripto.encripta(d.getCnpj());
+            if (fiscal.equals(cnpjEncriptado)) {
+                retorno = 1;
+            }
+        }
+        System.out.println("Resposta Fiscal: " + retorno);
+        if (retorno == 1) {
+            System.out.println("Imprimir Cupom Fiscal.....");
+        } else {
+            System.out.println("Systema sem licença fiscal......");
+
+        }
     }//GEN-LAST:event_adicionarActionPerformed
 
     private void listarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarActionPerformed
@@ -230,8 +255,7 @@ public class TesteNFCe extends javax.swing.JFrame {
 
             listaProduto.add(p);
         }
-        
-        
+
         JSONObject json;
         JSONObject jsonItens;
 
@@ -329,11 +353,11 @@ public class TesteNFCe extends javax.swing.JFrame {
             Logger.getLogger(TesteNFCe.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Erro ao Adicionar Forma de Pagamento no Obj. Json");
         }
-        
+
         System.out.println("Tamnho da lista:" + listaProduto.size());
-        
+
         // Imprime dados do Json
-         try {
+        try {
             FileOutputStream out = new FileOutputStream("c://sysbar/saida.json");
             PrintStream ps = new PrintStream(out);
             System.setOut(ps);
@@ -360,23 +384,23 @@ public class TesteNFCe extends javax.swing.JFrame {
         System.out.print("HTTP Code: ");
         System.out.print(httpCode);
         System.out.println(body);
-        */
-       
+         */
+
 
     }//GEN-LAST:event_listarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         ReportUtil ru = new ReportUtil();
-        HashMap<String,String> map = new HashMap<>();
+        HashMap<String, String> map = new HashMap<>();
         map.put("chave_nfe", "NFe26190934257575000106650010000000091397401706");
         map.put("url_consulta_nf", "nfce.sefaz.pe.gov.br/nfce/consulta");
         map.put("serie", "1");
         map.put("numero", "1");
         map.put("qrcode_url", "http://nfcehomolog.sefaz.pe.gov.br/nfce/consulta?p=26190934257575000106650010000000091397401706|2|2|1|7FD968E4418F6BBBB92880FC356E1DF194AD9516");
-        String qr = "http://nfcehomolog.sefaz.pe.gov.br/nfce/consulta?p=26190934257575000106650010000000091397401706|2|2|1|7FD968E4418F6BBBB92880FC356E1DF194AD9516";        
-       Util util = new Util();
-       String caminho = "C:/Sysbar/qr.jpg";
+        String qr = "http://nfcehomolog.sefaz.pe.gov.br/nfce/consulta?p=26190934257575000106650010000000091397401706|2|2|1|7FD968E4418F6BBBB92880FC356E1DF194AD9516";
+        Util util = new Util();
+        String caminho = "C:/Sysbar/qr.jpg";
         try {
             util.generateQRCodeImage(qr, 120, 120, caminho);
         } catch (WriterException | IOException ex) {
@@ -390,45 +414,45 @@ public class TesteNFCe extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnValidaEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidaEmailActionPerformed
-     
-     ArrayList<String> listaEmail = new ArrayList<>();
-     
-     if (u.validaEmail(txtEmail1.getText())){
-         listaEmail.add(txtEmail1.getText());
-         lblEmail1.setText("Válido");
-     }else {
-         lblEmail1.setText("inválido");
-     }
-     
-     if (u.validaEmail(txtEmail2.getText())){
-         listaEmail.add(txtEmail2.getText());
-         lblEmail2.setText("Válido");
-     }else {
-          lblEmail1.setText("inválido");
-     }
-     
-     if (u.validaEmail(txtEmail3.getText())){
-         listaEmail.add(txtEmail1.getText());
-         lblEmail3.setText("Válido");
-     }else {
-          lblEmail3.setText("Inválido");
-     }
-     
-        System.out.println("Tamnho da Lista: "+ listaEmail.toString());
-        System.out.println("Tamnho: "+listaEmail.size());
-     
-      if(listaEmail.size()>0){
-          ControlerNFCe cNfce = new ControlerNFCe();
-         try {
-             if (cNfce.enviaEmail("718", listaEmail)){
-                 JOptionPane.showMessageDialog(this, "Mensagem enviad com sucesso!");
-             }
-         } catch (JSONException ex) {
-             Logger.getLogger(TesteNFCe.class.getName()).log(Level.SEVERE, null, ex);
-         }
-          
-      }
-       
+
+        ArrayList<String> listaEmail = new ArrayList<>();
+
+        if (u.validaEmail(txtEmail1.getText())) {
+            listaEmail.add(txtEmail1.getText());
+            lblEmail1.setText("Válido");
+        } else {
+            lblEmail1.setText("inválido");
+        }
+
+        if (u.validaEmail(txtEmail2.getText())) {
+            listaEmail.add(txtEmail2.getText());
+            lblEmail2.setText("Válido");
+        } else {
+            lblEmail1.setText("inválido");
+        }
+
+        if (u.validaEmail(txtEmail3.getText())) {
+            listaEmail.add(txtEmail1.getText());
+            lblEmail3.setText("Válido");
+        } else {
+            lblEmail3.setText("Inválido");
+        }
+
+        System.out.println("Tamnho da Lista: " + listaEmail.toString());
+        System.out.println("Tamnho: " + listaEmail.size());
+
+        if (listaEmail.size() > 0) {
+            ControlerNFCe cNfce = new ControlerNFCe();
+            try {
+                if (cNfce.enviaEmail("718", listaEmail)) {
+                    JOptionPane.showMessageDialog(this, "Mensagem enviad com sucesso!");
+                }
+            } catch (JSONException ex) {
+                Logger.getLogger(TesteNFCe.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
     }//GEN-LAST:event_btnValidaEmailActionPerformed
 
     private void adicionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarMouseClicked
@@ -436,7 +460,7 @@ public class TesteNFCe extends javax.swing.JFrame {
     }//GEN-LAST:event_adicionarMouseClicked
 
     private void tbDetalhePedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDetalhePedidoMouseClicked
-        linhas=tbDetalhePedido.getSelectedRow();
+        linhas = tbDetalhePedido.getSelectedRow();
     }//GEN-LAST:event_tbDetalhePedidoMouseClicked
 
     /**
