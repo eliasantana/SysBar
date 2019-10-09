@@ -1310,7 +1310,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "O valor a ser pago não pode ser menor que o total da conta!");
-                txtTroco.setText("00.00");
+                txtTroco.setText("00,00");
                 txtValorPago.setText(lblTotal.getText());
 
             }
