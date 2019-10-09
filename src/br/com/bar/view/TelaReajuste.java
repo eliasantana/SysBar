@@ -450,7 +450,9 @@ public class TelaReajuste extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(this, "Selecione um grupo!");
                         } else {
                             // Reajusta o grupo de produto
-                            cp.reajusteGrupoProduto(txtId.getText(), txtPercentual.getText());
+                            if (cp.reajusteGrupoProduto(txtId.getText(), txtPercentual.getText())){
+                                JOptionPane.showMessageDialog(this, "Grupo de produtos reajustado com sucesso!");
+                            }
                             tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste()));
                             model.redimensionaColunas(tblProdutos);
                             txtPercentual.setText("0,0");
@@ -585,7 +587,7 @@ public class TelaReajuste extends javax.swing.JFrame {
 
     private void txtNomeProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeProdutoKeyReleased
         // Localiza Produto
-        tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.pesquisarProduto(txtNomeProduto.getText())));
+        tblProdutos.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoParaReajuste(txtNomeProduto.getText())));
         model.redimensionaColunas(tblProdutos);
     }//GEN-LAST:event_txtNomeProdutoKeyReleased
 

@@ -137,7 +137,7 @@ public class ControlerProduto {
 
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, "%"+nomeProduto + "%");
+            pst.setString(1, "%" + nomeProduto + "%");
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
@@ -188,53 +188,53 @@ public class ControlerProduto {
         return rs;
     }
 
-
     public ResultSet listaEquantidade2(String coluna, String pesquisa) {
-        String sql="";
+        String sql = "";
         if ("nome".equals(coluna)) {
             coluna = "p.nome";
-                sql = "SELECT\n"
-                + "	p.id as 'CÓDIGO', \n"
-                + "	p.nome as 'PRODUTO',\n"
-                + "	p.qtd as 'QTD', \n"
-                + "	g.nome as 'GRUPO'\n"
-                + "FROM tbproduto p\n"
-                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id\n"
-                + "WHERE " + coluna + " LIKE ?;";
+            sql = "SELECT\n"
+                    + "	p.id as 'CÓDIGO', \n"
+                    + "	p.nome as 'PRODUTO',\n"
+                    + "	p.qtd as 'QTD', \n"
+                    + "	g.nome as 'GRUPO'\n"
+                    + "FROM tbproduto p\n"
+                    + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id\n"
+                    + "WHERE " + coluna + " LIKE ?;";
 
-        try {
-            pst = conexao.prepareStatement(sql);            
-            pst.setString(1, "%" + pesquisa + "%");   
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, "%" + pesquisa + "%");
 
-            rs = pst.executeQuery();
+                rs = pst.executeQuery();
 
-        } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerProduto.listaEquantidade() - NOME" + e);
-        }
+            } catch (SQLException e) {
+                System.out.println("br.com.br.controler.ControlerProduto.listaEquantidade() - NOME" + e);
+            }
         } else {
-             coluna = "p.id";             
-                sql = "SELECT\n"
-                + "	p.id as 'CÓDIGO', \n"
-                + "	p.nome as 'PRODUTO',\n"
-                + "	p.qtd as 'QTD', \n"
-                + "	g.nome as 'GRUPO'\n"
-                + "FROM tbproduto p\n"
-                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id\n"
-                + "WHERE " + coluna + " LIKE ?;";
+            coluna = "p.id";
+            sql = "SELECT\n"
+                    + "	p.id as 'CÓDIGO', \n"
+                    + "	p.nome as 'PRODUTO',\n"
+                    + "	p.qtd as 'QTD', \n"
+                    + "	g.nome as 'GRUPO'\n"
+                    + "FROM tbproduto p\n"
+                    + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id\n"
+                    + "WHERE " + coluna + " LIKE ?;";
 
-        try {
-            pst = conexao.prepareStatement(sql);            
-            pst.setString(1, pesquisa );   
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, pesquisa);
 
-            rs = pst.executeQuery();
+                rs = pst.executeQuery();
 
-        } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerProduto.listaEquantidade() - LIKE" + e);
-        }
+            } catch (SQLException e) {
+                System.out.println("br.com.br.controler.ControlerProduto.listaEquantidade() - LIKE" + e);
+            }
         }
 
         return rs;
     }
+
     public ResultSet filtrarProduto(String localizarTexto, String opcao) {
 
         String filtro = "";
@@ -262,7 +262,7 @@ public class ControlerProduto {
 
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, "%"+localizarTexto + "%");
+            pst.setString(1, "%" + localizarTexto + "%");
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
@@ -445,6 +445,28 @@ public class ControlerProduto {
 
         return rs;
     }
+    // Lista produto para reajuste filtrando pelo nome do produto informado
+    public ResultSet listaProdutoParaReajuste(String nomeProduto) {
+
+        String sql = "SELECT \n"
+                + "    id AS 'CÓDIGO',\n"
+                + "    nome AS 'DESCRIÇÃO',\n"
+                + "    FORMAT(valor, 2, 'de_DE') AS 'VALOR R$'\n"
+                + "FROM\n"
+                + "    dbbar.tbproduto\n"
+                + "WHERE nome LIKE ?";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, "%"+nomeProduto+"%");
+            rs = pst.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerProduto.listaProdutoParaReajuste()");
+        }
+
+        return rs;
+    }
 
     public boolean reajustaValorProduto(String id, double valorProduto, double fator) {
         DecimalFormat formatador = new DecimalFormat("0.00");
@@ -483,8 +505,8 @@ public class ControlerProduto {
 
     }
 
-    public void reajusteGrupoProduto(String idGrupo, String fator) {
-
+    public boolean reajusteGrupoProduto(String idGrupo, String fator) {
+        boolean resp = false;
         String sql = "SELECT \n"
                 + "	tbproduto.`id` AS id,\n"
                 + "     tbproduto.`nome` AS tbproduto_nome,\n"
@@ -501,18 +523,18 @@ public class ControlerProduto {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, idGrupo);
             rs = pst.executeQuery();
-
+            resp = true;
             while (rs.next()) {
                 double valorProduto = Double.parseDouble(rs.getString("tbproduto_valor"));
 
                 reajustaValorProduto(rs.getString("id"), Double.parseDouble(rs.getString("tbproduto_valor")), Double.parseDouble(fator));
 
             }
-            JOptionPane.showMessageDialog(null, "Grupo de produtos reajustado com sucesso!");
+
         } catch (NumberFormatException | SQLException e) {
             System.out.println("br.com.br.controler.ControlerProduto.reajusteGrupoProduto()" + e);
         }
-
+        return resp;
     }
 
     /**
@@ -556,39 +578,38 @@ public class ControlerProduto {
         }
         return resp;
     }
-    
-    
+
     //Retorna o ncm do produto cadastrado
-    public String localizaNCM(Produto p){
-        String sql="SELECT cod_ncm FROM dbbar.tbproduto where id=?";
-        String codigo_ncm=null;
+    public String localizaNCM(Produto p) {
+        String sql = "SELECT cod_ncm FROM dbbar.tbproduto where id=?";
+        String codigo_ncm = null;
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, p.getId());
-            rs=pst.executeQuery();
-            while (rs.next()){
+            rs = pst.executeQuery();
+            while (rs.next()) {
                 codigo_ncm = rs.getString("cod_ncm");
             }
         } catch (SQLException e) {
         }
-        
+
         return codigo_ncm;
     }
-    
+
     //Retorna o ncm do produto cadastrado
-    public String localizaNCM(String idProduto){
-        String sql="SELECT cod_ncm FROM dbbar.tbproduto where id=?";
-        String codigo_ncm=null;
+    public String localizaNCM(String idProduto) {
+        String sql = "SELECT cod_ncm FROM dbbar.tbproduto where id=?";
+        String codigo_ncm = null;
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, idProduto);
-            rs=pst.executeQuery();
-            while (rs.next()){
+            rs = pst.executeQuery();
+            while (rs.next()) {
                 codigo_ncm = rs.getString("cod_ncm");
             }
         } catch (SQLException e) {
         }
-        
+
         return codigo_ncm;
     }
 }
