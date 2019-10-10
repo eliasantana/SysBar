@@ -465,7 +465,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         f.setNome(comboFornecedor.getSelectedItem().toString());
 
         Produto p = new Produto();
-        p.setNome(txtDescricao.getText());
+       
+        //p.setNome(txtDescricao.getText());
+        p.setNome(u.retiraAcento(txtDescricao.getText()));
         p.setQtd(txtQuantidade.getText());
         p.setQtdMax(txtQtdMax.getText());
         p.setQtdMin(txtQtdMin.getText());

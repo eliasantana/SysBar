@@ -688,7 +688,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         novoDadosEmpesa.setCidade(txtCidade.getText());
         novoDadosEmpesa.setTelefone(txtTelefone.getText());
         novoDadosEmpesa.setCelular(txtCelular.getText());
-        novoDadosEmpesa.setEmail(txtEmail.getText());
+        novoDadosEmpesa.setEmail(txtEmail.getText().toLowerCase());
         String cnpj = txtCnpj.getText();
         //Retira ponto do CNPJ
         String cnpjSemPonto = cnpj.replace(".", "");
