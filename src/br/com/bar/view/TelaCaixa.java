@@ -3022,7 +3022,19 @@ public class TelaCaixa extends javax.swing.JFrame {
     public void desabilitaCheckBoxDesconto() {
         checkConcedeDesconto.setSelected(false);
     }
-
+    /**
+     * Adicionado em: 10-09-2019
+     * Este método é executado quando o pedido possui apenas um item, ele
+     * autoriza a emissão de Nota Fiscal ao Consumidor (NFC-e) e cria um arquivo 
+     * no formato Json (retorno.Json) contendo os dados de retorno da API com a mensagem do SEFAZ. 
+     * @param  codFormaPagamento Código da Forma de Pagamento
+     *         Valores possíveis:
+               01: Dinheiro.      02: Cheque.           03: Cartão de Crédito. 04: Cartão de Débito.
+               05: Crédito Loja.  10: Vale Alimentação. 11: Vale Refeição.
+               12: Vale Presente. 13: Vale Combustível. 99: Outros
+     *@param valorPedido Valor do Pedido (Ex: 12.00).
+     *@param nPedido Número do pedido a ser autorizado                       
+     */
     private void autorizarNfCe(String codFormaPagamento, String valorPedido, String nPedido) throws JSONException {
         ControlerProduto controlProduto = new ControlerProduto();
 
@@ -3147,7 +3159,19 @@ public class TelaCaixa extends javax.swing.JFrame {
         }
 
     }
-
+    /**
+     * Adicionado em: 10-09-2019
+     * Este método é executado quando o pedido possui mais de um item, ele
+     * autoriza a emissão de Nota Fiscal ao Consumidor (NFC-e) e cria um arquivo 
+     * no formato Json (retorno.Json) contendo os dados de retorno da API com a mensagem do SEFAZ. 
+     * @param  codFormaPagamento Código da Forma de Pagamento
+     *         Valores possíveis:
+               01: Dinheiro.      02: Cheque.           03: Cartão de Crédito. 04: Cartão de Débito.
+               05: Crédito Loja.  10: Vale Alimentação. 11: Vale Refeição.
+               12: Vale Presente. 13: Vale Combustível. 99: Outros
+     *@param valorPedido Valor do Pedido (Ex: 12.00).
+     *@param nPedido Número do pedido a ser autorizado                       
+     */
     private int autorizarNfCe2(String codFormaPagamento, String valorPedido, String nPedido) throws JSONException {
         ControlerProduto controlProduto = new ControlerProduto();
 

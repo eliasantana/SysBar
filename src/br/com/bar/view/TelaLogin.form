@@ -144,7 +144,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value=" VERS&#xc3;O 1.0.3-f.9 - 04/10/2019"/>
+            <Property name="text" type="java.lang.String" value=" VERS&#xc3;O 1.0.3-f.13 - 10/10/2019"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
