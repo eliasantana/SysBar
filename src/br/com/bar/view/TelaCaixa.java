@@ -111,7 +111,8 @@ public class TelaCaixa extends javax.swing.JFrame {
     // Instância da tela principal usada para atualização após inclusão de contas;
     TelaPrincipal principal = new TelaPrincipal();
     Util utils = new Util();
-
+    //Ambiente de Emissão  (0 - Homologação - 1  Prdodução
+    private final int ambiente = 1;  
     Log l = new Log();
     Date data = new Date();
     ArrayList<String> listAutoDesconto;
@@ -1499,7 +1500,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                             // Libera a mesa após o pagamento
                             cm.trocaStatusMesa(comboMesa.getSelectedItem().toString(), "0");
                             //Fecha Tela de processamento
-                            if (flagFiscal==1) {
+                            if (flagFiscal == 1) {
 
                                 tpp.fechaTela();
                             }
@@ -3022,18 +3023,19 @@ public class TelaCaixa extends javax.swing.JFrame {
     public void desabilitaCheckBoxDesconto() {
         checkConcedeDesconto.setSelected(false);
     }
+
     /**
-     * Adicionado em: 10-09-2019
-     * Este método é executado quando o pedido possui apenas um item, ele
-     * autoriza a emissão de Nota Fiscal ao Consumidor (NFC-e) e cria um arquivo 
-     * no formato Json (retorno.Json) contendo os dados de retorno da API com a mensagem do SEFAZ. 
-     * @param  codFormaPagamento Código da Forma de Pagamento
-     *         Valores possíveis:
-               01: Dinheiro.      02: Cheque.           03: Cartão de Crédito. 04: Cartão de Débito.
-               05: Crédito Loja.  10: Vale Alimentação. 11: Vale Refeição.
-               12: Vale Presente. 13: Vale Combustível. 99: Outros
-     *@param valorPedido Valor do Pedido (Ex: 12.00).
-     *@param nPedido Número do pedido a ser autorizado                       
+     * Adicionado em: 10-09-2019 Este método é executado quando o pedido possui
+     * apenas um item, ele autoriza a emissão de Nota Fiscal ao Consumidor
+     * (NFC-e) e cria um arquivo no formato Json (retorno.Json) contendo os
+     * dados de retorno da API com a mensagem do SEFAZ.
+     *
+     * @param codFormaPagamento Código da Forma de Pagamento Valores possíveis:
+     * 01: Dinheiro. 02: Cheque. 03: Cartão de Crédito. 04: Cartão de Débito.
+     * 05: Crédito Loja. 10: Vale Alimentação. 11: Vale Refeição. 12: Vale
+     * Presente. 13: Vale Combustível. 99: Outros
+     * @param valorPedido Valor do Pedido (Ex: 12.00).
+     * @param nPedido Número do pedido a ser autorizado
      */
     private void autorizarNfCe(String codFormaPagamento, String valorPedido, String nPedido) throws JSONException {
         ControlerProduto controlProduto = new ControlerProduto();
@@ -3044,11 +3046,17 @@ public class TelaCaixa extends javax.swing.JFrame {
         /* Substituir pela sua identificação interna da nota. */
         String ref = nPedido; // Código do pedido
 
-        /* Para ambiente de produção use a variável abaixo:
-         String server = "https://api.focusnfe.com.br/"; */
-        String server = "https://homologacao.focusnfe.com.br/";
+        /* Para ambiente de produção use a variável abaixo:*/
+        String server;
+        // Verifica em que ambiente a nota deverá ser emitida (1 - Produção  0 - Homologação)
+        if (ambiente == 1) {
+            // Produção
+            server = "https://api.focusnfe.com.br/";
+        } else {
+            // Homoloação
+            server = "https://homologacao.focusnfe.com.br/";
+        }
         String url = server.concat("v2/nfce?ref=" + ref + "&completa=1");
-
         /* Configuração para realizar o HTTP BasicAuth. */
         Object config = new DefaultClientConfig();
         Client client = Client.create((ClientConfig) config);
@@ -3105,7 +3113,11 @@ public class TelaCaixa extends javax.swing.JFrame {
             itens.put("cfop", "5102"); // Venda de mercadoria adquirida ou recebida de terceiros
             itens.put("icms_situacao_tributaria", "103");
             itens.put("unidade_comercial", "un");
-            itens.put("descricao", "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"); //Substituir pela descrição do produto no ambiente de produção
+            if (ambiente == 1) {
+                itens.put("descricao", listaProdutosNota.get(i).getDescricao()); //Substituir pela descrição do produto no ambiente de produção
+            } else {
+                itens.put("descricao", "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"); //Substituir pela descrição do produto no ambiente de produção
+            }
             itens.put("pis_situacao_tributaria", "07");
             itens.put("codigo_ncm", listaProdutosNota.get(i).getCodNcm());
             itens.put("quantidade_tributavel", listaProdutosNota.get(i).getQtd());
@@ -3159,18 +3171,19 @@ public class TelaCaixa extends javax.swing.JFrame {
         }
 
     }
+
     /**
-     * Adicionado em: 10-09-2019
-     * Este método é executado quando o pedido possui mais de um item, ele
-     * autoriza a emissão de Nota Fiscal ao Consumidor (NFC-e) e cria um arquivo 
-     * no formato Json (retorno.Json) contendo os dados de retorno da API com a mensagem do SEFAZ. 
-     * @param  codFormaPagamento Código da Forma de Pagamento
-     *         Valores possíveis:
-               01: Dinheiro.      02: Cheque.           03: Cartão de Crédito. 04: Cartão de Débito.
-               05: Crédito Loja.  10: Vale Alimentação. 11: Vale Refeição.
-               12: Vale Presente. 13: Vale Combustível. 99: Outros
-     *@param valorPedido Valor do Pedido (Ex: 12.00).
-     *@param nPedido Número do pedido a ser autorizado                       
+     * Adicionado em: 10-09-2019 Este método é executado quando o pedido possui
+     * mais de um item, ele autoriza a emissão de Nota Fiscal ao Consumidor
+     * (NFC-e) e cria um arquivo no formato Json (retorno.Json) contendo os
+     * dados de retorno da API com a mensagem do SEFAZ.
+     *
+     * @param codFormaPagamento Código da Forma de Pagamento Valores possíveis:
+     * 01: Dinheiro. 02: Cheque. 03: Cartão de Crédito. 04: Cartão de Débito.
+     * 05: Crédito Loja. 10: Vale Alimentação. 11: Vale Refeição. 12: Vale
+     * Presente. 13: Vale Combustível. 99: Outros
+     * @param valorPedido Valor do Pedido (Ex: 12.00).
+     * @param nPedido Número do pedido a ser autorizado
      */
     private int autorizarNfCe2(String codFormaPagamento, String valorPedido, String nPedido) throws JSONException {
         ControlerProduto controlProduto = new ControlerProduto();
@@ -3181,9 +3194,16 @@ public class TelaCaixa extends javax.swing.JFrame {
         /* Substituir pela sua identificação interna da nota. */
         String ref = nPedido; // Código do pedido
 
-        /* Para ambiente de produção use a variável abaixo:
-         String server = "https://api.focusnfe.com.br/"; */
-        String server = "https://homologacao.focusnfe.com.br/";
+        /* Para ambiente de produção use a variável abaixo:*/
+        String server;
+        // Verifica em que ambiente a nota deverá ser emitida (1 - Produção  0 - Homologação)
+        if (ambiente == 1) {
+            // Produção
+            server = "https://api.focusnfe.com.br/";
+        } else {
+            //Homologação
+            server = "https://homologacao.focusnfe.com.br/";
+        }
         String url = server.concat("v2/nfce?ref=" + ref + "&completa=0"); // 0 - para retorno simples  / 1- Retorno completo
 
         /* Configuração para realizar o HTTP BasicAuth. */
@@ -3245,7 +3265,11 @@ public class TelaCaixa extends javax.swing.JFrame {
             itens.put("cfop", "5102"); // Venda de mercadoria adquirida ou recebida de terceiros
             itens.put("icms_situacao_tributaria", "103");
             itens.put("unidade_comercial", "un");
-            itens.put("descricao", "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"); //Substituir pela descrição do produto no ambiente de produção
+            if (ambiente == 1) {
+                itens.put("descricao", listaProdutosNota.get(i).getDescricao()); //Substituir pela descrição do produto no ambiente de produção
+            } else {
+                itens.put("descricao", "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"); //Substituir pela descrição do produto no ambiente de produção
+            }
             itens.put("pis_situacao_tributaria", "07");
             itens.put("codigo_ncm", listaProdutosNota.get(i).getCodNcm());
             itens.put("quantidade_tributavel", listaProdutosNota.get(i).getQtd());
@@ -3313,7 +3337,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             qtdItens = Integer.parseInt(tblDetalhePedido.getValueAt(i, 2).toString());
             somaQtd = somaQtd + qtdItens;
         }
-        System.out.println("Total Itens: " + somaQtd);
+        //System.out.println("Total Itens: " + somaQtd);
         descontoItem = (desconto / somaQtd);
         if (desconto != 0) {
             double tg = 0;
