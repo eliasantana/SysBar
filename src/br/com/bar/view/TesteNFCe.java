@@ -5,6 +5,7 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.CriptoGrafa;
 import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.Autorizar;
@@ -16,6 +17,7 @@ import br.com.br.controler.ControlerNFCe;
 import br.com.br.controler.ControlerPedido;
 import br.com.br.controler.ControlerProduto;
 import com.google.zxing.WriterException;
+import com.mysql.cj.protocol.Resultset;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
@@ -24,6 +26,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;

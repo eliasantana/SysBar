@@ -167,15 +167,28 @@ public class ControlerNFCe {
     }
 
     public int cancelaNFCe(String motivo, String nPedido, String arquivoRetorno) {
-        String login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
+        int ambiente = 1;
+        String login;
+        if (ambiente == 1) {
+            // Token para emissão em ambiente de Produção
+             login = "DhdwJcAsy0jGvNDRv7mGZyWeJ19CBRUT";
+        } else {
+            // Token para emissão em ambiente de Homologação
+             login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
+        }
+
         NFCeCancelamento cancelamento = new NFCeCancelamento();
 
+        String server;
         /* Substituir pela sua identificação interna da nota. */
         String ref = nPedido;
-
-        /* Para ambiente de produção use a variável abaixo:
-        String server = "https://api.focusnfe.com.br/"; */
-        String server = "https://homologacao.focusnfe.com.br/";
+        if (ambiente == 1) {
+            /* Para ambiente de produção use a variável abaixo:*/
+            server = "https://api.focusnfe.com.br/";
+        } else {
+            /* Para ambiente de Homologação use a variável abaixo:*/
+            server = "https://homologacao.focusnfe.com.br/";
+        }
 
         String url = server.concat("v2/nfce/" + ref);
 
@@ -310,7 +323,7 @@ public class ControlerNFCe {
 
         return nota;
     }
-    
+
     /**
      * Converte um arquivo de retorno String no formato JSon e converte em
      * JSONObjet utilizando a biblioteca org.json.simple
@@ -322,7 +335,7 @@ public class ControlerNFCe {
      * @throws org.json.simple.parser.ParseException
      * @throws java.io.IOException
      */
-        public NFCeCancelamento lerRetornoCancelamento(String nomeArquivo) throws ParseException, IOException {
+    public NFCeCancelamento lerRetornoCancelamento(String nomeArquivo) throws ParseException, IOException {
         org.json.simple.JSONObject jo;
         JSONParser parser = new JSONParser();
         NFCeCancelamento cancelamento = new NFCeCancelamento();
@@ -338,7 +351,7 @@ public class ControlerNFCe {
             //System.out.println(nota.toString());
         } catch (FileNotFoundException | ParseException ex) {
             Logger.getLogger(TesteJesonString.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("br.com.br.controler.ControlerNFCe.lerRetornoCancelamento()"+ex);
+            System.out.println("br.com.br.controler.ControlerNFCe.lerRetornoCancelamento()" + ex);
         }
 
         return cancelamento;
@@ -361,6 +374,7 @@ public class ControlerNFCe {
             System.out.println("br.com.br.controler.ControlerNFCe.gravaCancelamento()" + e);
         }
     }
+
     // Verificana base local se o cupom já foi cancelado
     public boolean estaCancelada(String nCupom) {
 

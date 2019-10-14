@@ -94,6 +94,8 @@ public class TelaCaixa extends javax.swing.JFrame {
     ControlerNFCe cNFCe = new ControlerNFCe();
     DadosEmpresa dadosEmpresa = de.selecionaDados();
     int flagFiscal = 1; // 1 - Para autorizar e ler retorno SEFAZ 
+    //Ambiente de Emissão  (0 - Homologação - 1  Prdodução
+    private final int ambiente = 1;
     boolean foiCancelada;
     // Dados da NFC-e
     Nfce nota = new Nfce();
@@ -111,8 +113,6 @@ public class TelaCaixa extends javax.swing.JFrame {
     // Instância da tela principal usada para atualização após inclusão de contas;
     TelaPrincipal principal = new TelaPrincipal();
     Util utils = new Util();
-    //Ambiente de Emissão  (0 - Homologação - 1  Prdodução
-    private final int ambiente = 1;  
     Log l = new Log();
     Date data = new Date();
     ArrayList<String> listAutoDesconto;
@@ -132,7 +132,12 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     public TelaCaixa() {
         initComponents();
+        if (ambiente == 1) {
+            lblAmbiante.setText("NFC-e em Produção");
+        } else {
+            lblAmbiante.setText("NFC-e em Homologação");
 
+        }
         caixa.listaMesaOcupada(comboMesa);
         checkTxServico.setSelected(true);
         txtIdMEsa.setVisible(false);
@@ -190,6 +195,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         btnGrafico = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
+        lblAmbiante = new javax.swing.JLabel();
         painelDireito = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnFechar = new javax.swing.JLabel();
@@ -411,6 +417,10 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/calendar24x24.png"))); // NOI18N
         lblData.setText("jLabel5");
         painelEsquerdo.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 630, 120, 40));
+
+        lblAmbiante.setForeground(new java.awt.Color(255, 255, 255));
+        lblAmbiante.setText("jLabel10");
+        painelEsquerdo.add(lblAmbiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 160, -1));
 
         getContentPane().add(painelEsquerdo);
         painelEsquerdo.setBounds(0, 0, 260, 700);
@@ -2621,6 +2631,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel labelSaidas;
     private javax.swing.JLabel labelSaldo;
     private javax.swing.JLabel lblAlteraSenha;
+    private javax.swing.JLabel lblAmbiante;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblConsultarPrecos;
     private javax.swing.JLabel lblContasAPagar;
@@ -3039,9 +3050,15 @@ public class TelaCaixa extends javax.swing.JFrame {
      */
     private void autorizarNfCe(String codFormaPagamento, String valorPedido, String nPedido) throws JSONException {
         ControlerProduto controlProduto = new ControlerProduto();
-
+        String login;
         // Dados de Conexao com a API - FocusNFe
-        String login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
+        if (ambiente == 1) {
+            // Token de Produção
+            login = "DhdwJcAsy0jGvNDRv7mGZyWeJ19CBRUT";
+        } else {
+            // Token de Homologação
+            login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
+        }
 
         /* Substituir pela sua identificação interna da nota. */
         String ref = nPedido; // Código do pedido
@@ -3187,9 +3204,15 @@ public class TelaCaixa extends javax.swing.JFrame {
      */
     private int autorizarNfCe2(String codFormaPagamento, String valorPedido, String nPedido) throws JSONException {
         ControlerProduto controlProduto = new ControlerProduto();
-
-        // Dados de Conexao com a API - FocusNFe
-        String login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
+        String login;
+        if (ambiente == 1) {
+            // Dados de Conexao com a API - FocusNFe
+            // Ambiente de Produção
+            login = "DhdwJcAsy0jGvNDRv7mGZyWeJ19CBRUT";            
+        } else {
+            // Ambiente de Homologação
+            login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
+        }
 
         /* Substituir pela sua identificação interna da nota. */
         String ref = nPedido; // Código do pedido
@@ -3198,10 +3221,10 @@ public class TelaCaixa extends javax.swing.JFrame {
         String server;
         // Verifica em que ambiente a nota deverá ser emitida (1 - Produção  0 - Homologação)
         if (ambiente == 1) {
-            // Produção
+            // Ambiente de Produção
             server = "https://api.focusnfe.com.br/";
         } else {
-            //Homologação
+            //Ambiente de Homologação
             server = "https://homologacao.focusnfe.com.br/";
         }
         String url = server.concat("v2/nfce?ref=" + ref + "&completa=0"); // 0 - para retorno simples  / 1- Retorno completo
