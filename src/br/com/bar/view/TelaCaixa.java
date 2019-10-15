@@ -133,10 +133,9 @@ public class TelaCaixa extends javax.swing.JFrame {
     public TelaCaixa() {
         initComponents();
         if (ambiente == 1) {
-            lblAmbiante.setText("NFC-e em Produção");
+            lblAmbiante.setVisible(false);
         } else {
             lblAmbiante.setText("NFC-e em Homologação");
-
         }
         caixa.listaMesaOcupada(comboMesa);
         checkTxServico.setSelected(true);
@@ -420,7 +419,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         lblAmbiante.setForeground(new java.awt.Color(255, 255, 255));
         lblAmbiante.setText("jLabel10");
-        painelEsquerdo.add(lblAmbiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 160, -1));
+        painelEsquerdo.add(lblAmbiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 190, -1));
 
         getContentPane().add(painelEsquerdo);
         painelEsquerdo.setBounds(0, 0, 260, 700);
@@ -1209,7 +1208,6 @@ public class TelaCaixa extends javax.swing.JFrame {
             dispose();
             TelaLogin login = new TelaLogin();
             login.setVisible(true);
-
         }
     }//GEN-LAST:event_btnFecharMouseClicked
 
@@ -1217,7 +1215,6 @@ public class TelaCaixa extends javax.swing.JFrame {
         btnListar.setEnabled(false);
         if (!"Selecione...".equals(comboMesa.getSelectedItem())) {
             btnListar.setEnabled(true);
-
         } else {
             lblReceber.setEnabled(false);
             lblReceberPAgamento.setEnabled(false);
