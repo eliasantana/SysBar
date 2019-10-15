@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,7 +41,7 @@ public class ControlerMesa {
                 rs = pst.executeQuery();
 
             } catch (SQLException e) {
-                System.out.println("br.com.br.controler.ControlerMesa.listaMesa()"+e);
+                System.out.println("br.com.br.controler.ControlerMesa.listaMesa()" + e);
 
             }
 
@@ -63,7 +62,7 @@ public class ControlerMesa {
                 rs = pst.executeQuery();
 
             } catch (SQLException e) {
-                System.out.println("br.com.br.controler.ControlerMesa.listaMesa()"+e);
+                System.out.println("br.com.br.controler.ControlerMesa.listaMesa()" + e);
 
             }
 
@@ -73,7 +72,7 @@ public class ControlerMesa {
     }
 
     public boolean adicionaMesa(Mesa m) {
-         
+
         String sql = "INSERT INTO cadmesa (numero_mesa,status,tbCadfuncionario_id) VALUES (?, ?, ?)";
         boolean resp = false;
         try {
@@ -84,13 +83,13 @@ public class ControlerMesa {
             pst.setString(3, m.getId_funcionario());
 
             pst.executeUpdate();
-            resp=true;
+            resp = true;
         } catch (SQLException e) {
-             
-            System.out.println("br.com.br.controler.ControlerMesa.adicionaMesa()" +e);
-           
+
+            System.out.println("br.com.br.controler.ControlerMesa.adicionaMesa()" + e);
+
         }
-                
+
         return resp;
 
     }
@@ -109,8 +108,8 @@ public class ControlerMesa {
             resp = true;
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerMesa.excluiMesa()"+e);
-            resp=false;
+            System.out.println("br.com.br.controler.ControlerMesa.excluiMesa()" + e);
+            resp = false;
         }
         return resp;
 
@@ -129,7 +128,7 @@ public class ControlerMesa {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerMesa.trocaGarcom()"+e);
+            System.out.println("br.com.br.controler.ControlerMesa.trocaGarcom()" + e);
         }
 
         return false;
@@ -151,7 +150,7 @@ public class ControlerMesa {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerMesa.alteraMesa()"+e);
+            System.out.println("br.com.br.controler.ControlerMesa.alteraMesa()" + e);
         }
         return false;
     }
@@ -171,9 +170,10 @@ public class ControlerMesa {
                 combo.addItem(rs.getString("numero_mesa"));
             }
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerMesa.listaMesaLivre()"+e);
+            System.out.println("br.com.br.controler.ControlerMesa.listaMesaLivre()" + e);
         }
     }
+
     // Lista as mesas livres do garçom selecionado
     public ResultSet listaMesaLivre(String idGarcom) {
 
@@ -181,15 +181,13 @@ public class ControlerMesa {
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, idGarcom);
-            rs = pst.executeQuery();     
+            rs = pst.executeQuery();
 
-            
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerMesa.listaMesaLivre()"+e);
+            System.out.println("br.com.br.controler.ControlerMesa.listaMesaLivre()" + e);
         }
         return rs;
     }
-    
 
     public String localizaIdMesa(String numeroMesa) {
         String id = null;
@@ -204,7 +202,7 @@ public class ControlerMesa {
             }
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerMesa.localizaIdMesa()"+e);
+            System.out.println("br.com.br.controler.ControlerMesa.localizaIdMesa()" + e);
         }
         return id;
     }
@@ -223,7 +221,7 @@ public class ControlerMesa {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerMesa.trocaStatusMesa()"+e);
+            System.out.println("br.com.br.controler.ControlerMesa.trocaStatusMesa()" + e);
         }
         return false;
     }
@@ -244,7 +242,7 @@ public class ControlerMesa {
             }
 
         } catch (NumberFormatException | SQLException e) {
-            System.out.println("br.com.br.controler.ControlerMesa.estatistica()"+e);
+            System.out.println("br.com.br.controler.ControlerMesa.estatistica()" + e);
         }
 
         // Mesas ocupadas 
@@ -260,7 +258,7 @@ public class ControlerMesa {
             }
 
         } catch (NumberFormatException | SQLException e) {
-            System.out.println("br.com.br.controler.ControlerMesa.estatistica()"+e);
+            System.out.println("br.com.br.controler.ControlerMesa.estatistica()" + e);
         }
 
         mesaslivres = total - totalOcupadas;
@@ -269,8 +267,8 @@ public class ControlerMesa {
         double percentualOcupadas;
 
         percentualOcupadas = Math.round((totalOcupadas / total) * 100);
-       //percentualLivre = (mesaslivres / total) * 100;
-        percentualLivre = 100-percentualOcupadas;
+        //percentualLivre = (mesaslivres / total) * 100;
+        percentualLivre = 100 - percentualOcupadas;
 
         estatisticas.add(percentualLivre);
         estatisticas.add(percentualOcupadas);
@@ -294,16 +292,16 @@ public class ControlerMesa {
             }
 
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerMesa.listaMesasOcupadas()"+e);
+            System.out.println("br.com.br.controler.ControlerMesa.listaMesasOcupadas()" + e);
         }
 
     }
 
     // Localiza o numero da mesa recebendo como parâmetro o número do pedido
     public String localizaNumeroMesa(String numeroPedido) {
-        
+
         String numeroMEsa = "";
-       
+
         String sql = "SELECT       \n"
                 + "     cadmesa.`numero_mesa` AS mesa\n"
                 + "FROM\n"
@@ -319,30 +317,66 @@ public class ControlerMesa {
                 numeroMEsa = rs.getString("mesa");
             }
 
-             } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerMesa.localizaNumeroMesa()"+e);
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerMesa.localizaNumeroMesa()" + e);
         }
 
         return numeroMEsa;
     }
+
     // Verifica se a mesa está livre
-    public boolean estaLivre(String nMesa){
-        boolean resp=false;
-        String sql="SELECT status FROM cadmesa WHERE numero_mesa=?";
+    public boolean estaLivre(String nMesa) {
+        boolean resp = false;
+        String sql = "SELECT status FROM cadmesa WHERE numero_mesa=?";
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, nMesa);
-            rs=pst.executeQuery();
-            
-            while (rs.next()){
-                if (rs.getInt("status")==0){
-                    resp=true;
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                if (rs.getInt("status") == 0) {
+                    resp = true;
                 }
             }
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerMesa.estaLivre()");
         }
-        
+
         return resp;
+    }
+
+    // Tela Pedido 3
+    // Retorna todas as mesas independente de status 
+    public ArrayList listaTodasAsMesas() {
+        ArrayList <Mesa> listaDeMesas = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    dbbar.cadmesa.id AS 'CÓD. INT.',\n"
+                + "    dbbar.cadmesa.numero_mesa AS 'MESA',\n"
+                + "    dbbar.tbcadfuncionario.nome AS 'GARÇOM',\n"
+                + "    dbbar.cadmesa.status AS 'STATUS'\n"
+                + "FROM\n"
+                + "    dbbar.cadmesa\n"
+                + "        INNER JOIN\n"
+                + "    dbbar.tbcadfuncionario ON dbbar.cadmesa.`tbCadFuncionario_id` = dbbar.tbcadfuncionario.id\n"
+                + "ORDER BY cadmesa.numero_mesa ASC";
+        
+        try {
+            pst=conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+            while (rs.next()){
+                Mesa m = new Mesa();
+                m.setId(rs.getString("CÓD. INT."));
+                m.setNumeroMesa(rs.getString("MESA"));
+                m.setStatus(rs.getString("STATUS"));
+                
+                listaDeMesas.add(m);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerMesa.listaTodasAsMesas()"+e);
+        }
+        
+        return listaDeMesas;
     }
 }
