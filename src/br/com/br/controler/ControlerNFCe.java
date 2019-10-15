@@ -119,17 +119,28 @@ public class ControlerNFCe {
 
         return body;
     }
-
+    /**
+     * Realiza consulta da situação do cupom fiscal informado
+     * @param codPedidoNota Número da nota a ser consultada
+     * @param arqRetorno Nome do arquivo de retorno com o resutado da pesquisa
+     */
     public void consultarNFCE(String codPedidoNota, String arqRetorno) {
-
-        String login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
+        int ambiente = 1;
+        String login;
+        String server;
+        if (ambiente == 1) {
+            // Token para emissão em ambiente de Produção
+            login = "DhdwJcAsy0jGvNDRv7mGZyWeJ19CBRUT";
+            /* Para ambiente de produção use a variável abaixo:*/
+            server = "https://api.focusnfe.com.br/";
+        } else {
+            // Token para emissão em ambiente de Homologação
+            login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
+            server = "https://homologacao.focusnfe.com.br/";
+        }
 
         /* Substituir pela sua identificação interna da nota. */
         String ref = codPedidoNota;
-
-        /* Para ambiente de produção use a variável abaixo:
-        String server = "https://api.focusnfe.com.br/"; */
-        String server = "https://homologacao.focusnfe.com.br/";
 
         String url = server.concat("v2/nfce/" + ref + "?completa=0");
 
@@ -139,11 +150,8 @@ public class ControlerNFCe {
         client.addFilter(new HTTPBasicAuthFilter(login, ""));
 
         WebResource request = client.resource(url);
-
         ClientResponse resposta = request.get(ClientResponse.class);
-
         int httpCode = resposta.getStatus();
-
         String body = resposta.getEntity(String.class);
 
         /* As três linhas abaixo imprimem as informações retornadas pela API. 
@@ -156,25 +164,29 @@ public class ControlerNFCe {
             FileOutputStream out = new FileOutputStream("c://sysbar/" + arqRetorno);
             PrintStream ps = new PrintStream(out);
             System.setOut(ps);
-
             System.out.println(body);
             //System.out.println(json);
-
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Autorizar.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-
+    /**
+     * Realiza o cancelamento de um cupom fiscal
+     * @param motivo Motido do Cancelamento
+     * @param nPedido Número da Nota ('Número do pedido')
+     * @param arquivoRetorno Nome do Arquivo de Retorno contendo os dados retornados.
+     * @return httpCod Retorna o Código de resposta da API 
+     */
     public int cancelaNFCe(String motivo, String nPedido, String arquivoRetorno) {
         int ambiente = 1;
         String login;
         if (ambiente == 1) {
             // Token para emissão em ambiente de Produção
-             login = "DhdwJcAsy0jGvNDRv7mGZyWeJ19CBRUT";
+            login = "DhdwJcAsy0jGvNDRv7mGZyWeJ19CBRUT";
         } else {
             // Token para emissão em ambiente de Homologação
-             login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
+            login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
         }
 
         NFCeCancelamento cancelamento = new NFCeCancelamento();
@@ -254,9 +266,7 @@ public class ControlerNFCe {
             for (int i = 0; i < listaDeEmail.size(); i++) {
                 json.accumulate("emails", listaDeEmail.get(i));
             }
-
         }
-
 
         /* Testar se o JSON gerado está dentro do formato esperado.*/
         System.out.print(json);
@@ -357,7 +367,11 @@ public class ControlerNFCe {
         return cancelamento;
     }
 
-    // Registra o cancelamento do cupom na base local
+    /**
+     * Registra o cancelamento do cupom na base local
+     * @param nCupom Número do Cupom
+     * @param operador Operador que realizou o cancelamento da nota.
+     */ 
     public void registraCancelamento(String nCupom, String operador) {
 
         String sql = "INSERT INTO tbhistorico_cancelamento (numero_cupom,data, operador) VALUES (?,current_timestamp(),?)";
@@ -375,7 +389,11 @@ public class ControlerNFCe {
         }
     }
 
-    // Verificana base local se o cupom já foi cancelado
+    /**
+     * Verificana base local se o cupom já foi cancelado
+     * @param nCupom Número do Cupom
+     * @return Retorna TRUE ou FALSE
+     */ 
     public boolean estaCancelada(String nCupom) {
 
         boolean resp = false;
