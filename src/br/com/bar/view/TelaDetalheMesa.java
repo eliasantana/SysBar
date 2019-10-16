@@ -40,11 +40,14 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     FormataValor fv = new FormataValor();
     ArrayList<String> obsevacaoPrato;
     String operador, cargo, idOperador;
+
     public TelaDetalheMesa() {
         initComponents();
         txtQtd.setEnabled(false);
         limpaform();
-        
+        lblIdMesa.setVisible(false);
+        lblIdProduto.setVisible(false);
+        lblIdGarcom.setVisible(false);
     }
 
     //Atualiza a tabela detalhe mesa    
@@ -63,14 +66,13 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         lblGarcom.setText(nomeSeparado[0]);
         lblIdGarcom.setText(cf.localizaId(garcom));
     }
-    
-     // Recebe o operador Logado
-    public void recebeOperador(String operador, String cargo){
+
+    // Recebe o operador Logado
+    public void recebeOperador(String operador, String cargo) {
         this.operador = operador;
         this.cargo = cargo;
-        idOperador = cf.localizaIdLogin(operador);        
+        idOperador = cf.localizaIdLogin(operador);
     }
-
 
     // Este método adiciona um item ao pedido e é chamado pela execusão dos 
     // Eventos KeyPressed e LostFocus
@@ -151,7 +153,6 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
 
                     // Limpa label de mensagem de produto indisponível 
                     //lblMensagem.setText(null);
-
                     bloqueiaCampos();
                     txtCodigoProduto.setEnabled(true);
                     txtQtd.setEnabled(false);
@@ -203,7 +204,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         }
 
     }
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -302,12 +303,9 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -337,7 +335,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Detalhe do Pedido");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 710, 60));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 980, 60));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -383,7 +381,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(181, Short.MAX_VALUE)
+                .addContainerGap(119, Short.MAX_VALUE)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblNumeroMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -398,17 +396,10 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 .addGap(155, 155, 155))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 0, -1, 522));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 62, -1, 460));
 
         tbDetalhePedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -451,6 +442,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         jPanel3.add(txtCodigoProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 90, 41));
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("Qtd");
         jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 50, -1));
 
@@ -473,6 +465,11 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lopa32x32.png"))); // NOI18N
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
         jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 50, 43));
 
         lblVlrUnitario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -491,11 +488,13 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         lblTotal.setText("R$");
         jPanel3.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 40, 80, 40));
 
+        lblDescricao.setBackground(new java.awt.Color(204, 204, 204));
         lblDescricao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblDescricao.setText("[NOME DO PRODUTO]");
-        jPanel3.add(lblDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 280, 40));
+        lblDescricao.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.add(lblDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 280, 41));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, 690, 90));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 60, 688, 90));
 
         jPanel4.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -532,7 +531,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         lblIdGarcom.setText("idGarçom");
         getContentPane().add(lblIdGarcom, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 520, -1, -1));
 
-        setSize(new java.awt.Dimension(1177, 594));
+        setSize(new java.awt.Dimension(1177, 586));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -540,7 +539,11 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         // Adiciona um item ao pedido
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (txtCodigoProduto.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Código Inválido!");
+                // Chama tela pesquisa de preço
+                TelaPesquisaPreco pesquisa = new TelaPesquisaPreco();
+                pesquisa.defineOrigem(this, 1);
+                pesquisa.setTitle("MasterFood - Pesquisa de Produtos");
+                pesquisa.setVisible(true);
             } else {
                 Produto produto = new Produto();
                 produto.setId(txtCodigoProduto.getText());
@@ -592,11 +595,19 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     }//GEN-LAST:event_txtQtdKeyReleased
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-       // Bloqeia Tela
+        // Bloqeia Tela
         TelaBloqueio b = new TelaBloqueio();
         b.setModal(true);
         b.setVisible(true);
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        // Chama tela pesquisa de preço
+        TelaPesquisaPreco pesquisa = new TelaPesquisaPreco();
+        pesquisa.defineOrigem(this, 1);
+        pesquisa.setTitle("MasterFood - Pesquisa de Produtos");
+        pesquisa.setVisible(true);
+    }//GEN-LAST:event_jLabel12MouseClicked
     // Totaliza item localizado e retorna o total formatado ocm duas casas decimais
     private String totaliza(double qtd, double valorUnit) {
 
@@ -604,6 +615,16 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
 
         return String.format("%9.2f", total);
 
+    }
+
+    // Recebe o produto pesquisado e retorna: Código, Valor Unitário, Descrição.
+    public void recebeProduto(Produto p) {
+
+        txtCodigoProduto.setText(p.getId());
+        lblDescricao.setText(p.getNome());
+        lblVlrUnitario.setText(p.getValor());
+        txtQtd.setEnabled(true);
+        txtQtd.requestFocus();
     }
 
     /**

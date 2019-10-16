@@ -5,6 +5,7 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.model.Produto;
 import br.com.bar.model.TableModelPesquisaEstoque;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerProduto;
@@ -18,7 +19,11 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
 
     ControlerProduto cp = new ControlerProduto();
     TableModelPesquisaEstoque modelPesqEstoque = new TableModelPesquisaEstoque();
-    
+    TelaDetalheMesa telaDetalhe;
+    Produto p = new Produto();
+    // Esta variável determina a origem de chamada desta tela
+    // 1 - Detalhe mesa  0 - Chamada originada de qualquer lugar
+    private int origem=0;
 
     public TelaPesquisaPreco() {
         initComponents();
@@ -27,6 +32,16 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
         this.setTitle("Pesquisa de Preço");
         Util u = new Util();
         //u.setIcon(this);
+        btnVoltar.setVisible(false);
+    }
+    // Identifica a origem da chamada da tela
+    public void defineOrigem(TelaDetalheMesa tela, int origemChamada){
+        this.origem = origemChamada;
+        if (origem ==1){
+            lblTitulo.setText("Pesquisa de Produto");
+            btnVoltar.setVisible(true);
+            this.telaDetalhe = tela;
+        }
     }
 
     /**
@@ -40,9 +55,10 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tbProdutosEstoque = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -65,10 +81,16 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
             }
         ));
         tbProdutosEstoque.setRowHeight(20);
+        tbProdutosEstoque.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbProdutosEstoqueMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbProdutosEstoque);
 
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
-        jLabel1.setText("Consulta de Preços");
+        lblTitulo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("Consulta de Preços");
 
         txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -77,6 +99,13 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
         });
 
         jLabel3.setText("Informe o nome do produto:");
+
+        btnVoltar.setText("Retornar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,25 +117,30 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnVoltar)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(253, 253, 253)
-                .addComponent(jLabel1)
+                .addGap(97, 97, 97)
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -122,6 +156,22 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_txtPesquisaKeyPressed
+
+    private void tbProdutosEstoqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProdutosEstoqueMouseClicked
+        
+        int linha =tbProdutosEstoque.getSelectedRow();
+        
+        p.setId(tbProdutosEstoque.getModel().getValueAt(linha, 0).toString());
+        p.setNome(tbProdutosEstoque.getModel().getValueAt(linha, 1).toString());
+        p.setValor(tbProdutosEstoque.getModel().getValueAt(linha,2).toString());
+        
+        
+    }//GEN-LAST:event_tbProdutosEstoqueMouseClicked
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        telaDetalhe.recebeProduto(p);
+        this.dispose();                
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,9 +209,10 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblTitulo;
     private javax.swing.JTable tbProdutosEstoque;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables

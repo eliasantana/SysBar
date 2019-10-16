@@ -93,9 +93,9 @@ public class TelaCaixa extends javax.swing.JFrame {
     ControlerEntregador ce = new ControlerEntregador();
     ControlerNFCe cNFCe = new ControlerNFCe();
     DadosEmpresa dadosEmpresa = de.selecionaDados();
-    int flagFiscal = 1; // 1 - Para autorizar e ler retorno SEFAZ 
+    int flagFiscal = 0; // 1 - Para autorizar e ler retorno SEFAZ 
     //Ambiente de Emissão  (0 - Homologação - 1  Prdodução
-    private final int ambiente = 1;
+    private final int ambiente = 0;
     boolean foiCancelada;
     // Dados da NFC-e
     Nfce nota = new Nfce();
@@ -132,11 +132,15 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     public TelaCaixa() {
         initComponents();
-        if (ambiente == 1) {
-            lblAmbiante.setVisible(false);
-        } else {
-            lblAmbiante.setText("NFC-e em Homologação");
+        if (ambiente == 1 && flagFiscal==1) {
+            //lblAmbiante.setVisible(false);
+            lblAmbiante.setText("NFC-e em Produção");
+        } else if (ambiente==0 && flagFiscal==0){            
+            lblAmbiante.setText("Versão não Fiscal");
+        }else {
+            lblAmbiante.setText("NFC-e em Homologação");           
         }
+        
         caixa.listaMesaOcupada(comboMesa);
         checkTxServico.setSelected(true);
         txtIdMEsa.setVisible(false);
@@ -418,8 +422,9 @@ public class TelaCaixa extends javax.swing.JFrame {
         painelEsquerdo.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 630, 120, 40));
 
         lblAmbiante.setForeground(new java.awt.Color(255, 255, 255));
+        lblAmbiante.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAmbiante.setText("jLabel10");
-        painelEsquerdo.add(lblAmbiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 190, -1));
+        painelEsquerdo.add(lblAmbiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 610, 190, -1));
 
         getContentPane().add(painelEsquerdo);
         painelEsquerdo.setBounds(0, 0, 260, 700);
@@ -1508,7 +1513,6 @@ public class TelaCaixa extends javax.swing.JFrame {
                             cm.trocaStatusMesa(comboMesa.getSelectedItem().toString(), "0");
                             //Fecha Tela de processamento
                             if (flagFiscal == 1) {
-
                                 tpp.fechaTela();
                             }
                             //JOptionPane.showMessageDialog(this, "Pedido fechado com sucesso!");
