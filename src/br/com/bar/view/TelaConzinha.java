@@ -561,7 +561,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                 int resp = JOptionPane.showConfirmDialog(null, "Confirma a exclusão deste prato?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (resp == JOptionPane.YES_OPTION) {
                     if (cc.removePrato(txtidProdutoCozinha.getText())) {
-                        JOptionPane.showMessageDialog(null, "Prato removido com sucesso!");
+                       
                         ResultSet result = cc.listaProdutosCozinha();
                         // Log
                         Log l = new Log(lblOperador.getText(), "Remover", "Removeu o prato->" + txtidProdutoCozinha);

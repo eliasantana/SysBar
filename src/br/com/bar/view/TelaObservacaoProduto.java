@@ -16,6 +16,8 @@ import java.util.ArrayList;
 public class TelaObservacaoProduto extends javax.swing.JFrame {
 
     TelaPedido2 telaPedido = new TelaPedido2();
+    TelaDetalheMesa telapedido3 = new TelaDetalheMesa();
+    
     ArrayList<String> listaAtualizada = new ArrayList<>();
 
     public TelaObservacaoProduto() {
@@ -47,6 +49,11 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(400, 197));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         bordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         bordas.setLayout(null);
@@ -189,10 +196,21 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jTextAreaObservacaoKeyPressed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+       jTextAreaObservacao.requestFocus();
+    }//GEN-LAST:event_formWindowOpened
     // Recebe tela de pedido
     public void recebeTela(TelaPedido2 tl, ArrayList<String> lista) {
 
         this.telaPedido = tl;
+        this.listaAtualizada = lista;
+        lblPrato.setText(lista.get(0));
+        jTextAreaObservacao.requestFocus();
+    }
+    public void recebeTela3(TelaDetalheMesa tl, ArrayList<String> lista) {
+
+        this.telapedido3 = tl;
         this.listaAtualizada = lista;
         lblPrato.setText(lista.get(0));
         jTextAreaObservacao.requestFocus();

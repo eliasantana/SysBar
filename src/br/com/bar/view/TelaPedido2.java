@@ -220,6 +220,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblData = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
         lblSegundos = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         lblData2 = new javax.swing.JLabel();
         txtNumeroMesa = new javax.swing.JTextField();
         panelFechar = new javax.swing.JPanel();
@@ -350,14 +351,17 @@ public class TelaPedido2 extends javax.swing.JFrame {
         lblSegundos.setForeground(new java.awt.Color(255, 255, 255));
         lblSegundos.setText("jLabel5");
 
+        jButton1.setText("Tela Pedido 3");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(lblSegundos)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -367,6 +371,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
                         .addGap(0, 0, 0)
                         .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addComponent(lblSegundos))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -375,7 +385,9 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 .addComponent(lbllogo, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(99, 99, 99)
                 .addComponent(lblSegundos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 323, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(128, 128, 128)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1480,6 +1492,12 @@ public class TelaPedido2 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lblBtnAnexarMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        TelaPedido3 tp3 = new TelaPedido3();
+        tp3.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        tp3.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private double calculaPedido() {
         double valor = Double.parseDouble(txtValorUnit.getText().replaceAll(",", "."));
         int qtd = Integer.parseInt(txtQtd.getText());
@@ -1552,6 +1570,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     private javax.swing.JButton btnAbrirPedido;
     private javax.swing.JButton btnListar;
     private javax.swing.JComboBox<String> comboGarcom;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;

@@ -52,9 +52,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel16.setEnabled(false); // Icone do Botão Relatório
         // Verifica contas vencidas em aberto.
         btnDelivery.setVisible(true);
-        
+
         atualizaInformativo();
-        
+
         // Determina tempo de execução
         long timeMilis = 6000; // milisegundos
         Timer timer = new Timer();
@@ -643,9 +643,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
     private void btnLancarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLancarPedidoMouseClicked
         // Chama a tela Pedido 2
-        TelaPedido2 pedido2 = new TelaPedido2();
-        pedido2.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        pedido2.setVisible(true);
+//        TelaPedido2 pedido2 = new TelaPedido2();
+//        pedido2.recebeOperador(lblOperador.getText(), lblCargo.getText());
+//        pedido2.setVisible(true);
+        // Chama tela pedido 3
+        TelaPedido3 tp3 = new TelaPedido3();
+        tp3.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        tp3.setVisible(true);
 
     }//GEN-LAST:event_btnLancarPedidoMouseClicked
 
@@ -708,7 +712,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnDeliveryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeliveryMouseClicked
         // Chama tela de Delivery
-        if (d==null){
+        if (d == null) {
             d = new TelaDelivery();
             d.setTitle("MasterFood - Delivery");
             d.recebeOperador(lblOperador.getText(), lblCargo.getText());
