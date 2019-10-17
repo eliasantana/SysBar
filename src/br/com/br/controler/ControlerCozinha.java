@@ -178,7 +178,7 @@ public class ControlerCozinha {
     
      */
     public ResultSet statusCozinha(String garcom) {
-
+        
         // Listas os pratos enviados a cozinha pelo garçom na data Atual e nada data Anterior
         /*
         String sql = "SELECT \n"

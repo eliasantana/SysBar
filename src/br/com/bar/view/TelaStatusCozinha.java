@@ -173,7 +173,7 @@ public class TelaStatusCozinha extends javax.swing.JFrame {
         getContentPane().add(jPanel3);
         jPanel3.setBounds(0, 100, 710, 388);
 
-        setBounds(0, 0, 713, 487);
+        setBounds(300, 150, 709, 487);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFecharMouseClicked

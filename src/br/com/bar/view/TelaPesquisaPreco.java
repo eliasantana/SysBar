@@ -9,6 +9,8 @@ import br.com.bar.model.Produto;
 import br.com.bar.model.TableModelPesquisaEstoque;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerProduto;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -86,6 +88,11 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
                 tbProdutosEstoqueMouseClicked(evt);
             }
         });
+        tbProdutosEstoque.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbProdutosEstoqueKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbProdutosEstoque);
 
         lblTitulo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
@@ -153,7 +160,7 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
         // Lista produtos em estoque
         tbProdutosEstoque.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoEstoque(txtPesquisa.getText())));
         modelPesqEstoque.redimensionaColunas(tbProdutosEstoque);
-        
+       
         
     }//GEN-LAST:event_txtPesquisaKeyPressed
 
@@ -172,6 +179,18 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
         telaDetalhe.recebeProduto(p);
         this.dispose();                
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void tbProdutosEstoqueKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbProdutosEstoqueKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            if (p.getId()==null){
+                JOptionPane.showMessageDialog(this, "Selecione um produto para continuar!");
+            }else{
+                telaDetalhe.recebeProduto(p);
+                this.dispose();
+                
+            }
+        }
+    }//GEN-LAST:event_tbProdutosEstoqueKeyPressed
 
     /**
      * @param args the command line arguments

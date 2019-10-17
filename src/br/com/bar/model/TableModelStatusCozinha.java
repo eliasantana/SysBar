@@ -8,8 +8,10 @@ package br.com.bar.model;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
+import sun.swing.SwingAccessor;
 
 /**
  *
@@ -35,6 +37,8 @@ public class TableModelStatusCozinha extends AbstractTableModel {
 
     public void redimensionaColunas(JTable tabela) {
           // MESA, PEDIDO, PRATO, QTD, COZINHEIRO,STATUS
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(60);
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(60);
@@ -44,6 +48,9 @@ public class TableModelStatusCozinha extends AbstractTableModel {
         tabela.getColumn(tabela.getColumnName(5)).setPreferredWidth(100);
        
         adicionaCoresTabela(tabela);
+        
+        // Não é possível aplicar alinhamento as células da tavela quando
+        // já houver aplicado cor as linhas da tabela.
 
     }
 

@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import net.sf.jasperreports.engine.JRException;
 import org.json.simple.parser.ParseException;
 
 /**
