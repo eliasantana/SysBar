@@ -32,7 +32,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     ControlerEstoque ce = new ControlerEstoque();
     ControlerCozinha cc = new ControlerCozinha();
     Util u = new Util();
-    TelaPedido2 tlPedido;
+    TelaDetalheMesa tlPedido;
 
     TableModelGerenciarPedido modelGerPedido = new TableModelGerenciarPedido();
     Log l = new Log();
@@ -66,7 +66,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
 
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
-        this.tlPedido = (TelaPedido2) janela;
+        this.tlPedido = (TelaDetalheMesa) janela;
 
     }
 
@@ -396,7 +396,14 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_lblRemoverItemDoPedidoMouseClicked
-
+    // Seleciona a mesa informada no parâmetro
+    public void selecionaPedido(String nPedido, String nMesa){
+        jcomboPedido.setSelectedItem(nPedido);
+        lblNumeroMesa.setText(nMesa);
+        listaItensDoPedido();
+        btnListar.setEnabled(false);
+        jcomboPedido.setEnabled(false);
+    }
     private void btnCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarPedidoActionPerformed
         // Solicita ao usuário a confirmação do pedido
         int op = JOptionPane.showConfirmDialog(null, "Confirma o cancelamento do pedido?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
@@ -453,7 +460,8 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     private void lblRemoverItemDoPedidoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoverItemDoPedidoMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_lblRemoverItemDoPedidoMouseEntered
-
+    
+    
     /**
      * @param args the command line arguments
      */

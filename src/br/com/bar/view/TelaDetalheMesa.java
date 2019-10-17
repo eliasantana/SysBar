@@ -30,13 +30,15 @@ import net.proteanit.sql.DbUtils;
  */
 public class TelaDetalheMesa extends javax.swing.JFrame {
 
+    TelaGerenciarPedido gp;
+    TelaAlteraSenha2 telaAlteraSenha;
+
     ControlerPedido cp = new ControlerPedido();
     ControlerProduto cproduto = new ControlerProduto();
     ControlerMesa cm = new ControlerMesa();
     ControlerFuncionario cf = new ControlerFuncionario();
     ControlerEstoque ec = new ControlerEstoque();
     ControlerCozinha cc = new ControlerCozinha();
-    
 
     TableModelDetalhePedido modelDetPedido = new TableModelDetalhePedido();
     Produto pLocalizado;
@@ -45,16 +47,17 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     String operador, cargo, idOperador;
     TelaStatusCozinha status;   // Armazena uma stância da tela Cozinha
     String nomeGarcomCompleto; // Armazena o nome completo do garçom
+
     public TelaDetalheMesa() {
         initComponents();
         txtQtd.setEnabled(false);
         limpaform();
         lblIdMesa.setVisible(false);
         lblIdProduto.setVisible(false);
-        lblIdGarcom.setVisible(false);        
+        lblIdGarcom.setVisible(false);
         lblReenvioCozinha.setEnabled(false);
         lblTextoReenvioCozinha.setEnabled(false);
-        
+
     }
 
     //Atualiza a tabela detalhe mesa    
@@ -79,10 +82,12 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         this.operador = operador;
         this.cargo = cargo;
         idOperador = cf.localizaIdLogin(operador);
-        
-        if (!"Gerente".equals(cargo)){
+
+        if (!"Gerente".equals(cargo)) {
             lblTextoCozinha.setVisible(false);
             lblCozinha.setVisible(false);
+            lblGestaoPedidos.setVisible(false);
+            lblTextoGestao.setVisible(false);
         }
     }
 
@@ -234,6 +239,10 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         lblTextoReenvioCozinha = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        lblTextoStatusCozinha = new javax.swing.JLabel();
+        lblStatusCozinha = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -244,8 +253,8 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         lblGarcom = new javax.swing.JLabel();
         lblCozinha = new javax.swing.JLabel();
         lblTextoCozinha = new javax.swing.JLabel();
-        lblStatusCozinha = new javax.swing.JLabel();
-        lblTextoStatusCozinha = new javax.swing.JLabel();
+        lblGestaoPedidos = new javax.swing.JLabel();
+        lblTextoGestao = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDetalhePedido = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -297,29 +306,56 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Bloquear Tela");
 
+        lblTextoStatusCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTextoStatusCozinha.setText("Status Cozinha");
+
+        lblStatusCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblStatusCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCozinha.png"))); // NOI18N
+        lblStatusCozinha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblStatusCozinhaMouseClicked(evt);
+            }
+        });
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/chave48x48.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Altera Senha");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
+                        .addGap(11, 11, 11)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTextoReenvioCozinha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblReenvioCozinha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblStatusCozinha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTextoStatusCozinha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblTextoReenvioCozinha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblReenvioCozinha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(168, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(61, 61, 61)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
@@ -327,11 +363,19 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 .addComponent(lblReenvioCozinha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblTextoReenvioCozinha)
-                .addGap(114, 114, 114)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblStatusCozinha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTextoStatusCozinha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addGap(3, 3, 3)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
-                .addGap(41, 41, 41))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, -1, 550));
@@ -376,16 +420,16 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         lblTextoCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTextoCozinha.setText("Cozinha");
 
-        lblStatusCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStatusCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCozinha.png"))); // NOI18N
-        lblStatusCozinha.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblGestaoPedidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblGestaoPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/relatorios32x32.png"))); // NOI18N
+        lblGestaoPedidos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblStatusCozinhaMouseClicked(evt);
+                lblGestaoPedidosMouseClicked(evt);
             }
         });
 
-        lblTextoStatusCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTextoStatusCozinha.setText("Status Cozinha");
+        lblTextoGestao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTextoGestao.setText("Gestão de Pedidos");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -393,19 +437,23 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblNumeroMesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(lblTextoGestao, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCozinha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblNPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblTextoCozinha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(lblTextoCozinha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblStatusCozinha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblTextoStatusCozinha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblNPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lblGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 12, Short.MAX_VALUE))))
+                    .addComponent(lblCozinha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblGestaoPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -423,18 +471,18 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblStatusCozinha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTextoStatusCozinha)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblCozinha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTextoCozinha)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblGestaoPedidos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblTextoGestao)
+                .addContainerGap(147, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 52, -1, 470));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 52, -1, 470));
 
         tbDetalhePedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -574,7 +622,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         lblIdGarcom.setText("idGarçom");
         getContentPane().add(lblIdGarcom, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 520, -1, -1));
 
-        setSize(new java.awt.Dimension(1177, 586));
+        setSize(new java.awt.Dimension(1176, 586));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -612,20 +660,23 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigoProdutoKeyPressed
 
     private void txtQtdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQtdKeyPressed
-        double quantidade = 0;
+        //double quantidade = 0;
+
         if (txtCodigoProduto.getText().isEmpty()) { // Verifica se o código do produto está vazio
             JOptionPane.showMessageDialog(this, "Informe o código do produto!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+        } else if ("0".equals(txtQtd.getText())) {
+            JOptionPane.showMessageDialog(this, "Valor Inválido!", "Atenção!", JOptionPane.ERROR_MESSAGE);
         } else {
             // Verifica se a tecla pressionada é a tecla ENTER e realiza o cálculo            
             if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-                try {
-                    quantidade = Double.parseDouble(txtQtd.getText());
-                } catch (NumberFormatException e) {
-                    //System.out.println("br.com.bar.view.TelaDetalheMesa.txtQtdKeyPressed()"+e);
-                }
-                // Calcula o total do produto
-                double vlr = Double.parseDouble(lblVlrUnitario.getText().replace(",", "."));
-                lblTotal.setText(totaliza(quantidade, vlr));
+//                try {
+//                    quantidade = Double.parseDouble(txtQtd.getText());
+//                } catch (NumberFormatException e) {
+//                    //System.out.println("br.com.bar.view.TelaDetalheMesa.txtQtdKeyPressed()"+e);
+//                }
+//                // Calcula o total do produto
+//                double vlr = Double.parseDouble(lblVlrUnitario.getText().replace(",", "."));
+//                lblTotal.setText(totaliza(quantidade, vlr));
                 adicionaItemNoPedido();
                 limpaform();
 
@@ -635,6 +686,15 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
 
     private void txtQtdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQtdKeyReleased
         txtQtd.setText(txtQtd.getText().replaceAll("[^0-9]", ""));
+        double quantidade = 0;
+        try {
+            quantidade = Double.parseDouble(txtQtd.getText());
+        } catch (NumberFormatException e) {
+            //System.out.println("br.com.bar.view.TelaDetalheMesa.txtQtdKeyPressed()"+e);
+        }
+        // Calcula o total do produto
+        double vlr = Double.parseDouble(lblVlrUnitario.getText().replace(",", "."));
+        lblTotal.setText(totaliza(quantidade, vlr));
     }//GEN-LAST:event_txtQtdKeyReleased
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
@@ -668,7 +728,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
             }
             String nPedido = lblNPedido.getText();
             String numeroMesa = lblNumeroMesa.getText();
-            
+
             status.recebeOperador(nomeGarcomCompleto, nPedido, numeroMesa);
             status.setVisible(true);
 
@@ -676,11 +736,11 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     }//GEN-LAST:event_lblStatusCozinhaMouseClicked
 
     private void tbDetalhePedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDetalhePedidoMouseClicked
-       
+
         int linha = tbDetalhePedido.getSelectedRow();
         int idProduto = Integer.parseInt(tbDetalhePedido.getModel().getValueAt(linha, 0).toString());
         String grupo = cproduto.localizaGrupoProduto(idProduto);
-        
+
         if (grupo.toLowerCase().equals("cozinha")) {
             // Habilita os botões [REEVIO COZINHA] se o prato não existir.
             if (!cc.temNaCozinha(String.valueOf(idProduto), lblNPedido.getText())) {
@@ -696,8 +756,39 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
             lblReenvioCozinha.setEnabled(false);
             lblTextoReenvioCozinha.setEnabled(false);
         }
-        
+
     }//GEN-LAST:event_tbDetalhePedidoMouseClicked
+
+    public void atuDetalheDoPedido(String nMesa, String nPedido) {
+        // Lista os produtos do pedido selecionado
+        tbDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(nMesa, nPedido)));
+        modelDetPedido.redimensionaColunas(tbDetalhePedido);
+    }
+
+    public void atualizaPedidos() {
+        // Atualiza pedido após. Este método é executado após remoção do pedido 
+        // Na tela de Gerenciamento de Peidido.
+        tbDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos(lblIdGarcom.getText())));
+        modelDetPedido.redimensionaColunas(tbDetalhePedido);
+    }
+
+    private void lblGestaoPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGestaoPedidosMouseClicked
+        if (gp == null) {
+            gp = new TelaGerenciarPedido();
+            gp.selecionaPedido(lblNPedido.getText(), lblNumeroMesa.getText());
+            gp.recebeOperador(this, operador, cargo);
+        }
+        gp.setVisible(true);
+    }//GEN-LAST:event_lblGestaoPedidosMouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        if (telaAlteraSenha == null) {
+            telaAlteraSenha = new TelaAlteraSenha2();
+            telaAlteraSenha.setAlwaysOnTop(true);
+            telaAlteraSenha.receberOperador(operador);
+        }
+        telaAlteraSenha.setVisible(true);
+    }//GEN-LAST:event_jLabel2MouseClicked
     // Totaliza item localizado e retorna o total formatado ocm duas casas decimais
     private String totaliza(double qtd, double valorUnit) {
 
@@ -762,9 +853,11 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -777,6 +870,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     private javax.swing.JLabel lblCozinha;
     private javax.swing.JLabel lblDescricao;
     private javax.swing.JLabel lblGarcom;
+    private javax.swing.JLabel lblGestaoPedidos;
     private javax.swing.JLabel lblIdGarcom;
     private javax.swing.JLabel lblIdMesa;
     private javax.swing.JLabel lblIdProduto;
@@ -786,6 +880,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     private javax.swing.JLabel lblReenvioCozinha;
     private javax.swing.JLabel lblStatusCozinha;
     private javax.swing.JLabel lblTextoCozinha;
+    private javax.swing.JLabel lblTextoGestao;
     private javax.swing.JLabel lblTextoReenvioCozinha;
     private javax.swing.JLabel lblTextoStatusCozinha;
     private javax.swing.JLabel lblTotal;
