@@ -6,6 +6,7 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.AutenticaUsuario;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerFuncionario;
 import java.awt.AWTException;
 import java.awt.Robot;
@@ -23,7 +24,8 @@ public class TelaBloqueio extends JDialog {
 
     ControlerFuncionario cf = new ControlerFuncionario();
     AutenticaUsuario auth = new AutenticaUsuario();
-
+    Util u = new Util();
+            
     /**
      * Creates new form TelaBloqueio
      */
@@ -101,6 +103,9 @@ public class TelaBloqueio extends JDialog {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtSenhaKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyReleased(evt);
+            }
         });
         jPanel2.add(txtSenha);
         txtSenha.setBounds(190, 70, 100, 30);
@@ -147,6 +152,10 @@ public class TelaBloqueio extends JDialog {
             desbloquear();
         }
     }//GEN-LAST:event_txtSenhaKeyPressed
+
+    private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyReleased
+        txtSenha.setText(u.tamanhoMaximo(txtSenha.getText(), 16));
+    }//GEN-LAST:event_txtSenhaKeyReleased
 
     /**
      * @param args the command line arguments
