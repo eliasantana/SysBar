@@ -22,6 +22,8 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -59,7 +61,8 @@ public class TesteNFCe extends javax.swing.JFrame {
 
     public TesteNFCe() {
         initComponents();
-        tbDetalhePedido.setModel(DbUtils.resultSetToTableModel(cpedido.detalhePorPedido("10", "705")));
+        tbDetalhePedido.setModel(DbUtils.resultSetToTableModel(cpedido.detalhePorPedido("4", "154")));
+        
     }
 
     /**
@@ -106,6 +109,11 @@ public class TesteNFCe extends javax.swing.JFrame {
             }
         });
 
+        tbDetalhePedido = new javax.swing.JTable(){
+            public boolean isCellEditable (int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tbDetalhePedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -226,7 +234,7 @@ public class TesteNFCe extends javax.swing.JFrame {
         //Coluna do Banco de Dados responsável pela ativação fiscal
         //String fiscal = null;
         //String fiscal ="Elias25252525";
-        String fiscal ="MzQuMjU3LjU3NS8wMDAxLTA2";
+        String fiscal = "MzQuMjU3LjU3NS8wMDAxLTA2";
         String nomeEmpresa = d.getNome_empresa();
         System.out.println(nomeEmpresa);
         int retorno = 0;
@@ -467,6 +475,14 @@ public class TesteNFCe extends javax.swing.JFrame {
 
     private void tbDetalhePedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDetalhePedidoMouseClicked
         linhas = tbDetalhePedido.getSelectedRow();
+       
+        if (evt.getClickCount()==2){
+            int qtd = Integer.parseInt(tbDetalhePedido.getModel().getValueAt(linhas, 2).toString());
+            String nomeProduto = tbDetalhePedido.getModel().getValueAt(linhas, 1).toString();
+            TelaAdicionaProduto tap = new TelaAdicionaProduto();            
+            tap.recebeValoresProduto(1, 1, 100, 1, qtd,nomeProduto);
+            tap.setVisible(true);
+        }
     }//GEN-LAST:event_tbDetalhePedidoMouseClicked
 
     /**

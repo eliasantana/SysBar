@@ -2001,7 +2001,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_checkExibirActionPerformed
 
     private void tblDetalhePedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetalhePedidoMouseClicked
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_tblDetalhePedidoMouseClicked
 
     private void checkConcedeDescontoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkConcedeDescontoMouseClicked
