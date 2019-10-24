@@ -44,62 +44,6 @@ public class TelaPedido3 extends javax.swing.JFrame {
     public TelaPedido3() {
         initComponents();
         atualiza();
-//        listaDeMesas = controlerMesa.listaTodasAsMesas();
-//        panelaMesas.setLayout(new GridLayout(3, 2));
-//
-//        for (int i = 0; i < listaDeMesas.size(); i++) {
-//            JButton btn = new JButton();
-//            btn.setBounds(0, 0, 100, 50);
-//            btn.setFont(new Font("Arial", Font.PLAIN, 14));
-//            btn.setText(listaDeMesas.get(i).getNumeroMesa());
-//            btn.addMouseListener(new MouseListener() {
-//                @Override
-//                public void mouseClicked(MouseEvent me) {
-//                    if (controlerMesa.estaLivre(btn.getText())) {
-//                        int op = JOptionPane.showConfirmDialog(null, "Deseja abrir um novo pedido para a mesa-> " + btn.getText(), "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-//                        if (op == JOptionPane.YES_OPTION) {
-//                            JOptionPane.showMessageDialog(null, "Abrir novo Pedido");
-//                            btn.setForeground(Color.white);
-//                            btn.setBackground(Color.RED);
-//                        }
-//                    } else {
-//                        TelaDetalheMesa dtlMesa = new TelaDetalheMesa();
-//                        dtlMesa.recebeMesa(btn.getText());
-//                        dtlMesa.recebeOperador(operador, cargo);
-//                        dtlMesa.setVisible(true);
-//                    }
-//                }
-//
-//                @Override
-//                public void mousePressed(MouseEvent me) {
-//
-//                }
-//
-//                @Override
-//                public void mouseReleased(MouseEvent me) {
-//
-//                }
-//
-//                @Override
-//                public void mouseEntered(MouseEvent me) {
-//
-//                }
-//
-//                @Override
-//                public void mouseExited(MouseEvent me) {
-//
-//                }
-//            });
-//            if ("0".equals(listaDeMesas.get(i).getStatus())) {
-//                btn.setForeground(Color.BLACK);
-//                btn.setBackground(new Color(0, 255, 127));
-//            } else {
-//                btn.setForeground(Color.white);
-//                btn.setBackground(Color.RED);
-//            }
-//            panelaMesas.add(btn);
-//        }
-
     }
 
     public void recebeOperador(String operador, String cargo) {
@@ -231,12 +175,12 @@ public class TelaPedido3 extends javax.swing.JFrame {
         for (int i = 0; i < listaDeMesas.size(); i++) {
             JButton btn = new JButton();
             btn.setBounds(0, 0, 100, 50);
-            btn.setFont(new Font("Arial", Font.PLAIN, 14));
+            btn.setFont(new Font("Arial", Font.PLAIN, 15));
             btn.setText(listaDeMesas.get(i).getNumeroMesa());
             String idmesa = listaDeMesas.get(i).getId();
             String garcom = cf.retornaGarcom(btn.getText());
             String idgarcom = cf.localizaId(garcom);
-
+            
             btn.addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent me) {
@@ -281,16 +225,19 @@ public class TelaPedido3 extends javax.swing.JFrame {
                             btn.setForeground(Color.white);
                             btn.setBackground(Color.RED);
                             // Chama tela de Detalhe Mesa 
-                            TelaDetalheMesa dtlMesa = new TelaDetalheMesa();
-                            dtlMesa.recebeMesa(btn.getText());
+                            TelaDetalheMesa dtlMesa = new TelaDetalheMesa();                            
+                            dtlMesa.recebeMesa(btn.getText());                           
                             dtlMesa.recebeOperador(operador, cargo);
                             dtlMesa.setVisible(true);
+                            
                         }
                     } else {
                         TelaDetalheMesa dtlMesa = new TelaDetalheMesa();
                         dtlMesa.recebeMesa(btn.getText());
                         dtlMesa.recebeOperador(operador, cargo);
+                        dtlMesa.recebeTela(TelaPedido3.this, btn);
                         dtlMesa.setVisible(true);
+                        
                     }
                 }
 
@@ -314,10 +261,7 @@ public class TelaPedido3 extends javax.swing.JFrame {
 
                 }
 
-                private void abrirPedido() {
-                    // Abre pedido
-
-                }
+                
             });
             if ("0".equals(listaDeMesas.get(i).getStatus())) {
                 btn.setForeground(Color.BLACK);
@@ -328,6 +272,11 @@ public class TelaPedido3 extends javax.swing.JFrame {
             }
             panelaMesas.add(btn);
         }
+    }
+    
+    public void alteraCorMesa(JButton btn){
+        btn.setForeground(Color.BLACK);
+        btn.setBackground(new Color(0, 255, 127));
     }
 
 }

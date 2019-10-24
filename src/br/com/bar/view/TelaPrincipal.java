@@ -642,7 +642,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblNmesaOcupada.setText(String.format("%9.0f", estatiscas.get(3)));
     }
     private void btnLancarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLancarPedidoMouseClicked
-        // Chama a tela Pedido 2
+        // Chama a tela Pedido 2 Excluir trecho comentado após confirmação dos testes com a Tela Pedido 3
 //        TelaPedido2 pedido2 = new TelaPedido2();
 //        pedido2.recebeOperador(lblOperador.getText(), lblCargo.getText());
 //        pedido2.setVisible(true);

@@ -14,6 +14,7 @@ import br.com.br.controler.ControlerMesa;
 import br.com.br.controler.ControlerPedido;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
@@ -23,17 +24,15 @@ import net.proteanit.sql.DbUtils;
  * @author elias
  */
 public class TelaGerenciarPedido extends javax.swing.JFrame {
-
-    /**
-     * Creates new form TelaGerenciarPedido
-     */
+    
+    TelaPedido3 tela;
     ControlerMesa cm = new ControlerMesa();
     ControlerPedido cp = new ControlerPedido();
     ControlerEstoque ce = new ControlerEstoque();
     ControlerCozinha cc = new ControlerCozinha();
     Util u = new Util();
     TelaDetalheMesa tlPedido;
-
+    JButton btnMesa;
     TableModelGerenciarPedido modelGerPedido = new TableModelGerenciarPedido();
     Log l = new Log();
     double vUnit;
@@ -59,6 +58,11 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
             btnListar.setEnabled(false);
         }
 
+    }
+    
+    public void recebeTela(TelaPedido3 tp3, JButton btn){
+        this.tela = tp3;
+        this.btnMesa = btn;
     }
 
     //  Reebe dados da vindo da tela de Pedidos
@@ -287,12 +291,12 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
 
         btnCancelarPedido.setEnabled(false);
         btnListar.setEnabled(false);
-        
+
         if (jcomboPedido.getItemCount() > 1) {
             btnListar.setEnabled(true);
-           
+
         }
-        
+
 
     }//GEN-LAST:event_jcomboPedidoActionPerformed
     public void recebeNovaQtd(int novaQtd) {
@@ -397,7 +401,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
 
     }//GEN-LAST:event_lblRemoverItemDoPedidoMouseClicked
     // Seleciona a mesa informada no parâmetro
-    public void selecionaPedido(String nPedido, String nMesa){
+    public void selecionaPedido(String nPedido, String nMesa) {
         jcomboPedido.setSelectedItem(nPedido);
         lblNumeroMesa.setText(nMesa);
         listaItensDoPedido();
@@ -423,17 +427,27 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                 l.setDescricao("Cancelou o pedido ->" + nPedido);
                 l.gravaLog(l);
                 btnCancelarPedido.setEnabled(false);
-                lblNumeroMesa.setText(null);
-                tlPedido.atualizaPedidos();
-
+                
+                //tlPedido.atualizaPedidos(); Excluir depois de teste de exclusão do pedido
+                tlPedido.atuDetalheDoPedido(nmesa, nPedido);
+                cp.carregaComboPedido(jcomboPedido);
+                jcomboPedido.setSelectedIndex(0);
+                if (jcomboPedido.getItemCount() <= 1) {
+                    jcomboPedido.setEnabled(false);
+                }
+                btnListar.setEnabled(false);
+                this.dispose();
+                tlPedido.dispose();
+                tela.alteraCorMesa(btnMesa);
+                
             }
         }
-        cp.carregaComboPedido(jcomboPedido);
-        jcomboPedido.setSelectedIndex(0);
-        if (jcomboPedido.getItemCount()<=1){
-            jcomboPedido.setEnabled(false);
-        }
-        btnListar.setEnabled(false);
+//        cp.carregaComboPedido(jcomboPedido);
+//        jcomboPedido.setSelectedIndex(0);
+//        if (jcomboPedido.getItemCount()<=1){
+//            jcomboPedido.setEnabled(false);
+//        }
+//        btnListar.setEnabled(false);
 
 
     }//GEN-LAST:event_btnCancelarPedidoActionPerformed
@@ -460,8 +474,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     private void lblRemoverItemDoPedidoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoverItemDoPedidoMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_lblRemoverItemDoPedidoMouseEntered
-    
-    
+
     /**
      * @param args the command line arguments
      */

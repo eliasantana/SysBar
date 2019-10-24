@@ -315,8 +315,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
             if (autentica.autentica2(comboLogin.getSelectedItem().toString(), txtSenha.getText().toLowerCase())) {
                 // Executa módulo de Backup na inicialização após verificação.
-                
-                
+
                 String cargo = autentica.enviarCargo();
                 System.out.println("Cargo: " + cargo);
                 switch (cargo) {
@@ -331,21 +330,26 @@ public class TelaLogin extends javax.swing.JFrame {
                         TelaMovimentacao estoque = new TelaMovimentacao();
                         // Instancia a tela principal
                         TelaPrincipal tela = new TelaPrincipal();
-                        estoque.recebeOperador(tela,autentica.enviaOperador(), autentica.enviarCargo());
+                        estoque.recebeOperador(tela, autentica.enviaOperador(), autentica.enviarCargo());
                         estoque.setVisible(true);
                         this.dispose();
                         break;
-                    case "Garçom": // Vai para tela de garçom
+                    case "Garçom": 
+                        // Vai para tela de garçom
                         // Chama a tela Pedido 2
-                        TelaPedido2 pedido2 = new TelaPedido2();
-                        pedido2.recebeOperador(autentica.enviaOperador(), autentica.enviarCargo());
-                        pedido2.setVisible(true);
+//                        TelaPedido2 pedido2 = new TelaPedido2();
+//                        pedido2.recebeOperador(autentica.enviaOperador(), autentica.enviarCargo());
+//                        pedido2.setVisible(true);
+                        // Chama Tela Pedido 3
+                        TelaPedido3 tp3 = new TelaPedido3();
+                        tp3.recebeOperador(autentica.enviaOperador(), autentica.enviarCargo());
+                        tp3.setVisible(true);
                         this.dispose();
                         break;
                     case "Caixa": // Vai para tela Estoque
                         TelaCaixa caixa = new TelaCaixa();
                         TelaPrincipal tp = new TelaPrincipal();
-                        caixa.recebeOperador(tp,autentica.enviaOperador(), autentica.enviarCargo());
+                        caixa.recebeOperador(tp, autentica.enviaOperador(), autentica.enviarCargo());
                         caixa.setVisible(true);
                         this.dispose();
                         break;
@@ -379,9 +383,9 @@ public class TelaLogin extends javax.swing.JFrame {
             txtSenha.setEnabled(true);
             lblMsg2.setText(null);
             btnLogin.setEnabled(false);
-           
+
         } else {
-           
+
             lblMsg2.setText("*Senha inválida, digite novamente!");
             lblMsg.setForeground(Color.red);
             lblMsg.setText("*Resta(m) " + tentavias + " tentativa(s) antes do bloqueio!");
@@ -391,7 +395,7 @@ public class TelaLogin extends javax.swing.JFrame {
         // Realiza login
         lblMsg.setText(null);
         lblMsg2.setText(null);
-        
+
         btnLogin.setEnabled(true);
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             realizaLogin();
@@ -413,7 +417,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void comboLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboLoginActionPerformed
         lblMsg.setText(null);
-        
+
         boolean bloqueado = autentica.taBloqueado(comboLogin.getSelectedItem().toString());
 
         if ("Selecione...".equals(comboLogin.getSelectedItem().toString())) {
