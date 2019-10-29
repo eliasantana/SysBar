@@ -193,7 +193,7 @@ public class ControlerPedido {
                 + "	dbbar.detalhe_mesa.cadmesa_id = dbbar.cadmesa.id \n"
                 + "INNER JOIN dbbar.tbproduto ON \n"
                 + "	dbbar.detalhe_mesa.tbproduto_id = dbbar.tbproduto.id\n"
-                + "WHERE numero_mesa =? and cadpedido_id_pedido=? order by dbbar.detalhe_mesa.id desc";
+                + "WHERE numero_mesa =? and cadpedido_id_pedido=? order by dbbar.detalhe_mesa.data asc";
                 
         try {
             pst = conexao.prepareStatement(sql);

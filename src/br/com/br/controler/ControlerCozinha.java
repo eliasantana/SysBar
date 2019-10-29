@@ -344,6 +344,29 @@ public class ControlerCozinha {
 
         return resp;
     }
+    /**
+     * Adicionado: 28/10/2019
+     * Verifica se o pedido possui algum prato na cozinha com as situações 'PENDENTE' ou 'EM PREPARAÇÃO'
+     * @param nPedido Número do Pedido
+     * @return Retorna TRUE ou FALSE
+     * @since  VERSÃO 2.0.0-nf.11 / VERSÃO 2.0.0-f.11
+     */
+    
+    public boolean temNaCozinha(String nPedido) {
+        boolean resp = false;
+        String sql = "SELECT * FROM tbcozinha where npedido = ?  and status='Pendente' or status='Em preparação';";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, nPedido);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                resp = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("br.com.br.controler.ControlerCozinha.temNaCozinha()");
+        }
+        return resp;
+    }
 
     // Verifica se o prato possui obsrvação
     public String temObs(String idPrato) {

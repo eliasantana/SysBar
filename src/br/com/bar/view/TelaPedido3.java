@@ -175,7 +175,7 @@ public class TelaPedido3 extends javax.swing.JFrame {
         for (int i = 0; i < listaDeMesas.size(); i++) {
             JButton btn = new JButton();
             btn.setBounds(0, 0, 100, 50);
-            btn.setFont(new Font("Arial", Font.PLAIN, 15));
+            btn.setFont(new Font("Arial", Font.PLAIN, 20));
             btn.setText(listaDeMesas.get(i).getNumeroMesa());
             String idmesa = listaDeMesas.get(i).getId();
             String garcom = cf.retornaGarcom(btn.getText());

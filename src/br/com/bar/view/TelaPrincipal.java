@@ -38,6 +38,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     ControlerEstoque estoque = new ControlerEstoque();
     Util u = new Util();
     TelaDelivery d;
+    TelaCaixa caixa;
+    TelaPedido3 tp3;
+    TelaConzinha cozinha;
+    TelaCadastro cadastro;
+    TelaEstoque p;
+    TelaContasApagar contas;
+    TelaConfiguracao config;
 
     /**
      * Creates new form TelaPrincipal
@@ -51,7 +58,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnRelatorios.setEnabled(false);
         jLabel16.setEnabled(false); // Icone do Botão Relatório
         // Verifica contas vencidas em aberto.
-        btnDelivery.setVisible(true);
+        btnDelivery.setVisible(false);
 
         atualizaInformativo();
 
@@ -580,25 +587,29 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdutoMouseClicked
         // Chama tela de Cadastro de Produto
-        TelaEstoque p = new TelaEstoque();
-        p.recebeOperador(this, lblOperador.getText(), lblCargo.getText());
+        if (p == null) {
+            p = new TelaEstoque();
+            p.recebeOperador(this, lblOperador.getText(), lblCargo.getText());
+        }
         p.setVisible(true);
 
     }//GEN-LAST:event_btnProdutoMouseClicked
 
     private void btnConfiguracaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracaoMouseClicked
         // Chama a tela de configuração
-
-        TelaConfiguracao config = new TelaConfiguracao();
-        config.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        if (config == null) {
+            config = new TelaConfiguracao();
+            config.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        }
         config.setVisible(true);
     }//GEN-LAST:event_btnConfiguracaoMouseClicked
 
     private void btnConasApagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConasApagarMouseClicked
-
-        TelaContasApagar contas = new TelaContasApagar();
-        contas.recebeOperador(this, lblOperador.getText(), lblCargo.getText());
-        contas.setModal(true);
+        if (contas == null) {
+            contas = new TelaContasApagar();
+            contas.recebeOperador(this, lblOperador.getText(), lblCargo.getText());
+            contas.setModal(true);
+        }
         contas.setVisible(true);
 
 
@@ -647,19 +658,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
 //        pedido2.recebeOperador(lblOperador.getText(), lblCargo.getText());
 //        pedido2.setVisible(true);
         // Chama tela pedido 3
-        TelaPedido3 tp3 = new TelaPedido3();
+        tp3 = new TelaPedido3();
         tp3.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        
         tp3.setVisible(true);
-
     }//GEN-LAST:event_btnLancarPedidoMouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
         // Chama tela do Caixa
-
-        TelaCaixa caixa = new TelaCaixa();
-        caixa.recebeOperador(this, lblOperador.getText(), lblCargo.getText());
+        if (caixa == null) {
+            caixa = new TelaCaixa();
+            caixa.recebeOperador(this, lblOperador.getText(), lblCargo.getText());
+        }
         caixa.setVisible(true);
-
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
@@ -689,9 +700,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         // Vai para tela Cozinha
-        TelaConzinha cozinha = new TelaConzinha();
-        cozinha.recebeOperador(lblOperador.getText(), lblCargo.getText());
-
+        if (cozinha == null) {
+            cozinha = new TelaConzinha();
+            cozinha.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        }
         cozinha.setVisible(true);
     }//GEN-LAST:event_jLabel11MouseClicked
 
@@ -700,9 +712,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_lblGestaoKeyPressed
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
-        TelaCadastro cadastro = new TelaCadastro();
-        cadastro.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        cadastro.setAlwaysOnTop(true);
+        if (cadastro == null) {
+            cadastro = new TelaCadastro();
+            cadastro.recebeOperador(lblOperador.getText(), lblCargo.getText());
+            cadastro.setAlwaysOnTop(true);
+        }
         cadastro.setVisible(true);
     }//GEN-LAST:event_jLabel13MouseClicked
 
@@ -719,7 +733,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
         d.setVisible(true);
     }//GEN-LAST:event_btnDeliveryMouseClicked
-
+   
+    public void atualizaTela(){        
+        caixa=null;
+    }
     /**
      * @param args the command line arguments
      */

@@ -9,6 +9,7 @@ import br.com.bar.dao.AutenticaUsuario;
 import br.com.br.controler.ControlerFuncionario;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +21,8 @@ public class TelaAlteraSenha2 extends javax.swing.JFrame {
     ControlerFuncionario cf = new ControlerFuncionario();
     AutenticaUsuario auth = new AutenticaUsuario();
     String loginOperador;
+    JFrame tela;        // Armazena a tela passada como patâmetro no método recebeTela
+    String nomeJanela; // Nome da Janela que está sendo passada como parâmetro
 
     public TelaAlteraSenha2() {
         initComponents();
@@ -54,6 +57,11 @@ public class TelaAlteraSenha2 extends javax.swing.JFrame {
         this.loginOperador = operador;
     }
 
+    public void recebeTela(JFrame frame, String nomeJanela) {
+        this.tela = frame;
+        this.nomeJanela = nomeJanela;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -75,7 +83,7 @@ public class TelaAlteraSenha2 extends javax.swing.JFrame {
         lblSenhaAtualOK = new javax.swing.JLabel();
         lblOkConfirmacao = new javax.swing.JLabel();
         btnAlterar = new javax.swing.JButton();
-        btnAlterar1 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         lblMsg = new javax.swing.JLabel();
         lblError = new javax.swing.JLabel();
 
@@ -163,14 +171,14 @@ public class TelaAlteraSenha2 extends javax.swing.JFrame {
         jPanel2.add(btnAlterar);
         btnAlterar.setBounds(16, 129, 119, 33);
 
-        btnAlterar1.setText("Cancelar");
-        btnAlterar1.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlterar1ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnAlterar1);
-        btnAlterar1.setBounds(140, 129, 119, 33);
+        jPanel2.add(btnCancelar);
+        btnCancelar.setBounds(140, 129, 119, 33);
 
         lblMsg.setForeground(new java.awt.Color(255, 0, 0));
         jPanel2.add(lblMsg);
@@ -188,9 +196,21 @@ public class TelaAlteraSenha2 extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterar1ActionPerformed
-        dispose();
-    }//GEN-LAST:event_btnAlterar1ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        switch (nomeJanela) {
+            case "DetalheMesa":
+                TelaDetalheMesa detMesa = (TelaDetalheMesa) tela;
+                detMesa.atualizaTelaSenha();
+                dispose();
+                break;
+            case "Caixa":
+                TelaCaixa caixa = (TelaCaixa) tela;
+                caixa.atualizaTelaSenha();
+                dispose();
+                break;
+
+        }
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         String idOperador = cf.localizaIdLogin(loginOperador);
@@ -200,26 +220,41 @@ public class TelaAlteraSenha2 extends javax.swing.JFrame {
 
             if (cf.alteraSenha(txtConfirmaSnh.getText(), idOperador)) {
                 JOptionPane.showMessageDialog(this, "Senha alterada com sucesso!");
-                dispose();
+                switch (nomeJanela) {
+                    case "DetalheMesa":
+                        TelaDetalheMesa detMesa = (TelaDetalheMesa) tela;
+                        detMesa.atualizaTelaSenha();
+                        dispose();
+                        break;
+                    case "Caixa":
+                        TelaCaixa caixa = (TelaCaixa) tela;
+                        caixa.atualizaTelaSenha();
+                        dispose();
+                        break;
+
+                }
             }
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void txtSenhaAtualKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaAtualKeyPressed
         String senha = txtSenhaAtual.getText().toLowerCase();
+        //Verifica se o TextFild senha atual está vazio
+        if (senha.length() == 0) {
+            lblMsg.setText(null); // Limpa Label de mensagem se o TextFild senhaAtual estiver vazio
+        }
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (auth.isExistsSenha(txtSenhaAtual.getText().toLowerCase())) {
 
                 if (auth.autentica2(loginOperador, senha)) {
 
-                    // trocaIcone("aplicar.png", "", lblSenhaAtualOK);
                     lblSenhaAtualOK.setVisible(true);
                     habilitaTroca();
                     txtNovaSnh.requestFocus();
 
                 }
             } else {
-                //trocaIcone("fechar_vermelho.png", "*Senha atual incorreta!", lblSenhaAtualOK);
+                lblMsg.setText("*Senha inválida!");
 
             }
         }
@@ -244,11 +279,10 @@ public class TelaAlteraSenha2 extends javax.swing.JFrame {
                 lblError.setVisible(true);
                 lblMsg.setForeground(Color.red);
                 lblMsg.setText("*Confirmação de nova senha inconsistente!");
-               
+
             }
         }
     }//GEN-LAST:event_txtConfirmaSnhKeyPressed
-   
 
     /**
      * @param args the command line arguments
@@ -287,7 +321,7 @@ public class TelaAlteraSenha2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
-    private javax.swing.JButton btnAlterar1;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

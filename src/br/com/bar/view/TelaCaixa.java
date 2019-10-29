@@ -40,6 +40,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import org.jfree.chart.*;
 import org.jfree.data.category.DefaultCategoryDataset;
 import br.com.bar.util.Util;
+import br.com.br.controler.ControlerCozinha;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerDelivery;
 import br.com.br.controler.ControlerEntregador;
@@ -81,6 +82,8 @@ public class TelaCaixa extends javax.swing.JFrame {
      * Creates new form TelaCaixa
      */
     TelaProcessaPamento tpp;
+    TelaAlteraSenha2 alteraSenha2;
+    TelaPesquisaPreco pesquisa;
     ControlerMesa cm = new ControlerMesa();
     ControlerPedido cp = new ControlerPedido();
     ControlerCaixa caixa = new ControlerCaixa();
@@ -92,6 +95,8 @@ public class TelaCaixa extends javax.swing.JFrame {
     TableModelCaixa modelCaixa = new TableModelCaixa();
     ControlerEntregador ce = new ControlerEntregador();
     ControlerNFCe cNFCe = new ControlerNFCe();
+    ControlerCozinha cc = new ControlerCozinha();
+
     DadosEmpresa dadosEmpresa = de.selecionaDados();
     int flagFiscal = 0; // 1 - Para autorizar e ler retorno SEFAZ 
     //Ambiente de Emissão  (0 - Homologação - 1  Prdodução
@@ -132,15 +137,15 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     public TelaCaixa() {
         initComponents();
-        if (ambiente == 1 && flagFiscal==1) {
+        if (ambiente == 1 && flagFiscal == 1) {
             //lblAmbiante.setVisible(false);
             lblAmbiante.setText("NFC-e em Produção");
-        } else if (ambiente==0 && flagFiscal==0){            
+        } else if (ambiente == 0 && flagFiscal == 0) {
             lblAmbiante.setText("Versão não Fiscal");
-        }else {
-            lblAmbiante.setText("NFC-e em Homologação");           
+        } else {
+            lblAmbiante.setText("NFC-e em Homologação");
         }
-        
+
         caixa.listaMesaOcupada(comboMesa);
         checkTxServico.setSelected(true);
         txtIdMEsa.setVisible(false);
@@ -1207,6 +1212,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void btnFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFecharMouseClicked
         //Sai da tela Caixa
+        principal.atualizaTela();
         if ("Gerente".equals(lblCargo.getText())) {
             dispose();
         } else {
@@ -1214,6 +1220,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             TelaLogin login = new TelaLogin();
             login.setVisible(true);
         }
+
     }//GEN-LAST:event_btnFecharMouseClicked
 
     private void comboMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMesaActionPerformed
@@ -2001,7 +2008,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_checkExibirActionPerformed
 
     private void tblDetalhePedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetalhePedidoMouseClicked
-       
+
     }//GEN-LAST:event_tblDetalhePedidoMouseClicked
 
     private void checkConcedeDescontoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkConcedeDescontoMouseClicked
@@ -2058,17 +2065,23 @@ public class TelaCaixa extends javax.swing.JFrame {
     private void radioDinheiroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioDinheiroMouseClicked
         //Abilita textFild para recebimento em dinheiro
         if (radioDinheiro.isSelected()) {
-            txtValorPago.setText(lblTotal.getText());
-            txtValorPago.setEnabled(true);
-            lblPago.setEnabled(true);
-            jSpinFieldPessoas.setEnabled(true);
-            btnImprimir.setEnabled(true);
-            checkConcedeDesconto.setEnabled(true);
-            lblReceber.setEnabled(true);
-            lblReceberPAgamento.setEnabled(true);
-            lblNpessoas.setEnabled(true);
-            txtTroco.setText("0,00");
-            lblTroco.setEnabled(false);
+            if (cc.temNaCozinha(lblNPedido.getText())) {
+                JOptionPane.showMessageDialog(this, "Há prato(s) ainda sendo preparado(s) na cozinha!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+                lblReceber.setEnabled(false);
+                lblReceberPAgamento.setEnabled(false);
+            } else {
+                txtValorPago.setText(lblTotal.getText());
+                txtValorPago.setEnabled(true);
+                lblPago.setEnabled(true);
+                jSpinFieldPessoas.setEnabled(true);
+                btnImprimir.setEnabled(true);
+                checkConcedeDesconto.setEnabled(true);
+                lblReceber.setEnabled(true);
+                lblReceberPAgamento.setEnabled(true);
+                lblNpessoas.setEnabled(true);
+                txtTroco.setText("0,00");
+                lblTroco.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_radioDinheiroMouseClicked
 
@@ -2093,12 +2106,18 @@ public class TelaCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void lblAlteraSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlteraSenhaMouseClicked
-        TelaAlteraSenha2 alteraSenha2 = new TelaAlteraSenha2();
-        alteraSenha2.receberOperador(lblOperador.getText());
+        if (alteraSenha2 == null) {
+            alteraSenha2 = new TelaAlteraSenha2();
+            alteraSenha2.receberOperador(lblOperador.getText());
+            alteraSenha2.recebeTela(this, "Caixa"); // Envia Tela Caixa como parâmetro e informa o nome da tela
+        }
         // alteraSenha2.setAlwaysOnTop(true);
         alteraSenha2.setVisible(true);
     }//GEN-LAST:event_lblAlteraSenhaMouseClicked
-
+    // Atualiza a tela de senha após clique no botão cancelar
+    public void atualizaTelaSenha() {
+        alteraSenha2 = null;
+    }
     private void lblLancarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLancarPedidoMouseClicked
         // Chama a tela de Pedidos
         if (lblLancarPedido.isEnabled()) {
@@ -2113,8 +2132,10 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void lblConsultarPrecosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultarPrecosMouseClicked
         // Chama tela de Pesquisa de Preços
-        TelaPesquisaPreco tpp = new TelaPesquisaPreco();
-        tpp.setVisible(true);
+        if (pesquisa == null) {
+            pesquisa = new TelaPesquisaPreco();
+        }
+        pesquisa.setVisible(true);
 
     }//GEN-LAST:event_lblConsultarPrecosMouseClicked
 
@@ -2301,8 +2322,8 @@ public class TelaCaixa extends javax.swing.JFrame {
             validaPagamentoMisto();
             checkConcedeDesconto.setEnabled(true);
         } catch (NumberFormatException e) {
-            System.out.println("br.com.bar.view.TelaCaixa.txtMistoVoucherKeyPressed()" + e);
-            System.out.println(txtMistoVoucher);
+            //System.out.println("br.com.bar.view.TelaCaixa.txtMistoVoucherKeyPressed()" + e);
+            //System.out.println(txtMistoVoucher);
             JOptionPane.showMessageDialog(this, "Valor Inválido!");
         }
     }//GEN-LAST:event_txtMistoVoucherFocusLost
@@ -2896,94 +2917,100 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     // Realiza a validação dos valores informados para o pagamenot misto
     private void validaPagamentoMisto() {
+        //  Verifica antes de liberar o pagamento se existe na cozinha algum 
+        //  prato com situação diferente de liberado para este pedido.
+        if (cc.temNaCozinha(lblNPedido.getText())) {
+            JOptionPane.showMessageDialog(this, "Há prato(s) ainda sendo preparado(s) na cozinha!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+        } else {
 
-        double totalCartao = credito + debito + voucher;
-        String arreTotalCartao = String.format("%9.2f", totalCartao).replace(",", ".");
-        totalCartao = Double.parseDouble(arreTotalCartao);
-        double totalMisto = dinheiro + totalCartao; // 
-        String arredTotalMisto = String.format("%9.2f", totalMisto).replace(",", ".");
-        totalMisto = Double.parseDouble(arredTotalMisto);
-        double totalPedido = Double.parseDouble(lblTotal.getText().replace(",", "."));
-        int cont = 0;
-        if (dinheiro > 0) {
-            cont = cont + 1;
-        }
-        if (credito > 0) {
-            cont = cont + 1;
-        }
-        if (debito > 0) {
-            cont = cont + 1;
-        }
-        if (voucher > 0) {
-            cont = cont + 1;
-        }
-        // Vontinua a validação apenas se houve mais de uma forma de pagamento.
-        if (cont > 1) {
-            // Habilita label valor pago
-            lblPago.setEnabled(true);
-            if (totalCartao > totalPedido) {
-                JOptionPane.showMessageDialog(this, "O valor informado em cartão(ões) excede o total da conta!");
-            } else if (totalCartao < totalPedido) {
-                if ((dinheiro > 0) && (totalMisto > totalPedido)) {
-                    double troco = totalMisto - totalPedido;
-                    //Reduz para duas casas decimal o total misto
-                    txtTroco.setText(String.format("%9.2f", troco));
-                    // Habilita Troco
-                    lblTroco.setEnabled(true);
-                    // Habilita Recebimento
-                    lblReceber.setEnabled(true);
-                    lblReceberPAgamento.setEnabled(true);
-                    troco = Double.parseDouble(txtTroco.getText().replace(",", "."));
-                    String vlrDrinheiroPago = String.format("%9.2f", dinheiro - troco).replace(",", ".");
-                    dinheiro = Double.parseDouble(vlrDrinheiroPago);
-                    dinheiroPago = Double.parseDouble(vlrDrinheiroPago);
-                    dinheiro = dinheiroPago;
-                    System.out.println("Valor Real Dinheiro" + dinheiro);
-                    //else if ((dinheiro > 0) && (totalMisto == totalPedido)) // Excluir após validação
-                } else if (totalMisto == totalPedido) {
-                    // Habilita Recebimento
-                    lblReceber.setEnabled(true);
-                    lblReceberPAgamento.setEnabled(true);
-                    //Desabilita Troco
-                    lblTroco.setEnabled(false);
-                    txtTroco.setText("0,00");
-                    dinheiroPago = dinheiro;
-
-                } else {
-                    JOptionPane.showMessageDialog(this, "O valor informado é menor que o total da conta!");
-                }
-            } else if (totalCartao == totalPedido) {
-
-                if (dinheiro > 0) {
-                    JOptionPane.showMessageDialog(this, "O valor informado em dinheiro excede o total da conta!", "Atenção!", JOptionPane.ERROR_MESSAGE);
-                    //Desabilita Troco
-                    lblTroco.setEnabled(false);
-                    txtTroco.setText("0,00");
-
-                } else {
-                    if (totalMisto > totalPedido) {
+            double totalCartao = credito + debito + voucher;
+            String arreTotalCartao = String.format("%9.2f", totalCartao).replace(",", ".");
+            totalCartao = Double.parseDouble(arreTotalCartao);
+            double totalMisto = dinheiro + totalCartao; // 
+            String arredTotalMisto = String.format("%9.2f", totalMisto).replace(",", ".");
+            totalMisto = Double.parseDouble(arredTotalMisto);
+            double totalPedido = Double.parseDouble(lblTotal.getText().replace(",", "."));
+            int cont = 0;
+            if (dinheiro > 0) {
+                cont = cont + 1;
+            }
+            if (credito > 0) {
+                cont = cont + 1;
+            }
+            if (debito > 0) {
+                cont = cont + 1;
+            }
+            if (voucher > 0) {
+                cont = cont + 1;
+            }
+            // Vontinua a validação apenas se houve mais de uma forma de pagamento.
+            if (cont > 1) {
+                // Habilita label valor pago
+                lblPago.setEnabled(true);
+                if (totalCartao > totalPedido) {
+                    JOptionPane.showMessageDialog(this, "O valor informado em cartão(ões) excede o total da conta!");
+                } else if (totalCartao < totalPedido) {
+                    if ((dinheiro > 0) && (totalMisto > totalPedido)) {
                         double troco = totalMisto - totalPedido;
+                        //Reduz para duas casas decimal o total misto
                         txtTroco.setText(String.format("%9.2f", troco));
+                        // Habilita Troco
                         lblTroco.setEnabled(true);
                         // Habilita Recebimento
                         lblReceber.setEnabled(true);
                         lblReceberPAgamento.setEnabled(true);
-                    } else {
+                        troco = Double.parseDouble(txtTroco.getText().replace(",", "."));
+                        String vlrDrinheiroPago = String.format("%9.2f", dinheiro - troco).replace(",", ".");
+                        dinheiro = Double.parseDouble(vlrDrinheiroPago);
+                        dinheiroPago = Double.parseDouble(vlrDrinheiroPago);
+                        dinheiro = dinheiroPago;
+                        System.out.println("Valor Real Dinheiro" + dinheiro);
+                        //else if ((dinheiro > 0) && (totalMisto == totalPedido)) // Excluir após validação
+                    } else if (totalMisto == totalPedido) {
                         // Habilita Recebimento
                         lblReceber.setEnabled(true);
                         lblReceberPAgamento.setEnabled(true);
                         //Desabilita Troco
                         lblTroco.setEnabled(false);
                         txtTroco.setText("0,00");
-                    }
-                }
-                // habilita recebimento
-                lblReceber.setEnabled(true);
-                lblReceberPAgamento.setEnabled(true);
+                        dinheiroPago = dinheiro;
 
+                    } else {
+                        JOptionPane.showMessageDialog(this, "O valor informado é menor que o total da conta!");
+                    }
+                } else if (totalCartao == totalPedido) {
+
+                    if (dinheiro > 0) {
+                        JOptionPane.showMessageDialog(this, "O valor informado em dinheiro excede o total da conta!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+                        //Desabilita Troco
+                        lblTroco.setEnabled(false);
+                        txtTroco.setText("0,00");
+
+                    } else {
+                        if (totalMisto > totalPedido) {
+                            double troco = totalMisto - totalPedido;
+                            txtTroco.setText(String.format("%9.2f", troco));
+                            lblTroco.setEnabled(true);
+                            // Habilita Recebimento
+                            lblReceber.setEnabled(true);
+                            lblReceberPAgamento.setEnabled(true);
+                        } else {
+                            // Habilita Recebimento
+                            lblReceber.setEnabled(true);
+                            lblReceberPAgamento.setEnabled(true);
+                            //Desabilita Troco
+                            lblTroco.setEnabled(false);
+                            txtTroco.setText("0,00");
+                        }
+                    }
+                    // habilita recebimento
+                    lblReceber.setEnabled(true);
+                    lblReceberPAgamento.setEnabled(true);
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "É necessário preencher com mais de uma forma de pagamento.", "Atenção", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "É necessário preencher com mais de uma forma de pagamento.", "Atenção", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -3209,7 +3236,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         if (ambiente == 1) {
             // Dados de Conexao com a API - FocusNFe
             // Ambiente de Produção
-            login = "DhdwJcAsy0jGvNDRv7mGZyWeJ19CBRUT";            
+            login = "DhdwJcAsy0jGvNDRv7mGZyWeJ19CBRUT";
         } else {
             // Ambiente de Homologação
             login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";

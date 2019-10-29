@@ -7,6 +7,7 @@ package br.com.bar.view;
 
 import br.com.bar.dao.Log;
 import br.com.bar.model.Funcionario;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerFuncionario;
 import java.awt.event.KeyEvent;
 import javax.swing.JDialog;
@@ -22,7 +23,7 @@ public class TelaConfirmaCozinheiro extends JDialog {
     Funcionario f = new Funcionario();
     ControlerFuncionario cf = new ControlerFuncionario();
     String idPrato = null;
-
+    Util u = new Util();
     public TelaConfirmaCozinheiro() {
         initComponents();
 
@@ -122,9 +123,9 @@ public class TelaConfirmaCozinheiro extends JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -145,9 +146,9 @@ public class TelaConfirmaCozinheiro extends JDialog {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 130));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 130));
 
-        setSize(new java.awt.Dimension(201, 131));
+        setSize(new java.awt.Dimension(231, 131));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -171,6 +172,7 @@ public class TelaConfirmaCozinheiro extends JDialog {
 
     private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
         txtCodigo.setText(txtCodigo.getText().replaceAll("[^0-9]", ""));
+        txtCodigo.setText(u.tamanhoMaximo(txtCodigo.getText(),10));
     }//GEN-LAST:event_txtCodigoKeyReleased
 
     /**

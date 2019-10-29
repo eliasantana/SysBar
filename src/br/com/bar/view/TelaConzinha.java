@@ -93,6 +93,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblLogo.setIcon(u.carregaLogo());
         if ("Gerente".equals(lblCargo.getText())) {
             lblAlteraSenha.setVisible(false);
+            lblSair.setVisible(false);
         }
 
     }
