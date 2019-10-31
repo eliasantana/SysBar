@@ -180,7 +180,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         lblVersao1.setForeground(new java.awt.Color(255, 255, 255));
         lblVersao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersao1.setText(" V2.0.0-nf.11 - 16/10/2019");
+        lblVersao1.setText(" V2.0.0-nf.11 - 31/10/2019");
         jPanel1.add(lblVersao1);
         lblVersao1.setBounds(20, 290, 240, 20);
 
@@ -321,7 +321,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 switch (cargo) {
                     case "Gerente": // Vai para tela principal
                         TelaPrincipal principal = new TelaPrincipal();
-                        principal.recebeOperador(autentica.enviaOperador(), autentica.enviarCargo());
+                        principal.recebeOperador(autentica.enviaOperador().toUpperCase(), autentica.enviarCargo());
                         principal.setVisible(true);
                         this.dispose();
                         break;
@@ -349,7 +349,7 @@ public class TelaLogin extends javax.swing.JFrame {
                     case "Caixa": // Vai para tela Estoque
                         TelaCaixa caixa = new TelaCaixa();
                         TelaPrincipal tp = new TelaPrincipal();
-                        caixa.recebeOperador(tp, autentica.enviaOperador(), autentica.enviarCargo());
+                        caixa.recebeOperador(tp, autentica.enviaOperador().toUpperCase(), autentica.enviarCargo());
                         caixa.setVisible(true);
                         this.dispose();
                         break;

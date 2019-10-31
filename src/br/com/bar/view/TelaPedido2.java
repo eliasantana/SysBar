@@ -1788,7 +1788,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
     // na inclusão do produto no pedido.
     private void enviaParaCozinha(ArrayList<String> prato) {
 
-        ControlerCozinha cc = new ControlerCozinha(); // Instancia o controler cozinha
+        cc = new ControlerCozinha(); // Instancia o controler cozinha
         if (cp.enviaProdutoCozinha(prato)) {
             JOptionPane.showMessageDialog(this, "Solicitação de prato enviada para a cozinha!");
         } else {
@@ -1801,6 +1801,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
      * Recebe dados atualizados do produto para envio a cozinha .
      *
      * @param listaAtualizada - Listagem
+     * @param obs Tela de Observação 
      */
     public void recebeObsPrato(ArrayList<String> listaAtualizada, TelaObservacaoProduto obs) {
         this.obsevacaoPrato = listaAtualizada;

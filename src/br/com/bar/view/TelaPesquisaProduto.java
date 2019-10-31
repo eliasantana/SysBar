@@ -105,6 +105,7 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         radioProduto = new javax.swing.JRadioButton();
         radioGrupo = new javax.swing.JRadioButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -352,6 +353,9 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         });
         bordas.add(radioGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 80, -1));
 
+        jLabel3.setText("jLabel3");
+        bordas.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, -1, -1));
+
         getContentPane().add(bordas);
         bordas.setBounds(0, 0, 750, 710);
 
@@ -559,6 +563,7 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;

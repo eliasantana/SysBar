@@ -247,25 +247,30 @@ public class ControlerNFCe {
     }
 
     public boolean enviaEmail(String refNPedido, ArrayList<String> listaDeEmail) throws JSONException {
-        String login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
+        
+        String login = "DhdwJcAsy0jGvNDRv7mGZyWeJ19CBRUT";
         boolean resp = false;
         /* Substituir pela sua identificação interna da nota. */
         String ref = refNPedido;
 
-        /* Para ambiente de produção use a variável abaixo:
-        String server = "https://api.focusnfe.com.br/"; */
-        String server = "https://homologacao.focusnfe.com.br/";
+        /* Para ambiente de produção use a variável abaixo:*/
+        String server = "https://api.focusnfe.com.br/"; 
+        //String server = "https://homologacao.focusnfe.com.br/";
 
         String url = server.concat("v2/nfce/" + ref + "/email");
 
         /* Criamos o um objeto JSON que receberá um JSON Array com a lista de e-mails. */
         JSONObject json = new JSONObject();
         JSONArray listaEmails = new JSONArray();
+        listaEmails.put("eliasantana@hotmail.com");
         if (listaDeEmail.size() > 1) {
 
             for (int i = 0; i < listaDeEmail.size(); i++) {
                 json.accumulate("emails", listaDeEmail.get(i));
             }
+        }else {
+            
+            json.put("emails", listaEmails);
         }
 
         /* Testar se o JSON gerado está dentro do formato esperado.*/
@@ -419,4 +424,6 @@ public class ControlerNFCe {
 
         return resp;
     }
+    
+    
 }

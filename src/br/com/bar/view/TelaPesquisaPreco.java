@@ -23,6 +23,8 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
     TableModelPesquisaEstoque modelPesqEstoque = new TableModelPesquisaEstoque();
     TelaDetalheMesa telaDetalhe;
     Produto p = new Produto();
+    int linhas;
+    int linhaAtual;
     // Esta variável determina a origem de chamada desta tela
     // 1 - Detalhe mesa  0 - Chamada originada de qualquer lugar
     private int origem = 0;
@@ -35,6 +37,13 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
         Util u = new Util();
         //u.setIcon(this);
         btnVoltar.setVisible(false);
+        /*
+            Armazena o total de linhas da tabela
+            Estas variáveis são manipuladas durante o evento KeyEvet.DOWN e KeyEvet.UP
+            durante o pressionamento das setas do teclado na tabela de pesquisa de preço
+        */
+        linhas = tbProdutosEstoque.getRowCount();
+        linhaAtual = tbProdutosEstoque.getSelectedRow();
     }
 
     // Identifica a origem da chamada da tela
@@ -63,9 +72,18 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
         txtPesquisa = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btnVoltar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         tbProdutosEstoque = new javax.swing.JTable(){
 
@@ -116,6 +134,8 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -130,6 +150,8 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
                             .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVoltar)
+                        .addGap(59, 59, 59)
+                        .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -144,14 +166,18 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
                 .addComponent(lblTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(15, 15, 15))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(btnVoltar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnVoltar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addComponent(jLabel1)
+                        .addGap(26, 26, 26)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -164,17 +190,17 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
         // Lista produtos em estoque        
         tbProdutosEstoque.setModel(DbUtils.resultSetToTableModel(cp.listaProdutoEstoque(txtPesquisa.getText())));
         modelPesqEstoque.redimensionaColunas(tbProdutosEstoque);
-                       
+
     }//GEN-LAST:event_txtPesquisaKeyPressed
 
     private void tbProdutosEstoqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProdutosEstoqueMouseClicked
 
         int linha = tbProdutosEstoque.getSelectedRow();
-        
+
         p.setId(tbProdutosEstoque.getModel().getValueAt(linha, 0).toString());
         p.setNome(tbProdutosEstoque.getModel().getValueAt(linha, 1).toString());
         p.setValor(tbProdutosEstoque.getModel().getValueAt(linha, 2).toString());
-        if (linha >=0){
+        if (linha >= 0) {
             btnVoltar.setEnabled(true);
         }
 
@@ -196,10 +222,29 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
 
             }
             btnVoltar.setEnabled(false);
+        } else if (evt.getKeyCode() == KeyEvent.VK_DOWN && linhaAtual < linhas - 1) {
+            linhaAtual = linhaAtual + 1;
+            p.setId(tbProdutosEstoque.getModel().getValueAt(linhaAtual, 0).toString());
+            p.setNome(tbProdutosEstoque.getModel().getValueAt(linhaAtual, 1).toString());
+            p.setValor(tbProdutosEstoque.getModel().getValueAt(linhaAtual, 2).toString());
+        } else if (evt.getKeyCode() == KeyEvent.VK_UP && linhaAtual > 0) {
+            linhaAtual = linhaAtual - 1;
+            p.setId(tbProdutosEstoque.getModel().getValueAt(linhaAtual, 0).toString());
+            p.setNome(tbProdutosEstoque.getModel().getValueAt(linhaAtual, 1).toString());
+            p.setValor(tbProdutosEstoque.getModel().getValueAt(linhaAtual, 2).toString());
         }
 
 
     }//GEN-LAST:event_tbProdutosEstoqueKeyPressed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // Atualiza Tela de Pesquis de preco ao fechar janela
+        telaDetalhe.atualizaTela();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        tbProdutosEstoque.requestFocus();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -238,6 +283,7 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVoltar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitulo;

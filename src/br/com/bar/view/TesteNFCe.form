@@ -8,6 +8,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -28,38 +31,43 @@
               <Component id="jSpinnerQtd" min="-2" pref="79" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" min="-2" pref="537" max="-2" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="listar" min="-2" pref="79" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                              <Component id="adicionar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane1" min="-2" pref="537" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="listar" min="-2" pref="79" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                                      <Component id="adicionar" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
+                                      <Component id="txtEmail1" min="-2" pref="189" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="txtEmail2" min="-2" pref="189" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                      <Component id="btnValidaEmail" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtEmail3" min="-2" pref="189" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
-                              <Component id="txtEmail1" min="-2" pref="189" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="txtEmail2" min="-2" pref="189" max="-2" attributes="0"/>
-                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                              <Component id="btnValidaEmail" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtEmail3" min="-2" pref="189" max="-2" attributes="0"/>
-                          </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblEmail1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblEmail2" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblEmail3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblEmail1" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblEmail2" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblEmail3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButton2" min="-2" pref="172" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="117" max="32767" attributes="0"/>
           </Group>
@@ -107,7 +115,9 @@
                       <Component id="btnValidaEmail" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="181" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="124" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -177,6 +187,7 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbDetalhePedidoMouseClicked"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tbDetalhePedidoKeyPressed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tbDetalhePedido = new javax.swing.JTable(){&#xa;    public boolean isCellEditable (int rowIndex, int colIndex){&#xa;    return false;&#xa;}&#xa;};"/>
@@ -222,6 +233,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="jLabel1"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Enviar Email NFC"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

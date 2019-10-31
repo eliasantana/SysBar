@@ -138,6 +138,7 @@ public class ControlerProduto {
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, "%" + nomeProduto + "%");
+            
             rs = pst.executeQuery();
 
         } catch (SQLException e) {

@@ -37,6 +37,7 @@ public class TelaConzinha extends javax.swing.JFrame {
     ControlerCozinha cc = new ControlerCozinha();
     ControlerFuncionario cf = new ControlerFuncionario();
     TableModelCozinha modelCozinha = new TableModelCozinha();
+    TelaDetalheMesa detalheMesa;
     Funcionario f = new Funcionario();
     Util u = new Util();
     String idProdutoCozinha = null; // Id do Prato a ser preparado 
@@ -106,7 +107,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         ocultaObservacao();
 
     }
-
+   
     private void relogio() {
         long segundos = 1000;
         Timer timer = new Timer();
@@ -442,13 +443,11 @@ public class TelaConzinha extends javax.swing.JFrame {
         String cargo = lblCargo.getText();
         if ("Gerente".equals(cargo)) {
             dispose();
-
         } else {
 
             if (cc.pratoPendente() > 0) { // Verifica se existem pratos pendentes na cozinha.
-                JOptionPane.showMessageDialog(null, "Realize a liberação dos pratos pendentes antes de sair!");
+                JOptionPane.showMessageDialog(this, "Realize a liberação dos pratos pendentes antes de sair!");
                 // Só permite fechar a Tela Cozinha após liberação de todos os pratos.
-
             } else {
                 dispose();
                 TelaLogin login = new TelaLogin();
@@ -586,6 +585,8 @@ public class TelaConzinha extends javax.swing.JFrame {
                             System.out.println("br.com.bar.view.TelaConzinha.lblREmovePratoMouseClicked()" + e);
                         }
 
+                        jTextAreaObservacao.setText(null);
+                        jTextAreaObservacao.setVisible(false);
                     }
 
                 } else {

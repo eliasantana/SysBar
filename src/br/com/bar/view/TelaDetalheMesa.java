@@ -33,7 +33,8 @@ import net.proteanit.sql.DbUtils;
 public class TelaDetalheMesa extends javax.swing.JFrame {
     TelaPedido3 tela;
     TelaGerenciarPedido gp;
-    TelaPesquisaPreco pesquisa;
+    TelaPesquisaPreco pesquisa; // Armazena uma instância da tela Detalhe Mesa
+    
     
     TelaAlteraSenha2 telaAlteraSenha;
     Util u = new Util();
@@ -207,7 +208,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
 
             }
         } catch (HeadlessException | NumberFormatException e) {
-            System.out.println("br.com.bar.view.TelaPedido2.txtQtdKeyPressed()" + e);
+           // System.out.println("br.com.bar.view.TelaPedido2.txtQtdKeyPressed()" + e);
             lblMensagem.setText("*Quantidade inválida, tente novamente!");
             lblMensagem.setOpaque(false);
             lblMensagem.setForeground(Color.red);
@@ -233,9 +234,9 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     private void enviaParaCozinha(ArrayList<String> prato) {
 
         if (cp.enviaProdutoCozinha(prato)) {
-            JOptionPane.showMessageDialog(this, "Solicitação de prato enviada para a cozinha!");
+            lblMensagem.setText("Solicitação de prato enviada para a cozinha!");
         } else {
-            JOptionPane.showMessageDialog(this, "Erro ao tentar enviar solicitação de prato para a cozinha - Contate o SUPORTE!");
+            lblMensagem.setText("Erro ao tentar enviar solicitação de prato para a cozinha - Contate o SUPORTE!");
         }
 
     }
@@ -431,7 +432,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("Garçom");
+        jLabel15.setText("Atendente");
 
         lblGarcom.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblGarcom.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -558,6 +559,11 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         txtCodigoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         txtCodigoProduto.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtCodigoProduto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtCodigoProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCodigoProdutoMouseClicked(evt);
+            }
+        });
         txtCodigoProduto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCodigoProdutoKeyPressed(evt);
@@ -678,14 +684,17 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
 
     private void txtCodigoProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoProdutoKeyPressed
         // Adiciona um item ao pedido    
-        txtCodigoProduto.setText(u.tamanhoMaximo(txtCodigoProduto.getText(), 10));
+        txtCodigoProduto.setText(u.tamanhoMaximo(txtCodigoProduto.getText(), 11));
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
              lblMensagem.setText(null);
             if (txtCodigoProduto.getText().isEmpty()) {
                 // Chama tela pesquisa de preço
-                TelaPesquisaPreco pesquisa = new TelaPesquisaPreco();
-                pesquisa.defineOrigem(this, 1);
-                pesquisa.setTitle("MasterFood - Pesquisa de Produtos");
+                if (pesquisa==null){
+                    pesquisa = new TelaPesquisaPreco();
+                    pesquisa.setAlwaysOnTop(true);
+                    pesquisa.defineOrigem(this, 1);
+                    pesquisa.setTitle("MasterFood - Pesquisa de Produtos");                    
+                }
                 pesquisa.setVisible(true);
             } else {
                 Produto produto = new Produto();
@@ -703,7 +712,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                         txtQtd.requestFocus();
                     }
                 } catch (NullPointerException e) {
-                    JOptionPane.showMessageDialog(null, "Produto não localizado!");
+                    JOptionPane.showMessageDialog(this, "Produto não localizado!");
                 }
               
             }
@@ -722,7 +731,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             // Verifica se a tecla pressionada é a tecla ENTER e realiza o cálculo      
             if (quantidade == 0) {
-                JOptionPane.showMessageDialog(this, "Valor Inválido!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Informe uma quantdade válida!", "Atenção!", JOptionPane.ERROR_MESSAGE);
             } else {
                 adicionaItemNoPedido();
                 limpaform();
@@ -750,6 +759,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // Bloqeia Tela
         TelaBloqueio b = new TelaBloqueio();
+        b.setAlwaysOnTop(true);
         b.setModal(true);
         b.setVisible(true);
     }//GEN-LAST:event_jLabel4MouseClicked
@@ -758,9 +768,9 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         // Chama tela pesquisa de preço
         if (pesquisa==null){
             pesquisa = new TelaPesquisaPreco();
-            pesquisa.defineOrigem(this, 1);
+            pesquisa.defineOrigem(this, 1);            
+            pesquisa.setTitle("MasterFood - Pesquisa de Produtos");
             pesquisa.setAlwaysOnTop(true);
-            pesquisa.setTitle("MasterFood - Pesquisa de Produtos");            
         }
         pesquisa.setVisible(true);
     }//GEN-LAST:event_jLabel12MouseClicked
@@ -770,6 +780,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         TelaConzinha telaCozinha = new TelaConzinha();
         telaCozinha.recebeOperador(operador, cargo);
         telaCozinha.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_lblCozinhaMouseClicked
 
     private void lblStatusCozinhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStatusCozinhaMouseClicked
@@ -796,7 +807,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         qtd = tbDetalhePedido.getModel().getValueAt(linha, 2).toString();
         
         String grupo = cproduto.localizaGrupoProduto(idProduto);
-
+        
         if (grupo.toLowerCase().equals("cozinha")) {
             // Habilita os botões [REEVIO COZINHA] se o prato não existir.
             if (!cc.temNaCozinha(String.valueOf(idProduto), lblNPedido.getText())) {
@@ -827,12 +838,17 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         tbDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.listaPedidos(lblIdGarcom.getText())));
         modelDetPedido.redimensionaColunas(tbDetalhePedido);
     }
+    
+    public void atualizaTela(){
+        pesquisa=null;
+    }
 
     private void lblGestaoPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGestaoPedidosMouseClicked
         if (gp == null) {
             gp = new TelaGerenciarPedido();
             gp.selecionaPedido(lblNPedido.getText(), lblNumeroMesa.getText());
             gp.recebeTela(tela,btnMesa);
+            gp.setAlwaysOnTop(true);
             gp.recebeOperador(this, operador, cargo);
         }
         gp.setVisible(true);
@@ -844,6 +860,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
             telaAlteraSenha.setAlwaysOnTop(true);
             telaAlteraSenha.recebeTela(this,"DetalheMesa"); // Envia o Jframe como parâmetro e informa o nome do Jframe
             telaAlteraSenha.receberOperador(operador);
+           
         }
         telaAlteraSenha.setVisible(true);
     }//GEN-LAST:event_lblAlterarSenhaMouseClicked
@@ -851,6 +868,16 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     private void txtCodigoProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoProdutoKeyReleased
         txtCodigoProduto.setText(txtCodigoProduto.getText().replaceAll("[^0-9]", ""));
         lblMensagem.setText(null);
+        // Limpa dos campos código e quantidade e bloqueia o TextFild quantidade
+        
+        if (txtCodigoProduto.getText().length()==0){
+            txtCodigoProduto.setText(null);
+            lblDescricao.setText(null);
+            lblVlrUnitario.setText("0,00");
+            lblTotal.setText("0,00");
+            txtQtd.setText(null);
+            txtQtd.setEnabled(false);
+        }
     }//GEN-LAST:event_txtCodigoProdutoKeyReleased
 
     private void lblBtnReenvioCozinhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBtnReenvioCozinhaMouseClicked
@@ -895,6 +922,10 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     private void lblAlterarSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblAlterarSenhaKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_lblAlterarSenhaKeyReleased
+
+    private void txtCodigoProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCodigoProdutoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoProdutoMouseClicked
     // Totaliza item localizado e retorna o total formatado ocm duas casas decimais
     private String totaliza(double qtd, double valorUnit) {
 

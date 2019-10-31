@@ -98,9 +98,11 @@ public class TelaCaixa extends javax.swing.JFrame {
     ControlerCozinha cc = new ControlerCozinha();
 
     DadosEmpresa dadosEmpresa = de.selecionaDados();
-    int flagFiscal = 0; // 1 - Para autorizar e ler retorno SEFAZ 
-    //Ambiente de Emissão  (0 - Homologação - 1  Prdodução
-    private final int ambiente = 0;
+    //------------------------------------------------------------
+    // As variaveis abaixo determinam o ambiente de Emissão de cupom fiscal
+    int flagFiscal = 0;             // 1 - Para autorizar e ler retorno SEFAZ     
+    private final int ambiente = 0; //Ambiente de Emissão  (0 - Homologação - 1  Prdodução
+    //-------------------------------------------------------------
     boolean foiCancelada;
     // Dados da NFC-e
     Nfce nota = new Nfce();
@@ -2061,14 +2063,17 @@ public class TelaCaixa extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_checkReimpressaoActionPerformed
-
+    private void mensagem() {
+        JOptionPane.showMessageDialog(this, "Existe(m) prato(s) ainda sendo preparado(s) na cozinha!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+        lblReceber.setEnabled(false);
+        lblReceberPAgamento.setEnabled(false);
+    }
     private void radioDinheiroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioDinheiroMouseClicked
         //Abilita textFild para recebimento em dinheiro
         if (radioDinheiro.isSelected()) {
             if (cc.temNaCozinha(lblNPedido.getText())) {
-                JOptionPane.showMessageDialog(this, "Há prato(s) ainda sendo preparado(s) na cozinha!", "Atenção!", JOptionPane.ERROR_MESSAGE);
-                lblReceber.setEnabled(false);
-                lblReceberPAgamento.setEnabled(false);
+                // Informa ao usuário se existe parato pendente na cozinha
+                mensagem();
             } else {
                 txtValorPago.setText(lblTotal.getText());
                 txtValorPago.setEnabled(true);
@@ -2087,17 +2092,22 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void radioCartaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioCartaoMouseClicked
         if (radioCartao.isSelected()) {
-            txtValorPago.setText(lblTotal.getText());
-            txtValorPago.setEnabled(false);
-            lblTroco.setEnabled(false);
-            txtTroco.setText("0,00");
-            jSpinFieldPessoas.setEnabled(true);
-            btnImprimir.setEnabled(true);
-            checkConcedeDesconto.setEnabled(true);
-            lblReceber.setEnabled(true);
-            lblReceberPAgamento.setEnabled(true);
-            lblNpessoas.setEnabled(true);
-            lblPago.setEnabled(true);
+            if (cc.temNaCozinha(lblNPedido.getText())) {
+                // Informa ao usuário se existe parato pendente na cozinha
+                mensagem();
+            } else {
+                txtValorPago.setText(lblTotal.getText());
+                txtValorPago.setEnabled(false);
+                lblTroco.setEnabled(false);
+                txtTroco.setText("0,00");
+                jSpinFieldPessoas.setEnabled(true);
+                btnImprimir.setEnabled(true);
+                checkConcedeDesconto.setEnabled(true);
+                lblReceber.setEnabled(true);
+                lblReceberPAgamento.setEnabled(true);
+                lblNpessoas.setEnabled(true);
+                lblPago.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_radioCartaoMouseClicked
 
@@ -2141,17 +2151,23 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void radioDebitoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioDebitoMouseClicked
         if (radioDebito.isSelected()) {
-            txtValorPago.setText(lblTotal.getText());
-            txtValorPago.setEnabled(false);
-            lblTroco.setEnabled(false);
-            txtTroco.setText("0,00");
-            jSpinFieldPessoas.setEnabled(true);
-            btnImprimir.setEnabled(true);
-            checkConcedeDesconto.setEnabled(true);
-            lblReceber.setEnabled(true);
-            lblReceberPAgamento.setEnabled(true);
-            lblNpessoas.setEnabled(true);
-            lblPago.setEnabled(true);
+            if (cc.temNaCozinha(lblNPedido.getText())) {
+                // Informa ao usuário se existe parato pendente na cozinha
+                mensagem();
+            } else {
+
+                txtValorPago.setText(lblTotal.getText());
+                txtValorPago.setEnabled(false);
+                lblTroco.setEnabled(false);
+                txtTroco.setText("0,00");
+                jSpinFieldPessoas.setEnabled(true);
+                btnImprimir.setEnabled(true);
+                checkConcedeDesconto.setEnabled(true);
+                lblReceber.setEnabled(true);
+                lblReceberPAgamento.setEnabled(true);
+                lblNpessoas.setEnabled(true);
+                lblPago.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_radioDebitoMouseClicked
 
@@ -2161,17 +2177,23 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void radioVoucherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioVoucherMouseClicked
         if (radioVoucher.isSelected()) {
-            txtValorPago.setText(lblTotal.getText());
-            txtValorPago.setEnabled(false);
-            lblTroco.setEnabled(false);
-            txtTroco.setText("0,00");
-            jSpinFieldPessoas.setEnabled(true);
-            btnImprimir.setEnabled(true);
-            checkConcedeDesconto.setEnabled(true);
-            lblReceber.setEnabled(true);
-            lblReceberPAgamento.setEnabled(true);
-            lblNpessoas.setEnabled(true);
-            lblPago.setEnabled(true);
+            if (cc.temNaCozinha(lblNPedido.getText())) {
+                // Informa ao usuário se existe parato pendente na cozinha
+                mensagem();
+            } else {
+
+                txtValorPago.setText(lblTotal.getText());
+                txtValorPago.setEnabled(false);
+                lblTroco.setEnabled(false);
+                txtTroco.setText("0,00");
+                jSpinFieldPessoas.setEnabled(true);
+                btnImprimir.setEnabled(true);
+                checkConcedeDesconto.setEnabled(true);
+                lblReceber.setEnabled(true);
+                lblReceberPAgamento.setEnabled(true);
+                lblNpessoas.setEnabled(true);
+                lblPago.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_radioVoucherMouseClicked
 
@@ -2898,13 +2920,12 @@ public class TelaCaixa extends javax.swing.JFrame {
     private void calculaPagamentoMisto() {
 
         try {
-
             dinheiro = Double.parseDouble(txtMistoDinheiro.getText().replace(",", "."));
             credito = Double.parseDouble(txtMistoCredito.getText().replace(",", "."));
             debito = Double.parseDouble(txtMistoDebito.getText().replace(",", "."));
             voucher = Double.parseDouble(txtMistoVoucher.getText().replace(",", "."));
         } catch (NumberFormatException e) {
-            System.out.println("Valor Inválido!");
+            System.out.println("Informe um valor válido!");
         }
 
         //double totalPedido = Double.parseDouble(lblTotal.getText().replace(",", "."));
@@ -2920,7 +2941,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         //  Verifica antes de liberar o pagamento se existe na cozinha algum 
         //  prato com situação diferente de liberado para este pedido.
         if (cc.temNaCozinha(lblNPedido.getText())) {
-            JOptionPane.showMessageDialog(this, "Há prato(s) ainda sendo preparado(s) na cozinha!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(this, "Há prato(s) ainda sendo preparado(s) na cozinha!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+            mensagem();
         } else {
 
             double totalCartao = credito + debito + voucher;

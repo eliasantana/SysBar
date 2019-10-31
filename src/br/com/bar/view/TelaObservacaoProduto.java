@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class TelaObservacaoProduto extends javax.swing.JFrame {
 
     TelaPedido2 telaPedido = new TelaPedido2();
-    TelaDetalheMesa telapedido3 = new TelaDetalheMesa();
+    TelaDetalheMesa telaDetalheMesa = new TelaDetalheMesa();
     
     ArrayList<String> listaAtualizada = new ArrayList<>();
 
@@ -144,7 +144,6 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // Fecha janela
-
         listaAtualizada.add(null);
         telaPedido.recebeObsPrato(listaAtualizada, this);
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -152,10 +151,12 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (jTextAreaObservacao.getText().isEmpty()) {
             listaAtualizada.add(null);
-            telaPedido.recebeObsPrato(listaAtualizada, this);
+            //telaPedido.recebeObsPrato(listaAtualizada, this);
+            telaDetalheMesa.recebeObsPrato(listaAtualizada, this);
         } else {
             listaAtualizada.add(jTextAreaObservacao.getText());
-            telaPedido.recebeObsPrato(listaAtualizada, this);
+            //telaPedido.recebeObsPrato(listaAtualizada, this);
+            telaDetalheMesa.recebeObsPrato(listaAtualizada, this);
         }
 
 
@@ -193,6 +194,10 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
             
 
         }
+        
+        if (evt.getKeyCode()==KeyEvent.VK_TAB){
+            btnSalvar.requestFocus();
+        }
 
 
     }//GEN-LAST:event_jTextAreaObservacaoKeyPressed
@@ -210,7 +215,7 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
     }
     public void recebeTela3(TelaDetalheMesa tl, ArrayList<String> lista) {
 
-        this.telapedido3 = tl;
+        this.telaDetalheMesa = tl;
         this.listaAtualizada = lista;
         lblPrato.setText(lista.get(0));
         jTextAreaObservacao.requestFocus();

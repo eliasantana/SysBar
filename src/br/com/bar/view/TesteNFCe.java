@@ -22,6 +22,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
@@ -58,11 +59,16 @@ public class TesteNFCe extends javax.swing.JFrame {
     HashMap<String, String> itens = new HashMap<>();
     HashMap<String, String> formasPagamento = new HashMap();
     int linhas = 0;
+    int totLinha;
+    int linhaAtual;
 
     public TesteNFCe() {
         initComponents();
-        tbDetalhePedido.setModel(DbUtils.resultSetToTableModel(cpedido.detalhePorPedido("4", "154")));
-        
+        tbDetalhePedido.setModel(DbUtils.resultSetToTableModel(cpedido.detalhePorPedido("1", "180")));
+        linhas = tbDetalhePedido.getRowCount();
+        System.out.println("Total de Linhas: "+linhas);
+        linhaAtual = tbDetalhePedido.getSelectedRow();
+       
     }
 
     /**
@@ -87,8 +93,14 @@ public class TesteNFCe extends javax.swing.JFrame {
         lblEmail1 = new javax.swing.JLabel();
         lblEmail2 = new javax.swing.JLabel();
         lblEmail3 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         adicionar.setText("Criptografa");
         adicionar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -130,6 +142,11 @@ public class TesteNFCe extends javax.swing.JFrame {
                 tbDetalhePedidoMouseClicked(evt);
             }
         });
+        tbDetalhePedido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbDetalhePedidoKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbDetalhePedido);
 
         jButton1.setText("Abrir Relatório QR");
@@ -152,6 +169,13 @@ public class TesteNFCe extends javax.swing.JFrame {
 
         lblEmail3.setText("jLabel1");
 
+        jButton2.setText("Enviar Email NFC");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -161,30 +185,33 @@ public class TesteNFCe extends javax.swing.JFrame {
                 .addComponent(jSpinnerQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(116, 116, 116)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(listar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(adicionar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(117, 117, 117)
-                                .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtEmail2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnValidaEmail)
-                                .addComponent(txtEmail3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEmail1)
-                    .addComponent(lblEmail2)
-                    .addComponent(lblEmail3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(listar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(33, 33, 33))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(13, 13, 13)
+                                        .addComponent(adicionar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton1)
+                                        .addGap(117, 117, 117)
+                                        .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtEmail2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnValidaEmail)
+                                        .addComponent(txtEmail3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblEmail1)
+                            .addComponent(lblEmail2)
+                            .addComponent(lblEmail3)))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(117, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -219,7 +246,9 @@ public class TesteNFCe extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnValidaEmail)))
-                .addContainerGap(181, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(jButton2)
+                .addContainerGap(124, Short.MAX_VALUE))
         );
 
         pack();
@@ -475,15 +504,47 @@ public class TesteNFCe extends javax.swing.JFrame {
 
     private void tbDetalhePedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDetalhePedidoMouseClicked
         linhas = tbDetalhePedido.getSelectedRow();
-       
-        if (evt.getClickCount()==2){
+
+        if (evt.getClickCount() == 2) {
             int qtd = Integer.parseInt(tbDetalhePedido.getModel().getValueAt(linhas, 2).toString());
             String nomeProduto = tbDetalhePedido.getModel().getValueAt(linhas, 1).toString();
-            TelaAdicionaProduto tap = new TelaAdicionaProduto();            
-            tap.recebeValoresProduto(1, 1, 100, 1, qtd,nomeProduto);
+            TelaAdicionaProduto tap = new TelaAdicionaProduto();
+            tap.recebeValoresProduto(1, 1, 100, 1, qtd, nomeProduto);
             tap.setVisible(true);
         }
     }//GEN-LAST:event_tbDetalhePedidoMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        ControlerNFCe testenf = new ControlerNFCe();
+
+        ArrayList<String> email = new ArrayList<>();
+        email.add("eliasantanasilva@gmail.com");
+        email.add("janiel.freitas@gmail.com");
+
+        try {
+            testenf.enviaEmail("166", email);
+
+        } catch (JSONException ex) {
+            Logger.getLogger(TesteNFCe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        tbDetalhePedido.requestFocus();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void tbDetalhePedidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbDetalhePedidoKeyPressed
+
+        if (evt.getKeyCode()==KeyEvent.VK_DOWN && linhaAtual < linhas-1){
+            linhaAtual = linhaAtual+1;
+            lblEmail1.setText(String.valueOf(linhaAtual));
+            System.out.println(tbDetalhePedido.getValueAt(linhaAtual, 1));
+        }else if (evt.getKeyCode()==KeyEvent.VK_UP && linhaAtual >0){
+            linhaAtual = linhaAtual-1;
+            lblEmail1.setText(String.valueOf(linhaAtual));
+            System.out.println(tbDetalhePedido.getValueAt(linhaAtual, 1));
+        }
+    }//GEN-LAST:event_tbDetalhePedidoKeyPressed
 
     /**
      * @param args the command line arguments
@@ -524,6 +585,7 @@ public class TesteNFCe extends javax.swing.JFrame {
     private javax.swing.JButton adicionar;
     private javax.swing.JButton btnValidaEmail;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinnerQtd;
     private javax.swing.JLabel lblEmail1;

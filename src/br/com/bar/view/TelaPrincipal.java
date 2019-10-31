@@ -658,9 +658,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 //        pedido2.recebeOperador(lblOperador.getText(), lblCargo.getText());
 //        pedido2.setVisible(true);
         // Chama tela pedido 3
-        tp3 = new TelaPedido3();
-        tp3.recebeOperador(lblOperador.getText(), lblCargo.getText());
-        
+        if (tp3==null){            
+            tp3 = new TelaPedido3();
+            tp3.recebeOperador(lblOperador.getText(), lblCargo.getText());
+            
+        }        
         tp3.setVisible(true);
     }//GEN-LAST:event_btnLancarPedidoMouseClicked
 

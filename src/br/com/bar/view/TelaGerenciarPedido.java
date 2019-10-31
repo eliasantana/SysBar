@@ -347,7 +347,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         if (lblRemoverItemDoPedido.isEnabled()) {
 
             // Remove item do pedido e devolte ao estoque
-            int op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este item do pedido?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja remover este item do pedido?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             if (op == JOptionPane.YES_OPTION) {
                 // Armazena quantidade do item selecionado
                 int qtdItem = Integer.parseInt(txtQtd.getText());
@@ -369,7 +369,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                         lblRemoverItemDoPedido.setEnabled(false);
                         // Devolve produdto ao estoque
                         if (ce.entradaDeProduto(txtIdProduto.getText(), txtQtd.getText())) {
-                            JOptionPane.showMessageDialog(null, "Produto devolvido ao estoque com sucesso!");
+                            JOptionPane.showMessageDialog(this, "Produto devolvido ao estoque com sucesso!");
                             // Inicio do Registro de Log
                             l.setFuncionalidade("Devolução");
                             l.setUsuario(lblOperador.getText());
@@ -410,14 +410,14 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     }
     private void btnCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarPedidoActionPerformed
         // Solicita ao usuário a confirmação do pedido
-        int op = JOptionPane.showConfirmDialog(null, "Confirma o cancelamento do pedido?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+        int op = JOptionPane.showConfirmDialog(this, "Confirma o cancelamento do pedido?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
         if (op == JOptionPane.YES_OPTION) {
             // Captura o número do pedido antes da exclusão
             String nPedido = jcomboPedido.getSelectedItem().toString();
             String nmesa = lblNumeroMesa.getText();
             // Exclui pedido
             if (cp.cancelaPedido(Integer.parseInt(jcomboPedido.getSelectedItem().toString()))) {
-                JOptionPane.showMessageDialog(null, "Pedido cancelado com sucesso!");
+                JOptionPane.showMessageDialog(this, "Pedido cancelado com sucesso!");
                 // Libera a mesa trocando seu status para 0 - livre
                 cm.trocaStatusMesa(nmesa, "0");
                 cp.carregaComboPedido(jcomboPedido);

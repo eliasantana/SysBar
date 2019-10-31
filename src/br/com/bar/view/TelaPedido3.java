@@ -28,8 +28,9 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author Elias Santana
+ * 
  */
-public class TelaPedido3 extends javax.swing.JFrame {
+public class TelaPedido3 extends javax.swing.JFrame{
 
     ControlerMesa controlerMesa = new ControlerMesa();
     ControlerPedido cp = new ControlerPedido();
@@ -42,7 +43,7 @@ public class TelaPedido3 extends javax.swing.JFrame {
     String operador, cargo;
 
     public TelaPedido3() {
-        initComponents();
+        initComponents();        
         atualiza();
     }
 
@@ -168,6 +169,7 @@ public class TelaPedido3 extends javax.swing.JFrame {
 
     private void atualiza() {
         //panelaMesas.removeAll();
+        
         panelaMesas.repaint();
         listaDeMesas = controlerMesa.listaTodasAsMesas();
         panelaMesas.setLayout(new GridLayout(3, 2));
@@ -225,7 +227,8 @@ public class TelaPedido3 extends javax.swing.JFrame {
                             btn.setForeground(Color.white);
                             btn.setBackground(Color.RED);
                             // Chama tela de Detalhe Mesa 
-                            TelaDetalheMesa dtlMesa = new TelaDetalheMesa();                            
+                            TelaDetalheMesa dtlMesa = new TelaDetalheMesa();
+                            dtlMesa.setAlwaysOnTop(true);
                             dtlMesa.recebeMesa(btn.getText());                           
                             dtlMesa.recebeOperador(operador, cargo);
                             dtlMesa.setVisible(true);
@@ -233,6 +236,7 @@ public class TelaPedido3 extends javax.swing.JFrame {
                         }
                     } else {
                         TelaDetalheMesa dtlMesa = new TelaDetalheMesa();
+                        dtlMesa.setAlwaysOnTop(true);
                         dtlMesa.recebeMesa(btn.getText());
                         dtlMesa.recebeOperador(operador, cargo);
                         dtlMesa.recebeTela(TelaPedido3.this, btn);

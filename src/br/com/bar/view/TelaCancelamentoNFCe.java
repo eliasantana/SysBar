@@ -109,6 +109,9 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtNumeroNotaKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNumeroNotaKeyReleased(evt);
+            }
         });
         jPanel2.add(txtNumeroNota);
         txtNumeroNota.setBounds(110, 50, 100, 30);
@@ -294,6 +297,10 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_lblBtnCancelarMouseClicked
+
+    private void txtNumeroNotaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroNotaKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumeroNotaKeyReleased
 
     public void recebeOperador(String operador, String cargo) {
         this.operador = operador;

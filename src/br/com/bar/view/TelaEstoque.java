@@ -29,21 +29,31 @@ public class TelaEstoque extends javax.swing.JFrame {
     Util u = new Util();
     // Instancia e armazena o objeto tela principal.
     TelaPrincipal principal;
-    
+    TelaEnviaNFCe enviaNfce;
+    //------------------------------------------------------------
+    // As variaveis abaixo determinam o ambiente de Emissão de cupom fiscal
+    int flagFiscal = 1;             // 1 - Para autorizar e ler retorno SEFAZ     
+    private final int ambiente = 0; //Ambiente de Emissão  (0 - Homologação - 1  Prdodução
+    //-------------------------------------------------------------
+
     public TelaEstoque() {
         initComponents();
         // Pega aa Data Atual
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-
         lblCargo.setVisible(false);
         lblNomeOperador.setVisible(false);
-        //this.setAlwaysOnTop(true);
+        // Oculta o botão de cancelamento para ambimente não fiscal
+        if (ambiente == 0 && flagFiscal == 0) {
+            btnCancelamento.setVisible(false);
+            btnEmailNfce.setVisible(false);
+        }
+
     }
 
     public void recebeOperador(TelaPrincipal tela, String nomeOperador, String cargo) {
         lblCargo.setText(cargo);
         lblNomeOperador.setText(nomeOperador);
-        this.principal=tela;
+        this.principal = tela;
     }
 
     /**
@@ -87,6 +97,10 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
+        btnEmailNfce = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -365,6 +379,36 @@ public class TelaEstoque extends javax.swing.JFrame {
         borda.add(btnCancelamento);
         btnCancelamento.setBounds(20, 340, 190, 100);
 
+        btnEmailNfce.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        btnEmailNfce.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEmailNfceMouseClicked(evt);
+            }
+        });
+        btnEmailNfce.setLayout(null);
+
+        jLabel29.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(52, 73, 94));
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel29.setText("Por Email");
+        btnEmailNfce.add(jLabel29);
+        jLabel29.setBounds(70, 50, 120, 20);
+
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/cupom64x64.png"))); // NOI18N
+        btnEmailNfce.add(jLabel22);
+        jLabel22.setBounds(10, 0, 80, 100);
+
+        jLabel30.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(52, 73, 94));
+        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel30.setText("Cupom Fiscal");
+        btnEmailNfce.add(jLabel30);
+        jLabel30.setBounds(70, 30, 120, 20);
+
+        borda.add(btnEmailNfce);
+        btnEmailNfce.setBounds(220, 340, 190, 100);
+
         getContentPane().add(borda);
         borda.setBounds(0, 0, 627, 460);
 
@@ -389,10 +433,10 @@ public class TelaEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGraficoRankingMouseClicked
 
     private void lblGerenciarEstoqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGerenciarEstoqueMouseClicked
-       
+
         TelaMovimentacao m = new TelaMovimentacao();
         m.setAlwaysOnTop(true);
-        m.recebeOperador(principal,lblNomeOperador.getText(), lblCargo.getText());
+        m.recebeOperador(principal, lblNomeOperador.getText(), lblCargo.getText());
         m.setVisible(true);
     }//GEN-LAST:event_lblGerenciarEstoqueMouseClicked
 
@@ -445,15 +489,15 @@ public class TelaEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogMouseClicked
 
     private void btnRAnkingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRAnkingMouseClicked
-      
+
     }//GEN-LAST:event_btnRAnkingMouseClicked
 
     private void btnCaixaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaixaMouseClicked
-       
+
     }//GEN-LAST:event_btnCaixaMouseClicked
 
     private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
-         // Abre a tela de gerenciamento de caixa
+        // Abre a tela de gerenciamento de caixa
         TelaGerenciamentoDeCaixa gx = new TelaGerenciamentoDeCaixa();
         gx.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
         gx.setAlwaysOnTop(true);
@@ -461,10 +505,10 @@ public class TelaEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel17MouseClicked
 
     private void jLabel24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel24MouseClicked
-       // Chama da tela de Ranking de Vendas
-       TelaRanking ranking = new TelaRanking();
-       ranking.setAlwaysOnTop(true);
-       ranking.setVisible(true);
+        // Chama da tela de Ranking de Vendas
+        TelaRanking ranking = new TelaRanking();
+        ranking.setAlwaysOnTop(true);
+        ranking.setVisible(true);
     }//GEN-LAST:event_jLabel24MouseClicked
 
     private void lblGerenciarEstoqueKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblGerenciarEstoqueKeyPressed
@@ -474,10 +518,18 @@ public class TelaEstoque extends javax.swing.JFrame {
     private void btnCancelamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelamentoMouseClicked
         // Chama tela de Cancelamento
         TelaCancelamentoNFCe cancelamento = new TelaCancelamentoNFCe();
-        cancelamento.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());  
+        cancelamento.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
         //cancelamento.setAlwaysOnTop(true);
         cancelamento.setVisible(true);
     }//GEN-LAST:event_btnCancelamentoMouseClicked
+
+    private void btnEmailNfceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEmailNfceMouseClicked
+        // Chama a tela de envio de cupom fiscal por email
+        if (enviaNfce == null) {
+            enviaNfce = new TelaEnviaNFCe();         
+        } 
+        enviaNfce.setVisible(true);
+    }//GEN-LAST:event_btnEmailNfceMouseClicked
 
     /**
      * @param args the command line arguments
@@ -518,6 +570,7 @@ public class TelaEstoque extends javax.swing.JFrame {
     private javax.swing.JPanel borda;
     private javax.swing.JPanel btnCaixa;
     private javax.swing.JPanel btnCancelamento;
+    private javax.swing.JPanel btnEmailNfce;
     private javax.swing.JPanel btnGraficoRanking;
     private javax.swing.JPanel btnLog;
     private javax.swing.JPanel btnPrecos;
@@ -532,13 +585,16 @@ public class TelaEstoque extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
