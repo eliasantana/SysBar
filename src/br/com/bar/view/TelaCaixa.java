@@ -3431,6 +3431,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         }
 
     }
+    
 
     private void telaProcessamento(String msg) {
         tpp = new TelaProcessaPamento();
