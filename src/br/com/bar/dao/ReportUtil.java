@@ -66,7 +66,7 @@ public class ReportUtil {
             JDialog viewer = new JDialog(new javax.swing.JFrame(), titulo, true);
             viewer.setSize(800, 600);
             viewer.setLocationRelativeTo(null);
-            
+            viewer.setAlwaysOnTop(true);
             JasperPrint jasperPrint = JasperFillManager.fillReport(url + relatorio, map, conexao);
             //JasperViewer.viewReport(jasperPrint, false);
             JasperViewer viewerJasper = new JasperViewer(jasperPrint);
@@ -93,7 +93,7 @@ public class ReportUtil {
             JDialog viewer = new JDialog(new javax.swing.JFrame(), "Comprovante", true);
             viewer.setSize(800, 600);
             viewer.setLocationRelativeTo(null);
-            
+            viewer.setAlwaysOnTop(true);
             JasperPrint jasperPrint = JasperFillManager.fillReport(url + relatorio, null, conexao);
             JasperViewer viewerJasper = new JasperViewer(jasperPrint);
              // Adiciona a janela de exibição do relatório dentro do novo JDialog

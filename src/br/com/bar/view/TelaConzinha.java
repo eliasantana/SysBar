@@ -37,7 +37,8 @@ public class TelaConzinha extends javax.swing.JFrame {
     ControlerCozinha cc = new ControlerCozinha();
     ControlerFuncionario cf = new ControlerFuncionario();
     TableModelCozinha modelCozinha = new TableModelCozinha();
-    TelaDetalheMesa detalheMesa;
+    TelaAlteraSenha2 alteraSenha2;
+    
     Funcionario f = new Funcionario();
     Util u = new Util();
     String idProdutoCozinha = null; // Id do Prato a ser preparado 
@@ -98,7 +99,12 @@ public class TelaConzinha extends javax.swing.JFrame {
         }
 
     }
-
+    
+    // Atualiza a tela de senha após clique no botão cancelar
+    public void atualizaTelaSenha() {
+        alteraSenha2 = null;
+    }
+    
     // Recebe o código do funcionário retornado da Tela ConfirmaCozinheiro.
     public void recebeCozinheiro(Funcionario f, String idPrato) {
         this.f = f;
@@ -107,7 +113,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         ocultaObservacao();
 
     }
-   
+  
     private void relogio() {
         long segundos = 1000;
         Timer timer = new Timer();
@@ -202,11 +208,11 @@ public class TelaConzinha extends javax.swing.JFrame {
                     .addComponent(lblObservacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(painelEsquerdoLayout.createSequentialGroup()
                         .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextAreaObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(painelEsquerdoLayout.createSequentialGroup()
-                                .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextAreaObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(painelEsquerdoLayout.createSequentialGroup()
                 .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,7 +246,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         );
 
         getContentPane().add(painelEsquerdo);
-        painelEsquerdo.setBounds(0, 0, 235, 690);
+        painelEsquerdo.setBounds(0, 0, 240, 690);
 
         paineldireito.setLayout(null);
 
@@ -527,7 +533,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                 txtidProdutoCozinha.setText(null);
                 // Solicita confirmação de impressão
 
-                int confirma = JOptionPane.showConfirmDialog(null, "Imprimir Comprovante de Liberação?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                int confirma = JOptionPane.showConfirmDialog(this, "Imprimir Comprovante de Liberação?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (confirma == JOptionPane.YES_OPTION) {
                     cc.imprimeComprovanteCozinha(id_pratoLiberado);
                 }
@@ -558,13 +564,13 @@ public class TelaConzinha extends javax.swing.JFrame {
             // Remove prato Cozinha se o usuário logado tiver o perfil de Gerente e 
             if ("Gerente".equals(lblCargo.getText()) && !"".equals(txtidProdutoCozinha.getText())) {
 
-                int resp = JOptionPane.showConfirmDialog(null, "Confirma a exclusão deste prato?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                int resp = JOptionPane.showConfirmDialog(this, "Confirma a exclusão deste prato?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (resp == JOptionPane.YES_OPTION) {
                     if (cc.removePrato(txtidProdutoCozinha.getText())) {
                        
                         ResultSet result = cc.listaProdutosCozinha();
                         // Log
-                        Log l = new Log(lblOperador.getText(), "Remover", "Removeu o prato->" + txtidProdutoCozinha);
+                        Log l = new Log(lblOperador.getText(), "Remover", "Removeu o prato->" + txtidProdutoCozinha.getText());
                         l.gravaLog(l);
                         try {
 
@@ -572,7 +578,6 @@ public class TelaConzinha extends javax.swing.JFrame {
                                 tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
                                 modelCozinha.redimensionaColunas(tblCozinha);
                                 modelCozinha.adicionaCoresTabela(tblCozinha);
-
                             } else {
                                 lblREmovePrato.setEnabled(false);
                                 lblLiberaRefeicao.setEnabled(false);
@@ -584,7 +589,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                         } catch (SQLException e) {
                             System.out.println("br.com.bar.view.TelaConzinha.lblREmovePratoMouseClicked()" + e);
                         }
-
+                        lblObservacao.setVisible(false);
                         jTextAreaObservacao.setText(null);
                         jTextAreaObservacao.setVisible(false);
                     }
@@ -603,7 +608,8 @@ public class TelaConzinha extends javax.swing.JFrame {
 
             TelaConfirmaCozinheiro tcc = new TelaConfirmaCozinheiro();
             tcc.recebeIdPrato(txtidProdutoCozinha.getText(), this);
-            tcc.setModal(true);
+            tcc.setAlwaysOnTop(true);
+            tcc.setModal(true);  
             tcc.setVisible(true);
 
         }
@@ -618,6 +624,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         TelaAlteraSenha2 alteraSenha = new TelaAlteraSenha2();
         alteraSenha.setAlwaysOnTop(true);
         alteraSenha.receberOperador(lblOperador.getText());
+        alteraSenha.recebeTela(this,"Cozinha");
         alteraSenha.setVisible(true);
     }//GEN-LAST:event_lblAlteraSenhaMouseClicked
 

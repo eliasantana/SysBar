@@ -14,8 +14,7 @@ import java.util.ArrayList;
  * @author Elias Santana
  */
 public class TelaObservacaoProduto extends javax.swing.JFrame {
-
-    TelaPedido2 telaPedido = new TelaPedido2();
+   
     TelaDetalheMesa telaDetalheMesa = new TelaDetalheMesa();
     
     ArrayList<String> listaAtualizada = new ArrayList<>();
@@ -24,7 +23,6 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
         initComponents();
         jTextAreaObservacao.requestFocus();
         btnSalvar.setEnabled(false);
-
     }
 
     /**
@@ -145,7 +143,7 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // Fecha janela
         listaAtualizada.add(null);
-        telaPedido.recebeObsPrato(listaAtualizada, this);
+        telaDetalheMesa.recebeObsPrato(listaAtualizada, this);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -158,19 +156,14 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
             //telaPedido.recebeObsPrato(listaAtualizada, this);
             telaDetalheMesa.recebeObsPrato(listaAtualizada, this);
         }
-
-
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void jTextAreaObservacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextAreaObservacaoKeyPressed
         Util u = new Util();
-
         jTextAreaObservacao.setText(u.tamanhoMaximo(jTextAreaObservacao.getText(), 199));
         String textoDigitado = jTextAreaObservacao.getText();
-
         int tamanho = textoDigitado.length();
-        
-
+    
         if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
             tamanho = tamanho - 1;
             lblcaractere.setText("Caractere(s) "+String.valueOf(tamanho));
@@ -191,28 +184,19 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
             }else {
                  btnSalvar.setEnabled(true);
             }
-            
-
+    
         }
         
         if (evt.getKeyCode()==KeyEvent.VK_TAB){
             btnSalvar.requestFocus();
         }
 
-
     }//GEN-LAST:event_jTextAreaObservacaoKeyPressed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
        jTextAreaObservacao.requestFocus();
     }//GEN-LAST:event_formWindowOpened
-    // Recebe tela de pedido
-    public void recebeTela(TelaPedido2 tl, ArrayList<String> lista) {
-
-        this.telaPedido = tl;
-        this.listaAtualizada = lista;
-        lblPrato.setText(lista.get(0));
-        jTextAreaObservacao.requestFocus();
-    }
+    
     public void recebeTela3(TelaDetalheMesa tl, ArrayList<String> lista) {
 
         this.telaDetalheMesa = tl;

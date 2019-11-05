@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 import org.codehaus.jettison.json.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -119,8 +120,10 @@ public class ControlerNFCe {
 
         return body;
     }
+
     /**
      * Realiza consulta da situação do cupom fiscal informado
+     *
      * @param codPedidoNota Número da nota a ser consultada
      * @param arqRetorno Nome do arquivo de retorno com o resutado da pesquisa
      */
@@ -171,12 +174,114 @@ public class ControlerNFCe {
         }
 
     }
+
+    public ArrayList carrregaDownloadNFCE(JTable tabela) throws JSONException {
+        int ambiente = 1;
+        String login;
+        String server;
+        JSONObject cnpj = new JSONObject();
+        ArrayList<String> urlList = new ArrayList<>();
+        try {
+            cnpj.put("cnpj", "34257575000106");
+        } catch (JSONException ex) {
+            Logger.getLogger(ControlerNFCe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ambiente == 1) {
+            // Token para emissão em ambiente de Produção
+            login = "DhdwJcAsy0jGvNDRv7mGZyWeJ19CBRUT";
+            /* Para ambiente de produção use a variável abaixo:*/
+            server = "https://api.focusnfe.com.br/v2/backups/34257575000106";
+        } else {
+            // Token para emissão em ambiente de Homologação
+            login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
+            server = "https://api.focusnfe.com.br/v2/backups/34257575000106";
+        }
+
+        String url = server;
+
+        /* Configuração para realizar o HTTP BasicAuth. */
+        Object config = new DefaultClientConfig();
+        Client client = Client.create((ClientConfig) config);
+        client.addFilter(new HTTPBasicAuthFilter(login, ""));
+
+        WebResource request = client.resource(url);
+        ClientResponse resposta = request.get(ClientResponse.class);
+        int httpCode = resposta.getStatus();
+        String body = resposta.getEntity(String.class);
+
+        /* As três linhas abaixo imprimem as informações retornadas pela API. 
+         * Aqui o seu sistema deverá interpretar e lidar com o retorno. */
+        //System.out.print("HTTP Code: ");
+        //System.out.print(httpCode);
+        //System.out.printf(body);
+        JSONArray arrjson = new JSONArray(body);
+        for (int i = 0; i < arrjson.length(); i++) {
+            JSONObject obj = arrjson.getJSONObject(i);
+            String xmls = obj.get("xmls").toString();
+            if (xmls.equals("null")) {
+            } else {
+                tabela.setValueAt(obj.get("mes"), i, 0);
+                //tabela.setValueAt(obj.get("xmls"), i, 1);
+                urlList.add(obj.getString("xmls"));
+                String mes;
+                String ano;
+                mes = tabela.getValueAt(i, 0).toString();
+                ano = tabela.getValueAt(i, 0).toString();
+                mes = mes.substring(4);
+                ano = ano.substring(0, 4);
+
+                switch (mes) {
+                    case "01":
+                        tabela.setValueAt(ano + " - Janeiro", i, 0);
+                        break;
+                    case "02":
+                        tabela.setValueAt(ano + " - Fevereiro", i, 0);
+                        break;
+                    case "03":
+                        tabela.setValueAt(ano + " - Março", i, 0);
+                        break;
+                    case "04":
+                        tabela.setValueAt(ano + " - Abril", i, 0);
+                        break;
+                    case "05":
+                        tabela.setValueAt(ano + " - Maio", i, 0);
+                        break;
+                    case "06":
+                        tabela.setValueAt(ano + " - Junho", i, 0);
+                        break;
+                    case "07":
+                        tabela.setValueAt(ano + " - Julho", i, 0);
+                        break;
+                    case "08":
+                        tabela.setValueAt(ano + " - Agosto", i, 0);
+                        break;
+                    case "09":
+                        tabela.setValueAt(ano + " - Setembro", i, 0);
+                        break;
+                    case "10":
+                        tabela.setValueAt(ano + " - Outubro", i, 0);
+                        break;
+                    case "11":
+                        tabela.setValueAt(ano + " - Novembro", i, 0);                       
+                        break;
+                    case "12":
+                        tabela.setValueAt(ano + " - Dezembro", i, 0);
+                        break;
+                }
+            }
+
+        }
+        return urlList;
+    }
+
     /**
      * Realiza o cancelamento de um cupom fiscal
+     *
      * @param motivo Motido do Cancelamento
      * @param nPedido Número da Nota ('Número do pedido')
-     * @param arquivoRetorno Nome do Arquivo de Retorno contendo os dados retornados.
-     * @return httpCod Retorna o Código de resposta da API 
+     * @param arquivoRetorno Nome do Arquivo de Retorno contendo os dados
+     * retornados.
+     * @return httpCod Retorna o Código de resposta da API
      */
     public int cancelaNFCe(String motivo, String nPedido, String arquivoRetorno) {
         int ambiente = 1;
@@ -247,14 +352,14 @@ public class ControlerNFCe {
     }
 
     public boolean enviaEmail(String refNPedido, ArrayList<String> listaDeEmail) throws JSONException {
-        
+
         String login = "DhdwJcAsy0jGvNDRv7mGZyWeJ19CBRUT";
         boolean resp = false;
         /* Substituir pela sua identificação interna da nota. */
         String ref = refNPedido;
 
         /* Para ambiente de produção use a variável abaixo:*/
-        String server = "https://api.focusnfe.com.br/"; 
+        String server = "https://api.focusnfe.com.br/";
         //String server = "https://homologacao.focusnfe.com.br/";
 
         String url = server.concat("v2/nfce/" + ref + "/email");
@@ -268,8 +373,8 @@ public class ControlerNFCe {
             for (int i = 0; i < listaDeEmail.size(); i++) {
                 json.accumulate("emails", listaDeEmail.get(i));
             }
-        }else {
-            
+        } else {
+
             json.put("emails", listaEmails);
         }
 
@@ -374,9 +479,10 @@ public class ControlerNFCe {
 
     /**
      * Registra o cancelamento do cupom na base local
+     *
      * @param nCupom Número do Cupom
      * @param operador Operador que realizou o cancelamento da nota.
-     */ 
+     */
     public void registraCancelamento(String nCupom, String operador) {
 
         String sql = "INSERT INTO tbhistorico_cancelamento (numero_cupom,data, operador) VALUES (?,current_timestamp(),?)";
@@ -396,9 +502,10 @@ public class ControlerNFCe {
 
     /**
      * Verificana base local se o cupom já foi cancelado
+     *
      * @param nCupom Número do Cupom
      * @return Retorna TRUE ou FALSE
-     */ 
+     */
     public boolean estaCancelada(String nCupom) {
 
         boolean resp = false;
@@ -424,6 +531,5 @@ public class ControlerNFCe {
 
         return resp;
     }
-    
-    
+
 }

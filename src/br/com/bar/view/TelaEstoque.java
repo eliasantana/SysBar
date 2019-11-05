@@ -30,6 +30,7 @@ public class TelaEstoque extends javax.swing.JFrame {
     // Instancia e armazena o objeto tela principal.
     TelaPrincipal principal;
     TelaEnviaNFCe enviaNfce;
+    TelaDownloadNFCe download;
     //------------------------------------------------------------
     // As variaveis abaixo determinam o ambiente de Emissão de cupom fiscal
     int flagFiscal = 1;             // 1 - Para autorizar e ler retorno SEFAZ     
@@ -46,6 +47,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         if (ambiente == 0 && flagFiscal == 0) {
             btnCancelamento.setVisible(false);
             btnEmailNfce.setVisible(false);
+            btnDownload.setVisible(false);
         }
 
     }
@@ -100,7 +102,11 @@ public class TelaEstoque extends javax.swing.JFrame {
         btnEmailNfce = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        btnDownload = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -399,15 +405,44 @@ public class TelaEstoque extends javax.swing.JFrame {
         btnEmailNfce.add(jLabel22);
         jLabel22.setBounds(10, 0, 80, 100);
 
-        jLabel30.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(52, 73, 94));
-        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel30.setText("Cupom Fiscal");
-        btnEmailNfce.add(jLabel30);
-        jLabel30.setBounds(70, 30, 120, 20);
+        jLabel31.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(52, 73, 94));
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel31.setText("Cupom Fiscal");
+        btnEmailNfce.add(jLabel31);
+        jLabel31.setBounds(70, 30, 120, 20);
 
         borda.add(btnEmailNfce);
         btnEmailNfce.setBounds(220, 340, 190, 100);
+
+        btnDownload.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        btnDownload.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDownloadMouseClicked(evt);
+            }
+        });
+        btnDownload.setLayout(null);
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/download64x64.png"))); // NOI18N
+        btnDownload.add(jLabel5);
+        jLabel5.setBounds(10, 0, 64, 100);
+
+        jLabel30.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(52, 73, 94));
+        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel30.setText("NFC-e");
+        btnDownload.add(jLabel30);
+        jLabel30.setBounds(80, 50, 110, 20);
+
+        jLabel32.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(52, 73, 94));
+        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel32.setText("Download");
+        btnDownload.add(jLabel32);
+        jLabel32.setBounds(80, 30, 110, 20);
+
+        borda.add(btnDownload);
+        btnDownload.setBounds(420, 340, 190, 100);
 
         getContentPane().add(borda);
         borda.setBounds(0, 0, 627, 460);
@@ -526,10 +561,18 @@ public class TelaEstoque extends javax.swing.JFrame {
     private void btnEmailNfceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEmailNfceMouseClicked
         // Chama a tela de envio de cupom fiscal por email
         if (enviaNfce == null) {
-            enviaNfce = new TelaEnviaNFCe();         
-        } 
+            enviaNfce = new TelaEnviaNFCe();
+        }
         enviaNfce.setVisible(true);
     }//GEN-LAST:event_btnEmailNfceMouseClicked
+
+    private void btnDownloadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDownloadMouseClicked
+        // Chama a tela de Download de NFC-e
+        if (download == null) {
+            download = new TelaDownloadNFCe();            
+        }
+        download.setVisible(true);        
+    }//GEN-LAST:event_btnDownloadMouseClicked
 
     /**
      * @param args the command line arguments
@@ -570,6 +613,7 @@ public class TelaEstoque extends javax.swing.JFrame {
     private javax.swing.JPanel borda;
     private javax.swing.JPanel btnCaixa;
     private javax.swing.JPanel btnCancelamento;
+    private javax.swing.JPanel btnDownload;
     private javax.swing.JPanel btnEmailNfce;
     private javax.swing.JPanel btnGraficoRanking;
     private javax.swing.JPanel btnLog;
@@ -595,7 +639,10 @@ public class TelaEstoque extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblCargo;

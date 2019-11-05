@@ -59,6 +59,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -84,6 +85,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     TelaProcessaPamento tpp;
     TelaAlteraSenha2 alteraSenha2;
     TelaPesquisaPreco pesquisa;
+    TelaDetalheMesa detalheMesa;
     ControlerMesa cm = new ControlerMesa();
     ControlerPedido cp = new ControlerPedido();
     ControlerCaixa caixa = new ControlerCaixa();
@@ -2128,14 +2130,26 @@ public class TelaCaixa extends javax.swing.JFrame {
     public void atualizaTelaSenha() {
         alteraSenha2 = null;
     }
+
     private void lblLancarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLancarPedidoMouseClicked
         // Chama a tela de Pedidos
         if (lblLancarPedido.isEnabled()) {
-
-            TelaPedido2 tp = new TelaPedido2();
-            tp.recebeOperador(lblOperador.getText(), lblCargo.getText());
-            tp.recebePedido(this, lblGarcom.getText(), idGarcom);
-            tp.setVisible(true);
+//            TelaPedido2 tp = new TelaPedido2();
+//            tp.recebeOperador(lblOperador.getText(), lblCargo.getText());
+//            tp.recebePedido(this, lblGarcom.getText(), idGarcom);
+//            tp.setVisible(true);
+//            
+            if (detalheMesa == null) {
+                detalheMesa = new TelaDetalheMesa();
+                detalheMesa.recebeOperador(lblOperador.getText().toLowerCase(), lblCargo.getText());
+                detalheMesa.recebeTelaCaixa(this);
+                if ("Selecione".equals(comboMesa.getSelectedItem().toString())) {
+                    JOptionPane.showMessageDialog(this, "Selecione uma mesa para continuar!");
+                } else {
+                    detalheMesa.recebeMesa(comboMesa.getSelectedItem().toString());
+                }
+            }
+            detalheMesa.setVisible(true);
 
         }
     }//GEN-LAST:event_lblLancarPedidoMouseClicked
@@ -2474,7 +2488,8 @@ public class TelaCaixa extends javax.swing.JFrame {
             /// ************* Teste ******************////
 
         }
-        aplicaDescontoTela(Double.parseDouble(txtDesconto.getText().replace(",", ".")));
+
+        aplicaDescontoTela3(Double.parseDouble(txtDesconto.getText().replace(",", ".")), Double.parseDouble(tgeral.getText().replace(",", ".")));
 
     }
     // Atualiza o pedido no caixa pós inclusão de item de última hora
@@ -3397,41 +3412,31 @@ public class TelaCaixa extends javax.swing.JFrame {
         }
         return httpCode;
     }
+
     // Aplica o desconto no valor dos produtos da na tela
     // Atenção o vlaor do desconto não incide sobre o valor do serviço
-
-    private void aplicaDescontoTela(double vlrDesconto) {
+    private void aplicaDescontoTela3(double vlrDesconto, double valorPedido) {
         int linhas = tblDetalhePedido.getRowCount();
-        double descontoItem;
-        double desconto = vlrDesconto;
-        int qtdItens = 0;
-        int somaQtd = 0;
+        double percentualDesconto;
+        double valorItem;
+        double totalItem;
+        double total = 0;
+        double qtd;
+
+        percentualDesconto = (vlrDesconto / valorPedido);
+
         for (int i = 0; i < linhas; i++) {
-            qtdItens = Integer.parseInt(tblDetalhePedido.getValueAt(i, 2).toString());
-            somaQtd = somaQtd + qtdItens;
+            valorItem = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 3).toString().replace(",", "."));
+            qtd = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 2).toString().replace(",", "."));
+            valorItem = valorItem - (valorItem * percentualDesconto);
+            tblDetalhePedido.setValueAt(String.format("%9.2f", valorItem), i, 3);
+            totalItem = valorItem * qtd;
+            tblDetalhePedido.setValueAt(String.format("%9.2f", totalItem), i, 4);
+            total = total + totalItem;
         }
-        //System.out.println("Total Itens: " + somaQtd);
-        descontoItem = (desconto / somaQtd);
-        if (desconto != 0) {
-            double tg = 0;
-            for (int i = 0; i < linhas; i++) {
-                double valorItem = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 3).toString().replace(",", "."));
-                double qtd = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 2).toString().replace(",", "."));
-                valorItem = valorItem - (descontoItem);
-                double totalItem = (qtd * valorItem);
-                tblDetalhePedido.setValueAt(String.format("%9.2f", valorItem), i, 3);
-                tblDetalhePedido.setValueAt(String.format("%9.2f", totalItem), i, 4);
-                //// Apagar linhas abaixo após teste
-
-                tg = tg + totalItem;
-
-            }
-            System.out.println("Total Geral ->" + String.format("%9.2f", tg));
-            tgeral.setText(String.format("%9.2f", tg));
-        }
-
+        tgeral.setText(String.format("%9.2f", total));
+        txtDesconto.setText(String.format("%9.2f", vlrDesconto));
     }
-    
 
     private void telaProcessamento(String msg) {
         tpp = new TelaProcessaPamento();

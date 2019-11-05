@@ -25,8 +25,7 @@ public class TelaConfirmaCozinheiro extends JDialog {
     String idPrato = null;
     Util u = new Util();
     public TelaConfirmaCozinheiro() {
-        initComponents();
-
+        initComponents();        
     }
 
     public void recebeIdPrato(String idPrato, TelaConzinha c) {

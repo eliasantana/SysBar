@@ -180,7 +180,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         lblVersao1.setForeground(new java.awt.Color(255, 255, 255));
         lblVersao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersao1.setText(" V2.0.0-nf.11 - 31/10/2019");
+        lblVersao1.setText(" V2.0.1-nf.12 - 31/10/2019");
         jPanel1.add(lblVersao1);
         lblVersao1.setBounds(20, 290, 240, 20);
 
@@ -355,7 +355,7 @@ public class TelaLogin extends javax.swing.JFrame {
                         break;
                     case "Cozinheiro": // Vai para Cozinha
                         TelaConzinha cozinha = new TelaConzinha();
-                        cozinha.recebeOperador(autentica.enviaOperador(), autentica.enviarCargo());
+                        cozinha.recebeOperador(autentica.enviaOperador().toUpperCase(), autentica.enviarCargo());
                         cozinha.setVisible(true);
                         this.dispose();
                         break;

@@ -1439,7 +1439,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
             if (op == JOptionPane.YES_OPTION) {
 
                 TelaObservacaoProduto telaObs = new TelaObservacaoProduto();
-                telaObs.recebeTela(this, pCozinha); // Envia dados do produto
+                //telaObs.recebeTela(this, pCozinha); // Envia dados do produto
                 telaObs.setAlwaysOnTop(true);
 
             } else {
@@ -1733,7 +1733,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                             if (op == JOptionPane.YES_OPTION) {
                                 s = 0; // Zera Cronômetro de Bloqueio
                                 TelaObservacaoProduto telaObs = new TelaObservacaoProduto();
-                                telaObs.recebeTela(this, pCozinha); // Envia dados do produto
+                                //telaObs.recebeTela(this, pCozinha); // Envia dados do produto
                                 telaObs.setAlwaysOnTop(true);
                                 telaObs.setVisible(true);
 
