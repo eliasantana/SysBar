@@ -5,8 +5,9 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.model.DadosEmpresa;
 import br.com.bar.util.ConexaoInternet;
-import br.com.bar.util.Util;
+import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerNFCe;
 import java.awt.Desktop;
 import java.io.IOException;
@@ -26,10 +27,13 @@ public class TelaDownloadNFCe extends javax.swing.JFrame {
     
     ControlerNFCe cNfce = new ControlerNFCe();
     ArrayList<String> listaDeUrl = new ArrayList<String>();
+    ControlerDadosEmpresa cdados = new ControlerDadosEmpresa();
+    DadosEmpresa d;
     
     public TelaDownloadNFCe() {
         initComponents();        
         btnDownaload.setEnabled(false);
+        
     }
 
     /**
@@ -68,7 +72,7 @@ public class TelaDownloadNFCe extends javax.swing.JFrame {
                 {null}
             },
             new String [] {
-                "Mês - Backup"
+                "BACKUP POR ANO/ MÊS DE REFERÊNCIA"
             }
         ));
         tbDownload.setRowHeight(21);
@@ -106,7 +110,7 @@ public class TelaDownloadNFCe extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Download de Cupom Fiscal");
+        jLabel1.setText("Download de Cupom Fiscais");
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
@@ -122,8 +126,8 @@ public class TelaDownloadNFCe extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -165,15 +169,28 @@ public class TelaDownloadNFCe extends javax.swing.JFrame {
                 System.out.println(e);
             }
         }
+        btnDownaload.setEnabled(false);
 
     }//GEN-LAST:event_btnDownaloadActionPerformed
-
+    /*
+     * Carrega lista de todas as NFC-e para download
+     * 
+     */ 
     private void btnCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarActionPerformed
         
         ConexaoInternet i = new ConexaoInternet();
+        // Verifica se há Internet e Informa o usuário
         if (i.temConexao()) {
+            // Seleciona os dados da Empresa
+            d = cdados.selecionaDados();
+            String cnCnpjEmitente = d.getCnpj();
+            cnCnpjEmitente = cnCnpjEmitente.replace(".","");
+            cnCnpjEmitente = cnCnpjEmitente.replace("-","");
+            cnCnpjEmitente = cnCnpjEmitente.replace("/","");
+            
             try {
-                listaDeUrl = cNfce.carrregaDownloadNFCE(tbDownload);
+                // Carraga a lista de URls e Preenche Tabela
+                listaDeUrl = cNfce.carrregaDownloadNFCE(tbDownload,cnCnpjEmitente);
             } catch (JSONException ex) {
                 Logger.getLogger(TelaDownloadNFCe.class.getName()).log(Level.SEVERE, null, ex);
             }           

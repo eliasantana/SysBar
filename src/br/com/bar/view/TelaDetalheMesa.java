@@ -240,7 +240,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     private void enviaParaCozinha(ArrayList<String> prato) {
 
         if (cp.enviaProdutoCozinha(prato)) {
-            lblMensagem.setText("Solicitação de prato enviada para a cozinha!");
+            lblMensagem.setText("*Solicitação de prato enviada para a cozinha!");
         } else {
             lblMensagem.setText("Erro ao tentar enviar solicitação de prato para a cozinha - Contate o SUPORTE!");
         }
@@ -854,6 +854,9 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
 
     public void atualizaTela() {
         pesquisa = null;
+    }
+    public void atualizaTelaGestão() {
+        gp = null;
     }
 
     private void lblGestaoPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGestaoPedidosMouseClicked

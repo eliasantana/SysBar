@@ -174,27 +174,29 @@ public class ControlerNFCe {
         }
 
     }
-
-    public ArrayList carrregaDownloadNFCE(JTable tabela) throws JSONException {
+/**
+ * Carrega a lista de Backup dos último 6 meses 
+ * @param tabela objeto Jtable para onde deverá ser carregada a lista de DANFs (NFC-e) a serem baixadas
+ * @param  cnpjEmitente CNPJ cadastrado na Base de Dados
+ * @return Retorna um ArrayList contendo os Meses e sua URL de download 
+ */
+    public ArrayList carrregaDownloadNFCE(JTable tabela, String cnpjEmitente) throws JSONException {
         int ambiente = 1;
         String login;
-        String server;
-        JSONObject cnpj = new JSONObject();
+        String server;       
         ArrayList<String> urlList = new ArrayList<>();
-        try {
-            cnpj.put("cnpj", "34257575000106");
-        } catch (JSONException ex) {
-            Logger.getLogger(ControlerNFCe.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
         if (ambiente == 1) {
             // Token para emissão em ambiente de Produção
             login = "DhdwJcAsy0jGvNDRv7mGZyWeJ19CBRUT";
             /* Para ambiente de produção use a variável abaixo:*/
-            server = "https://api.focusnfe.com.br/v2/backups/34257575000106";
+            
+            server = "https://api.focusnfe.com.br/v2/backups/"+cnpjEmitente;
         } else {
             // Token para emissão em ambiente de Homologação
             login = "npCjoFHIFKfhGjjC0VHDMVn1Bt5P0dim";
-            server = "https://api.focusnfe.com.br/v2/backups/34257575000106";
+            
+            server = "https://api.focusnfe.com.br/v2/backups/"+cnpjEmitente;
         }
 
         String url = server;
@@ -214,8 +216,9 @@ public class ControlerNFCe {
         //System.out.print("HTTP Code: ");
         //System.out.print(httpCode);
         //System.out.printf(body);
-        JSONArray arrjson = new JSONArray(body);
+        JSONArray arrjson = new JSONArray(body);   // Captura retorno da API
         for (int i = 0; i < arrjson.length(); i++) {
+            // Pega o objeto no array de Json
             JSONObject obj = arrjson.getJSONObject(i);
             String xmls = obj.get("xmls").toString();
             if (xmls.equals("null")) {
@@ -229,43 +232,44 @@ public class ControlerNFCe {
                 ano = tabela.getValueAt(i, 0).toString();
                 mes = mes.substring(4);
                 ano = ano.substring(0, 4);
-
+                // Pega o valor que representa o mês na string de retorno e informa
+                // o mês por extenso
                 switch (mes) {
                     case "01":
-                        tabela.setValueAt(ano + " - Janeiro", i, 0);
+                        tabela.setValueAt(ano + " - JANEIRO", i, 0);
                         break;
                     case "02":
-                        tabela.setValueAt(ano + " - Fevereiro", i, 0);
+                        tabela.setValueAt(ano + " - FEVEREIRO", i, 0);
                         break;
                     case "03":
-                        tabela.setValueAt(ano + " - Março", i, 0);
+                        tabela.setValueAt(ano + " - MARÇO", i, 0);
                         break;
                     case "04":
-                        tabela.setValueAt(ano + " - Abril", i, 0);
+                        tabela.setValueAt(ano + " - ABRIL", i, 0);
                         break;
                     case "05":
-                        tabela.setValueAt(ano + " - Maio", i, 0);
+                        tabela.setValueAt(ano + " - MAIO", i, 0);
                         break;
                     case "06":
-                        tabela.setValueAt(ano + " - Junho", i, 0);
+                        tabela.setValueAt(ano + " - JUNHO", i, 0);
                         break;
                     case "07":
-                        tabela.setValueAt(ano + " - Julho", i, 0);
+                        tabela.setValueAt(ano + " - JULHO", i, 0);
                         break;
                     case "08":
-                        tabela.setValueAt(ano + " - Agosto", i, 0);
+                        tabela.setValueAt(ano + " - AGOSTO", i, 0);
                         break;
                     case "09":
-                        tabela.setValueAt(ano + " - Setembro", i, 0);
+                        tabela.setValueAt(ano + " - SETEMBRO", i, 0);
                         break;
                     case "10":
-                        tabela.setValueAt(ano + " - Outubro", i, 0);
+                        tabela.setValueAt(ano + " - OUTUBRO", i, 0);
                         break;
                     case "11":
-                        tabela.setValueAt(ano + " - Novembro", i, 0);                       
+                        tabela.setValueAt(ano + " - NOVEMBRO", i, 0);                       
                         break;
                     case "12":
-                        tabela.setValueAt(ano + " - Dezembro", i, 0);
+                        tabela.setValueAt(ano + " - DEZEMBRO", i, 0);
                         break;
                 }
             }

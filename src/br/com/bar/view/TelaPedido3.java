@@ -22,15 +22,18 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Elias Santana
- * 
+ *
  */
-public class TelaPedido3 extends javax.swing.JFrame{
+public class TelaPedido3 extends javax.swing.JFrame {
 
     ControlerMesa controlerMesa = new ControlerMesa();
     ControlerPedido cp = new ControlerPedido();
@@ -41,16 +44,28 @@ public class TelaPedido3 extends javax.swing.JFrame{
     ResultSet rs;
     ArrayList<Mesa> listaDeMesas;
     String operador, cargo;
-
+    TimerTask task;
+    // Limite em segundo para bloquear a tela
+    int limite = 120;
+    // Contador - Segundos
+    int s = 0;
     public TelaPedido3() {
-        initComponents();        
+        initComponents();
         atualiza();
+       
     }
 
     public void recebeOperador(String operador, String cargo) {
         this.operador = operador;
         this.cargo = cargo;
         funcLogado = cf.localizaFuncionario(cf.localizaIdLogin(operador));
+       
+        // Para usuário com perfil garçom será cronometrado 12 minutos entre
+        // Cada atualização automática
+        
+        if ("Garçom".equals(cargo)){
+            cronometro();
+        }
     }
 
     /**
@@ -66,15 +81,37 @@ public class TelaPedido3 extends javax.swing.JFrame{
         panelaMesas = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("MasterFood - Pedidos - Listagem de Mesas");
         setExtendedState(6);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
+            }
+        });
+
+        panelaMesas.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                panelaMesasFocusGained(evt);
             }
         });
 
@@ -97,6 +134,14 @@ public class TelaPedido3 extends javax.swing.JFrame{
             }
         });
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("jMenu2");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -124,6 +169,30 @@ public class TelaPedido3 extends javax.swing.JFrame{
         b.setModal(true);
         b.setVisible(true);
     }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+      cronometro();
+
+    }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void panelaMesasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panelaMesasFocusGained
+
+    }//GEN-LAST:event_panelaMesasFocusGained
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+
+    }//GEN-LAST:event_formFocusGained
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+        atualizaTela();
+    }//GEN-LAST:event_formMouseEntered
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        if ("Garçom".equals(cargo)){
+            task.cancel();
+            System.exit(0);
+        }
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -162,6 +231,7 @@ public class TelaPedido3 extends javax.swing.JFrame{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel panelaMesas;
@@ -169,8 +239,8 @@ public class TelaPedido3 extends javax.swing.JFrame{
 
     private void atualiza() {
         //panelaMesas.removeAll();
-        
-        panelaMesas.repaint();
+
+        //panelaMesas.repaint();
         listaDeMesas = controlerMesa.listaTodasAsMesas();
         panelaMesas.setLayout(new GridLayout(3, 2));
 
@@ -182,7 +252,7 @@ public class TelaPedido3 extends javax.swing.JFrame{
             String idmesa = listaDeMesas.get(i).getId();
             String garcom = cf.retornaGarcom(btn.getText());
             String idgarcom = cf.localizaId(garcom);
-            
+
             btn.addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent me) {
@@ -229,10 +299,10 @@ public class TelaPedido3 extends javax.swing.JFrame{
                             // Chama tela de Detalhe Mesa 
                             TelaDetalheMesa dtlMesa = new TelaDetalheMesa();
                             dtlMesa.setAlwaysOnTop(true);
-                            dtlMesa.recebeMesa(btn.getText());                           
+                            dtlMesa.recebeMesa(btn.getText());
                             dtlMesa.recebeOperador(operador, cargo);
                             dtlMesa.setVisible(true);
-                            
+
                         }
                     } else {
                         TelaDetalheMesa dtlMesa = new TelaDetalheMesa();
@@ -241,7 +311,7 @@ public class TelaPedido3 extends javax.swing.JFrame{
                         dtlMesa.recebeOperador(operador, cargo);
                         dtlMesa.recebeTela(TelaPedido3.this, btn);
                         dtlMesa.setVisible(true);
-                        
+
                     }
                 }
 
@@ -265,7 +335,6 @@ public class TelaPedido3 extends javax.swing.JFrame{
 
                 }
 
-                
             });
             if ("0".equals(listaDeMesas.get(i).getStatus())) {
                 btn.setForeground(Color.BLACK);
@@ -277,10 +346,41 @@ public class TelaPedido3 extends javax.swing.JFrame{
             panelaMesas.add(btn);
         }
     }
-    
-    public void alteraCorMesa(JButton btn){
+
+    public void alteraCorMesa(JButton btn) {
         btn.setForeground(Color.BLACK);
         btn.setBackground(new Color(0, 255, 127));
     }
+// Atualiza tela
+    private void atualizaTela() {
+        panelaMesas.removeAll();
+        atualiza();
+        revalidate();
+        
+    }
 
+// Cronometro
+private void cronometro() {
+        long segundos = 1000;
+        Timer timer = new Timer();
+
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                //Realiza uma contagem a incremento de 1 acadas segundo.
+
+                s = s + 1;
+                System.out.println(s);
+                // Verifica se a contagem atingiu o limite informado para bloqueio da tela.
+                if (s == limite) {
+                    System.out.println("Atualizando");
+                    atualizaTela();
+                    s=0;
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, segundos);
+
+    }    
+    
 }

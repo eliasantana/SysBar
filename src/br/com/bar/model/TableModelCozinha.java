@@ -93,13 +93,13 @@ public class TableModelCozinha extends AbstractTableModel {
                 Object ref = tabela.getValueAt(row, 8);//Coluna Status
                 //Coloca cor em todas as linhas,COLUNA(8) que tem o valor "Pendente"
                 
-                 if (ref != null && ref.equals("Em preparação")) {//Se Status for igual a "Pendente"
+                 if (ref != null && ref.equals("EM PREPARAÇÃO")) {//Se Status for igual a "Pendente"
                     setBackground(Color.YELLOW);//Preenche a linha de vermelho
                     setForeground(Color.BLACK);//E a fonte de branco
-                } else if (ref != null && ref.equals("Liberado")) {//Se Status for igual a "Liberado"
+                } else if (ref != null && ref.equals("LIBERADO")) {//Se Status for igual a "Liberado"
                     setBackground(Color.GREEN);//Preenche a linha de verde
                     setForeground(Color.black);//E a fonte de branco
-                } else if (ref != null && ref.equals("Pendente")) {//Se Status for igual a "Liberado"
+                } else if (ref != null && ref.equals("PENDENTE")) {//Se Status for igual a "Liberado"
                     setBackground(Color.red);//Preenche a linha de verde
                     setForeground(Color.WHITE);//E a fonte de branco
                 } else {

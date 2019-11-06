@@ -32,6 +32,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     ControlerCozinha cc = new ControlerCozinha();
     Util u = new Util();
     TelaDetalheMesa tlPedido;
+    
     JButton btnMesa;
     TableModelGerenciarPedido modelGerPedido = new TableModelGerenciarPedido();
     Log l = new Log();
@@ -64,7 +65,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         this.tela = tp3;
         this.btnMesa = btn;
     }
-
+   
     //  Reebe dados da vindo da tela de Pedidos
     public void recebeOperador(JFrame janela, String operador, String cargo) {
 
@@ -279,6 +280,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // Fecha janela
+        tlPedido.atualizaTelaGestão();
         dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 

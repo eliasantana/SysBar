@@ -474,12 +474,12 @@ public class TelaConzinha extends javax.swing.JFrame {
 
         switch (status) {
 
-            case "Em preparação":
+            case "EM PREPARAÇÃO":
                 lblLiberaRefeicao.setEnabled(true);
                 lblPreparar.setEnabled(false);
                 lblImprimirSolicitacoes.setEnabled(false);
                 break;
-            case "Pendente":
+            case "PENDENTE":
                 lblPreparar.setEnabled(true);
                 lblLiberaRefeicao.setEnabled(false);
                 lblImprimirSolicitacoes.setEnabled(true);

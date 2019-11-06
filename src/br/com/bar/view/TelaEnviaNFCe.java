@@ -175,6 +175,16 @@ public class TelaEnviaNFCe extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        txtEmail1.setText(null);
+        txtEmail2.setText(null);
+        txtEmail1.setEnabled(false);
+        txtEmail2.setEnabled(false);
+        lblBtnEnviar.setEnabled(false);
+        txtNumeroNota.setText(null);
+        x1.setVisible(false);
+        x2.setVisible(false);
+        e1.setVisible(false);
+        e2.setVisible(false);
         dispose();       
     }//GEN-LAST:event_jLabel3MouseClicked
 

@@ -38,18 +38,33 @@ public class ControlerCozinha {
         SENDO NECESSARIO ALTERAR A INSTRUCAO ABAIXO:
         >> TIME_FORMAT(TIME(DATE_ADD(curtime(), INTERVAL +3 HOUR)),'%T')
          */
+
+        // Excluir após teste  uppercase
+//        String sql = "SELECT id AS 'SEQ', \n"
+//                + "	produto AS 'PRATO', \n"
+//                + "	qtd AS 'QTD', \n"
+//                + "	funcionario AS 'GARÇOM',\n"
+//                + "	mesa AS 'MESA', \n"
+//                + "CASE WHEN cozinheiro IS NULL THEN 'Não informado'\n"
+//                + "ELSE cozinheiro \n"
+//                + "END AS 'COZINHEIRO', \n"
+//                + " TIME_FORMAT(TIME(hora_solicitacao),'%H:%i') AS 'HORA', \n"
+//                + " TIME_FORMAT(TIMEDIFF(TIME_FORMAT(TIME(CURTIME()),'%H:%i'),TIME_FORMAT(TIME(hora_solicitacao),'%H:%i')),'%H:%i') AS 'ESPERA', \n"
+//                + " status AS 'STATUS'    \n"
+//                + " FROM dbbar.tbcozinha \n"
+//                + " WHERE status IN ('Pendente', 'Em preparação');";
         String sql = "SELECT id AS 'SEQ', \n"
-                + "	produto AS 'PRATO', \n"
-                + "	qtd AS 'QTD', \n"
-                + "	funcionario AS 'GARÇOM',\n"
-                + "	mesa AS 'MESA', \n"
-                + "CASE WHEN cozinheiro IS NULL THEN 'Não informado'\n"
-                + "ELSE cozinheiro \n"
-                + "END AS 'COZINHEIRO', \n"
-                + " TIME_FORMAT(TIME(hora_solicitacao),'%H:%i') AS 'HORA', \n"
-                + " TIME_FORMAT(TIMEDIFF(TIME_FORMAT(TIME(CURTIME()),'%H:%i'),TIME_FORMAT(TIME(hora_solicitacao),'%H:%i')),'%H:%i') AS 'ESPERA', \n"
-                + " status AS 'STATUS'    \n"
-                + " FROM dbbar.tbcozinha \n"
+                + "upper(produto) AS 'PRATO', \n"
+                + "qtd AS 'QTD', \n"
+                + "upper(funcionario) AS 'GARÇOM',\n"
+                + "mesa AS 'MESA', \n"
+                + "CASE WHEN cozinheiro IS NULL THEN upper('Não informado')\n"
+                + "ELSE upper(cozinheiro) \n"
+                + "END AS 'COZINHEIRO',\n"
+                + "TIME_FORMAT(TIME(hora_solicitacao),'%H:%i') AS 'HORA',\n"
+                + "TIME_FORMAT(TIMEDIFF(TIME_FORMAT(TIME(CURTIME()),'%H:%i'),TIME_FORMAT(TIME(hora_solicitacao),'%H:%i')),'%H:%i') AS 'ESPERA',\n"
+                + "upper(status) AS 'STATUS'    \n"
+                + "FROM dbbar.tbcozinha \n"
                 + " WHERE status IN ('Pendente', 'Em preparação');";
 
         try {
@@ -178,7 +193,7 @@ public class ControlerCozinha {
     
      */
     public ResultSet statusCozinha(String garcom) {
-        
+
         // Listas os pratos enviados a cozinha pelo garçom na data Atual e nada data Anterior
         /*
         String sql = "SELECT \n"
@@ -201,7 +216,6 @@ public class ControlerCozinha {
                 + "WHEN 'Liberado'      THEN '3'\n"
                 + "END)";*/
         // Listas os pratos enviados a cozinha pelo garçom na data Atual
-        
         String sql = "SELECT \n"
                 + "mesa AS 'MESA'\n"
                 + ",npedido as 'PEDIDO'\n"
@@ -239,7 +253,6 @@ public class ControlerCozinha {
             - Tela Cozinha e Tela Principal
     
      */
-
     public int pratoPendente() {
 
         int qtd = 0;
@@ -311,7 +324,7 @@ public class ControlerCozinha {
         map.put("id", id);
 
         try {
-            rpu.imprimeRelatorioTela("cozinha.jasper", map,"Comprovante Cozinha");
+            rpu.imprimeRelatorioTela("cozinha.jasper", map, "Comprovante Cozinha");
 
         } catch (JRException e) {
             System.out.println("br.com.br.controler.ControlerCozinha.imprimeComprovanteCozinha()" + e);
@@ -344,14 +357,16 @@ public class ControlerCozinha {
 
         return resp;
     }
+
     /**
-     * Adicionado: 28/10/2019
-     * Verifica se o pedido possui algum prato na cozinha com as situações 'PENDENTE' ou 'EM PREPARAÇÃO'
+     * Adicionado: 28/10/2019 Verifica se o pedido possui algum prato na cozinha
+     * com as situações 'PENDENTE' ou 'EM PREPARAÇÃO'
+     *
      * @param nPedido Número do Pedido
      * @return Retorna TRUE ou FALSE
-     * @since  VERSÃO 2.0.0-nf.11 / VERSÃO 2.0.0-f.11
+     * @since VERSÃO 2.0.0-nf.11 / VERSÃO 2.0.0-f.11
      */
-    
+
     public boolean temNaCozinha(String nPedido) {
         boolean resp = false;
         String sql = "SELECT * FROM tbcozinha where npedido = ?  and status='Pendente' or status='Em preparação';";
