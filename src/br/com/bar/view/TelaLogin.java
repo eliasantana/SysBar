@@ -97,6 +97,9 @@ public class TelaLogin extends javax.swing.JFrame {
             g.recebeDias(dias, "Licença Expirada!!!");
             g.setAlwaysOnTop(true);
             g.setVisible(true);
+            
+            comboLogin.setEnabled(false);
+            lblMsg.setText("Licença Expirada!!!");
         }
 
     }

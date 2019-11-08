@@ -31,6 +31,7 @@ public class TelaEstoque extends javax.swing.JFrame {
     TelaPrincipal principal;
     TelaEnviaNFCe enviaNfce;
     TelaDownloadNFCe download;
+    TelaGerenciarPedido gp;
     //------------------------------------------------------------
     // As variaveis abaixo determinam o ambiente de Emissão de cupom fiscal
     int flagFiscal = 1;             // 1 - Para autorizar e ler retorno SEFAZ     
@@ -56,6 +57,10 @@ public class TelaEstoque extends javax.swing.JFrame {
         lblCargo.setText(cargo);
         lblNomeOperador.setText(nomeOperador);
         this.principal = tela;
+    }
+    
+    public void atualizaTelaGerenciarPedido(){
+        gp=null;
     }
 
     /**
@@ -106,6 +111,9 @@ public class TelaEstoque extends javax.swing.JFrame {
         btnDownload = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        btnPedidos = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -181,7 +189,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel4.setBounds(80, 50, 100, 20);
 
         borda.add(btnGraficoRanking);
-        btnGraficoRanking.setBounds(20, 230, 190, 100);
+        btnGraficoRanking.setBounds(620, 230, 190, 100);
 
         btnPrecos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnPrecos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -232,7 +240,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel21.setBounds(80, 30, 100, 30);
 
         borda.add(btnLog);
-        btnLog.setBounds(420, 230, 190, 100);
+        btnLog.setBounds(220, 340, 190, 100);
 
         btnRAnking.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnRAnking.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -267,7 +275,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel28.setBounds(70, 50, 110, 30);
 
         borda.add(btnRAnking);
-        btnRAnking.setBounds(220, 230, 190, 100);
+        btnRAnking.setBounds(20, 340, 190, 100);
 
         btnCaixa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnCaixa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -285,7 +293,7 @@ public class TelaEstoque extends javax.swing.JFrame {
             }
         });
         btnCaixa.add(jLabel17);
-        jLabel17.setBounds(10, 0, 180, 100);
+        jLabel17.setBounds(10, 0, 100, 100);
 
         jLabel23.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(52, 73, 94));
@@ -329,7 +337,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         );
 
         painelEsquerdo.add(jPanel2);
-        jPanel2.setBounds(590, 0, 40, 40);
+        jPanel2.setBounds(780, 0, 40, 40);
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         jLabel8.setText("Gestão");
@@ -340,20 +348,20 @@ public class TelaEstoque extends javax.swing.JFrame {
         lblCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/perfil3.png"))); // NOI18N
         lblCargo.setText("jLabel6");
         painelEsquerdo.add(lblCargo);
-        lblCargo.setBounds(370, 20, 110, 40);
+        lblCargo.setBounds(670, 20, 110, 40);
 
         lblNomeOperador.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblNomeOperador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/usuario (2).png"))); // NOI18N
         lblNomeOperador.setText("jLabel6");
         painelEsquerdo.add(lblNomeOperador);
-        lblNomeOperador.setBounds(370, 50, 110, 40);
+        lblNomeOperador.setBounds(670, 50, 110, 40);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/gerenciar64x64.png"))); // NOI18N
         painelEsquerdo.add(jLabel2);
         jLabel2.setBounds(40, 10, 90, 80);
 
         borda.add(painelEsquerdo);
-        painelEsquerdo.setBounds(1, 1, 625, 90);
+        painelEsquerdo.setBounds(1, 1, 818, 90);
 
         btnCancelamento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnCancelamento.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -383,7 +391,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel27.setBounds(70, 30, 120, 20);
 
         borda.add(btnCancelamento);
-        btnCancelamento.setBounds(20, 340, 190, 100);
+        btnCancelamento.setBounds(20, 230, 190, 100);
 
         btnEmailNfce.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnEmailNfce.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -413,7 +421,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel31.setBounds(70, 30, 120, 20);
 
         borda.add(btnEmailNfce);
-        btnEmailNfce.setBounds(220, 340, 190, 100);
+        btnEmailNfce.setBounds(220, 230, 190, 100);
 
         btnDownload.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnDownload.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -434,20 +442,42 @@ public class TelaEstoque extends javax.swing.JFrame {
         btnDownload.add(jLabel30);
         jLabel30.setBounds(80, 50, 110, 20);
 
+        jLabel33.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        jLabel33.setForeground(new java.awt.Color(52, 73, 94));
+        jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel33.setText("Download");
+        btnDownload.add(jLabel33);
+        jLabel33.setBounds(80, 30, 110, 20);
+
+        borda.add(btnDownload);
+        btnDownload.setBounds(420, 230, 190, 100);
+
+        btnPedidos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        btnPedidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPedidosMouseClicked(evt);
+            }
+        });
+        btnPedidos.setLayout(null);
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/pedidos64x64.png"))); // NOI18N
+        btnPedidos.add(jLabel6);
+        jLabel6.setBounds(10, 0, 180, 100);
+
         jLabel32.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(52, 73, 94));
         jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel32.setText("Download");
-        btnDownload.add(jLabel32);
-        jLabel32.setBounds(80, 30, 110, 20);
+        jLabel32.setText("Pedidos");
+        btnPedidos.add(jLabel32);
+        jLabel32.setBounds(90, 30, 100, 30);
 
-        borda.add(btnDownload);
-        btnDownload.setBounds(420, 340, 190, 100);
+        borda.add(btnPedidos);
+        btnPedidos.setBounds(620, 120, 190, 100);
 
         getContentPane().add(borda);
-        borda.setBounds(0, 0, 627, 460);
+        borda.setBounds(0, 0, 820, 460);
 
-        setSize(new java.awt.Dimension(628, 460));
+        setSize(new java.awt.Dimension(821, 460));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -574,6 +604,16 @@ public class TelaEstoque extends javax.swing.JFrame {
         download.setVisible(true);        
     }//GEN-LAST:event_btnDownloadMouseClicked
 
+    private void btnPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPedidosMouseClicked
+        // Chama a tela de Gestão de Pedidos
+        if (gp==null){
+            gp = new TelaGerenciarPedido();
+            gp.setAlwaysOnTop(true);
+            gp.recebeTelaGestao(this);
+        }
+        gp.setVisible(true);
+    }//GEN-LAST:event_btnPedidosMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -617,6 +657,7 @@ public class TelaEstoque extends javax.swing.JFrame {
     private javax.swing.JPanel btnEmailNfce;
     private javax.swing.JPanel btnGraficoRanking;
     private javax.swing.JPanel btnLog;
+    private javax.swing.JPanel btnPedidos;
     private javax.swing.JPanel btnPrecos;
     private javax.swing.JPanel btnProduto1;
     private javax.swing.JPanel btnRAnking;
@@ -641,8 +682,10 @@ public class TelaEstoque extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblCargo;

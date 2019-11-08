@@ -24,15 +24,17 @@ import net.proteanit.sql.DbUtils;
  * @author elias
  */
 public class TelaGerenciarPedido extends javax.swing.JFrame {
-    
+
     TelaPedido3 tela;
+    TelaEstoque tg;
     ControlerMesa cm = new ControlerMesa();
     ControlerPedido cp = new ControlerPedido();
     ControlerEstoque ce = new ControlerEstoque();
     ControlerCozinha cc = new ControlerCozinha();
+    
     Util u = new Util();
     TelaDetalheMesa tlPedido;
-    
+
     JButton btnMesa;
     TableModelGerenciarPedido modelGerPedido = new TableModelGerenciarPedido();
     Log l = new Log();
@@ -60,12 +62,16 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         }
 
     }
-    
-    public void recebeTela(TelaPedido3 tp3, JButton btn){
+
+    public void recebeTela(TelaPedido3 tp3, JButton btn) {
         this.tela = tp3;
         this.btnMesa = btn;
     }
-   
+    public void recebeTelaGestao(TelaEstoque telaGestao){
+        this.tg=telaGestao;
+    }
+    
+
     //  Reebe dados da vindo da tela de Pedidos
     public void recebeOperador(JFrame janela, String operador, String cargo) {
 
@@ -280,13 +286,17 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // Fecha janela
-        tlPedido.atualizaTelaGestão();
+        if (tlPedido!=null) {
+            tlPedido.atualizaTelaGestão();
+        }
+        if (tg!=null){
+            tg.atualizaTelaGerenciarPedido();
+        }
         dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         listaItensDoPedido();
-
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void jcomboPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboPedidoActionPerformed
@@ -429,7 +439,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                 l.setDescricao("Cancelou o pedido ->" + nPedido);
                 l.gravaLog(l);
                 btnCancelarPedido.setEnabled(false);
-                
+
                 //tlPedido.atualizaPedidos(); Excluir depois de teste de exclusão do pedido
                 tlPedido.atuDetalheDoPedido(nmesa, nPedido);
                 cp.carregaComboPedido(jcomboPedido);
@@ -441,7 +451,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                 this.dispose();
                 tlPedido.dispose();
                 tela.alteraCorMesa(btnMesa);
-                
+
             }
         }
 //        cp.carregaComboPedido(jcomboPedido);

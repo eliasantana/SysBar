@@ -171,17 +171,23 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
     private void txtNumeroNotaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroNotaKeyPressed
        
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            // Verifica antes de proseguir se o cupom informado está cancelado
-            if (!cnfec.estaCancelada(txtNumeroNota.getText())) {
-                txtAreaMensagem.setEnabled(true);
-                txtAreaMensagem.requestFocus();
-            } else {
-                JOptionPane.showMessageDialog(this, "O Cupom informado já está cancelado!", "Atenção!", JOptionPane.ERROR_MESSAGE);
-                txtNumeroNota.setText(null);
-                txtAreaMensagem.setText(null);
-                txtAreaMensagem.setEnabled(false);
-                lblBtnCancelar.setEnabled(false);
+            if (!txtNumeroNota.getText().isEmpty()){
+                
+                // Verifica antes de proseguir se o cupom informado está cancelado
+                if (!cnfec.estaCancelada(txtNumeroNota.getText())) {
+                    txtAreaMensagem.setEnabled(true);
+                    txtAreaMensagem.requestFocus();
+                } else {
+                    JOptionPane.showMessageDialog(this, "O Cupom informado já está cancelado!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+                    txtNumeroNota.setText(null);
+                    txtAreaMensagem.setText(null);
+                    txtAreaMensagem.setEnabled(false);
+                    lblBtnCancelar.setEnabled(false);
 
+                }
+                
+            }else {
+                JOptionPane.showMessageDialog(this, "Informe o número do cupom!", "Atenção!", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -299,7 +305,10 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
     }//GEN-LAST:event_lblBtnCancelarMouseClicked
 
     private void txtNumeroNotaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroNotaKeyReleased
-        // TODO add your handling code here:
+        if (txtNumeroNota.getText().length()==0){
+            txtAreaMensagem.setText(null);
+            txtAreaMensagem.setEnabled(false);
+        }
     }//GEN-LAST:event_txtNumeroNotaKeyReleased
 
     public void recebeOperador(String operador, String cargo) {
