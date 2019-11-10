@@ -59,7 +59,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.sql.Timestamp;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -166,17 +165,20 @@ public class TelaCaixa extends javax.swing.JFrame {
         comboMes.setSelectedIndex(Integer.parseInt(mes) - 1);
         lblData.setText(utils.formataDataBr(data));
         bloqueiaControlePagamento();
-        lblMsgStatus.setVisible(false);
+        lblMsgStatus.setVisible(true);
 
         txtDesconto.setText("0,00");
         txtValorPago.setText("0,00");
         txtTroco.setText("0,00");
         lblCargo.setVisible(false);
         modelCaixa.redimensionaColunas(tblDetalhePedido);
-        // this.setModal(true);
+
         checkReimpressao.setEnabled(true);
         jpanelSubTotal.setEnabled(false);
         jpanelTotalGeral.setEnabled(false);
+
+        //caixa.statusCaixa(jLabel1, foiCancelada, lblPago);
+        caixa.statusCaixa(lblStatus, foiCancelada, lblMsgStatus);
 
     }
 
@@ -200,6 +202,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblSaldo = new javax.swing.JLabel();
         lblSaidas = new javax.swing.JLabel();
         lblEntradas = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        lblSaldoInicial = new javax.swing.JLabel();
         checkExibir = new javax.swing.JCheckBox();
         panelGrafico = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -297,29 +301,43 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         labelEntradas.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         labelEntradas.setForeground(new java.awt.Color(255, 255, 255));
-        labelEntradas.setText("Entradas");
+        labelEntradas.setText("Entradas............ R$");
 
         labelSaidas.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         labelSaidas.setForeground(new java.awt.Color(255, 255, 255));
-        labelSaidas.setText("Saídas");
+        labelSaidas.setText("Saídas................ R$");
 
         labelSaldo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         labelSaldo.setForeground(new java.awt.Color(255, 255, 255));
-        labelSaldo.setText("Saldo");
+        labelSaldo.setText("Saldo Final...... R$");
 
         lblSaldo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblSaldo.setForeground(new java.awt.Color(255, 255, 255));
+        lblSaldo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblSaldo.setText("Saldo");
+        lblSaldo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         lblSaidas.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblSaidas.setForeground(new java.awt.Color(255, 255, 255));
-        lblSaidas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblSaidas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblSaidas.setText("jLabel14");
+        lblSaidas.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         lblEntradas.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         lblEntradas.setForeground(new java.awt.Color(255, 255, 255));
-        lblEntradas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblEntradas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblEntradas.setText("jLabel14");
+        lblEntradas.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        jLabel10.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Saldo Inicial ..... R$");
+
+        lblSaldoInicial.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        lblSaldoInicial.setForeground(new java.awt.Color(255, 255, 255));
+        lblSaldoInicial.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblSaldoInicial.setText("jLabel11");
+        lblSaldoInicial.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         javax.swing.GroupLayout panelMovimentacaoLayout = new javax.swing.GroupLayout(panelMovimentacao);
         panelMovimentacao.setLayout(panelMovimentacaoLayout);
@@ -327,38 +345,38 @@ public class TelaCaixa extends javax.swing.JFrame {
             panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMovimentacaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMovimentacaoLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(labelEntradas)
-                        .addGap(19, 19, 19)
-                        .addComponent(lblEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelMovimentacaoLayout.createSequentialGroup()
-                        .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelSaldo))
-                        .addGap(19, 19, 19)
-                        .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblSaidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(labelSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelSaidas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelEntradas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblEntradas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblSaidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblSaldoInicial, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         panelMovimentacaoLayout.setVerticalGroup(
             panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMovimentacaoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(lblSaldoInicial))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelEntradas)
                     .addComponent(lblEntradas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelSaidas, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblSaidas, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelSaidas)
+                    .addComponent(lblSaidas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelMovimentacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelSaldo)
-                    .addComponent(lblSaldo))
-                .addGap(25, 25, 25))
+                    .addComponent(lblSaldo)))
         );
 
         painelEsquerdo.add(panelMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 356, -1, -1));
@@ -1216,7 +1234,9 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void btnFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFecharMouseClicked
         //Sai da tela Caixa
-        principal.atualizaTela();
+        if (principal!=null) {
+            principal.atualizaTela();
+        }
         if ("Gerente".equals(lblCargo.getText())) {
             dispose();
         } else {
@@ -1826,7 +1846,8 @@ public class TelaCaixa extends javax.swing.JFrame {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
             MovimentacaoCaixa cx = new MovimentacaoCaixa();
-
+            int idCaixa = caixa.retornaIdCaixa(func.localizaIdLogin(lblOperador.getText()));
+            cx.setId(idCaixa);
             cx.setData(df.format(dataAtual));
             // Totaliza entradas e saida do 
             cx.setEntrada(caixa.totalizaEntradas(lblOperador.getText()));
@@ -1843,12 +1864,15 @@ public class TelaCaixa extends javax.swing.JFrame {
             }
 
             if (op == JOptionPane.YES_OPTION) {
-
-                if (caixa.temMovimentacao(cx.getIdFuncionario())) { // Verifica se existe movimentação no dia para este operador.
+                   // eXLUIR APÓS VALIDAÇÃO DE FECHAMENTO DE CAIXA
+                   //  if (caixa.temMovimentacao(cx.getIdFuncionario())) { // Verifica se existe movimentação no dia para este operador.
+//                    JOptionPane.showMessageDialog(null, "Caixa fechado, contate o administrador!");
+                if (caixa.retornaStatusCaixa(cx.getIdFuncionario())==1) { // Verifica se existe movimentação no dia para este operador.
                     JOptionPane.showMessageDialog(null, "Caixa fechado, contate o administrador!");
 
                 } else {
-                    if (caixa.gravaMovimentacao(cx)) {
+                    //if (caixa.gravaMovimentacao(cx)) {
+                    if (caixa.atualizaMovimentacao(cx)) {
                         JOptionPane.showMessageDialog(null, "Caixa fechado com sucesso!");
 
                         // Desabilita botões Listar e Fechar caixa após o fechamento
@@ -2134,11 +2158,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private void lblLancarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLancarPedidoMouseClicked
         // Chama a tela de Pedidos
         if (lblLancarPedido.isEnabled()) {
-//            TelaPedido2 tp = new TelaPedido2();
-//            tp.recebeOperador(lblOperador.getText(), lblCargo.getText());
-//            tp.recebePedido(this, lblGarcom.getText(), idGarcom);
-//            tp.setVisible(true);
-//            
+
             if (detalheMesa == null) {
                 detalheMesa = new TelaDetalheMesa();
                 detalheMesa.recebeOperador(lblOperador.getText().toLowerCase(), lblCargo.getText());
@@ -2378,7 +2398,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         l.setUsuario(operador);
         String id = func.localizaIdLogin(operador);
         btnListar.setEnabled(false);
-        caixa.statusCaixa(lblStatus, caixa.temMovimentacao(Integer.parseInt(id)), lblMsgStatus);
+        //caixa.statusCaixa(lblStatus, caixa.temMovimentacao(Integer.parseInt(id)), lblMsgStatus);
+        caixa.statusCaixa(lblStatus, caixa.retornaStatusCaixa(Integer.parseInt(id)), lblMsgStatus);
 
         if ("Caixa Fechado".equals(lblMsgStatus.getText())) {
             lblReceber.setEnabled(false);
@@ -2393,6 +2414,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             labelFecharCaixa.setEnabled(false);
 
         } else {
+
             if (comboMesa.getItemCount() == 1) {
                 btnListar.setEnabled(false);
                 comboMesa.setEnabled(false);
@@ -2665,6 +2687,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboMes;
     private javax.swing.JComboBox<String> comboMesa;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
@@ -2708,6 +2731,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel lblReceberPAgamento;
     private javax.swing.JLabel lblSaidas;
     private javax.swing.JLabel lblSaldo;
+    private javax.swing.JLabel lblSaldoInicial;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblTroco;
@@ -2842,22 +2866,23 @@ public class TelaCaixa extends javax.swing.JFrame {
     // Atualiza movimentação do Caixa
     public void atualizaCaixa() {
         try {
-
-            lblSaidas.setText("R$ " + String.format("%9.2f", caixa.totalizaSaida(lblOperador.getText())));
+            lblSaidas.setText(String.format("%9.2f", caixa.totalizaSaida(lblOperador.getText())));
         } catch (NullPointerException e) {
             lblSaidas.setText("0.00");
         }
 
         try {
-
-            lblEntradas.setText("R$ " + String.format("%9.2f", caixa.totalizaEntradas(lblOperador.getText())));
+            lblEntradas.setText(String.format("%9.2f", caixa.totalizaEntradas(lblOperador.getText())));
         } catch (NullPointerException e) {
             lblEntradas.setText("0.00");
         }
-
+        double saldoInicial = caixa.retornaSaldoInicial(func.localizaIdLogin(lblOperador.getText()));
+        lblSaldoInicial.setText(String.format("%9.2f", saldoInicial));
+        // Saldo Final
         double saldo = caixa.totalizaEntradas(lblOperador.getText()) - caixa.totalizaSaida(lblOperador.getText());
-
-        lblSaldo.setText("RS" + String.format("%9.2f", saldo));
+        saldo = saldo + saldoInicial;
+        lblSaldo.setText(String.format("%9.2f", saldo));
+        
     }
 
     private void bloqueiaControlePagamento() {

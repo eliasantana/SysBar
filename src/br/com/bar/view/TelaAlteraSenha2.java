@@ -236,6 +236,11 @@ public class TelaAlteraSenha2 extends javax.swing.JFrame {
                         caixa.atualizaTelaSenha();
                         dispose();
                         break;
+                    case "Cozinha":
+                        TelaConzinha cozinha = (TelaConzinha) tela;
+                        cozinha.atualizaTelaSenha();
+                        dispose();
+                        break;
 
                 }
             }

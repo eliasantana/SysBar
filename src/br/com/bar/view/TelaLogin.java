@@ -11,6 +11,7 @@ import br.com.bar.dao.CriptoGrafa;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerAtivacao;
+import br.com.br.controler.ControlerCaixa;
 
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerFuncionario;
@@ -22,6 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -97,7 +99,7 @@ public class TelaLogin extends javax.swing.JFrame {
             g.recebeDias(dias, "Licença Expirada!!!");
             g.setAlwaysOnTop(true);
             g.setVisible(true);
-            
+
             comboLogin.setEnabled(false);
             lblMsg.setText("Licença Expirada!!!");
         }
@@ -337,7 +339,7 @@ public class TelaLogin extends javax.swing.JFrame {
                         estoque.setVisible(true);
                         this.dispose();
                         break;
-                    case "Garçom": 
+                    case "Garçom":
                         // Vai para tela de garçom
                         // Chama a tela Pedido 2
 //                        TelaPedido2 pedido2 = new TelaPedido2();
@@ -350,11 +352,34 @@ public class TelaLogin extends javax.swing.JFrame {
                         this.dispose();
                         break;
                     case "Caixa": // Vai para tela Estoque
-                        TelaCaixa caixa = new TelaCaixa();
-                        TelaPrincipal tp = new TelaPrincipal();
-                        caixa.recebeOperador(tp, autentica.enviaOperador().toUpperCase(), autentica.enviarCargo());
-                        caixa.setVisible(true);
-                        this.dispose();
+
+//                        TelaCaixa caixa = new TelaCaixa();
+//                        TelaPrincipal tp = new TelaPrincipal();
+//                        caixa.recebeOperador(tp, autentica.enviaOperador().toUpperCase(), autentica.enviarCargo());
+//                        caixa.setVisible(true);
+                        
+                        // Chama tela do Caixa
+                        ControlerCaixa controlerCaixa = new ControlerCaixa();
+                        // Verifica se existem alguma movimentação na data atual para o operador logado
+                        boolean mov = controlerCaixa.temMovimentacao(Integer.parseInt(cf.localizaIdLogin(autentica.enviaOperador())));
+                        // Se o operador possui movimentação abre Tela de Caixa       
+                        int statusCaixa = controlerCaixa.retornaStatusCaixa(Integer.parseInt(cf.localizaIdLogin(autentica.enviaOperador())));
+                        if (statusCaixa==1){
+                            JOptionPane.showMessageDialog(this, "Caixa Fechado, Infome ao Gerente");
+                        }else {
+                            if (mov) {
+                                TelaCaixa caixa = new TelaCaixa();
+                                TelaPrincipal telaPrincipal = new TelaPrincipal();
+                                caixa.recebeOperador(telaPrincipal, autentica.enviaOperador().toUpperCase(), autentica.enviarCargo());
+                                caixa.setVisible(true);
+                            } else {
+                                TelaSaldoInicial saldoInicial = new TelaSaldoInicial();
+                                saldoInicial.setModal(true);
+                                saldoInicial.recebeOperador(autentica.enviaOperador().toUpperCase(), autentica.enviarCargo());
+                                saldoInicial.setVisible(true);
+                            }                            
+                        }
+                        //this.dispose();
                         break;
                     case "Cozinheiro": // Vai para Cozinha
                         TelaConzinha cozinha = new TelaConzinha();

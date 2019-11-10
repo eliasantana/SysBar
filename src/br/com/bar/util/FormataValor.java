@@ -13,26 +13,30 @@ import java.util.Locale;
  * @author Elias Santana
  */
 public class FormataValor {
+
     // Formata uma String convertendo-a para Double e retorna o valor formatado
     // com vírgula no formato Decimal
-    public String Formata(String valor){
-        
-            DecimalFormat df = new DecimalFormat();
-            Locale.setDefault(new Locale("pt", "BR"));
-            Double valorRecebido = Double.parseDouble(valor.replace(",", "."));
-           
-        try {           
+    public String Formata(String valor) {
+
+        DecimalFormat df = new DecimalFormat();
+        Locale.setDefault(new Locale("pt", "BR"));
+        Double valorRecebido=0.00;
+        try {
+             // Caso ocorra uma Multiple Point Exception o método retornará 0.00
+             valorRecebido = Double.parseDouble(valor.replace(",", "."));
+        } catch (Exception e) {
             
+        }
+
+        try {
             //df.applyPattern("#,###0.00");
             df.applyPattern("#,##0.00");
 
         } catch (NumberFormatException e) {
             //System.out.println("br.com.bar.util.FormataValor.Formata()");
         }
-            return df.format(valorRecebido);
-        
-    
-   
+        return df.format(valorRecebido);
+
     }
-    
+
 }

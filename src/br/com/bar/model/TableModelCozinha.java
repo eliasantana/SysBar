@@ -75,10 +75,10 @@ public class TableModelCozinha extends AbstractTableModel {
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(40); //QTD
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(200); //GARÇOM
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(45); //N.MESA
-        tabela.getColumn(tabela.getColumnName(5)).setPreferredWidth(200); //COZINHEIRO
+        tabela.getColumn(tabela.getColumnName(5)).setPreferredWidth(180); //COZINHEIRO
         tabela.getColumn(tabela.getColumnName(6)).setPreferredWidth(45); //SOLICITAÇÃO
         tabela.getColumn(tabela.getColumnName(7)).setPreferredWidth(60); //T.ESPERA
-        tabela.getColumn(tabela.getColumnName(8)).setPreferredWidth(115); //ESTATUS
+        tabela.getColumn(tabela.getColumnName(8)).setPreferredWidth(135); //ESTATUS
         
     }
 

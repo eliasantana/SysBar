@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -36,8 +37,9 @@ public class ControlerCaixa {
     ResultSet rs = null;
     Util u = new Util();
     Log l = new Log();
-    
+
     ControlerFuncionario cf = new ControlerFuncionario();
+
     // Lista Mesas Ocupadas
     public void listaMesaOcupada(JComboBox combo) {
 
@@ -73,7 +75,7 @@ public class ControlerCaixa {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerCaixa.totalizaSaida()"+e);
+            System.out.println("br.com.br.controler.ControlerCaixa.totalizaSaida()" + e);
 
         }
         return totalSaidas;
@@ -98,7 +100,7 @@ public class ControlerCaixa {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerCaixa.totalizaSaida()"+e);
+            System.out.println("br.com.br.controler.ControlerCaixa.totalizaSaida()" + e);
 
         }
         return totalSaidas;
@@ -124,7 +126,7 @@ public class ControlerCaixa {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerCaixa.totalizaSaida()"+e);
+            System.out.println("br.com.br.controler.ControlerCaixa.totalizaSaida()" + e);
 
         }
         return totalSaidas;
@@ -149,7 +151,7 @@ public class ControlerCaixa {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerCaixa.totalizaEntradas()"+e);
+            System.out.println("br.com.br.controler.ControlerCaixa.totalizaEntradas()" + e);
         }
         return total;
     }
@@ -176,7 +178,7 @@ public class ControlerCaixa {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerCaixa.totalizaEntradas()"+e);
+            System.out.println("br.com.br.controler.ControlerCaixa.totalizaEntradas()" + e);
 
         }
         return total;
@@ -204,24 +206,25 @@ public class ControlerCaixa {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerCaixa.totalizaEntradas()"+e);
+            System.out.println("br.com.br.controler.ControlerCaixa.totalizaEntradas()" + e);
 
         }
         return total;
     }
+
     /*
         Totaliza as entradas realizadas em especie do operador locago;.
      */
     public double totalizaTipoEntrada(String operador, String formaPagto) {
-        String sql = "SELECT sum(total) as '"+ formaPagto+"' FROM dbbar.cadpedido where date_format(data,'%Y-%m-%d') = curdate() AND operador=? AND formaPagto=?";
+        String sql = "SELECT sum(total) as '" + formaPagto + "' FROM dbbar.cadpedido where date_format(data,'%Y-%m-%d') = curdate() AND operador=? AND formaPagto=?";
 
         double total = 0;
         try {
             pst = conexao.prepareStatement(sql);
-           
+
             pst.setString(1, operador);
             pst.setString(2, formaPagto);
-            
+
             rs = pst.executeQuery();
 
             while (rs.next()) {
@@ -233,12 +236,13 @@ public class ControlerCaixa {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerCaixa.totalizaEntradas()"+e);
+            System.out.println("br.com.br.controler.ControlerCaixa.totalizaEntradas()" + e);
 
         }
         return total;
     }
 
+    // Excluir depois de validar alterações
     // Grava movimentação 
     public boolean gravaMovimentacao(MovimentacaoCaixa m) {
         boolean resp = false;
@@ -256,17 +260,40 @@ public class ControlerCaixa {
             pst.executeUpdate();
             resp = true;
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerCaixa.gravaMovimentacao()"+e);
+            System.out.println("br.com.br.controler.ControlerCaixa.gravaMovimentacao()" + e);
         }
 
         return resp;
     }
-    // Checa se existe movimentação
 
+    // Atualiza valores de movimentação do caixa informado
+    public boolean atualizaMovimentacao(MovimentacaoCaixa m) {
+        boolean resp = false;
+        String sql = "UPDATE tbmovimentacao SET entradas=?, saidas=?, saldo=?, status=? WHERE id=?";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setDouble(1, m.getEntrada());
+            pst.setDouble(2, m.getSaida());
+            pst.setDouble(3, m.getSaldo());
+            pst.setInt(4, m.getStatus());
+            pst.setInt(5, m.getId());
+
+            pst.executeUpdate();
+            resp = true;
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCaixa.atualizaMovimentacao()" + e);
+        }
+
+        return resp;
+
+    }
+
+    // Checa se existe movimentação
     public boolean temMovimentacao(int idOperador) {
         boolean resp = false;
 
-        String sql = "SELECT * FROM tbmovimentacao WHERE data=curdate() AND tbcadfuncionario_id = ?";
+        String sql = "SELECT * FROM tbmovimentacao WHERE data=curdate() AND tbcadfuncionario_id =?";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -308,10 +335,22 @@ public class ControlerCaixa {
     // Lista todos os caixas fechados
 
     public ResultSet listaCaixa() {
+// Excluir após validação do caixa
 
-        String sql = "SELECT m.id AS 'CÓD. INTERNO', date_format(m.data,'%d/%m/%Y') AS 'DATA', format(m.saldo,2,'de_DE') AS 'SALDO R$', f.nome AS 'OPERADOR' FROM dbbar.tbmovimentacao m\n"
-                + "INNER JOIN tbcadfuncionario f on f.id = m.tbcadfuncionario_id\n"
-                + "WHERE data=curdate();";
+//        String sql = "SELECT m.id AS 'CÓD. INTERNO', date_format(m.data,'%d/%m/%Y') AS 'DATA', format(m.saldo,2,'de_DE') AS 'SALDO R$', f.nome AS 'OPERADOR' FROM dbbar.tbmovimentacao m\n"
+//                + "INNER JOIN tbcadfuncionario f on f.id = m.tbcadfuncionario_id\n"
+//                + "WHERE data=curdate();";
+        String sql = "SELECT \n"
+                + "    m.id AS 'CÓD. INTERNO',\n"
+                + "    DATE_FORMAT(m.data, '%d/%m/%Y') AS 'DATA',\n"
+                + "    FORMAT(m.saldo, 2, 'de_DE') AS 'SALDO R$',\n"
+                + "    f.nome AS 'OPERADOR'\n"
+                + "FROM\n"
+                + "    dbbar.tbmovimentacao m\n"
+                + "        INNER JOIN\n"
+                + "    tbcadfuncionario f ON f.id = m.tbcadfuncionario_id\n"
+                + "WHERE\n"
+                + "    data = CURDATE() AND m.status = 1;";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -326,7 +365,9 @@ public class ControlerCaixa {
 
     public boolean liberaCaixa(String id) {
         boolean resp = false;
-        String sql = "DELETE FROM tbmovimentacao WHERE id=?";
+        // Excluir após validação de caixa
+        //String sql = "DELETE FROM tbmovimentacao WHERE id=?";
+        String sql = "UPDATE tbmovimentacao SET status=0 WHERE id=?";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -382,6 +423,13 @@ public class ControlerCaixa {
         return rs;
     }
 
+    /**
+     * Troca a imagem do Jlabel Informado
+     *
+     * @param label Jlabel que receberá a imagem
+     * @param status Informar TRUE para Fechado
+     * @param msg Mensagem
+     */
     public void statusCaixa(JLabel label, boolean status, JLabel msg) {
 
         if (status) {
@@ -392,6 +440,70 @@ public class ControlerCaixa {
             msg.setText("Caixa Aberto");
         }
 
+    }
+
+    /**
+     * Troca a imagem do Jlabel Informado
+     *
+     * @param label Jlabel que receberá a imagem
+     * @param status Informar TRUE para Fechado
+     * @param msg Mensagem
+     */
+    public void statusCaixa(JLabel label, int status, JLabel msg) {
+
+        if (status == 1) {
+            label.setIcon(new ImageIcon(getClass().getResource("/br/com/bar/imagens/btnCancel.png")));
+            msg.setText("Caixa Fechado");
+        } else {
+            label.setIcon(new ImageIcon(getClass().getResource("/br/com/bar/imagens/btnOk.png")));
+            msg.setText("Caixa Aberto");
+        }
+
+    }
+
+    /**
+     * Retorna o Status do caixa do operador logado
+     *
+     * @param idFuncionario ID do funcionário logado
+     * @return Retorna Inteiro 0 (CAIXA ABERTO) 1 (CAIXA FECHADO)
+     */
+    public int retornaStatusCaixa(int idFuncionario) {
+        int status = 0;
+        String sql = "SELECT status FROM tbmovimentacao WHERE data=curdate() AND tbcadfuncionario_id=?";
+        try {
+
+            conexao = ConexaoBd.conector();
+            pst = conexao.prepareStatement(sql);
+            pst.setInt(1, idFuncionario);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                status = rs.getInt("status");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCaixa.retornaStatusCaixa()" + e);
+        }
+
+        return status;
+
+    }
+    // Retorna o saldo inicial do usuário logado.
+    public double retornaSaldoInicial(String idFuncionario){
+        double saldoIni = 0;
+        String sql="SELECT saldo_inicial FROM tbmovimentacao WHERE data=curdate() AND tbcadfuncionario_id=?";
+        try {
+            conexao=ConexaoBd.conector();          
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, idFuncionario);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                saldoIni = rs.getDouble("saldo_inicial");
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCaixa.retornaSaldoInicial()"+e);
+        }
+        return saldoIni;
     }
 
     public Boolean temMovAnterior(JComboBox comboFunc, JButton btn) {
@@ -427,10 +539,10 @@ public class ControlerCaixa {
             Double saida = totalizaSaida(operador, dataAnterior);
             Double entrada = totalizaEntradas(operador, dataAnterior);
             Double saldo = entrada - saida;
-            System.out.println("Entradas:"+entrada);
-            System.out.println("SAída:"+saida);
-            System.out.println("SAldo:"+saldo);
-            
+            System.out.println("Entradas:" + entrada);
+            System.out.println("SAída:" + saida);
+            System.out.println("SAldo:" + saldo);
+
             if (0 != saida || 0 != entrada) {
 
                 resp = true;
@@ -451,15 +563,15 @@ public class ControlerCaixa {
         // Formata a data
         String dataAnterior = u.formataDataBanco(c.getTime());
         // Realiza o cálculo das saídas na data anterior
-        Double saida = totalizaSaida(operador,dataAnterior);
+        Double saida = totalizaSaida(operador, dataAnterior);
         // Realiza o cálculo das entradas na data enterior
-        Double entrada = totalizaEntradas(operador,dataAnterior);
+        Double entrada = totalizaEntradas(operador, dataAnterior);
         // Calcula do saldo
         Double saldo = entrada - saida;
         //Localiza o 'ID' do usuário logado no caixa
         int idFunc = Integer.parseInt(id);
         // Verifica se existe movimentação enterior para este usuário
-        if (temMovAnterior(operador)){
+        if (temMovAnterior(operador)) {
 
             MovimentacaoCaixa cx = new MovimentacaoCaixa();
             cx.setData(dataAnterior);
@@ -471,66 +583,116 @@ public class ControlerCaixa {
             cx.setStatus(1);// 1 - Fechado - 0 - Aberto
             cx.setIdFuncionario(idFunc);
             if (temMovimentacao(idFunc, dataAnterior)) {
-               
+
             } else {
 
+                if (gravaMovimentacao(cx)) {
+                    JOptionPane.showMessageDialog(null, "Caixa Anterior fechado com sucesso!");
+                    // Inicio do Registro de Log
+                    l.setFuncionalidade("Caixa");
+                    l.setUsuario(operador);
+                    l.setDescricao(" Realizou um Fehamento Retroativo de Caixa");
+                    l.gravaLog(l);
+                    // Fim do Registro de Log
 
-                    if (gravaMovimentacao(cx)) {
-                        JOptionPane.showMessageDialog(null, "Caixa Anterior fechado com sucesso!");
-                        // Inicio do Registro de Log
-                        l.setFuncionalidade("Caixa");
-                        l.setUsuario(operador);
-                        l.setDescricao(" Realizou um Fehamento Retroativo de Caixa");
-                        l.gravaLog(l);
-                        // Fim do Registro de Log
+                    // Imprime relatório de caixa 
+                    HashMap param = new HashMap();
+                    param.put("data", dataAnterior);
+                    param.put("id_perador", cx.getIdFuncionario());
+                    param.put("titulo", "=-=-=-= Retroativo =-=-=-=");
+                    ControlerDadosEmpresa de = new ControlerDadosEmpresa();
+                    DadosEmpresa dadosEmpresa = de.selecionaDados();
+                    param.put("empresa", dadosEmpresa.getNome_empresa());
+                    ReportUtil rpu = new ReportUtil();
+                    try {
 
-                        // Imprime relatório de caixa 
-                        HashMap param = new HashMap();
-                        param.put("data", dataAnterior);
-                        param.put("id_perador", cx.getIdFuncionario());
-                        param.put("titulo", "=-=-=-= Retroativo =-=-=-=");
-                        ControlerDadosEmpresa de = new ControlerDadosEmpresa();
-                        DadosEmpresa dadosEmpresa = de.selecionaDados();
-                        param.put("empresa", dadosEmpresa.getNome_empresa());
-                        ReportUtil rpu = new ReportUtil();
-                        try {
+                        if (dadosEmpresa.getImprimir_na_tela() == 0) {
 
-                            if (dadosEmpresa.getImprimir_na_tela() == 0) {
+                            // Já existe acima DadosEmpresa dados_empresa = de.selecionaDados();// Retorna dadados da empresa
+                            rpu.imprimeRelatorioTela("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param), "Movimentação de Caixa");
 
-                               // Já existe acima DadosEmpresa dados_empresa = de.selecionaDados();// Retorna dadados da empresa
-                                rpu.imprimeRelatorioTela("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param),"Movimentação de Caixa");
+                        } else {
+                            rpu.impressaoDireta("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param));
 
-                            } else {
-                                rpu.impressaoDireta("relMovimentacaoOperador.jasper", rpu.rodape(dadosEmpresa, param));
-
-                            }
-
-                        } catch (JRException e) {
-                            System.out.println("br.com.bar.view.TelaCaixa.btnFecharCaixaMouseClicked()" + e);
                         }
+
+                    } catch (JRException e) {
+                        System.out.println("br.com.bar.view.TelaCaixa.btnFecharCaixaMouseClicked()" + e);
                     }
-               
+                }
+
             }
         }
 
     }
-    
+
     // Registra desconto concedido ao pedido pelo gerente
-    public void registraDesconto(DescontoPedido dp){
-        
-        String sql="INSERT INTO tbdesconto_pedido (valor_desconto, motivo, tbcadfuncionario_id, cadpedido_id_pedido) VALUES (?,?,?,?)";
-        
+    public void registraDesconto(DescontoPedido dp) {
+
+        String sql = "INSERT INTO tbdesconto_pedido (valor_desconto, motivo, tbcadfuncionario_id, cadpedido_id_pedido) VALUES (?,?,?,?)";
+
         try {
-            pst=conexao.prepareStatement(sql);
+            pst = conexao.prepareStatement(sql);
             pst.setDouble(1, dp.getValorDesconto());
             pst.setString(2, dp.getMotivo());
             pst.setInt(3, Integer.parseInt(dp.getIdFuncionario().getId()));
             pst.setInt(4, Integer.parseInt(dp.getIdPedido().getId()));
-            
+
             pst.executeUpdate();
-            
+
         } catch (NumberFormatException | SQLException e) {
-            System.out.println("br.com.br.controler.ControlerCaixa.registraDesconto()"+e);
+            System.out.println("br.com.br.controler.ControlerCaixa.registraDesconto()" + e);
         }
     }
+
+    /**
+     * Realiza abertura do caixa para o funcionário logado
+     *
+     * @param saldoInical Valor de Abertura do caixa
+     * @param idFuncionario ID do funcionário logado
+     * @return Retorna um Boolean
+     */
+    public boolean abreCaixa(double saldoInical, int idFuncionario) {
+
+        boolean resp = false;
+        String sql = "INSERT INTO tbmovimentacao (data, saldo_inicial, entradas, saidas, saldo, status, tbcadfuncionario_id) VALUES (?,?,?,?,?,?,?)";
+        Date dt = new Date();
+        String dataAtual = u.formataDataBanco(dt);
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, dataAtual);
+            pst.setDouble(2, saldoInical);
+            pst.setDouble(3, 0);
+            pst.setDouble(4, 0);
+            pst.setDouble(5, 0);
+            pst.setInt(6, 0);
+            pst.setInt(7, idFuncionario);
+            pst.executeUpdate();
+            resp = true;
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCaixa.abreCaixa()" + e);
+        }
+
+        return resp;
+    }
+
+    // Retorna o id do caixa aberto para o funcionário informado
+    public int retornaIdCaixa(String idFuncLogado) {
+        String sql = "SELECT id FROM tbmovimentacao WHERE data = curdate() and tbcadfuncionario_id=?";
+        int id = 0;
+        try {
+            conexao = ConexaoBd.conector();
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, idFuncLogado);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCaixa.retornaIdCaixa()" + e);
+        }
+
+        return id;
+    }
+
 }

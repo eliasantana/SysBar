@@ -369,7 +369,8 @@ public class ControlerCozinha {
 
     public boolean temNaCozinha(String nPedido) {
         boolean resp = false;
-        String sql = "SELECT * FROM tbcozinha where npedido = ?  and status='Pendente' or status='Em preparação';";
+        //String sql = "SELECT * FROM tbcozinha where npedido = ?  and status='Pendente' or status='Em preparação';";
+        String sql = "SELECT * FROM tbcozinha where npedido = ?  and status in ('Pendente','Em preparação');";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, nPedido);

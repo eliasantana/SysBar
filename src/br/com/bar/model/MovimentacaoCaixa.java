@@ -12,7 +12,7 @@ import java.util.Date;
  * @author elias
  */
 public class MovimentacaoCaixa {
-    
+    private int id;
     private String data;
     private double entrada;
     private double saida;
@@ -73,6 +73,14 @@ public class MovimentacaoCaixa {
 
     public void setSaldo(double saldo) {
         this.saldo = saldo;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
     
     

@@ -236,6 +236,7 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
              
         if (cc.liberaCaixa(txtIdCaixa.getText())) {
                 JOptionPane.showMessageDialog(this, "Caixa liberado com sucesso!");
+                // Excluir após validação de caixa
                 tblGerenciamentoCaixa.setModel(DbUtils.resultSetToTableModel(cc.listaCaixa()));
                 //Inicio do Registro de Log
                 btnLiberarCaixa.setEnabled(false);
@@ -311,12 +312,9 @@ public class TelaGerenciamentoDeCaixa extends JFrame {
 
     private void listarCaixa() {
        ResultSet rs = cc.listaCaixa();
-        try {
-            
+        try {            
             if (rs.next()) {
                 tblGerenciamentoCaixa.setModel(DbUtils.resultSetToTableModel(cc.listaCaixa()));
-                
-
             }
         } catch (SQLException e) {
             

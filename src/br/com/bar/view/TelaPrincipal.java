@@ -7,9 +7,11 @@
 package br.com.bar.view;
 
 import br.com.bar.util.Util;
+import br.com.br.controler.ControlerCaixa;
 import br.com.br.controler.ControlerContasApagar;
 import br.com.br.controler.ControlerCozinha;
 import br.com.br.controler.ControlerEstoque;
+import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerMesa;
 import br.com.br.controler.ControlerParametro;
 import java.awt.Color;
@@ -574,10 +576,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         // Fecha tela principal
         if (cz.pratoPendente() > 0) {
-            JOptionPane.showMessageDialog(null, "Existem pratos com liberação pendente!");
+            JOptionPane.showMessageDialog(this, "Existem pratos com liberação pendente!");
         }
 
-        int op = JOptionPane.showConfirmDialog(null, "Deseja realmente fechar esta tela?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        int op = JOptionPane.showConfirmDialog(this, "Deseja realmente fechar esta tela?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
         if (op == JOptionPane.YES_OPTION) {
 
@@ -658,21 +660,44 @@ public class TelaPrincipal extends javax.swing.JFrame {
 //        pedido2.recebeOperador(lblOperador.getText(), lblCargo.getText());
 //        pedido2.setVisible(true);
         // Chama tela pedido 3
-        if (tp3==null){            
+        if (tp3 == null) {
             tp3 = new TelaPedido3();
             tp3.recebeOperador(lblOperador.getText(), lblCargo.getText());
-            
-        }        
+
+        }
         tp3.setVisible(true);
     }//GEN-LAST:event_btnLancarPedidoMouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
         // Chama tela do Caixa
-        if (caixa == null) {
-            caixa = new TelaCaixa();
-            caixa.recebeOperador(this, lblOperador.getText(), lblCargo.getText());
+
+        ControlerCaixa controlerCaixa = new ControlerCaixa();
+        ControlerFuncionario cf = new ControlerFuncionario();
+        // Verifica se existem alguma movimentação na data atual para o operador logado
+        boolean mov = controlerCaixa.temMovimentacao(Integer.parseInt(cf.localizaIdLogin(lblOperador.getText())));
+        // Se o operador possui movimentação abre Tela de Caixa    
+        ControlerCaixa controlCaixa = new ControlerCaixa();
+        int status = controlCaixa.retornaStatusCaixa(Integer.parseInt(cf.localizaIdLogin(lblOperador.getText())));
+        
+        if (status==1){
+                        
+            JOptionPane.showMessageDialog(this,"Caixa Fechado!");
+        }else {
+            if (mov) {
+
+                if (caixa == null) {
+                    caixa = new TelaCaixa();
+                    caixa.recebeOperador(this, lblOperador.getText(), lblCargo.getText());
+                }
+                caixa.setVisible(true);
+            } else {
+                TelaSaldoInicial saldoInicial = new TelaSaldoInicial();
+                saldoInicial.setModal(true);
+                saldoInicial.recebeOperador(lblOperador.getText(), lblCargo.getText());
+                saldoInicial.recebeTela(this);
+                saldoInicial.setVisible(true);
+            }
         }
-        caixa.setVisible(true);
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
@@ -684,7 +709,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         double nMesasOcupadas = dadosOcupacao.get(1);
 
         if (nMesasOcupadas > 0) {
-            int op = JOptionPane.showConfirmDialog(null, "Existem pedidos abertos! Deseja sair mesmo assim?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(this, "Existem pedidos abertos! Deseja sair mesmo assim?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {
 
@@ -735,10 +760,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
         d.setVisible(true);
     }//GEN-LAST:event_btnDeliveryMouseClicked
-   
-    public void atualizaTela(){        
-        caixa=null;
+
+    public void atualizaTela() {
+        caixa = null;
     }
+
     /**
      * @param args the command line arguments
      */
