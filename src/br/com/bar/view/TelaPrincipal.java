@@ -693,6 +693,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             } else {
                 TelaSaldoInicial saldoInicial = new TelaSaldoInicial();
                 saldoInicial.setModal(true);
+                saldoInicial.setAlwaysOnTop(true);
                 saldoInicial.recebeOperador(lblOperador.getText(), lblCargo.getText());
                 saldoInicial.recebeTela(this);
                 saldoInicial.setVisible(true);

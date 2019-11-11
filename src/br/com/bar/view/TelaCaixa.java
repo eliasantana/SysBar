@@ -165,7 +165,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         comboMes.setSelectedIndex(Integer.parseInt(mes) - 1);
         lblData.setText(utils.formataDataBr(data));
         bloqueiaControlePagamento();
-        lblMsgStatus.setVisible(true);
+        lblMsgStatus.setVisible(false);
 
         txtDesconto.setText("0,00");
         txtValorPago.setText("0,00");

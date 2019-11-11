@@ -23,12 +23,14 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
 /**
  *
  * @author Elias Santana
+ * javax.swing.JFrame
  */
 public class TelaDetalheMesa extends javax.swing.JFrame {
 

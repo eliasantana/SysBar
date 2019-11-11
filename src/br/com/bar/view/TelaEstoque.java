@@ -58,9 +58,9 @@ public class TelaEstoque extends javax.swing.JFrame {
         lblNomeOperador.setText(nomeOperador);
         this.principal = tela;
     }
-    
-    public void atualizaTelaGerenciarPedido(){
-        gp=null;
+
+    public void atualizaTelaGerenciarPedido() {
+        gp = null;
     }
 
     /**
@@ -558,15 +558,15 @@ public class TelaEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRAnkingMouseClicked
 
     private void btnCaixaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaixaMouseClicked
-
-    }//GEN-LAST:event_btnCaixaMouseClicked
-
-    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
         // Abre a tela de gerenciamento de caixa
         TelaGerenciamentoDeCaixa gx = new TelaGerenciamentoDeCaixa();
         gx.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
         gx.setAlwaysOnTop(true);
         gx.setVisible(true);
+    }//GEN-LAST:event_btnCaixaMouseClicked
+
+    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
+
     }//GEN-LAST:event_jLabel17MouseClicked
 
     private void jLabel24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel24MouseClicked
@@ -599,14 +599,14 @@ public class TelaEstoque extends javax.swing.JFrame {
     private void btnDownloadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDownloadMouseClicked
         // Chama a tela de Download de NFC-e
         if (download == null) {
-            download = new TelaDownloadNFCe();            
+            download = new TelaDownloadNFCe();
         }
-        download.setVisible(true);        
+        download.setVisible(true);
     }//GEN-LAST:event_btnDownloadMouseClicked
 
     private void btnPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPedidosMouseClicked
         // Chama a tela de Gestão de Pedidos
-        if (gp==null){
+        if (gp == null) {
             gp = new TelaGerenciarPedido();
             gp.setAlwaysOnTop(true);
             gp.recebeTelaGestao(this);
