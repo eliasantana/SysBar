@@ -441,7 +441,7 @@ public class ControlerCaixa {
         }
 
     }
-
+    
     /**
      * Troca a imagem do Jlabel Informado
      *

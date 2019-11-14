@@ -27,12 +27,12 @@ import net.proteanit.sql.DbUtils;
 public class TelaGerenciarPedido extends javax.swing.JFrame {
 
     TelaPedido3 tela;
-    TelaEstoque tg;
+    TelaEstoque telaGestao;
     ControlerMesa cm = new ControlerMesa();
     ControlerPedido cp = new ControlerPedido();
     ControlerEstoque ce = new ControlerEstoque();
     ControlerCozinha cc = new ControlerCozinha();
-    
+
     Util u = new Util();
     TelaDetalheMesa tlPedido;
 
@@ -68,10 +68,10 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         this.tela = tp3;
         this.btnMesa = btn;
     }
-    public void recebeTelaGestao(TelaEstoque telaGestao){
-        this.tg=telaGestao;
+
+    public void recebeTelaGestao(TelaEstoque telaGestao) {
+        this.telaGestao = telaGestao;
     }
-    
 
     //  Reebe dados da vindo da tela de Pedidos
     public void recebeOperador(JFrame janela, String operador, String cargo) {
@@ -125,7 +125,6 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         bordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -281,17 +280,17 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
 
         getContentPane().add(bordas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 400));
 
-        setSize(new java.awt.Dimension(730, 402));
+        setSize(new java.awt.Dimension(746, 441));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // Fecha janela
-        if (tlPedido!=null) {
+        if (tlPedido != null) {
             tlPedido.atualizaTelaGestão();
         }
-        if (tg!=null){
-            tg.atualizaTelaGerenciarPedido();
+        if (telaGestao != null) {
+            telaGestao.atualizaTelaGerenciarPedido();
         }
         dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
@@ -331,7 +330,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
             cp.atualizaQtdItem(txtIDItem.getText(), novaQtd, total);
             int devolve = qtdPedido - novaQtd;
             if (ce.entradaDeProduto(txtIdProduto.getText(), String.valueOf(devolve))) {
-                JOptionPane.showMessageDialog(null, "Produto(s) devolvido(s) ao estoque com sucesso!");
+                JOptionPane.showMessageDialog(this, "Produto(s) devolvido(s) ao estoque com sucesso!");
             }
             //Registra a movimentação
             ce.registraMovimentacao(txtIdProduto.getText(), String.valueOf(devolve), ce.localizaIdOperacao("Devolução"), "O cliente desistiu do produto");
@@ -368,16 +367,30 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                     TelaAtualizaItem atualizaItem = new TelaAtualizaItem();
                     atualizaItem.recebeQtdItem(this, txtQtd.getText());
                     atualizaItem.setModal(true);
+                    atualizaItem.setAlwaysOnTop(true);
                     atualizaItem.setVisible(true);
+                    String npedido = jcomboPedido.getSelectedItem().toString();
+                    String nmesa = lblNumeroMesa.getText();
                     //Atualiza a tabela detalhe do pedido na tela Gerenciar pedido.
-                    tlPedido.atuDetalheDoPedido(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString());
+                    if (tlPedido != null) {
+                        tlPedido.atuDetalheDoPedido(nmesa, npedido);
+                    } else {
+                        tblDetalhe.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString())));
+                        modelGerPedido.redimensionaColunas(tblDetalhe);
+                    }
 
                 } else {
                     // Se o pedido tiver quantidade igual a 1
                     if (cp.excluiItemPedido(txtIDItem.getText())) {
 
-                        // Atualiza a tabela a tela de Pedido
-                        tlPedido.atuDetalheDoPedido(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString());
+                        if (tlPedido != null) {
+                            // Atualiza a tabela a tela de Pedido
+                            tlPedido.atuDetalheDoPedido(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString());
+                        } else {
+                            tblDetalhe.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString())));
+                            modelGerPedido.redimensionaColunas(tblDetalhe);
+                        }
+
                         //Remove item do pedido
                         lblRemoverItemDoPedido.setEnabled(false);
                         // Devolve produdto ao estoque

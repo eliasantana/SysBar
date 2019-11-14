@@ -305,6 +305,7 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
     }//GEN-LAST:event_lblBtnCancelarMouseClicked
 
     private void txtNumeroNotaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroNotaKeyReleased
+        txtNumeroNota.setText(u.tamanhoMaximo(txtNumeroNota.getText(), 10));
         if (txtNumeroNota.getText().length()==0){
             txtAreaMensagem.setText(null);
             txtAreaMensagem.setEnabled(false);

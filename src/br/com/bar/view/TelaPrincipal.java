@@ -57,8 +57,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblData.setText(df.format(data)); // Exibe data atual
         lblCargo.setVisible(false);
         // Desabilita Botão Relatório
-        btnRelatorios.setEnabled(false);
-        jLabel16.setEnabled(false); // Icone do Botão Relatório
+        btnRelatorios.setEnabled(true);
+        labelRelatorios.setEnabled(true); // Icone do Botão Relatório
         // Verifica contas vencidas em aberto.
         btnDelivery.setVisible(false);
 
@@ -118,7 +118,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnFuncionarios1 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         btnRelatorios = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
+        labelRelatorios = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         lblFEchar = new javax.swing.JLabel();
         btnLancarPedido = new javax.swing.JPanel();
@@ -396,9 +396,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel16.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/relatorios48x48.png"))); // NOI18N
-        jLabel16.setText("Relatórios");
+        labelRelatorios.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        labelRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/relatorios48x48.png"))); // NOI18N
+        labelRelatorios.setText("Relatórios");
 
         javax.swing.GroupLayout btnRelatoriosLayout = new javax.swing.GroupLayout(btnRelatorios);
         btnRelatorios.setLayout(btnRelatoriosLayout);
@@ -406,14 +406,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             btnRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnRelatoriosLayout.createSequentialGroup()
                 .addContainerGap(16, Short.MAX_VALUE)
-                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelRelatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         btnRelatoriosLayout.setVerticalGroup(
             btnRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnRelatoriosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                .addComponent(labelRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -576,7 +576,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         // Fecha tela principal
         if (cz.pratoPendente() > 0) {
-            JOptionPane.showMessageDialog(this, "Existem pratos com liberação pendente!");
+            JOptionPane.showMessageDialog(this, "Existe(m) prato(s) com liberação pendente!");
         }
 
         int op = JOptionPane.showConfirmDialog(this, "Deseja realmente fechar esta tela?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
@@ -613,7 +613,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             contas.setModal(true);
         }
         contas.setVisible(true);
-
 
     }//GEN-LAST:event_btnConasApagarMouseClicked
 
@@ -683,21 +682,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         
             JOptionPane.showMessageDialog(this,"Caixa Fechado!");
         }else {
-            if (mov) {
-
                 if (caixa == null) {
                     caixa = new TelaCaixa();
                     caixa.recebeOperador(this, lblOperador.getText(), lblCargo.getText());
                 }
                 caixa.setVisible(true);
-            } else {
-                TelaSaldoInicial saldoInicial = new TelaSaldoInicial();
-                saldoInicial.setModal(true);
-                saldoInicial.setAlwaysOnTop(true);
-                saldoInicial.recebeOperador(lblOperador.getText(), lblCargo.getText());
-                saldoInicial.recebeTela(this);
-                saldoInicial.setVisible(true);
-            }
+           
         }
     }//GEN-LAST:event_jLabel12MouseClicked
 
@@ -816,7 +806,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -825,6 +814,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel labelRelatorios;
     private javax.swing.JLabel lblBtnPagamentos;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblData;

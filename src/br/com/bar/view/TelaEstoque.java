@@ -117,7 +117,6 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
         getContentPane().setLayout(null);
 
         borda.setBackground(new java.awt.Color(204, 204, 204));
@@ -293,7 +292,7 @@ public class TelaEstoque extends javax.swing.JFrame {
             }
         });
         btnCaixa.add(jLabel17);
-        jLabel17.setBounds(10, 0, 100, 100);
+        jLabel17.setBounds(10, 0, 180, 100);
 
         jLabel23.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(52, 73, 94));
@@ -477,7 +476,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         getContentPane().add(borda);
         borda.setBounds(0, 0, 820, 460);
 
-        setSize(new java.awt.Dimension(821, 460));
+        setSize(new java.awt.Dimension(837, 499));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -558,15 +557,15 @@ public class TelaEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRAnkingMouseClicked
 
     private void btnCaixaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaixaMouseClicked
+
+    }//GEN-LAST:event_btnCaixaMouseClicked
+
+    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
         // Abre a tela de gerenciamento de caixa
         TelaGerenciamentoDeCaixa gx = new TelaGerenciamentoDeCaixa();
         gx.recebeOperador(lblNomeOperador.getText(), lblCargo.getText());
         gx.setAlwaysOnTop(true);
         gx.setVisible(true);
-    }//GEN-LAST:event_btnCaixaMouseClicked
-
-    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
-
     }//GEN-LAST:event_jLabel17MouseClicked
 
     private void jLabel24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel24MouseClicked

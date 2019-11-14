@@ -72,7 +72,7 @@ public class TelaDownloadNFCe extends javax.swing.JFrame {
                 {null}
             },
             new String [] {
-                "BACKUP POR ANO/ MÊS DE REFERÊNCIA"
+                "BACKUP POR ANO/MÊS DE REFERÊNCIA"
             }
         ));
         tbDownload.setRowHeight(21);

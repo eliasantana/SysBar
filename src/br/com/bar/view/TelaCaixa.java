@@ -137,8 +137,11 @@ public class TelaCaixa extends javax.swing.JFrame {
     double voucher = 0;
     double dinheiroPago = 0;
     String idDelivery;
-
+    String operador;
+    String cargo;
+    
     public TelaCaixa() {
+        
         initComponents();
         if (ambiente == 1 && flagFiscal == 1) {
             //lblAmbiante.setVisible(false);
@@ -179,7 +182,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         //caixa.statusCaixa(jLabel1, foiCancelada, lblPago);
         caixa.statusCaixa(lblStatus, foiCancelada, lblMsgStatus);
-
+        
     }
 
     /**
@@ -287,6 +290,11 @@ public class TelaCaixa extends javax.swing.JFrame {
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 formFocusGained(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
         getContentPane().setLayout(null);
@@ -1234,7 +1242,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void btnFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFecharMouseClicked
         //Sai da tela Caixa
-        if (principal!=null) {
+        if (principal != null) {
             principal.atualizaTela();
         }
         if ("Gerente".equals(lblCargo.getText())) {
@@ -1858,16 +1866,16 @@ public class TelaCaixa extends javax.swing.JFrame {
             // Conta os elementos de um combobox
             int op;
             if (comboMesa.getItemCount() > 1) {
-                op = JOptionPane.showConfirmDialog(null, lblOperador.getText().toUpperCase() + " existem Mesas abertas! Tem certeza que deseja fechar o caixa mesmo assim?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                op = JOptionPane.showConfirmDialog(null, lblOperador.getText().toUpperCase() + ", existe(m) Mesas aberta(s)! Tem certeza que deseja fechar o Caixa mesmo assim?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             } else {
                 op = JOptionPane.showConfirmDialog(null, lblOperador.getText().toUpperCase() + " tem certeza que deseja fechar seu caixa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             }
 
             if (op == JOptionPane.YES_OPTION) {
-                   // eXLUIR APÓS VALIDAÇÃO DE FECHAMENTO DE CAIXA
-                   //  if (caixa.temMovimentacao(cx.getIdFuncionario())) { // Verifica se existe movimentação no dia para este operador.
+                // eXLUIR APÓS VALIDAÇÃO DE FECHAMENTO DE CAIXA
+                //  if (caixa.temMovimentacao(cx.getIdFuncionario())) { // Verifica se existe movimentação no dia para este operador.
 //                    JOptionPane.showMessageDialog(null, "Caixa fechado, contate o administrador!");
-                if (caixa.retornaStatusCaixa(cx.getIdFuncionario())==1) { // Verifica se existe movimentação no dia para este operador.
+                if (caixa.retornaStatusCaixa(cx.getIdFuncionario()) == 1) { // Verifica se existe movimentação no dia para este operador.
                     JOptionPane.showMessageDialog(null, "Caixa fechado, contate o administrador!");
 
                 } else {
@@ -2391,17 +2399,25 @@ public class TelaCaixa extends javax.swing.JFrame {
     private void checkReimpressaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkReimpressaoMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_checkReimpressaoMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        
+        chamaTelaSaldoInicial();
+    }//GEN-LAST:event_formWindowOpened
     public void recebeOperador(TelaPrincipal tela, String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
         lblCargo.setText(cargo);
         l.setUsuario(operador);
         String id = func.localizaIdLogin(operador);
+        this.operador = operador;
+        this.cargo = cargo;
         btnListar.setEnabled(false);
-        //caixa.statusCaixa(lblStatus, caixa.temMovimentacao(Integer.parseInt(id)), lblMsgStatus);
+       
         caixa.statusCaixa(lblStatus, caixa.retornaStatusCaixa(Integer.parseInt(id)), lblMsgStatus);
 
-        if ("Caixa Fechado".equals(lblMsgStatus.getText())) {
+        if ("Caixa Fechado".equals(lblMsgStatus.getText())) {        
+            
             lblReceber.setEnabled(false);
             lblReceberPAgamento.setEnabled(false);
             btnFecharCaixa.setEnabled(false);
@@ -2418,7 +2434,8 @@ public class TelaCaixa extends javax.swing.JFrame {
             if (comboMesa.getItemCount() == 1) {
                 btnListar.setEnabled(false);
                 comboMesa.setEnabled(false);
-            }
+
+            }            
         }
         if ("Gerente".equals(lblCargo.getText())) {
             lblAlteraSenha.setVisible(false);
@@ -2426,8 +2443,29 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         // Armazena a instância da tela Principal
         this.principal = tela;
+
     }
 
+    public void trocaicone(String statusCaixa){
+        
+        if ("Fechado".equals(statusCaixa)){
+            caixa.statusCaixa(lblStatus, true, lblMsgStatus);
+        }else {
+            caixa.statusCaixa(lblStatus, false, lblMsgStatus);            
+        }
+    }
+    public void chamaTelaSaldoInicial(){
+        
+        boolean mov = caixa.temMovimentacao(Integer.parseInt(func.localizaIdLogin(operador)));
+            if (!mov) {
+                caixa.statusCaixa(lblStatus, true, lblMsgStatus);
+                TelaSaldoInicial saldoInicial = new TelaSaldoInicial();
+                saldoInicial.setModal(true);
+                saldoInicial.recebeTela(this);
+                saldoInicial.recebeOperador(operador, cargo);
+                saldoInicial.setVisible(true);
+            }
+    }
     public void limpaForm() {
         txtIdMEsa.setText(null);
         txtIdPedido.setText(null);
@@ -2882,7 +2920,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         double saldo = caixa.totalizaEntradas(lblOperador.getText()) - caixa.totalizaSaida(lblOperador.getText());
         saldo = saldo + saldoInicial;
         lblSaldo.setText(String.format("%9.2f", saldo));
-        
+
     }
 
     private void bloqueiaControlePagamento() {
@@ -2965,7 +3003,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             debito = Double.parseDouble(txtMistoDebito.getText().replace(",", "."));
             voucher = Double.parseDouble(txtMistoVoucher.getText().replace(",", "."));
         } catch (NumberFormatException e) {
-            System.out.println("Informe um valor válido!");
+            //System.out.println("Informe um valor válido!");
         }
 
         //double totalPedido = Double.parseDouble(lblTotal.getText().replace(",", "."));
@@ -3026,7 +3064,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                         dinheiro = Double.parseDouble(vlrDrinheiroPago);
                         dinheiroPago = Double.parseDouble(vlrDrinheiroPago);
                         dinheiro = dinheiroPago;
-                        System.out.println("Valor Real Dinheiro" + dinheiro);
+                        //System.out.println("Valor Real Dinheiro" + dinheiro);
                         //else if ((dinheiro > 0) && (totalMisto == totalPedido)) // Excluir após validação
                     } else if (totalMisto == totalPedido) {
                         // Habilita Recebimento

@@ -718,8 +718,8 @@ public class TelaContasApagar extends JDialog {
                         System.out.println("Valor Pagto: " + valorPg);
                         //Total pago - Saidas
                         double saidas = caixa.totalizaSaida(lblOperador.getText());
-
-                        double saldoEspecie = totalEspecie - saidas;
+                        double saldoInicial = caixa.retornaSaldoInicial(txtIdFuncionario.getText());
+                        double saldoEspecie = (totalEspecie+saldoInicial) - saidas;
 
                         /*Visualiza cálculo
                         System.out.println("Total Especie: "+totalEspecie);
@@ -732,6 +732,7 @@ public class TelaContasApagar extends JDialog {
                         } else {
 
                             // Verifica se existe saldo em espécie suficiente para o pagamento da conta.
+                            
                             if (saldoEspecie < valorPg) {
                                 JOptionPane.showMessageDialog(this, "Saldo do Caixa em espécie insuficiente!", "Atenção!", JOptionPane.ERROR_MESSAGE);
                             } else {

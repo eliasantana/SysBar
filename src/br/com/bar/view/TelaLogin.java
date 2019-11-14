@@ -227,6 +227,9 @@ public class TelaLogin extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtSenhaKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyReleased(evt);
+            }
         });
         jPanel2.add(txtSenha);
         txtSenha.setBounds(40, 200, 250, 40);
@@ -322,7 +325,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 // Executa módulo de Backup na inicialização após verificação.
 
                 String cargo = autentica.enviarCargo();
-                System.out.println("Cargo: " + cargo);
+                //System.out.println("Cargo: " + cargo);
                 switch (cargo) {
                     case "Gerente": // Vai para tela principal
                         TelaPrincipal principal = new TelaPrincipal();
@@ -340,46 +343,29 @@ public class TelaLogin extends javax.swing.JFrame {
                         this.dispose();
                         break;
                     case "Garçom":
-                        // Vai para tela de garçom
-                        // Chama a tela Pedido 2
-//                        TelaPedido2 pedido2 = new TelaPedido2();
-//                        pedido2.recebeOperador(autentica.enviaOperador(), autentica.enviarCargo());
-//                        pedido2.setVisible(true);
-                        // Chama Tela Pedido 3
                         TelaPedido3 tp3 = new TelaPedido3();
                         tp3.recebeOperador(autentica.enviaOperador(), autentica.enviarCargo());
                         tp3.setVisible(true);
                         this.dispose();
                         break;
                     case "Caixa": // Vai para tela Estoque
-
-//                        TelaCaixa caixa = new TelaCaixa();
-//                        TelaPrincipal tp = new TelaPrincipal();
-//                        caixa.recebeOperador(tp, autentica.enviaOperador().toUpperCase(), autentica.enviarCargo());
-//                        caixa.setVisible(true);
-                        
                         // Chama tela do Caixa
                         ControlerCaixa controlerCaixa = new ControlerCaixa();
-                        // Verifica se existem alguma movimentação na data atual para o operador logado
-                        boolean mov = controlerCaixa.temMovimentacao(Integer.parseInt(cf.localizaIdLogin(autentica.enviaOperador())));
+//                        // Verifica se existem alguma movimentação na data atual para o operador logado
+//                        boolean mov = controlerCaixa.temMovimentacao(Integer.parseInt(cf.localizaIdLogin(autentica.enviaOperador())));
                         // Se o operador possui movimentação abre Tela de Caixa       
                         int statusCaixa = controlerCaixa.retornaStatusCaixa(Integer.parseInt(cf.localizaIdLogin(autentica.enviaOperador())));
                         if (statusCaixa==1){
-                            JOptionPane.showMessageDialog(this, "Caixa Fechado, Infome ao Gerente");
+                            JOptionPane.showMessageDialog(this, "Caixa Fechado, Infome ao seu Gerente");
+                            TelaLogin login = new TelaLogin();
+                            login.setVisible(true);
                         }else {
-                            if (mov) {
                                 TelaCaixa caixa = new TelaCaixa();
                                 TelaPrincipal telaPrincipal = new TelaPrincipal();
                                 caixa.recebeOperador(telaPrincipal, autentica.enviaOperador().toUpperCase(), autentica.enviarCargo());
-                                caixa.setVisible(true);
-                            } else {
-                                TelaSaldoInicial saldoInicial = new TelaSaldoInicial();
-                                saldoInicial.setModal(true);
-                                saldoInicial.recebeOperador(autentica.enviaOperador().toUpperCase(), autentica.enviarCargo());
-                                saldoInicial.setVisible(true);
-                            }                            
+                                caixa.setVisible(true);   
                         }
-                        //this.dispose();
+                        this.dispose();
                         break;
                     case "Cozinheiro": // Vai para Cozinha
                         TelaConzinha cozinha = new TelaConzinha();
@@ -460,6 +446,11 @@ public class TelaLogin extends javax.swing.JFrame {
                 acumula = 0;
                 btnLogin.setEnabled(true);
                 txtSenha.requestFocus();
+                //
+                txtSenha.setText(null);
+                lblMsg.setText(null);
+                lblMsg2.setText(null);
+                        
             } else {
                 lblMsg.setText("*Usuário bloqueado, procure um Administrador!");
                 txtSenha.setEnabled(false);
@@ -468,6 +459,10 @@ public class TelaLogin extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_comboLoginActionPerformed
+
+    private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyReleased
+        txtSenha.setText(u.tamanhoMaximo(txtSenha.getText(), 10));
+    }//GEN-LAST:event_txtSenhaKeyReleased
 
     /**
      * @param args the command line arguments

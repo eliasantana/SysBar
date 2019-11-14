@@ -6,6 +6,7 @@
 package br.com.bar.view;
 
 import br.com.bar.util.FormataValor;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCaixa;
 import br.com.br.controler.ControlerFuncionario;
 import java.awt.event.KeyEvent;
@@ -20,6 +21,8 @@ public class TelaSaldoInicial extends JDialog {
 
     ControlerCaixa cx = new ControlerCaixa();
     ControlerFuncionario cf = new ControlerFuncionario();
+    Util u = new Util();
+    
     int idFuncLogado;
 
     TelaCaixa telaCaixa;
@@ -30,6 +33,7 @@ public class TelaSaldoInicial extends JDialog {
     public TelaSaldoInicial() {
         initComponents();
         this.setModal(true);
+        btnAbrirCaixa.setEnabled(false);
     }
 
     /**
@@ -48,6 +52,7 @@ public class TelaSaldoInicial extends JDialog {
         jLabel3 = new javax.swing.JLabel();
         txtSaldoInicial = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
+        btnAbrirCaixa = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -55,7 +60,7 @@ public class TelaSaldoInicial extends JDialog {
         setUndecorated(true);
         getContentPane().setLayout(null);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         jPanel1.setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(255, 0, 0));
@@ -79,9 +84,8 @@ public class TelaSaldoInicial extends JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,10 +97,17 @@ public class TelaSaldoInicial extends JDialog {
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 0, 270, 40);
+        jPanel2.setBounds(1, 1, 298, 40);
 
         txtSaldoInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        txtSaldoInicial.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtSaldoInicial.setText("0,00");
         txtSaldoInicial.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtSaldoInicial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtSaldoInicialMouseClicked(evt);
+            }
+        });
         txtSaldoInicial.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtSaldoInicialKeyPressed(evt);
@@ -106,17 +117,26 @@ public class TelaSaldoInicial extends JDialog {
             }
         });
         jPanel1.add(txtSaldoInicial);
-        txtSaldoInicial.setBounds(90, 60, 120, 30);
+        txtSaldoInicial.setBounds(50, 50, 100, 40);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel4.setText("R$");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(40, 60, 50, 30);
+        jLabel4.setBounds(10, 50, 50, 40);
+
+        btnAbrirCaixa.setText("Abrir Caixa");
+        btnAbrirCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbrirCaixaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAbrirCaixa);
+        btnAbrirCaixa.setBounds(160, 50, 130, 40);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 270, 110);
+        jPanel1.setBounds(0, 0, 300, 110);
 
-        setSize(new java.awt.Dimension(271, 110));
+        setSize(new java.awt.Dimension(300, 110));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -124,38 +144,57 @@ public class TelaSaldoInicial extends JDialog {
         this.dispose();
         if (telaCaixa != null) {
             this.telaCaixa.dispose();
+            telaCaixa.principal.atualizaTela();
         }
+        if (!"Gerente".equals(cargo)){
+            TelaLogin login = new TelaLogin();
+            login.setVisible(true);
+        }
+
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void txtSaldoInicialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoInicialKeyPressed
+          
+          
+          txtSaldoInicial.setText(u.tamanhoMaximo(txtSaldoInicial.getText(),7-1));
+          if (txtSaldoInicial.getText().length()==0){
+              btnAbrirCaixa.setEnabled(false);
+          }
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (!txtSaldoInicial.getText().isEmpty()) {
                 FormataValor fv = new FormataValor();
                 // Formata o valor digitado em decimal
                 txtSaldoInicial.setText(fv.Formata(txtSaldoInicial.getText()));
-                double saldoIni;
-                    saldoIni = Double.parseDouble(txtSaldoInicial.getText().replace(",", "."));
-                    // Colicita confirmação do usuário. 
-                    int op = JOptionPane.showConfirmDialog(this, "Iniciar caixa com o saldo inicial de R$ " + txtSaldoInicial.getText() + "?", "Confirma a abertura do caixa?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-
-                    if (op == JOptionPane.YES_OPTION) {
-                        // Realiza a abertura do caixa com o saldo incial informado
-                        if (cx.abreCaixa(saldoIni, idFuncLogado)) {
-                            this.dispose();
-                            telaCaixa = new TelaCaixa();
-                            telaCaixa.recebeOperador(telaPrincipal, operador, cargo);
-                            telaCaixa.setVisible(true);
-                        }
-                    } else {
-                        dispose();
-                    }
             }
+            btnAbrirCaixa.setEnabled(true);
         }
     }//GEN-LAST:event_txtSaldoInicialKeyPressed
 
     private void txtSaldoInicialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoInicialKeyReleased
-
+          txtSaldoInicial.setText(txtSaldoInicial.getText().replaceAll("[^0-9.,]",""));
     }//GEN-LAST:event_txtSaldoInicialKeyReleased
+
+    private void btnAbrirCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirCaixaActionPerformed
+        // Realiza a abertura do caixa
+        double saldoIni;
+        saldoIni = Double.parseDouble(txtSaldoInicial.getText().replace(",", "."));
+        // Colicita confirmação do usuário. 
+        int op = JOptionPane.showConfirmDialog(this, "Abrir o Caixa com o saldo inicial R$ " + txtSaldoInicial.getText() + "?", "Confirma a abertura do caixa?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+
+        if (op == JOptionPane.YES_OPTION) {
+            // Realiza a abertura do caixa com o saldo incial informado
+            if (cx.abreCaixa(saldoIni, idFuncLogado)) {
+                telaCaixa.trocaicone("Aberto");
+                this.dispose();
+            }
+        } else {
+            txtSaldoInicial.setText("0,00");
+        }
+    }//GEN-LAST:event_btnAbrirCaixaActionPerformed
+
+    private void txtSaldoInicialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSaldoInicialMouseClicked
+        txtSaldoInicial.setText(null);       
+    }//GEN-LAST:event_txtSaldoInicialMouseClicked
     public void recebeTela(TelaPrincipal principal) {
         //this.telaCaixa = tcx;
         this.telaPrincipal = principal;
@@ -166,7 +205,11 @@ public class TelaSaldoInicial extends JDialog {
         this.cargo = cargo;
         this.operador = operador;
         this.idFuncLogado = Integer.parseInt(cf.localizaIdLogin(operador));
-        System.out.println("Funcionario Logado: " + idFuncLogado);
+        
+    }
+
+    public void recebeTela(TelaCaixa tc) {
+        this.telaCaixa = tc;
     }
 
     /**
@@ -205,6 +248,7 @@ public class TelaSaldoInicial extends JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAbrirCaixa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -884,7 +884,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     }//GEN-LAST:event_lblAlterarSenhaMouseClicked
 
     private void txtCodigoProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoProdutoKeyReleased
-        txtCodigoProduto.setText(txtCodigoProduto.getText().replaceAll("[^0-9]", ""));
+        txtCodigoProduto.setText(txtCodigoProduto.getText().replaceAll("[^0-9]",""));
         
         // Limpa dos campos código e quantidade e bloqueia o TextFild quantidade
 
