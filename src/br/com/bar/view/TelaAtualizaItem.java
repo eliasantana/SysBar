@@ -52,6 +52,7 @@ public class TelaAtualizaItem extends JDialog {
         lblMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setLayout(null);
@@ -115,7 +116,7 @@ public class TelaAtualizaItem extends JDialog {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
         );
 
-        setBounds(550, 100, 275, 193);
+        setBounds(550, 100, 259, 154);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed

@@ -90,7 +90,12 @@ public class TableModelCozinha extends AbstractTableModel {
                     boolean isSelected, boolean hasFocus, int row, int column) {
                 super.getTableCellRendererComponent(tabela, value, isSelected, hasFocus, row, column);
                 //A coluna do status é 8
-                Object ref = tabela.getValueAt(row, 8);//Coluna Status
+                Object ref=null;
+                try {
+                    
+                 ref = tabela.getValueAt(row, 8);//Coluna Status
+                } catch (Exception e) {
+                }
                 //Coloca cor em todas as linhas,COLUNA(8) que tem o valor "Pendente"
                 
                  if (ref != null && ref.equals("EM PREPARAÇÃO")) {//Se Status for igual a "Pendente"

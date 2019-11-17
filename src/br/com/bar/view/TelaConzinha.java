@@ -8,6 +8,7 @@ package br.com.bar.view;
 import br.com.bar.dao.Log;
 import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.Funcionario;
+import br.com.bar.model.ProdutoCozinha;
 import br.com.bar.model.TableModelCozinha;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCozinha;
@@ -38,6 +39,7 @@ public class TelaConzinha extends javax.swing.JFrame {
     ControlerFuncionario cf = new ControlerFuncionario();
     TableModelCozinha modelCozinha = new TableModelCozinha();
     TelaAlteraSenha2 alteraSenha2;
+    ProdutoCozinha pc;
     
     Funcionario f = new Funcionario();
     Util u = new Util();
@@ -98,6 +100,13 @@ public class TelaConzinha extends javax.swing.JFrame {
             lblSair.setVisible(false);
         }
 
+    }
+    
+    public void atualizaTabelaCozinha(){
+                tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
+                // Modifica o tamanho das colunas da tabela
+                modelCozinha.redimensionaColunas(tblCozinha);
+                modelCozinha.adicionaCoresTabela(tblCozinha);
     }
     
     // Atualiza a tela de senha após clique no botão cancelar
@@ -465,7 +474,18 @@ public class TelaConzinha extends javax.swing.JFrame {
 
     private void tblCozinhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCozinhaMouseClicked
         int linha = tblCozinha.getSelectedRow();
+        //SEQ - PRATO - QTD - GARÇOM - MESA - COZINHEIRO - HORA - ESPERA - STATUS
+        pc= new ProdutoCozinha();
+        pc.setSeq(tblCozinha.getModel().getValueAt(linha, 0).toString());
+        pc.setPrato(tblCozinha.getModel().getValueAt(linha, 1).toString());
+        pc.setQtd(tblCozinha.getModel().getValueAt(linha, 2).toString());
+        pc.setGarcom(tblCozinha.getModel().getValueAt(linha, 3).toString());
+        pc.setnMesa(tblCozinha.getModel().getValueAt(linha, 4).toString());
+        pc.setCozinheiro(tblCozinha.getModel().getValueAt(linha, 5).toString());
+        pc.settEspera(tblCozinha.getModel().getValueAt(linha, 7).toString());
+        pc.setStatus(tblCozinha.getModel().getValueAt(linha, 8).toString());
 
+        
         lblMsg.setText(null);
         // Captura o Status do prato
         status = tblCozinha.getModel().getValueAt(linha, 8).toString();
@@ -566,32 +586,41 @@ public class TelaConzinha extends javax.swing.JFrame {
 
                 int resp = JOptionPane.showConfirmDialog(this, "Confirma a exclusão deste prato?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (resp == JOptionPane.YES_OPTION) {
-                    if (cc.removePrato(txtidProdutoCozinha.getText())) {
-                       
-                        ResultSet result = cc.listaProdutosCozinha();
-                        // Log
-                        Log l = new Log(lblOperador.getText(), "Remover", "Removeu o prato->" + txtidProdutoCozinha.getText());
-                        l.gravaLog(l);
-                        try {
+                    if (Integer.parseInt(pc.getQtd())>1){
+                        TelaAtualizaItemCozinha atualizaItem = new TelaAtualizaItemCozinha();
+                        atualizaItem.setAlwaysOnTop(true);
+                        atualizaItem.setModal(true);
+                        atualizaItem.recebeItemCozinha(this, pc);
+                        atualizaItem.setVisible(true);
+                    }else{
+                        
+                        if (cc.removePrato(txtidProdutoCozinha.getText())) {
 
-                            if (result.next()) {
-                                tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
-                                modelCozinha.redimensionaColunas(tblCozinha);
-                                modelCozinha.adicionaCoresTabela(tblCozinha);
-                            } else {
-                                lblREmovePrato.setEnabled(false);
-                                lblLiberaRefeicao.setEnabled(false);
-                                lblPreparar.setEnabled(false);
-                                tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
-                                modelCozinha.redimensionaColunas(tblCozinha);
-                                modelCozinha.adicionaCoresTabela(tblCozinha);
+                            ResultSet result = cc.listaProdutosCozinha();
+                            // Log
+                            Log l = new Log(lblOperador.getText(), "Remover", "Removeu o prato->" + txtidProdutoCozinha.getText());
+                            l.gravaLog(l);
+                            try {
+
+                                if (result.next()) {
+                                    tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
+                                    modelCozinha.redimensionaColunas(tblCozinha);
+                                    modelCozinha.adicionaCoresTabela(tblCozinha);
+                                } else {
+                                    lblREmovePrato.setEnabled(false);
+                                    lblLiberaRefeicao.setEnabled(false);
+                                    lblPreparar.setEnabled(false);
+                                    tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
+                                    modelCozinha.redimensionaColunas(tblCozinha);
+                                    modelCozinha.adicionaCoresTabela(tblCozinha);
+                                }
+                            } catch (SQLException e) {
+                                System.out.println("br.com.bar.view.TelaConzinha.lblREmovePratoMouseClicked()" + e);
                             }
-                        } catch (SQLException e) {
-                            System.out.println("br.com.bar.view.TelaConzinha.lblREmovePratoMouseClicked()" + e);
+                            lblObservacao.setVisible(false);
+                            jTextAreaObservacao.setText(null);
+                            jTextAreaObservacao.setVisible(false);
                         }
-                        lblObservacao.setVisible(false);
-                        jTextAreaObservacao.setText(null);
-                        jTextAreaObservacao.setVisible(false);
                     }
 
                 } else {

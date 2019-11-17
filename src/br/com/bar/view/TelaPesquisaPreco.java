@@ -230,7 +230,9 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // Atualiza Tela de Pesquis de preco ao fechar janela
-        telaDetalhe.atualizaTela();
+        if (telaDetalhe!=null){           
+                telaDetalhe.atualizaTela();
+        }
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

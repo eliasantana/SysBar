@@ -355,10 +355,10 @@ private void cronometro() {
                 //Realiza uma contagem a incremento de 1 acadas segundo.
 
                 s = s + 1;
-                System.out.println(s);
+                //System.out.println(s);
                 // Verifica se a contagem atingiu o limite informado para bloqueio da tela.
                 if (s == limite) {
-                    System.out.println("Atualizando");
+                    //System.out.println("Atualizando");
                     atualizaTela();
                     s=0;
                 }

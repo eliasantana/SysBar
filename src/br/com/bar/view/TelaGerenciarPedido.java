@@ -125,9 +125,10 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        bordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        bordas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         bordas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(243, 156, 18));
@@ -187,7 +188,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         jPanel3.setLayout(null);
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 0, 0));
 
-        bordas.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 99));
+        bordas.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, 728, 99));
 
         jcomboPedido.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jcomboPedido.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -280,7 +281,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
 
         getContentPane().add(bordas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 400));
 
-        setSize(new java.awt.Dimension(746, 441));
+        setSize(new java.awt.Dimension(730, 402));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

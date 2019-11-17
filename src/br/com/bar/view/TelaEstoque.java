@@ -117,6 +117,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(null);
 
         borda.setBackground(new java.awt.Color(204, 204, 204));
@@ -476,7 +477,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         getContentPane().add(borda);
         borda.setBounds(0, 0, 820, 460);
 
-        setSize(new java.awt.Dimension(837, 499));
+        setSize(new java.awt.Dimension(821, 460));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

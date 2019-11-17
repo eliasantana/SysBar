@@ -20,10 +20,11 @@ import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
@@ -913,6 +914,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
             pCozinha.add("Pendente"); // Status Pendente - Liberado
             pCozinha.add(lblNPedido.getText());
             Date dtAtual = new Date();
+            
             Timestamp tms = new Timestamp(dtAtual.getTime());
             pCozinha.add(String.valueOf(tms)); // Data Atual 
             int op = JOptionPane.showConfirmDialog(this, "Deseja adicionar uma observação?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);

@@ -351,8 +351,6 @@ public class TelaLogin extends javax.swing.JFrame {
                     case "Caixa": // Vai para tela Estoque
                         // Chama tela do Caixa
                         ControlerCaixa controlerCaixa = new ControlerCaixa();
-//                        // Verifica se existem alguma movimentação na data atual para o operador logado
-//                        boolean mov = controlerCaixa.temMovimentacao(Integer.parseInt(cf.localizaIdLogin(autentica.enviaOperador())));
                         // Se o operador possui movimentação abre Tela de Caixa       
                         int statusCaixa = controlerCaixa.retornaStatusCaixa(Integer.parseInt(cf.localizaIdLogin(autentica.enviaOperador())));
                         if (statusCaixa==1){

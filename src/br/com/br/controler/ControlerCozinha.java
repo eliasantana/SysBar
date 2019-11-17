@@ -7,6 +7,7 @@ package br.com.br.controler;
 
 import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.ReportUtil;
+import br.com.bar.model.ProdutoCozinha;
 import br.com.bar.model.TableModelCozinha;
 import br.com.bar.util.Util;
 import java.sql.Connection;
@@ -53,6 +54,7 @@ public class ControlerCozinha {
 //                + " status AS 'STATUS'    \n"
 //                + " FROM dbbar.tbcozinha \n"
 //                + " WHERE status IN ('Pendente', 'Em preparação');";
+//Original
         String sql = "SELECT id AS 'SEQ', \n"
                 + "upper(produto) AS 'PRATO', \n"
                 + "qtd AS 'QTD', \n"
@@ -401,5 +403,23 @@ public class ControlerCozinha {
         }
 
         return obs;
+    }
+    
+    // Atualiza a quantidade do produto na cozinha
+    public boolean atualizaItemCozinha(ProdutoCozinha pc){
+        boolean resp=false;
+        String sql="UPDATE tbcozinha SET qtd=? WHERE id=?";
+        try {
+            conexao = ConexaoBd.conector();
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, pc.getQtd());
+            pst.setString(2, pc.getSeq());
+            pst.executeUpdate();
+            resp=true;
+            
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerCozinha.atualizaItemCozinha()"+e);
+        }
+        return resp;
     }
 }
