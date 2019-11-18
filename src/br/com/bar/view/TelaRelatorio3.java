@@ -395,9 +395,12 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                         HashMap map = new HashMap();
                         String dataInicio = u.formataDataBanco(dtInicio.getDate());
                         String dataFim = u.formataDataBanco(dtFim.getDate());
+                        String inicio = u.formataDataHora(dtInicio.getDate(), "br");
+                        String fim = u.formataDataHora(dtFim.getDate(), "br");                 
 
-                        map.put("inicio", dataInicio);
+                        map.put("inicio", dataInicio);                        
                         map.put("fim", dataFim);
+                        map.put("periodo", inicio+" - "+fim);
 
                         rpu.imprimeRelatorioTela("caixaSintetico.jasper", rodape(dados, map),"Caixa Sintético");
 

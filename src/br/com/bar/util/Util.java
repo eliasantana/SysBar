@@ -172,7 +172,12 @@ public class Util {
         f.setAlwaysOnTop(true);
         f.setVisible(true);
     }
-
+    /**
+     * Formata a data Informada
+     * @param data Objeto Date
+     * @param opcao Tipo de Formatação d-> yyyy-MM-dd h->HHmmss dh->dd-MM-yyy HH:mm br->dd/MM/yyy
+     * 
+     */
     public String formataDataHora(Date data, String opcao) {
 
         String d = "";
@@ -180,6 +185,7 @@ public class Util {
         //String paternHora = "hh:mm:ss";
         String paternHora = "HHmmss";
         String paternDataHora = "dd-MM-yyy HH:mm";
+        String paternDtBr = "dd/MM/yyy";
         // Verifica opção de formatação e aplica o patern
         switch (opcao) {
 
@@ -194,6 +200,10 @@ public class Util {
             case "dh":// Formada hora no formato do bando de dados Mysql
                 SimpleDateFormat dfDataHora = new SimpleDateFormat(paternDataHora);
                 d = dfDataHora.format(data);
+                break;
+            case "br":// Formada hora no formato do bando de dados Mysql
+                SimpleDateFormat dtBr = new SimpleDateFormat(paternDtBr);
+                d = dtBr.format(data);
                 break;
         }
 
