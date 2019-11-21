@@ -5,8 +5,10 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.util.Util;
 import java.awt.event.KeyEvent;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +17,8 @@ import javax.swing.JDialog;
 public class TelaAtualizaItem extends JDialog {
 
     TelaGerenciarPedido gPedido;
+    Util u = new Util();
+    
     int qtdPedido;
 
 
@@ -74,6 +78,9 @@ public class TelaAtualizaItem extends JDialog {
         txtQtd.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtQtdKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtQtdKeyReleased(evt);
             }
         });
         jPanel2.add(txtQtd);
@@ -135,6 +142,11 @@ public class TelaAtualizaItem extends JDialog {
         }
     }//GEN-LAST:event_txtQtdKeyPressed
 
+    private void txtQtdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQtdKeyReleased
+        txtQtd.setText(u.tamanhoMaximo(txtQtd.getText(), 2));
+        txtQtd.setText(txtQtd.getText().replaceAll("[^0-9]",""));
+    }//GEN-LAST:event_txtQtdKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -183,17 +195,23 @@ public class TelaAtualizaItem extends JDialog {
      // Pedido qtd: 3 informado=2
     private void validaQuantidade() {
         // Quantidade a ser removida informada pelo usuário
-        int qtdInformada = Integer.parseInt(txtQtd.getText());
+        int qtdInformada=0;
+        try {
+            qtdInformada = Integer.parseInt(txtQtd.getText());
 
-        // Verifica a quantidade digitada
-        if (qtdInformada <= 0 || qtdInformada > qtdPedido) {
-            lblMsg.setText("*Quantidade informada inválida!");
-        } else {
-           
-           int qtdAtualizada=qtdPedido-qtdInformada;
-           //Devolve quantidade a ser atualizada
-           gPedido.recebeNovaQtd(qtdAtualizada);//0
-           dispose();
+            // Verifica a quantidade digitada
+            if (qtdInformada <= 0 || qtdInformada > qtdPedido) {
+                lblMsg.setText("*Quantidade informada inválida!");
+            } else {
+
+                int qtdAtualizada = qtdPedido - qtdInformada;
+                //Devolve quantidade a ser atualizada
+                gPedido.recebeNovaQtd(qtdAtualizada);//0
+                dispose();
+            }
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Informe um valor válido!");
         }
     }
 }

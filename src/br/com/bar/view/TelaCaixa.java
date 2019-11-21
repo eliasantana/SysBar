@@ -1560,7 +1560,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                                 telaProcessamento("Preparando impressão do Cumpom Fiscal");
                             }
 
-                            jSpinFieldPessoas.setValue(1);
+                            
                             // Registra desconto se o valor for > que 0
                             Funcionario f = new Funcionario();
                             Double desconto;
@@ -1706,6 +1706,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                     credito = 0;
                     debito = 0;
                     voucher = 0;
+                    jSpinFieldPessoas.setValue(1);
                 } // fim da verificação delivery
 
             }
@@ -1796,7 +1797,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             strTotal = strTotal.replace(",", ".");
             Double totalGeral = Double.parseDouble(strTotal);
             Double totalPessoas = totalGeral / nPesoas;
-            System.out.println(nPesoas);
+            //System.out.println(nPesoas);
 
             //
             HashMap dados = new HashMap();
@@ -1872,9 +1873,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             }
 
             if (op == JOptionPane.YES_OPTION) {
-                // eXLUIR APÓS VALIDAÇÃO DE FECHAMENTO DE CAIXA
-                //  if (caixa.temMovimentacao(cx.getIdFuncionario())) { // Verifica se existe movimentação no dia para este operador.
-//                    JOptionPane.showMessageDialog(null, "Caixa fechado, contate o administrador!");
+               
                 if (caixa.retornaStatusCaixa(cx.getIdFuncionario()) == 1) { // Verifica se existe movimentação no dia para este operador.
                     JOptionPane.showMessageDialog(null, "Caixa fechado, contate o administrador!");
 

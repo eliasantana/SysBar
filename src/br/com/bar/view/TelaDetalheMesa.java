@@ -741,7 +741,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             // Verifica se a tecla pressionada é a tecla ENTER e realiza o cálculo      
             if (quantidade == 0) {
-                JOptionPane.showMessageDialog(this, "Informe uma quantdade válida!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Informe uma quantidade válida!", "Atenção!", JOptionPane.ERROR_MESSAGE);
             } else {
                 adicionaItemNoPedido();
                 if (cx != null) {

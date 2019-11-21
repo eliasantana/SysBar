@@ -107,6 +107,9 @@ public class TelaConzinha extends javax.swing.JFrame {
                 // Modifica o tamanho das colunas da tabela
                 modelCozinha.redimensionaColunas(tblCozinha);
                 modelCozinha.adicionaCoresTabela(tblCozinha);
+                lblObservacao.setVisible(false);
+                jTextAreaObservacao.setText(null);
+                jTextAreaObservacao.setVisible(false);
     }
     
     // Atualiza a tela de senha após clique no botão cancelar
@@ -552,12 +555,12 @@ public class TelaConzinha extends javax.swing.JFrame {
                 id_pratoLiberado = txtidProdutoCozinha.getText();
                 txtidProdutoCozinha.setText(null);
                 // Solicita confirmação de impressão
+                ocultaObservacao(); // Oculta observação do Prato
 
                 int confirma = JOptionPane.showConfirmDialog(this, "Imprimir Comprovante de Liberação?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (confirma == JOptionPane.YES_OPTION) {
                     cc.imprimeComprovanteCozinha(id_pratoLiberado);
                 }
-                ocultaObservacao(); // Oculta observação do Prato
             }
 
         }

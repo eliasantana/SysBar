@@ -6,6 +6,7 @@
 package br.com.bar.view;
 
 import br.com.bar.model.ProdutoCozinha;
+import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCozinha;
 import java.awt.event.KeyEvent;
 import javax.swing.JDialog;
@@ -17,6 +18,8 @@ import javax.swing.JOptionPane;
  */
 public class TelaAtualizaItemCozinha extends JDialog {
     ControlerCozinha cc = new ControlerCozinha();
+    Util u = new Util();
+    
     private ProdutoCozinha produtoCozinha;
     private TelaConzinha telacozinha;
 
@@ -54,7 +57,7 @@ public class TelaAtualizaItemCozinha extends JDialog {
 
         lblTítulo.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         lblTítulo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTítulo.setText("Remover Item");
+        lblTítulo.setText("Remover Prato(s)");
         jPanel1.add(lblTítulo);
         lblTítulo.setBounds(10, 0, 230, 33);
 
@@ -66,6 +69,9 @@ public class TelaAtualizaItemCozinha extends JDialog {
         txtQtd.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtQtdKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtQtdKeyReleased(evt);
             }
         });
         jPanel2.add(txtQtd);
@@ -123,9 +129,16 @@ public class TelaAtualizaItemCozinha extends JDialog {
 
     private void txtQtdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQtdKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
             validaQuantidade();
         }
     }//GEN-LAST:event_txtQtdKeyPressed
+
+    private void txtQtdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQtdKeyReleased
+        txtQtd.setText(u.tamanhoMaximo(txtQtd.getText(),2));
+        txtQtd.setText(txtQtd.getText().replaceAll("[^0-9]",""));
+                  
+    }//GEN-LAST:event_txtQtdKeyReleased
 
     public void recebeItemCozinha(TelaConzinha tela, ProdutoCozinha pc) {
 
@@ -185,14 +198,11 @@ public class TelaAtualizaItemCozinha extends JDialog {
         int qtdInformada=0;
         try {
             qtdInformada = Integer.parseInt(txtQtd.getText());
-        } catch (NumberFormatException e) {
-            System.out.println("br.com.bar.view.TelaAtualizaItemCozinha.validaQuantidade()"+e);
-        }
-        // Verifica se a quantidade informada é igual a quantidade do produto na cozinha
+            // Verifica se a quantidade informada é igual a quantidade do produto na cozinha
         if (qtdInformada==Integer.parseInt(produtoCozinha.getQtd())){
            // Remove todos os pratos da cozinha 
             if (cc.removePrato(produtoCozinha.getSeq())){
-                JOptionPane.showMessageDialog(this, "Produto removido com sucesso!");
+                JOptionPane.showMessageDialog(this, "Prato(s) removido(s) com sucesso!");
                 telacozinha.atualizaTabelaCozinha();
                 this.dispose();
             }
@@ -208,12 +218,16 @@ public class TelaAtualizaItemCozinha extends JDialog {
                 // Atualiza o item da cozinha com a nova quantidade
                 if (cc.atualizaItemCozinha(produtoCozinha)) {
                     //Informa ao usuário sobre o produto
-                    JOptionPane.showMessageDialog(this, "Produto removido com sucesso!");
+                    JOptionPane.showMessageDialog(this, "Prato(s) removido(s) com sucesso!");
                     telacozinha.atualizaTabelaCozinha();
                     this.dispose();
                 }
                 dispose();
             }
         }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Informe um valor válido!");
+        }
+        
     }
 }

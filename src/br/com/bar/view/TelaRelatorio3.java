@@ -56,19 +56,21 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
         lblDe.setVisible(false);
         lblAte.setVisible(false);
 
-        // Produto      
+        
+        // Opções Produto       
+        radioProduto.setVisible(false);
         listaRelProduto.add("Selecione...");
         listaRelProduto.add("Em Estoque - Por Grupo(s)");
         listaRelProduto.add("Posição do Estoque - Compras");
         //listaRelProduto.add("Movimentação"); // Falta
 
-        // Financeiro
+        // Opções - Financeiro
         listaRelFinanceiro.add("Selecione...");
         listaRelFinanceiro.add("Caixa Sintético"); // Limite para pesquisa: 6 Meses
-        listaRelFinanceiro.add("Entradas de Caixa"); // Limite para pesquisa: 1 Mês
-        listaRelFinanceiro.add("Saídas de Caixa"); //  Limite para pesquisa: 3 meses 
-        listaRelFinanceiro.add("Comissão (Sintético)"); // Limite para pesquisa: 3 meses 
-        listaRelFinanceiro.add("Comissão (Analítico)"); //Limite para pesquisa: 1 mes    
+        //listaRelFinanceiro.add("Entradas de Caixa"); // Limite para pesquisa: 1 Mês
+        // listaRelFinanceiro.add("Saídas de Caixa"); //  Limite para pesquisa: 3 meses 
+        //listaRelFinanceiro.add("Comissão (Sintético)"); // Limite para pesquisa: 3 meses 
+        //listaRelFinanceiro.add("Comissão (Analítico)"); //Limite para pesquisa: 1 mes    
 
         lblCargo.setVisible(false);
         lblOperaodr.setVisible(false);
@@ -184,7 +186,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                 radioProdutoActionPerformed(evt);
             }
         });
-        jPanel3.add(radioProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        jPanel3.add(radioProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, -1));
 
         buttonGroup1.add(radioFinanceiro);
         radioFinanceiro.setText("Financeiro");
@@ -193,7 +195,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                 radioFinanceiroMouseClicked(evt);
             }
         });
-        jPanel3.add(radioFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, -1));
+        jPanel3.add(radioFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
         comboRelatorio.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -290,18 +292,18 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // Abre relatório na tela
         String combo = comboRelatorio.getSelectedItem().toString();
-        if (dtInicio.getDate().after(dtFim.getDate())){
+        if (dtInicio.getDate().after(dtFim.getDate())) {
             JOptionPane.showMessageDialog(this, "A data 'DE' não pode ser maior que a data 'ATÉ'! ");
             lblDe.setForeground(Color.red);
-        }else {
-        
+        } else {
+
             switch (combo) {
 
                 case "Em Estoque - Por Grupo(s)":
                     if ("Selecione...".equals(jcomboGrupo.getSelectedItem().toString())) {
 
                         try {
-                            rpu.imprimeRelatorioTela("relProdutos.jasper", rodape(dados),"Relatório de Produtos");
+                            rpu.imprimeRelatorioTela("relProdutos.jasper", rodape(dados), "Relatório de Produtos");
                         } catch (JRException e) {
                             System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Produto em Estoque" + e);
                         }
@@ -310,7 +312,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
 
                             HashMap map = new HashMap();
                             map.put("grupo", jcomboGrupo.getSelectedItem().toString());
-                            rpu.imprimeRelatorioTela("relProdutos_x_grupo.jasper", rodape(dados, map),"Produtos e Grupos");
+                            rpu.imprimeRelatorioTela("relProdutos_x_grupo.jasper", rodape(dados, map), "Produtos e Grupos");
 
                         } catch (JRException e) {
                             System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Produto em Estoque" + e);
@@ -320,7 +322,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
 
                 case "Posição do Estoque - Compras":
                     try {
-                        rpu.imprimeRelatorioTela("relPosicaoEstoque.jasper", rodape(dados),"Prosição do Estoque");
+                        rpu.imprimeRelatorioTela("relPosicaoEstoque.jasper", rodape(dados), "Prosição do Estoque");
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() Posição do Estoque" + e);
                     }
@@ -336,7 +338,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                         map.put("dtInicio", dataInicio);
                         map.put("dtFim", dataFim);
 
-                        rpu.imprimeRelatorioTela("relSintComissao.jasper", rodape(dados, map),"Relatório de Comissão");
+                        rpu.imprimeRelatorioTela("relSintComissao.jasper", rodape(dados, map), "Relatório de Comissão");
 
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Sintético" + e);
@@ -352,7 +354,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                         map.put("dataInicio", dataInicio);
                         map.put("dataFim", dataFim);
 
-                        rpu.imprimeRelatorioTela("comissaoGeral.jasper", rodape(dados, map),"Relatório de Comissão - Geral");
+                        rpu.imprimeRelatorioTela("comissaoGeral.jasper", rodape(dados, map), "Relatório de Comissão - Geral");
 
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Comissão Análítico" + e);
@@ -368,7 +370,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                         map.put("dt_inicio", dataInicio);
                         map.put("dt_fim", dataFim);
 
-                        rpu.imprimeRelatorioTela("Saidas.jasper", rodape(dados, map),"Saídas de Caixa");
+                        rpu.imprimeRelatorioTela("Saidas.jasper", rodape(dados, map), "Saídas de Caixa");
 
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Saída de Caixa" + e);
@@ -384,7 +386,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                         map.put("inicio", dataInicio);
                         map.put("fim", dataFim);
 
-                        rpu.imprimeRelatorioTela("relCaixa.jasper", rodape(dados, map),"Entradas de Caixa");
+                        rpu.imprimeRelatorioTela("relCaixa.jasper", rodape(dados, map), "Entradas de Caixa");
 
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Entrada de Caixa" + e);
@@ -396,13 +398,13 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                         String dataInicio = u.formataDataBanco(dtInicio.getDate());
                         String dataFim = u.formataDataBanco(dtFim.getDate());
                         String inicio = u.formataDataHora(dtInicio.getDate(), "br");
-                        String fim = u.formataDataHora(dtFim.getDate(), "br");                 
+                        String fim = u.formataDataHora(dtFim.getDate(), "br");
 
-                        map.put("inicio", dataInicio);                        
+                        map.put("inicio", dataInicio);
                         map.put("fim", dataFim);
-                        map.put("periodo", inicio+" - "+fim);
+                        map.put("periodo", inicio + " - " + fim);
 
-                        rpu.imprimeRelatorioTela("caixaSintetico.jasper", rodape(dados, map),"Caixa Sintético");
+                        rpu.imprimeRelatorioTela("caixaSintetico.jasper", rodape(dados, map), "Caixa Sintético");
 
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Caixa Sintético" + e);
@@ -412,7 +414,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                 case "Funcionários Geral":
                     try {
 
-                        rpu.imprimeRelatorioTela("relGeralDeFuncionarios.jasper", rodape(dados),"Funcionários");
+                        rpu.imprimeRelatorioTela("relGeralDeFuncionarios.jasper", rodape(dados), "Funcionários");
 
                     } catch (JRException e) {
                         System.out.println("br.com.bar.view.TelaRelatorio3.ImprimirActionPerformed() - Entrada de Caixa" + e);
@@ -420,7 +422,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     break;
 
             }
-    }
+        }
 
     }//GEN-LAST:event_btnImprimirActionPerformed
 
@@ -443,8 +445,8 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                 if (!"Selecione...".equals(opcao)) {
 
                     btnImprimir.setEnabled(true);
-                }else {
-                     btnImprimir.setEnabled(false);
+                } else {
+                    btnImprimir.setEnabled(false);
                 }
             }
         } catch (Exception e) {
@@ -465,8 +467,8 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     case "Comissão (Sintético)":
                         habilitaData();
                         // RANGE - 3 Meses
-                        u.limitaDataCombo(dtFim,3,1);
-                        u.limitaDataCombo(dtInicio,3,1);
+                        u.limitaDataCombo(dtFim, 3, 1);
+                        u.limitaDataCombo(dtInicio, 3, 1);
                         break;
                     case "Contas Vecidas":
                         habilitaData();
@@ -474,26 +476,26 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                     case "Comissão (Analítico)":
                         habilitaData();
                         // RANGE - 1 Mes
-                        u.limitaDataCombo(dtFim,1,1);
-                        u.limitaDataCombo(dtInicio,1,1);
+                        u.limitaDataCombo(dtFim, 1, 1);
+                        u.limitaDataCombo(dtInicio, 1, 1);
                         break;
                     case "Saídas de Caixa":
                         habilitaData();
                         // RANGE - 3 Meses
-                        u.limitaDataCombo(dtFim,3,1);
-                        u.limitaDataCombo(dtInicio,3,1);
+                        u.limitaDataCombo(dtFim, 3, 1);
+                        u.limitaDataCombo(dtInicio, 3, 1);
                         break;
                     case "Entradas de Caixa":
                         habilitaData();
                         // RANGE - 1 Mes
-                        u.limitaDataCombo(dtFim,1,1);
-                        u.limitaDataCombo(dtInicio,1,1);
+                        u.limitaDataCombo(dtFim, 1, 1);
+                        u.limitaDataCombo(dtInicio, 1, 1);
                         break;
                     case "Caixa Sintético":
                         habilitaData();
                         // RANGE - 1 Mes
-                        u.limitaDataCombo(dtFim,1,1);
-                        u.limitaDataCombo(dtInicio,1,1);
+                        u.limitaDataCombo(dtFim, 1, 1);
+                        u.limitaDataCombo(dtInicio, 1, 1);
                         break;
                     case "Em Estoque - Por Grupo(s)":
                         jcomboGrupo.setVisible(true);
@@ -528,7 +530,7 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
     }//GEN-LAST:event_jcomboGrupoItemStateChanged
 
     private void dtFimPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dtFimPropertyChange
-        
+
 
     }//GEN-LAST:event_dtFimPropertyChange
 

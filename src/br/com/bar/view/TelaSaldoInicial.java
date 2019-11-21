@@ -22,7 +22,7 @@ public class TelaSaldoInicial extends JDialog {
     ControlerCaixa cx = new ControlerCaixa();
     ControlerFuncionario cf = new ControlerFuncionario();
     Util u = new Util();
-    
+
     int idFuncLogado;
 
     TelaCaixa telaCaixa;
@@ -34,6 +34,7 @@ public class TelaSaldoInicial extends JDialog {
         initComponents();
         this.setModal(true);
         btnAbrirCaixa.setEnabled(false);
+
     }
 
     /**
@@ -102,7 +103,7 @@ public class TelaSaldoInicial extends JDialog {
         txtSaldoInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         txtSaldoInicial.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtSaldoInicial.setText("0,00");
-        txtSaldoInicial.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtSaldoInicial.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         txtSaldoInicial.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtSaldoInicialMouseClicked(evt);
@@ -130,6 +131,11 @@ public class TelaSaldoInicial extends JDialog {
                 btnAbrirCaixaActionPerformed(evt);
             }
         });
+        btnAbrirCaixa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnAbrirCaixaKeyPressed(evt);
+            }
+        });
         jPanel1.add(btnAbrirCaixa);
         btnAbrirCaixa.setBounds(160, 50, 130, 40);
 
@@ -146,7 +152,7 @@ public class TelaSaldoInicial extends JDialog {
             this.telaCaixa.dispose();
             telaCaixa.principal.atualizaTela();
         }
-        if (!"Gerente".equals(cargo)){
+        if (!"Gerente".equals(cargo)) {
             TelaLogin login = new TelaLogin();
             login.setVisible(true);
         }
@@ -154,47 +160,40 @@ public class TelaSaldoInicial extends JDialog {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void txtSaldoInicialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoInicialKeyPressed
-          
-          
-          txtSaldoInicial.setText(u.tamanhoMaximo(txtSaldoInicial.getText(),7-1));
-          if (txtSaldoInicial.getText().length()==0){
-              btnAbrirCaixa.setEnabled(false);
-          }
+
+        txtSaldoInicial.setText(u.tamanhoMaximo(txtSaldoInicial.getText(), 7 - 1));
+        if (txtSaldoInicial.getText().length() == 0) {
+            btnAbrirCaixa.setEnabled(false);
+        }
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (!txtSaldoInicial.getText().isEmpty()) {
                 FormataValor fv = new FormataValor();
                 // Formata o valor digitado em decimal
                 txtSaldoInicial.setText(fv.Formata(txtSaldoInicial.getText()));
+                btnAbrirCaixa.requestFocus();
             }
             btnAbrirCaixa.setEnabled(true);
         }
     }//GEN-LAST:event_txtSaldoInicialKeyPressed
 
     private void txtSaldoInicialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoInicialKeyReleased
-          txtSaldoInicial.setText(txtSaldoInicial.getText().replaceAll("[^0-9.,]",""));
+        txtSaldoInicial.setText(txtSaldoInicial.getText().replaceAll("[^0-9.,]", ""));
     }//GEN-LAST:event_txtSaldoInicialKeyReleased
 
     private void btnAbrirCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirCaixaActionPerformed
-        // Realiza a abertura do caixa
-        double saldoIni;
-        saldoIni = Double.parseDouble(txtSaldoInicial.getText().replace(",", "."));
-        // Colicita confirmação do usuário. 
-        int op = JOptionPane.showConfirmDialog(this, "Abrir o Caixa com o saldo inicial R$ " + txtSaldoInicial.getText() + "?", "Confirma a abertura do caixa?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
-        if (op == JOptionPane.YES_OPTION) {
-            // Realiza a abertura do caixa com o saldo incial informado
-            if (cx.abreCaixa(saldoIni, idFuncLogado)) {
-                telaCaixa.trocaicone("Aberto");
-                this.dispose();
-            }
-        } else {
-            txtSaldoInicial.setText("0,00");
-        }
+        abrirCaixa();
     }//GEN-LAST:event_btnAbrirCaixaActionPerformed
 
     private void txtSaldoInicialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSaldoInicialMouseClicked
-        txtSaldoInicial.setText(null);       
+        txtSaldoInicial.setText(null);
     }//GEN-LAST:event_txtSaldoInicialMouseClicked
+
+    private void btnAbrirCaixaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAbrirCaixaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            abrirCaixa();
+        }
+    }//GEN-LAST:event_btnAbrirCaixaKeyPressed
     public void recebeTela(TelaPrincipal principal) {
         //this.telaCaixa = tcx;
         this.telaPrincipal = principal;
@@ -205,7 +204,7 @@ public class TelaSaldoInicial extends JDialog {
         this.cargo = cargo;
         this.operador = operador;
         this.idFuncLogado = Integer.parseInt(cf.localizaIdLogin(operador));
-        
+
     }
 
     public void recebeTela(TelaCaixa tc) {
@@ -257,4 +256,27 @@ public class TelaSaldoInicial extends JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JFormattedTextField txtSaldoInicial;
     // End of variables declaration//GEN-END:variables
+
+    private void abrirCaixa() {
+        // Realiza a abertura do caixa
+        double saldoIni=0;
+        try {
+            saldoIni = Double.parseDouble(txtSaldoInicial.getText().replace(",", "."));
+
+            // Colicita confirmação do usuário. 
+            int op = JOptionPane.showConfirmDialog(this, "Abrir o Caixa com o saldo inicial R$ " + txtSaldoInicial.getText() + "?", "Confirma a abertura do caixa?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+
+            if (op == JOptionPane.YES_OPTION) {
+                // Realiza a abertura do caixa com o saldo incial informado
+                if (cx.abreCaixa(saldoIni, idFuncLogado)) {
+                    telaCaixa.trocaicone("Aberto");
+                    this.dispose();
+                }
+            } else {
+                txtSaldoInicial.setText("0,00");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Informe um valor válido!");
+        }
+    }
 }
