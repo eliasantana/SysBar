@@ -26,7 +26,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  *
@@ -287,6 +286,7 @@ public class TelaPedido3 extends javax.swing.JFrame {
                             dtlMesa.recebeMesa(btn.getText());
                             dtlMesa.recebeOperador(operador, cargo);
                             dtlMesa.setVisible(true);
+                            
 
                         }
                     } else {

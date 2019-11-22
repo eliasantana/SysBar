@@ -139,9 +139,9 @@ public class TelaCaixa extends javax.swing.JFrame {
     String idDelivery;
     String operador;
     String cargo;
-    
+
     public TelaCaixa() {
-        
+
         initComponents();
         if (ambiente == 1 && flagFiscal == 1) {
             //lblAmbiante.setVisible(false);
@@ -182,7 +182,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         //caixa.statusCaixa(jLabel1, foiCancelada, lblPago);
         caixa.statusCaixa(lblStatus, foiCancelada, lblMsgStatus);
-        
+
     }
 
     /**
@@ -1560,7 +1560,6 @@ public class TelaCaixa extends javax.swing.JFrame {
                                 telaProcessamento("Preparando impressão do Cumpom Fiscal");
                             }
 
-                            
                             // Registra desconto se o valor for > que 0
                             Funcionario f = new Funcionario();
                             Double desconto;
@@ -1692,6 +1691,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                         } else {
                             JOptionPane.showMessageDialog(this, "Selecione uma forma de pagameto!");
                         }
+                        jSpinFieldPessoas.setValue(1);
                         JOptionPane.showMessageDialog(this, "Pedido fechado com sucesso!");
                     }
                     try {
@@ -1706,7 +1706,6 @@ public class TelaCaixa extends javax.swing.JFrame {
                     credito = 0;
                     debito = 0;
                     voucher = 0;
-                    jSpinFieldPessoas.setValue(1);
                 } // fim da verificação delivery
 
             }
@@ -1869,11 +1868,11 @@ public class TelaCaixa extends javax.swing.JFrame {
             if (comboMesa.getItemCount() > 1) {
                 op = JOptionPane.showConfirmDialog(null, lblOperador.getText().toUpperCase() + ", existe(m) Mesas aberta(s)! Tem certeza que deseja fechar o Caixa mesmo assim?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             } else {
-                op = JOptionPane.showConfirmDialog(null, lblOperador.getText().toUpperCase() + " tem certeza que deseja fechar seu caixa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                op = JOptionPane.showConfirmDialog(null, lblOperador.getText().toUpperCase() + ", tem certeza que deseja fechar seu caixa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             }
 
             if (op == JOptionPane.YES_OPTION) {
-               
+
                 if (caixa.retornaStatusCaixa(cx.getIdFuncionario()) == 1) { // Verifica se existe movimentação no dia para este operador.
                     JOptionPane.showMessageDialog(null, "Caixa fechado, contate o administrador!");
 
@@ -2400,7 +2399,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_checkReimpressaoMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        
+
         chamaTelaSaldoInicial();
     }//GEN-LAST:event_formWindowOpened
     public void recebeOperador(TelaPrincipal tela, String operador, String cargo) {
@@ -2412,11 +2411,11 @@ public class TelaCaixa extends javax.swing.JFrame {
         this.operador = operador;
         this.cargo = cargo;
         btnListar.setEnabled(false);
-       
+
         caixa.statusCaixa(lblStatus, caixa.retornaStatusCaixa(Integer.parseInt(id)), lblMsgStatus);
 
-        if ("Caixa Fechado".equals(lblMsgStatus.getText())) {        
-            
+        if ("Caixa Fechado".equals(lblMsgStatus.getText())) {
+
             lblReceber.setEnabled(false);
             lblReceberPAgamento.setEnabled(false);
             btnFecharCaixa.setEnabled(false);
@@ -2434,7 +2433,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                 btnListar.setEnabled(false);
                 comboMesa.setEnabled(false);
 
-            }            
+            }
         }
         if ("Gerente".equals(lblCargo.getText())) {
             lblAlteraSenha.setVisible(false);
@@ -2445,26 +2444,28 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     }
 
-    public void trocaicone(String statusCaixa){
-        
-        if ("Fechado".equals(statusCaixa)){
+    public void trocaicone(String statusCaixa) {
+
+        if ("Fechado".equals(statusCaixa)) {
             caixa.statusCaixa(lblStatus, true, lblMsgStatus);
-        }else {
-            caixa.statusCaixa(lblStatus, false, lblMsgStatus);            
+        } else {
+            caixa.statusCaixa(lblStatus, false, lblMsgStatus);
         }
     }
-    public void chamaTelaSaldoInicial(){
-        
+
+    public void chamaTelaSaldoInicial() {
+
         boolean mov = caixa.temMovimentacao(Integer.parseInt(func.localizaIdLogin(operador)));
-            if (!mov) {
-                caixa.statusCaixa(lblStatus, true, lblMsgStatus);
-                TelaSaldoInicial saldoInicial = new TelaSaldoInicial();
-                saldoInicial.setModal(true);
-                saldoInicial.recebeTela(this);
-                saldoInicial.recebeOperador(operador, cargo);
-                saldoInicial.setVisible(true);
-            }
+        if (!mov) {
+            caixa.statusCaixa(lblStatus, true, lblMsgStatus);
+            TelaSaldoInicial saldoInicial = new TelaSaldoInicial();
+            saldoInicial.setModal(true);
+            saldoInicial.recebeTela(this);
+            saldoInicial.recebeOperador(operador, cargo);
+            saldoInicial.setVisible(true);
+        }
     }
+
     public void limpaForm() {
         txtIdMEsa.setText(null);
         txtIdPedido.setText(null);

@@ -486,7 +486,8 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         try {
 
             while (rs.next()) {
-                itens = itens + rs.getInt("qtd");
+                //itens = itens + rs.getInt("qtd");
+                itens = itens + 1;
 
             }
         } catch (SQLException e) {
@@ -574,6 +575,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         ResultSet rs = cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString());
 
         itens = contaItens(rs);
+        
         if (itens > 0) {
             // Se possui itens no pedido não permite o cancelamento do pedido
             btnCancelarPedido.setEnabled(false);

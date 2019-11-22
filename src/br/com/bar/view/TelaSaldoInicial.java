@@ -264,7 +264,7 @@ public class TelaSaldoInicial extends JDialog {
             saldoIni = Double.parseDouble(txtSaldoInicial.getText().replace(",", "."));
 
             // Colicita confirmação do usuário. 
-            int op = JOptionPane.showConfirmDialog(this, "Abrir o Caixa com o saldo inicial R$ " + txtSaldoInicial.getText() + "?", "Confirma a abertura do caixa?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(this, "Abrir o Caixa com o saldo inicial de R$ " + txtSaldoInicial.getText() + "?", "Confirma a abertura do caixa?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
             if (op == JOptionPane.YES_OPTION) {
                 // Realiza a abertura do caixa com o saldo incial informado
