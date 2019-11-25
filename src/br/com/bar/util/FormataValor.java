@@ -7,6 +7,9 @@ package br.com.bar.util;
 
 import java.text.DecimalFormat;
 import java.util.Locale;
+import javax.swing.JFormattedTextField;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 
 /**
  *
@@ -37,6 +40,27 @@ public class FormataValor {
         }
         return df.format(valorRecebido);
 
+    }
+    
+    /**
+     * Aplica máscara de formatação de valores
+     * @param campo Campo do tipo JFormattedTextField que receberá a mascará
+     * @param maxInt Número máximo de digitos initeiros 
+     * @param minInt  Número minimo de digitos initeiros
+     */
+     public void aplicaMascara(JFormattedTextField campo, int maxInt, int minInt) {
+        // Define a máscara
+        DecimalFormat decimal = new DecimalFormat("##,###,###.00");
+        // Limita o número máximo e mínimo de inteiros
+        decimal.setMaximumIntegerDigits(maxInt);
+        decimal.setMinimumIntegerDigits(minInt);
+        // Formata o valor
+        NumberFormatter numFormatter = new NumberFormatter(decimal);
+        numFormatter.setFormat(decimal);
+        
+        numFormatter.setAllowsInvalid(false);
+        DefaultFormatterFactory dfFactory = new DefaultFormatterFactory(numFormatter);
+        campo.setFormatterFactory(dfFactory);
     }
 
 }

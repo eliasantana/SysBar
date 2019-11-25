@@ -22,7 +22,8 @@ public class TelaSaldoInicial extends JDialog {
     ControlerCaixa cx = new ControlerCaixa();
     ControlerFuncionario cf = new ControlerFuncionario();
     Util u = new Util();
-
+    FormataValor fv = new FormataValor();
+    
     int idFuncLogado;
 
     TelaCaixa telaCaixa;
@@ -34,7 +35,8 @@ public class TelaSaldoInicial extends JDialog {
         initComponents();
         this.setModal(true);
         btnAbrirCaixa.setEnabled(false);
-
+        fv.aplicaMascara(txtSaldoInicial,5,1);
+        
     }
 
     /**
@@ -85,7 +87,7 @@ public class TelaSaldoInicial extends JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -98,11 +100,10 @@ public class TelaSaldoInicial extends JDialog {
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(1, 1, 298, 40);
+        jPanel2.setBounds(1, 1, 330, 40);
 
         txtSaldoInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         txtSaldoInicial.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtSaldoInicial.setText("0,00");
         txtSaldoInicial.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         txtSaldoInicial.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -118,7 +119,7 @@ public class TelaSaldoInicial extends JDialog {
             }
         });
         jPanel1.add(txtSaldoInicial);
-        txtSaldoInicial.setBounds(50, 50, 100, 40);
+        txtSaldoInicial.setBounds(50, 50, 130, 40);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel4.setText("R$");
@@ -137,12 +138,12 @@ public class TelaSaldoInicial extends JDialog {
             }
         });
         jPanel1.add(btnAbrirCaixa);
-        btnAbrirCaixa.setBounds(160, 50, 130, 40);
+        btnAbrirCaixa.setBounds(190, 50, 130, 40);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 300, 110);
+        jPanel1.setBounds(0, 0, 332, 110);
 
-        setSize(new java.awt.Dimension(300, 110));
+        setSize(new java.awt.Dimension(332, 110));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -160,28 +161,29 @@ public class TelaSaldoInicial extends JDialog {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void txtSaldoInicialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoInicialKeyPressed
-
-        txtSaldoInicial.setText(u.tamanhoMaximo(txtSaldoInicial.getText(), 7 - 1));
-        if (txtSaldoInicial.getText().length() == 0) {
-            btnAbrirCaixa.setEnabled(false);
-        }
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (!txtSaldoInicial.getText().isEmpty()) {
-                FormataValor fv = new FormataValor();
-                // Formata o valor digitado em decimal
-                txtSaldoInicial.setText(fv.Formata(txtSaldoInicial.getText()));
-                btnAbrirCaixa.requestFocus();
-            }
+// Exlcuir após validação da máscara com Janaiel
+//
+//        txtSaldoInicial.setText(u.tamanhoMaximo(txtSaldoInicial.getText(), 7 - 1));
+//        if (txtSaldoInicial.getText().length() == 0) {
+//            btnAbrirCaixa.setEnabled(false);
+//        }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER && !txtSaldoInicial.getText().isEmpty()) {
+//            if (!txtSaldoInicial.getText().isEmpty()) {
+//                FormataValor fv = new FormataValor();
+//                // Formata o valor digitado em decimal
+//                txtSaldoInicial.setText(fv.Formata(txtSaldoInicial.getText()));
+//                btnAbrirCaixa.requestFocus();
+//            }
+            btnAbrirCaixa.requestFocus();
             btnAbrirCaixa.setEnabled(true);
         }
     }//GEN-LAST:event_txtSaldoInicialKeyPressed
 
     private void txtSaldoInicialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoInicialKeyReleased
-        txtSaldoInicial.setText(txtSaldoInicial.getText().replaceAll("[^0-9.,]", ""));
+        //txtSaldoInicial.setText(txtSaldoInicial.getText().replaceAll("[^0-9.,]", ""));
     }//GEN-LAST:event_txtSaldoInicialKeyReleased
 
     private void btnAbrirCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirCaixaActionPerformed
-
         abrirCaixa();
     }//GEN-LAST:event_btnAbrirCaixaActionPerformed
 
@@ -259,9 +261,11 @@ public class TelaSaldoInicial extends JDialog {
 
     private void abrirCaixa() {
         // Realiza a abertura do caixa
-        double saldoIni=0;
+        double saldoIni = 0;
+        String vlr = txtSaldoInicial.getText().replace(".", ""); //99.999,99 -> 99999,99
+        vlr = vlr.replace(",","."); // 99999.99
         try {
-            saldoIni = Double.parseDouble(txtSaldoInicial.getText().replace(",", "."));
+            saldoIni = Double.parseDouble(vlr); 
 
             // Colicita confirmação do usuário. 
             int op = JOptionPane.showConfirmDialog(this, "Abrir o Caixa com o saldo inicial de R$ " + txtSaldoInicial.getText() + "?", "Confirma a abertura do caixa?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);

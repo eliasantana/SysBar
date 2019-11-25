@@ -5,43 +5,38 @@
  */
 package br.com.bar.view;
 
-import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.CriptoGrafa;
 import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.Autorizar;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.model.ProdutoNota;
+import br.com.bar.util.FormataValor;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerNFCe;
 import br.com.br.controler.ControlerPedido;
 import br.com.br.controler.ControlerProduto;
 import com.google.zxing.WriterException;
-import com.mysql.cj.protocol.Resultset;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JRException;
 import org.codehaus.jettison.json.JSONException;
@@ -69,9 +64,13 @@ public class TesteNFCe extends javax.swing.JFrame {
         initComponents();
         tbDetalhePedido.setModel(DbUtils.resultSetToTableModel(cpedido.detalhePorPedido("1", "180")));
         linhas = tbDetalhePedido.getRowCount();
-        System.out.println("Total de Linhas: "+linhas);
+        System.out.println("Total de Linhas: " + linhas);
         linhaAtual = tbDetalhePedido.getSelectedRow();
-       
+        //aplicaMascara(campoFormatado);
+        
+        FormataValor fv = new FormataValor();
+        fv.aplicaMascara(campoFormatado,7,2);
+
     }
 
     /**
@@ -98,6 +97,10 @@ public class TesteNFCe extends javax.swing.JFrame {
         lblEmail3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        campoFormatado = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -187,6 +190,33 @@ public class TesteNFCe extends javax.swing.JFrame {
             }
         });
 
+        campoFormatado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoFormatadoActionPerformed(evt);
+            }
+        });
+        campoFormatado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoFormatadoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoFormatadoKeyReleased(evt);
+            }
+        });
+
+        jLabel1.setText("Máscara");
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
+
+        jLabel2.setText("Campo Formatado");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -196,6 +226,7 @@ public class TesteNFCe extends javax.swing.JFrame {
                 .addComponent(jSpinnerQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(116, 116, 116)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campoFormatado, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,15 +246,19 @@ public class TesteNFCe extends javax.swing.JFrame {
                                         .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(txtEmail2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btnValidaEmail)
-                                        .addComponent(txtEmail3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButton3)))))
+                                        .addComponent(jLabel2)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(btnValidaEmail)
+                                            .addComponent(txtEmail3, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                                            .addComponent(jButton3)
+                                            .addComponent(jTextField1))))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblEmail1)
                             .addComponent(lblEmail2)
                             .addComponent(lblEmail3)))
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addContainerGap(117, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -265,7 +300,15 @@ public class TesteNFCe extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jButton3)))
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                    .addComponent(campoFormatado))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -552,12 +595,12 @@ public class TesteNFCe extends javax.swing.JFrame {
 
     private void tbDetalhePedidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbDetalhePedidoKeyPressed
 
-        if (evt.getKeyCode()==KeyEvent.VK_DOWN && linhaAtual < linhas-1){
-            linhaAtual = linhaAtual+1;
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN && linhaAtual < linhas - 1) {
+            linhaAtual = linhaAtual + 1;
             lblEmail1.setText(String.valueOf(linhaAtual));
             System.out.println(tbDetalhePedido.getValueAt(linhaAtual, 1));
-        }else if (evt.getKeyCode()==KeyEvent.VK_UP && linhaAtual >0){
-            linhaAtual = linhaAtual-1;
+        } else if (evt.getKeyCode() == KeyEvent.VK_UP && linhaAtual > 0) {
+            linhaAtual = linhaAtual - 1;
             lblEmail1.setText(String.valueOf(linhaAtual));
             System.out.println(tbDetalhePedido.getValueAt(linhaAtual, 1));
         }
@@ -566,11 +609,38 @@ public class TesteNFCe extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         //LocalDate dt = LocalDate.now();
         Calendar c = Calendar.getInstance();
-        System.out.println("Hora"+c.getTime());
-        System.out.println("Time Zone "+c.getTimeZone());
-       
-        
+        System.out.println("Hora" + c.getTime());
+        System.out.println("Time Zone " + c.getTimeZone());
+
+
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void campoFormatadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoFormatadoKeyPressed
+//        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+//            campoFormatado.setText(u.tamanhoMaximo(campoFormatado.getText(),9));            
+//        }
+    }//GEN-LAST:event_campoFormatadoKeyPressed
+
+    private void campoFormatadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoFormatadoKeyReleased
+
+    }//GEN-LAST:event_campoFormatadoKeyReleased
+
+    private void campoFormatadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoFormatadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoFormatadoActionPerformed
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        jTextField1.setText(u.tamanhoMaximo(jTextField1.getText(), 9));
+        jTextField1.setText(jTextField1.getText().replaceAll("[^0-9.,]",""));
+    }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+             FormataValor fv = new FormataValor();
+             
+             jTextField1.setText(fv.Formata(jTextField1.getText()));
+         }
+    }//GEN-LAST:event_jTextField1KeyPressed
 
     /**
      * @param args the command line arguments
@@ -610,11 +680,15 @@ public class TesteNFCe extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionar;
     private javax.swing.JButton btnValidaEmail;
+    private javax.swing.JFormattedTextField campoFormatado;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinnerQtd;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblEmail1;
     private javax.swing.JLabel lblEmail2;
     private javax.swing.JLabel lblEmail3;
@@ -624,4 +698,16 @@ public class TesteNFCe extends javax.swing.JFrame {
     private javax.swing.JTextField txtEmail2;
     private javax.swing.JTextField txtEmail3;
     // End of variables declaration//GEN-END:variables
+
+    private void aplicaMascara(JFormattedTextField campo) {
+
+        DecimalFormat decimal = new DecimalFormat("##,###,###.00");
+        decimal.setMaximumIntegerDigits(7);
+        decimal.setMinimumIntegerDigits(1);
+        NumberFormatter numFormatter = new NumberFormatter(decimal);
+        numFormatter.setFormat(decimal);
+        numFormatter.setAllowsInvalid(false);
+        DefaultFormatterFactory dfFactory = new DefaultFormatterFactory(numFormatter);
+        campo.setFormatterFactory(dfFactory);
+    }
 }
