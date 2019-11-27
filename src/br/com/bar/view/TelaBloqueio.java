@@ -54,6 +54,7 @@ public class TelaBloqueio extends JDialog {
         txtSenha = new javax.swing.JPasswordField();
         btnDesbloquear = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -125,6 +126,15 @@ public class TelaBloqueio extends JDialog {
         jPanel2.add(jLabel5);
         jLabel5.setBounds(10, 42, 50, 30);
 
+        jCheckBox1.setText("jCheckBox1");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jCheckBox1);
+        jCheckBox1.setBounds(290, 40, 81, 23);
+
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 0, 400, 140);
 
@@ -156,6 +166,12 @@ public class TelaBloqueio extends JDialog {
     private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyReleased
         txtSenha.setText(u.tamanhoMaximo(txtSenha.getText(), 16));
     }//GEN-LAST:event_txtSenhaKeyReleased
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        TelaModal tm = new TelaModal();        
+        tm.setVisible(true);
+        
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,6 +211,7 @@ public class TelaBloqueio extends JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnDesbloquear;
     private javax.swing.JComboBox<String> comboLogin;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
