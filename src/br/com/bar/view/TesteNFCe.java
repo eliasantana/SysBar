@@ -69,7 +69,8 @@ public class TesteNFCe extends javax.swing.JFrame {
         //aplicaMascara(campoFormatado);
         
         FormataValor fv = new FormataValor();
-      
+        fv.aplicaMascara(valor, 7,1);
+        valor.setText("0,00");
 
     }
 
@@ -98,6 +99,8 @@ public class TesteNFCe extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        valor = new javax.swing.JFormattedTextField();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -194,6 +197,20 @@ public class TesteNFCe extends javax.swing.JFrame {
             }
         });
 
+        valor.setText("0,00");
+        valor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                valorMouseClicked(evt);
+            }
+        });
+
+        jButton5.setText("jButton5");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -235,7 +252,11 @@ public class TesteNFCe extends javax.swing.JFrame {
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(206, 206, 206)
-                        .addComponent(jButton4)))
+                        .addComponent(jButton4)
+                        .addGap(166, 166, 166)
+                        .addComponent(valor, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton5)))
                 .addContainerGap(117, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -278,8 +299,12 @@ public class TesteNFCe extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addComponent(jButton3)))
                 .addGap(34, 34, 34)
-                .addComponent(jButton4)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(valor, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton5)))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -592,6 +617,14 @@ public class TesteNFCe extends javax.swing.JFrame {
         tb.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        valor.setText("0,00");
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void valorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_valorMouseClicked
+       valor.setText(null);
+    }//GEN-LAST:event_valorMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -634,6 +667,7 @@ public class TesteNFCe extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinnerQtd;
     private javax.swing.JLabel lblEmail1;
@@ -644,6 +678,7 @@ public class TesteNFCe extends javax.swing.JFrame {
     private javax.swing.JTextField txtEmail1;
     private javax.swing.JTextField txtEmail2;
     private javax.swing.JTextField txtEmail3;
+    private javax.swing.JFormattedTextField valor;
     // End of variables declaration//GEN-END:variables
 
     private void aplicaMascara(JFormattedTextField campo) {
