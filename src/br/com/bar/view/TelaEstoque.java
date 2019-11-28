@@ -240,7 +240,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel21.setBounds(80, 30, 100, 30);
 
         borda.add(btnLog);
-        btnLog.setBounds(220, 230, 190, 100);
+        btnLog.setBounds(420, 230, 190, 100);
 
         btnRAnking.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnRAnking.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -275,7 +275,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel28.setBounds(70, 50, 110, 30);
 
         borda.add(btnRAnking);
-        btnRAnking.setBounds(420, 230, 190, 100);
+        btnRAnking.setBounds(220, 230, 190, 100);
 
         btnCaixa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnCaixa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -450,7 +450,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel33.setBounds(80, 30, 110, 20);
 
         borda.add(btnDownload);
-        btnDownload.setBounds(420, 340, 190, 100);
+        btnDownload.setBounds(620, 230, 190, 100);
 
         btnPedidos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnPedidos.addMouseListener(new java.awt.event.MouseAdapter() {

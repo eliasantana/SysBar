@@ -685,7 +685,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         painelDireito.add(lblNpessoas);
         lblNpessoas.setBounds(30, 550, 65, 30);
 
-        jSpinFieldPessoas.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jSpinFieldPessoas.setModel(new javax.swing.SpinnerNumberModel(1, 1, 99, 1));
         painelDireito.add(jSpinFieldPessoas);
         jSpinFieldPessoas.setBounds(100, 550, 51, 32);
 
@@ -1273,7 +1273,9 @@ public class TelaCaixa extends javax.swing.JFrame {
         if (checkTxServico.isEnabled()) {
             txtTroco.setText("0,00");
             calculaTaxa();
-            txtValorPago.setText(lblTotal.getText());
+            //txtValorPago.setText(lblTotal.getText());
+            String stvValor = fv.Formata(lblTotal.getText());
+            txtValorPago.setText(stvValor);
 
             if (checkTxServico.isSelected()) {
                 lbl_valor_servico.setEnabled(true);
@@ -2006,7 +2008,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             TelaAutorizacao ta = new TelaAutorizacao();
             // Envia dados do pedido e guia selecionada
             int index = jtabedFormaPagto.getSelectedIndex();
-            System.out.println("Guia Selecionada no momento do desconto: " + index);
+            //System.out.println("Guia Selecionada no momento do desconto: " + index);
             ta.recebeValor(this, dadosDoPedido, index);
             ta.setModal(true);
             ta.setVisible(true);

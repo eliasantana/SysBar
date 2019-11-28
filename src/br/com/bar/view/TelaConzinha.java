@@ -181,6 +181,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         painelEsquerdo.setBackground(new java.awt.Color(38, 53, 61));
+        painelEsquerdo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/refeicao128x128.png"))); // NOI18N
@@ -250,7 +251,7 @@ public class TelaConzinha extends javax.swing.JFrame {
                 .addComponent(lblObservacao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextAreaObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
                 .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -258,8 +259,9 @@ public class TelaConzinha extends javax.swing.JFrame {
         );
 
         getContentPane().add(painelEsquerdo);
-        painelEsquerdo.setBounds(0, 0, 240, 690);
+        painelEsquerdo.setBounds(0, 0, 250, 690);
 
+        paineldireito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         paineldireito.setLayout(null);
 
         tblCozinha = new javax.swing.JTable(){
@@ -451,7 +453,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblImprimirSolicitacoes.setBounds(720, 630, 140, 50);
 
         getContentPane().add(paineldireito);
-        paineldireito.setBounds(240, 0, 1030, 690);
+        paineldireito.setBounds(240, 0, 1028, 690);
 
         setSize(new java.awt.Dimension(1269, 690));
         setLocationRelativeTo(null);

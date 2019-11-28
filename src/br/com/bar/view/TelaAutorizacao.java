@@ -29,11 +29,13 @@ public class TelaAutorizacao extends JDialog {
     Util u = new Util();
     TelaCaixa cx;
     ArrayList<String> listaDeValores; // Refatorado de listaDeSValores.
+    FormataValor fv = new FormataValor();
     int guia;
     public TelaAutorizacao() {
         initComponents();
         desabilitaDesconto();
         cf.carregaComboFuncionario2(comboFuncionario, "Gerente", "Selecione...");
+        fv.aplicaMascara(txtValorDesconto, 4, 1);
     }
 
     /**
@@ -328,16 +330,8 @@ public class TelaAutorizacao extends JDialog {
 
     private void txtValorDescontoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorDescontoKeyPressed
         // Formata o valor informado
-        double valor=0;
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            try {
 
-                 valor = (Double.parseDouble(txtValorDesconto.getText().replace(",", ".")));
-            } catch (NumberFormatException e) {
-                System.out.println("br.com.bar.view.TelaAutorizacao.txtValorDescontoKeyPressed()"+e);
-                JOptionPane.showMessageDialog(this, "Valor Inválido, tente novamente!","Atenção",JOptionPane.ERROR_MESSAGE);
-            }
-            txtValorDesconto.setText(String.format("%9.2f", valor));
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             txtMotivoDesconto.requestFocus();
             lblMensagem.setText("Tamanho (Caracteres): Min: 20 - Max: 255");
         }
@@ -345,7 +339,7 @@ public class TelaAutorizacao extends JDialog {
 
     private void btnAutorizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutorizarActionPerformed
         // Aplica Desconto
-        FormataValor fv = new FormataValor();
+       
         String desc = txtValorDesconto.getText().replace(".", "");
         desc = desc.replace(",", ".");
         double desconto = Double.parseDouble(desc);
