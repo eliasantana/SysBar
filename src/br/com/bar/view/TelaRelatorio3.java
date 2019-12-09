@@ -43,14 +43,18 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
     Log l = new Log();
     DadosEmpresa dados = ce.selecionaDados();
     int range;
-
+    // Formato de data dos campos JDateSchoose
+    String formato = "dd/MM/yyyy";
+    
     public TelaRelatorio3() {
         initComponents();
         btnImprimir.setEnabled(false);
         Calendar c = Calendar.getInstance();
-
-        dtInicio.setVisible(false);
-        dtInicio.setDate(new Date());
+        dtInicio.setDateFormatString(formato);
+        dtFim.setDateFormatString(formato);
+        
+        dtInicio.setVisible(false);        
+        dtInicio.setDate(new Date());        
         dtFim.setVisible(false);
         dtFim.setDate(new Date());
         lblDe.setVisible(false);

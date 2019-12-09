@@ -16,6 +16,7 @@ import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerMesa;
 import br.com.br.controler.ControlerPedido;
 import br.com.br.controler.ControlerProduto;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
@@ -59,7 +60,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     int idProduto;              // Armazeana o id ao clicar no item sobre a tabela
     String descricao;           // Armazeana a desclição ao clicar na tabela
     String qtd;                 // Armazeana a quantidade do produto Selecionado
-
+    Object[] opcao = {"   Sim   ", "   Não  "}; // Armazena opções de botões para a tela de ocnfirmação 
     public TelaDetalheMesa() {
         initComponents();
         txtQtd.setEnabled(false);
@@ -71,13 +72,14 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         lblTextoReenvioCozinha.setEnabled(false);
         lblAnexarDelivery.setVisible(false);
         lblTextoDelivery.setVisible(false);
+        
 
     }
 
     //Atualiza a tabela detalhe mesa    
     private void atualizaTabela(String nMesa) {
         tbDetalhePedido.setModel(DbUtils.resultSetToTableModel(cp.detalhePorPedido(nMesa, lblNPedido.getText())));
-        modelDetPedido.redimensionaColunas(tbDetalhePedido);
+        modelDetPedido.redimensionaColunas(tbDetalhePedido);        
     }
 
     public void recebeTela(TelaPedido3 tp3, JButton btn) {
@@ -92,6 +94,11 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
 
     }
 
+    // Limpa mensagem de produto enviado para cozinha
+    private void limpaMensagem(){
+        lblMensagem.setText(null);
+    } 
+            
     public void recebeMesa(String nMesa) {
         lblNumeroMesa.setText(nMesa);
         lblNPedido.setText(cp.LocalizaIdPedido(nMesa));
@@ -177,9 +184,10 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                         Date dtAtual = new Date();
                         Timestamp tms = new Timestamp(dtAtual.getTime());
                         pCozinha.add(String.valueOf(tms)); // Data Atual
-                        int op = JOptionPane.showConfirmDialog(this, "Deseja adicionar uma observação?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                        int op = JOptionPane.showOptionDialog(this, "Deseja adicionar uma observação?", "Atenção", 
+                                 JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcao, opcao[1]);
                         // Chama a tela de observação
-                        if (op == JOptionPane.YES_OPTION) {
+                        if (op == 0) {
 
                             TelaObservacaoProduto telaObs = new TelaObservacaoProduto();
                             telaObs.recebeTela3(this, pCozinha); // Envia dados do produto
@@ -212,7 +220,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 }
                 //Atualiza a tabela de detalhe do pedido    
                 atualizaTabela(lblNumeroMesa.getText());
-
+               
             }
         } catch (HeadlessException | NumberFormatException e) {
             // System.out.println("br.com.bar.view.TelaPedido2.txtQtdKeyPressed()" + e);
@@ -269,7 +277,6 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         lblStatusCozinha = new javax.swing.JLabel();
         lblAlterarSenha = new javax.swing.JLabel();
         lblTextoAlterarSenha = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         lblNumeroMesa = new javax.swing.JLabel();
@@ -301,13 +308,23 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         lblIdProduto = new javax.swing.JLabel();
         lblIdGarcom = new javax.swing.JLabel();
         lblMensagem = new javax.swing.JLabel();
+        panelSuperior = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        lblFechar = new javax.swing.JLabel();
 
         jLabel19.setText("jLabel19");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("MasterFood - Detalhe Mesa");
         setExtendedState(6);
+        setUndecorated(true);
         setResizable(false);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblAnexarDelivery.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -403,23 +420,18 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 .addComponent(lblStatusCozinha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTextoStatusCozinha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
                 .addComponent(lblAlterarSenha)
                 .addGap(3, 3, 3)
                 .addComponent(lblTextoAlterarSenha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
-                .addGap(20, 20, 20))
+                .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 130, 510));
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Detalhes do Pedido");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 840, 60));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 130, 570));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -474,6 +486,8 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
             .addComponent(lblNumeroMesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTextoGestao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -481,13 +495,11 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                             .addComponent(lblNPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblGarcom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lblTextoGestao, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(9, 9, 9))
                             .addComponent(lblTextoCozinha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblCozinha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblGestaoPedidos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lblCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(lblGestaoPedidos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -505,18 +517,18 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
                 .addComponent(lblGestaoPedidos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblTextoGestao)
-                .addGap(18, 18, 18)
-                .addComponent(lblCozinha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTextoCozinha)
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 180, 140, 500));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 180, 120, 570));
 
         tbDetalhePedido = new javax.swing.JTable(){
             public boolean isCellEditable (int rowIndex, int colIndex){
@@ -525,6 +537,9 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         };
         tbDetalhePedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -561,7 +576,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbDetalhePedido);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 180, 688, 510));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 180, 790, 575));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -591,7 +606,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("Qtd");
-        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, 50, -1));
+        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, 50, -1));
 
         txtQtd.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         txtQtd.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -604,12 +619,12 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 txtQtdKeyReleased(evt);
             }
         });
-        jPanel3.add(txtQtd, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 40, 40, 41));
+        jPanel3.add(txtQtd, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, 40, 41));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel18.setText("VLR Total");
-        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, 80, -1));
+        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20, 80, -1));
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/lopa32x32.png"))); // NOI18N
@@ -623,7 +638,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         lblVlrUnitario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblVlrUnitario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblVlrUnitario.setText("R$");
-        jPanel3.add(lblVlrUnitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, 70, 40));
+        jPanel3.add(lblVlrUnitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 40, 70, 40));
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel20.setText("Produto");
@@ -632,20 +647,20 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel21.setText("VLR Unitário");
-        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 90, -1));
+        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, 90, -1));
 
         lblTotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTotal.setText("R$");
-        jPanel3.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 40, 80, 40));
+        jPanel3.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 40, 80, 40));
 
         lblDescricao.setBackground(new java.awt.Color(204, 204, 204));
         lblDescricao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblDescricao.setText("[NOME DO PRODUTO]");
         lblDescricao.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel3.add(lblDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 40, 280, 41));
+        jPanel3.add(lblDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 40, 370, 41));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, 688, 90));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, 790, 90));
 
         jPanel4.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -679,7 +694,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(jLabel22)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 424, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 454, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblIdMesa)
                     .addComponent(lblIdProduto)
@@ -687,12 +702,44 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 .addGap(41, 41, 41))
         );
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 750));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 780));
 
         lblMensagem.setForeground(new java.awt.Color(0, 0, 255));
         getContentPane().add(lblMensagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 450, 20));
 
-        setSize(new java.awt.Dimension(1367, 787));
+        panelSuperior.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Detalhes do Pedido");
+        panelSuperior.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(356, 0, 360, 60));
+
+        getContentPane().add(panelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 930, -1));
+
+        jPanel5.setBackground(new java.awt.Color(38, 53, 61));
+
+        lblFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
+        lblFechar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblFecharMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblFechar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblFechar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 0, 40, 40));
+
+        setSize(new java.awt.Dimension(1361, 782));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -728,7 +775,8 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 } catch (NullPointerException e) {
                     JOptionPane.showMessageDialog(this, "Produto não localizado!");
                 }
-
+                
+                
             }
         }
     }//GEN-LAST:event_txtCodigoProdutoKeyPressed
@@ -752,7 +800,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 if (cx != null) {
                     cx.atualizaPedidoNoCaixa();
                 }
-                //limpaform();
+                txtCodigoProduto.setText(null);
             }
         }
     }//GEN-LAST:event_txtQtdKeyPressed
@@ -780,6 +828,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         b.setAlwaysOnTop(true);
         b.setModal(true);
         b.setVisible(true);
+        limpaMensagem();
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
@@ -801,6 +850,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
             telaCozinha.setAlwaysOnTop(true);
         }
         telaCozinha.setVisible(true);
+        limpaMensagem();
 
     }//GEN-LAST:event_lblCozinhaMouseClicked
 
@@ -818,10 +868,12 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
             status.setVisible(true);
 
         }
+        limpaMensagem();
     }//GEN-LAST:event_lblStatusCozinhaMouseClicked
 
     private void tbDetalhePedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDetalhePedidoMouseClicked
 
+        txtCodigoProduto.setText(null);
         int linha = tbDetalhePedido.getSelectedRow();
         idProduto = Integer.parseInt(tbDetalhePedido.getModel().getValueAt(linha, 0).toString());
         descricao = tbDetalhePedido.getModel().getValueAt(linha, 1).toString();
@@ -844,7 +896,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
             lblBtnReenvioCozinha.setEnabled(false);
             lblTextoReenvioCozinha.setEnabled(false);
         }
-
+        
     }//GEN-LAST:event_tbDetalhePedidoMouseClicked
 
     public void atuDetalheDoPedido(String nMesa, String nPedido) {
@@ -876,6 +928,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
             gp.recebeOperador(this, operador, cargo);
         }
         gp.setVisible(true);
+        limpaMensagem();
     }//GEN-LAST:event_lblGestaoPedidosMouseClicked
 
     private void lblAlterarSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlterarSenhaMouseClicked
@@ -887,6 +940,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
 
         }
         telaAlteraSenha.setVisible(true);
+        limpaMensagem();
     }//GEN-LAST:event_lblAlterarSenhaMouseClicked
 
     private void txtCodigoProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoProdutoKeyReleased
@@ -951,6 +1005,14 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     private void txtCodigoProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCodigoProdutoMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoProdutoMouseClicked
+
+    private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked
+        dispose();
+    }//GEN-LAST:event_lblFecharMouseClicked
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+       limpaMensagem();
+    }//GEN-LAST:event_formMouseClicked
     // Totaliza item localizado e retorna o total formatado ocm duas casas decimais
     private String totaliza(double qtd, double valorUnit) {
 
@@ -1031,12 +1093,14 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAlterarSenha;
     private javax.swing.JLabel lblAnexarDelivery;
     private javax.swing.JLabel lblBtnReenvioCozinha;
     private javax.swing.JLabel lblCozinha;
     private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblFechar;
     private javax.swing.JLabel lblGarcom;
     private javax.swing.JLabel lblGestaoPedidos;
     private javax.swing.JLabel lblIdGarcom;
@@ -1054,6 +1118,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     private javax.swing.JLabel lblTextoStatusCozinha;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblVlrUnitario;
+    private javax.swing.JPanel panelSuperior;
     private javax.swing.JTable tbDetalhePedido;
     private javax.swing.JFormattedTextField txtCodigoProduto;
     private javax.swing.JFormattedTextField txtQtd;

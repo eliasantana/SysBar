@@ -149,11 +149,9 @@ public class TelaObservacaoProduto extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (jTextAreaObservacao.getText().isEmpty()) {
             listaAtualizada.add(null);
-            //telaPedido.recebeObsPrato(listaAtualizada, this);
             telaDetalheMesa.recebeObsPrato(listaAtualizada, this);
         } else {
             listaAtualizada.add(jTextAreaObservacao.getText());
-            //telaPedido.recebeObsPrato(listaAtualizada, this);
             telaDetalheMesa.recebeObsPrato(listaAtualizada, this);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed

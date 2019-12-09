@@ -35,7 +35,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     TelaAutenticaBackup authBkp = new TelaAutenticaBackup();
     Util u = new Util();
     Log l = new Log();
-
+    Object [] opcao = {"  Sim  ","  Não  "};
     /**
      * Creates new form TelaCadastroEmpresa
      */
@@ -717,8 +717,9 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             l.setDescricao("Alterou os dados da empresa->" + d.getNome_empresa() + " para->" + novoDadosEmpesa.getNome_empresa());
             l.gravaLog(l);
 
-            int op = JOptionPane.showConfirmDialog(null, "Confirma a alteração dos dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-            if (op == JOptionPane.YES_OPTION) {
+            int op = JOptionPane.showOptionDialog(null, "Confirma a alteração dos dados?", "Atenção!", JOptionPane.YES_NO_OPTION, 
+                     JOptionPane.ERROR_MESSAGE,null,opcao,opcao[1]);
+            if (op == 0) {
                 if (dados.alteraDados(novoDadosEmpesa)) {
                     JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
                     dispose();

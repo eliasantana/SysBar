@@ -38,7 +38,7 @@ public class TelaCadastroCliente extends JDialog {
     // Inicia Instância de log
     Log l = new Log();
     String nome = null;
-
+    Object [] opcao = {"  Sim  ", "  Não  "};
     public TelaCadastroCliente() {
         initComponents();
         txtCaminho.setVisible(false);
@@ -637,8 +637,9 @@ public class TelaCadastroCliente extends JDialog {
             c.setHistorico(txtHistorico.getText());
             // Altera dados do cliente
             if ("Alterar".equals(lblTiulo.getText())) {
-                int op = JOptionPane.showConfirmDialog(this, "Deseja mesmo alterar os dados do cliente?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-                if (op == JOptionPane.YES_OPTION) {
+                int op = JOptionPane.showOptionDialog(this, "Deseja mesmo alterar os dados do cliente?", "Atenção!", JOptionPane.YES_NO_OPTION, 
+                         JOptionPane.ERROR_MESSAGE,null,opcao,opcao[1]);
+                if (op == 0) {
 
                     if (cl.alteraCliente(c)) {
                         JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!", "Atenção!", JOptionPane.INFORMATION_MESSAGE);

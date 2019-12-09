@@ -334,9 +334,12 @@ public class TelaReImpressao extends JDialog {
     }//GEN-LAST:event_tblPedidosMouseClicked
 
     private void checkDiaAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDiaAnteriorActionPerformed
-
-        tblPedidos.setModel(modelReimpressao);
-        modelReimpressao.redimensionaColunas(tblPedidos);
+        if (checkDiaAnterior.isSelected()) {
+            tblPedidos.setModel(modelReimpressao);
+            modelReimpressao.redimensionaColunas(tblPedidos);
+        } else {
+             listar();
+        }
 
     }//GEN-LAST:event_checkDiaAnteriorActionPerformed
 

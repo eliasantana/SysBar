@@ -30,6 +30,7 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
     String operador = null;
     String cargo = null;
     ControlerNFCe cnfec = new ControlerNFCe();
+    Object[] opcao = {"  Sim  ","  Não  "};
     public TelaCancelamentoNFCe() {
         initComponents();
         lblBtnCancelar.setEnabled(false);
@@ -243,8 +244,10 @@ public class TelaCancelamentoNFCe extends javax.swing.JFrame {
             if (i.temConexao()) {
                 NFCeCancelamento c = new NFCeCancelamento();
                 Log l = new Log();
-                int op = JOptionPane.showConfirmDialog(this, "Confirma o cancelamento do Cupom N.° " + txtNumeroNota.getText() + "?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-                if (op == JOptionPane.YES_OPTION) {
+                
+                int op = JOptionPane.showOptionDialog(this, "Confirma o cancelamento do Cupom N.° " + txtNumeroNota.getText() + "?", "Atenção!", 
+                         JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE,null,opcao,opcao[1]);
+                if (op == 0) {
                     this.setVisible(false);
                     processamento("Calancelando Cupom N." + txtNumeroNota.getText());
                     int codCancelamento = cnfec.cancelaNFCe(txtAreaMensagem.getText(), txtNumeroNota.getText(), "cancelamento.json");

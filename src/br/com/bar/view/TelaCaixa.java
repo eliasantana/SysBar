@@ -141,7 +141,8 @@ public class TelaCaixa extends javax.swing.JFrame {
     String idDelivery;
     String operador;
     String cargo;
-
+    // Opção da tela de confirmação
+     Object[] opcao ={"  Sim   ","   Não  "};
     public TelaCaixa() {
         initComponents();
         // Aplica máscara de entrada nos campos de pagamento misto
@@ -195,7 +196,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         txtMistoCredito.setText("0,00");
         txtMistoDebito.setText("0,00");
         txtMistoVoucher.setText("0,00");
-
+       
     }
 
     /**
@@ -1375,9 +1376,10 @@ public class TelaCaixa extends javax.swing.JFrame {
                     // Calcula e retorna a permanência do cliente no estabelecimento.
                     p.setPermanencia(cp.calculaPermanencia(txtIdPedido.getText()));
                     // Solicita confirmação do usuário
-                    int op = JOptionPane.showConfirmDialog(this, "Deseja realmente fechar este Pedido?", "Atenção!", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
+                    int op = JOptionPane.showOptionDialog(this, "Deseja realmente fechar este Pedido?", "Atenção!", JOptionPane.YES_OPTION, 
+                             JOptionPane.ERROR_MESSAGE,null,opcao,opcao[1]);
 
-                    if (op == JOptionPane.YES_OPTION) {  // Se confirmado fecha o pedido
+                    if (op == 0) {  // Se confirmado fecha o pedido
                         // Exibe tela de processamento
                         if (flagFiscal == 1) {
                             tpp = new TelaProcessaPamento();
@@ -1804,12 +1806,14 @@ public class TelaCaixa extends javax.swing.JFrame {
             // Conta os elementos de um combobox
             int op;
             if (comboMesa.getItemCount() > 1) {
-                op = JOptionPane.showConfirmDialog(null, lblOperador.getText().toUpperCase() + ", existe(m) Mesas aberta(s)! Tem certeza que deseja fechar o Caixa mesmo assim?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                op = JOptionPane.showOptionDialog(null, lblOperador.getText().toUpperCase() + ", existe(m) Mesas aberta(s)! Tem certeza que deseja fechar o Caixa mesmo assim?", "Atenção!", JOptionPane.YES_NO_OPTION, 
+                     JOptionPane.ERROR_MESSAGE,null,opcao,opcao[1]);
             } else {
-                op = JOptionPane.showConfirmDialog(null, lblOperador.getText().toUpperCase() + ", tem certeza que deseja fechar seu caixa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                op = JOptionPane.showOptionDialog(null, lblOperador.getText().toUpperCase() + ", tem certeza que deseja fechar seu caixa?", "Atenção!", JOptionPane.YES_NO_OPTION, 
+                     JOptionPane.ERROR_MESSAGE,null,opcao,opcao[1]);
             }
 
-            if (op == JOptionPane.YES_OPTION) {
+            if (op == 0) {
 
                 if (caixa.retornaStatusCaixa(cx.getIdFuncionario()) == 1) { // Verifica se existe movimentação no dia para este operador.
                     JOptionPane.showMessageDialog(null, "Caixa fechado, contate o administrador!");
@@ -2184,8 +2188,10 @@ public class TelaCaixa extends javax.swing.JFrame {
             btnImprimir.setEnabled(true);
             jSpinFieldPessoas.setEnabled(true);
             lblNpessoas.setEnabled(true);
-
-            double valorPpago = Double.parseDouble(txtValorPago.getText().replace(",", "."));
+            String strValorPago =txtValorPago.getText().replace(",", ".");//9999.00
+            strValorPago = strValorPago.replace(".","");
+            //double valorPpago = Double.parseDouble(txtValorPago.getText().replace(",", "."));
+            double valorPpago = Double.parseDouble(strValorPago);
             double totalmisto = dinheiro + credito + debito + voucher;
             if ((valorPpago > 0 && jtabedFormaPagto.getSelectedIndex() != 0) && totalmisto == 0) {
                 txtValorPago.setText("0,00");

@@ -6,7 +6,6 @@
 package br.com.bar.view;
 
 import br.com.bar.model.Entregador;
-import br.com.bar.model.Funcionario;
 import br.com.bar.util.ClienteViaCepWS;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerEntregador;

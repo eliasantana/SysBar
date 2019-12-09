@@ -50,7 +50,8 @@ public class TelaConzinha extends javax.swing.JFrame {
     // Armazena o número da mesa selecionada
     int nMesa = 0;
     String status = "";
-
+    // Opções da janela de Confirmação
+    Object[] obj = {"   Sim   ", "   Não  "};
     public TelaConzinha() {
         initComponents();
         lblCargo.setVisible(false);
@@ -60,7 +61,6 @@ public class TelaConzinha extends javax.swing.JFrame {
         jTextAreaObservacao.setVisible(false);
         lblObservacao.setVisible(false);
         lblImprimirSolicitacoes.setEnabled(false);
-        // tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
         desabilitaTodosBtns();
 
         // Atualiza a lista de pedidos da cozinha após período de tempo informado
@@ -558,9 +558,10 @@ public class TelaConzinha extends javax.swing.JFrame {
                 txtidProdutoCozinha.setText(null);
                 // Solicita confirmação de impressão
                 ocultaObservacao(); // Oculta observação do Prato
-
-                int confirma = JOptionPane.showConfirmDialog(this, "Imprimir Comprovante de Liberação?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-                if (confirma == JOptionPane.YES_OPTION) {
+                
+                int confirma = JOptionPane.showOptionDialog(this, "Imprimir Comprovante de Liberação?", "Atenção", 
+                               JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, obj, obj[1]);
+                if (confirma == 0) {
                     cc.imprimeComprovanteCozinha(id_pratoLiberado);
                 }
             }
@@ -589,8 +590,9 @@ public class TelaConzinha extends javax.swing.JFrame {
             // Remove prato Cozinha se o usuário logado tiver o perfil de Gerente e 
             if ("Gerente".equals(lblCargo.getText()) && !"".equals(txtidProdutoCozinha.getText())) {
 
-                int resp = JOptionPane.showConfirmDialog(this, "Confirma a exclusão deste prato?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-                if (resp == JOptionPane.YES_OPTION) {
+                int resp = JOptionPane.showOptionDialog(this, "Confirma a exclusão deste prato?", "Atenção!", JOptionPane.YES_NO_OPTION, 
+                           JOptionPane.ERROR_MESSAGE,null,obj,obj[1]);
+                if (resp == 0) {
                     if (Integer.parseInt(pc.getQtd())>1){
                         TelaAtualizaItemCozinha atualizaItem = new TelaAtualizaItemCozinha();
                         atualizaItem.setAlwaysOnTop(true);
@@ -704,9 +706,10 @@ public class TelaConzinha extends javax.swing.JFrame {
             // Verifica se o usuário logado é o Gerente
 
             if ("Gerente".equals(lblCargo.getText())) {
-                int op = JOptionPane.showConfirmDialog(this, "Contingência! Deseja imprimir essa Solicitação?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                int op = JOptionPane.showOptionDialog(this, "Contingência! Deseja imprimir essa Solicitação?", "Atenção!", JOptionPane.YES_NO_OPTION, 
+                         JOptionPane.ERROR_MESSAGE,null,obj,obj[1]);
 
-                if (op == JOptionPane.YES_OPTION) {
+                if (op == 0) {
                     ReportUtil rpu = new ReportUtil();
                     HashMap parametro = new HashMap();
                     parametro.put("id", idProdutoCozinha);

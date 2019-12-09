@@ -65,7 +65,7 @@ public class TableModelDetalhePedido extends AbstractTableModel {
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(60); 
-        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(305);
+        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(405);
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(100); 
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(115); 
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(100); 

@@ -579,10 +579,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Existe(m) prato(s) com liberação pendente!");
         }
 
-        int op = JOptionPane.showConfirmDialog(this, "Deseja realmente fechar esta tela?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-
-        if (op == JOptionPane.YES_OPTION) {
-
+        Object[] obj = {"   Sim   ", "   Não   "};
+        int op = JOptionPane.showOptionDialog(this, "Deseja realmente fechar esta tela?", "Atenção!", 
+                 JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, obj, obj[1]);
+        
+        if (op ==0){
             System.exit(0);
         }
     }//GEN-LAST:event_lblFEcharMouseClicked
@@ -696,9 +697,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         double nMesasOcupadas = dadosOcupacao.get(1);
 
         if (nMesasOcupadas > 0) {
-            int op = JOptionPane.showConfirmDialog(this, "Existem pedidos abertos! Deseja sair mesmo assim?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            Object[] obj = {"  Sim  ", "  Não  "};
+            int op = JOptionPane.showOptionDialog(this, "Existem pedidos abertos! Deseja sair mesmo assim?", "Atenção!", 
+                     JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null,obj,obj[1]);
 
-            if (op == JOptionPane.YES_OPTION) {
+            if (op == 0) {
 
                 dispose();
                 TelaLogin login = new TelaLogin();

@@ -124,7 +124,7 @@ public class Util {
     }
 
     /**
-     * Recebe um objeto Date e retorna o mês no formado Date
+     * Recebe um objeto Date e retorna uma String no formado dd/MM/YYYY
      *
      * @param data - Recebe a data informada;
      * @return mes - Retorna um objeto tipo Date;

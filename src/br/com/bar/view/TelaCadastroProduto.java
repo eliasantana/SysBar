@@ -34,6 +34,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     Log l = new Log();
     TelaPesquisaProduto telaPesquisa;
     Produto produto = new Produto();
+    Object[] opcao = {"   Sim   ","   Não   "};
     /**
      * Creates new form TelaCadastroProduto
      */
@@ -524,8 +525,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             p.setId(produto.getId());
             
             if (valida(p)) {
-                  int resp = JOptionPane.showConfirmDialog(this, "Confirma a alteração para o produto selecionado?","Atenção",JOptionPane.ERROR_MESSAGE,JOptionPane.YES_NO_OPTION);
-                    if(resp==JOptionPane.YES_OPTION){
+                  int resp = JOptionPane.showOptionDialog(this, "Confirma a alteração para o produto selecionado?","Atenção",JOptionPane.ERROR_MESSAGE,
+                             JOptionPane.YES_NO_OPTION,null,opcao,opcao[1]);
+                    if(resp==0){
                         
                         if (cp.alteraProduto(p)) {
                             JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");

@@ -30,7 +30,8 @@ public class TelaSaldoInicial extends JDialog {
     TelaPrincipal telaPrincipal;
     String operador;
     String cargo;
-
+    // Armazena a opção de botões da janela de confirmação
+    Object[] opcao = {"   Sim   ", "   Não  "};
     public TelaSaldoInicial() {
         initComponents();
         this.setModal(true);
@@ -161,26 +162,16 @@ public class TelaSaldoInicial extends JDialog {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void txtSaldoInicialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoInicialKeyPressed
-// Exlcuir após validação da máscara com Janaiel
-//
-//        txtSaldoInicial.setText(u.tamanhoMaximo(txtSaldoInicial.getText(), 7 - 1));
-//        if (txtSaldoInicial.getText().length() == 0) {
-//            btnAbrirCaixa.setEnabled(false);
-//        }
+
         if (evt.getKeyCode() == KeyEvent.VK_ENTER && !txtSaldoInicial.getText().isEmpty()) {
-//            if (!txtSaldoInicial.getText().isEmpty()) {
-//                FormataValor fv = new FormataValor();
-//                // Formata o valor digitado em decimal
-//                txtSaldoInicial.setText(fv.Formata(txtSaldoInicial.getText()));
-//                btnAbrirCaixa.requestFocus();
-//            }
+
             btnAbrirCaixa.requestFocus();
             btnAbrirCaixa.setEnabled(true);
         }
     }//GEN-LAST:event_txtSaldoInicialKeyPressed
 
     private void txtSaldoInicialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoInicialKeyReleased
-        //txtSaldoInicial.setText(txtSaldoInicial.getText().replaceAll("[^0-9.,]", ""));
+       
     }//GEN-LAST:event_txtSaldoInicialKeyReleased
 
     private void btnAbrirCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirCaixaActionPerformed
@@ -268,9 +259,11 @@ public class TelaSaldoInicial extends JDialog {
             saldoIni = Double.parseDouble(vlr); 
 
             // Colicita confirmação do usuário. 
-            int op = JOptionPane.showConfirmDialog(this, "Abrir o Caixa com o saldo inicial de R$ " + txtSaldoInicial.getText() + "?", "Confirma a abertura do caixa?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+           
+            int op = JOptionPane.showOptionDialog(this, "Abrir o Caixa com o saldo inicial de R$ " + txtSaldoInicial.getText() + "?", "Confirma a abertura do caixa?", 
+                     JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE,null,opcao,opcao[1]);
 
-            if (op == JOptionPane.YES_OPTION) {
+            if (op == 0) {
                 // Realiza a abertura do caixa com o saldo incial informado
                 if (cx.abreCaixa(saldoIni, idFuncLogado)) {
                     telaCaixa.trocaicone("Aberto");

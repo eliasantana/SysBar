@@ -40,7 +40,9 @@ public class TelaCadastroFuncionario extends JDialog {
     // Inicia Instância de log
     Log l = new Log();
     String nome = null;
-
+    Object[] opcao = {"   Sim   ","   Não   "};
+    // Formato do componente JDateSchoose
+    String formato = "dd/MM/yyyy";
     public TelaCadastroFuncionario() {
         initComponents();
         txtCaminho.setVisible(false);
@@ -52,6 +54,10 @@ public class TelaCadastroFuncionario extends JDialog {
         lblPerfil.setVisible(false);
         lblData.setVisible(false);
         lblOperador.setVisible(false);
+        jDateAdmissao.setDateFormatString(formato);
+        jDateDesligamento.setDateFormatString(formato);
+        jDateNascimento.setDateFormatString(formato);
+        jDateValiadeCNH.setDateFormatString(formato);
     }
 
     public void recebeOperador(String operador, String cargo, String operacao) {
@@ -886,8 +892,9 @@ public class TelaCadastroFuncionario extends JDialog {
             f.setRg(txtRg.getText());
 
             if (valida()) {
-                int op = JOptionPane.showConfirmDialog(this, "Confirma a inclusão do funcionário?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-                if (op == JOptionPane.YES_OPTION) {
+                int op = JOptionPane.showOptionDialog(this, "Confirma a inclusão do funcionário?", "Atenção!", JOptionPane.YES_NO_OPTION, 
+                         JOptionPane.ERROR_MESSAGE,null,opcao,opcao[1]);
+                if (op == 0) {
 
                     if (funcionario.temFuncionario(f.getNome())) {
                         JOptionPane.showMessageDialog(this, "Este funcionário já existe!");
@@ -969,8 +976,9 @@ public class TelaCadastroFuncionario extends JDialog {
                     JOptionPane.showMessageDialog(this, "Transfira as mesas do funcionário antes de continuar!");
                 } else {
                     if (valida()) {
-                        int op = JOptionPane.showConfirmDialog(this, "Confirma a alteração dos Dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-                        if (op == JOptionPane.YES_OPTION) {
+                        int op = JOptionPane.showOptionDialog(this, "Confirma a alteração dos Dados?", "Atenção!", JOptionPane.YES_NO_OPTION, 
+                                 JOptionPane.ERROR_MESSAGE,null,opcao,opcao[1]);
+                        if (op == 0) {
 
                             // Altera dados do funcionário
                             if (cf.alterar(f, txtId.getText())) {
@@ -999,8 +1007,9 @@ public class TelaCadastroFuncionario extends JDialog {
                 }
             } else {
                 if (valida()) {
-                    int op = JOptionPane.showConfirmDialog(this, "Confirma a alteração dos Dados?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-                    if (op == JOptionPane.YES_OPTION) {
+                    int op = JOptionPane.showOptionDialog(this, "Confirma a alteração dos Dados?", "Atenção!", JOptionPane.YES_NO_OPTION, 
+                             JOptionPane.ERROR_MESSAGE,null,opcao,opcao[1]);
+                    if (op == 0) {
                         if (cf.alterar(f, txtId.getText())) {
                             JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
                             this.dispose();

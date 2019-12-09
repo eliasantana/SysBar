@@ -57,7 +57,7 @@ public class TelaContasApagar extends JDialog {
     ControlerDadosEmpresa de = new ControlerDadosEmpresa();
     TableModelContasApagar modelcontas = new TableModelContasApagar();
     TelaCaixa tc;
-
+    Object[] opcao = {"   Sim   ", "   Não   "};
     Date ultimaDataFimSelecionada;
     Util u = new Util();
     // Instacia um registro de log
@@ -67,13 +67,21 @@ public class TelaContasApagar extends JDialog {
         informativos referente a contas em aberto e produtos com com quantidade
         baixa no estoque.
      */
+    
     TelaPrincipal telaPrincipal;
 
+    // Formato de data dos campos JDateSchoose
+    String formato = "dd/MM/yyyy";
+    
     public TelaContasApagar() {
         initComponents();
         Date d = new Date();
         desaBilitaBotoes();
-
+        jdateChooserPagamento.setDateFormatString(formato);
+        jdateChooserVencimento.setDateFormatString(formato);
+        jDateFim.setDateFormatString(formato);
+        jDateInicio.setDateFormatString(formato);
+        
         txtIdConta.setVisible(false);
         txtIdFuncionario.setVisible(false);
         txtIdGrupo.setVisible(false);
@@ -81,6 +89,7 @@ public class TelaContasApagar extends JDialog {
         lblCargo.setVisible(false);
         btnGraficoDeDespesas.setVisible(false);
         lblsalvar.setEnabled(false);
+        
         estadoInicial();
 
         try {
@@ -709,8 +718,9 @@ public class TelaContasApagar extends JDialog {
                     dtVencimento = u.converteData(data);
 
                     // Realiza o pagamento.
-                    int op = JOptionPane.showConfirmDialog(null, "Confirma o pagamento desta conta?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-                    if (op == JOptionPane.YES_OPTION) {
+                    int op = JOptionPane.showOptionDialog(null, "Confirma o pagamento desta conta?", "Atenção!", 
+                             JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, opcao, opcao[1]);
+                    if (op == 0) {
                         // Total em espécie
                         double totalEspecie = caixa.totalizaTipoEntrada(lblOperador.getText(), "Dinheiro");
                         //Valor a ser pago
@@ -721,7 +731,7 @@ public class TelaContasApagar extends JDialog {
                         double saldoInicial = caixa.retornaSaldoInicial(txtIdFuncionario.getText());
                         double saldoEspecie = (totalEspecie+saldoInicial) - saidas;
 
-                        /*Visualiza cálculo
+                        /*Visualiza cálculo no terminal
                         System.out.println("Total Especie: "+totalEspecie);
                         System.out.println("Total Saidas: "+saidas);
                         System.out.println("Saldo Especie Saidas: "+saldoEspecie);

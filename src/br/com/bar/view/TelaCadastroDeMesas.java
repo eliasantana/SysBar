@@ -32,7 +32,7 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
     Util u = new Util();
     TableModelMesas modelMesas = new TableModelMesas();
     Log log = new Log();
-
+    Object[] opcao = {"  Sim  ","   Não  "};
     boolean filtro = false; // Filtro de listagem de mesa false -> Apenas mesas do garçom selecionado  true -> Todas as mesas
     int estado = 0;
 
@@ -532,9 +532,10 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 antigo.setId(txtIdGarcom.getText());
                 antigo.setNome(comboGarcom.getSelectedItem().toString());
 
-                int op = JOptionPane.showConfirmDialog(this, "Confirma a troca de todas as mesas do garçom " + antigo.getNome() + " para o garçom " + novo.getNome() + "?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                int op = JOptionPane.showOptionDialog(this, "Confirma a troca de todas as mesas do garçom " + antigo.getNome() + " para o garçom " + novo.getNome() + "?", "Atenção!", 
+                         JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE,null, opcao, opcao[1]);
 
-                if (op == JOptionPane.YES_OPTION) {
+                if (op == 0) {
 
                     if (txtIdGarcom.getText().equals(txtIdNovoGarcom.getText())) {
                         JOptionPane.showMessageDialog(this, "Escolha um garçom diferente para continuar");
@@ -574,9 +575,10 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
         m.setId(txtIdMesa.getText());
         if (btnLixeira.isEnabled()) {
 
-            int op = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir esta mesa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            int op = JOptionPane.showOptionDialog(this, "Tem certeza que deseja excluir esta mesa?", "Atenção!", JOptionPane.YES_NO_OPTION, 
+                     JOptionPane.ERROR_MESSAGE, null, opcao, opcao[1]);
 
-            if (op == JOptionPane.YES_OPTION) {
+            if (op == 0) {
 
                 // Inicio do registro de Log
                 log.setFuncionalidade("Excluir");
@@ -630,8 +632,9 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
                 } else if (txtIdGarcom.getText().equals(txtIdNovoGarcom.getText())) {
                     JOptionPane.showMessageDialog(this, "Selecione um garçom diferente para continuar!");
                 } else {
-                    int op = JOptionPane.showConfirmDialog(this, "Confirma a alteração de garçom para esta mesa?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-                    if (op == JOptionPane.YES_OPTION) {
+                    int op = JOptionPane.showOptionDialog(this, "Confirma a alteração de garçom para esta mesa?", "Atenção!", 
+                             JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE,null,opcao,opcao[1]);
+                    if (op == 0) {
                         if (cm.alteraMesa(mesa)) {
                             JOptionPane.showMessageDialog(this, "Alteração de garçom para a mesa informada realizada com sucesso!");
                             tblMesas.setModel(DbUtils.resultSetToTableModel(cm.listaMesa(comboGarcom.getSelectedItem().toString(), true)));
@@ -806,9 +809,10 @@ public class TelaCadastroDeMesas extends javax.swing.JFrame {
             if (nmesa <= 0 || "".equals(txtNumeroMesa.getText())) {
                 JOptionPane.showMessageDialog(this, "Número de mesa inválido!");
             } else {
-                int op = JOptionPane.showConfirmDialog(this, "Deseja incluir essa mesa para o garçom " + garcom + "?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                int op = JOptionPane.showOptionDialog(this, "Deseja incluir essa mesa para o garçom " + garcom + "?", "Atenção!", JOptionPane.YES_NO_OPTION, 
+                         JOptionPane.INFORMATION_MESSAGE,null,opcao,opcao[1]);
 
-                if (op == JOptionPane.YES_OPTION) {
+                if (op == 0) {
                     // Registro de Log
                     log.setFuncionalidade("Adicionar");
                     log.setDescricao("Adicionou a mesa -> " + m.getNumeroMesa());
