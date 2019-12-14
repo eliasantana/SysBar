@@ -23,7 +23,8 @@ public class TelaEnviaNFCe extends javax.swing.JFrame {
     String operador = null;
     String cargo = null;
     ControlerNFCe cnfec = new ControlerNFCe();
-
+    // Botões da tela de opções
+    Object[] opcao = {"   Sim   ", "   Não   "};
     public TelaEnviaNFCe() {
         initComponents();
         lblBtnEnviar.setEnabled(false);
@@ -259,9 +260,10 @@ public class TelaEnviaNFCe extends javax.swing.JFrame {
             if (u.validaEmail(txtEmail1.getText().toLowerCase())) {
                 e1.setVisible(true);
                 x1.setVisible(false);
-                int op = JOptionPane.showConfirmDialog(this, "Deseja adicionar outro email?", "Atenção!", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                int op = JOptionPane.showOptionDialog(this, "Deseja adicionar outro email?", "Atenção!", 
+                         JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE,null,opcao, opcao[1]);
 
-                if (op == JOptionPane.YES_OPTION) {
+                if (op == 0) {
                     txtEmail2.setEnabled(true);
                     txtEmail2.requestFocus();
                 } else {

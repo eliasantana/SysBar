@@ -16,7 +16,6 @@ import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerMesa;
 import br.com.br.controler.ControlerPedido;
 import br.com.br.controler.ControlerProduto;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
@@ -39,7 +38,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     TelaPesquisaPreco pesquisa; // Armazena uma instância da tela Detalhe Mesa
     TelaConzinha telaCozinha;
     TelaCaixa cx;
-
+    
     TelaAlteraSenha2 telaAlteraSenha;
     Util u = new Util();
     JButton btnMesa; // Botão com o número da mesa
@@ -317,15 +316,14 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("MasterFood - Detalhe Mesa");
-        setExtendedState(6);
+        setMaximumSize(new java.awt.Dimension(32767, 32767));
         setUndecorated(true);
-        setResizable(false);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
             }
         });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(null);
 
         lblAnexarDelivery.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAnexarDelivery.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/anexar.png"))); // NOI18N
@@ -420,7 +418,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 .addComponent(lblStatusCozinha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTextoStatusCozinha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
                 .addComponent(lblAlterarSenha)
                 .addGap(3, 3, 3)
                 .addComponent(lblTextoAlterarSenha)
@@ -431,7 +429,8 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 130, 570));
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(240, 180, 130, 530);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -517,7 +516,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                 .addComponent(lblGestaoPedidos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblTextoGestao)
@@ -528,7 +527,8 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 180, 120, 570));
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(1170, 180, 110, 520);
 
         tbDetalhePedido = new javax.swing.JTable(){
             public boolean isCellEditable (int rowIndex, int colIndex){
@@ -537,6 +537,10 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         };
         tbDetalhePedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -576,7 +580,8 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbDetalhePedido);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 180, 790, 575));
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(380, 180, 790, 560);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -660,7 +665,8 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         lblDescricao.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.add(lblDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 40, 370, 41));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, 790, 90));
+        getContentPane().add(jPanel3);
+        jPanel3.setBounds(400, 60, 790, 90);
 
         jPanel4.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -678,7 +684,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblIdMesa)
                 .addGap(47, 47, 47)
                 .addComponent(lblIdProduto)
@@ -694,7 +700,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(jLabel22)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 454, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 464, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblIdMesa)
                     .addComponent(lblIdProduto)
@@ -702,10 +708,12 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 .addGap(41, 41, 41))
         );
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 780));
+        getContentPane().add(jPanel4);
+        jPanel4.setBounds(0, 0, 240, 790);
 
         lblMensagem.setForeground(new java.awt.Color(0, 0, 255));
-        getContentPane().add(lblMensagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 450, 20));
+        getContentPane().add(lblMensagem);
+        lblMensagem.setBounds(400, 150, 450, 20);
 
         panelSuperior.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -714,7 +722,8 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         jLabel6.setText("Detalhes do Pedido");
         panelSuperior.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(356, 0, 360, 60));
 
-        getContentPane().add(panelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 930, -1));
+        getContentPane().add(panelSuperior);
+        panelSuperior.setBounds(260, 0, 930, 60);
 
         jPanel5.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -737,9 +746,10 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
             .addComponent(lblFechar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 0, 40, 40));
+        getContentPane().add(jPanel5);
+        jPanel5.setBounds(1240, 0, 40, 40);
 
-        setSize(new java.awt.Dimension(1361, 782));
+        setSize(new java.awt.Dimension(1279, 787));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

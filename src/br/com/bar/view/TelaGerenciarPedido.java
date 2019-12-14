@@ -15,7 +15,6 @@ import br.com.br.controler.ControlerPedido;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
@@ -43,6 +42,8 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
 
     // Armazena Retorno da tela de Remoção de Intens
     int qtdAtualizada;
+    // Armazena botões da tela de confirmação
+    Object[] opcao = {"   Sim   ", "   Não   "};
 
     public TelaGerenciarPedido() {
         initComponents();
@@ -360,8 +361,9 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         if (lblRemoverItemDoPedido.isEnabled()) {
 
             // Remove item do pedido e devolte ao estoque
-            int op = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja remover este item do pedido?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-            if (op == JOptionPane.YES_OPTION) {
+            int op = JOptionPane.showOptionDialog(this, "Tem certeza que deseja remover este item do pedido?", "Atenção!",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, opcao, opcao[1]);
+            if (op == 0) {
                 // Armazena quantidade do item selecionado
                 int qtdItem = Integer.parseInt(txtQtd.getText());
                 if (qtdItem > 1) {
@@ -437,8 +439,9 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     }
     private void btnCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarPedidoActionPerformed
         // Solicita ao usuário a confirmação do pedido
-        int op = JOptionPane.showConfirmDialog(this, "Confirma o cancelamento do pedido?", "Atenção!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-        if (op == JOptionPane.YES_OPTION) {
+        int op = JOptionPane.showOptionDialog(this, "Confirma o cancelamento do pedido?", "Atenção!",
+                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, opcao, opcao[1]);
+        if (op == 0) {
             // Captura o número do pedido antes da exclusão
             String nPedido = jcomboPedido.getSelectedItem().toString();
             String nmesa = lblNumeroMesa.getText();
@@ -465,7 +468,12 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
                 btnListar.setEnabled(false);
                 this.dispose();
                 tlPedido.dispose();
-                tela.alteraCorMesa(btnMesa);
+                
+                try {
+                    tela.alteraCorMesa(btnMesa);
+                } catch (NullPointerException e) {
+                    
+                }
 
             }
         }
@@ -575,7 +583,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         ResultSet rs = cp.detalhePorPedidoId(lblNumeroMesa.getText(), jcomboPedido.getSelectedItem().toString());
 
         itens = contaItens(rs);
-        
+
         if (itens > 0) {
             // Se possui itens no pedido não permite o cancelamento do pedido
             btnCancelarPedido.setEnabled(false);

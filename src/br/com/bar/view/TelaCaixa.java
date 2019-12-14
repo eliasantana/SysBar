@@ -104,7 +104,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     //------------------------------------------------------------
     // As variaveis abaixo determinam o ambiente de Emissão de cupom fiscal
     int flagFiscal = 0;             // 1 - Para autorizar e ler retorno SEFAZ     
-    private final int ambiente = 0; //Ambiente de Emissão  (0 - Homologação - 1  Prdodução
+    private final int ambiente = 0; //Ambiente de Emissão  (0 - Homologação - 1  Produção
     //-------------------------------------------------------------
     boolean foiCancelada;
     // Dados da NFC-e
@@ -2188,6 +2188,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             btnImprimir.setEnabled(true);
             jSpinFieldPessoas.setEnabled(true);
             lblNpessoas.setEnabled(true);
+            txtTroco.setText("0,00");
             String strValorPago =txtValorPago.getText().replace(",", ".");//9999.00
             strValorPago = strValorPago.replace(".","");
             //double valorPpago = Double.parseDouble(txtValorPago.getText().replace(",", "."));
@@ -3460,15 +3461,28 @@ public class TelaCaixa extends javax.swing.JFrame {
         double total = 0;
         double qtd;
 
+//        percentualDesconto = (vlrDesconto / valorPedido);
+//
+//        for (int i = 0; i < linhas; i++) {
+//            valorItem = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 3).toString().replace(",", "."));
+//            qtd = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 2).toString().replace(",", "."));
+//            valorItem = valorItem - (valorItem * percentualDesconto);
+//            tblDetalhePedido.setValueAt(String.format("%9.2f", valorItem), i, 3);
+//            totalItem = valorItem * qtd;
+//            tblDetalhePedido.setValueAt(String.format("%9.2f", totalItem), i, 4);
+//            total = total + totalItem;
+//        }
+//        tgeral.setText(String.format("%9.2f", total));
+//        txtDesconto.setText(String.format("%9.2f", vlrDesconto));
         percentualDesconto = (vlrDesconto / valorPedido);
 
         for (int i = 0; i < linhas; i++) {
             valorItem = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 3).toString().replace(",", "."));
             qtd = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 2).toString().replace(",", "."));
             valorItem = valorItem - (valorItem * percentualDesconto);
-            tblDetalhePedido.setValueAt(String.format("%9.2f", valorItem), i, 3);
+            tblDetalhePedido.setValueAt(String.format("%9.3f", valorItem), i, 3);
             totalItem = valorItem * qtd;
-            tblDetalhePedido.setValueAt(String.format("%9.2f", totalItem), i, 4);
+            tblDetalhePedido.setValueAt(String.format("%9.3f", totalItem), i, 4);
             total = total + totalItem;
         }
         tgeral.setText(String.format("%9.2f", total));
