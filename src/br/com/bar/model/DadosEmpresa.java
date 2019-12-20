@@ -190,7 +190,13 @@ public class DadosEmpresa {
         return bkp_auto;
     }
     
-       
+    public String retornaCnpj(){        
+        String cnPj = this.cnpj;
+        cnPj = cnPj.replace(".","");
+        cnPj = cnPj.replace("-","");    
+        cnPj = cnPj.replace("/","");
+        return cnPj;
+    }
     
     
 }

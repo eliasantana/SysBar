@@ -142,9 +142,14 @@ public class TelaCaixa extends javax.swing.JFrame {
     String operador;
     String cargo;
     // Opção da tela de confirmação
-     Object[] opcao ={"  Sim   ","   Não  "};
+    Object[] opcao = {"  Sim   ", "   Não  "};
+
     public TelaCaixa() {
         initComponents();
+        // Exibe ou oculta botão de teste
+        btnTesteCalculoPedidoTela.setVisible(false);
+        labelExibeCalculo.setVisible(false);
+        
         // Aplica máscara de entrada nos campos de pagamento misto
         fv.aplicaMascara(txtValorPago, 4, 1);
         fv.aplicaMascara(txtMistoDinheiro, 4, 1);
@@ -196,7 +201,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         txtMistoCredito.setText("0,00");
         txtMistoDebito.setText("0,00");
         txtMistoVoucher.setText("0,00");
-       
+
     }
 
     /**
@@ -229,6 +234,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblOperador = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
         lblAmbiante = new javax.swing.JLabel();
+        labelExibeCalculo = new javax.swing.JLabel();
+        btnTesteCalculoPedidoTela = new javax.swing.JButton();
         painelDireito = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnFechar = new javax.swing.JLabel();
@@ -474,6 +481,18 @@ public class TelaCaixa extends javax.swing.JFrame {
         lblAmbiante.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAmbiante.setText("jLabel10");
         painelEsquerdo.add(lblAmbiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 610, 190, -1));
+
+        labelExibeCalculo.setForeground(new java.awt.Color(255, 255, 255));
+        labelExibeCalculo.setText("jLabel11");
+        painelEsquerdo.add(labelExibeCalculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, -1, -1));
+
+        btnTesteCalculoPedidoTela.setText("Calcular");
+        btnTesteCalculoPedidoTela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTesteCalculoPedidoTelaActionPerformed(evt);
+            }
+        });
+        painelEsquerdo.add(btnTesteCalculoPedidoTela, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, -1, -1));
 
         getContentPane().add(painelEsquerdo);
         painelEsquerdo.setBounds(0, 0, 260, 700);
@@ -1376,8 +1395,8 @@ public class TelaCaixa extends javax.swing.JFrame {
                     // Calcula e retorna a permanência do cliente no estabelecimento.
                     p.setPermanencia(cp.calculaPermanencia(txtIdPedido.getText()));
                     // Solicita confirmação do usuário
-                    int op = JOptionPane.showOptionDialog(this, "Deseja realmente fechar este Pedido?", "Atenção!", JOptionPane.YES_OPTION, 
-                             JOptionPane.ERROR_MESSAGE,null,opcao,opcao[1]);
+                    int op = JOptionPane.showOptionDialog(this, "Deseja realmente fechar este Pedido?", "Atenção!", JOptionPane.YES_OPTION,
+                            JOptionPane.ERROR_MESSAGE, null, opcao, opcao[1]);
 
                     if (op == 0) {  // Se confirmado fecha o pedido
                         // Exibe tela de processamento
@@ -1536,8 +1555,8 @@ public class TelaCaixa extends javax.swing.JFrame {
                             dados.put("tx", Double.parseDouble(strTx));
                             dados.put("id_pedido", p.getId());
                             //System.out.println(p.getId());
-                            dados.put("npessoas", nPesoas); // Não tenho
-                            dados.put("total_pessoas", totalPessoas); // Não tenho
+                            dados.put("npessoas", nPesoas); 
+                            dados.put("total_pessoas", totalPessoas); 
                             //DadosEmpresa dadosEmpresa = de.selecionaDados();
                             dados.put("mesa", comboMesa.getSelectedItem().toString());
                             dados.put("nome_empresa", dadosEmpresa.getNome_empresa());
@@ -1692,6 +1711,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         atualizaPedidoNoCaixa();
+        atualizaPedidoNoCaixa();
         mudaEstadoCaposMisto(true);
         checkConcedeDesconto.setEnabled(true);
         lblValorDesc.setEnabled(false);
@@ -1721,7 +1741,12 @@ public class TelaCaixa extends javax.swing.JFrame {
         if (foiCancelada = cp.foiCancelado(lblNPedido.getText())) {
             lblNPedido.setText("R".concat(lblNPedido.getText()));
         }
-
+        
+        // Desabilida componentes
+        buttonGroup2.clearSelection();
+        lblReceber.setEnabled(false);
+        lblReceberPAgamento.setEnabled(false);
+        txtValorPago.setEnabled(false);
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void btnImprimirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMouseClicked
@@ -1772,7 +1797,6 @@ public class TelaCaixa extends javax.swing.JFrame {
             }
             // Fecha conexao com o banco de dados.
             try {
-
                 conexao.close();
             } catch (SQLException ex) {
                 Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
@@ -1806,11 +1830,11 @@ public class TelaCaixa extends javax.swing.JFrame {
             // Conta os elementos de um combobox
             int op;
             if (comboMesa.getItemCount() > 1) {
-                op = JOptionPane.showOptionDialog(null, lblOperador.getText().toUpperCase() + ", existe(m) Mesas aberta(s)! Tem certeza que deseja fechar o Caixa mesmo assim?", "Atenção!", JOptionPane.YES_NO_OPTION, 
-                     JOptionPane.ERROR_MESSAGE,null,opcao,opcao[1]);
+                op = JOptionPane.showOptionDialog(null, lblOperador.getText().toUpperCase() + ", existe(m) Mesas aberta(s)! Tem certeza que deseja fechar o Caixa mesmo assim?", "Atenção!", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, opcao, opcao[1]);
             } else {
-                op = JOptionPane.showOptionDialog(null, lblOperador.getText().toUpperCase() + ", tem certeza que deseja fechar seu caixa?", "Atenção!", JOptionPane.YES_NO_OPTION, 
-                     JOptionPane.ERROR_MESSAGE,null,opcao,opcao[1]);
+                op = JOptionPane.showOptionDialog(null, lblOperador.getText().toUpperCase() + ", tem certeza que deseja fechar seu caixa?", "Atenção!", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, opcao, opcao[1]);
             }
 
             if (op == 0) {
@@ -1849,7 +1873,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                         param.put("titulo", "=-=-=-= Caixa Diário =-=-=-=");
                         // Troca imagem de status
                         caixa.statusCaixa(lblStatus, caixa.temMovimentacao(cx.getIdFuncionario()), lblMsgStatus);
-                        DadosEmpresa dadosEmpresa = de.selecionaDados();
+                        //DadosEmpresa dadosEmpresa = de.selecionaDados();
                         param.put("empresa", dadosEmpresa.getNome_empresa());
                         // Oculta paineis movimentação e painel gráfico
                         panelGrafico.setVisible(false);
@@ -2189,8 +2213,8 @@ public class TelaCaixa extends javax.swing.JFrame {
             jSpinFieldPessoas.setEnabled(true);
             lblNpessoas.setEnabled(true);
             txtTroco.setText("0,00");
-            String strValorPago =txtValorPago.getText().replace(",", ".");//9999.00
-            strValorPago = strValorPago.replace(".","");
+            String strValorPago = txtValorPago.getText().replace(",", ".");//9999.00
+            strValorPago = strValorPago.replace(".", "");
             //double valorPpago = Double.parseDouble(txtValorPago.getText().replace(",", "."));
             double valorPpago = Double.parseDouble(strValorPago);
             double totalmisto = dinheiro + credito + debito + voucher;
@@ -2377,6 +2401,21 @@ public class TelaCaixa extends javax.swing.JFrame {
             txtMistoDinheiro.requestFocus();
         }
     }//GEN-LAST:event_txtMistoVoucherKeyPressed
+
+    private void btnTesteCalculoPedidoTelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTesteCalculoPedidoTelaActionPerformed
+
+        int linhas = tblDetalhePedido.getRowCount();
+        double total = 0;
+
+        for (int i = 0; i < linhas; i++) {
+            double valor = Double.parseDouble(tblDetalhePedido.getValueAt(i, 4).toString().replace(",", "."));
+            total = total + valor;
+        }
+
+        labelExibeCalculo.setText(String.valueOf(total));
+
+
+    }//GEN-LAST:event_btnTesteCalculoPedidoTelaActionPerformed
     public void recebeOperador(TelaPrincipal tela, String operador, String cargo) {
         lblLLogo.setIcon(utils.carregaLogo());
         lblOperador.setText(operador);
@@ -2691,6 +2730,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel btnGrafico;
     private javax.swing.JLabel btnImprimir;
     private javax.swing.JButton btnListar;
+    private javax.swing.JButton btnTesteCalculoPedidoTela;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JCheckBox checkConcedeDesconto;
@@ -2721,6 +2761,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JPanel jpanelTotalGeral;
     private javax.swing.JTabbedPane jtabedFormaPagto;
     private javax.swing.JLabel labelEntradas;
+    private javax.swing.JLabel labelExibeCalculo;
     private javax.swing.JLabel labelFecharCaixa;
     private javax.swing.JLabel labelPedido;
     private javax.swing.JLabel labelSaidas;
@@ -3220,7 +3261,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         nfce.put("modalidade_frete", "9");// 0 – Por conta do emitente; 1 – Por conta do destinatário; 2 – Por conta de terceiros; 9 – Sem frete;
         nfce.put("icms_base_calculo", "0.0000");
         nfce.put("data_emissao", hoje);
-        nfce.put("cnpj_emitente", "34257575000106");
+        //nfce.put("cnpj_emitente", "34257575000106"); 
+        nfce.put("cnpj_emitente", dadosEmpresa.retornaCnpj()); 
         //nfce.put("valor_desconto", txtDesconto.getText().replace(",", "."));
         json = new JSONObject(this.nfce);
         HashMap<String, String> itens = new HashMap<>();
@@ -3375,7 +3417,8 @@ public class TelaCaixa extends javax.swing.JFrame {
         nfce.put("modalidade_frete", "9");// 0 – Por conta do emitente; 1 – Por conta do destinatário; 2 – Por conta de terceiros; 9 – Sem frete;
         nfce.put("icms_base_calculo", "0.0000");
         nfce.put("data_emissao", hoje);
-        nfce.put("cnpj_emitente", "34257575000106");
+        //nfce.put("cnpj_emitente", "34257575000106");
+        nfce.put("cnpj_emitente", dadosEmpresa.retornaCnpj());
         // taxa de Desconto
         //nfce.put("valor_desconto", txtDesconto.getText().replace(",", "."));
         json = new JSONObject(this.nfce);
@@ -3461,32 +3504,74 @@ public class TelaCaixa extends javax.swing.JFrame {
         double total = 0;
         double qtd;
 
-//        percentualDesconto = (vlrDesconto / valorPedido);
-//
-//        for (int i = 0; i < linhas; i++) {
-//            valorItem = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 3).toString().replace(",", "."));
-//            qtd = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 2).toString().replace(",", "."));
-//            valorItem = valorItem - (valorItem * percentualDesconto);
-//            tblDetalhePedido.setValueAt(String.format("%9.2f", valorItem), i, 3);
-//            totalItem = valorItem * qtd;
-//            tblDetalhePedido.setValueAt(String.format("%9.2f", totalItem), i, 4);
-//            total = total + totalItem;
-//        }
-//        tgeral.setText(String.format("%9.2f", total));
-//        txtDesconto.setText(String.format("%9.2f", vlrDesconto));
         percentualDesconto = (vlrDesconto / valorPedido);
 
         for (int i = 0; i < linhas; i++) {
             valorItem = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 3).toString().replace(",", "."));
             qtd = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 2).toString().replace(",", "."));
-            valorItem = valorItem - (valorItem * percentualDesconto);
-            tblDetalhePedido.setValueAt(String.format("%9.3f", valorItem), i, 3);
+            valorItem = Double.parseDouble(fv.Formata(String.valueOf(valorItem - (valorItem * percentualDesconto))).replace(",", "."));
+            tblDetalhePedido.setValueAt(String.format("%9.2f", valorItem), i, 3);
             totalItem = valorItem * qtd;
-            tblDetalhePedido.setValueAt(String.format("%9.3f", totalItem), i, 4);
+            tblDetalhePedido.setValueAt(String.format("%9.2f", totalItem), i, 4);
             total = total + totalItem;
         }
-        tgeral.setText(String.format("%9.2f", total));
+
+        double pedidoTela = totalizaPedidoTela();
+        //tgeral.setText(String.format("%9.2f", total));
+        tgeral.setText(String.format("%9.2f", pedidoTela));
         txtDesconto.setText(String.format("%9.2f", vlrDesconto));
+
+        double vlrServico = Double.parseDouble(percent.getText().replace(",", "."));
+        // Teste         
+        double vlrDescServico;
+               vlrDescServico  = (percentualDesconto * vlrServico);
+               vlrDescServico = (vlrServico - vlrDescServico);
+               vlrDescServico = Double.parseDouble(String.format("%9.2f", vlrDescServico).replace(",","."));
+               System.out.println("Valor do Serviço com Desconto: " + String.valueOf(vlrDescServico));
+               vlrServico = vlrDescServico;
+               percent.setText(String.format("%9.2f", vlrServico));
+        double soma = pedidoTela + vlrServico;
+        double tGeralTela = Double.parseDouble(lblTotal.getText().replace(",", "."));
+        tGeralTela = Double.parseDouble(String.format("%9.2f", tGeralTela).replace(",", "."));
+        double dif = tGeralTela - soma;
+        dif = Double.parseDouble(String.format("%9.2f", dif).replace(",", "."));
+        if (dif > 0) {
+            tGeralTela = tGeralTela - dif;
+            lblTotal.setText(String.format("%9.2f", tGeralTela));
+            txtValorPago.setText(fv.Formata(lblTotal.getText()));
+        } else if (dif < 0) {
+            dif = dif * -1;
+            tGeralTela = tGeralTela + dif;
+            lblTotal.setText(String.format("%9.2f", tGeralTela));
+            txtValorPago.setText(fv.Formata(lblTotal.getText()));    
+        }
+
+//        if (tGeralTela > soma){
+//            tGeralTela = tGeralTela - dif;
+//            tgeral.setText(String.format("%9.2f", tGeralTela));
+//        }
+//        double diferenca = total - pedidoTela;
+//        diferenca = Double.parseDouble(String.format("%9.2f",diferenca).replace(",", "."));
+//        Double vlrItemTela = Double.parseDouble(tblDetalhePedido.getValueAt(0, 4).toString().replace(",","."));
+//        vlrItemTela = Double.parseDouble(String.format("%9.2f",vlrItemTela).replace(",", "."));
+//        vlrItemTela = vlrItemTela+diferenca;
+//        tblDetalhePedido.setValueAt(String.format("%9.2f", vlrItemTela), 3, WIDTH);
+//        qtd = Integer.parseInt(tblDetalhePedido.getValueAt(0, 2).toString());
+//        totalItem = vlrItemTela * qtd;
+//        tblDetalhePedido.setValueAt(String.format("%9.2f", totalItem), 4, WIDTH);
+//        percentualDesconto = (vlrDesconto / valorPedido);
+//
+//        for (int i = 0; i < linhas; i++) {
+//            valorItem = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 3).toString().replace(",", "."));
+//            qtd = Double.parseDouble(tblDetalhePedido.getModel().getValueAt(i, 2).toString().replace(",", "."));
+//            valorItem = valorItem - (valorItem * (percentualDesconto));
+//            tblDetalhePedido.setValueAt(String.format("%9.2f", valorItem), i, 3);
+//            totalItem = valorItem * qtd;           
+//            tblDetalhePedido.setValueAt(String.format("%9.2f", totalItem), i, 4);
+//            total = total + totalItem;
+//        }
+//        tgeral.setText(String.format("%9.2f", total));
+//        txtDesconto.setText(String.format("%9.2f", vlrDesconto));
     }
 
     private void telaProcessamento(String msg) {
@@ -3494,5 +3579,17 @@ public class TelaCaixa extends javax.swing.JFrame {
         tpp.setModal(true);
         tpp.mensagem(msg);
         tpp.setVisible(true);
+    }
+
+    private double totalizaPedidoTela() {
+        int linhas = tblDetalhePedido.getRowCount();
+        double total = 0;
+
+        for (int i = 0; i < linhas; i++) {
+            double valor = Double.parseDouble(tblDetalhePedido.getValueAt(i, 4).toString().replace(",", "."));
+            total = total + valor;
+        }
+        total = Double.parseDouble(String.format("%9.2f", total).replace(",", "."));
+        return total;
     }
 }

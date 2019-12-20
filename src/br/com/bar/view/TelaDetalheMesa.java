@@ -71,8 +71,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         lblTextoReenvioCozinha.setEnabled(false);
         lblAnexarDelivery.setVisible(false);
         lblTextoDelivery.setVisible(false);
-        
-
+        panelFechar.setVisible(false);
     }
 
     //Atualiza a tabela detalhe mesa    
@@ -309,7 +308,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         lblMensagem = new javax.swing.JLabel();
         panelSuperior = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        panelFechar = new javax.swing.JPanel();
         lblFechar = new javax.swing.JLabel();
 
         jLabel19.setText("jLabel19");
@@ -317,7 +316,6 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("MasterFood - Detalhe Mesa");
         setMaximumSize(new java.awt.Dimension(32767, 32767));
-        setUndecorated(true);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -725,7 +723,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         getContentPane().add(panelSuperior);
         panelSuperior.setBounds(260, 0, 930, 60);
 
-        jPanel5.setBackground(new java.awt.Color(38, 53, 61));
+        panelFechar.setBackground(new java.awt.Color(38, 53, 61));
 
         lblFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/fecharWhite24x24.png"))); // NOI18N
@@ -735,21 +733,21 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelFecharLayout = new javax.swing.GroupLayout(panelFechar);
+        panelFechar.setLayout(panelFecharLayout);
+        panelFecharLayout.setHorizontalGroup(
+            panelFecharLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblFechar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelFecharLayout.setVerticalGroup(
+            panelFecharLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblFechar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel5);
-        jPanel5.setBounds(1240, 0, 40, 40);
+        getContentPane().add(panelFechar);
+        panelFechar.setBounds(1240, 0, 40, 40);
 
-        setSize(new java.awt.Dimension(1279, 787));
+        setSize(new java.awt.Dimension(1295, 826));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1103,7 +1101,6 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAlterarSenha;
     private javax.swing.JLabel lblAnexarDelivery;
@@ -1128,6 +1125,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     private javax.swing.JLabel lblTextoStatusCozinha;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblVlrUnitario;
+    private javax.swing.JPanel panelFechar;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JTable tbDetalhePedido;
     private javax.swing.JFormattedTextField txtCodigoProduto;
