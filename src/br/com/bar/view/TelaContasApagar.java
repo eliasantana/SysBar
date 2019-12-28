@@ -57,7 +57,7 @@ public class TelaContasApagar extends JDialog {
     ControlerDadosEmpresa de = new ControlerDadosEmpresa();
     TableModelContasApagar modelcontas = new TableModelContasApagar();
     TelaCaixa tc;
-    Object[] opcao = {"   Sim   ", "   Não   "};
+    Object[] opcao = {"   Não   ","   Sim   "};
     Date ultimaDataFimSelecionada;
     Util u = new Util();
     // Instacia um registro de log
@@ -720,7 +720,7 @@ public class TelaContasApagar extends JDialog {
                     // Realiza o pagamento.
                     int op = JOptionPane.showOptionDialog(null, "Confirma o pagamento desta conta?", "Atenção!", 
                              JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, opcao, opcao[1]);
-                    if (op == 0) {
+                    if (op == 1) {
                         // Total em espécie
                         double totalEspecie = caixa.totalizaTipoEntrada(lblOperador.getText(), "Dinheiro");
                         //Valor a ser pago

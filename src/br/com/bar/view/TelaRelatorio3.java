@@ -447,7 +447,6 @@ public class TelaRelatorio3 extends javax.swing.JFrame {
                 jcomboGrupo.setVisible(false);
             } else {
                 if (!"Selecione...".equals(opcao)) {
-
                     btnImprimir.setEnabled(true);
                 } else {
                     btnImprimir.setEnabled(false);

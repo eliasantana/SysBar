@@ -241,10 +241,10 @@ public class TelaPedido3 extends javax.swing.JFrame {
                 @Override
                 public void mouseClicked(MouseEvent me) {
                     if (controlerMesa.estaLivre(btn.getText())) {
-                        Object [] obj = {"   Sim   ","   Não   "};
+                        Object [] obj = {"   Não   ","   Sim   "};
                         int op = JOptionPane.showOptionDialog(null, "Deseja abrir um novo pedido para a mesa " + btn.getText() + "?", "Atenção!", 
                                  JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null,obj,obj[1]);
-                        if (op == 0) {
+                        if (op == 1) {
                             //JOptionPane.showMessageDialog(null, "Abrir novo Pedido");
                             // Abre pedido
                             Pedido p = new Pedido();

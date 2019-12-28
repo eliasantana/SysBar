@@ -276,11 +276,12 @@ public class TelaAutorizacao extends JDialog {
         //Guia selecionada no momento do desconto
         this.guia=index;
         listaDeValores = listaDadosDoPedido;
-        System.out.println("Valor: " + listaDeValores.get(0)); // Valor sem tx de Serviço
-        System.out.println("Serviço: " + listaDeValores.get(1)); // Tx. de Serviço
-        System.out.println("Total Geral: " + listaDeValores.get(2)); // Total Geral
-        System.out.println("Mesa: " + listaDeValores.get(3)); // Número da Mesa
-        System.out.println("Id do Pedido: " + listaDeValores.get(4));
+        // Exibe valores da lista
+//        System.out.println("Valor: " + listaDeValores.get(0)); // Valor sem tx de Serviço
+//        System.out.println("Serviço: " + listaDeValores.get(1)); // Tx. de Serviço
+//        System.out.println("Total Geral: " + listaDeValores.get(2)); // Total Geral
+//        System.out.println("Mesa: " + listaDeValores.get(3)); // Número da Mesa
+//        System.out.println("Id do Pedido: " + listaDeValores.get(4));
 
     }
     private void lblFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFecharMouseClicked
@@ -310,7 +311,7 @@ public class TelaAutorizacao extends JDialog {
             AutenticaUsuario autentica = new AutenticaUsuario();
             String funcionario = comboFuncionario.getSelectedItem().toString().toLowerCase();
             String senha = txtSenha.getText().toLowerCase();
-            System.out.println("Usuario: " + funcionario + " Senha " + senha);
+            //System.out.println("Usuario: " + funcionario + " Senha " + senha);
             if (autentica.autentica(funcionario, senha)) {
                 habilitaDesconto();
                 txtValorDesconto.requestFocus();
@@ -363,7 +364,7 @@ public class TelaAutorizacao extends JDialog {
                 l.setDescricao("Autorizou o desconto para o pedido-> " + listaDeValores.get(4) + " Mesa-> " + listaDeValores.get(3) + " Valor desconto: R$" + listaDeValores.get(6));
                 l.gravaLog(l);
                 // Devolve valores e guia selecionada
-                System.out.println("Devolvendo guia selecionada: ->"+guia);
+                //System.out.println("Devolvendo guia selecionada: ->"+guia);
                 cx.recebeDadosComDesconto(listaDeValores,guia);
 
                 this.dispose();

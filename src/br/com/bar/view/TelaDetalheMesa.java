@@ -59,7 +59,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     int idProduto;              // Armazeana o id ao clicar no item sobre a tabela
     String descricao;           // Armazeana a desclição ao clicar na tabela
     String qtd;                 // Armazeana a quantidade do produto Selecionado
-    Object[] opcao = {"   Sim   ", "   Não  "}; // Armazena opções de botões para a tela de ocnfirmação 
+    Object[] opcao = {"   Não  ","   Sim   "}; // Armazena opções de botões para a tela de ocnfirmação 
     public TelaDetalheMesa() {
         initComponents();
         txtQtd.setEnabled(false);
@@ -185,7 +185,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                         int op = JOptionPane.showOptionDialog(this, "Deseja adicionar uma observação?", "Atenção", 
                                  JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcao, opcao[1]);
                         // Chama a tela de observação
-                        if (op == 0) {
+                        if (op == 1) {
 
                             TelaObservacaoProduto telaObs = new TelaObservacaoProduto();
                             telaObs.recebeTela3(this, pCozinha); // Envia dados do produto
@@ -984,10 +984,11 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
             
             Timestamp tms = new Timestamp(dtAtual.getTime());
             pCozinha.add(String.valueOf(tms)); // Data Atual 
-            int op = JOptionPane.showConfirmDialog(this, "Deseja adicionar uma observação?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            int op = JOptionPane.showOptionDialog(this, "Deseja adicionar uma observação?", "Atenção", JOptionPane.YES_NO_OPTION, 
+                     JOptionPane.INFORMATION_MESSAGE, null, opcao, opcao[1]);
 
             // Chama a tela de observação
-            if (op == JOptionPane.YES_OPTION) {
+            if (op == 1) {
 
                 TelaObservacaoProduto telaObs = new TelaObservacaoProduto();
                 telaObs.recebeTela3(this, pCozinha); // Envia dados do produto

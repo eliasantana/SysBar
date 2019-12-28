@@ -142,7 +142,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     String operador;
     String cargo;
     // Opção da tela de confirmação
-    Object[] opcao = {"  Sim   ", "   Não  "};
+    Object[] opcao = {"   Não  ","  Sim   "};
 
     public TelaCaixa() {
         initComponents();
@@ -1347,7 +1347,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         // Verifica se Existe conexao com a internet
         // Caso não haja será emitido um cupom não fiscal
         boolean internet = ci.temConexao();
-        if (internet) {
+        if (internet || flagFiscal==0) {
             if (lblReceber.isEnabled()) {
                 if ("delivery".equals(lblGarcom.getText().toLowerCase()) && "0,00".equals(percent.getText())) {
                     JOptionPane.showMessageDialog(this, "É necessário realizar a entrega do pedido antes do seu fechamento!", "Atenção!", JOptionPane.ERROR_MESSAGE);
@@ -1398,7 +1398,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                     int op = JOptionPane.showOptionDialog(this, "Deseja realmente fechar este Pedido?", "Atenção!", JOptionPane.YES_OPTION,
                             JOptionPane.ERROR_MESSAGE, null, opcao, opcao[1]);
 
-                    if (op == 0) {  // Se confirmado fecha o pedido
+                    if (op == 1) {  // Se confirmado fecha o pedido
                         // Exibe tela de processamento
                         if (flagFiscal == 1) {
                             tpp = new TelaProcessaPamento();
@@ -1837,7 +1837,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE, null, opcao, opcao[1]);
             }
 
-            if (op == 0) {
+            if (op == 1) {
 
                 if (caixa.retornaStatusCaixa(cx.getIdFuncionario()) == 1) { // Verifica se existe movimentação no dia para este operador.
                     JOptionPane.showMessageDialog(null, "Caixa fechado, contate o administrador!");
@@ -2206,6 +2206,9 @@ public class TelaCaixa extends javax.swing.JFrame {
     private void jtabedFormaPagtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabedFormaPagtoMouseClicked
 
         if (jtabedFormaPagto.getSelectedIndex() != 0) { // Guia Pagamento Misto
+            // Retorna os valores ao estado original do pedido ao clicar na guia Pagamento Misto
+            atualizaPedidoNoCaixa();
+            atualizaPedidoNoCaixa();
             desabilitaBtnRadio();
             lblPago.setEnabled(false);
             lblTroco.setEnabled(false);
@@ -2215,7 +2218,6 @@ public class TelaCaixa extends javax.swing.JFrame {
             txtTroco.setText("0,00");
             String strValorPago = txtValorPago.getText().replace(",", ".");//9999.00
             strValorPago = strValorPago.replace(".", "");
-            //double valorPpago = Double.parseDouble(txtValorPago.getText().replace(",", "."));
             double valorPpago = Double.parseDouble(strValorPago);
             double totalmisto = dinheiro + credito + debito + voucher;
             if ((valorPpago > 0 && jtabedFormaPagto.getSelectedIndex() != 0) && totalmisto == 0) {
@@ -2232,6 +2234,12 @@ public class TelaCaixa extends javax.swing.JFrame {
 
             }
         } else {
+            // Retorna os valores ao estado original do pedido após sair da guia
+            // Pagamento misto
+            if ((dinheiro+credito+debito + voucher)>0){
+                atualizaPedidoNoCaixa();
+                atualizaPedidoNoCaixa();                
+            }
             // Se Primeira aba for selecionada
             txtValorPago.setText("0,00");
             txtTroco.setText("0,00");
@@ -3527,7 +3535,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                vlrDescServico  = (percentualDesconto * vlrServico);
                vlrDescServico = (vlrServico - vlrDescServico);
                vlrDescServico = Double.parseDouble(String.format("%9.2f", vlrDescServico).replace(",","."));
-               System.out.println("Valor do Serviço com Desconto: " + String.valueOf(vlrDescServico));
+               //System.out.println("Valor do Serviço com Desconto: " + String.valueOf(vlrDescServico));
                vlrServico = vlrDescServico;
                percent.setText(String.format("%9.2f", vlrServico));
         double soma = pedidoTela + vlrServico;

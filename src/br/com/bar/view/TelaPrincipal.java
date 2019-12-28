@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -38,6 +37,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     ControlerContasApagar cc = new ControlerContasApagar();
     ControlerCozinha cz = new ControlerCozinha();
     ControlerEstoque estoque = new ControlerEstoque();
+    Object[] obj = {"  Não  ","  Sim  "};
     Util u = new Util();
     TelaDelivery d;
     TelaCaixa caixa;
@@ -578,12 +578,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (cz.pratoPendente() > 0) {
             JOptionPane.showMessageDialog(this, "Existe(m) prato(s) com liberação pendente!");
         }
-
-        Object[] obj = {"   Sim   ", "   Não   "};
+   
         int op = JOptionPane.showOptionDialog(this, "Deseja realmente fechar esta tela?", "Atenção!", 
                  JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, obj, obj[1]);
         
-        if (op ==0){
+        if (op ==1){
             System.exit(0);
         }
     }//GEN-LAST:event_lblFEcharMouseClicked
@@ -697,11 +696,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         double nMesasOcupadas = dadosOcupacao.get(1);
 
         if (nMesasOcupadas > 0) {
-            Object[] obj = {"  Sim  ", "  Não  "};
+           
             int op = JOptionPane.showOptionDialog(this, "Existem pedidos abertos! Deseja sair mesmo assim?", "Atenção!", 
                      JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null,obj,obj[1]);
 
-            if (op == 0) {
+            if (op == 1) {
 
                 dispose();
                 TelaLogin login = new TelaLogin();

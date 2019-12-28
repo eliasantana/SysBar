@@ -6,11 +6,13 @@
 package br.com.bar.view;
 
 import br.com.bar.util.Util;
+import br.com.br.controler.ControlerPedido;
 import br.com.br.controler.ControlerProduto;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -32,6 +34,7 @@ public class TelaEstoque extends javax.swing.JFrame {
     TelaEnviaNFCe enviaNfce;
     TelaDownloadNFCe download;
     TelaGerenciarPedido gp;
+    TelaCancelamentoPedido cancelamento;
     //------------------------------------------------------------
     // As variaveis abaixo determinam o ambiente de Emissão de cupom fiscal
     int flagFiscal = 1;             // 1 - Para autorizar e ler retorno SEFAZ     
@@ -115,6 +118,10 @@ public class TelaEstoque extends javax.swing.JFrame {
         btnPedidos = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -474,6 +481,48 @@ public class TelaEstoque extends javax.swing.JFrame {
         borda.add(btnPedidos);
         btnPedidos.setBounds(620, 120, 190, 100);
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/extornar.png"))); // NOI18N
+
+        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jLabel9.setText("Pedido");
+
+        jLabel10.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jLabel10.setText("Extornar");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addGap(28, 28, 28))
+        );
+
+        borda.add(jPanel1);
+        jPanel1.setBounds(420, 340, 190, 100);
+
         getContentPane().add(borda);
         borda.setBounds(0, 0, 820, 460);
 
@@ -614,6 +663,15 @@ public class TelaEstoque extends javax.swing.JFrame {
         gp.setVisible(true);
     }//GEN-LAST:event_btnPedidosMouseClicked
 
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        // Chama tela de Cancelamento de Pedido
+        if (cancelamento == null){
+            cancelamento = new TelaCancelamentoPedido();
+        }
+        cancelamento.setVisible(true);
+        
+    }//GEN-LAST:event_jPanel1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -662,6 +720,7 @@ public class TelaEstoque extends javax.swing.JFrame {
     private javax.swing.JPanel btnProduto1;
     private javax.swing.JPanel btnRAnking;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -686,7 +745,10 @@ public class TelaEstoque extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblFornecedores5;

@@ -6,6 +6,7 @@
 package br.com.br.controler;
 
 import br.com.bar.dao.ConexaoBd;
+import br.com.bar.dao.Log;
 import br.com.bar.model.Pedido;
 import java.awt.HeadlessException;
 import java.sql.Connection;
@@ -920,7 +921,14 @@ public class ControlerPedido {
                         }
                     }
                 }
-
+                
+                Log l = new Log();
+                l.setDescricao(operador + " - extornou o pedido " + idPedido);
+                l.setFuncionalidade("Extorno");
+                l.setUsuario(operador);
+                l.gravaLog(l);
+                
+                msg = "O pedido " + idPedido+ " foi extornado com sucesso!";
             } else {
                 msg = "O número do Pedido ou o Número da mesa são inválidos!";
             }

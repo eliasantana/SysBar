@@ -43,7 +43,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     // Armazena Retorno da tela de Remoção de Intens
     int qtdAtualizada;
     // Armazena botões da tela de confirmação
-    Object[] opcao = {"   Sim   ", "   Não   "};
+    Object[] opcao = {"   Não   ","   Sim   "};
 
     public TelaGerenciarPedido() {
         initComponents();
@@ -363,7 +363,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
             // Remove item do pedido e devolte ao estoque
             int op = JOptionPane.showOptionDialog(this, "Tem certeza que deseja remover este item do pedido?", "Atenção!",
                     JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, opcao, opcao[1]);
-            if (op == 0) {
+            if (op == 1) {
                 // Armazena quantidade do item selecionado
                 int qtdItem = Integer.parseInt(txtQtd.getText());
                 if (qtdItem > 1) {
@@ -441,7 +441,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         // Solicita ao usuário a confirmação do pedido
         int op = JOptionPane.showOptionDialog(this, "Confirma o cancelamento do pedido?", "Atenção!",
                 JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, opcao, opcao[1]);
-        if (op == 0) {
+        if (op == 1) {
             // Captura o número do pedido antes da exclusão
             String nPedido = jcomboPedido.getSelectedItem().toString();
             String nmesa = lblNumeroMesa.getText();

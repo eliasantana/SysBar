@@ -51,6 +51,8 @@ public class TesteNFCe extends javax.swing.JFrame {
     ControlerProduto cp = new ControlerProduto();
     ControlerPedido cpedido = new ControlerPedido();
     ControlerNFCe nfceControler = new ControlerNFCe();
+    CriptoGrafa cripto  = new CriptoGrafa();
+    
     Util u = new Util();
     /* Aqui são criados as hash's que receberão os dados da nota. */
     HashMap<String, String> nfce = new HashMap();
@@ -249,7 +251,7 @@ public class TesteNFCe extends javax.swing.JFrame {
                                 .addComponent(jButton3)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(0, 18, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -268,27 +270,29 @@ public class TesteNFCe extends javax.swing.JFrame {
                                                 .addComponent(adicionar)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                    .addComponent(jButton1)
+                                                    .addGap(117, 117, 117)
+                                                    .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(txtEmail2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtEmail3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addComponent(jButton1)
-                                                .addGap(117, 117, 117)
-                                                .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(txtEmail2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnValidaEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtEmail3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(btnValidaEmail)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGap(184, 184, 184)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                                                            .addComponent(jLocaleChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(206, 206, 206)
                         .addComponent(jButton4)
                         .addGap(166, 166, 166)
                         .addComponent(valor, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
                 .addComponent(jButton5)
                 .addGap(85, 85, 85))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(563, 563, 563)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                    .addComponent(jLocaleChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,32 +350,13 @@ public class TesteNFCe extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarActionPerformed
-
-        ControlerDadosEmpresa dados = new ControlerDadosEmpresa();
-        DadosEmpresa d = dados.selecionaDados();
-        CriptoGrafa cripto = new CriptoGrafa();
-        // -----------------------------------------------------------
-        //Coluna do Banco de Dados responsável pela ativação fiscal
-        //String fiscal = null;
-        //String fiscal ="Elias25252525";
-        String fiscal = "MzQuMjU3LjU3NS8wMDAxLTA2";
-        String nomeEmpresa = d.getNome_empresa();
-        System.out.println(nomeEmpresa);
-        int retorno = 0;
-        if (fiscal != null) {
-            // Encript CNPJ
-            String cnpjEncriptado = cripto.encripta(d.getCnpj());
-            if (fiscal.equals(cnpjEncriptado)) {
-                retorno = 1;
-            }
-        }
-        System.out.println("Resposta Fiscal: " + retorno);
-        if (retorno == 1) {
-            System.out.println("Imprimir Cupom Fiscal.....");
-        } else {
-            System.out.println("Systema sem licença fiscal......");
-
-        }
+        String msg =cripto.decripta("MjAxOS0xMi0zMQ==");
+        String dataSeparada[] = msg.split("-");
+        String ano = dataSeparada[0];
+        String mes = dataSeparada[1];
+        String dia = dataSeparada[2];
+        
+        System.out.println("Sua licença vence " + dia + " de " + mes + " de " + ano);
     }//GEN-LAST:event_adicionarActionPerformed
 
     private void listarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarActionPerformed
@@ -655,10 +640,14 @@ public class TesteNFCe extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         String nomeImagem = "masterfood64x64.png";      
         
-        Object[] options = {"   Sim   ","   Não   "}; 
+        Object[] options = {"   Não   ","   Sim   "}; 
         int op = JOptionPane.showOptionDialog(this, "Deseja Realmente Sair do Programa?", "Saír do Programa", 
                 JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[1]);
-        System.out.println(op);
+        if (op==1){
+            JOptionPane.showMessageDialog(this, "Você clicou em Sim");
+        }else {
+            JOptionPane.showMessageDialog(this, "Você clicou em Não");
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void valorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_valorMouseClicked

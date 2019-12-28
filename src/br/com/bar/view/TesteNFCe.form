@@ -43,7 +43,7 @@
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="jScrollPane1" min="-2" pref="537" max="-2" attributes="0"/>
@@ -67,14 +67,28 @@
                                           </Group>
                                       </Group>
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
-                                              <Component id="txtEmail1" min="-2" pref="189" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
+                                                  <Component id="txtEmail1" min="-2" pref="189" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="txtEmail2" alignment="0" min="-2" pref="189" max="-2" attributes="0"/>
+                                              <Component id="txtEmail3" alignment="0" min="-2" pref="189" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="txtEmail2" alignment="0" min="-2" pref="189" max="-2" attributes="0"/>
-                                          <Component id="btnValidaEmail" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtEmail3" alignment="0" min="-2" pref="189" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="btnValidaEmail" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <EmptySpace min="-2" pref="184" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                          <Component id="jDateChooser1" pref="144" max="32767" attributes="0"/>
+                                                          <Component id="jLocaleChooser1" pref="0" max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                               </Group>
@@ -88,17 +102,8 @@
                       <Component id="valor" min="-2" pref="114" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jButton5" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="563" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jDateChooser1" pref="144" max="32767" attributes="0"/>
-                  <Component id="jLocaleChooser1" pref="0" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
