@@ -21,6 +21,8 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -212,7 +214,7 @@ public class TesteNFCe extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Tela1");
+        jButton4.setText("Abrir Tela");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -347,6 +349,7 @@ public class TesteNFCe extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarActionPerformed
@@ -632,9 +635,17 @@ public class TesteNFCe extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        TelaBloqueio tb = new TelaBloqueio();
-        tb.setModal(true);
-        tb.setVisible(true);
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        Dimension d = tk.getScreenSize();
+        System.out.println("Largura: " + d.getWidth());
+        System.out.println("Altura: " + d.getHeight());
+        System.out.println("Tamanho: " + d.getSize());
+        TelaDetalheMesa dtMesa = new TelaDetalheMesa();
+        dtMesa.setPreferredSize(d);
+        dtMesa.setMinimumSize(d);
+        dtMesa.setMaximumSize(d);
+        dtMesa.setExtendedState(6);
+        dtMesa.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

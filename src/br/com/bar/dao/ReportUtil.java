@@ -52,6 +52,7 @@ public class ReportUtil {
      * @param relatorio Nome do relatório a ser aberto.
      * @param map Mapa de parâmetro necessário para execução do relatório.
      * @param titulo Titulo do Relatório
+     * @exception JRException
      */ 
     public void imprimeRelatorioTela(String relatorio, HashMap map, String titulo) throws JRException {
         // Instancia o objeto 
@@ -73,13 +74,12 @@ public class ReportUtil {
             // Adiciona a janela de exibição do relatório dentro do novo JDialog
             viewer.getContentPane().add(viewerJasper.getContentPane());
             // Seta nova janela como modal.
-            viewer.setModal(true);
+            viewer.setModal(true);            
             // Exibe o relatório em tela.
             viewer.setVisible(true);
         } catch (NullPointerException e) {
             System.out.println("br.com.bar.dao.ReportUtil.imprimiRelatorioTela() " + relatorio + " " + e);
-        }
-        
+        }       
 
     }
 

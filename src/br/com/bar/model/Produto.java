@@ -13,6 +13,7 @@ public class Produto {
     
    private String id;
    private String codNCM; // Código NCM do produto
+   private String codigoProduto; // Código interno do Produto
    private String nome;
    private String qtd;
    private String qtdMax;
@@ -20,6 +21,7 @@ public class Produto {
    private String cad_grupo_produto;
    private int idFornecedor;
    private String valor;
+   
    
     public String getTbGrupoId() {
         return cad_grupo_produto;
@@ -93,6 +95,13 @@ public class Produto {
     public void setCodNCM(String codNCM) {
         this.codNCM = codNCM;
     }
-   
+
+    public void setCodigoProduto(String codigoProduto) {
+        this.codigoProduto = codigoProduto;
+    }
+
+    public String getCodigoProduto() {
+        return codigoProduto;
+    }
    
 }

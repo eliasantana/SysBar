@@ -72,11 +72,11 @@ public class TableModelCadastroProduto extends AbstractTableModel {
         
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(60); 
-        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(315);
+        tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(300);
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(40);
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(80);
         tabela.getColumn(tabela.getColumnName(4)).setPreferredWidth(40);
-        tabela.getColumn(tabela.getColumnName(5)).setPreferredWidth(40);
+        tabela.getColumn(tabela.getColumnName(5)).setPreferredWidth(55);
         tabela.getColumn(tabela.getColumnName(6)).setPreferredWidth(133);
         // Atribui o alinhamento as colunas
 //        tabela.getColumnModel().getColumn(0).setCellRenderer(direita);

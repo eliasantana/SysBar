@@ -15,7 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,7 +30,8 @@ public class ControlerProduto {
     public ResultSet listaProduto() {
 
         String sql = "SELECT \n"
-                + "	p.id as 'CÓDIGO', \n"
+                //+ "	p.id as 'CÓDIGO', \n"
+                + "	p.cod_produto as 'CÓDIGO', \n"
                 + "	p.nome as 'PRODUTO',\n"
                 + "	p.qtd as 'QTD', \n"
                 + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"
@@ -55,7 +55,8 @@ public class ControlerProduto {
     public ResultSet listaProduto(Fornecedor f) {
 
         String sql = "SELECT \n"
-                + "	p.id as 'CÓDIGO', \n"
+                //+ "	p.id as 'CÓDIGO', \n"
+                + "	p.cod_produto as 'CÓDIGO', \n"
                 + "	p.nome as 'PRODUTO',\n"
                 + "	p.qtd as 'QTD', \n"
                 + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"
@@ -239,19 +240,22 @@ public class ControlerProduto {
     public ResultSet filtrarProduto(String localizarTexto, String opcao) {
 
         String filtro = "";
-
         String nomeProduto = "p.nome";
         String grupo = "g.nome";
+        String codProduto = "p.cod_produto";
 
         if ("Nome".equals(opcao)) {
             filtro = nomeProduto; // Filtra pelo nome do produto
 
-        } else {
+        }else if ("Codigo".equals(opcao)){
+            filtro = codProduto;
+        }else {
             filtro = grupo; // filtra pelo nome do grupo
         }
 
         String sql = "SELECT \n"
-                + "	p.id as 'CÓDIGO', \n"
+                //+ "	p.id as 'CÓDIGO', \n"
+                + "	p.cod_produto as 'CÓDIGO', \n"
                 + "	p.nome as 'PRODUTO',\n"
                 + "	p.qtd as 'QTD', \n"
                 + "	format(p.valor, 2,'de_DE') as 'VALOR R$',\n"
@@ -294,7 +298,7 @@ public class ControlerProduto {
 
     public boolean adicionaProduto(Produto p) {
 
-        String sql = "INSERT INTO tbproduto (nome, qtd, qtd_min,qtd_max,valor,cad_grupo_produto_id, tbFornecedores_id,cod_ncm) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO tbproduto (nome, qtd, qtd_min,qtd_max,valor,cad_grupo_produto_id, tbFornecedores_id,cod_ncm,cod_produto) VALUES (?,?,?,?,?,?,?,?,?)";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -306,7 +310,8 @@ public class ControlerProduto {
             pst.setString(6, p.getTbGrupoId());
             pst.setInt(7, p.getIdFornecedor());
             pst.setString(8, p.getCodNCM());
-
+            pst.setString(9, p.getCodigoProduto());
+            
             pst.executeUpdate();
 
             return true;
@@ -320,7 +325,7 @@ public class ControlerProduto {
 
     public boolean alteraProduto(Produto p) {
 
-        String sql = "UPDATE tbproduto SET nome=?, qtd=?, qtd_min=?, qtd_max=?, valor=?, cad_grupo_produto_id=?, tbFornecedores_id=?, cod_ncm=?  WHERE id=?";
+        String sql = "UPDATE tbproduto SET nome=?, qtd=?, qtd_min=?, qtd_max=?, valor=?, cad_grupo_produto_id=?, tbFornecedores_id=?, cod_ncm=?, cod_produto=?  WHERE id=?";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -333,7 +338,8 @@ public class ControlerProduto {
             pst.setString(6, p.getTbGrupoId());
             pst.setInt(7, p.getIdFornecedor());
             pst.setString(8, p.getCodNCM());
-            pst.setString(9, p.getId());
+            pst.setString(9, p.getCodigoProduto());
+            pst.setString(10, p.getId());
 
             pst.executeUpdate();
 
@@ -612,5 +618,41 @@ public class ControlerProduto {
         }
 
         return codigo_ncm;
+    }
+    
+    //Retorna o código do produto informado
+    public String localizaCodigoInterno(String idProduto){
+        String sql = "SELECT cod_produto FROM tbproduto WHERE id=?";
+        String codProduto=null;
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, idProduto);
+            rs = pst.executeQuery();
+            while (rs.next()){
+                codProduto = rs.getString("cod_produto");
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerProduto.localizaCodigoInterno()"+e);
+        }        
+        return codProduto;
+    }
+    
+    // Retorna o id do produto selecionado
+    // Método chamada na TelaPesquisaProduto
+    public String localizaIdProduto(String codigoProduto){
+        String sql="SELECT id FROM tbproduto WHERE cod_produto=?";
+        String id=null;
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, codigoProduto);
+            rs = pst.executeQuery();
+            while (rs.next()){
+                id = rs.getString("id");
+            }
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerProduto.localizaIdProduto()"+e);
+        }
+        
+        return id;
     }
 }

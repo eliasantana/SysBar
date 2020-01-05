@@ -200,6 +200,8 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
         
         if (evt.getClickCount()==2){
             telaDetalhe.recebeProduto(p);
+            this.dispose();
+            btnAdicionar.setEnabled(false);
         }
 
     }//GEN-LAST:event_tbProdutosEstoqueMouseClicked

@@ -5,6 +5,7 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.Log;
 import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.Funcionario;
@@ -14,6 +15,7 @@ import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCozinha;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerFuncionario;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -22,9 +24,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -160,6 +168,7 @@ public class TelaConzinha extends javax.swing.JFrame {
         lblRelogio = new javax.swing.JLabel();
         lblObservacao = new javax.swing.JLabel();
         jTextAreaObservacao = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
         paineldireito = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCozinha = new javax.swing.JTable();
@@ -211,6 +220,13 @@ public class TelaConzinha extends javax.swing.JFrame {
         jTextAreaObservacao.setRows(5);
         jTextAreaObservacao.setFocusable(false);
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelEsquerdoLayout = new javax.swing.GroupLayout(painelEsquerdo);
         painelEsquerdo.setLayout(painelEsquerdoLayout);
         painelEsquerdoLayout.setHorizontalGroup(
@@ -237,6 +253,10 @@ public class TelaConzinha extends javax.swing.JFrame {
                         .addComponent(lblRelogio, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(painelEsquerdoLayout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addComponent(jButton1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         painelEsquerdoLayout.setVerticalGroup(
             painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,7 +271,9 @@ public class TelaConzinha extends javax.swing.JFrame {
                 .addComponent(lblObservacao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextAreaObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(48, 48, 48)
                 .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -542,13 +564,6 @@ public class TelaConzinha extends javax.swing.JFrame {
             if (cc.liberaProduto(txtidProdutoCozinha.getText(), tempoEspera)) {
                 String prato = tblCozinha.getModel().getValueAt(0, 1).toString();
                 lblMsg.setText("*Prato " + "'" + prato + "'" + " liberado com sucesso! ");
-                Log l = new Log();
-                //Log
-                l.setDescricao("Liberou -> " + tblCozinha.getModel().getValueAt(0, 1).toString() + " da cozinha");
-                l.setFuncionalidade("Liberar Prato");
-                l.setUsuario(lblOperador.getText());
-                l.gravaLog(l);
-
                 tblCozinha.setModel(DbUtils.resultSetToTableModel(cc.listaProdutosCozinha()));
                 modelCozinha.redimensionaColunas(tblCozinha);
                 modelCozinha.adicionaCoresTabela(tblCozinha);
@@ -685,6 +700,34 @@ public class TelaConzinha extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lblImprimirSolicitacoesMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            String url = "C:/SysBar/Rel/";
+            String nomeRel = "solicitacoes.jasper";
+            Connection conexao = ConexaoBd.conector();
+            HashMap map = new HashMap();
+            map.put("mesa",nMesa);
+             try {
+            // Instancia um JDialog
+            JDialog viewer = new JDialog(new javax.swing.JFrame(), "teste", true);
+            viewer.setSize(800, 600);
+            viewer.setLocationRelativeTo(null);
+            //viewer.setAlwaysOnTop(true);            
+            JasperPrint jasperPrint = JasperFillManager.fillReport(url + nomeRel, map, conexao);
+            //JasperViewer.viewReport(jasperPrint, false);
+            JasperViewer viewerJasper = new JasperViewer(jasperPrint);
+            // Adiciona a janela de exibição do relatório dentro do novo JDialog
+            viewer.getContentPane().add(viewerJasper.getContentPane());
+            // Seta nova janela como modal.
+            viewer.setModal(true);            
+            // Exibe o relatório em tela.
+            viewer.setVisible(true);
+        } catch (NullPointerException e) {
+            System.out.println("br.com.bar.dao.ReportUtil.imprimiRelatorioTela() " + nomeRel + " " + e);
+        } catch (JRException ex) {
+            Logger.getLogger(TelaConzinha.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void preparar() {
         int linha = tblCozinha.getSelectedRow();
         // String idProdutoCozinha = idProduto;
@@ -762,6 +805,7 @@ public class TelaConzinha extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

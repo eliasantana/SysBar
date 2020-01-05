@@ -105,7 +105,7 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         radioProduto = new javax.swing.JRadioButton();
         radioGrupo = new javax.swing.JRadioButton();
-        jLabel3 = new javax.swing.JLabel();
+        radioCodigo = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -353,8 +353,14 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         });
         bordas.add(radioGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 80, -1));
 
-        jLabel3.setText("jLabel3");
-        bordas.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, -1, -1));
+        buttonGroup1.add(radioCodigo);
+        radioCodigo.setText("Código");
+        radioCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioCodigoMouseClicked(evt);
+            }
+        });
+        bordas.add(radioCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, -1, -1));
 
         getContentPane().add(bordas);
         bordas.setBounds(0, 0, 750, 710);
@@ -396,7 +402,9 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
             opcao = "Nome";
         } else if (radioGrupo.isSelected()) {
             opcao = "Grupo";
-        } else {
+        }else if (radioCodigo.isSelected()){
+            opcao = "Codigo";
+        }else {
             opcao = "Nome";
         }
         
@@ -429,13 +437,16 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         int linha = tblProduto.getSelectedRow();
         if (btnAlteraProduto.isEnabled()) {
             Produto p = new Produto();
-            p.setId(tblProduto.getModel().getValueAt(linha, 0).toString());
-            p.setNome(tblProduto.getModel().getValueAt(linha, 1).toString());
+            //p.setId(tblProduto.getModel().getValueAt(linha, 0).toString());
+            p.setCodigoProduto(tblProduto.getModel().getValueAt(linha, 0).toString());
+            p.setNome(tblProduto.getModel().getValueAt(linha, 1).toString());            
             p.setQtd(tblProduto.getModel().getValueAt(linha, 2).toString());
             p.setValor(tblProduto.getModel().getValueAt(linha, 3).toString());
             p.setQtdMin(tblProduto.getModel().getValueAt(linha, 4).toString());
             p.setQtdMax(tblProduto.getModel().getValueAt(linha, 5).toString());
             p.setTbGrupoId(tblProduto.getModel().getValueAt(linha, 6).toString());
+            p.setId(cp.localizaIdProduto(p.getCodigoProduto()));
+             
             //Localiza código ncm do produto
             p.setCodNCM(cp.localizaNCM(p));
             Fornecedor f = cf.localizaFornecedor(cf.retornaFornecedor(p));
@@ -456,7 +467,8 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         int linha = tblProduto.getSelectedRow();
 
         Produto p = new Produto();
-        p.setId(tblProduto.getModel().getValueAt(linha, 0).toString());
+        String codProduto = tblProduto.getModel().getValueAt(linha, 0).toString();
+        p.setId(cp.localizaIdProduto(codProduto));
 
         int op = JOptionPane.showConfirmDialog(this, "Confirma a exclusão do produto?", "Atenção!", JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE);
         if (op == JOptionPane.YES_OPTION) {
@@ -515,6 +527,13 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_radioProdutoMouseEntered
 
+    private void radioCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioCodigoMouseClicked
+    // Seleciona caixa de texto localizar e adiciona o ponteiro do mouse
+        txtLocalizar.setText(null);
+        txtLocalizar.requestFocus();
+        comboFornecedor.setSelectedIndex(0);
+    }//GEN-LAST:event_radioCodigoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -563,7 +582,6 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
@@ -576,6 +594,7 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JPanel panelSuperior;
+    private javax.swing.JRadioButton radioCodigo;
     private javax.swing.JRadioButton radioGrupo;
     private javax.swing.JRadioButton radioProduto;
     private javax.swing.JTable tblProduto;

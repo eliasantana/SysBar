@@ -34,13 +34,14 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     Log l = new Log();
     TelaPesquisaProduto telaPesquisa;
     Produto produto = new Produto();
-    Object[] opcao = {"   Sim   ","   Não   "};
+    Object[] opcao = {"   Não   ", "   Sim   "};
+
     /**
      * Creates new form TelaCadastroProduto
      */
     public TelaCadastroProduto() {
         initComponents();
-        
+
         g.carregaComboGrupoProduto(comboGrupoProduto);
 
         cf.carregaComboFornecedor(comboFornecedor);
@@ -74,12 +75,12 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         if ("Alterar".equals(titulo)) {
             bloqueiaCampos();
         }
-        
-        
 
     }
 
     public void recebeProduto(TelaPesquisaProduto tela, Produto p) {
+        //Localiza o codigo interno e adiciona ao objeto produto
+
         txtDescricao.setText(p.getNome());
         txtQtdMin.setText(p.getQtdMin());
         txtQtdMax.setText(p.getQtdMax());
@@ -88,12 +89,12 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         comboFornecedor.setSelectedIndex(0);
         comboGrupoProduto.setSelectedIndex(0);
         txtCodigoNcm.setText(p.getCodNCM());
+        txtCodigoProduto.setText(p.getCodigoProduto());
         this.telaPesquisa = tela;
         this.produto = p;
-        comboGrupoProduto.setSelectedItem(produto.getTbGrupoId());        
+        comboGrupoProduto.setSelectedItem(produto.getTbGrupoId());
         comboFornecedor.setSelectedItem(cf.retornaFornecedor(p));
-        
-        
+
     }
 
     /**
@@ -128,6 +129,8 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         txtQtdMax = new javax.swing.JFormattedTextField();
         txtCodigoNcm = new javax.swing.JFormattedTextField();
         lblDescricao1 = new javax.swing.JLabel();
+        lblCodigoProduto = new javax.swing.JLabel();
+        txtCodigoProduto = new javax.swing.JFormattedTextField();
         panelSuperior = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
@@ -167,12 +170,12 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(txtDescricao);
-        txtDescricao.setBounds(140, 30, 290, 40);
+        txtDescricao.setBounds(20, 100, 330, 40);
 
         lblqtd.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblqtd.setText("Quantidade");
         painelEsquerdo.add(lblqtd);
-        lblqtd.setBounds(20, 80, 130, 30);
+        lblqtd.setBounds(20, 140, 130, 30);
 
         txtValor.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtValor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -192,22 +195,22 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(txtValor);
-        txtValor.setBounds(220, 110, 130, 40);
+        txtValor.setBounds(220, 170, 130, 40);
 
         lblValor.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblValor.setText("Valor R$");
         painelEsquerdo.add(lblValor);
-        lblValor.setBounds(220, 80, 130, 30);
+        lblValor.setBounds(220, 140, 130, 30);
 
         lblFornecedor.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblFornecedor.setText("Fornecedor");
         painelEsquerdo.add(lblFornecedor);
-        lblFornecedor.setBounds(20, 290, 170, 30);
+        lblFornecedor.setBounds(20, 345, 170, 20);
 
         lblQtdMax.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblQtdMax.setText("Quantidade Máxima");
         painelEsquerdo.add(lblQtdMax);
-        lblQtdMax.setBounds(220, 150, 170, 30);
+        lblQtdMax.setBounds(220, 210, 170, 30);
 
         comboGrupoProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         comboGrupoProduto.addItemListener(new java.awt.event.ItemListener() {
@@ -221,7 +224,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(comboGrupoProduto);
-        comboGrupoProduto.setBounds(20, 250, 200, 40);
+        comboGrupoProduto.setBounds(20, 304, 200, 40);
 
         btnAdicionarFornecedor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdicionarFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
@@ -232,17 +235,17 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(btnAdicionarFornecedor);
-        btnAdicionarFornecedor.setBounds(230, 320, 50, 40);
+        btnAdicionarFornecedor.setBounds(230, 370, 50, 40);
 
         lblQtdMin.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblQtdMin.setText("Quantidade Mínima");
         painelEsquerdo.add(lblQtdMin);
-        lblQtdMin.setBounds(20, 150, 170, 30);
+        lblQtdMin.setBounds(20, 210, 170, 30);
 
         lblGrupo.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblGrupo.setText("Grupo ");
         painelEsquerdo.add(lblGrupo);
-        lblGrupo.setBounds(20, 220, 170, 30);
+        lblGrupo.setBounds(20, 280, 170, 20);
 
         comboFornecedor.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         comboFornecedor.addItemListener(new java.awt.event.ItemListener() {
@@ -256,7 +259,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(comboFornecedor);
-        comboFornecedor.setBounds(20, 320, 200, 40);
+        comboFornecedor.setBounds(20, 370, 200, 40);
 
         btnAdicionarGrupo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdicionarGrupo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
@@ -267,7 +270,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(btnAdicionarGrupo);
-        btnAdicionarGrupo.setBounds(230, 250, 50, 40);
+        btnAdicionarGrupo.setBounds(230, 304, 50, 40);
 
         btnSalvar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvar32x32.png"))); // NOI18N
@@ -281,11 +284,11 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(btnSalvar);
-        btnSalvar.setBounds(180, 390, 110, 50);
+        btnSalvar.setBounds(180, 430, 110, 50);
 
         lblMensagem.setForeground(new java.awt.Color(255, 0, 0));
         painelEsquerdo.add(lblMensagem);
-        lblMensagem.setBounds(20, 370, 340, 20);
+        lblMensagem.setBounds(20, 415, 340, 20);
 
         txtQuantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         txtQuantidade.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
@@ -295,7 +298,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(txtQuantidade);
-        txtQuantidade.setBounds(20, 110, 130, 40);
+        txtQuantidade.setBounds(20, 170, 130, 40);
 
         txtQtdMin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         txtQtdMin.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
@@ -305,7 +308,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(txtQtdMin);
-        txtQtdMin.setBounds(20, 180, 130, 40);
+        txtQtdMin.setBounds(20, 240, 130, 40);
 
         txtQtdMax.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         txtQtdMax.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -317,7 +320,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(txtQtdMax);
-        txtQtdMax.setBounds(220, 180, 130, 40);
+        txtQtdMax.setBounds(220, 240, 130, 40);
 
         txtCodigoNcm.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         txtCodigoNcm.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
@@ -330,15 +333,38 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
         painelEsquerdo.add(txtCodigoNcm);
-        txtCodigoNcm.setBounds(20, 30, 110, 40);
+        txtCodigoNcm.setBounds(20, 30, 130, 40);
 
         lblDescricao1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         lblDescricao1.setText("Descrição");
         painelEsquerdo.add(lblDescricao1);
-        lblDescricao1.setBounds(140, 0, 220, 30);
+        lblDescricao1.setBounds(20, 70, 220, 30);
+
+        lblCodigoProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        lblCodigoProduto.setText("Cód. Produto");
+        painelEsquerdo.add(lblCodigoProduto);
+        lblCodigoProduto.setBounds(220, 0, 110, 30);
+
+        txtCodigoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txtCodigoProduto.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        txtCodigoProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCodigoProdutoFocusLost(evt);
+            }
+        });
+        txtCodigoProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCodigoProdutoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoProdutoKeyReleased(evt);
+            }
+        });
+        painelEsquerdo.add(txtCodigoProduto);
+        txtCodigoProduto.setBounds(220, 30, 130, 40);
 
         bordas.add(painelEsquerdo);
-        painelEsquerdo.setBounds(2, 110, 435, 448);
+        painelEsquerdo.setBounds(2, 110, 435, 480);
 
         panelSuperior.setBackground(new java.awt.Color(243, 156, 18));
         panelSuperior.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -400,9 +426,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         panelSuperior.setBounds(1, 1, 440, 110);
 
         getContentPane().add(bordas);
-        bordas.setBounds(0, 0, 440, 560);
+        bordas.setBounds(0, 0, 440, 600);
 
-        setBounds(500, 140, 440, 560);
+        setBounds(500, 140, 440, 596);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
@@ -424,11 +450,10 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
     private void txtDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyPressed
         // TODO add your handling code here:
-        lblCodigoNcm.setForeground(Color.black);
+        lblDescricao1.setForeground(Color.black);
         lblMensagem.setText(null);
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             txtQuantidade.requestFocus();
-
         }
     }//GEN-LAST:event_txtDescricaoKeyPressed
 
@@ -437,13 +462,13 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         lblMensagem.setText(null);
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
-            FormataValor fv = new FormataValor();             
-            
-            txtValor.setText(fv.Formata(txtValor.getText()));
-            txtQtdMin.requestFocus();
+                FormataValor fv = new FormataValor();
+
+                txtValor.setText(fv.Formata(txtValor.getText()));
+                txtQtdMin.requestFocus();
             } catch (NumberFormatException ex) {
-                System.out.println("br.com.bar.view.TelaCadastroProduto.txtValorKeyPressed()"+e);
-                JOptionPane.showMessageDialog(this, "Valor Inválido!","Atenção",JOptionPane.ERROR_MESSAGE);
+                System.out.println("br.com.bar.view.TelaCadastroProduto.txtValorKeyPressed()" + e);
+                JOptionPane.showMessageDialog(this, "Valor Inválido!", "Atenção", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_txtValorKeyPressed
@@ -460,84 +485,112 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_comboGrupoProdutoActionPerformed
 
     private void btnSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseClicked
+        if (btnSalvar.isEnabled()) {
 
-        // Salva um produto
-        Fornecedor f = new Fornecedor();
-        f.setNome(comboFornecedor.getSelectedItem().toString());
+            // Salva um produto
+            Fornecedor f = new Fornecedor();
+            f.setNome(comboFornecedor.getSelectedItem().toString());
 
-        Produto p = new Produto();
-       
-        //p.setNome(txtDescricao.getText());
-        p.setNome(u.retiraAcento(txtDescricao.getText()));
-        p.setQtd(txtQuantidade.getText());
-        p.setQtdMax(txtQtdMax.getText());
-        p.setQtdMin(txtQtdMin.getText());
-        p.setValor(txtValor.getText().replace(",","."));
-        p.setCodNCM(txtCodigoNcm.getText());
-        
-        if (!"Selecione...".equals(comboFornecedor.getSelectedItem().toString())) {
-            p.setIdFornecedor(Integer.parseInt(cf.localizaForecedor(f)));
-        }
-        if (!"Selecione...".equals(comboGrupoProduto.getSelectedItem().toString())) {
-            p.setTbGrupoId(g.localizaIdGrupoProduto(comboGrupoProduto));
-        }
+            Produto p = new Produto();
 
-        if ("Incluir".equals(lblTitulo.getText())) {
-
-            if (cp.temProduto(p)) {
-                JOptionPane.showMessageDialog(this, "O produto " + p.getNome() + " já existe!");
-                limpaForm();
-                comboFornecedor.setSelectedIndex(0);
-                comboGrupoProduto.setSelectedIndex(0);
-            } else {
-                if (valida(p)) {
-                        if (cp.adicionaProduto(p)) {
-                        JOptionPane.showMessageDialog(this, "Produto adicionado com sucesso!");
-                        limpaForm();
-                        comboFornecedor.setSelectedIndex(0);
-                        comboGrupoProduto.setSelectedIndex(0);
-                        // Início do Registro de Log
-                        l.setDescricao("Adicionou o produto " + p.getNome() + " ao estoque");
-                        l.setFuncionalidade("Salvar");
-                        l.gravaLog(l);
-                        // Fim do Log
-
-                        // Localiza id do produto adicionado             
-                        String id = e.localizaIdProduto(p.getNome());
-                        // Registra movimentação
-                        e.registraMovimentacao(id, p.getQtd(), e.localizaIdOperacao("Entrada"), "Produto Novo");
-
-                    }
-                  
-                }
-            }
-
-        } else {
+            //p.setNome(txtDescricao.getText());
+            p.setNome(u.retiraAcento(txtDescricao.getText()));
+            p.setQtd(txtQuantidade.getText());
+            p.setQtdMax(txtQtdMax.getText());
+            p.setQtdMin(txtQtdMin.getText());
+            p.setValor(txtValor.getText().replace(",", "."));
+            p.setCodNCM(txtCodigoNcm.getText());
+            p.setCodigoProduto(txtCodigoProduto.getText());
 
             if (!"Selecione...".equals(comboFornecedor.getSelectedItem().toString())) {
                 p.setIdFornecedor(Integer.parseInt(cf.localizaForecedor(f)));
             }
             if (!"Selecione...".equals(comboGrupoProduto.getSelectedItem().toString())) {
-
                 p.setTbGrupoId(g.localizaIdGrupoProduto(comboGrupoProduto));
             }
-            
-            p.setId(produto.getId());
-            
-            if (valida(p)) {
-                  int resp = JOptionPane.showOptionDialog(this, "Confirma a alteração para o produto selecionado?","Atenção",JOptionPane.ERROR_MESSAGE,
-                             JOptionPane.YES_NO_OPTION,null,opcao,opcao[1]);
-                    if(resp==0){
-                        
-                        if (cp.alteraProduto(p)) {
-                            JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
-                            telaPesquisa.atualizaTabela();
-                            dispose();
+
+            if ("Incluir".equals(lblTitulo.getText())) {
+
+                if (cp.temProduto(p)) {
+                    JOptionPane.showMessageDialog(this, "O produto " + p.getNome() + " já existe!");
+                    limpaForm();
+                    comboFornecedor.setSelectedIndex(0);
+                    comboGrupoProduto.setSelectedIndex(0);
+                } else {
+                    if (valida(p)) {
+                        if (cp.adicionaProduto(p)) {
+                            JOptionPane.showMessageDialog(this, "Produto adicionado com sucesso!");
+                            limpaForm();
+                            comboFornecedor.setSelectedIndex(0);
+                            comboGrupoProduto.setSelectedIndex(0);
+                            // Início do Registro de Log
+                            l.setDescricao("Adicionou o produto " + p.getNome() + " ao estoque");
+                            l.setFuncionalidade("Salvar");
+                            l.gravaLog(l);
+                            // Fim do Log
+
+                            // Localiza id do produto adicionado             
+                            String id = e.localizaIdProduto(p.getNome());
+                            // Registra movimentação
+                            e.registraMovimentacao(id, p.getQtd(), e.localizaIdOperacao("Entrada"), "Produto Novo");
+
+                        } else {
+                            JOptionPane.showMessageDialog(this, "O código informádo já existe, utilize outro!");
+                            txtCodigoProduto.setText(null);
+                            txtCodigoProduto.requestFocus();
+                            
+                        }
+
+                    }
+                }
+
+            } else {
+
+                if (!"Selecione...".equals(comboFornecedor.getSelectedItem().toString())) {
+                    p.setIdFornecedor(Integer.parseInt(cf.localizaForecedor(f)));
+                }
+                if (!"Selecione...".equals(comboGrupoProduto.getSelectedItem().toString())) {
+
+                    p.setTbGrupoId(g.localizaIdGrupoProduto(comboGrupoProduto));
+                }
+
+                p.setId(produto.getId());
+
+                if (valida(p)) {
+                    if (!produto.getCodigoProduto().equals(p.getCodigoProduto())) {
+                        if (e.existeCodigoProdutuo(p.getCodigoProduto())) {
+                            JOptionPane.showMessageDialog(this, "O código do produto já existe! Informe outro!");
+                            txtCodigoProduto.requestFocus();
+                            lblCodigoProduto.setForeground(Color.red);
+                            
+                        } else {
+                            int resp = JOptionPane.showOptionDialog(this, "Confirma a alteração para o produto selecionado?", "Atenção", JOptionPane.ERROR_MESSAGE,
+                                    JOptionPane.YES_NO_OPTION, null, opcao, opcao[1]);
+                            if (resp == 1) {
+
+                                if (cp.alteraProduto(p)) {
+                                    JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
+                                    telaPesquisa.atualizaTabela();
+                                    dispose();
+                                }
+                            }
+                        }
+                    } else {
+                        int resp = JOptionPane.showOptionDialog(this, "Confirma a alteração para o produto selecionado?", "Atenção", JOptionPane.ERROR_MESSAGE,
+                                JOptionPane.YES_NO_OPTION, null, opcao, opcao[1]);
+                        if (resp == 1) {
+
+                            if (cp.alteraProduto(p)) {
+                                JOptionPane.showMessageDialog(this, "Alteração realizada com sucesso!");
+                                telaPesquisa.atualizaTabela();
+                                dispose();
+                            }
                         }
                     }
-                
-            }
 
+                }
+
+            }
         }
 
     }//GEN-LAST:event_btnSalvarMouseClicked
@@ -560,10 +613,15 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdicionarGrupoMouseClicked
     private boolean valida(Produto p) {
         boolean resp = true;
-        if ("".equals(p.getNome())) {
+        if ("".equals(p.getCodigoProduto())) {
+            lblMensagem.setText("*Informe o código do produto para continuar!");
+            txtCodigoProduto.requestFocus();
+            lblCodigoProduto.setForeground(Color.red);
+            resp = false;
+        } else if ("".equals(p.getNome())) {
             lblMensagem.setText("*Informe a Descrição do produto para continuar!");
             txtDescricao.requestFocus();
-            lblCodigoNcm.setForeground(Color.red);
+            lblDescricao1.setForeground(Color.red);
             resp = false;
         } else if ("".equals(txtQuantidade.getText()) || Integer.parseInt(txtQuantidade.getText()) <= 0) {
             lblMensagem.setText("*Informe um Valor válido!");
@@ -611,11 +669,11 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_comboFornecedorItemStateChanged
 
     private void txtValorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtValorMouseClicked
-        
+
     }//GEN-LAST:event_txtValorMouseClicked
 
     private void txtValorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorFocusGained
-        
+
     }//GEN-LAST:event_txtValorFocusGained
 
     private void btnSalvarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseEntered
@@ -638,7 +696,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         lblMensagem.setText(null);
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             txtQtdMax.requestFocus();
-           
+
         }
     }//GEN-LAST:event_txtQtdMinKeyPressed
 
@@ -653,13 +711,33 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtQtdMaxKeyReleased
 
     private void txtCodigoNcmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoNcmKeyPressed
-        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtCodigoProduto.requestFocus();
+        }
     }//GEN-LAST:event_txtCodigoNcmKeyPressed
 
     private void txtCodigoNcmKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoNcmKeyReleased
-       txtCodigoNcm.setText(txtCodigoNcm.getText().replaceAll("[^0-9]",""));
-       txtCodigoNcm.setText(u.tamanhoMaximo(txtCodigoNcm.getText(), 8));       
+        txtCodigoNcm.setText(txtCodigoNcm.getText().replaceAll("[^0-9]", ""));
+        txtCodigoNcm.setText(u.tamanhoMaximo(txtCodigoNcm.getText(), 8));
     }//GEN-LAST:event_txtCodigoNcmKeyReleased
+
+    private void txtCodigoProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoProdutoKeyPressed
+        lblCodigoProduto.setForeground(Color.black);
+        lblMensagem.setText(null);
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {                      
+                    txtDescricao.requestFocus();
+        }
+    }//GEN-LAST:event_txtCodigoProdutoKeyPressed
+
+    private void txtCodigoProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoProdutoKeyReleased
+        txtCodigoProduto.setText(txtCodigoProduto.getText().replaceAll("[^0-9]", ""));
+        txtCodigoProduto.setText(u.tamanhoMaximo(txtCodigoProduto.getText(), 8));
+    }//GEN-LAST:event_txtCodigoProdutoKeyReleased
+
+    private void txtCodigoProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoProdutoFocusLost
+        // Chama a função de validação ao perder o foco
+
+    }//GEN-LAST:event_txtCodigoProdutoFocusLost
     private void limpaForm() {
 
         txtDescricao.setText(null);
@@ -668,6 +746,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         txtQtdMin.setText(null);
         txtValor.setText(null);
         txtCodigoNcm.setText(null);
+        txtCodigoProduto.setText(null);
 
     }
 
@@ -720,6 +799,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblCodigoNcm;
+    private javax.swing.JLabel lblCodigoProduto;
     private javax.swing.JLabel lblDescricao1;
     private javax.swing.JLabel lblFornecedor;
     private javax.swing.JLabel lblGrupo;
@@ -733,6 +813,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private javax.swing.JPanel painelEsquerdo;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JFormattedTextField txtCodigoNcm;
+    private javax.swing.JFormattedTextField txtCodigoProduto;
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JFormattedTextField txtQtdMax;
     private javax.swing.JFormattedTextField txtQtdMin;
@@ -741,7 +822,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void bloqueiaCampos() {
-       //txtDescricao.setEnabled(false);
+        //txtDescricao.setEnabled(false);
         txtQuantidade.setEnabled(false);
         txtValor.setEnabled(false);
     }

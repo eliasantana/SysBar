@@ -31,7 +31,7 @@ public class TelaSaldoInicial extends JDialog {
     String operador;
     String cargo;
     // Armazena a opção de botões da janela de confirmação
-    Object[] opcao = {"   Sim   ", "   Não  "};
+    Object[] opcao = {"   Não  ","   Sim   "};
     public TelaSaldoInicial() {
         initComponents();
         this.setModal(true);
@@ -263,7 +263,7 @@ public class TelaSaldoInicial extends JDialog {
             int op = JOptionPane.showOptionDialog(this, "Abrir o Caixa com o saldo inicial de R$ " + txtSaldoInicial.getText() + "?", "Confirma a abertura do caixa?", 
                      JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE,null,opcao,opcao[1]);
 
-            if (op == 0) {
+            if (op == 1) {
                 // Realiza a abertura do caixa com o saldo incial informado
                 if (cx.abreCaixa(saldoIni, idFuncLogado)) {
                     telaCaixa.trocaicone("Aberto");

@@ -326,5 +326,25 @@ public class ControlerEstoque {
         
         return qtd;
     }
+    // Verifica se o código informado já existe na base
+    public boolean existeCodigoProdutuo(String codigo){
+        String sql="SELECT * FROM tbproduto WHERE cod_produto=?";
+        boolean resp=false;
+        
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, codigo);            
+            rs=pst.executeQuery();
+            
+            while (rs.next()){
+                resp=true;
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerEstoque.existeCodigoProdutuo()"+e);
+        }
+        
+        return resp;
+    }
 
 }
