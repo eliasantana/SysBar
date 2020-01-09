@@ -397,7 +397,6 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     private void txtLocalizarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLocalizarKeyReleased
         // Localiza produto
         String opcao = null;
-
         if (radioProduto.isSelected()) {
             opcao = "Nome";
         } else if (radioGrupo.isSelected()) {

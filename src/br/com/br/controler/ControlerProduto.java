@@ -104,7 +104,9 @@ public class ControlerProduto {
     public ResultSet listaProdutoEstoque() {
 
         String sql = "SELECT \n"
-                + "	p.id as 'CÓDIGO', \n"
+                // Apagar linha  108 após validação de janiel
+                //+ "	p.id as 'CÓDIGO', \n"
+                + "	p.cod_produto as 'CÓDIGO', \n"
                 + "	p.nome as 'DESCRIÇÃO',\n"
                 + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"
                 + "	p.qtd as 'ESTOQUE' \n"
@@ -128,7 +130,8 @@ public class ControlerProduto {
     public ResultSet listaProdutoEstoque(String nomeProduto) {
 
         String sql = "SELECT \n"
-                + "	p.id as 'CÓDIGO', \n"
+               // + "	p.id as 'CÓDIGO', \n"
+                + "	p.cod_produto as 'CÓDIGO', \n"
                 + "	p.nome as 'DESCRIÇÃO',\n"
                 + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"
                 + "	p.qtd as 'ESTOQUE' \n"
@@ -170,9 +173,18 @@ public class ControlerProduto {
     }
 
     public ResultSet listaEquantidade() {
+    // Excluir produto após validação de janiel
 
+//        String sql = "SELECT \n"
+//                + "	p.id as 'CÓDIGO', \n"
+//                + "	p.nome as 'PRODUTO',\n"
+//                + "	p.qtd as 'QTD', \n"
+//                + "	g.nome as 'GRUPO'\n"
+//                + "FROM tbproduto p\n"
+//                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id;";
+        
         String sql = "SELECT \n"
-                + "	p.id as 'CÓDIGO', \n"
+                + "	p.cod_produto as 'CÓDIGO', \n"
                 + "	p.nome as 'PRODUTO',\n"
                 + "	p.qtd as 'QTD', \n"
                 + "	g.nome as 'GRUPO'\n"
@@ -191,11 +203,12 @@ public class ControlerProduto {
     }
 
     public ResultSet listaEquantidade2(String coluna, String pesquisa) {
-        String sql = "";
+        String sql;
         if ("nome".equals(coluna)) {
             coluna = "p.nome";
             sql = "SELECT\n"
-                    + "	p.id as 'CÓDIGO', \n"
+                    //+ "p.id as 'CÓDIGO', \n"
+                    + "	p.cod_produto as 'CÓDIGO', \n"
                     + "	p.nome as 'PRODUTO',\n"
                     + "	p.qtd as 'QTD', \n"
                     + "	g.nome as 'GRUPO'\n"
@@ -213,20 +226,21 @@ public class ControlerProduto {
                 System.out.println("br.com.br.controler.ControlerProduto.listaEquantidade() - NOME" + e);
             }
         } else {
-            coluna = "p.id";
+            //coluna = "p.id";
+            coluna = "p.cod_produto";
             sql = "SELECT\n"
-                    + "	p.id as 'CÓDIGO', \n"
+                    //+ "	p.id as 'CÓDIGO', \n"
+                    + "	p.cod_produto as 'CÓDIGO', \n"
                     + "	p.nome as 'PRODUTO',\n"
                     + "	p.qtd as 'QTD', \n"
                     + "	g.nome as 'GRUPO'\n"
                     + "FROM tbproduto p\n"
                     + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id\n"
-                    + "WHERE " + coluna + " LIKE ?;";
+                    + "WHERE " + coluna + "= ?";
 
             try {
                 pst = conexao.prepareStatement(sql);
                 pst.setString(1, pesquisa);
-
                 rs = pst.executeQuery();
 
             } catch (SQLException e) {
@@ -238,17 +252,54 @@ public class ControlerProduto {
     }
 
     public ResultSet filtrarProduto(String localizarTexto, String opcao) {
-
-        String filtro = "";
+        
+// Apagar códigoos comentados após validação de Janiel
+//        String filtro = "";
+//        String nomeProduto = "p.nome";
+//        String grupo = "g.nome";
+//        String codProduto = "p.cod_produto";
+//
+//        if ("Nome".equals(opcao)) {
+//            filtro = nomeProduto; // Filtra pelo nome do produto
+//
+//        }else if ("Codigo".equals(opcao)){
+//            filtro = codProduto;
+//        }else {
+//            filtro = grupo; // filtra pelo nome do grupo
+//        }
+//
+//        String sql = "SELECT \n"
+//                //+ "	p.id as 'CÓDIGO', \n"
+//                + "	p.cod_produto as 'CÓDIGO', \n"
+//                + "	p.nome as 'PRODUTO',\n"
+//                + "	p.qtd as 'QTD', \n"
+//                + "	format(p.valor, 2,'de_DE') as 'VALOR R$',\n"
+//                + "	p.qtd_min AS 'MIN',\n"
+//                + "	p.qtd_max AS 'MAX',\n"
+//                + "	g.nome as 'GRUPO'\n"
+//                + "FROM tbproduto p\n"
+//                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id WHERE " + filtro + " LIKE ?";
+//
+//        try {
+//            pst = conexao.prepareStatement(sql);
+//            pst.setString(1, "%" + localizarTexto + "%");
+//            rs = pst.executeQuery();
+//
+//        } catch (SQLException e) {
+//            System.out.println("br.com.br.controler.ControlerProduto.filtrarProduto()" + e);
+//        }
+//        return rs;
+        String filtro =null;
         String nomeProduto = "p.nome";
         String grupo = "g.nome";
         String codProduto = "p.cod_produto";
-
+        int tipoPesquisa=1;
+        
         if ("Nome".equals(opcao)) {
             filtro = nomeProduto; // Filtra pelo nome do produto
-
         }else if ("Codigo".equals(opcao)){
             filtro = codProduto;
+            tipoPesquisa =2;
         }else {
             filtro = grupo; // filtra pelo nome do grupo
         }
@@ -265,9 +316,25 @@ public class ControlerProduto {
                 + "FROM tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id WHERE " + filtro + " LIKE ?";
 
+        String sql2 = "SELECT \n"
+                //+ "	p.id as 'CÓDIGO', \n"
+                + "	p.cod_produto as 'CÓDIGO', \n"
+                + "	p.nome as 'PRODUTO',\n"
+                + "	p.qtd as 'QTD', \n"
+                + "	format(p.valor, 2,'de_DE') as 'VALOR R$',\n"
+                + "	p.qtd_min AS 'MIN',\n"
+                + "	p.qtd_max AS 'MAX',\n"
+                + "	g.nome as 'GRUPO'\n"
+                + "FROM tbproduto p\n"
+                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id WHERE " + filtro +"=?";
+        
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, "%" + localizarTexto + "%");
+            if (tipoPesquisa==1){
+                pst.setString(1, "%" + localizarTexto + "%");                
+            }else{
+                pst.setString(1, localizarTexto);
+            }
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
@@ -371,7 +438,8 @@ public class ControlerProduto {
 
     public Produto localizaProduto(Produto p) {
 
-        String sql = "SELECT * from tbProduto WHERE id=?";
+        //String sql = "SELECT * from tbProduto WHERE id=?";
+        String sql = "SELECT * from tbProduto WHERE cod_produto=?";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -381,7 +449,8 @@ public class ControlerProduto {
             while (rs.next()) {
                 p.setNome(rs.getString("nome"));
                 p.setValor(rs.getString("valor"));
-
+                p.setCodigoProduto(rs.getString("cod_produto"));
+                p.setId(rs.getString("id"));
             }
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerProduto.localizaProduto()" + e);

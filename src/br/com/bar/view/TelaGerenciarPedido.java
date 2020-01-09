@@ -12,6 +12,7 @@ import br.com.br.controler.ControlerCozinha;
 import br.com.br.controler.ControlerEstoque;
 import br.com.br.controler.ControlerMesa;
 import br.com.br.controler.ControlerPedido;
+import br.com.br.controler.ControlerProduto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JButton;
@@ -31,7 +32,8 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     ControlerPedido cp = new ControlerPedido();
     ControlerEstoque ce = new ControlerEstoque();
     ControlerCozinha cc = new ControlerCozinha();
-
+    ControlerProduto controlerProduto = new ControlerProduto();
+    
     Util u = new Util();
     TelaDetalheMesa tlPedido;
 
@@ -49,6 +51,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         initComponents();
         cp.carregaComboPedido(jcomboPedido);
         txtIdProduto.setVisible(false);
+        txtCodigoProduto.setVisible(false);
         txtQtd.setVisible(false);
         txtIDItem.setVisible(false);
         lblRemoverItemDoPedido.setEnabled(false);
@@ -122,6 +125,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         btnCancelarPedido = new javax.swing.JButton();
         lblNumeroMesa3 = new javax.swing.JLabel();
         lblQtdItens = new javax.swing.JLabel();
+        txtCodigoProduto = new javax.swing.JTextField();
 
         jLabel1.setText("jLabel1");
 
@@ -279,6 +283,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
 
         lblQtdItens.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         bordas.add(lblQtdItens, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 90, 30));
+        bordas.add(txtCodigoProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, 60, -1));
 
         getContentPane().add(bordas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 400));
 
@@ -349,8 +354,9 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
         int linha = tblDetalhe.getSelectedRow();
         Double total = Double.parseDouble(tblDetalhe.getModel().getValueAt(linha, 4).toString().replaceAll(",", "."));
         vUnit = Double.parseDouble(tblDetalhe.getModel().getValueAt(linha, 3).toString().replaceAll(",", "."));
-
-        txtIdProduto.setText(tblDetalhe.getModel().getValueAt(linha, 0).toString());
+        String codProduto = tblDetalhe.getModel().getValueAt(linha, 0).toString();
+        txtCodigoProduto.setText(codProduto);
+        txtIdProduto.setText(controlerProduto.localizaIdProduto(codProduto));
         txtQtd.setText(tblDetalhe.getModel().getValueAt(linha, 2).toString());
         txtIDItem.setText(tblDetalhe.getModel().getValueAt(linha, 5).toString());
         lblRemoverItemDoPedido.setEnabled(true);
@@ -569,6 +575,7 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
     private javax.swing.JLabel lblQtdItens;
     private javax.swing.JLabel lblRemoverItemDoPedido;
     private javax.swing.JTable tblDetalhe;
+    private javax.swing.JTextField txtCodigoProduto;
     private javax.swing.JTextField txtIDItem;
     private javax.swing.JTextField txtIdProduto;
     private javax.swing.JTextField txtQtd;

@@ -72,6 +72,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         lblAnexarDelivery.setVisible(false);
         lblTextoDelivery.setVisible(false);
         panelFechar.setVisible(false);
+        txtIdProduto.setVisible(false);
     }
 
     //Atualiza a tabela detalhe mesa    
@@ -140,7 +141,9 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 // Instancia um objeto Produto Pedido
                 ProdutoPedido pp = new ProdutoPedido();
                 // Seta dados no objeto
-                pp.setTbproduto_id(txtCodigoProduto.getText());
+                // Excluir após validação de Janiel linha 144
+                //pp.setTbproduto_id(txtCodigoProduto.getText());
+                pp.setTbproduto_id(txtIdProduto.getText());
                 pp.setQtd(txtQtd.getText());
                 pp.setValorUnit(lblVlrUnitario.getText().replaceAll(",", "."));
                 pp.setTotal(lblTotal.getText().replaceAll(",", "."));
@@ -155,6 +158,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                     // Adiciona o produto ao pedido
                     if (cproduto.adicionaProdutoAoPedido(pp)) {
                         lblMensagem.setText("*Produto adicionado com sucesso!");
+                        txtIdProduto.setText(null);
                     }
                     // Retira o produto do estoque                 
                     ec.retiraEstoque(pp, pp.getQtd());
@@ -310,11 +314,13 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         panelFechar = new javax.swing.JPanel();
         lblFechar = new javax.swing.JLabel();
+        txtIdProduto = new javax.swing.JTextField();
 
         jLabel19.setText("jLabel19");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("MasterFood - Detalhe Mesa");
+        setExtendedState(6);
         setMaximumSize(new java.awt.Dimension(32767, 32767));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -416,7 +422,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 .addComponent(lblStatusCozinha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTextoStatusCozinha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addComponent(lblAlterarSenha)
                 .addGap(3, 3, 3)
                 .addComponent(lblTextoAlterarSenha)
@@ -428,7 +434,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(240, 180, 130, 530);
+        jPanel1.setBounds(240, 180, 130, 500);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -514,7 +520,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblGarcom, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
                 .addComponent(lblGestaoPedidos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblTextoGestao)
@@ -526,7 +532,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(1170, 180, 110, 530);
+        jPanel2.setBounds(1170, 180, 110, 500);
 
         tbDetalhePedido = new javax.swing.JTable(){
             public boolean isCellEditable (int rowIndex, int colIndex){
@@ -579,7 +585,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tbDetalhePedido);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(380, 180, 790, 560);
+        jScrollPane1.setBounds(380, 180, 790, 500);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -614,6 +620,11 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         txtQtd.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         txtQtd.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtQtd.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtQtd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtQtdMouseClicked(evt);
+            }
+        });
         txtQtd.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtQtdKeyPressed(evt);
@@ -664,7 +675,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         jPanel3.add(lblDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 40, 370, 41));
 
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(400, 60, 790, 90);
+        jPanel3.setBounds(380, 60, 790, 90);
 
         jPanel4.setBackground(new java.awt.Color(38, 53, 61));
 
@@ -681,29 +692,29 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addComponent(lblIdMesa)
                 .addGap(47, 47, 47)
                 .addComponent(lblIdProduto)
                 .addGap(24, 24, 24)
                 .addComponent(lblIdGarcom)
-                .addGap(28, 28, 28))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(jLabel22)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 464, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 418, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblIdMesa)
                     .addComponent(lblIdProduto)
                     .addComponent(lblIdGarcom))
-                .addGap(41, 41, 41))
+                .addGap(87, 87, 87))
         );
 
         getContentPane().add(jPanel4);
@@ -746,8 +757,10 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
 
         getContentPane().add(panelFechar);
         panelFechar.setBounds(1240, 0, 40, 40);
+        getContentPane().add(txtIdProduto);
+        txtIdProduto.setBounds(280, 100, 59, 40);
 
-        setSize(new java.awt.Dimension(1295, 826));
+        setSize(new java.awt.Dimension(1295, 752));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -776,15 +789,14 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                     } else {
                         lblDescricao.setText(pLocalizado.getNome());
                         lblIdProduto.setText(pLocalizado.getId());
+                        txtIdProduto.setText(pLocalizado.getId());
                         lblVlrUnitario.setText(String.format("%9.2f", Double.parseDouble(pLocalizado.getValor())));
                         txtQtd.setEnabled(true);
                         txtQtd.requestFocus();
                     }
                 } catch (NullPointerException e) {
                     JOptionPane.showMessageDialog(this, "Produto não localizado!");
-                }
-                
-                
+                }  
             }
         }
     }//GEN-LAST:event_txtCodigoProdutoKeyPressed
@@ -1022,6 +1034,10 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
        limpaMensagem();
     }//GEN-LAST:event_formMouseClicked
+
+    private void txtQtdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtQtdMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQtdMouseClicked
     // Totaliza item localizado e retorna o total formatado ocm duas casas decimais
     private String totaliza(double qtd, double valorUnit) {
 
@@ -1034,7 +1050,8 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     // Recebe o produto pesquisado e retorna: Código, Valor Unitário, Descrição.
     public void recebeProduto(Produto p) {
 
-        txtCodigoProduto.setText(p.getId());
+        txtCodigoProduto.setText(p.getCodigoProduto());
+        txtIdProduto.setText(p.getId());
         lblDescricao.setText(p.getNome());
         lblVlrUnitario.setText(p.getValor());
         txtQtd.setEnabled(true);
@@ -1130,6 +1147,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JTable tbDetalhePedido;
     private javax.swing.JFormattedTextField txtCodigoProduto;
+    private javax.swing.JTextField txtIdProduto;
     private javax.swing.JFormattedTextField txtQtd;
     // End of variables declaration//GEN-END:variables
 

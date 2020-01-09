@@ -40,8 +40,8 @@ public class ControlerEstoque {
 
             while (rs.next()) {
                 qtd = rs.getInt("qtd");
-
             }
+            
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerEstoque.retiraEstoque()" + e);
 

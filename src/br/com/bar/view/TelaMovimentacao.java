@@ -486,17 +486,20 @@ public class TelaMovimentacao extends JFrame {
         // Seleciona dados da tabela
 
         int linha = tblProduto.getSelectedRow();
-        txtIdProduto.setText(tblProduto.getModel().getValueAt(linha, 0).toString());
+        String codProduto = tblProduto.getModel().getValueAt(linha, 0).toString();
+        String idDoProduto = controlProduto.localizaIdProduto(codProduto);
+        txtIdProduto.setText(idDoProduto);        
         if (radioExistente.isSelected()) {
             
-            try {
-              txtIdProduto.setText(tblProduto.getModel().getValueAt(linha, 0).toString());
-                
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("br.com.bar.view.TelaMovimentacao.tblProdutoMouseClicked()" + e);
-            }
+       
+//            try {
+//              txtIdProduto.setText(tblProduto.getModel().getValueAt(linha, 0).toString());
+//                
+//            } catch (ArrayIndexOutOfBoundsException e) {
+//                System.out.println("br.com.bar.view.TelaMovimentacao.tblProdutoMouseClicked()" + e);
+//            }
             
-            txtIdProduto.setText(tblProduto.getModel().getValueAt(linha, 0).toString());
+            //txtIdProduto.setText(tblProduto.getModel().getValueAt(linha, 0).toString());
             txtQuantidade.requestFocus();
             txtIdOperacao.setText(est.localizaIdOperacao(comboOperacao.getSelectedItem().toString()));
         }
@@ -514,15 +517,16 @@ public class TelaMovimentacao extends JFrame {
 
     private void txtPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyPressed
         
-        if (radioPesquisaCodigo.isSelected()) {
-            tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade2("id", txtPesquisar.getText())));
-            modelMov.redimensionaColunas(tblProduto);            
-        } else {
-            radioPesquisaNome.setSelected(true);
-            txtPesquisar.requestFocus();
-            tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade2("nome", txtPesquisar.getText())));
-            modelMov.redimensionaColunas(tblProduto);
-        }
+//        if (radioPesquisaCodigo.isSelected()) {
+//            String texto = txtPesquisar.getText();
+//            tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade2("id", txtPesquisar.getText())));
+//            //modelMov.redimensionaColunas(tblProduto);            
+//        } else {
+//            radioPesquisaNome.setSelected(true);
+//            txtPesquisar.requestFocus();
+//            tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade2("nome", txtPesquisar.getText())));
+//        }
+//            modelMov.redimensionaColunas(tblProduto);
 
     }//GEN-LAST:event_txtPesquisarKeyPressed
 
@@ -704,7 +708,16 @@ public class TelaMovimentacao extends JFrame {
     }//GEN-LAST:event_blbIncluirMouseClicked
 
     private void txtPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyReleased
-        // TODO add your handling code here:
+       if (radioPesquisaCodigo.isSelected()) {
+            String texto = txtPesquisar.getText();
+            tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade2("id", txtPesquisar.getText())));
+            //modelMov.redimensionaColunas(tblProduto);            
+        } else {
+            radioPesquisaNome.setSelected(true);
+            txtPesquisar.requestFocus();
+            tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade2("nome", txtPesquisar.getText())));
+        }
+            modelMov.redimensionaColunas(tblProduto);
     }//GEN-LAST:event_txtPesquisarKeyReleased
 
     /**

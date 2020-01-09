@@ -641,10 +641,10 @@ public class TesteNFCe extends javax.swing.JFrame {
         System.out.println("Altura: " + d.getHeight());
         System.out.println("Tamanho: " + d.getSize());
         TelaDetalheMesa dtMesa = new TelaDetalheMesa();
-        dtMesa.setPreferredSize(d);
-        dtMesa.setMinimumSize(d);
-        dtMesa.setMaximumSize(d);
-        dtMesa.setExtendedState(6);
+//        dtMesa.setPreferredSize(d);
+//        dtMesa.setMaximumSize(d);
+        dtMesa.setSize(d);
+//        
         dtMesa.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 

@@ -14,8 +14,10 @@ import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerMesa;
 import br.com.br.controler.ControlerPedido;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.ResultSet;
@@ -283,12 +285,11 @@ public class TelaPedido3 extends javax.swing.JFrame {
                             btn.setForeground(Color.white);
                             btn.setBackground(Color.RED);
                             // Chama tela de Detalhe Mesa 
-                            TelaDetalheMesa dtlMesa = new TelaDetalheMesa();
+                            TelaDetalheMesa dtlMesa = new TelaDetalheMesa();                            
                             dtlMesa.setAlwaysOnTop(true);
                             dtlMesa.recebeMesa(btn.getText());
-                            dtlMesa.recebeOperador(operador, cargo);
-                            dtlMesa.setVisible(true);
-                            
+                            dtlMesa.recebeOperador(operador, cargo);                            
+                            dtlMesa.setVisible(true);                       
 
                         }
                     } else {

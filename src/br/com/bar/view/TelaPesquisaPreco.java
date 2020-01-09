@@ -190,10 +190,12 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
     private void tbProdutosEstoqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProdutosEstoqueMouseClicked
 
         int linha = tbProdutosEstoque.getSelectedRow();
-
-        p.setId(tbProdutosEstoque.getModel().getValueAt(linha, 0).toString());
+        String codProduto = tbProdutosEstoque.getModel().getValueAt(linha, 0).toString();
+        p.setId(cp.localizaIdProduto(codProduto));
         p.setNome(tbProdutosEstoque.getModel().getValueAt(linha, 1).toString());
         p.setValor(tbProdutosEstoque.getModel().getValueAt(linha, 2).toString());
+        p.setCodigoProduto(codProduto);
+        
         if (linha >= 0) {
             btnAdicionar.setEnabled(true);
         }
@@ -224,12 +226,16 @@ public class TelaPesquisaPreco extends javax.swing.JFrame {
             btnAdicionar.setEnabled(false);
         } else if (evt.getKeyCode() == KeyEvent.VK_DOWN && linhaAtual < linhas - 1) {
             linhaAtual = linhaAtual + 1;
-            p.setId(tbProdutosEstoque.getModel().getValueAt(linhaAtual, 0).toString());
+            p.setCodigoProduto(tbProdutosEstoque.getModel().getValueAt(linhaAtual, 0).toString());
+            String idProduto = cp.localizaIdProduto(tbProdutosEstoque.getModel().getValueAt(linhaAtual, 0).toString());
+            p.setId(idProduto);
             p.setNome(tbProdutosEstoque.getModel().getValueAt(linhaAtual, 1).toString());
             p.setValor(tbProdutosEstoque.getModel().getValueAt(linhaAtual, 2).toString());
         } else if (evt.getKeyCode() == KeyEvent.VK_UP && linhaAtual > 0) {
             linhaAtual = linhaAtual - 1;
-            p.setId(tbProdutosEstoque.getModel().getValueAt(linhaAtual, 0).toString());
+            p.setCodigoProduto(tbProdutosEstoque.getModel().getValueAt(linhaAtual, 0).toString());
+            String idProduto = cp.localizaIdProduto(tbProdutosEstoque.getModel().getValueAt(linhaAtual, 0).toString());
+            p.setId(idProduto);
             p.setNome(tbProdutosEstoque.getModel().getValueAt(linhaAtual, 1).toString());
             p.setValor(tbProdutosEstoque.getModel().getValueAt(linhaAtual, 2).toString());
         }

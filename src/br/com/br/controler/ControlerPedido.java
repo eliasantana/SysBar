@@ -153,7 +153,8 @@ public class ControlerPedido {
         // De suas quantidades.
 
         String sql = "SELECT "
-                + "      dbbar.detalhe_mesa.tbproduto_id AS 'CÓDIGO',\n"
+                //+ "      dbbar.detalhe_mesa.tbproduto_id AS 'CÓDIGO',\n"
+                + "      dbbar.tbproduto.cod_produto AS 'CÓDIGO',\n"
                 + "upper(dbbar.tbproduto.nome) AS 'PRODUTO',\n"
                 + "      dbbar.detalhe_mesa.qtd AS 'QTD',\n"
                 + "      format(dbbar.detalhe_mesa.`valorUnit`,2,'de_DE') AS 'VLR UNITÁRIO R$',\n"
@@ -184,7 +185,8 @@ public class ControlerPedido {
     public ResultSet detalhePorPedidoId(String numeroMesa, String numeroPedido) {
 
         String sql = "SELECT "
-                + "	dbbar.detalhe_mesa.tbproduto_id AS 'CÓDIGO',\n"
+                //+ "	dbbar.detalhe_mesa.tbproduto_id AS 'CÓDIGO',\n"
+                + "	dbbar.tbproduto.cod_produto AS 'CÓDIGO',\n"
                 + "     upper(dbbar.tbproduto.nome) AS 'PRODUTO',\n"
                 + "	dbbar.detalhe_mesa.qtd AS 'QTD',\n"
                 + "	format(dbbar.detalhe_mesa.`valorUnit`,2,'de_DE') AS 'VLR UNITÁRIO R$',\n"

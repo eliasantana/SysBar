@@ -2609,13 +2609,10 @@ public class TelaCaixa extends javax.swing.JFrame {
                     ResultSet rs = cp.detalhePorPedido(comboMesa.getSelectedItem().toString(), txtIdPedido.getText());
 
                     while (rs.next()) {
-
                         NumberFormat nf = NumberFormat.getNumberInstance();
-
                         try {
                             total = nf.parse(rs.getString("VLR TOTAL R$")).doubleValue();
                             totalGeral = totalGeral + total;
-
                         } catch (ParseException ex) {
                             Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
                         }
