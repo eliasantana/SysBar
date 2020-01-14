@@ -497,7 +497,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="txtQuantidade" min="-2" pref="79" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                              <Component id="blbIncluir" min="-2" pref="96" max="-2" attributes="0"/>
+                              <Component id="lblIncluir" min="-2" pref="96" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane1" alignment="0" min="-2" pref="285" max="-2" attributes="0"/>
                       </Group>
@@ -512,7 +512,7 @@
                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="blbIncluir" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblIncluir" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtQuantidade" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
@@ -551,7 +551,7 @@
                 <Property name="text" type="java.lang.String" value="Quantidade"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="blbIncluir">
+            <Component class="javax.swing.JLabel" name="lblIncluir">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/bar/imagens/adicionas32x32.png"/>
@@ -559,7 +559,7 @@
                 <Property name="text" type="java.lang.String" value="Incluir"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="blbIncluirMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblIncluirMouseClicked"/>
               </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="txtQuantidade">

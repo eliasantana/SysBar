@@ -467,6 +467,8 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
 
         Produto p = new Produto();
         String codProduto = tblProduto.getModel().getValueAt(linha, 0).toString();
+        String nomeProduto = tblProduto.getModel().getValueAt(linha, 1).toString();
+        p.setNome(nomeProduto);
         p.setId(cp.localizaIdProduto(codProduto));
 
         int op = JOptionPane.showConfirmDialog(this, "Confirma a exclusão do produto?", "Atenção!", JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE);

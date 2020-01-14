@@ -32,7 +32,7 @@ public class TelaMovimentacao extends JFrame {
     Util u = new Util();
     TableModelmMovimentacao modelMov = new TableModelmMovimentacao();
     TelaPrincipal principal;
-    
+    Object [] opcao = {"   Não   ", "   Sim   "};
     public TelaMovimentacao() {
         initComponents();       
         est.carregaComboOperacao(comboOperacao);
@@ -106,7 +106,7 @@ public class TelaMovimentacao extends JFrame {
         txtAreaObservacao = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        blbIncluir = new javax.swing.JLabel();
+        lblIncluir = new javax.swing.JLabel();
         txtQuantidade = new javax.swing.JFormattedTextField();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -338,11 +338,11 @@ public class TelaMovimentacao extends JFrame {
 
         jLabel6.setText("Quantidade");
 
-        blbIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
-        blbIncluir.setText("Incluir");
-        blbIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/adicionas32x32.png"))); // NOI18N
+        lblIncluir.setText("Incluir");
+        lblIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                blbIncluirMouseClicked(evt);
+                lblIncluirMouseClicked(evt);
             }
         });
 
@@ -360,7 +360,7 @@ public class TelaMovimentacao extends JFrame {
                     .addGroup(panelQtdLayout.createSequentialGroup()
                         .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)
-                        .addComponent(blbIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -371,7 +371,7 @@ public class TelaMovimentacao extends JFrame {
                 .addComponent(jLabel6)
                 .addGap(6, 6, 6)
                 .addGroup(panelQtdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(blbIncluir)
+                    .addComponent(lblIncluir)
                     .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addComponent(jLabel7)
@@ -542,18 +542,22 @@ public class TelaMovimentacao extends JFrame {
             case "Entrada":
                 lblDica.setText("Obs: Utilize quando receber um produto do fornecedor.");
                 txtAreaObservacao.setText(op + " - " + lblOperador.getText());
+                lblIncluir.setText("Incluir");
                 break;
             case "Saída":
                 lblDica.setText("Obs: Utilize quando retirar um produto direto do estoque.");
                 txtAreaObservacao.setText(op + " - " + lblOperador.getText());
+                lblIncluir.setText("Salvar");
                 break;
             case "Devolução":
                 lblDica.setText("Obs: Utilize quando devolver um produto ao fornecedor.");
                 txtAreaObservacao.setText(op + " - " + lblOperador.getText());
+                lblIncluir.setText("Salvar");
                 break;
             case "Descarte":
                 lblDica.setText("Obs: Utilize quando não for possível o reaproveitamento.");
                 txtAreaObservacao.setText(op + " - " + lblOperador.getText());
+                lblIncluir.setText("Salvar");
                 break;
             
         }
@@ -564,7 +568,7 @@ public class TelaMovimentacao extends JFrame {
 
     }//GEN-LAST:event_comboOperacaoItemStateChanged
 
-    private void blbIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_blbIncluirMouseClicked
+    private void lblIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIncluirMouseClicked
         txtIdOperacao.setText(est.localizaIdOperacao(comboOperacao.getSelectedItem().toString()));
         
         String operacao = comboOperacao.getSelectedItem().toString();
@@ -617,8 +621,6 @@ public class TelaMovimentacao extends JFrame {
 
                         tblProduto.setModel(DbUtils.resultSetToTableModel(controlProduto.listaEquantidade()));
                         modelMov.redimensionaColunas(tblProduto);
-                        txtQuantidade.setText(null);
-                        txtAreaObservacao.setText(null);
 
                         // Início do Registro de Log
                         l.setFuncionalidade(comboOperacao.getSelectedItem().toString());
@@ -641,9 +643,10 @@ public class TelaMovimentacao extends JFrame {
                     Produto produto = new Produto();
                     produto.setId(txtIdProduto.getText());
                     produto.setQtd(txtQuantidade.getText());
-                    int op = JOptionPane.showConfirmDialog(this, "Devolver produto ao fornecedor?", "Atenção!", JOptionPane.YES_NO_OPTION);
+                    int op = JOptionPane.showOptionDialog(this, "Devolver produto ao fornecedor?", "Atenção!", JOptionPane.YES_NO_OPTION,
+                            JOptionPane.ERROR_MESSAGE, null, opcao, opcao[1]);
                     // Solicita confirmação ao operador
-                    if (op == JOptionPane.YES_OPTION) {
+                    if (op == 1) {
 
                         //Retira do estoque o produto 
                         est.retiraEstoque(produto, produto.getQtd());
@@ -675,9 +678,10 @@ public class TelaMovimentacao extends JFrame {
                     Produto pDescarte = new Produto();
                     pDescarte.setId(txtIdProduto.getText());
                     pDescarte.setQtd(txtQuantidade.getText());
-                    int confirma = JOptionPane.showConfirmDialog(this, "Descartar este produto?", "Atenção!", JOptionPane.YES_NO_OPTION);
+                    int confirma = JOptionPane.showOptionDialog(this, "Descartar este produto?", "Atenção!", JOptionPane.YES_NO_OPTION,
+                            JOptionPane.ERROR_MESSAGE,null, opcao, opcao[1]);
                     // Solicita confirmação ao operador
-                    if (confirma == JOptionPane.YES_OPTION) {
+                    if (confirma == 1) {
 
                         //Retira do estoque o produto 
                         est.retiraEstoque(pDescarte, pDescarte.getQtd());
@@ -705,7 +709,7 @@ public class TelaMovimentacao extends JFrame {
         }
         
 
-    }//GEN-LAST:event_blbIncluirMouseClicked
+    }//GEN-LAST:event_lblIncluirMouseClicked
 
     private void txtPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyReleased
        if (radioPesquisaCodigo.isSelected()) {
@@ -756,7 +760,6 @@ public class TelaMovimentacao extends JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel blbIncluir;
     private javax.swing.JPanel bordas;
     private javax.swing.JLabel btnFechar;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -779,6 +782,7 @@ public class TelaMovimentacao extends JFrame {
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblDica;
+    private javax.swing.JLabel lblIncluir;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblPesquisa;
     private javax.swing.JPanel painelTopo;
