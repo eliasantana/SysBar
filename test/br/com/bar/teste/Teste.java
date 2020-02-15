@@ -5,7 +5,7 @@
  */
 package br.com.bar.teste;
 
-import br.com.br.controler.ControlerEstoque;
+import br.com.br.controler.ControlerFuncionario;
 
 /**
  *
@@ -14,8 +14,9 @@ import br.com.br.controler.ControlerEstoque;
 public class Teste {
     
     public static void main(String[] args) {
-        ControlerEstoque ce = new ControlerEstoque();
-        System.out.println(ce.existeCodigoProdutuo("10000"));
+        ControlerFuncionario cf = new ControlerFuncionario();
+        String nome = cf.cargoFuncionario("Janaina");
+        System.out.println(nome);
     }
     
 }

@@ -73,6 +73,8 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         lblTextoDelivery.setVisible(false);
         panelFechar.setVisible(false);
         txtIdProduto.setVisible(false);
+        lblCozinha.setVisible(false);
+        lblTextoCozinha.setVisible(false);
     }
 
     //Atualiza a tabela detalhe mesa    
@@ -170,6 +172,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
 
                     // ------ Verifica Grupo de Produto e Envia para acozinha ---/
                     String grupo = cproduto.localizaGrupoProduto(Integer.parseInt(txtCodigoProduto.getText()));
+                                     
 
                     if (grupo.equals("Cozinha")) {
 

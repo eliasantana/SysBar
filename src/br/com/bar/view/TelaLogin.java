@@ -185,7 +185,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         lblVersao1.setForeground(new java.awt.Color(255, 255, 255));
         lblVersao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersao1.setText(" V2.0.1-nfiscal.29 - 09/12/2019");
+        lblVersao1.setText("  V2.0.1-nfiscal.31 - 14/02/2020");
         jPanel1.add(lblVersao1);
         lblVersao1.setBounds(20, 290, 240, 20);
 
@@ -317,6 +317,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         // Autentica Usuário
         ControlerParametro p = new ControlerParametro();
+        String cargoFuncionario = cf.cargoFuncionario(comboLogin.getSelectedItem().toString());//Retorna o cargo do funcionário    
         if ("Selecione...".equals(comboLogin.getSelectedItem().toString())) {
             //lblMsg.setText("*Opção Inválida!"); --> Excluir após validação
         } else if (autentica.isExistsSenha(txtSenha.getText().toLowerCase())) { // Verifica se a senha Existe
@@ -373,11 +374,23 @@ public class TelaLogin extends javax.swing.JFrame {
                         break;
                 }
             } else {
-                realizaControleLogin();
+                if (!cargoFuncionario.equals("Gerente")){
+                    realizaControleLogin();                    
+                }else{
+                    lblMsg2.setText("*Senha inválida, digite novamente!");
+                }
             }
 
         } else {
-            realizaControleLogin();
+            //Verifica o cargo do usuário que está logando-se no sistema
+            //Caso o usuário seja gerente o ontrole de login não realizará o bloqueio caso 
+            //Seja excedida as tentativas.
+                    
+            if (!cargoFuncionario.equals("Gerente")){                
+                realizaControleLogin();
+            }else{
+                lblMsg2.setText("*Senha inválida, digite novamente!");
+            }
         }
     }
     private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed

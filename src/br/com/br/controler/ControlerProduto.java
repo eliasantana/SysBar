@@ -461,9 +461,12 @@ public class ControlerProduto {
     // Retorna o grupo do produto informado no parâmetro
     public String localizaGrupoProduto(int id) {
 
+//        String sql = "SELECT g.nome as 'grupo' FROM dbbar.tbproduto p\n"
+//                + "INNER JOIN cad_grupo_produto g on g.id = p.cad_grupo_produto_id\n"
+//                + "WHERE p.id=?";
         String sql = "SELECT g.nome as 'grupo' FROM dbbar.tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g on g.id = p.cad_grupo_produto_id\n"
-                + "WHERE p.id=?";
+                + "WHERE p.cod_produto=?";
         String nomeGrupo = "";
         try {
             pst = conexao.prepareStatement(sql);

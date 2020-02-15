@@ -623,4 +623,28 @@ public class ControlerFuncionario extends Funcionario {
         
         return resp;
     }
+    
+    /**
+     * Retorna o cargo do Funcionário informado
+     * @param login - Login do Usuário
+     * @return String - Retorna o cago do usuário informado
+     */ 
+    
+    public String cargoFuncionario(String login){
+        String sql="SELECT cargo FROM tbcadfuncionario WHERE login=?";
+        String nome = "";
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, login);
+            rs=pst.executeQuery();
+            
+            while(rs.next()){
+                nome=rs.getString("cargo");
+            }
+                    
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerFuncionario.cargoFuncionario()");
+        }
+        return nome;
+    }
 }
