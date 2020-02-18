@@ -9,6 +9,7 @@ import br.com.bar.dao.AutenticaUsuario;
 import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.CriptoGrafa;
 import br.com.bar.model.DadosEmpresa;
+import br.com.bar.model.Funcionario;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerAtivacao;
 import br.com.br.controler.ControlerCaixa;
@@ -54,7 +55,22 @@ public class TelaLogin extends javax.swing.JFrame {
 
     public TelaLogin() {
         initComponents();
-
+        String login = cf.localizaIdLogin("admin");
+        // Verifia a existência do usuário admins caso não existe o usuário será criado 
+        if ("".equals(login)){
+            Funcionario f = new Funcionario();
+            f.setNome("Admin");
+            f.setLogin("admin");
+            f.setCargo("Gerente");
+            f.setSenha("admin");
+            f.setStatus("0");
+            f.setBloqueado("0");
+            
+            if (!cf.adicionaFuncionario(f)){
+                lblMsg.setText("Não foi possível criar o usuário padrão!");
+            }
+        }
+        
         DadosEmpresa dados = d.selecionaDados();
         conexao = ConexaoBd.conector();
         // Carrega o ícone setado no Cadastro Empresa
@@ -317,7 +333,8 @@ public class TelaLogin extends javax.swing.JFrame {
 
         // Autentica Usuário
         ControlerParametro p = new ControlerParametro();
-        String cargoFuncionario = cf.cargoFuncionario(comboLogin.getSelectedItem().toString());//Retorna o cargo do funcionário    
+        //Excluir após teste com usuário admin
+        //String cargoFuncionario = cf.cargoFuncionario(comboLogin.getSelectedItem().toString());//Retorna o cargo do funcionário    
         if ("Selecione...".equals(comboLogin.getSelectedItem().toString())) {
             //lblMsg.setText("*Opção Inválida!"); --> Excluir após validação
         } else if (autentica.isExistsSenha(txtSenha.getText().toLowerCase())) { // Verifica se a senha Existe
@@ -374,7 +391,7 @@ public class TelaLogin extends javax.swing.JFrame {
                         break;
                 }
             } else {
-                if (!cargoFuncionario.equals("Gerente")){
+                if (!"Admin".equals(comboLogin.getSelectedItem().toString())){
                     realizaControleLogin();                    
                 }else{
                     lblMsg2.setText("*Senha inválida, digite novamente!");
@@ -386,7 +403,7 @@ public class TelaLogin extends javax.swing.JFrame {
             //Caso o usuário seja gerente o ontrole de login não realizará o bloqueio caso 
             //Seja excedida as tentativas.
                     
-            if (!cargoFuncionario.equals("Gerente")){                
+            if (!"admin".equals(comboLogin.getSelectedItem().toString())){                
                 realizaControleLogin();
             }else{
                 lblMsg2.setText("*Senha inválida, digite novamente!");

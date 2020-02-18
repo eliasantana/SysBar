@@ -99,7 +99,7 @@ public class ControlerFuncionario extends Funcionario {
                 + "		WHEN bloqueado =0 THEN 'Desbloqueado'\n"
                 + "		WHEN bloqueado =1 THEN 'Bloqueado'\n"
                 + "    END AS 'BLOQUEIO'\n"
-                + "FROM dbbar.tbcadfuncionario WHERE nome like ? ORDER BY BLOQUEIO DESC, NOME";
+                + "FROM dbbar.tbcadfuncionario WHERE nome like ? AND nome <> 'admin' ORDER BY BLOQUEIO DESC, NOME";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -647,4 +647,6 @@ public class ControlerFuncionario extends Funcionario {
         }
         return nome;
     }
+    
+   
 }

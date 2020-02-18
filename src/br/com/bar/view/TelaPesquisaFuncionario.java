@@ -251,8 +251,7 @@ public class TelaPesquisaFuncionario extends javax.swing.JFrame {
         TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
         tcf.recebeOperador(lblOperador.getText(), lblPerfil.getText(), "Adicionar");
         tcf.setAlwaysOnTop(true);
-        tcf.setVisible(true);
-        
+        tcf.setVisible(true);       
 
     }//GEN-LAST:event_lblAdicionarMouseClicked
 
