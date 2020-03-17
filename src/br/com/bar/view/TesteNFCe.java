@@ -649,16 +649,7 @@ public class TesteNFCe extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        String nomeImagem = "masterfood64x64.png";      
-        
-        Object[] options = {"   Não   ","   Sim   "}; 
-        int op = JOptionPane.showOptionDialog(this, "Deseja Realmente Sair do Programa?", "Saír do Programa", 
-                JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[1]);
-        if (op==1){
-            JOptionPane.showMessageDialog(this, "Você clicou em Sim");
-        }else {
-            JOptionPane.showMessageDialog(this, "Você clicou em Não");
-        }
+       
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void valorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_valorMouseClicked
