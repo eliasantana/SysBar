@@ -81,6 +81,10 @@ public class TelaLogin extends javax.swing.JFrame {
         String chave = criptoGrafa.decripta(dados.getLicenca());
         long dias = u.retornaTotalDeDias(chave);
         cf.carregaComboFuncionarioAtivo(comboLogin);
+                //Converta data de validade no formato 'dd/mm/yyyy'
+                //Adiciona msg de Licença válida até na tela de Login
+                String dataBr = u.formataDataBr(u.converteData(chave));
+                lblValidade.setText("Licença Válida até: "+dataBr);
         if (dias > 10) {
             if (conexao != null) {
                 // Retorna os dados da empresa
@@ -88,8 +92,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 lblLicenca.setText("Copyright todos os direitos reservados para");
                 lbllicenca2.setText(dadosEmpresa.getNome_empresa());
                 lblCnpjEmpresa.setText(dadosEmpresa.getCnpj());
-                String dataBr = u.formataDataBr(u.converteData(chave));
-                lblValidade.setText("Licença Válida até: "+dataBr);
+                
             } else {
                 // Caso a conexão retorne null chama da tela de parâmetro
                 TelaPametro param = new TelaPametro();
@@ -204,7 +207,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         lblVersao1.setForeground(new java.awt.Color(255, 255, 255));
         lblVersao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersao1.setText("  V2.0.1-nf.33 - 16/03/2020");
+        lblVersao1.setText("  V2.0.1-fiscal.34 - 25/03/2020");
         jPanel1.add(lblVersao1);
         lblVersao1.setBounds(20, 280, 240, 20);
 
