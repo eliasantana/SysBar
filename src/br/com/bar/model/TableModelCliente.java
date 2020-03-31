@@ -60,7 +60,7 @@ public class TableModelCliente extends AbstractTableModel {
          direita.setHorizontalAlignment(SwingConstants.RIGHT);
          
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(205); // NOME
+        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(190); // NOME
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(160);//E-MAIL
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(90); //LOCALIDADE - NOME
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(58); //LOCALIDADE - TAXA

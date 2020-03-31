@@ -1465,7 +1465,6 @@ public class TelaPedido2 extends javax.swing.JFrame {
 
     private void lblBtnAnexarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBtnAnexarMouseClicked
         if (lblBtnAnexar.isEnabled()) {
-         
 
             // Verfica se o pedido selecionado já existe no delivery
             if (cd.temNoDelivery(txtNumeroPedido.getText())) {
@@ -1484,7 +1483,7 @@ public class TelaPedido2 extends javax.swing.JFrame {
                 String idCliente = controlCliente.retornaIdCliente(cliente);
                 if (cd.anexaPedido(txtNumeroPedido.getText(), idCliente, txtIdGarcom.getText(), txtNumeroMesa.getText())) {
                     JOptionPane.showMessageDialog(this, "Pedido anexado ao Delivery com sucesso!", "Atenção!", JOptionPane.INFORMATION_MESSAGE);
-                    td.recebePedido(txtNumeroPedido.getText(), txtNumeroMesa.getText());
+                    td.recebePedido(txtNumeroPedido.getText(), txtNumeroMesa.getText(), txtIdGarcom.getText());
                 }
 
             }

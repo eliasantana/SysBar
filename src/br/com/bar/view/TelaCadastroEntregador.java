@@ -104,7 +104,8 @@ public class TelaCadastroEntregador extends JDialog {
         txtCpf.setText(e.getCpf());
         txtCnh.setText(e.getCnh());
         txtTelRecado.setText(e.getTelefone());
-
+        txtPlaca.setText(e.getPlaca());
+        txtHistorico.setText(e.getHistorico());
         comboUf.setSelectedItem(e.getUf());
         comboVeiculo.setSelectedItem(e.getVeiculo());
         if (null != e.getValidade()) {
@@ -840,6 +841,7 @@ public class TelaCadastroEntregador extends JDialog {
         jtableGuias.setVisible(true);
         txtHistorico.setEnabled(false);
         comboVeiculo.setEnabled(false);
+        txtPlaca.setEnabled(false);
 
     }
 

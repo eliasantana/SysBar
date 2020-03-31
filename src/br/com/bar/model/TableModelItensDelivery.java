@@ -69,7 +69,7 @@ public class TableModelItensDelivery extends AbstractTableModel {
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(60); // CÓDIGO
+        tabela.getColumn(tabela.getColumnName(0)).setPreferredWidth(58); // CÓDIGO
         tabela.getColumn(tabela.getColumnName(1)).setPreferredWidth(180);//PRODUTO
         tabela.getColumn(tabela.getColumnName(2)).setPreferredWidth(50); //QUANTIDADE
         tabela.getColumn(tabela.getColumnName(3)).setPreferredWidth(120); //VALOR UNITÁRIO

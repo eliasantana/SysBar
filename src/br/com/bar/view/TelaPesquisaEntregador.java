@@ -214,6 +214,7 @@ public class TelaPesquisaEntregador extends javax.swing.JFrame {
        // Chama tela de cadastrode entregador
         TelaCadastroEntregador tce = new TelaCadastroEntregador();
         tce.recebeOperador(this, lblOperador.getText(), lblCargo.getText(), "Adicionar");
+        tce.setAlwaysOnTop(true);
         tce.setVisible(true);
     }//GEN-LAST:event_btnAdicionarMouseClicked
 
@@ -235,6 +236,7 @@ public class TelaPesquisaEntregador extends javax.swing.JFrame {
                 TelaCadastroEntregador tce = new TelaCadastroEntregador();
                 tce.recebeOperador(this, lblOperador.getText(), lblCargo.getText(), "Consultar");
                 tce.recebeEntregador(entregador);
+                tce.setAlwaysOnTop(true);
                 tce.setVisible(true);
                 estadoInicial();
             }
@@ -247,6 +249,7 @@ public class TelaPesquisaEntregador extends javax.swing.JFrame {
             TelaCadastroEntregador cadEntregador = new TelaCadastroEntregador();
             cadEntregador.recebeOperador(this, lblOperador.getText(), lblCargo.getText(), "Alterar");
             cadEntregador.recebeEntregador(entregador);
+            cadEntregador.setAlwaysOnTop(true);
             cadEntregador.setVisible(true);
             estadoInicial();
         }

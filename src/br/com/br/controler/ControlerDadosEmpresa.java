@@ -98,6 +98,7 @@ public class ControlerDadosEmpresa {
                 d.setLicenca(rs.getString("chave"));
                 d.setDts(rs.getString("dts"));
                 d.setBkp_auto(rs.getInt("bkp_auto"));
+                d.setAtivaDelivery(rs.getInt("delivery"));
             }
 
         } catch (SQLException e) {
@@ -212,5 +213,25 @@ public class ControlerDadosEmpresa {
              System.out.println("br.com.br.controler.ControlerDadosEmpresa.tipoBAckup()");
         }
          return resp;
+    }
+    
+    //Ativa ou Desativa o parâmetro Delivery    
+    public boolean ativaDelivery(int vlr){
+        boolean resp = false;
+        
+        String sql="UPDATE tb_dados_empresa SET delivery =? WHERE ID > 0";
+        
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setInt(1,vlr);
+            pst.executeUpdate();
+            resp=true;
+            
+        } catch (SQLException e) {
+            System.out.println("Não foi possível ativar o Delivery "+e);
+        }
+        
+        return resp;
+        
     }
 }

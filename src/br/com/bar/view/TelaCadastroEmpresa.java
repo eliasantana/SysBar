@@ -10,11 +10,14 @@ import br.com.bar.dao.Log;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerDadosEmpresa;
+import br.com.br.controler.ControlerDelivery;
 import br.com.br.controler.ControlerParametro;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -31,7 +34,10 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
 
     ControlerDadosEmpresa dados = new ControlerDadosEmpresa();
     ControlerParametro p = new ControlerParametro();
+    ControlerDelivery cd = new ControlerDelivery();
+    
     DadosEmpresa d = dados.selecionaDados();
+    
     TelaAutenticaBackup authBkp = new TelaAutenticaBackup();
     Util u = new Util();
     Log l = new Log();
@@ -89,6 +95,12 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             radioAutomatico.setSelected(true);            
         }
         
+         if (d.getAtivaDelivery()==0){
+            radioDesativado.setSelected(true);
+        }else{
+            radioAtivado.setSelected(true);
+        }
+        
        
     }
 
@@ -120,6 +132,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
         labelCarregaLogo = new javax.swing.JLabel();
@@ -169,6 +182,9 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         radioAutomatico = new javax.swing.JRadioButton();
         radioManual = new javax.swing.JRadioButton();
         lblRealizarBackup = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        radioAtivado = new javax.swing.JRadioButton();
+        radioDesativado = new javax.swing.JRadioButton();
 
         jLabel1.setText("jLabel1");
 
@@ -421,7 +437,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblExcluir);
-        lblExcluir.setBounds(800, 490, 90, 50);
+        lblExcluir.setBounds(800, 510, 90, 50);
 
         lblEditar.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         lblEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/salvar32x32.png"))); // NOI18N
@@ -432,7 +448,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblEditar);
-        lblEditar.setBounds(710, 490, 80, 50);
+        lblEditar.setBounds(710, 510, 80, 50);
 
         txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -497,7 +513,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         lblCaminho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/bd.png"))); // NOI18N
         lblCaminho.setText("Caminho");
         getContentPane().add(lblCaminho);
-        lblCaminho.setBounds(370, 450, 510, 40);
+        lblCaminho.setBounds(370, 470, 510, 40);
 
         txtComplemento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -610,7 +626,49 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblRealizarBackup);
-        lblRealizarBackup.setBounds(360, 490, 270, 48);
+        lblRealizarBackup.setBounds(360, 510, 270, 48);
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Delivery"));
+
+        buttonGroup3.add(radioAtivado);
+        radioAtivado.setText("Ativado");
+        radioAtivado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioAtivadoMouseClicked(evt);
+            }
+        });
+
+        buttonGroup3.add(radioDesativado);
+        radioDesativado.setText("Desativado");
+        radioDesativado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioDesativadoMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(radioAtivado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(radioDesativado)
+                .addContainerGap(78, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radioAtivado)
+                    .addComponent(radioDesativado))
+                .addContainerGap(8, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel4);
+        jPanel4.setBounds(640, 410, 250, 60);
 
         setSize(new java.awt.Dimension(903, 585));
         setLocationRelativeTo(null);
@@ -833,6 +891,35 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_radioAutomaticoMouseEntered
 
+    private void radioAtivadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioAtivadoMouseClicked
+        // Ativa BAckup
+        if (radioAtivado.isSelected()){
+            dados.ativaDelivery(1);
+            JOptionPane.showMessageDialog(this,"Delivery ativado!");
+        }
+    }//GEN-LAST:event_radioAtivadoMouseClicked
+
+    private void radioDesativadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioDesativadoMouseClicked
+        // Desativa BAckup
+        
+        try {
+            ResultSet rs = cd.listaDelivery();
+            if (rs.next()){
+                JOptionPane.showMessageDialog(this,"Existe(m) pedido(s) no Delivery Não é possível desativar este recurso agora!");
+            }else {
+                if (radioDesativado.isSelected()){
+                    dados.ativaDelivery(0);
+                    JOptionPane.showMessageDialog(this,"Delivery desativado!");
+                    JOptionPane.showMessageDialog(this,"O sistema será fechado!","Atenção!",JOptionPane.ERROR_MESSAGE);                    
+                    System.exit(0);
+                }                
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this,"Erro ao Desativar o Delivery: " + e);
+        }
+         
+    }//GEN-LAST:event_radioDesativadoMouseClicked
+
     public void ativarBackup(String valor) {
         dados.ativaBackup(valor);
         System.out.println(valor);
@@ -886,12 +973,14 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JButton btnSelecionarArquivo;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JComboBox<String> comboUf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jpanelImpressao;
     private javax.swing.JLabel labelCarregaLogo;
     private javax.swing.JLabel lblBairro;
@@ -917,7 +1006,9 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblTextocaminhoBanco;
     private javax.swing.JLabel lblUf;
+    private javax.swing.JRadioButton radioAtivado;
     private javax.swing.JRadioButton radioAutomatico;
+    private javax.swing.JRadioButton radioDesativado;
     private javax.swing.JRadioButton radioDireto;
     private javax.swing.JRadioButton radioManual;
     private javax.swing.JRadioButton radioVisualizar;

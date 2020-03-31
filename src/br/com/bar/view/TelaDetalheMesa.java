@@ -5,12 +5,14 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.model.DadosEmpresa;
 import br.com.bar.model.Produto;
 import br.com.bar.model.ProdutoPedido;
 import br.com.bar.model.TableModelDetalhePedido;
 import br.com.bar.util.FormataValor;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCozinha;
+import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerEstoque;
 import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerMesa;
@@ -48,7 +50,9 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     ControlerFuncionario cf = new ControlerFuncionario();
     ControlerEstoque ec = new ControlerEstoque();
     ControlerCozinha cc = new ControlerCozinha();
-
+    ControlerDadosEmpresa de = new ControlerDadosEmpresa();
+    DadosEmpresa d =de.selecionaDados();
+    
     TableModelDetalhePedido modelDetPedido = new TableModelDetalhePedido();
     Produto pLocalizado;
     FormataValor fv = new FormataValor();
@@ -66,15 +70,20 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         limpaform();
         lblIdMesa.setVisible(false);
         lblIdProduto.setVisible(false);
-        lblIdGarcom.setVisible(false);
+        lblIdGarcom.setVisible(true);
         lblBtnReenvioCozinha.setEnabled(false);
         lblTextoReenvioCozinha.setEnabled(false);
-        lblAnexarDelivery.setVisible(false);
-        lblTextoDelivery.setVisible(false);
+        lblAnexarDelivery.setVisible(true);
+        lblTextoDelivery.setVisible(true);
         panelFechar.setVisible(false);
         txtIdProduto.setVisible(false);
         lblCozinha.setVisible(false);
         lblTextoCozinha.setVisible(false);
+        
+        if (d.getAtivaDelivery()==0){
+            lblAnexarDelivery.setVisible(false);
+            lblTextoDelivery.setVisible(false);
+        }
     }
 
     //Atualiza a tabela detalhe mesa    
@@ -334,6 +343,11 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
 
         lblAnexarDelivery.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAnexarDelivery.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/anexar.png"))); // NOI18N
+        lblAnexarDelivery.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAnexarDeliveryMouseClicked(evt);
+            }
+        });
 
         lblBtnReenvioCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBtnReenvioCozinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/enviar32x32_2.png"))); // NOI18N
@@ -352,7 +366,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         });
 
         lblTextoDelivery.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTextoDelivery.setText("Anexar ao Delivery");
+        lblTextoDelivery.setText("Delivery");
 
         lblTextoReenvioCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTextoReenvioCozinha.setText("Reenvio Cozinha");
@@ -1041,6 +1055,25 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
     private void txtQtdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtQtdMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_txtQtdMouseClicked
+
+    private void lblAnexarDeliveryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAnexarDeliveryMouseClicked
+        
+        if (!"delivery".equals(lblGarcom.getText().toLowerCase())){
+            JOptionPane.showMessageDialog(this, "Esse pedido não pode ser anexado ao Delivery! ");
+        }
+        else {
+            if (tbDetalhePedido.getRowCount() > 0){
+                
+                TelaDelivery td = new TelaDelivery();
+                td.recebePedido(lblNPedido.getText(), lblNumeroMesa.getText(), lblIdGarcom.getText());
+                td.setAlwaysOnTop(true);
+                td.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(this, "Antes de anexar o pedido deve conter pelo menos 1 (um) item!");
+            }
+        }
+        
+    }//GEN-LAST:event_lblAnexarDeliveryMouseClicked
     // Totaliza item localizado e retorna o total formatado ocm duas casas decimais
     private String totaliza(double qtd, double valorUnit) {
 

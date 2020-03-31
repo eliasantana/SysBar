@@ -111,6 +111,9 @@
               <Image iconType="3" name="/br/com/bar/imagens/anexar.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblAnexarDeliveryMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblBtnReenvioCozinha">
           <Properties>
@@ -137,7 +140,7 @@
         <Component class="javax.swing.JLabel" name="lblTextoDelivery">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Anexar ao Delivery"/>
+            <Property name="text" type="java.lang.String" value="Delivery"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTextoReenvioCozinha">

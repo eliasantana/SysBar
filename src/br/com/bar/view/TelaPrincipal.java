@@ -5,15 +5,16 @@
  */
 package br.com.bar.view;
 
+import br.com.bar.model.DadosEmpresa;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerCaixa;
 import br.com.br.controler.ControlerContasApagar;
 import br.com.br.controler.ControlerCozinha;
+import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerEstoque;
 import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerMesa;
 import br.com.br.controler.ControlerParametro;
-import com.mongodb.util.TestNGListener;
 import java.awt.Color;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
@@ -38,6 +39,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     ControlerContasApagar cc = new ControlerContasApagar();
     ControlerCozinha cz = new ControlerCozinha();
     ControlerEstoque estoque = new ControlerEstoque();
+    ControlerDadosEmpresa dadosEmpresa = new ControlerDadosEmpresa();
+    
     Object[] obj = {"  Não  ","  Sim  "};
     Util u = new Util();
     TelaDelivery d;
@@ -54,6 +57,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
+        DadosEmpresa de = dadosEmpresa.selecionaDados();
         lblLogo.setIcon(u.carregaLogo());
         lblData.setText(df.format(data)); // Exibe data atual
         lblCargo.setVisible(false);
@@ -61,10 +65,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnRelatorios.setEnabled(true);
         labelRelatorios.setEnabled(true); // Icone do Botão Relatório
         // Verifica contas vencidas em aberto.
-        btnDelivery.setVisible(false);
-
+        btnDelivery.setVisible(true);
         atualizaInformativo();
-
+        // Ativa ou desativa o botão de Delivery
+        if (de.getAtivaDelivery()==0){
+               btnDelivery.setVisible(false);
+        }
         // Determina tempo de execução
         long timeMilis = 6000; // milisegundos
         Timer timer = new Timer();

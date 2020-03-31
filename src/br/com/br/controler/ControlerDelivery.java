@@ -6,8 +6,6 @@
 package br.com.br.controler;
 
 import br.com.bar.dao.ConexaoBd;
-import br.com.bar.model.Cliente;
-import br.com.bar.model.Entregador;
 import br.com.bar.model.Localidade;
 import br.com.bar.util.FormataValor;
 import br.com.bar.util.Util;
@@ -15,7 +13,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -36,21 +33,17 @@ public class ControlerDelivery {
      */
     public ResultSet listaDelivery() {
 
-        String sql = "SELECT    \n"
-                + "    d.cadpedido_id_pedido AS 'PEDIDO',\n"
-                + "    date_format(d.data, '%d/%m/%Y %H:%m') AS DATA,    \n"
-                + "    e.nome as 'ENTREGADOR',\n"
-                + "    c.nome as 'CLIENTE',   \n"
-                + "    f.nome AS 'GARÇOM',\n"
-                + "    time_format(d.hora_saida, '%H:%m') AS 'SAÍDA'   \n"
-                + "FROM\n"
-                + "    dbbar.tbdelivery d\n"
-                + "        INNER JOIN\n"
-                + "    tbentregador e ON e.id = d.tbentregador_id\n"
-                + "        INNER JOIN\n"
-                + "    tbcliente c ON c.id = tbcliente_id\n"
-                + "        INNER JOIN\n"
-                + "    tbcadfuncionario f ON f.id = d.cadpedido_tbcadfuncionario_id;";
+        String sql = "SELECT   \n" +
+            "d.cadpedido_id_pedido AS 'PEDIDO',\n" +
+            "date_format(d.data, '%d/%m/%Y %H:%m') AS DATA,   \n" +
+            "c.nome as 'CLIENTE',   \n" +
+            "f.nome AS 'GARÇOM',\n" +
+            "time_format(d.hora_saida, '%H:%m') AS 'SAÍDA'   \n" +
+            "FROM\n" +
+            "dbbar.tbdelivery d\n" +
+            "INNER JOIN\n" +
+            "tbcliente c ON c.id = tbcliente_id\n" +
+            "INNER JOIN tbcadfuncionario f ON f.id = d.cadpedido_tbcadfuncionario_id;";
 
         try {
             conexao = ConexaoBd.conector();
@@ -112,14 +105,46 @@ public class ControlerDelivery {
                 + "	d.nmesa AS 'MESA', \n"
                 + "	c.nome as 'CLIENTE',\n"
                 + "	d.entregador as 'ENTREGADOR',\n"
-                + "	time_format(d.hora_saida, '%H:%m') AS 'SAÍDA'  \n"
+                + "	time_format(d.hora_saida, '%H:%i:%s') AS 'SAÍDA'  \n"
                 + "	FROM\n"
                 + "	dbbar.tbdelivery d\n"
                 + "INNER JOIN\n"
                 + "	tbcliente c ON c.id = tbcliente_id\n"
                 + "INNER JOIN\n"
                 + "	tbcadfuncionario f ON f.id = d.cadpedido_tbcadfuncionario_id\n"
-                + "WHERE  c.nome = ? AND d.hora_saida is NULL;";
+                + "WHERE  c.nome = ?";
+
+        try {
+            conexao = ConexaoBd.conector();
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, nomeCliente);
+            rs = pst.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerDelivery.listaDelivery()" + e);
+        }
+
+        return rs;
+    }
+    /**
+     * Lista pedido do Cliente
+     *
+     * @param nomeCliente Nome do Cliente
+     * @return rs Retorna um ResultSet
+     */
+    public ResultSet consultaDeliveryCliente(String nomeCliente) {
+
+        String sql ="SELECT\n" +
+                    "	d.cadpedido_id_pedido AS 'PEDIDO',\n" +
+                    "	d.nmesa AS 'MESA', \n" +
+                    "	c.nome as 'CLIENTE',\n" +
+                    "	d.entregador as 'ENTREGADOR',\n" +
+                    "	time_format(d.hora_saida, '%H:%m') AS 'SAÍDA'  \n" +
+                    "FROM\n" +
+                    "	dbbar.tbdelivery d\n" +
+                    "INNER JOIN tbcliente c ON c.id = d.tbcliente_id\n" +
+                    "INNER JOIN tbcadfuncionario f ON f.id = d.cadpedido_tbcadfuncionario_id\n" +
+                    "WHERE  c.nome =  ? AND date_format(d.hora_saida, '%Y-%m-%d') = curdate();";               
 
         try {
             conexao = ConexaoBd.conector();

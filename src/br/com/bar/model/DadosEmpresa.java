@@ -30,7 +30,7 @@ public class DadosEmpresa {
     private String dts;
     private String complemento;
     private int bkp_auto;
-            
+    private int ativaDelivery;      
     
     
     public void DadadosEmpresa(){
@@ -189,6 +189,16 @@ public class DadosEmpresa {
     public int getBkp_auto() {
         return bkp_auto;
     }
+
+    public void setAtivaDelivery(int ativaDelivery) {
+        this.ativaDelivery = ativaDelivery;
+    }
+
+    public int getAtivaDelivery() {
+        return ativaDelivery;
+    }
+    
+    
     
     public String retornaCnpj(){        
         String cnPj = this.cnpj;
