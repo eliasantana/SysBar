@@ -347,8 +347,21 @@ public class ControlerMesa {
 
     // Tela Pedido 3
     // Retorna todas as mesas independente de status 
-    public ArrayList listaTodasAsMesas() {
+    public ArrayList listaTodasAsMesas(int opcao) {
         ArrayList <Mesa> listaDeMesas = new ArrayList<>();
+        
+        String operador;
+        String op;
+        
+        if (opcao == 1){
+            operador=" <> ";
+            op=" '0' ";
+            
+        }else {
+            operador=" <> ";
+            op=" 'Delivery' ";
+        }
+        
         String sql = "SELECT \n"
                 + "    dbbar.cadmesa.id AS 'CÓD. INT.',\n"
                 + "    dbbar.cadmesa.numero_mesa AS 'MESA',\n"
@@ -358,8 +371,9 @@ public class ControlerMesa {
                 + "    dbbar.cadmesa\n"
                 + "        INNER JOIN\n"
                 + "    dbbar.tbcadfuncionario ON dbbar.cadmesa.`tbCadFuncionario_id` = dbbar.tbcadfuncionario.id\n"
-                + "ORDER BY cadmesa.numero_mesa ASC";
+                + "WHERE dbbar.tbcadfuncionario.nome " + operador + op +" ORDER BY cadmesa.numero_mesa ASC";
         
+       
         try {
             pst=conexao.prepareStatement(sql);
             rs = pst.executeQuery();

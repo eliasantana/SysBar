@@ -207,7 +207,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         lblVersao1.setForeground(new java.awt.Color(255, 255, 255));
         lblVersao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersao1.setText("  V2.0.1-nf.35 - 31/03/2020");
+        lblVersao1.setText("  V2.0.1-nf.36 - 09/04/2020");
         jPanel1.add(lblVersao1);
         lblVersao1.setBounds(20, 280, 240, 20);
 

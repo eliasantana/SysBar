@@ -6,18 +6,19 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.Log;
+import br.com.bar.model.DadosEmpresa;
 import br.com.bar.model.Funcionario;
 import br.com.bar.model.Mesa;
 import br.com.bar.model.Pedido;
 import br.com.bar.util.Util;
+import br.com.br.controler.ControlerDadosEmpresa;
+import br.com.br.controler.ControlerDelivery;
 import br.com.br.controler.ControlerFuncionario;
 import br.com.br.controler.ControlerMesa;
 import br.com.br.controler.ControlerPedido;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.ResultSet;
@@ -39,7 +40,8 @@ public class TelaPedido3 extends javax.swing.JFrame {
     ControlerMesa controlerMesa = new ControlerMesa();
     ControlerPedido cp = new ControlerPedido();
     ControlerFuncionario cf = new ControlerFuncionario();
-
+    ControlerDadosEmpresa dadosEmpresa = new ControlerDadosEmpresa();
+    
     Util u = new Util();
     Funcionario funcLogado;
     ResultSet rs;
@@ -227,7 +229,9 @@ public class TelaPedido3 extends javax.swing.JFrame {
         //panelaMesas.removeAll();
 
         //panelaMesas.repaint();
-        listaDeMesas = controlerMesa.listaTodasAsMesas();
+        DadosEmpresa de = dadosEmpresa.selecionaDados();
+        int opDelivery = de.getAtivaDelivery();
+        listaDeMesas = controlerMesa.listaTodasAsMesas(opDelivery);
         panelaMesas.setLayout(new GridLayout(3, 2));
 
         for (int i = 0; i < listaDeMesas.size(); i++) {
