@@ -12,7 +12,9 @@ import br.com.bar.util.Util;
  * @author elias
  */
 public class TelaConfiguracao extends javax.swing.JFrame {
-
+    // Recebe a instaancia da tela principal
+    TelaPrincipal telaPrincipal;
+    
     Util u = new Util();
     
     public TelaConfiguracao() {
@@ -21,8 +23,8 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         lblCargo.setVisible(false);
         lblOperador.setVisible(false);
     }
-   public void recebeOperador (String operador, String cargo){
-       
+   public void recebeOperador (TelaPrincipal tp,String operador, String cargo){
+       this.telaPrincipal = tp;
        lblOperador.setText(operador);
        lblCargo.setText(cargo);
        
@@ -203,7 +205,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     private void btnDadosEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDadosEmpresaMouseClicked
         // Chama tela de Cadastro de dados da empresa
         TelaCadastroEmpresa empresa = new TelaCadastroEmpresa();
-        empresa.recebeOperador(lblOperador.getText(), lblCargo.getText());
+        empresa.recebeOperador(telaPrincipal, this, lblOperador.getText(), lblCargo.getText());
         empresa.setVisible(true);
     }//GEN-LAST:event_btnDadosEmpresaMouseClicked
 

@@ -608,7 +608,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // Chama a tela de configuração
         if (config == null) {
             config = new TelaConfiguracao();
-            config.recebeOperador(lblOperador.getText(), lblCargo.getText());
+            config.recebeOperador(this, lblOperador.getText(), lblCargo.getText());
         }
         config.setVisible(true);
     }//GEN-LAST:event_btnConfiguracaoMouseClicked

@@ -37,6 +37,8 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     ControlerDelivery cd = new ControlerDelivery();
     
     DadosEmpresa d = dados.selecionaDados();
+    TelaPrincipal telaPrincipal;
+    TelaConfiguracao telaConfiguracao;
     
     TelaAutenticaBackup authBkp = new TelaAutenticaBackup();
     Util u = new Util();
@@ -105,8 +107,9 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     }
 
     // Recebe dados para identificação do operador
-    public void recebeOperador(String operador, String perfil) {
-
+    public void recebeOperador(TelaPrincipal tp, TelaConfiguracao tc, String operador, String perfil) {
+        telaPrincipal = tp;
+        telaConfiguracao = tc;
         lblOperador.setText(operador);
         lblPerfil.setText(perfil);
 
@@ -896,6 +899,12 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         if (radioAtivado.isSelected()){
             dados.ativaDelivery(1);
             JOptionPane.showMessageDialog(this,"Delivery ativado!");
+            JOptionPane.showMessageDialog(this,"Realize o login novamente!","Atenção!",JOptionPane.ERROR_MESSAGE);                    
+            telaConfiguracao.dispose();
+            telaPrincipal.dispose();
+            this.dispose();
+            TelaLogin tl = new TelaLogin();
+            tl.setVisible(true);
         }
     }//GEN-LAST:event_radioAtivadoMouseClicked
 
@@ -910,8 +919,12 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
                 if (radioDesativado.isSelected()){
                     dados.ativaDelivery(0);
                     JOptionPane.showMessageDialog(this,"Delivery desativado!");
-                    JOptionPane.showMessageDialog(this,"O sistema será fechado!","Atenção!",JOptionPane.ERROR_MESSAGE);                    
-                    System.exit(0);
+                    JOptionPane.showMessageDialog(this,"Realize o login novamente!","Atenção!",JOptionPane.ERROR_MESSAGE);                           
+                    telaConfiguracao.dispose();
+                    telaPrincipal.dispose();
+                    this.dispose();
+                    TelaLogin tl = new TelaLogin();
+                    tl.setVisible(true);
                 }                
             }
         } catch (SQLException e) {
