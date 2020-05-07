@@ -185,7 +185,8 @@ public class ControlerNFCe {
         String login;
         String server;       
         ArrayList<String> urlList = new ArrayList<>();
-
+        
+        
         if (ambiente == 1) {
             // Token para emissão em ambiente de Produção
             login = "DhdwJcAsy0jGvNDRv7mGZyWeJ19CBRUT";
@@ -217,7 +218,7 @@ public class ControlerNFCe {
         //System.out.print(httpCode);
         //System.out.printf(body);
         JSONArray arrjson = new JSONArray(body);   // Captura retorno da API
-        for (int i = 0; i < arrjson.length(); i++) {
+        for (int i = 0; i < arrjson.length(); i++) {             
             // Pega o objeto no array de Json
             JSONObject obj = arrjson.getJSONObject(i);
             String xmls = obj.get("xmls").toString();

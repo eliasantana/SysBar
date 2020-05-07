@@ -69,12 +69,26 @@ public class TelaDownloadNFCe extends javax.swing.JFrame {
                 {null},
                 {null},
                 {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
                 {null}
             },
             new String [] {
                 "BACKUP POR ANO/MÊS DE REFERÊNCIA"
             }
         ));
+        tbDownload.setRequestFocusEnabled(false);
         tbDownload.setRowHeight(21);
         tbDownload.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
