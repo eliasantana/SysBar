@@ -14,6 +14,7 @@ import br.com.br.controler.ControlerAtivacao;
 import br.com.br.controler.ControlerDadosEmpresa;
 import java.awt.Color;
 import javax.swing.JDialog;
+import org.apache.commons.mail.EmailException;
 
 
 /**
@@ -238,25 +239,47 @@ public class TelaGerenciadorDeLicenca extends JDialog {
     }//GEN-LAST:event_lblChaveMouseClicked
 
     private void btnSolicitaLicencaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitaLicencaActionPerformed
-        // Solicita nova Licennça
-        Email email = new Email();
-        ControlerDadosEmpresa ce = new ControlerDadosEmpresa();
-        // Seleciona os dados do cadastro da empresa
-        DadosEmpresa dados = ce.selecionaDados();
-        String msgTela="";
-       
+//        // Solicita nova Licennça
+//        Email email = new Email();
+//        ControlerDadosEmpresa ce = new ControlerDadosEmpresa();
+//        // Seleciona os dados do cadastro da empresa
+//        DadosEmpresa dados = ce.selecionaDados();
+//        String msgTela="";
+//       
+//        
+//        String assunto = "MasterFood - Solicitação de Renovação de Licença: " + dados.getNome_empresa();
+//        String mensagem = "Solicitante: "
+//                + dados.getNome_empresa() + "\nCNPJ: " + dados.getCnpj()+ "\nLicença Atual: " + dados.getLicenca()
+//                +"\nEndereço: " + dados.getEndereco()+","+dados.getNumero() + " \nBairro:" + dados.getBairro() + " CEP: "+dados.getCep() 
+//                + "  Cidade: "+dados.getCidade() + " UF: "+dados.getUf()  +"\nTelefone: "+dados.getTelefone()  + "\n\nStatus: "+lblMensagem.getText();  
+//      
+//        if (email.enviaEmail("contato@rese7.com.br", assunto, mensagem)){
+//            btnSolicitaLicenca.setText("Solicitação enviada com sucesso!");
+//            btnSolicitaLicenca.setForeground(Color.blue);
+//        }
         
-        String assunto = "MasterFood - Solicitação de Renovação de Licença: " + dados.getNome_empresa();
-        String mensagem = "Solicitante: "
-                + dados.getNome_empresa() + "\nCNPJ: " + dados.getCnpj()+ "\nLicença Atual: " + dados.getLicenca()
-                +"\nEndereço: " + dados.getEndereco()+","+dados.getNumero() + " \nBairro:" + dados.getBairro() + " CEP: "+dados.getCep() 
-                + "  Cidade: "+dados.getCidade() + " UF: "+dados.getUf()  +"\nTelefone: "+dados.getTelefone()  + "\n\nStatus: "+lblMensagem.getText();  
-      
-        if (email.enviaEmail("contato@rese7.com.br", assunto, mensagem)){
-            btnSolicitaLicenca.setText("Solicitação enviada com sucesso!");
-            btnSolicitaLicenca.setForeground(Color.blue);
+        Email e = new Email();
+        ControlerDadosEmpresa cde = new ControlerDadosEmpresa();
+        DadosEmpresa d = cde.selecionaDados();
+        
+        StringBuilder mensagem = new StringBuilder();
+        String assunto = "Solicitação de Renovação de Licença";        
+        String empresa = "LA TABERNA";
+        mensagem.append(" <html> ");
+        mensagem.append("<br><br>-=-= DADOS DO LICENCIADO =-=- <br><br>");
+        mensagem.append(" <b>EMPRESA: </b>").append(d.getNome_empresa()).append("    <b>CNPJ:</b>: ").append(d.getCnpj());
+        mensagem.append("<br>").append("<b>ENDEREÇO: </b> ").append(d.getEndereco()).append(", ").append(d.getNumero()).append("<br><b>BAIRRO: </b> ").append(d.getBairro()).append("    <b>CEP:</b> ").append(d.getCep());
+        mensagem.append("<br><b>CIDADE: </b>").append(d.getCidade()).append("<br><b>UF: </b>").append(d.getUf());
+        mensagem.append("<br><b>TELEFONE: </b>").append(d.getTelefone());
+        mensagem.append("<br><b>LICENÇA ATUAL: </b>").append(d.getLicenca());
+        mensagem.append(" </html>");
+        try {
+            
+            e.htmlMail("suporte@rese7.com.br","suporte@rese7.com.br",assunto,mensagem,empresa);
+            
+        } catch (EmailException ex) {
+            
         }
-        
     }//GEN-LAST:event_btnSolicitaLicencaActionPerformed
 
     private void btnSolicitaLicencaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSolicitaLicencaMouseClicked

@@ -6,6 +6,7 @@
 package br.com.bar.view;
 
 import br.com.bar.dao.CriptoGrafa;
+import br.com.bar.dao.Email;
 import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.Autorizar;
 import br.com.bar.model.DadosEmpresa;
@@ -41,6 +42,7 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JRException;
+import org.apache.commons.mail.EmailException;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
@@ -594,17 +596,27 @@ public class TesteNFCe extends javax.swing.JFrame {
     }//GEN-LAST:event_tbDetalhePedidoMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ControlerNFCe testenf = new ControlerNFCe();
-
-        ArrayList<String> email = new ArrayList<>();
-        email.add("eliasantanasilva@gmail.com");
-        email.add("janiel.freitas@gmail.com");
-
+        Email e = new Email();
+        ControlerDadosEmpresa cde = new ControlerDadosEmpresa();
+        DadosEmpresa d = cde.selecionaDados();
+        
+        StringBuilder mensagem = new StringBuilder();
+        String assunto = "Renovação de Licença";        
+        String empresa = d.getNome_empresa();
+        mensagem.append(" <html> ");
+        mensagem.append("<br><br>-=-= DADOS DO LICENCIADO =-=- <br><br>");
+        mensagem.append(" <b>EMPRESA: </b>").append(d.getNome_empresa()).append("    <b>CNPJ:</b>: ").append(d.getCnpj());
+        mensagem.append("<br>").append("<b>ENDEREÇO: </b> ").append(d.getEndereco()).append(", ").append(d.getNumero()).append("<br><b>BAIRRO: </b> ").append(d.getBairro()).append("    <b>CEP:</b> ").append(d.getCep());
+        mensagem.append("<br><b>CIDADE: </b>").append(d.getCidade()).append("<br><b>UF: </b>").append(d.getUf());
+        mensagem.append("<br><b>TELEFONE: </b>").append(d.getTelefone());
+        mensagem.append("<br><b>LICENÇA ATUAL: </b>").append(d.getLicenca());
+        mensagem.append(" </html>");
         try {
-            testenf.enviaEmail("166", email);
-
-        } catch (JSONException ex) {
-            Logger.getLogger(TesteNFCe.class.getName()).log(Level.SEVERE, null, ex);
+            
+            e.htmlMail("suporte@rese7.com.br","suporte@rese7.com.br",assunto,mensagem,empresa);
+            
+        } catch (EmailException ex) {
+            
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

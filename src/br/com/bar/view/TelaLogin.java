@@ -8,8 +8,10 @@ package br.com.bar.view;
 import br.com.bar.dao.AutenticaUsuario;
 import br.com.bar.dao.ConexaoBd;
 import br.com.bar.dao.CriptoGrafa;
+import br.com.bar.dao.Email;
 import br.com.bar.model.DadosEmpresa;
 import br.com.bar.model.Funcionario;
+import br.com.bar.util.ConexaoInternet;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerAtivacao;
 import br.com.br.controler.ControlerCaixa;
@@ -25,6 +27,7 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import org.apache.commons.mail.EmailException;
 
 /**
  *
@@ -113,6 +116,30 @@ public class TelaLogin extends javax.swing.JFrame {
             g.recebeDias(dias, "A Licença atual expira em " + String.valueOf(dias) + " dia(s)!");
             g.setAlwaysOnTop(true);
             g.setVisible(true);
+            
+            ConexaoInternet ci = new ConexaoInternet();
+            
+            if (ci.temConexao()){
+                StringBuilder sb = new StringBuilder();
+                sb.append("<html>");
+                sb.append("<BR><H3>**************** ATENÇÃO ****************</H3>");
+                sb.append("<br><br>");
+                sb.append("Olá, ").append("<b>").append(dados.getNome_empresa()).append("</b>").append(" a sua licença atual vence em <font color='red'><b>").append(String.valueOf(dias)).append(" </b></font>dias!. " );
+                sb.append("<br><br>");
+                sb.append("Evite o bloqueio do sistema, solicite sua renovação já! ");
+                sb.append("<br><br>");
+                sb.append("<b>MATER FOOD </b><br> SISTEMA DE GERENCIAMENTO DE BARES E RESTAURANTES<BR>");
+                sb.append("<b>E-MAIL:</b> suporte@rese7.com.br");
+                sb.append("<br><b>CONTATO(S):<b> (81) 98966-1904 | (81) 99897-8092");
+                
+                Email e = new Email();
+                try {
+                    e.htmlMail(dados.getEmail(), "suporte@rese7.com.br", "Aviso - Sua licença está vencendo!", sb, "Suporte MasterFood");
+                    
+                } catch (EmailException ex) {
+                    System.out.println("Não foi possível enviar o Email");
+                }
+            }
 
         } else {
             // Chama o gerenciador  de licença e saí do sistema

@@ -6,6 +6,7 @@
 package br.com.bar.dao;
 
 import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.HtmlEmail;
 import org.apache.commons.mail.SimpleEmail;
 
 /**
@@ -14,7 +15,7 @@ import org.apache.commons.mail.SimpleEmail;
  */
 public class Email {
 
-    //String cliente = "CURRASQUINHO DO PROFF";
+    
     public Email() {
     }
 
@@ -25,6 +26,7 @@ public class Email {
      * @param mensagem Mensagem
      * @return Retorna um Boolean como resposta.
      */
+    
     public boolean enviaEmail(String e_mail, String assunto, String mensagem) {
         boolean resp = false;
         try {
@@ -32,20 +34,22 @@ public class Email {
             email.setDebug(true);
             // Servidor SMTP
 
-            email.setHostName("smtp.rese7.com.br");
+            //email.setHostName("smtp.rese7.com.br");
+            email.setHostName("smtp.umbler.com");
             //Autentica E-mail
-            email.setAuthentication("contato@rese7.com.br", "JanielElias09Setembro@2018");
+            //email.setAuthentication("contato@rese7.com.br", "JanielElias09Setembro@2018");
+            email.setAuthentication("suporte@rese7.com.br", "e@Bw],D3y9Lv");
 
             //Habilitar casao o envio seja realizado pelo servidor Smtp do Gmail
-            //email.setSSL(true);
             email.setSSL(false);
+            //email.setSSL(false);
             // Definição da porta exigida pela hospedagem da caixa de e-mail
             email.setSslSmtpPort("587");
 
             //Destinatário'
             email.addTo(e_mail);
             //Remetente           
-            email.setFrom("contato@rese7.com.br");
+            email.setFrom("suporte@rese7.com.br");
 
             //Assunto da mensagem
             email.setSubject(assunto);
@@ -123,19 +127,38 @@ public class Email {
 
         SimpleEmail mail = new SimpleEmail();
         try {
+           
+            
             mail.setDebug(true);
-            mail.setFrom("kauanmrs2016@gmail.com", "Elias");
+            mail.setFrom("suporte@rese7.com.br", "Master Food");
             mail.setSubject("E-mail exemplo");
             mail.setMsg("E-mail de exemplo");
-            mail.setSSLOnConnect(true);
-            mail.setAuthentication("kauanmrs2016@gmail.com", "k4u4n2016@");
-            mail.setHostName("smtp.gmail.com");
-            mail.setSmtpPort(465);
-            mail.addTo("eliasantana@hotmail.com", "Elias Sanatna");
+            mail.setSSLOnConnect(false);
+            mail.setAuthentication("suporte@rese7.com.br", "e@Bw],D3y9Lv");
+            mail.setHostName("smtp.umbler.com");
+            mail.setSmtpPort(587);
+            mail.addTo("eliasantanasilva@gmail.com", "Elias Sanatna");
             mail.send();
             
         } catch (EmailException e) {
         }
+    }
+    
+    public void htmlMail(String para, String de, String assunto, StringBuilder mensagem, String empresa) throws EmailException{
+        HtmlEmail mail = new HtmlEmail();
+        mail.setHtmlMsg(mensagem.toString());
+        // Habilia ou Desabilita o Debug do envio.
+        mail.setDebug(false);
+        mail.setFrom(de, "Master Food");
+        mail.setSubject(assunto);
+        //mail.setMsg("E-mail de exemplo");
+        mail.setSSLOnConnect(false);
+        mail.setAuthentication("suporte@rese7.com.br", "e@Bw],D3y9Lv");
+        mail.setHostName("smtp.umbler.com");
+        mail.setSmtpPort(587);
+        mail.addTo(para, empresa);
+        mail.send();
+        
     }
 
 }
