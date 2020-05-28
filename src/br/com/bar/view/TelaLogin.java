@@ -128,9 +128,10 @@ public class TelaLogin extends javax.swing.JFrame {
                 sb.append("<br><br>");
                 sb.append("Evite o bloqueio do sistema, solicite sua renovação já! ");
                 sb.append("<br><br>");
-                sb.append("<b>MATER FOOD </b><br> SISTEMA DE GERENCIAMENTO DE BARES E RESTAURANTES<BR>");
+                sb.append("<b>MASTERFOOD </b><br> SISTEMA DE GERENCIAMENTO DE BARES E RESTAURANTES</b><br>");
                 sb.append("<b>E-MAIL:</b> suporte@rese7.com.br");
-                sb.append("<br><b>CONTATO(S):<b> (81) 98966-1904 | (81) 99897-8092");
+                sb.append("<br><b>CONTATO(S):</b> (81) 98966-1904 | (81) 99897-8092 <br><br>");
+                sb.append("<font color='red'><b>").append(lblValidade.getText().toUpperCase()).append("</font></b>");
                 
                 Email e = new Email();
                 try {
@@ -234,7 +235,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         lblVersao1.setForeground(new java.awt.Color(255, 255, 255));
         lblVersao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersao1.setText("  V2.0.1-nf.37 - 11/04/2020");
+        lblVersao1.setText("  V2.0.2-nf.38 - 23/12/2020");
         jPanel1.add(lblVersao1);
         lblVersao1.setBounds(20, 280, 240, 20);
 

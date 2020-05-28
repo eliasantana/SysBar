@@ -8,9 +8,12 @@ package br.com.bar.view;
 import br.com.bar.dao.Backup;
 import br.com.bar.dao.Log;
 import br.com.bar.model.DadosEmpresa;
+import br.com.bar.model.Mesa;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerDadosEmpresa;
 import br.com.br.controler.ControlerDelivery;
+import br.com.br.controler.ControlerFuncionario;
+import br.com.br.controler.ControlerMesa;
 import br.com.br.controler.ControlerParametro;
 import java.awt.Color;
 import java.awt.Image;
@@ -18,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -917,14 +921,29 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this,"Existe(m) pedido(s) no Delivery Não é possível desativar este recurso agora!");
             }else {
                 if (radioDesativado.isSelected()){
-                    dados.ativaDelivery(0);
-                    JOptionPane.showMessageDialog(this,"Delivery desativado!");
-                    JOptionPane.showMessageDialog(this,"Realize o login novamente!","Atenção!",JOptionPane.ERROR_MESSAGE);                           
-                    telaConfiguracao.dispose();
-                    telaPrincipal.dispose();
-                    this.dispose();
-                    TelaLogin tl = new TelaLogin();
-                    tl.setVisible(true);
+                    ControlerMesa cm = new ControlerMesa();
+                    ControlerFuncionario cf = new ControlerFuncionario();
+                    ArrayList<Mesa> mesas = cm.listaMesasOcupadas(Integer.parseInt(cf.localizaId("Delivery")));
+                    if (mesas.size() > 0){
+                        StringBuilder sbMesas = new StringBuilder();
+                        
+                        for (int i=0; i < mesas.size(); i++){
+                            sbMesas.append(mesas.get(i).getNumeroMesa()).append(" ");
+                        }
+                        JOptionPane.showMessageDialog(this, "Não é possivel desativar o delivey!\nlibere a(s) mesa(s) " + sbMesas.toString());
+                        radioAtivado.setSelected(true);
+                        radioDesativado.setSelected(false);
+                    }else{
+                        
+                        dados.ativaDelivery(0);
+                        JOptionPane.showMessageDialog(this,"Delivery desativado!");
+                        JOptionPane.showMessageDialog(this,"Realize o login novamente!","Atenção!",JOptionPane.ERROR_MESSAGE);                           
+                        telaConfiguracao.dispose();
+                        telaPrincipal.dispose();
+                        this.dispose();
+                        TelaLogin tl = new TelaLogin();
+                        tl.setVisible(true);
+                    }
                 }                
             }
         } catch (SQLException e) {

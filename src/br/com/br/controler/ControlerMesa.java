@@ -296,6 +296,34 @@ public class ControlerMesa {
         }
 
     }
+    
+    /**
+     * @param idFuncionario Id do Funcionário
+     * @return ArrayList Lista de Mesas com o número das mesas ocupadas
+     */
+    public ArrayList listaMesasOcupadas(int idFuncionario) {
+
+        String sql = "SELECT numero_mesa FROM dbbar.cadmesa where status > 0 and  tbcadfuncionario_id=?";
+        ArrayList<Mesa> listaDeMesas = new ArrayList<>();
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setInt(1, idFuncionario);
+            rs = pst.executeQuery();
+
+            
+            while (rs.next()) {
+                 Mesa m = new Mesa();
+                 m.setNumeroMesa(rs.getString("numero_mesa"));
+                 listaDeMesas.add(m);
+                 
+            }
+
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerMesa.listaMesasOcupadas()" + e);
+        }
+        
+        return listaDeMesas;
+    }
 
     // Localiza o numero da mesa recebendo como parâmetro o número do pedido
     public String localizaNumeroMesa(String numeroPedido) {

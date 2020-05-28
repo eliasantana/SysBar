@@ -264,7 +264,7 @@ public class TelaGerenciadorDeLicenca extends JDialog {
         
         StringBuilder mensagem = new StringBuilder();
         String assunto = "Solicitação de Renovação de Licença";        
-        String empresa = "LA TABERNA";
+        String nomeEmpresa = d.getNome_empresa();
         mensagem.append(" <html> ");
         mensagem.append("<br><br>-=-= DADOS DO LICENCIADO =-=- <br><br>");
         mensagem.append(" <b>EMPRESA: </b>").append(d.getNome_empresa()).append("    <b>CNPJ:</b>: ").append(d.getCnpj());
@@ -275,7 +275,7 @@ public class TelaGerenciadorDeLicenca extends JDialog {
         mensagem.append(" </html>");
         try {
             
-            e.htmlMail("suporte@rese7.com.br","suporte@rese7.com.br",assunto,mensagem,empresa);
+            e.htmlMail("suporte@rese7.com.br","suporte@rese7.com.br",assunto,mensagem,nomeEmpresa);
             
         } catch (EmailException ex) {
             
