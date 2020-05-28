@@ -99,6 +99,7 @@ public class ControlerDadosEmpresa {
                 d.setDts(rs.getString("dts"));
                 d.setBkp_auto(rs.getInt("bkp_auto"));
                 d.setAtivaDelivery(rs.getInt("delivery"));
+                d.setAtivaCozinha(rs.getInt("cozinha"));
             }
 
         } catch (SQLException e) {
@@ -229,6 +230,26 @@ public class ControlerDadosEmpresa {
             
         } catch (SQLException e) {
             System.out.println("Não foi possível ativar o Delivery "+e);
+        }
+        
+        return resp;
+        
+    }
+    
+    //Ativa ou desativa o envio de pratos para a cozinha
+    public boolean ativaEnvioCozinha(int vlr){
+        boolean resp = false;
+        
+        String sql="UPDATE tb_dados_empresa SET cozinha =? WHERE ID > 0";
+        
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setInt(1,vlr);
+            pst.executeUpdate();
+            resp=true;
+            
+        } catch (SQLException e) {
+            System.out.println("Não foi possível ativar o evio de prato para a cozinha "+e);
         }
         
         return resp;

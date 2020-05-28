@@ -184,34 +184,37 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
                                      
 
                     if (grupo.equals("Cozinha")) {
+                        // Envia para cozinha se o campo na tb_dados_empresa for igual a 1
+                        if (d.getAtivaCozinha()==1){
+                            
+                            ArrayList<String> pCozinha = new ArrayList<>();
 
-                        ArrayList<String> pCozinha = new ArrayList<>();
+                            //codProduto, produto, qtd, funcionario, mesa, data, status
+                            pCozinha.add(lblDescricao.getText()); // Produto
+                            pCozinha.add(txtCodigoProduto.getText()); // // Código Produto
+                            pCozinha.add(txtQtd.getText()); // Qtd         
+                            pCozinha.add(nomeGarcomCompleto); // Nome do Funcionario
+                            pCozinha.add(lblNumeroMesa.getText()); // Numero da mesa
+                            pCozinha.add("Pendente"); // Status Pendente - Liberado
+                            pCozinha.add(lblNPedido.getText());
+                            Date dtAtual = new Date();
+                            Timestamp tms = new Timestamp(dtAtual.getTime());
+                            pCozinha.add(String.valueOf(tms)); // Data Atual
+                            int op = JOptionPane.showOptionDialog(this, "Deseja adicionar uma observação?", "Atenção", 
+                                     JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcao, opcao[1]);
+                            // Chama a tela de observação
+                            if (op == 1) {
 
-                        //codProduto, produto, qtd, funcionario, mesa, data, status
-                        pCozinha.add(lblDescricao.getText()); // Produto
-                        pCozinha.add(txtCodigoProduto.getText()); // // Código Produto
-                        pCozinha.add(txtQtd.getText()); // Qtd         
-                        pCozinha.add(nomeGarcomCompleto); // Nome do Funcionario
-                        pCozinha.add(lblNumeroMesa.getText()); // Numero da mesa
-                        pCozinha.add("Pendente"); // Status Pendente - Liberado
-                        pCozinha.add(lblNPedido.getText());
-                        Date dtAtual = new Date();
-                        Timestamp tms = new Timestamp(dtAtual.getTime());
-                        pCozinha.add(String.valueOf(tms)); // Data Atual
-                        int op = JOptionPane.showOptionDialog(this, "Deseja adicionar uma observação?", "Atenção", 
-                                 JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcao, opcao[1]);
-                        // Chama a tela de observação
-                        if (op == 1) {
+                                TelaObservacaoProduto telaObs = new TelaObservacaoProduto();
+                                telaObs.recebeTela3(this, pCozinha); // Envia dados do produto
+                                telaObs.setAlwaysOnTop(true);
+                                telaObs.setVisible(true);
 
-                            TelaObservacaoProduto telaObs = new TelaObservacaoProduto();
-                            telaObs.recebeTela3(this, pCozinha); // Envia dados do produto
-                            telaObs.setAlwaysOnTop(true);
-                            telaObs.setVisible(true);
-
-                        } else {
-                            pCozinha.add(null);//Obsrevação do prato                               
-                            // Envia prato para cozinha
-                            enviaParaCozinha(pCozinha);
+                            } else {
+                                pCozinha.add(null);//Obsrevação do prato                               
+                                // Envia prato para cozinha
+                                enviaParaCozinha(pCozinha);
+                            }
                         }
 
                     }
@@ -916,22 +919,26 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         descricao = tbDetalhePedido.getModel().getValueAt(linha, 1).toString();
         qtd = tbDetalhePedido.getModel().getValueAt(linha, 2).toString();
 
-        String grupo = cproduto.localizaGrupoProduto(idProduto);
+        // Só habilita botão de reenvio cozinha se estiver habilitado na tabela tb_dados_empresa
+        if (d.getAtivaCozinha()==1){
+            
+            String grupo = cproduto.localizaGrupoProduto(idProduto);
 
-        if (grupo.toLowerCase().equals("cozinha")) {
-            // Habilita os botões [REEVIO COZINHA] se o prato não existir.
-            if (!cc.temNaCozinha(String.valueOf(idProduto), lblNPedido.getText())) {
-                lblBtnReenvioCozinha.setEnabled(true);
-                lblTextoReenvioCozinha.setEnabled(true);
+            if (grupo.toLowerCase().equals("cozinha")) {
+                // Habilita os botões [REEVIO COZINHA] se o prato não existir.
+                if (!cc.temNaCozinha(String.valueOf(idProduto), lblNPedido.getText())) {
+                    lblBtnReenvioCozinha.setEnabled(true);
+                    lblTextoReenvioCozinha.setEnabled(true);
+                } else {
+                    lblBtnReenvioCozinha.setEnabled(false);
+                    lblTextoReenvioCozinha.setEnabled(false);
+                    lblStatusCozinha.setEnabled(true);
+                    lblTextoStatusCozinha.setEnabled(true);
+                }
             } else {
                 lblBtnReenvioCozinha.setEnabled(false);
                 lblTextoReenvioCozinha.setEnabled(false);
-                lblStatusCozinha.setEnabled(true);
-                lblTextoStatusCozinha.setEnabled(true);
             }
-        } else {
-            lblBtnReenvioCozinha.setEnabled(false);
-            lblTextoReenvioCozinha.setEnabled(false);
         }
         
     }//GEN-LAST:event_tbDetalhePedidoMouseClicked

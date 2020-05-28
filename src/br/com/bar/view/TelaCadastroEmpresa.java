@@ -107,7 +107,11 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
             radioAtivado.setSelected(true);
         }
         
-       
+       if (d.getAtivaCozinha()==1){
+           cozinhaAtivado.setSelected(true);
+       }else{
+          cozinhaDesativado.setSelected(true);
+       }
     }
 
     // Recebe dados para identificação do operador
@@ -192,6 +196,9 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         radioAtivado = new javax.swing.JRadioButton();
         radioDesativado = new javax.swing.JRadioButton();
+        painelCozinha = new javax.swing.JPanel();
+        cozinhaAtivado = new javax.swing.JRadioButton();
+        cozinhaDesativado = new javax.swing.JRadioButton();
 
         jLabel1.setText("jLabel1");
 
@@ -520,7 +527,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         lblCaminho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bar/imagens/bd.png"))); // NOI18N
         lblCaminho.setText("Caminho");
         getContentPane().add(lblCaminho);
-        lblCaminho.setBounds(370, 470, 510, 40);
+        lblCaminho.setBounds(370, 470, 260, 40);
 
         txtComplemento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -658,24 +665,64 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(14, 14, 14)
                 .addComponent(radioAtivado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(radioDesativado)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(radioAtivado)
                     .addComponent(radioDesativado))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addGap(0, 5, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel4);
-        jPanel4.setBounds(640, 410, 250, 60);
+        jPanel4.setBounds(640, 410, 250, 50);
+
+        painelCozinha.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cozinha"));
+
+        buttonGroup3.add(cozinhaAtivado);
+        cozinhaAtivado.setText("Ativado");
+        cozinhaAtivado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cozinhaAtivadoMouseClicked(evt);
+            }
+        });
+
+        buttonGroup3.add(cozinhaDesativado);
+        cozinhaDesativado.setText("Desativado");
+        cozinhaDesativado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cozinhaDesativadoMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout painelCozinhaLayout = new javax.swing.GroupLayout(painelCozinha);
+        painelCozinha.setLayout(painelCozinhaLayout);
+        painelCozinhaLayout.setHorizontalGroup(
+            painelCozinhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelCozinhaLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(cozinhaAtivado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cozinhaDesativado)
+                .addContainerGap(80, Short.MAX_VALUE))
+        );
+        painelCozinhaLayout.setVerticalGroup(
+            painelCozinhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelCozinhaLayout.createSequentialGroup()
+                .addGroup(painelCozinhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cozinhaAtivado)
+                    .addComponent(cozinhaDesativado))
+                .addGap(0, 5, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(painelCozinha);
+        painelCozinha.setBounds(640, 460, 250, 50);
 
         setSize(new java.awt.Dimension(903, 585));
         setLocationRelativeTo(null);
@@ -952,6 +999,31 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
          
     }//GEN-LAST:event_radioDesativadoMouseClicked
 
+    private void cozinhaAtivadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cozinhaAtivadoMouseClicked
+        //Ativa envio de pratos para a cozinha
+       String mensagem="Envio para cozinha Ativado!";
+       cozinhaAtivado.setSelected(true);
+       ativaDesativaEnvioCozinha(1, mensagem);
+            
+    }//GEN-LAST:event_cozinhaAtivadoMouseClicked
+
+    private void cozinhaDesativadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cozinhaDesativadoMouseClicked
+        String mensagem="Envio para cozinha Desativado!";
+        cozinhaDesativado.setSelected(true);
+        ativaDesativaEnvioCozinha(0, mensagem);
+    }//GEN-LAST:event_cozinhaDesativadoMouseClicked
+
+    public void ativaDesativaEnvioCozinha(int valor, String mensagem){
+        dados.ativaEnvioCozinha(valor);
+        cozinhaAtivado.setSelected(true);
+        JOptionPane.showMessageDialog(this,mensagem);
+        JOptionPane.showMessageDialog(this,"Realize o login novamente!","Atenção!",JOptionPane.ERROR_MESSAGE);                           
+        telaConfiguracao.dispose();
+        telaPrincipal.dispose();
+        this.dispose();
+        TelaLogin tl = new TelaLogin();
+        tl.setVisible(true);
+    }
     public void ativarBackup(String valor) {
         dados.ativaBackup(valor);
         System.out.println(valor);
@@ -1007,6 +1079,8 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JComboBox<String> comboUf;
+    private javax.swing.JRadioButton cozinhaAtivado;
+    private javax.swing.JRadioButton cozinhaDesativado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
@@ -1038,6 +1112,7 @@ public class TelaCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblTextocaminhoBanco;
     private javax.swing.JLabel lblUf;
+    private javax.swing.JPanel painelCozinha;
     private javax.swing.JRadioButton radioAtivado;
     private javax.swing.JRadioButton radioAutomatico;
     private javax.swing.JRadioButton radioDesativado;
