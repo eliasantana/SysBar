@@ -230,7 +230,7 @@ public class TesteNFCe extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Valida CPF");
+        jButton5.setText("Teste Tela CPF");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -255,7 +255,7 @@ public class TesteNFCe extends javax.swing.JFrame {
                                 .addComponent(jButton3)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 8, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -661,13 +661,27 @@ public class TesteNFCe extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        String cpf = txtCpf.getText();        
-        System.out.println("CPF: " + cpf);
-        if (Util.isCPF(cpf)){
-            JOptionPane.showMessageDialog(this,"CPF: " + cpf + "Válido");
+        int ambiente=0; //1- Para autorizar
+        int flag=0;  // 0 - Homologacao - 1- Producao 
+        // ambiente=0; flag=0  - Para ambiente não fiscal
+        if (ambiente ==0 && flag==0){
+            System.out.println("Não fiscal!");    
+            receber("");
+       
         }else{
-            JOptionPane.showMessageDialog(this,"Este CPF não é válido!"+cpf);
+//              TelaInformaCpf telaCpf = new TelaInformaCpf();
+//              telaCpf.recebeTela(this);
+//              telaCpf.setAlwaysOnTop(true);
+//              telaCpf.setVisible(true);
+//              if (ambiente == 1 && flag==0){
+//                  System.out.println("Ambiente de Homologação");
+//              }else {
+//                 System.out.println("Ambient de Produção");  
+//              }
         }
+        
+        
+        
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void valorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_valorMouseClicked
@@ -750,5 +764,10 @@ public class TesteNFCe extends javax.swing.JFrame {
         numFormatter.setAllowsInvalid(false);
         DefaultFormatterFactory dfFactory = new DefaultFormatterFactory(numFormatter);
         campo.setFormatterFactory(dfFactory);
+    }
+
+    public void receber(String cpf) {
+        System.out.println("Cpf Informado: " + cpf);
+        System.out.println("Continua Processamento........");
     }
 }

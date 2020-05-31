@@ -129,6 +129,7 @@ public class ControlerNFCe {
      */
     public void consultarNFCE(String codPedidoNota, String arqRetorno) {
         int ambiente = 1;
+        
         String login;
         String server;
         if (ambiente == 1) {
@@ -145,7 +146,7 @@ public class ControlerNFCe {
         /* Substituir pela sua identificação interna da nota. */
         String ref = codPedidoNota;
 
-        String url = server.concat("v2/nfce/" + ref + "?completa=0");
+        String url = server.concat("v2/nfce/" + ref + "?completa=1");
 
         /* Configuração para realizar o HTTP BasicAuth. */
         Object config = new DefaultClientConfig();
@@ -440,8 +441,9 @@ public class ControlerNFCe {
             nota.setNumero_protocolo((String) jo.get("numero_protocolo"));
             nota.setData_emissao((String) jo.get("data_emissao"));
             nota.setInformacoes_adicionais_contribuinte((String) jo.get("informacoes_adicionais_contribuinte"));
-
+            nota.setCpf_destinatario((String) jo.get("cpf_destinatario"));
             //System.out.println(nota.toString());
+           
         } catch (FileNotFoundException | ParseException ex) {
             Logger.getLogger(TesteJesonString.class.getName()).log(Level.SEVERE, null, ex);
         }
