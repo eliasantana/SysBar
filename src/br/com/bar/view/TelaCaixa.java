@@ -103,8 +103,8 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     //------------------------------------------------------------
     // As variaveis abaixo determinam o ambiente de Emissão de cupom fiscal
-    int flagFiscal = 0;             // 1 - Para autorizar e ler retorno SEFAZ     
-    private final int ambiente = 0; //Ambiente de Emissão  (0 - Homologação - 1  Produção
+    int flagFiscal = 1;             // 1 - Para autorizar e ler retorno SEFAZ     
+    private final int ambiente = 1; //Ambiente de Emissão  (0 - Homologação - 1  Produção
     //-------------------------------------------------------------
     boolean foiCancelada;
     // Dados da NFC-e

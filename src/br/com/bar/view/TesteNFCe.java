@@ -10,7 +10,9 @@ import br.com.bar.dao.Email;
 import br.com.bar.dao.ReportUtil;
 import br.com.bar.model.Autorizar;
 import br.com.bar.model.DadosEmpresa;
+import br.com.bar.model.Nfce;
 import br.com.bar.model.ProdutoNota;
+import br.com.bar.model.TesteJesonString;
 import br.com.bar.util.FormataValor;
 import br.com.bar.util.Util;
 import br.com.br.controler.ControlerDadosEmpresa;
@@ -27,7 +29,10 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -45,6 +50,8 @@ import net.sf.jasperreports.engine.JRException;
 import org.apache.commons.mail.EmailException;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -230,7 +237,7 @@ public class TesteNFCe extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Teste Tela CPF");
+        jButton5.setText("Ler Json Retorno");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -661,25 +668,16 @@ public class TesteNFCe extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        int ambiente=0; //1- Para autorizar
-        int flag=0;  // 0 - Homologacao - 1- Producao 
-        // ambiente=0; flag=0  - Para ambiente não fiscal
-        if (ambiente ==0 && flag==0){
-            System.out.println("Não fiscal!");    
-            receber("");
-       
-        }else{
-//              TelaInformaCpf telaCpf = new TelaInformaCpf();
-//              telaCpf.recebeTela(this);
-//              telaCpf.setAlwaysOnTop(true);
-//              telaCpf.setVisible(true);
-//              if (ambiente == 1 && flag==0){
-//                  System.out.println("Ambiente de Homologação");
-//              }else {
-//                 System.out.println("Ambient de Produção");  
-//              }
+
+        try {
+        Nfce nota=lerRetornov2("consulta.json");
+            System.out.println(nota.getCpf_destinatario());
+            System.out.println(nota.toString());
+        } catch (ParseException ex) {
+            Logger.getLogger(TesteNFCe.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            System.out.println("Erro ao ler arquivo Json "+ex);
         }
-        
         
         
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -770,4 +768,39 @@ public class TesteNFCe extends javax.swing.JFrame {
         System.out.println("Cpf Informado: " + cpf);
         System.out.println("Continua Processamento........");
     }
+    
+  public Nfce lerRetornov2(String nomeArquivo) throws ParseException, IOException {
+        org.json.simple.JSONObject jo;
+        JSONParser parser = new JSONParser();
+        Nfce nota = new Nfce();
+
+        try {
+            //jo = (org.json.simple.JSONObject) parser.parse(new FileReader("C:\\Sysbar\\consulta.json"));
+            jo = (org.json.simple.JSONObject) parser.parse(new FileReader("C:\\Sysbar\\" + nomeArquivo)); 
+            //Pega chave do arquivo JSON
+            Object obj = jo.get("requisicao_nota_fiscal");
+            //Converte obj do tipo Object em um simple.JSonObject 
+            jo = (org.json.simple.JSONObject) parser.parse(obj.toString());
+            //Exibe conteúdo do arquivo jo
+            //System.out.println(obj.toString());
+          
+            nota.setChave_nfe((String) jo.get("chave_nfe"));
+            nota.setUrl_consulta_nf((String) jo.get("url_consulta_nf"));
+            nota.setSerie((String) jo.get("serie"));
+            nota.setNumero((String) jo.get("numero"));
+            nota.setQrcode_url((String) jo.get("qrcode_url"));
+            nota.setNumero_protocolo((String) jo.get("numero_protocolo"));
+            nota.setData_emissao((String) jo.get("data_emissao"));
+            nota.setInformacoes_adicionais_contribuinte((String) jo.get("informacoes_adicionais_contribuinte"));
+            nota.setCpf_destinatario((String) jo.get("cpf_destinatario"));
+            //Exibe contúdo do arquivo Json
+            //System.out.println(nota.toString());
+            
+        } catch (FileNotFoundException | ParseException ex) {
+            Logger.getLogger(TesteJesonString.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return nota;
+    }
+
 }

@@ -128,7 +128,7 @@ public class ControlerNFCe {
      * @param arqRetorno Nome do arquivo de retorno com o resutado da pesquisa
      */
     public void consultarNFCE(String codPedidoNota, String arqRetorno) {
-        int ambiente = 1;
+        int ambiente = 1; // 0 - HOMOLOGAÇÃO  1 - PRODUÇÃO
         
         String login;
         String server;
@@ -182,7 +182,7 @@ public class ControlerNFCe {
  * @return Retorna um ArrayList contendo os Meses e sua URL de download 
  */
     public ArrayList carrregaDownloadNFCE(JTable tabela, String cnpjEmitente) throws JSONException {
-        int ambiente = 1;
+        int ambiente = 1; //0 - HOMOLOGAÇÃO 1 - PRODUÇÃO
         String login;
         String server;       
         ArrayList<String> urlList = new ArrayList<>();
@@ -290,7 +290,7 @@ public class ControlerNFCe {
      * @return httpCod Retorna o Código de resposta da API
      */
     public int cancelaNFCe(String motivo, String nPedido, String arquivoRetorno) {
-        int ambiente = 1;
+        int ambiente = 1; // 0 - HOMOLOGACAO  1- PRODUÇÃO
         String login;
         if (ambiente == 1) {
             // Token para emissão em ambiente de Produção
@@ -425,6 +425,7 @@ public class ControlerNFCe {
      * @throws org.json.simple.parser.ParseException
      * @throws java.io.IOException
      */
+    // Subistituir pelo método lerRetornov2
     public Nfce lerRetorno(String nomeArquivo) throws ParseException, IOException {
         org.json.simple.JSONObject jo;
         JSONParser parser = new JSONParser();
@@ -444,6 +445,46 @@ public class ControlerNFCe {
             nota.setCpf_destinatario((String) jo.get("cpf_destinatario"));
             //System.out.println(nota.toString());
            
+        } catch (FileNotFoundException | ParseException ex) {
+            Logger.getLogger(TesteJesonString.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return nota;
+    }
+    
+    // Teste 
+    public Nfce lerRetornov2(String nomeArquivo) throws ParseException, IOException {
+        org.json.simple.JSONObject jo;
+        JSONParser parser = new JSONParser();
+        Nfce nota = new Nfce();
+
+        try {
+            //jo = (org.json.simple.JSONObject) parser.parse(new FileReader("C:\\Sysbar\\consulta.json"));
+            jo = (org.json.simple.JSONObject) parser.parse(new FileReader("C:\\Sysbar\\" + nomeArquivo)); 
+            //Pega chave do arquivo JSON
+            Object obj = jo.get("requisicao_nota_fiscal");
+            //Converte obj do tipo Object em um simple.JSonObject
+            try {
+                
+            jo = (org.json.simple.JSONObject) parser.parse(obj.toString());
+            } catch (ParseException e) {
+                System.out.println("Não foi possível converter o arquivo de retorno, verifique\n se o cupom consultado está no mesmo ambiente de execução ('PRODUÇÃO/HOMOLOGAÇÃO')");
+            }
+            //Exibe conteúdo do arquivo jo
+            //System.out.println(obj.toString());
+          
+            nota.setChave_nfe((String) jo.get("chave_nfe"));
+            nota.setUrl_consulta_nf((String) jo.get("url_consulta_nf"));
+            nota.setSerie((String) jo.get("serie"));
+            nota.setNumero((String) jo.get("numero"));
+            nota.setQrcode_url((String) jo.get("qrcode_url"));
+            nota.setNumero_protocolo((String) jo.get("numero_protocolo"));
+            nota.setData_emissao((String) jo.get("data_emissao"));
+            nota.setInformacoes_adicionais_contribuinte((String) jo.get("informacoes_adicionais_contribuinte"));
+            nota.setCpf_destinatario((String) jo.get("cpf_destinatario"));
+            //Exibe contúdo do arquivo Json
+            //System.out.println(nota.toString());
+            
         } catch (FileNotFoundException | ParseException ex) {
             Logger.getLogger(TesteJesonString.class.getName()).log(Level.SEVERE, null, ex);
         }

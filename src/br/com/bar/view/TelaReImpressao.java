@@ -235,7 +235,8 @@ public class TelaReImpressao extends JDialog {
 
             try {
                 // Ler o arquivo de retorno e devolve um obj do tipo NFCe com os dados lidos
-                nota = controlerNFCe.lerRetorno("consulta.json");
+                nota = controlerNFCe.lerRetornov2("consulta.json");
+                
             } catch (ParseException | IOException ex) {
                 Logger.getLogger(TelaReImpressao.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -280,6 +281,8 @@ public class TelaReImpressao extends JDialog {
             dados.put("url_consulta_nf", nota.getUrl_consulta_nf());
             dados.put("serie", nota.getSerie());
             dados.put("numero", nota.getNumero());
+            dados.put("cpfContribuinte", nota.getCpf_destinatario());
+           
             // Retorna Dados do pagamento 
             try {
                 ArrayList<Double> lista = cp.retornaVlrPagamentoMisto(idPedido);
@@ -315,6 +318,7 @@ public class TelaReImpressao extends JDialog {
             //tblPedidos.setModel(DbUtils.resultSetToTableModel(cp.listaPedidosReimpressao(txtNumeroMesa.getText())));
             modelReimpressao.redimensionaColunas(tblPedidos);
         }
+         
 
     }//GEN-LAST:event_lblImprimirMouseClicked
 
