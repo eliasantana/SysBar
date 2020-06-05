@@ -283,6 +283,11 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                 btnSalvarMouseEntered(evt);
             }
         });
+        btnSalvar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                btnSalvarKeyReleased(evt);
+            }
+        });
         painelEsquerdo.add(btnSalvar);
         btnSalvar.setBounds(180, 430, 110, 50);
 
@@ -510,9 +515,10 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
 
             if ("Incluir".equals(lblTitulo.getText())) {
-
-                if (cp.temProduto(p)) {
-                    JOptionPane.showMessageDialog(this, "O produto " + p.getNome() + " já existe!");
+//Excluir após validação
+//                if (cp.temProduto(p)) {
+                if (cp.isCodigoProduto(p.getCodigoProduto())) {
+                    JOptionPane.showMessageDialog(this, "O código informado já existe!");
                     limpaForm();
                     comboFornecedor.setSelectedIndex(0);
                     comboGrupoProduto.setSelectedIndex(0);
@@ -738,6 +744,10 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         // Chama a função de validação ao perder o foco
 
     }//GEN-LAST:event_txtCodigoProdutoFocusLost
+
+    private void btnSalvarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvarKeyReleased
     private void limpaForm() {
 
         txtDescricao.setText(null);

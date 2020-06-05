@@ -33,6 +33,8 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroProduto
      */
+    Object[] opcao = {"   Não  ","  Sim   "};
+    
     public TelaPesquisaProduto() {
         initComponents();
 
@@ -446,6 +448,7 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
             p.setTbGrupoId(tblProduto.getModel().getValueAt(linha, 6).toString());
             p.setId(cp.localizaIdProduto(p.getCodigoProduto()));
              
+            
             //Localiza código ncm do produto
             p.setCodNCM(cp.localizaNCM(p));
             Fornecedor f = cf.localizaFornecedor(cf.retornaFornecedor(p));
@@ -471,8 +474,11 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         p.setNome(nomeProduto);
         p.setId(cp.localizaIdProduto(codProduto));
 
-        int op = JOptionPane.showConfirmDialog(this, "Confirma a exclusão do produto?", "Atenção!", JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE);
-        if (op == JOptionPane.YES_OPTION) {
+        //int op = JOptionPane.showConfirmDialog(this, "Confirma a exclusão do produto?", "Atenção!", JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE);
+        int op = JOptionPane.showOptionDialog(this, "Confirma a exclusão do produto?", "Atenção!", JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE,
+                null, opcao, opcao[1]);
+        //if (op == JOptionPane.YES_OPTION) {
+        if (op == 1) {
 
             if (cp.excluiProduto(p)){
                 JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!");
@@ -480,7 +486,12 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
                 Log l = new Log(lblOperador.getText(), "Excluir", "Excluiu o produto "+p.getNome());
                 l.gravaLog(l);
             }else {
-                 JOptionPane.showMessageDialog(this, "Este produto não pode ser excluído!");
+                 if (cp.exclusaoLogica(p)){
+                    JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!"); 
+                    atualizaTabela();
+                 }else {
+                     JOptionPane.showMessageDialog(this, "Não foi possível realizar a exclusão lógica deste produto!"); 
+                 }
             }
         }
     }//GEN-LAST:event_btnExcluirMouseClicked

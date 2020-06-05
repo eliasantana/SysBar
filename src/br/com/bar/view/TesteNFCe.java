@@ -645,11 +645,7 @@ public class TesteNFCe extends javax.swing.JFrame {
     }//GEN-LAST:event_tbDetalhePedidoKeyPressed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        //LocalDate dt = LocalDate.now();
-        ControlerDadosEmpresa cde = new ControlerDadosEmpresa();
-        DadosEmpresa d = cde.selecionaDados();
-        
-        System.out.println(d.retornaCnpj());        
+       
 
     }//GEN-LAST:event_jButton3ActionPerformed
 

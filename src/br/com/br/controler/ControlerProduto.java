@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,7 +29,19 @@ public class ControlerProduto {
 
     // Lista todos os produtos em estoque
     public ResultSet listaProduto() {
-
+        //Query Original sem exclusão de produto inativo
+//
+//        String sql = "SELECT \n"
+//                //+ "	p.id as 'CÓDIGO', \n"
+//                + "	p.cod_produto as 'CÓDIGO', \n"
+//                + "	p.nome as 'PRODUTO',\n"
+//                + "	p.qtd as 'QTD', \n"
+//                + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"
+//                + "	p.qtd_min AS 'MIN',\n"
+//                + "	p.qtd_max AS 'MAX',\n"
+//                + "	g.nome as 'GRUPO'\n"
+//                + "FROM tbproduto p\n"
+//                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id;";
         String sql = "SELECT \n"
                 //+ "	p.id as 'CÓDIGO', \n"
                 + "	p.cod_produto as 'CÓDIGO', \n"
@@ -39,7 +52,7 @@ public class ControlerProduto {
                 + "	p.qtd_max AS 'MAX',\n"
                 + "	g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
-                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id;";
+                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id WHERE p.ativo =1;";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -53,8 +66,20 @@ public class ControlerProduto {
     }
 
     public ResultSet listaProduto(Fornecedor f) {
-
-        String sql = "SELECT \n"
+        // Query Original sem exclusão lógica
+//        String sql = "SELECT \n"
+//                //+ "	p.id as 'CÓDIGO', \n"
+//                + "	p.cod_produto as 'CÓDIGO', \n"
+//                + "	p.nome as 'PRODUTO',\n"
+//                + "	p.qtd as 'QTD', \n"
+//                + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"
+//                + "	p.qtd_min AS 'MIN',\n"
+//                + "	p.qtd_max AS 'MAX',\n"
+//                + "	g.nome as 'GRUPO'\n"
+//                + "FROM tbproduto p\n"
+//                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id WHERE tbFornecedores_id=?";
+        
+String sql = "SELECT \n"
                 //+ "	p.id as 'CÓDIGO', \n"
                 + "	p.cod_produto as 'CÓDIGO', \n"
                 + "	p.nome as 'PRODUTO',\n"
@@ -64,7 +89,7 @@ public class ControlerProduto {
                 + "	p.qtd_max AS 'MAX',\n"
                 + "	g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
-                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id WHERE tbFornecedores_id=?";
+                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id WHERE tbFornecedores_id=? AND p.ativo=1";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -78,7 +103,17 @@ public class ControlerProduto {
     }
 
     public ResultSet listaProdutoDisponivel() {
-
+        // Query original sem exlusão lógica
+        
+//        String sql = "SELECT \n"
+//                + "	p.id as 'CÓDIGO', \n"
+//                + "	p.nome as 'DESCRIÇÃO',\n"
+//                + "	p.qtd as 'ESTOQUE', \n"
+//                + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"
+//                + "	g.nome as 'GRUPO'\n"
+//                + "FROM tbproduto p\n"
+//                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id "
+//                + "WHERE p.qtd > 0 ORDER BY g.nome";
         String sql = "SELECT \n"
                 + "	p.id as 'CÓDIGO', \n"
                 + "	p.nome as 'DESCRIÇÃO',\n"
@@ -87,7 +122,7 @@ public class ControlerProduto {
                 + "	g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id "
-                + "WHERE p.qtd > 0 ORDER BY g.nome";
+                + "WHERE p.qtd > 0 AND p.ativo=1 ORDER BY g.nome";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -102,6 +137,17 @@ public class ControlerProduto {
 
     // Método utilizado exclusivamente na tela de pesquisa de produtos
     public ResultSet listaProdutoEstoque() {
+// Query Original - lista produtos sem exclusão lógica
+//        String sql = "SELECT \n"
+//                // Apagar linha  108 após validação de janiel
+//                //+ "	p.id as 'CÓDIGO', \n"
+//                + "	p.cod_produto as 'CÓDIGO', \n"
+//                + "	p.nome as 'DESCRIÇÃO',\n"
+//                + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"
+//                + "	p.qtd as 'ESTOQUE' \n"
+//                + "FROM tbproduto p\n"
+//                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id "
+//                + "WHERE p.qtd > 0 ORDER BY g.nome";
 
         String sql = "SELECT \n"
                 // Apagar linha  108 após validação de janiel
@@ -112,7 +158,7 @@ public class ControlerProduto {
                 + "	p.qtd as 'ESTOQUE' \n"
                 + "FROM tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id "
-                + "WHERE p.qtd > 0 ORDER BY g.nome";
+                + "WHERE p.qtd > 0 AND p.ativo=1 ORDER BY g.nome";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -128,6 +174,17 @@ public class ControlerProduto {
     // Método utilizado exclusivamente na tela de pesquisa de produtos
     // Localiza produto informado no parâmetro
     public ResultSet listaProdutoEstoque(String nomeProduto) {
+        // Query orignal sem exclusão lógica
+//        String sql = "SELECT \n"
+//               // + "	p.id as 'CÓDIGO', \n"
+//                + "	p.cod_produto as 'CÓDIGO', \n"
+//                + "	p.nome as 'DESCRIÇÃO',\n"
+//                + "	format(p.valor,2,'de_DE') as 'VALOR R$',\n"
+//                + "	p.qtd as 'ESTOQUE' \n"
+//                + "FROM tbproduto p\n"
+//                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id "
+//                + "WHERE p.nome LIKE ? AND p.qtd > 0 ORDER BY g.nome";
+
 
         String sql = "SELECT \n"
                // + "	p.id as 'CÓDIGO', \n"
@@ -137,7 +194,7 @@ public class ControlerProduto {
                 + "	p.qtd as 'ESTOQUE' \n"
                 + "FROM tbproduto p\n"
                 + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id "
-                + "WHERE p.nome LIKE ? AND p.qtd > 0 ORDER BY g.nome";
+                + "WHERE p.nome LIKE ? AND p.qtd AND p.ativo=1 > 0 ORDER BY g.nome";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -173,23 +230,22 @@ public class ControlerProduto {
     }
 
     public ResultSet listaEquantidade() {
-    // Excluir produto após validação de janiel
-
+ // Query sem exclusão de produto inativo
 //        String sql = "SELECT \n"
-//                + "	p.id as 'CÓDIGO', \n"
+//                + "	p.cod_produto as 'CÓDIGO', \n"
 //                + "	p.nome as 'PRODUTO',\n"
 //                + "	p.qtd as 'QTD', \n"
 //                + "	g.nome as 'GRUPO'\n"
 //                + "FROM tbproduto p\n"
 //                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id;";
-        
+
         String sql = "SELECT \n"
                 + "	p.cod_produto as 'CÓDIGO', \n"
                 + "	p.nome as 'PRODUTO',\n"
                 + "	p.qtd as 'QTD', \n"
                 + "	g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
-                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id;";
+                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id WHERE p.ativo=1;";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -206,6 +262,17 @@ public class ControlerProduto {
         String sql;
         if ("nome".equals(coluna)) {
             coluna = "p.nome";
+            //Query Original sem exclusão
+//            sql = "SELECT\n"
+//                    //+ "p.id as 'CÓDIGO', \n"
+//                    + "	p.cod_produto as 'CÓDIGO', \n"
+//                    + "	p.nome as 'PRODUTO',\n"
+//                    + "	p.qtd as 'QTD', \n"
+//                    + "	g.nome as 'GRUPO'\n"
+//                    + "FROM tbproduto p\n"
+//                    + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id\n"
+//                    + "WHERE " + coluna + " LIKE ?;";
+            
             sql = "SELECT\n"
                     //+ "p.id as 'CÓDIGO', \n"
                     + "	p.cod_produto as 'CÓDIGO', \n"
@@ -214,7 +281,7 @@ public class ControlerProduto {
                     + "	g.nome as 'GRUPO'\n"
                     + "FROM tbproduto p\n"
                     + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id\n"
-                    + "WHERE " + coluna + " LIKE ?;";
+                    + "WHERE " + coluna + " LIKE ? AND p.ativo=1;";
 
             try {
                 pst = conexao.prepareStatement(sql);
@@ -228,6 +295,17 @@ public class ControlerProduto {
         } else {
             //coluna = "p.id";
             coluna = "p.cod_produto";
+            //Query Original sem Exclusão lógica
+//            sql = "SELECT\n"
+//                    //+ "	p.id as 'CÓDIGO', \n"
+//                    + "	p.cod_produto as 'CÓDIGO', \n"
+//                    + "	p.nome as 'PRODUTO',\n"
+//                    + "	p.qtd as 'QTD', \n"
+//                    + "	g.nome as 'GRUPO'\n"
+//                    + "FROM tbproduto p\n"
+//                    + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id\n"
+//                    + "WHERE " + coluna + "= ?";
+            
             sql = "SELECT\n"
                     //+ "	p.id as 'CÓDIGO', \n"
                     + "	p.cod_produto as 'CÓDIGO', \n"
@@ -236,7 +314,7 @@ public class ControlerProduto {
                     + "	g.nome as 'GRUPO'\n"
                     + "FROM tbproduto p\n"
                     + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id\n"
-                    + "WHERE " + coluna + "= ?";
+                    + "WHERE " + coluna + "= ? AND p.ativo=1";
 
             try {
                 pst = conexao.prepareStatement(sql);
@@ -303,7 +381,31 @@ public class ControlerProduto {
         }else {
             filtro = grupo; // filtra pelo nome do grupo
         }
-
+          // Query Original sem exclusão lógica
+//        String sql = "SELECT \n"
+//                //+ "	p.id as 'CÓDIGO', \n"
+//                + "	p.cod_produto as 'CÓDIGO', \n"
+//                + "	p.nome as 'PRODUTO',\n"
+//                + "	p.qtd as 'QTD', \n"
+//                + "	format(p.valor, 2,'de_DE') as 'VALOR R$',\n"
+//                + "	p.qtd_min AS 'MIN',\n"
+//                + "	p.qtd_max AS 'MAX',\n"
+//                + "	g.nome as 'GRUPO'\n"
+//                + "FROM tbproduto p\n"
+//                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id WHERE " + filtro + " LIKE ?";
+//
+//        String sql2 = "SELECT \n"
+//                //+ "	p.id as 'CÓDIGO', \n"
+//                + "	p.cod_produto as 'CÓDIGO', \n"
+//                + "	p.nome as 'PRODUTO',\n"
+//                + "	p.qtd as 'QTD', \n"
+//                + "	format(p.valor, 2,'de_DE') as 'VALOR R$',\n"
+//                + "	p.qtd_min AS 'MIN',\n"
+//                + "	p.qtd_max AS 'MAX',\n"
+//                + "	g.nome as 'GRUPO'\n"
+//                + "FROM tbproduto p\n"
+//                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id WHERE " + filtro +"=?";
+       
         String sql = "SELECT \n"
                 //+ "	p.id as 'CÓDIGO', \n"
                 + "	p.cod_produto as 'CÓDIGO', \n"
@@ -314,7 +416,7 @@ public class ControlerProduto {
                 + "	p.qtd_max AS 'MAX',\n"
                 + "	g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
-                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id WHERE " + filtro + " LIKE ?";
+                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id WHERE " + filtro + " LIKE ? AND p.ativo=1";
 
         String sql2 = "SELECT \n"
                 //+ "	p.id as 'CÓDIGO', \n"
@@ -326,7 +428,7 @@ public class ControlerProduto {
                 + "	p.qtd_max AS 'MAX',\n"
                 + "	g.nome as 'GRUPO'\n"
                 + "FROM tbproduto p\n"
-                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id WHERE " + filtro +"=?";
+                + "INNER JOIN cad_grupo_produto g ON g.id=p.cad_grupo_produto_id WHERE " + filtro +"=?  AND p.ativo=1";
         
         try {
             pst = conexao.prepareStatement(sql);
@@ -365,7 +467,7 @@ public class ControlerProduto {
 
     public boolean adicionaProduto(Produto p) {
 
-        String sql = "INSERT INTO tbproduto (nome, qtd, qtd_min,qtd_max,valor,cad_grupo_produto_id, tbFornecedores_id,cod_ncm,cod_produto) VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO tbproduto (nome, qtd, qtd_min,qtd_max,valor,cad_grupo_produto_id, tbFornecedores_id,cod_ncm,cod_produto, ativo) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -378,7 +480,7 @@ public class ControlerProduto {
             pst.setInt(7, p.getIdFornecedor());
             pst.setString(8, p.getCodNCM());
             pst.setString(9, p.getCodigoProduto());
-            
+            pst.setString(10, "1");
             pst.executeUpdate();
 
             return true;
@@ -430,16 +532,31 @@ public class ControlerProduto {
 
         } catch (SQLException e) {
             System.out.println("br.com.br.controler.ControlerProduto.excluiProduto()");
-
+            
         }
 
         return false;
     }
+    //Realiza a Exclusão Logica para produto que possui relação com pedido
+    public Boolean exclusaoLogica(Produto p){
+        String sql = "UPDATE tbproduto SET ativo=0, cod_produto=0 WHERE id=?";
+        boolean resp=false;
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, p.getId());
+            pst.executeUpdate();
+            resp=true;
+        } catch (SQLException e) {
+            System.out.println("Não foi possivel realizar a exclusão lógica " + e);
+        }
+        return resp;
+    }
 
     public Produto localizaProduto(Produto p) {
 
-        //String sql = "SELECT * from tbProduto WHERE id=?";
-        String sql = "SELECT * from tbProduto WHERE cod_produto=?";
+       //QUERY ORIGINAL SEM EXCLUSÃO LOÓGICA
+        //String sql = "SELECT * from tbProduto WHERE cod_produto=?";
+        String sql = "SELECT * from tbProduto WHERE cod_produto=? AND ativo=1";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -731,5 +848,29 @@ public class ControlerProduto {
         }
         
         return id;
+    }
+    // Verifica se o código informado existe
+    public Boolean isCodigoProduto(String cdProduto){
+        
+        boolean resp=false;
+        
+        String sql ="SELECT 1 FROM dbbar.tbproduto where cod_produto=?";
+        
+        try {
+            
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, cdProduto);
+            rs=pst.executeQuery();
+            
+            if (rs.next()){
+               resp=true;
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("br.com.br.controler.ControlerProduto.isCodigoProduto()");
+        }
+        
+        return  resp;
+        
     }
 }
