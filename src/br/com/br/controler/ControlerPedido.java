@@ -394,6 +394,12 @@ public class ControlerPedido {
     // Cancela o pedido informado no parâmetro
     public boolean cancelaPedido(int numeroPedido) {
 
+        ControlerDelivery dl = new ControlerDelivery();
+        String nmPedido = String.valueOf(numeroPedido);
+        if (dl.temNoDelivery(nmPedido)){
+            dl.excluiPedidoDoDelivery(nmPedido);
+        }
+        
         String sql = "DELETE FROM cadpedido WHERE id_pedido=?";
         boolean resp = false;
         try {
@@ -402,8 +408,7 @@ public class ControlerPedido {
             pst.executeUpdate();
             resp = true;
         } catch (SQLException e) {
-            System.out.println("br.com.br.controler.ControlerPedido.cancelaPedido()" + e);
-            JOptionPane.showMessageDialog(null, "Obrigatório remover todos os itens antes de cancelar o pedido!");
+            System.out.println("br.com.br.controler.ControlerPedido.cancelaPedido()" + e);            
         }
 
         return resp;

@@ -216,6 +216,9 @@ public class TelaReImpressao extends JDialog {
 
     private void lblImprimirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImprimirMouseClicked
         // Realiza a reimpressão do cupom selecionado.
+        int ambiente=0;
+        int flagFiscal=0;
+        
         if (lblImprimir.isEnabled()) {
             Nfce nota = new Nfce();
             int linha = tblPedidos.getSelectedRow();
@@ -229,27 +232,31 @@ public class TelaReImpressao extends JDialog {
 
             double desc = Double.parseDouble(tblPedidos.getModel().getValueAt(linha, 3).toString().replaceAll(",", "."));
             double tx = (Double.parseDouble(tblPedidos.getModel().getValueAt(linha, 2).toString().replaceAll(",", ".")));
-
-            ControlerNFCe controlerNFCe = new ControlerNFCe();
-            controlerNFCe.consultarNFCE(idPedido, "consulta.json"); // Realiza a consulta e gera o arquivo de retorno
-
-            try {
-                // Ler o arquivo de retorno e devolve um obj do tipo NFCe com os dados lidos
-                nota = controlerNFCe.lerRetornov2("consulta.json");
+            
+            if (ambiente==1 && flagFiscal==1){
                 
-            } catch (ParseException | IOException ex) {
-                Logger.getLogger(TelaReImpressao.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                ControlerNFCe controlerNFCe = new ControlerNFCe();
+                controlerNFCe.consultarNFCE(idPedido, "consulta.json"); // Realiza a consulta e gera o arquivo de retorno
 
-            try {
-                // Gera QRcod
-                if (nota.getQrcode_url() != null) {
+                try {
+                    // Ler o arquivo de retorno e devolve um obj do tipo NFCe com os dados lidos
+                    nota = controlerNFCe.lerRetornov2("consulta.json");
 
-                    u.generateQRCodeImage(nota.getQrcode_url(), 120, 120, "C:/Sysbar/qr.jpg");
+                } catch (ParseException | IOException ex) {
+                    Logger.getLogger(TelaReImpressao.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (WriterException | IOException ex) {
-                Logger.getLogger(TelaReImpressao.class.getName()).log(Level.SEVERE, null, ex);
+
+                try {
+                    // Gera QRcod
+                    if (nota.getQrcode_url() != null) {
+
+                        u.generateQRCodeImage(nota.getQrcode_url(), 120, 120, "C:/Sysbar/qr.jpg");
+                    }
+                } catch (WriterException | IOException ex) {
+                    Logger.getLogger(TelaReImpressao.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+            
 
             // Imprime cupom de pagamento
             HashMap dados = new HashMap();

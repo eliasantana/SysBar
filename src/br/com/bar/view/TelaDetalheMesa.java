@@ -614,7 +614,7 @@ public class TelaDetalheMesa extends javax.swing.JFrame {
         jLabel16.setText("Código");
         jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 90, -1));
 
-        txtCodigoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txtCodigoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         txtCodigoProduto.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtCodigoProduto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtCodigoProduto.addMouseListener(new java.awt.event.MouseAdapter() {
