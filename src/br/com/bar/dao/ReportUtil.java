@@ -7,12 +7,16 @@
 package br.com.bar.dao;
 
 import br.com.bar.model.DadosEmpresa;
+
+import java.io.IOException;
+
 import java.sql.Connection;
-import java.sql.SQLException;
+
 import java.util.HashMap;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
@@ -77,6 +81,20 @@ public class ReportUtil {
             viewer.setModal(true);            
             // Exibe o relatório em tela.
             viewer.setVisible(true);
+        } catch (NullPointerException e) {
+            System.out.println("br.com.bar.dao.ReportUtil.imprimiRelatorioTela() " + relatorio + " " + e);
+        }       
+
+    }
+    public void imprimeRelatorioTelaPDF(String relatorio, HashMap map, String titulo) throws JRException, IOException {
+                   
+        try {
+            
+            JasperPrint jasperPrint = JasperFillManager.fillReport(url + relatorio, map, conexao);
+            JasperExportManager.exportReportToPdfFile(jasperPrint, url);
+            
+            
+            
         } catch (NullPointerException e) {
             System.out.println("br.com.bar.dao.ReportUtil.imprimiRelatorioTela() " + relatorio + " " + e);
         }       

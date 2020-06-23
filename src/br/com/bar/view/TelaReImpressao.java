@@ -310,8 +310,9 @@ public class TelaReImpressao extends JDialog {
 
             try {
                 if (dadosEmpresa.getImprimir_na_tela() == 0) {
-                    //rsp.imprimeRelatorioTela("cupom2.jasper", dados);
-                    rsp.imprimeRelatorioTela("cupom2_7.jasper", dados, "Comprovante de Pagamento");
+                   
+                     rsp.imprimeRelatorioTela("cupom2_7.jasper", dados, "Comprovante de Pagamento");
+                   
                 } else {
                     //rsp.impressaoDireta("cupom2.jasper", dados);
                     rsp.impressaoDireta("cupom2_7.jasper", dados);

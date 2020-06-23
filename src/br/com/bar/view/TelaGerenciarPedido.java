@@ -483,12 +483,6 @@ public class TelaGerenciarPedido extends javax.swing.JFrame {
 
             }
         }
-//        cp.carregaComboPedido(jcomboPedido);
-//        jcomboPedido.setSelectedIndex(0);
-//        if (jcomboPedido.getItemCount()<=1){
-//            jcomboPedido.setEnabled(false);
-//        }
-//        btnListar.setEnabled(false);
 
 
     }//GEN-LAST:event_btnCancelarPedidoActionPerformed

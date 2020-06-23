@@ -2560,7 +2560,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             percent.setText("0,00");
             double totalGeral = Double.parseDouble(lblTotal.getText().replace(",", "."));
             double vlrDesconto = Double.parseDouble(txtDesconto.getText().replace(",", "."));
-            lblTotal.setText(String.format("%9.2f", totalGeral - vlrDesconto));
+            lblTotal.setText(String.format("%9.2f", (totalGeral+entrega) - vlrDesconto));
             //lblPago.setEnabled(true);
         }
 
@@ -3512,6 +3512,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                                 if (dadosEmpresa.getImprimir_na_tela() == 0) {
                                     //rpu.imprimeRelatorioTela("cupom2.jasper", dados);
                                     rpu.imprimeRelatorioTela("cupom2_7.jasper", dados, "Comprovante de Pagamento");
+                                   
                                 } else {
                                     // rpu.impressaoDireta("cupom2.jasper", dados);
                                     rpu.impressaoDireta("cupom2_7.jasper", dados);
