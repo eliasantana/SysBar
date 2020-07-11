@@ -2560,7 +2560,8 @@ public class TelaCaixa extends javax.swing.JFrame {
             percent.setText("0,00");
             double totalGeral = Double.parseDouble(lblTotal.getText().replace(",", "."));
             double vlrDesconto = Double.parseDouble(txtDesconto.getText().replace(",", "."));
-            lblTotal.setText(String.format("%9.2f", (totalGeral+entrega) - vlrDesconto));
+            //lblTotal.setText(String.format("%9.2f", (totalGeral+entrega) - vlrDesconto));
+            lblTotal.setText(String.format("%9.2f", (totalGeral) - vlrDesconto));
             //lblPago.setEnabled(true);
         }
 
